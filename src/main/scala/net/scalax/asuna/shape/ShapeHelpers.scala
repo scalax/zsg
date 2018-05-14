@@ -1,6 +1,6 @@
 package net.scalax.asuna.shape
 
-import net.scalax.asuna.core.{DataGroup, DataRepGroup, DataShape, SplitData}
+import net.scalax.asuna.core._
 import shapeless._
 
 trait ShapeHelpers {
