@@ -1,6 +1,6 @@
 package net.scalax.asuna.shape
 
-import net.scalax.asuna.core.{DataGroup, DataRepGroup, DataShape, SplitData}
+import net.scalax.asuna.core._
 import shapeless._
 
 trait ShapeHelpers {
@@ -21,11 +21,11 @@ trait ShapeHelpers {
           override def wrapRep(base: M :: N): M :: N = base
 
           override def toLawRep(base: M :: N): DataRepGroup[J] = {
-            subSelf.toLawRep(base)
+            self.toLawRep(base)
           }
 
           override def takeData(oldData: DataGroup): SplitData[H :: I] = {
-            subSelf.takeData(oldData)
+            self.takeData(oldData)
           }
 
         }
