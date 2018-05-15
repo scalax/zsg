@@ -5,9 +5,7 @@ import shapeless._
 
 trait ShapeHelpers {
 
-  implicit def hlistDateShape[A, B <: HList, H, I <: HList, M, N <: HList, J](
-      implicit head: DataShape[A, H, M, J],
-      tail: DataShape[B, I, N, J]): DataShape[A :: B, H :: I, M :: N, J] = {
+  implicit def hlistDateShape[A, B <: HList, H, I <: HList, M, N <: HList, J](implicit head: DataShape[A, H, M, J], tail: DataShape[B, I, N, J]): DataShape[A :: B, H :: I, M :: N, J] = {
 
     new DataShape[A :: B, H :: I, M :: N, J] {
       self =>
@@ -20,13 +18,10 @@ trait ShapeHelpers {
 
           override def wrapRep(base: M :: N): M :: N = base
 
-          override def toLawRep(base: M :: N): DataRepGroup[J] = {
-            self.toLawRep(base)
-          }
+          override def toLawRep(base: M :: N): DataRepGroup[J] = self.toLawRep(base)
 
-          override def takeData(oldData: DataGroup): SplitData[H :: I] = {
-            self.takeData(oldData)
-          }
+          override def takeData(oldData: DataGroup, rep: M :: N): SplitData[H :: I] =
+            self.takeData(oldData, rep)
 
         }
       }
@@ -40,19 +35,24 @@ trait ShapeHelpers {
         val headRep :: tailRep = base
         val headGroup = head.toLawRep(headRep)
         val tailGroup = tail.toLawRep(tailRep)
-        DataRepGroup(reps = headGroup.reps ::: tailGroup.reps,
-                     subs = headGroup.subs ::: tailGroup.subs)
+        DataRepGroup(
+          reps = headGroup.reps ::: tailGroup.reps,
+          subs = headGroup.subs ::: tailGroup.subs)
       }
 
-      override def takeData(oldData: DataGroup): SplitData[H :: I] = {
-        val newData1 = head.takeData(oldData)
-        val newData2 = tail.takeData(newData1.left)
+      override def takeData(oldData: DataGroup, rep: M :: N): SplitData[H :: I] = {
+        val headRep :: tailRep = rep
+
+        val newData1 = head.takeData(oldData, headRep)
+        val newData2 = tail.takeData(newData1.left, tailRep)
+
         val d = for {
           d1 <- newData1.current
           d2 <- newData2.current
         } yield {
           d1 :: d2
         }
+
         SplitData(d, newData2.left)
       }
 
