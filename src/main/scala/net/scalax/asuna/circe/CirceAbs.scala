@@ -31,7 +31,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
   }
 
   def mapValidated[H](
-      c: R => Validated[List[String], H]): CirceReaderImpl[T, H] = {
+    c: R => Validated[List[String], H]): CirceReaderImpl[T, H] = {
     new CirceReaderImpl[T, H] {
       override def keyName = self.keyName
       override def circeReader = self.circeReader
@@ -46,7 +46,8 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
 object CirceReader {
 
   def column[T](keyName: String)(
-      implicit encoder: Encoder[T]): CirceReaderImpl[T, T] = {
+    implicit
+    encoder: Encoder[T]): CirceReaderImpl[T, T] = {
     val keyName1 = keyName
     new CirceReaderImpl[T, T] {
       override val keyName = keyName1

@@ -16,6 +16,6 @@ trait DataShape[E, U, C, T] {
 
   def toLawRep(base: C): DataRepGroup[T]
 
-  def takeData(oldData: DataGroup): SplitData[U]
+  def takeData(oldData: DataGroup, rep: C): SplitData[U]
 
 }
