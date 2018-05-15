@@ -2,13 +2,13 @@ package net.scalax.asuna.shape
 
 import net.scalax.asuna.core._
 
-trait DataProvenShape[E, U, T] {
-  val dataShapeValue: DataShapeValue[E, U, T]
+trait DataProvenShape[U, T] {
+  val dataShapeValue: DataShapeValue[U, T]
 }
 
 object DataProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, T, R <: DataProvenShape[E, U, T]]: DataShape[R, U, R, T] = {
+  implicit def dataProvenShapeShape[E, U, T, R <: DataProvenShape[U, T]]: DataShape[R, U, R, T] = {
 
     new DataShape[R, U, R, T] {
       self =>
