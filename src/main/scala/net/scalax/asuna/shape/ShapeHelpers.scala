@@ -3,7 +3,18 @@ package net.scalax.asuna.shape
 import net.scalax.asuna.core._
 import shapeless._
 
+import scala.language.implicitConversions
+
 trait ShapeHelpers {
+
+  implicit def hnilDateShape[J]: DataShape[HNil, HNil, HNil, J] = {
+    new DataShape[HNil, HNil, HNil, J] { self =>
+      override def packed: DataShape[HNil, HNil, HNil, J] = self
+      override def wrapRep(base: HNil): HNil = base
+      override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty, subs = List.empty)
+      override def takeData(oldData: DataGroup, rep: HNil): SplitData[HNil] = SplitData(current = Right(HNil), left = oldData)
+    }
+  }
 
   implicit def hlistDateShape[A, B <: HList, H, I <: HList, M, N <: HList, J](implicit head: DataShape[A, H, M, J], tail: DataShape[B, I, N, J]): DataShape[A :: B, H :: I, M :: N, J] = {
 
@@ -58,6 +69,16 @@ trait ShapeHelpers {
 
     }
 
+  }
+
+  implicit def toShapeValue[A, B, C, D](rep: A)(implicit shape: DataShape[A, B, C, D]): DataShapeValue[B, D] = {
+    val rep1 = rep
+    val shape1 = shape
+    new DataShapeValue[B, D] {
+      override type RepType = C
+      override val rep = shape1.wrapRep(rep1)
+      override val shape = shape1.packed
+    }
   }
 
 }

@@ -8,7 +8,7 @@ object NotConvert {
   val value: NotConvert = new NotConvert {}
 }
 
-trait DataShape[E, U, C, T] {
+trait DataShape[-E, U, C, T] {
 
   def packed: DataShape[C, U, C, T]
 
