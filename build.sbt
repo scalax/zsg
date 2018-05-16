@@ -24,3 +24,7 @@ libraryDependencies ++= Seq(
 ).map(_ % circeVersion)
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+
+resolvers += Resolver.sonatypeRepo("releases")
+
+addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.6" cross CrossVersion.binary)
