@@ -31,14 +31,14 @@ trait CirceModels {
 
   trait CirceModelReader1 extends CirceModelReader0 {
 
-    override val age = super.age.mapValidated { l =>
+    override val age = super.age.validate { l =>
       if (l < minAge)
         Validated.invalidNel(validateStr1)
       else
         Validated.validNel(l)
     }
 
-    override val nick = super.nick.mapValidated { l =>
+    override val nick = super.nick.validate { l =>
       if (l.size < 30)
         Validated.invalidNel(validateStr2)
       else

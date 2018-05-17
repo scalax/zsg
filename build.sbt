@@ -9,11 +9,11 @@ libraryDependencies += "com.typesafe.slick" %% "slick" % slickVersion
 libraryDependencies += "com.typesafe.slick" %% "slick-hikaricp" % slickVersion exclude("com.zaxxer", "HikariCP-java6")
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test
 
-libraryDependencies += "com.h2database" % "h2" % "1.4.197" % "test"
+libraryDependencies += "com.h2database" % "h2" % "1.4.197" % Test
 
-libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
+libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.25" % Test
 
 val circeVersion = "0.9.3"
 
@@ -28,3 +28,12 @@ addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.fu
 resolvers += Resolver.sonatypeRepo("releases")
 
 addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.6" cross CrossVersion.binary)
+
+libraryDependencies ++= {
+  val playV = "2.6.13"
+  Seq(
+    "com.typesafe.play" %% "play" % playV,
+    "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
+    "com.typesafe.play" %% "play-ws" % playV % Test
+  )
+}
