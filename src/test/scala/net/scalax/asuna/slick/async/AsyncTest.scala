@@ -65,7 +65,8 @@ class AsyncTest
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterTest(s))(FilterParam(name = "jilen", age = 26))
+    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterTest(s))(
+      FilterParam(name = "jilen", age = 26))
     logger.info(query.result.statements.toString)
     try {
       val friendQuery = query.result.head
@@ -79,7 +80,11 @@ class AsyncTest
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(FilterParam1(name = "小莎莎") :: JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) :: HNil)
+    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(
+      FilterParam1(name = "小莎莎") ::
+        JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
+        HNil)
+
     logger.info(query.result.statements.toString)
     try {
       val friendQuery = query.result.head
