@@ -47,7 +47,7 @@ trait CirceReaderQuery[U] {
     val impl = implicitly[DataShape[DataShapeValue[U, CirceReaderAbs], U, DataShapeValue[U, CirceReaderAbs], CirceReaderAbs]]
     val rGroup = impl.toLawRep(impl.wrapRep(shapeValue))
     val listAnyData = validateJson(rGroup.reps, jsonObj)
-    listAnyData.map(_.map(items => impl.takeData(DataGroup(items = items, subs = List.empty), shapeValue).current.right.get))
+    listAnyData.map(_.map(items => impl.takeData(DataGroup(items = items, subs = List.empty), shapeValue).right.get.current))
   }
 
 }
