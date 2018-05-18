@@ -19,7 +19,7 @@ trait CirceModels {
 
     val gen = Generic[Student]
 
-    override lazy val shapeValue = (id :: name :: age :: nick :: HNil).<>(gen.from)
+    override lazy val shapeValue = (id :: name :: age :: nick :: HNil).<>(s => Option(gen.from(s)))(t => Option(gen.to(t)))
 
   }
 

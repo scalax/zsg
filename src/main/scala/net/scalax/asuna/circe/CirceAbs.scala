@@ -91,12 +91,14 @@ object CirceReaderImpl {
       override def packed: DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] = self
       override def wrapRep(base: CirceReaderImpl[T, R]): CirceReaderImpl[T, R] = base
       override def toLawRep(base: CirceReaderImpl[T, R]): DataRepGroup[CirceReaderAbs] = DataRepGroup(reps = List(base), subs = List.empty)
-      override def takeData(oldData: DataGroup, rep: CirceReaderImpl[T, R]): SplitData[R] = {
+      override def takeData(oldData: DataGroup, rep: CirceReaderImpl[T, R]): Either[NotConvert, SplitData[R]] = {
         oldData.items match {
           case head :: tail =>
-            SplitData(current = Right(head.asInstanceOf[R]), left = DataGroup(items = tail, subs = oldData.subs))
+            Right(SplitData(current = head.asInstanceOf[R], left = DataGroup(items = tail, subs = oldData.subs)))
         }
       }
+
+      override def buildData(splitData: R, rep: CirceReaderImpl[T, R]): Either[NotConvert, DataGroup] = Right(DataGroup(items = List(splitData), subs = List.empty))
     }
   }
 

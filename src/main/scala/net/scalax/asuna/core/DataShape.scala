@@ -1,6 +1,6 @@
 package net.scalax.asuna.core
 
-case class SplitData[T](current: Either[NotConvert, T], left: DataGroup)
+case class SplitData[T](current: T, left: DataGroup)
 
 trait NotConvert
 
@@ -16,6 +16,8 @@ trait DataShape[-E, U, C, T] {
 
   def toLawRep(base: C): DataRepGroup[T]
 
-  def takeData(oldData: DataGroup, rep: C): SplitData[U]
+  def takeData(oldData: DataGroup, rep: C): Either[NotConvert, SplitData[U]]
+
+  def buildData(splitData: U, rep: C): Either[NotConvert, DataGroup]
 
 }
