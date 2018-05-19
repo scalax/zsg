@@ -9,8 +9,18 @@ object NotConvert {
 }
 
 trait DataShape[-E, U, C, T] {
+  self =>
 
-  def packed: DataShape[C, U, C, T]
+  def packed: DataShape[C, U, C, T] = {
+    new DataShape[C, U, C, T] {
+      subSelf =>
+      override def packed: DataShape[C, U, C, T] = subSelf
+      override def wrapRep(base: C): C = base
+      override def toLawRep(base: C): DataRepGroup[T] = self.toLawRep(base)
+      override def takeData(oldData: DataGroup, rep: C): Either[NotConvert, SplitData[U]] = self.takeData(oldData, rep)
+      override def buildData(splitData: U, rep: C): Either[NotConvert, DataGroup] = self.buildData(splitData, rep)
+    }
+  }
 
   def wrapRep(base: E): C
 
