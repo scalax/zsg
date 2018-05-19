@@ -39,7 +39,18 @@ trait ShapeValueWrap[F] {
   }
 }
 
-object ShapeValueWrap {
+trait ShapeValueWrapHelper {
+
+  implicit class jsonExtMethod[M](rep: M) {
+    def jsonWithKey[D, T](key: String)(
+      implicit
+      shape: Shape[_ <: FlatShapeLevel, M, D, T],
+      encoder: Encoder[D]): ShapeValueWrap[(String, Json)] = {
+      shapeValueWrapExtensionMethod(rep).toWrap.map[(String, Json)]({ (s: D) =>
+        (key, s.asJson(encoder))
+      })
+    }
+  }
 
   implicit class shapeValueWrapExtensionMethod[R](rep: R) {
     def toWrap[D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): ShapeValueWrap[D] = {
@@ -61,29 +72,9 @@ object ShapeValueWrap {
     }
   }
 
-  implicit class jsonExtMethod[M](rep: ShapeValueWrap[M]) {
-    def jsonWithKey(key: String)(
-      implicit
-      encoder: Encoder[M]): ShapeValueWrap[(String, Json)] = {
-      rep.map[(String, Json)]({ (s: M) =>
-        (key, s.asJson(encoder))
-      })
-    }
-  }
-
-  implicit def shapeValueWrapShapeImplicit[R, D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): DataShape[R, D, T, ShapeValueWrap[Any]] = {
+  implicit def simpleRepShapeImplicit[R, D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): DataShape[R, D, T, ShapeValueWrap[Any]] = {
     new DataShape[R, D, T, ShapeValueWrap[Any]] {
       self =>
-      /*override def packed: DataShape[T, D, T, ShapeValueWrap[Any]] = {
-        new DataShape[T, D, T, ShapeValueWrap[Any]] {
-          subSelf =>
-          override def packed: DataShape[T, D, T, ShapeValueWrap[Any]] = subSelf
-          override def wrapRep(base: T): T = base
-          override def toLawRep(base: T): DataRepGroup[ShapeValueWrap[Any]] = self.toLawRep(base)
-          override def takeData(oldData: DataGroup, rep: T): Either[NotConvert, SplitData[D]] = self.takeData(oldData, rep)
-          override def buildData(splitData: D, rep: T): Either[NotConvert, DataGroup] = self.buildData(splitData, rep)
-        }
-      }*/
       override def wrapRep(base: R): T = shape.pack(base)
 
       override def toLawRep(base: T): DataRepGroup[ShapeValueWrap[Any]] = {
@@ -110,6 +101,25 @@ object ShapeValueWrap {
       }
 
       override def buildData(splitData: D, rep: T): Either[NotConvert, DataGroup] = {
+        Right(DataGroup(items = List(splitData), subs = List.empty))
+      }
+    }
+  }
+
+  implicit def shapeValueWrapShapeImplicit[T]: DataShape[ShapeValueWrap[T], T, ShapeValueWrap[T], ShapeValueWrap[Any]] = {
+    new DataShape[ShapeValueWrap[T], T, ShapeValueWrap[T], ShapeValueWrap[Any]] {
+      self =>
+      override def wrapRep(base: ShapeValueWrap[T]): ShapeValueWrap[T] = base
+
+      override def toLawRep(base: ShapeValueWrap[T]): DataRepGroup[ShapeValueWrap[Any]] = {
+        DataRepGroup(reps = List(base.map(s => s: Any, (m: Any) => Option(m.asInstanceOf[T]))), subs = List.empty)
+      }
+
+      override def takeData(oldData: DataGroup, rep: ShapeValueWrap[T]): Either[NotConvert, SplitData[T]] = {
+        Right(SplitData(current = oldData.items.head.asInstanceOf[T], left = DataGroup(items = oldData.items.tail, subs = oldData.subs)))
+      }
+
+      override def buildData(splitData: T, rep: ShapeValueWrap[T]): Either[NotConvert, DataGroup] = {
         Right(DataGroup(items = List(splitData), subs = List.empty))
       }
     }
@@ -213,8 +223,8 @@ object ListShape {
     ShapedValue(
       tatalShapeValue
         .<>[S](
-          s => convert(sWrap.dataToList(s)),
-          s => reConvert(s).flatMap(sWrap.dataFromList))(ct),
+          { s => convert(sWrap.dataToList(s).reverse) },
+          s => reConvert(s).map(_.reverse).flatMap(sWrap.dataFromList))(ct),
       implicitly[Shape[FlatShapeLevel, MappedProjection[S, sWrap.Data], S, MappedProjection[S, sWrap.Data]]]).asInstanceOf[ShapedValue[Any, S]]
   }
 
