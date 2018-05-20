@@ -3,6 +3,7 @@ package play.api.libs.circe
 import cats.Contravariant
 import io.circe.{ Decoder, Json, JsonObject }
 import net.scalax.asuna.core._
+import net.scalax.asuna.shape.{ DataShapeValue, DataShapeValueInitWrap }
 
 trait Filterable {
 
@@ -43,6 +44,8 @@ object FilterableImpl {
 
 trait SlickFilterHelper {
 
+  val filterToDv: DataShapeValueInitWrap[Filterable] = DataShapeValue.toShapeValue[Filterable]
+
   implicit class columExtensionMethod[D, E](rep: D)(implicit cv: D <:< slick.lifted.Rep[E], profile: slick.jdbc.JdbcProfile) {
     import profile.api._
     def filter(implicit f: SlickFilterImpl[E]): FilterableImpl[E] = {
@@ -75,7 +78,6 @@ trait SlickFilterHelper {
 
   implicit def readerShape[R]: DataShape[FilterableImpl[R], R, FilterableImpl[R], Filterable] = {
     new DataShape[FilterableImpl[R], R, FilterableImpl[R], Filterable] { self =>
-      override def packed: DataShape[FilterableImpl[R], R, FilterableImpl[R], Filterable] = self
       override def wrapRep(base: FilterableImpl[R]): FilterableImpl[R] = base
       override def toLawRep(base: FilterableImpl[R]): DataRepGroup[Filterable] = DataRepGroup(reps = List(base), subs = List.empty)
       override def takeData(oldData: DataGroup, rep: FilterableImpl[R]): Either[NotConvert, SplitData[R]] = {

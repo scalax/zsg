@@ -3,7 +3,7 @@ package net.scalax.umr
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.DataShapeValue
+import net.scalax.asuna.shape.{ DataShapeValue, DataShapeValueInitWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.language.existentials
@@ -25,5 +25,7 @@ trait UmrReaderQueryHelper extends ShapeValueWrapHelper {
     val reps = impl.toLawRep(impl.wrapRep(cv.shapeValue)).reps
     ListShape[Any, R](s => impl.takeData(DataGroup(items = s, subs = List.empty), cv.shapeValue).right.get.current, r => Option.empty, classTag, reps: _*)
   }
+
+  val umrToDv: DataShapeValueInitWrap[ShapeValueWrap[Any]] = DataShapeValue.toShapeValue[ShapeValueWrap[Any]]
 
 }

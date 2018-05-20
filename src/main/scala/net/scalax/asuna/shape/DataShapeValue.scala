@@ -27,7 +27,6 @@ trait DataShapeValue[U, T] {
     override val shape = new DataShape[self.RepType, F, self.RepType, T] {
       innerSelf =>
 
-      override def packed: DataShape[self.RepType, F, self.RepType, T] = innerSelf
       override def wrapRep(base: self.RepType): self.RepType = base
       override def toLawRep(base: self.RepType): DataRepGroup[T] = self.shape.toLawRep(self.rep)
       override def takeData(oldData: DataGroup, rep: self.RepType): Either[NotConvert, SplitData[F]] = {
@@ -57,20 +56,32 @@ trait DataShapeValue[U, T] {
   }
 }
 
+trait DataShapeValueInitWrap[D] {
+  def apply[A, B, C](rep: A)(implicit shape: DataShape[A, B, C, D]): DataShapeValue[B, D] = {
+    val rep1 = rep
+    val shape1 = shape
+    new DataShapeValue[B, D] {
+      override type RepType = C
+      override val rep = shape1.wrapRep(rep1)
+      override val shape = shape1.packed
+    }
+  }
+}
+
 object DataShapeValue {
 
-  implicit def dataShapeValueShape[U, T, R <: DataShapeValue[U, T]]: DataShape[R, U, R, T] = {
+  implicit def dataShapeValueShape[U, T]: DataShape[DataShapeValue[U, T], U, DataShapeValue[U, T], T] = {
 
-    new DataShape[R, U, R, T] {
+    new DataShape[DataShapeValue[U, T], U, DataShapeValue[U, T], T] {
       self =>
-
-      override def packed: DataShape[R, U, R, T] = self
-      override def wrapRep(base: R): R = base
-      override def toLawRep(base: R): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
-      override def takeData(oldData: DataGroup, rep: R): Either[NotConvert, SplitData[U]] = rep.shape.takeData(oldData, rep.rep)
-      override def buildData(splitData: U, rep: R): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
+      override def wrapRep(base: DataShapeValue[U, T]): DataShapeValue[U, T] = base
+      override def toLawRep(base: DataShapeValue[U, T]): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
+      override def takeData(oldData: DataGroup, rep: DataShapeValue[U, T]): Either[NotConvert, SplitData[U]] = rep.shape.takeData(oldData, rep.rep)
+      override def buildData(splitData: U, rep: DataShapeValue[U, T]): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
     }
 
   }
+
+  def toShapeValue[D]: DataShapeValueInitWrap[D] = new DataShapeValueInitWrap[D] {}
 
 }

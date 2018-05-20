@@ -88,7 +88,6 @@ object CirceReaderImpl {
 
   implicit def readerShape[T, R]: DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] = {
     new DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] { self =>
-      override def packed: DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] = self
       override def wrapRep(base: CirceReaderImpl[T, R]): CirceReaderImpl[T, R] = base
       override def toLawRep(base: CirceReaderImpl[T, R]): DataRepGroup[CirceReaderAbs] = DataRepGroup(reps = List(base), subs = List.empty)
       override def takeData(oldData: DataGroup, rep: CirceReaderImpl[T, R]): Either[NotConvert, SplitData[R]] = {
