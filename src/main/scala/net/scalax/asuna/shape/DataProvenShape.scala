@@ -13,8 +13,6 @@ object DataProvenShape {
     new DataShape[R, U, R, T] {
       self =>
 
-      override def packed: DataShape[R, U, R, T] = self
-
       override def wrapRep(base: R): R = base
 
       override def toLawRep(base: R): DataRepGroup[T] =
