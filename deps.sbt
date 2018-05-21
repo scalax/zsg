@@ -29,3 +29,7 @@ libraryDependencies ++= {
     "com.typesafe.play" %% "play-ws" % playV % Test
   )
 }
+
+libraryDependencies ++= Seq(
+  "com.chuusai" %% "shapeless" % "2.3.3"
+)
