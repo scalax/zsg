@@ -2,7 +2,7 @@ package net.scalax.slick.async
 
 import io.circe.JsonObject
 import io.circe.generic.auto._
-import net.scalax.asuna.core.SlickFilterQuery
+import net.scalax.asuna.slick.filter.SlickFilterQuery
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import slick.jdbc.H2Profile.api._

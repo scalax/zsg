@@ -1,7 +1,7 @@
 package net.scalax.slick.async
 
 import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.core.SlickFilterQuery
+import net.scalax.asuna.slick.filter.SlickFilterQuery
 
 import scala.language.higherKinds
 import slick.jdbc.H2Profile.api._
