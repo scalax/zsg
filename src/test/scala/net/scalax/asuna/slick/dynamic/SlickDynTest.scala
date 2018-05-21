@@ -21,7 +21,7 @@ class FriendTable2Model(friend: FriendTable2) extends UmrReaderQuery[FilterParam
 
   val gen = Generic[FilterParam3]
 
-  override lazy val shapeValue = umrUnwrap(name :: age :: List(nick, id) :: HNil).mapReader {
+  override lazy val umrSv = umrUnwrap(name :: age :: List(nick, id) :: HNil).mapReader {
     case (name :: age :: l :: HNil) =>
       FilterParam3(name = name, age = age, ext = l.toMap)
   }
@@ -41,7 +41,7 @@ class FriendTable2Model2(friend: FriendTable2) extends UmrReaderQuery[FilterPara
 
   val gen = Generic[FilterParam3]
 
-  override lazy val shapeValue = umrUnwrap(nameAndAge :: List(nick, id) :: HNil).mapReader {
+  override lazy val umrSv = umrUnwrap(nameAndAge :: List(nick, id) :: HNil).mapReader {
     case ((name :: age :: HNil) :: l :: HNil) =>
       FilterParam3(name = name, age = age, ext = l.toMap)
   }

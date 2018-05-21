@@ -40,7 +40,4 @@ libraryDependencies ++= {
 
 lazy val core = (project in file("./core"))
 
-dependsOn(core)
-
-addCommandAlias("aclean", ";core/clean" +
-  ";clean")
+lazy val main = (project in file(".")).dependsOn(core).aggregate(core)

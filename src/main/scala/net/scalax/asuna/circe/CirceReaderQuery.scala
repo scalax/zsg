@@ -2,7 +2,6 @@ package net.scalax.asuna.core
 
 import cats.Traverse
 import io.circe.{ Json, JsonObject }
-import io.circe.syntax._
 import cats.kernel.CommutativeSemigroup
 import cats.data._
 import cats.implicits._
