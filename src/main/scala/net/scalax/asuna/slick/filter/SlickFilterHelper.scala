@@ -44,7 +44,7 @@ object FilterableImpl {
 
 trait SlickFilterHelper {
 
-  val filterToDv: DataShapeValueInitWrap[Filterable] = DataShapeValue.toShapeValue[Filterable]
+  val filterUnwrap: DataShapeValueInitWrap[Filterable] = DataShapeValue.toShapeValue[Filterable]
 
   implicit class columExtensionMethod[D, E](rep: D)(implicit cv: D <:< slick.lifted.Rep[E], profile: slick.jdbc.JdbcProfile) {
     import profile.api._

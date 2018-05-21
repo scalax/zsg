@@ -31,7 +31,10 @@ class SlickFilterJson(friend: FriendTable) extends SlickWriterQuery[FilterParam1
 
   val shapeValue1 = (name :: HNil).<>(s => Option(gen.from(s)))(t => Option(gen.to(t)))
 
-  val shapeValue2 = (age :: nick :: HNil).<> { _ => Option.empty[JsonObject] } { t => Option(t :: t :: HNil) }
+  //val shapeValue2 = (age :: nick :: HNil).<> { _ => Option.empty[JsonObject] } { t => Option(t :: t :: HNil) }
+
+  private val l = List(age, nick)
+  val shapeValue2 = l.mapWriter[JsonObject] { t => l.map(_ => t) }
 
   override lazy val shapeValue = (shapeValue1 :: shapeValue2 :: HNil).shaped
 

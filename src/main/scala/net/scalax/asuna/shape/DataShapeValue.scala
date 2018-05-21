@@ -57,14 +57,8 @@ trait DataShapeValue[U, T] {
 }
 
 trait DataShapeValueInitWrap[D] {
-  def apply[A, B, C](rep: A)(implicit shape: DataShape[A, B, C, D]): DataShapeValue[B, D] = {
-    val rep1 = rep
-    val shape1 = shape
-    new DataShapeValue[B, D] {
-      override type RepType = C
-      override val rep = shape1.wrapRep(rep1)
-      override val shape = shape1.packed
-    }
+  def apply[A, B, C](rep: A)(implicit shape: DataShape[A, B, C, D]): C = {
+    shape.wrapRep(rep)
   }
 }
 
