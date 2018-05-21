@@ -2,7 +2,6 @@ package net.scalax.slick.async
 
 import io.circe.{ Json, JsonObject }
 import io.circe.syntax._
-import net.scalax.asuna.core.SlickWriterQuery
 import net.scalax.slick.dynamic.{ FilterParam3, FriendTable2Model }
 import net.scalax.umr.UmrReaderQueryHelper
 

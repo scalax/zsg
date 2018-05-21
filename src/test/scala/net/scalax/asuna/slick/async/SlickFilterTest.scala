@@ -2,14 +2,14 @@ package net.scalax.slick.async
 
 import io.circe.JsonObject
 import io.circe.generic.auto._
-import net.scalax.asuna.core.SlickWriterQuery
+import net.scalax.asuna.core.SlickFilterQuery
 import net.scalax.asuna.shape.ShapeHelpers
-import play.api.libs.circe.SlickFilterHelper
+import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import slick.jdbc.H2Profile.api._
 import shapeless._
 
 case class FilterParam(name: String, age: Int)
-class SlickFilterTest(friend: FriendTable) extends SlickWriterQuery[FilterParam] with SlickFilterHelper with ShapeHelpers {
+class SlickFilterTest(friend: FriendTable) extends SlickFilterQuery[FilterParam] with SlickFilterColHelper with ShapeHelpers {
 
   val name = friend.name.filter
   val age = friend.age.filter
@@ -21,7 +21,7 @@ class SlickFilterTest(friend: FriendTable) extends SlickWriterQuery[FilterParam]
 }
 
 case class FilterParam1(name: String)
-class SlickFilterJson(friend: FriendTable) extends SlickWriterQuery[FilterParam1 :: JsonObject :: HNil] with SlickFilterHelper with ShapeHelpers {
+class SlickFilterJson(friend: FriendTable) extends SlickFilterQuery[FilterParam1 :: JsonObject :: HNil] with SlickFilterColHelper with ShapeHelpers {
 
   val name = friend.name.filter
   val age = friend.age.jsonFilterWithKey("age")

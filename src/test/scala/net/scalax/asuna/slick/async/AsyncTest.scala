@@ -1,7 +1,7 @@
 package net.scalax.slick.async
 
 import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.core.SlickWriterQuery
+import net.scalax.asuna.core.SlickFilterQuery
 
 import scala.language.higherKinds
 import slick.jdbc.H2Profile.api._
@@ -65,7 +65,7 @@ class AsyncTest
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterTest(s))(
+    val query = SlickFilterQuery.tranQuery(friendTq)(s => new SlickFilterTest(s))(
       FilterParam(name = "jilen", age = 26))
     logger.info(query.result.statements.toString)
     try {
@@ -80,7 +80,7 @@ class AsyncTest
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(
+    val query = SlickFilterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(
       FilterParam1(name = "小莎莎") ::
         JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
         HNil)
