@@ -1,6 +1,4 @@
-package net.scalax.asuna.shape
-
-import net.scalax.asuna.core._
+package net.scalax.asuna.core
 
 trait DataShapeValue[U, T] {
   self =>

@@ -3,7 +3,6 @@ package net.scalax.umr
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.{ DataShapeValue, DataShapeValueInitWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.language.existentials

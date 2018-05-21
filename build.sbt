@@ -37,3 +37,10 @@ libraryDependencies ++= {
     "com.typesafe.play" %% "play-ws" % playV % Test
   )
 }
+
+lazy val core = (project in file("./core"))
+
+dependsOn(core)
+
+addCommandAlias("aclean", ";core/clean" +
+  ";clean")

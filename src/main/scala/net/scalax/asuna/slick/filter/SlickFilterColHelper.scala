@@ -3,7 +3,6 @@ package net.scalax.asuna.slick.filter
 import cats.Contravariant
 import io.circe.{ Decoder, Json, JsonObject }
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.{ DataShapeValue, DataShapeValueInitWrap }
 import slick.ast.BaseTypedType
 
 import scala.language.implicitConversions
