@@ -1,20 +1,15 @@
 package net.scalax.slick.async
 
-import io.circe.{ Json, JsonObject }
 import io.circe.syntax._
 import net.scalax.slick.dynamic.{ FilterParam3, FriendTable2Model }
-import net.scalax.umr.UmrReaderQueryHelper
+import net.scalax.asuna.slick.umr.UmrReaderQuery
 
-import scala.language.higherKinds
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
-import shapeless._
 
 import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{ Failure, Success }
 
 case class Friends2(
   id: Option[Long] = None,
@@ -37,7 +32,7 @@ class DynModel
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
-  with BeforeAndAfter with UmrReaderQueryHelper {
+  with BeforeAndAfter {
 
   val t = 10.seconds
   override implicit val patienceConfig = PatienceConfig(timeout = t)
@@ -67,7 +62,7 @@ class DynModel
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = friendTq2.map(s => tranRep(new FriendTable2Model(s)))
+    val query = friendTq2.map(s => UmrReaderQuery(new FriendTable2Model(s)))
     logger.info(query.result.statements.toString)
     try {
       val friendQuery = query.result.head

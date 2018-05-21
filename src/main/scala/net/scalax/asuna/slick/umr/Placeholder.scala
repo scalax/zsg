@@ -1,4 +1,4 @@
-package net.scalax.umr
+package net.scalax.asuna.slick.umr
 
 trait Placeholder {}
 

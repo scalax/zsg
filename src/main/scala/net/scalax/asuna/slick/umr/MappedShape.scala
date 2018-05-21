@@ -1,16 +1,14 @@
-package net.scalax.umr
-
-import slick.lifted.ShapedValue
+package net.scalax.asuna.slick.umr
 
 object MappedShape {
 
   trait SetHelper[M] {
-    def value(value: M): ShapeValueWrap[Placeholder]
+    def value(value: M): SlickShapeValueWrap[Placeholder]
   }
 
-  def set[U](wrap: ShapeValueWrap[U]): SetHelper[U] = {
+  def set[U](wrap: SlickShapeValueWrap[U]): SetHelper[U] = {
     new SetHelper[U] {
-      override def value(t: U): ShapeValueWrap[Placeholder] = {
+      override def value(t: U): SlickShapeValueWrap[Placeholder] = {
         wrap.map[Placeholder]({ (s: U) =>
           Placeholder: Placeholder
         }, (s: Placeholder) => Option(t))
