@@ -1,7 +1,7 @@
 package net.scalax.slick.async
 
 import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.core.SlickWriterQuery
+import net.scalax.asuna.core.SlickFilterQuery
 
 import scala.language.higherKinds
 import slick.jdbc.H2Profile.api._
@@ -12,7 +12,6 @@ import shapeless._
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{ Failure, Success }
 
 case class Friends(
   id: Option[Long] = None,
@@ -65,11 +64,12 @@ class AsyncTest
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterTest(s))(
+    val filterQuery = SlickFilterQuery(friendTq)(s => new SlickFilterTest(s))
+    val slickQuery = filterQuery.inputData(
       FilterParam(name = "jilen", age = 26))
-    logger.info(query.result.statements.toString)
+    logger.info(slickQuery.result.statements.toString)
     try {
-      val friendQuery = query.result.head
+      val friendQuery = slickQuery.result.head
       val r = db.run(friendQuery).futureValue
       r.copy(id = Option.empty) should be(Friends(None, "jilen", "kerr", 26))
     } catch {
@@ -80,14 +80,14 @@ class AsyncTest
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(
+    val filterQuery = SlickFilterQuery(friendTq)(s => new SlickFilterJson(s))
+    val slickQuery = filterQuery.inputData(
       FilterParam1(name = "小莎莎") ::
         JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
         HNil)
-
-    logger.info(query.result.statements.toString)
+    logger.info(slickQuery.result.statements.toString)
     try {
-      val friendQuery = query.result.head
+      val friendQuery = slickQuery.result.head
       val r = db.run(friendQuery).futureValue
       r.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20))
     } catch {

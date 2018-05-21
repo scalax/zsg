@@ -1,14 +1,14 @@
 package net.scalax.asuna.core
 
 import cats.data.Validated
-import net.scalax.asuna.shape.ShapeHelpers
+import net.scalax.asuna.shape.ShapeHelper
 import shapeless._
 
 trait CirceModels {
 
   case class Student(id: Int, name: String, age: Long, nick: String)
 
-  class CirceModelReader0 extends CirceReaderQuery[Student] with ShapeHelpers {
+  class CirceModelReader0 extends CirceReaderQuery[Student] with ShapeHelper {
 
     import CirceReader._
 
@@ -19,7 +19,7 @@ trait CirceModels {
 
     val gen = Generic[Student]
 
-    override lazy val shapeValue = (id :: name :: age :: nick :: HNil).<>(s => Option(gen.from(s)))(t => Option(gen.to(t)))
+    override lazy val playCirceSv = (id :: name :: age :: nick :: HNil).<>(s => Option(gen.from(s)))(t => Option(gen.to(t)))
 
   }
 

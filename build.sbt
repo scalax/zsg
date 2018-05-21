@@ -37,3 +37,7 @@ libraryDependencies ++= {
     "com.typesafe.play" %% "play-ws" % playV % Test
   )
 }
+
+lazy val core = (project in file("./core"))
+
+lazy val main = (project in file(".")).dependsOn(core).aggregate(core)
