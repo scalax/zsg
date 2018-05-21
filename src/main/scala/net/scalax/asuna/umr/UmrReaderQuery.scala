@@ -26,6 +26,6 @@ trait UmrReaderQueryHelper extends ShapeValueWrapHelper {
     ListShape[Any, R](s => impl.takeData(DataGroup(items = s, subs = List.empty), cv.shapeValue).right.get.current, r => Option.empty, classTag, reps: _*)
   }
 
-  val umrToDv: DataShapeValueInitWrap[ShapeValueWrap[Any]] = DataShapeValue.toShapeValue[ShapeValueWrap[Any]]
+  val umrUnwrap: DataShapeValueInitWrap[ShapeValueWrap[Any]] = DataShapeValue.toShapeValue[ShapeValueWrap[Any]]
 
 }
