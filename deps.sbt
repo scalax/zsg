@@ -33,3 +33,9 @@ libraryDependencies ++= {
 libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.3.3"
 )
+
+libraryDependencies ++= Seq(
+  "org.sangria-graphql" %% "sangria-circe" % "1.2.1",
+  "org.sangria-graphql" %% "sangria" % "1.4.1",
+  "org.sangria-graphql" %% "sangria-relay" % "1.4.1"
+)

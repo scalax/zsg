@@ -3,12 +3,12 @@ package net.scalax.slick.async
 import io.circe.syntax._
 import net.scalax.slick.dynamic.{ FilterParam3, FriendTable2Model }
 import net.scalax.asuna.slick.umr.UmrReaderQuery
-
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
 
+import scala.concurrent.{ Await, Future, duration }
 import scala.concurrent.duration._
 
 case class Friends2(
@@ -34,8 +34,8 @@ class DynModel
   with BeforeAndAfterAll
   with BeforeAndAfter {
 
-  val t = 10.seconds
-  override implicit val patienceConfig = PatienceConfig(timeout = t)
+  def await[A](f: Future[A]) = Await.result(f, duration.Duration.Inf)
+
   val logger = LoggerFactory.getLogger(getClass)
 
   val friendTq2 = TableQuery[FriendTable2]
@@ -46,19 +46,19 @@ class DynModel
     keepAliveConnection = true)
 
   override def beforeAll = {
-    db.run(friendTq2.schema.create).futureValue
+    await(db.run(friendTq2.schema.create))
   }
 
   before {
     val friend1 = Friends2(None, "喵", "汪", 23)
     val friend2 = Friends2(None, "jilen", "kerr", 26)
     val friend3 = Friends2(None, "小莎莎", "烟流", 20)
-    db.run(friendTq2 ++= List(friend1, friend2, friend3)).futureValue
+    await(db.run(friendTq2 ++= List(friend1, friend2, friend3)))
     friendTq2.result
   }
 
   after {
-    db.run(friendTq2.delete).futureValue
+    await(db.run(friendTq2.delete))
   }
 
   "shape" should "aotu filer with case class" in {
@@ -66,7 +66,7 @@ class DynModel
     logger.info(query.result.statements.toString)
     try {
       val friendQuery = query.result.head
-      val r = db.run(friendQuery).futureValue
+      val r = await(db.run(friendQuery))
       r should be(FilterParam3(name = "喵", age = 23, ext = Map("nickName" -> "汪".asJson, "id" -> 1.asJson)))
     } catch {
       case e: Exception =>
