@@ -19,12 +19,6 @@ trait SFilterColHelper[D] {
 trait SlickFilterCol {
   import slick.lifted.Rep
   type InputDataType
-  /*type DataType
-  type BaseDataType
-  type InputDataType
-  val basedTypedType: BaseTypedType[BaseDataType]
-  val rep2OptRep: Rep[DataType] => Rep[Option[BaseDataType]]
-  val data2OptData: DataType => Option[BaseDataType]*/
   def toOptionCondition(data: InputDataType): Rep[Option[Boolean]]
 }
 
@@ -42,11 +36,6 @@ object SlickFilterColImpl {
           override def toOptionCondition(data: B): Rep[Option[Boolean]] = {
             fa.toOptionCondition(f(data))
           }
-          /*override type DataType = fa.DataType
-          override type BaseDataType = fa.BaseDataType
-          override val basedTypedType = fa.basedTypedType
-          override val rep2OptRep = fa.rep2OptRep
-          override val data2OptData = fa.data2OptData*/
         }
       }
     }
@@ -81,11 +70,6 @@ trait SlickFilterColHelper {
   def filterRep[D](rep: slick.lifted.Rep[D])(implicit b: SFilterColHelper[D], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[D] = {
     import profile.api._
     new SlickFilterColImpl[D] { self =>
-      /*override type DataType = D
-      override type BaseDataType = D
-      override val basedTypedType = b
-      override val rep2OptRep = (rep: Rep[D]) => rep.?
-      override val data2OptData = (data: D) => Option(data)*/
       override def toOptionCondition(data: D): Rep[Option[Boolean]] = {
         implicit val impl = b.basedTypedType
         b.rep2OptRep(rep) === b.data2OptData(data)
@@ -96,11 +80,6 @@ trait SlickFilterColHelper {
   def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
     import profile.api._
     new SlickFilterColImpl[Option[D]] { self =>
-      /*override type DataType = Option[D]
-      override type BaseDataType = D
-      override val basedTypedType = b
-      override val rep2OptRep = (rep: Rep[Option[D]]) => rep
-      override val data2OptData = (data: Option[D]) => data*/
       override def toOptionCondition(data: Option[D]): Rep[Option[Boolean]] = {
         implicit val impl = b.basedTypedType
         b.rep2OptRep(rep) === b.data2OptData(data)
@@ -112,11 +91,6 @@ trait SlickFilterColHelper {
     val f = filterRep(rep)
     new SlickFilterColImpl[JsonObject] {
       import profile.api._
-      /*override type DataType = f.DataType
-      override type BaseDataType = f.BaseDataType
-      override val basedTypedType = f.basedTypedType
-      override val rep2OptRep = (rep: Rep[f.DataType]) => f.rep2OptRep(rep)
-      override val data2OptData = (data: f.DataType) => f.data2OptData(data)*/
       override def toOptionCondition(data: JsonObject): Rep[Option[Boolean]] = {
         data.apply(key).getOrElse(Json.Null).as[E](decoder).toOption match {
           case Some(s) =>

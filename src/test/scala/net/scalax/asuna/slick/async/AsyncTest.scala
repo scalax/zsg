@@ -12,6 +12,7 @@ import shapeless._
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ Await, Future, duration }
 
 case class Friends(
   id: Option[Long] = None,
@@ -36,8 +37,8 @@ class AsyncTest
   with BeforeAndAfterAll
   with BeforeAndAfter {
 
-  val t = 10.seconds
-  override implicit val patienceConfig = PatienceConfig(timeout = t)
+  def await[A](f: Future[A]) = Await.result(f, duration.Duration.Inf)
+
   val logger = LoggerFactory.getLogger(getClass)
 
   val friendTq = TableQuery[FriendTable]
@@ -48,19 +49,19 @@ class AsyncTest
     keepAliveConnection = true)
 
   override def beforeAll = {
-    db.run(friendTq.schema.create).futureValue
+    await(db.run(friendTq.schema.create))
   }
 
   before {
     val friend1 = Friends(None, "喵", "汪", 23)
     val friend2 = Friends(None, "jilen", "kerr", 26)
     val friend3 = Friends(None, "小莎莎", "烟流", 20)
-    db.run(friendTq ++= List(friend1, friend2, friend3)).futureValue
+    await(db.run(friendTq ++= List(friend1, friend2, friend3)))
     friendTq.result
   }
 
   after {
-    db.run(friendTq.delete).futureValue
+    await(db.run(friendTq.delete))
   }
 
   "shape" should "aotu filer with case class" in {
@@ -70,7 +71,7 @@ class AsyncTest
     logger.info(slickQuery.result.statements.toString)
     try {
       val friendQuery = slickQuery.result.head
-      val r = db.run(friendQuery).futureValue
+      val r = await(db.run(friendQuery))
       r.copy(id = Option.empty) should be(Friends(None, "jilen", "kerr", 26))
     } catch {
       case e: Exception =>
@@ -88,7 +89,7 @@ class AsyncTest
     logger.info(slickQuery.result.statements.toString)
     try {
       val friendQuery = slickQuery.result.head
-      val r = db.run(friendQuery).futureValue
+      val r = await(db.run(friendQuery))
       r.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20))
     } catch {
       case e: Exception =>
