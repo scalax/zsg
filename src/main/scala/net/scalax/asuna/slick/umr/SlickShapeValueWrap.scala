@@ -42,7 +42,7 @@ trait SlickShapeValueWrapHelper {
 
   val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrap[Any]] = DataShapeValue.toShapeValue[SlickShapeValueWrap[Any]]
 
-  implicit class jsonExtMethod[M](rep: M) {
+  /*implicit class jsonExtMethod[M](rep: M) {
     def jsonWithKey[D, T](key: String)(
       implicit
       shape: Shape[_ <: FlatShapeLevel, M, D, T],
@@ -51,29 +51,32 @@ trait SlickShapeValueWrapHelper {
         (key, s.asJson(encoder))
       }
     }
-  }
+  }*/
 
-  implicit class shapeValueWrapExtensionMethod[R](rep: R) {
-    def toWrap[D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): SlickShapeValueWrap[D] = {
-      val rep1 = rep
-      val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]]
-      new SlickShapeValueWrap[D] {
-        override type TargetRep = T
-        override type Data = D
-        override type Rep = R
-        override val shape = shape1
-        override val dataToList = { (data: D) =>
-          data
-        }
-        override val dataFromList = { (data: D) =>
-          Option(data)
-        }
-        override val rep = rep1
-      }
+  def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] = {
+    rep(baseRep).map[(String, Json)] { (s: B) =>
+      (key, s.asJson(encoder))
     }
   }
 
-  implicit def simpleRepShapeImplicit[R, D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): DataShape[R, D, T, SlickShapeValueWrap[Any]] = {
+  def rep[R, D, T](baseRep: R)(implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): SlickShapeValueWrap[D] = {
+    val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]]
+    new SlickShapeValueWrap[D] {
+      override type TargetRep = T
+      override type Data = D
+      override type Rep = R
+      override val shape = shape1
+      override val dataToList = { (data: D) =>
+        data
+      }
+      override val dataFromList = { (data: D) =>
+        Option(data)
+      }
+      override val rep = baseRep
+    }
+  }
+
+  /*implicit def simpleRepShapeImplicit[R, D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): DataShape[R, D, T, SlickShapeValueWrap[Any]] = {
     new DataShape[R, D, T, SlickShapeValueWrap[Any]] {
       self =>
       override def wrapRep(base: R): T = shape.pack(base)
@@ -105,7 +108,7 @@ trait SlickShapeValueWrapHelper {
         Right(DataGroup(items = List(splitData), subs = List.empty))
       }
     }
-  }
+  }*/
 
   implicit def shapeValueWrapShapeImplicit[T]: DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrap[Any]] = {
     new DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrap[Any]] {

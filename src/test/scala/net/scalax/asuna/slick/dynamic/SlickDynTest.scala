@@ -14,10 +14,10 @@ case class FilterParam3(name: String, age: Int, ext: Map[String, Json])
 case class FilterParam4(name: String, age: Int)
 class FriendTable2Model(friend: FriendTable2) extends UmrReaderQuery[FilterParam3] with ShapeHelper with SlickShapeValueWrapHelper with SlickFilterColHelper with SlickFilterQuery[FilterParam4] {
 
-  val name = friend.name.mixin(friend.name.filter)
-  val age = friend.age.filter.mixin(friend.age)
-  val nick = friend.nick.jsonWithKey("nickName")
-  val id = friend.id.jsonWithKey("id")
+  val name = rep(friend.name).mixin(filterRep(friend.name))
+  val age = filterRep(friend.age).mixin(rep(friend.age))
+  val nick = jsonKey(friend.nick, "nickName")
+  val id = jsonKey(friend.id, "id")
 
   val gen = Generic[FilterParam3]
 
@@ -35,20 +35,18 @@ class FriendTable2Model(friend: FriendTable2) extends UmrReaderQuery[FilterParam
 
 class FriendTable2Model2(friend: FriendTable2) extends UmrReaderQuery[FilterParam3] with ShapeHelper with SlickShapeValueWrapHelper with SlickFilterColHelper with SlickFilterQuery[FilterParam4] {
 
-  val nameAndAge = (friend.name :: friend.age :: HNil).mixin(friend.name.filter :: friend.age.filter :: HNil)
-  val nick = friend.nick.jsonWithKey("nickName")
-  val id = friend.id.jsonWithKey("id")
+  val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
+  val nick = jsonKey(friend.nick, "nickName")
+  val id = jsonKey(friend.id, "id")
 
   val gen = Generic[FilterParam3]
+  val gen1 = Generic[FilterParam4]
 
   override lazy val umrSv = umrUnwrap(nameAndAge :: List(nick, id) :: HNil).mapReader {
     case ((name :: age :: HNil) :: l :: HNil) =>
       FilterParam3(name = name, age = age, ext = l.toMap)
   }
 
-  override val slickFilterSv = filterUnwrap(nameAndAge).mapReader {
-    case (name :: age :: HNil) =>
-      FilterParam4(name = name, age = age)
-  }
+  override val slickFilterSv = filterUnwrap(nameAndAge).mapReader(gen1.from)
 
 }

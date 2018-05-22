@@ -11,8 +11,8 @@ import shapeless._
 case class FilterParam(name: String, age: Int)
 class SlickFilterTest(friend: FriendTable) extends SlickFilterQuery[FilterParam] with SlickFilterColHelper with ShapeHelper {
 
-  val name = friend.name.filter
-  val age = friend.age.filter
+  val name = filterRep(friend.name)
+  val age = filterRep(friend.age)
 
   val gen = Generic[FilterParam]
 
@@ -23,9 +23,9 @@ class SlickFilterTest(friend: FriendTable) extends SlickFilterQuery[FilterParam]
 case class FilterParam1(name: String)
 class SlickFilterJson(friend: FriendTable) extends SlickFilterQuery[FilterParam1 :: JsonObject :: HNil] with SlickFilterColHelper with ShapeHelper {
 
-  val name = friend.name.filter
-  val age = friend.age.jsonFilterWithKey("age")
-  val nick = friend.nick.jsonFilterWithKey("nick")
+  val name = filterRep(friend.name)
+  val age = jsonFilterKey(friend.age, "age")
+  val nick = jsonFilterKey(friend.nick, "nick")
 
   val gen = Generic[FilterParam1]
 
