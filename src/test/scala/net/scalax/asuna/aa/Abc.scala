@@ -207,7 +207,11 @@ class Abc extends FlatSpec with Matchers
 
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
-      resolve = _.ctx.products)))
+      resolve = Projector({ (c, proj) =>
+        println("44" * 20)
+        println(proj.toList)
+        c.ctx.products
+      }))))
 
   /*lazy val ProductType = deriveObjectType[Unit, Product](
     Interfaces(IdentifiableType),
@@ -328,6 +332,7 @@ class Abc extends FlatSpec with Matchers
 
       products {
         name
+        description
       }
     }
   """).get, new ProductRepo, middleware = aa :: Nil, deferredResolver = DeferredResolver.fetchers(fetcher1))
