@@ -37,7 +37,7 @@ class Abc extends FlatSpec with Matchers
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
-  with BeforeAndAfter {
+  with BeforeAndAfter with ShapeHelper with SlickShapeValueWrapHelper {
 
   import sangria.macros.derive._
   import sangria.execution._
@@ -162,7 +162,7 @@ class Abc extends FlatSpec with Matchers
       val aa = ids.apply(r1.asInstanceOf[RepWrap[Any, Any, Any]])
       val bb = ids.apply(r2.asInstanceOf[RepWrap[Any, Any, Any]])
       val query = friendTq3.map { friend =>
-        val cc = new UmrReaderQuery[List[(Any, FriendTable3 => Any)]] with ShapeHelper with SlickShapeValueWrapHelper {
+        val cc = new UmrReaderQuery[List[(Any, FriendTable3 => Any)]] {
           override def umrSv: DataShapeValue[List[(Any, FriendTable3 => Any)], SlickShapeValueWrap[Any]] = (aa ++: bb).map(s => rep(s.apply(friend))).toList.shaped
         }
         UmrReaderQuery(cc)
@@ -185,6 +185,18 @@ class Abc extends FlatSpec with Matchers
       Future.successful(List("1", "22", "333", "4444", "55555", "666666"))
     })(hashId)
 
+  val fetcher1 = Fetcher { (ctx: ProductRepo, reps: Seq[FriendTable3 => SlickShapeValueWrap[Any]]) =>
+    val query = friendTq3.map { friend =>
+      val cc = new UmrReaderQuery[List[(Any, FriendTable3 => SlickShapeValueWrap[Any])]] {
+        override def umrSv: DataShapeValue[List[(Any, FriendTable3 => SlickShapeValueWrap[Any])], SlickShapeValueWrap[Any]] = reps.map(s => s.apply(friend).mapReader(t => t -> s)).toList.shaped
+      }
+      UmrReaderQuery(cc)
+    }.to[List]
+    val action = query.result
+    println("11" * 20 + action.statements)
+    db.run(action.head)
+  }(HasId(s => s._2))
+
   lazy val Id = Argument("id", StringType)
 
   lazy val QueryType = ObjectType("Query", fields[ProductRepo, Unit](
@@ -195,7 +207,11 @@ class Abc extends FlatSpec with Matchers
 
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
-      resolve = _.ctx.products)))
+      resolve = Projector({ (c, proj) =>
+        println("44" * 20)
+        println(proj.toList)
+        c.ctx.products
+      }))))
 
   /*lazy val ProductType = deriveObjectType[Unit, Product](
     Interfaces(IdentifiableType),
@@ -210,7 +226,7 @@ class Abc extends FlatSpec with Matchers
       Field("id", StringType, resolve = { c =>
         c.value.id
       }),
-      Field("name", StringType, resolve = { c =>
+      Field("name", ListType(StringType), resolve = { c =>
         /*println("222222222")
         println("field")
         println(c.field)
@@ -220,8 +236,9 @@ class Abc extends FlatSpec with Matchers
         println("path")
         println(c.path)
         println("222222222")*/
-        categories.deferRelSeq(byParent, c.value.id.size)
-        categories1111.deferRel(r1.asInstanceOf[Relation[Any, (Any, FriendTable3 => Any), FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]], r1.anyShapeValue.asInstanceOf[FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]).asInstanceOf[Deferred[String]]
+        //categories.deferRelSeq(byParent, c.value.id.size)
+        //categories1111.deferRel(r1.asInstanceOf[Relation[Any, (Any, FriendTable3 => Any), FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]], r1.anyShapeValue.asInstanceOf[FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]).asInstanceOf[Deferred[String]]
+        DeferredValue(fetcher1.deferSeq(List(s => rep(s.nick).map(s => s: Any)))).map(_.map(_._1.asInstanceOf[String]))
         /*aabb.future*/ /*.map { t =>
           println("ee" * 100)
           t
@@ -238,8 +255,16 @@ class Abc extends FlatSpec with Matchers
       Field("description", StringType,
         description = Some("Picture CDN URL"),
         resolve = { c =>
-          categories.deferRelSeq(byParent, c.value.description.size)
-          categories1111.deferRel(r2.asInstanceOf[Relation[Any, (Any, FriendTable3 => Any), FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]], r2.anyShapeValue.asInstanceOf[FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]).asInstanceOf[Deferred[String]]
+          //categories.deferRelSeq(byParent, c.value.description.size)
+          //categories1111.deferRel(r2.asInstanceOf[Relation[Any, (Any, FriendTable3 => Any), FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]], r2.anyShapeValue.asInstanceOf[FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]).asInstanceOf[Deferred[String]]
+          DeferredValue(fetcher1.defer(s => rep(s.nick).map(s => s: Any))).map(_._1.asInstanceOf[String])
+        }),
+      Field("friendId", LongType,
+        description = Some("Picture CDN URL"),
+        resolve = { c =>
+          //categories.deferRelSeq(byParent, c.value.description.size)
+          //categories1111.deferRel(r2.asInstanceOf[Relation[Any, (Any, FriendTable3 => Any), FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]], r2.anyShapeValue.asInstanceOf[FriendTable3 => MappedProjection[(Any, FriendTable3 => Any), String]]).asInstanceOf[Deferred[String]]
+          DeferredValue(fetcher1.defer(s => rep(s.id).map(s => s: Any))).map(_._1.asInstanceOf[Long])
         }),
       Field("picture", OptionType(PictureType),
         description = Some("Returns a product with specific `id`."),
@@ -298,6 +323,7 @@ class Abc extends FlatSpec with Matchers
       product(id: "2") {
         name
         description
+        friendId
 
         picture(size: 500) {
           width, height, url
@@ -306,9 +332,10 @@ class Abc extends FlatSpec with Matchers
 
       products {
         name
+        description
       }
     }
-  """).get, new ProductRepo, middleware = aa :: Nil, deferredResolver = DeferredResolver.fetchers(categories, categories1111))
+  """).get, new ProductRepo, middleware = aa :: Nil, deferredResolver = DeferredResolver.fetchers(fetcher1))
 
   "aa" should "decode bb" in {
     println(await(result))
