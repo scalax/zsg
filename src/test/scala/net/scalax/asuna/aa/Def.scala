@@ -74,7 +74,6 @@ class Def extends FlatSpec with Matchers
     val friend2 = Friends4(-1, "name2", "nick2", 26)
     val friend3 = Friends4(-1, "name3", "nick3", 20)
     await(db.run(friendTq4 ++= List(friend1, friend2, friend3)))
-    friendTq4.result
   }
 
   after {
