@@ -100,13 +100,13 @@ class Def extends FlatSpec with Matchers
       description = Some("Returns a product with specific `id`."),
       arguments = NameArg :: Nil,
       resolve = Projector({ (c, fields) =>
-        SFriend4.bindOptionLineQuery(friendTq4.filter(s => s.name === c.arg(NameArg)), db, fields.toList.map(_.name))
+        db.run(friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name))).result.headOption)
       })),
 
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
       resolve = Projector({ (c, fields) =>
-        SFriend4.bindQuery(friendTq4, db, fields.toList.map(_.name))
+        db.run(friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name))).result)
       }))))
 
   lazy val sizeArg = Argument("size", IntType)

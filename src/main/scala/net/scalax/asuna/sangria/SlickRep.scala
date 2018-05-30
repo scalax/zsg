@@ -2,7 +2,7 @@ package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
-import slick.lifted.{ FlatShapeLevel, Shape }
+import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.reflect.ClassTag
@@ -135,25 +135,14 @@ trait SlickSangria[E, Data] {
 
   def sangriaSv: List[String] => DataShapeValue[Data, SlickRepWrap[E, Any]]
 
-  import slick.jdbc.H2Profile.api._
-  def bindQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Seq[Data]] = {
+  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
     val sv = sangriaSv(keys)
-    val bindQ = query.map { r =>
-      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
-      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) => t }, reConvert = { (t: List[Any]) => Option(t) }, ct = implicitly[ClassTag[List[Any]]], reps: _*)
-    }
-    val action = bindQ.result
-    println("33" * 10)
-    println(action.statements)
-    val result = db.run(action)
-    result.map { seq =>
-      seq.map { each =>
-        sv.shape.takeData(DataGroup(items = each, subs = List.empty), sv.rep).right.get.current
-      }
-    }
+    val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(rep))
+    SlickShapeValueListWrap.apply(convert = { (t: List[Any]) =>
+      sv.shape.takeData(DataGroup(items = t, subs = List.empty), sv.rep).right.get.current
+    }, reConvert = { (t: Data) => Option.empty[List[Any]] }, ct = implicitly[ClassTag[Data]], reps: _*)
   }
-
-  def bindOneLineQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Data] = {
+  /*def bindOneLineQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Data] = {
     val sv = sangriaSv(keys)
     val bindQ = query.map { r =>
       val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
@@ -168,21 +157,22 @@ trait SlickSangria[E, Data] {
     }
   }
 
-  def bindOptionLineQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Option[Data]] = {
+  def bindOptionLineQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
     val sv = sangriaSv(keys)
-    val bindQ = query.map { r =>
-      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
-      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) => t }, reConvert = { (t: List[Any]) => Option(t) }, ct = implicitly[ClassTag[List[Any]]], reps: _*)
-    }
-    val action = bindQ.result.headOption
+    //val bindQ = query.map { r =>
+      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(rep))
+      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) =>
+        sv.shape.takeData(DataGroup(items = t, subs = List.empty), sv.rep).right.get.current
+      }, reConvert = { (t: Data) => Option.empty[List[Any]] }, ct = implicitly[ClassTag[Data]], reps: _*)
+    //}
+    /*val action = bindQ.result.headOption
     println("33" * 10)
     println(action.statements)
     val result = db.run(action)
     result.map { seq =>
       seq.map { each =>
-        sv.shape.takeData(DataGroup(items = each, subs = List.empty), sv.rep).right.get.current
-      }
-    }
-  }
 
+      }
+    }*/
+  }*/
 }
