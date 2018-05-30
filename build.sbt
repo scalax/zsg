@@ -9,4 +9,4 @@ addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.6" cross CrossVersi
 lazy val core = (project in file("./core"))
 lazy val shape = (project in file("./shape")).dependsOn(core)
 
-lazy val main = (project in file(".")).dependsOn(shape).aggregate(core).aggregate(shape)
+lazy val asuna = (project in file(".")).dependsOn(shape).aggregate(core).aggregate(shape)

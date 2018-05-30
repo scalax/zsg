@@ -1,15 +1,18 @@
 package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
+import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
-import slick.lifted.{ FlatShapeLevel, Shape }
+import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
-import scala.concurrent.{ ExecutionContext, Future }
 import scala.reflect.ClassTag
 import scala.language.higherKinds
 
 sealed abstract trait SlickRepAbs[Rep, DataType] {
+  self =>
+
   def slickCv(rep: Rep): SlickShapeValueWrap[DataType]
+
 }
 
 trait SlickRepWrap[Rep, DataType] extends SlickRepAbs[Rep, DataType] {
@@ -26,17 +29,29 @@ trait SlickRepWrap[Rep, DataType] extends SlickRepAbs[Rep, DataType] {
 }
 
 trait SlickSangriaRepWrap[Rep, DataType] extends SlickRepAbs[Rep, (String, DataType)] {
+  self =>
+
   val sangraiKey: String
   val objectKey: String
+
+  def map[R](cv: DataType => R): SlickSangriaRepWrap[Rep, R] = {
+    new SlickSangriaRepWrap[Rep, R] {
+      override val sangraiKey = self.sangraiKey
+      override val objectKey = self.objectKey
+      override def slickCv(rep: Rep): SlickShapeValueWrap[(String, R)] = {
+        self.slickCv(rep).map(t => (t._1, cv(t._2)))
+      }
+    }
+  }
 }
 
 trait SlickValueGen[Rep] {
   def getData[DataType](r: SlickSangriaRepWrap[Rep, DataType]): DataType
 }
 
-trait SlickSangria[E, Data] {
+trait SlickSangria[E, Data] extends ShapeHelper {
 
-  val sangriaUnwrap: DataShapeValueInitWrap[SlickRepWrap[E, Any]] = DataShapeValue.toShapeValue[SlickRepWrap[E, Any]]
+  val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbs[E, Any]] = DataShapeValue.toShapeValue[SlickRepAbs[E, Any]]
 
   def rep[R, D, T](baseRep: E => R)(implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): SlickRepWrap[E, D] = {
     new SlickRepWrap[E, D] {
@@ -84,42 +99,72 @@ trait SlickSangria[E, Data] {
     }
   }
 
-  def seqRep[E](w: SlickSangriaRepWrap[E, _]*): List[String] => SlickRepWrap[E, SlickValueGen[E]] = { (keys: List[String]) =>
-    new SlickRepWrap[E, SlickValueGen[E]] {
-      override def slickCv(rep: E): SlickShapeValueWrap[SlickValueGen[E]] = {
-        val listCv: List[(String, Any)] => SlickValueGen[E] = { s =>
-          val map = s.toMap
-          new SlickValueGen[E] {
-            override def getData[DataType](r: SlickSangriaRepWrap[E, DataType]): DataType = {
-              map.getOrElse(r.objectKey, throw new Exception("没有该列匹配的项")).asInstanceOf[DataType]
+  case class GroupStart(key: String)
+  case class GroupEnd(key: String)
+
+  def seqRep(w: SlickSangriaRepWrap[E, _]*)(implicit completedId: CompletedId[String]): DataShapeValue[SlickValueGen[E], SlickRepAbs[E, Any]] = {
+    implicit val dShape: DataShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E, Any]] = {
+      new DataShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E, Any]] {
+        override def wrapRep(base: List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
+        override def toLawRep(base: List[SlickSangriaRepWrap[E, Any]]): DataRepGroup[SlickRepAbs[E, Any]] = {
+          val unitWrap = new SlickRepWrap[E, Unit] {
+            override def slickCv(rep: E): SlickShapeValueWrap[Unit] = {
+              new SlickShapeValueWrap[Unit] {
+                override type TargetRep = Unit
+                override type Data = Unit
+                override type Rep = Unit
+                override val shape = implicitly[Shape[FlatShapeLevel, Unit, Unit, Unit]]
+                override val dataToList = { (data: Unit) =>
+                  data
+                }
+                override val dataFromList = { (data: Unit) =>
+                  Option(data)
+                }
+                override val rep = (())
+              }
             }
           }
+          val start: SlickRepAbs[E, Any] = unitWrap.map((_: Unit) => GroupStart(completedId.id): Any)
+          val end: SlickRepAbs[E, Any] = unitWrap.map((_: Unit) => GroupEnd(completedId.id): Any)
+          DataRepGroup(reps = start :: base.map(_.asInstanceOf[SlickRepAbs[E, Any]]) ::: end :: List.empty, subs = List.empty)
         }
-        val shapeValue = SlickShapeValueListWrap.apply(convert = listCv, reConvert = { (t: SlickValueGen[E]) => Option.empty[List[(String, Any)]] }, ct = implicitly[ClassTag[SlickValueGen[E]]], w.filter(item => keys.contains(item.sangraiKey)).map(s => s.slickCv(rep).map(s => s: (String, Any))): _*)
-
-        new SlickShapeValueWrap[SlickValueGen[E]] {
-          override type TargetRep = Any
-          override type Data = SlickValueGen[E]
-          override type Rep = Any
-          override val shape = shapeValue.shape.asInstanceOf[Shape[FlatShapeLevel, Any, SlickValueGen[E], Any]]
-          override val dataToList = { (data: SlickValueGen[E]) =>
-            data
+        override def takeData(oldData: DataGroup, rep: List[SlickSangriaRepWrap[E, Any]]): Either[NotConvert, SplitData[List[(String, Any)]]] = {
+          oldData.items match {
+            case GroupStart(startKey) :: tail =>
+              val (currData, endGroup :: leftData) = tail.span(t => t match {
+                case GroupEnd(endKey) if (endKey == startKey) =>
+                  false
+                case _ =>
+                  true
+              })
+              Right(SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData, subs = List.empty)))
           }
-          override val dataFromList = { (data: SlickValueGen[E]) =>
-            Option(data)
-          }
-          override val rep = shapeValue.value
+        }
+        override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrap[E, Any]]): Either[NotConvert, DataGroup] = {
+          Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty, subs = List.empty))
         }
       }
     }
+
+    val dShapeValue = w.toList.map(_.map(t => t: Any)).shaped
+
+    val listCv: List[(String, Any)] => SlickValueGen[E] = { s =>
+      val map = s.toMap
+      new SlickValueGen[E] {
+        override def getData[DataType](r: SlickSangriaRepWrap[E, DataType]): DataType = {
+          map.getOrElse(r.objectKey, throw new Exception("没有该列匹配的项")).asInstanceOf[DataType]
+        }
+      }
+    }
+    dShapeValue.mapReader(listCv)
   }
 
-  implicit def slickRepWrapShapeImplicit[T]: DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepWrap[E, Any]] = {
-    new DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepWrap[E, Any]] {
+  implicit def slickRepWrapShapeImplicit[T]: DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbs[E, Any]] = {
+    new DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbs[E, Any]] {
       self =>
       override def wrapRep(base: SlickRepWrap[E, T]): SlickRepWrap[E, T] = base
 
-      override def toLawRep(base: SlickRepWrap[E, T]): DataRepGroup[SlickRepWrap[E, Any]] = {
+      override def toLawRep(base: SlickRepWrap[E, T]): DataRepGroup[SlickRepAbs[E, Any]] = {
         DataRepGroup(reps = List(base.map(s => s: Any)), subs = List.empty)
       }
 
@@ -133,56 +178,20 @@ trait SlickSangria[E, Data] {
     }
   }
 
-  def sangriaSv: List[String] => DataShapeValue[Data, SlickRepWrap[E, Any]]
+  def sangriaSv: DataShapeValue[Data, SlickRepAbs[E, Any]]
 
-  import slick.jdbc.H2Profile.api._
-  def bindQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Seq[Data]] = {
-    val sv = sangriaSv(keys)
-    val bindQ = query.map { r =>
-      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
-      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) => t }, reConvert = { (t: List[Any]) => Option(t) }, ct = implicitly[ClassTag[List[Any]]], reps: _*)
+  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
+    val sv = sangriaSv
+    val reps = sv.shape.toLawRep(sv.rep).reps
+    val filterReps = reps.filter { s =>
+      if (s.isInstanceOf[SlickSangriaRepWrap[_, _]] && !keys.contains(s.asInstanceOf[SlickSangriaRepWrap[_, _]].sangraiKey))
+        false
+      else true
     }
-    val action = bindQ.result
-    println("33" * 10)
-    println(action.statements)
-    val result = db.run(action)
-    result.map { seq =>
-      seq.map { each =>
-        sv.shape.takeData(DataGroup(items = each, subs = List.empty), sv.rep).right.get.current
-      }
-    }
-  }
-
-  def bindOneLineQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Data] = {
-    val sv = sangriaSv(keys)
-    val bindQ = query.map { r =>
-      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
-      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) => t }, reConvert = { (t: List[Any]) => Option(t) }, ct = implicitly[ClassTag[List[Any]]], reps: _*)
-    }
-    val action = bindQ.result.head
-    println("33" * 10)
-    println(action.statements)
-    val result = db.run(action)
-    result.map { seq =>
-      sv.shape.takeData(DataGroup(items = seq, subs = List.empty), sv.rep).right.get.current
-    }
-  }
-
-  def bindOptionLineQuery[U](query: Query[E, U, Seq], db: Database, keys: List[String])(implicit ec: ExecutionContext): Future[Option[Data]] = {
-    val sv = sangriaSv(keys)
-    val bindQ = query.map { r =>
-      val reps = sv.shape.toLawRep(sv.rep).reps.map(t => t.slickCv(r))
-      SlickShapeValueListWrap.apply(convert = { (t: List[Any]) => t }, reConvert = { (t: List[Any]) => Option(t) }, ct = implicitly[ClassTag[List[Any]]], reps: _*)
-    }
-    val action = bindQ.result.headOption
-    println("33" * 10)
-    println(action.statements)
-    val result = db.run(action)
-    result.map { seq =>
-      seq.map { each =>
-        sv.shape.takeData(DataGroup(items = each, subs = List.empty), sv.rep).right.get.current
-      }
-    }
+    val slickReps = filterReps.map(t => t.slickCv(rep))
+    SlickShapeValueListWrap.apply(convert = { (t: List[Any]) =>
+      sv.shape.takeData(DataGroup(items = t, subs = List.empty), sv.rep).right.get.current
+    }, reConvert = { (_: Data) => Option.empty[List[Any]] }, ct = implicitly[ClassTag[Data]], slickReps: _*)
   }
 
 }
