@@ -3,7 +3,7 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataShapeValue
-import net.scalax.asuna.sangria.{ SlickRepAbs, SlickSangria, SlickValueGen }
+import net.scalax.asuna.sangria.{ SlickRepAbsAbs, SlickSangria, SlickValueGen }
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
@@ -40,7 +40,7 @@ object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper 
   def age = rep(_.age)
   def extAge = rep(_.age)
 
-  override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbs[FriendTable4, Any]] = {
+  override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbsAbs[FriendTable4]] = {
     (age :: seqRep(id, name, nick) :: extAge :: HNil).mapReader(Generic[FriendWrap].from)
   }
 }
