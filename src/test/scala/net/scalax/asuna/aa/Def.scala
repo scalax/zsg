@@ -3,12 +3,11 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataShapeValue
-import net.scalax.asuna.sangria.{ SlickRepWrap, SlickSangria, SlickValueGen }
+import net.scalax.asuna.sangria.{ SlickRepAbs, SlickSangria, SlickValueGen }
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
-import sangria.execution.deferred._
 import sangria.parser.QueryParser
 import shapeless._
 
@@ -40,8 +39,8 @@ object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper 
   def nick = repWithKey(_.nick, "nick")
   def age = rep(_.age)
 
-  override def sangriaSv: List[String] => DataShapeValue[FriendWrap, SlickRepWrap[FriendTable4, Any]] = { keys: List[String] =>
-    (age :: seqRep(id, name, nick).apply(keys) :: HNil).mapReader(Generic[FriendWrap].from)
+  override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbs[FriendTable4, Any]] = {
+    (age :: seqRep(id, name, nick) :: HNil).mapReader(Generic[FriendWrap].from)
   }
 }
 
@@ -100,13 +99,19 @@ class Def extends FlatSpec with Matchers
       description = Some("Returns a product with specific `id`."),
       arguments = NameArg :: Nil,
       resolve = Projector({ (c, fields) =>
-        db.run(friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name))).result.headOption)
+        val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
+        val action = bindQ.result.headOption
+        println("33" * 20 + action.statements)
+        db.run(action)
       })),
 
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
       resolve = Projector({ (c, fields) =>
-        db.run(friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name))).result)
+        val bindQ = friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
+        val action = bindQ.result
+        println("33" * 20 + action.statements)
+        db.run(action)
       }))))
 
   lazy val sizeArg = Argument("size", IntType)
@@ -155,7 +160,7 @@ class Def extends FlatSpec with Matchers
 
       products {
         id
-        name
+        nick
       }
     }
   """).get, (()))
