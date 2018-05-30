@@ -5,19 +5,25 @@ import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
 
-import scala.language.existentials
-import scala.language.implicitConversions
-
-trait SlickShapeValueWrap[F] {
+trait SlickShapeValueWrapAbs {
   self =>
 
   type Data
   type Rep
   type TargetRep
+  type OutPut
+  type Level <: FlatShapeLevel
   val rep: Rep
-  val shape: Shape[FlatShapeLevel, Rep, Data, TargetRep]
-  val dataToList: Data => F
-  val dataFromList: F => Option[Data]
+  val shape: Shape[Level, Rep, Data, TargetRep]
+  val dataToList: Data => OutPut
+  val dataFromList: OutPut => Option[Data]
+
+}
+
+trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs {
+  self =>
+
+  override type OutPut = F
 
   def map[H](
     t: F => H,
@@ -26,6 +32,7 @@ trait SlickShapeValueWrap[F] {
       override type Data = self.Data
       override type Rep = self.Rep
       override type TargetRep = self.TargetRep
+      override type Level = self.Level
       override val rep = self.rep
       override val shape = self.shape
       override val dataToList = { (s: Data) =>
@@ -40,18 +47,7 @@ trait SlickShapeValueWrap[F] {
 
 trait SlickShapeValueWrapHelper {
 
-  val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrap[Any]] = DataShapeValue.toShapeValue[SlickShapeValueWrap[Any]]
-
-  /*implicit class jsonExtMethod[M](rep: M) {
-    def jsonWithKey[D, T](key: String)(
-      implicit
-      shape: Shape[_ <: FlatShapeLevel, M, D, T],
-      encoder: Encoder[D]): SlickShapeValueWrap[(String, Json)] = {
-      shapeValueWrapExtensionMethod(rep).toWrap.map[(String, Json)] { (s: D) =>
-        (key, s.asJson(encoder))
-      }
-    }
-  }*/
+  val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
 
   def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] = {
     rep(baseRep).map[(String, Json)] { (s: B) =>
@@ -59,12 +55,13 @@ trait SlickShapeValueWrapHelper {
     }
   }
 
-  def rep[R, D, T](baseRep: R)(implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): SlickShapeValueWrap[D] = {
-    val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]]
+  def rep[R, D, T, L <: FlatShapeLevel](baseRep: R)(implicit shape: Shape[L, R, D, T]): SlickShapeValueWrap[D] = {
+    val shape1 = shape
     new SlickShapeValueWrap[D] {
       override type TargetRep = T
       override type Data = D
       override type Rep = R
+      override type Level = L
       override val shape = shape1
       override val dataToList = { (data: D) =>
         data
@@ -76,47 +73,13 @@ trait SlickShapeValueWrapHelper {
     }
   }
 
-  /*implicit def simpleRepShapeImplicit[R, D, T](implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): DataShape[R, D, T, SlickShapeValueWrap[Any]] = {
-    new DataShape[R, D, T, SlickShapeValueWrap[Any]] {
-      self =>
-      override def wrapRep(base: R): T = shape.pack(base)
-
-      override def toLawRep(base: T): DataRepGroup[SlickShapeValueWrap[Any]] = {
-        val rep1 = base
-        val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]].packedShape
-        val wrap = new SlickShapeValueWrap[D] {
-          override type TargetRep = T
-          override type Data = D
-          override type Rep = T
-          override val shape = shape1
-          override val dataToList = { (data: D) =>
-            data
-          }
-          override val dataFromList = { (data: D) =>
-            Option(data)
-          }
-          override val rep = rep1
-        }.map(s => s: Any, (m: Any) => Option(m.asInstanceOf[D]))
-        DataRepGroup(reps = List(wrap), subs = List.empty)
-      }
-
-      override def takeData(oldData: DataGroup, rep: T): Either[NotConvert, SplitData[D]] = {
-        Right(SplitData(current = oldData.items.head.asInstanceOf[D], left = DataGroup(items = oldData.items.tail, subs = oldData.subs)))
-      }
-
-      override def buildData(splitData: D, rep: T): Either[NotConvert, DataGroup] = {
-        Right(DataGroup(items = List(splitData), subs = List.empty))
-      }
-    }
-  }*/
-
-  implicit def shapeValueWrapShapeImplicit[T]: DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrap[Any]] = {
-    new DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrap[Any]] {
+  implicit def shapeValueWrapShapeImplicit[T]: DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrapAbs] = {
+    new DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrapAbs] {
       self =>
       override def wrapRep(base: SlickShapeValueWrap[T]): SlickShapeValueWrap[T] = base
 
-      override def toLawRep(base: SlickShapeValueWrap[T]): DataRepGroup[SlickShapeValueWrap[Any]] = {
-        DataRepGroup(reps = List(base.map(s => s: Any, (m: Any) => Option(m.asInstanceOf[T]))), subs = List.empty)
+      override def toLawRep(base: SlickShapeValueWrap[T]): DataRepGroup[SlickShapeValueWrapAbs] = {
+        DataRepGroup(reps = List(base), subs = List.empty)
       }
 
       override def takeData(oldData: DataGroup, rep: SlickShapeValueWrap[T]): Either[NotConvert, SplitData[T]] = {
