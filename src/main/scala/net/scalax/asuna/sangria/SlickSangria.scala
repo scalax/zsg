@@ -141,7 +141,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
   def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
 
-  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValueWrap[Data] = {
+  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
     val sv = sangriaSv
     val reps = sv.shape.toLawRep(sv.rep).reps
     val filterReps = reps.filter {
@@ -156,7 +156,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
       },
       reConvert = { (_: Data) => Option.empty[List[Any]] },
       ct = implicitly[ClassTag[Data]],
-      v = slickReps: _*)
+      v = slickReps: _*).shapedValue
   }
 
 }

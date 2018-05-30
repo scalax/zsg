@@ -100,7 +100,7 @@ class Def extends FlatSpec with Matchers
       description = Some("Returns a product with specific `id`."),
       arguments = NameArg :: Nil,
       resolve = Projector({ (c, fields) =>
-        val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)).shapedValue)
+        val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result.headOption
         println("33" * 10 + action.statements)
         db.run(action)
@@ -109,7 +109,7 @@ class Def extends FlatSpec with Matchers
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
       resolve = Projector({ (c, fields) =>
-        val bindQ = friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)).shapedValue)
+        val bindQ = friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result
         println("33" * 10 + action.statements)
         db.run(action)
