@@ -2,7 +2,7 @@ package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
 import net.scalax.asuna.shape.ShapeHelper
-import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
+import net.scalax.asuna.slick.umr.{ ShapedValueWrap, SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag
@@ -11,15 +11,16 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
 
-  def rep[R, D, T](baseRep: E => R)(implicit shape: Shape[_ <: FlatShapeLevel, R, D, T]): SlickRepWrap[E, D] = {
+  def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
     new SlickRepWrap[E, D] {
       override def slickCv(rep: E): SlickShapeValueWrap[D] = {
         val rep1 = rep
-        val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]]
+        val shape1 = shape
         new SlickShapeValueWrap[D] {
           override type TargetRep = T
           override type Data = D
           override type Rep = R
+          override type Level = L
           override val shape = shape1
           override val dataToList = { (data: D) =>
             data
@@ -33,17 +34,18 @@ trait SlickSangria[E, Data] extends ShapeHelper {
     }
   }
 
-  def repWithKey[R, D, T](baseRep: E => R, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
+  def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
     new SlickSangriaRepWrap[E, D] {
       override val sangraiKey = key
       override val objectKey = completedId.id
       override def slickCv(rep: E): SlickShapeValueWrap[(String, D)] = {
         val rep1 = rep
-        val shape1 = shape.asInstanceOf[Shape[FlatShapeLevel, R, D, T]]
+        val shape1 = shape
         new SlickShapeValueWrap[D] {
           override type TargetRep = T
           override type Data = D
           override type Rep = R
+          override type Level = L
           override val shape = shape1
           override val dataToList = { (data: D) =>
             data
@@ -71,6 +73,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
                 override type TargetRep = Unit
                 override type Data = Unit
                 override type Rep = Unit
+                override type Level = FlatShapeLevel
                 override val shape = implicitly[Shape[FlatShapeLevel, Unit, Unit, Unit]]
                 override val dataToList = { (data: Unit) =>
                   data
@@ -138,7 +141,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
   def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
 
-  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
+  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValueWrap[Data] = {
     val sv = sangriaSv
     val reps = sv.shape.toLawRep(sv.rep).reps
     val filterReps = reps.filter {

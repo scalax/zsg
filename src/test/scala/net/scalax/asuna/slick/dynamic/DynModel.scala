@@ -62,7 +62,7 @@ class DynModel
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = friendTq2.map(s => UmrReaderQuery(new FriendTable2Model(s)))
+    val query = friendTq2.map(s => UmrReaderQuery(new FriendTable2Model(s)).shapedValue)
     logger.info(query.result.statements.toString)
     try {
       val friendQuery = query.result.head
