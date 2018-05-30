@@ -31,16 +31,17 @@ class FriendTable4(tag: slick.lifted.Tag) extends Table[Friends4](tag, "firend4"
   def * = (id, name, nick, age).mapTo[Friends4]
 }
 
-case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4])
+case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4], extAge: Int)
 
 object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper {
   def id = repWithKey(_.id, "id")
   def name = repWithKey(_.name, "name")
   def nick = repWithKey(_.nick, "nick")
   def age = rep(_.age)
+  def extAge = rep(_.age)
 
   override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbs[FriendTable4, Any]] = {
-    (age :: seqRep(id, name, nick) :: HNil).mapReader(Generic[FriendWrap].from)
+    (age :: seqRep(id, name, nick) :: extAge :: HNil).mapReader(Generic[FriendWrap].from)
   }
 }
 

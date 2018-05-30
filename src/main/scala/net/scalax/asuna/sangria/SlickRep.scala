@@ -131,7 +131,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         override def takeData(oldData: DataGroup, rep: List[SlickSangriaRepWrap[E, Any]]): Either[NotConvert, SplitData[List[(String, Any)]]] = {
           oldData.items match {
             case GroupStart(startKey) :: tail =>
-              val (currData, leftData) = tail.span(t => t match {
+              val (currData, endGroup :: leftData) = tail.span(t => t match {
                 case GroupEnd(endKey) if (endKey == startKey) =>
                   false
                 case _ =>
@@ -141,7 +141,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
           }
         }
         override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrap[E, Any]]): Either[NotConvert, DataGroup] = {
-          Right(DataGroup(items = splitData, subs = List.empty))
+          Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty, subs = List.empty))
         }
       }
     }
@@ -184,16 +184,14 @@ trait SlickSangria[E, Data] extends ShapeHelper {
     val sv = sangriaSv
     val reps = sv.shape.toLawRep(sv.rep).reps
     val filterReps = reps.filter { s =>
-      if (s.isInstanceOf[SlickSangriaRepWrap[_, _]] && !keys.contains(s.asInstanceOf[SlickSangriaRepWrap[_, _]].sangraiKey)) {
+      if (s.isInstanceOf[SlickSangriaRepWrap[_, _]] && !keys.contains(s.asInstanceOf[SlickSangriaRepWrap[_, _]].sangraiKey))
         false
-      } else {
-        true
-      }
+      else true
     }
     val slickReps = filterReps.map(t => t.slickCv(rep))
     SlickShapeValueListWrap.apply(convert = { (t: List[Any]) =>
       sv.shape.takeData(DataGroup(items = t, subs = List.empty), sv.rep).right.get.current
-    }, reConvert = { (t: Data) => Option.empty[List[Any]] }, ct = implicitly[ClassTag[Data]], slickReps: _*)
+    }, reConvert = { (_: Data) => Option.empty[List[Any]] }, ct = implicitly[ClassTag[Data]], slickReps: _*)
   }
 
 }
