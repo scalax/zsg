@@ -45,7 +45,7 @@ object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper 
   }
 }
 
-class Def extends FlatSpec with Matchers
+class SangriaTest extends FlatSpec with Matchers
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
@@ -102,7 +102,6 @@ class Def extends FlatSpec with Matchers
       resolve = Projector({ (c, fields) =>
         val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result.headOption
-        println("33" * 10 + action.statements)
         db.run(action)
       })),
 
@@ -111,7 +110,6 @@ class Def extends FlatSpec with Matchers
       resolve = Projector({ (c, fields) =>
         val bindQ = friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result
-        println("33" * 10 + action.statements)
         db.run(action)
       }))))
 
@@ -151,7 +149,6 @@ class Def extends FlatSpec with Matchers
   val result: Future[Json] = Executor.execute(schema, QueryParser.parse("""
     query  MyProduct {
       product(name: "name2") {
-        name
         age
 
         picture(size: 500) {
@@ -161,7 +158,6 @@ class Def extends FlatSpec with Matchers
 
       products {
         id
-        nick
       }
     }
   """).get, (()))
