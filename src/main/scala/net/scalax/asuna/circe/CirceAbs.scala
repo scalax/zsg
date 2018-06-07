@@ -85,26 +85,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
 
 }
 
-object CirceReaderImpl {
-
-  /*implicit def readerShape[T, R]: DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] = {
-    new DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] { self =>
-      override def wrapRep(base: CirceReaderImpl[T, R]): CirceReaderImpl[T, R] = base
-      override def toLawRep(base: CirceReaderImpl[T, R]): DataRepGroup[CirceReaderAbs] = DataRepGroup(reps = List(base))
-      override def takeData(oldData: DataGroup, rep: CirceReaderImpl[T, R]): Either[NotConvert, SplitData[R]] = {
-        oldData.items match {
-          case head :: tail =>
-            Right(SplitData(current = head.asInstanceOf[R], left = DataGroup(items = tail)))
-        }
-      }
-
-      override def buildData(splitData: R, rep: CirceReaderImpl[T, R]): Either[NotConvert, DataGroup] = Right(DataGroup(items = List(splitData)))
-    }
-  }*/
-
-}
-
-object CirceReader {
+trait CirceReaderHelper {
 
   val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
 

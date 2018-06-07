@@ -4,13 +4,11 @@ import cats.data.Validated
 import net.scalax.asuna.shape.ShapeHelper
 import shapeless._
 
-trait CirceModels {
+trait CirceModels extends CirceReaderHelper {
 
   case class Student(id: Int, name: String, age: Long, nick: String)
 
   class CirceModelReader0 extends CirceReaderQuery[Student] with ShapeHelper {
-
-    import CirceReader._
 
     def id = column[Int]("id")
     def name = column[String]("name")

@@ -120,25 +120,6 @@ trait SlickSangria[E, Data] extends ShapeHelper {
     dShapeValue.mapReader(listCv)
   }
 
-  /*implicit def slickRepWrapShapeImplicit[T]: DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbsAbs[E]] = {
-    new DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbsAbs[E]] {
-      self =>
-      override def wrapRep(base: SlickRepWrap[E, T]): SlickRepWrap[E, T] = base
-
-      override def toLawRep(base: SlickRepWrap[E, T]): DataRepGroup[SlickRepAbsAbs[E]] = {
-        DataRepGroup(reps = List(base))
-      }
-
-      override def takeData(oldData: DataGroup, rep: SlickRepWrap[E, T]): Either[NotConvert, SplitData[T]] = {
-        Right(SplitData(current = oldData.items.head.asInstanceOf[T], left = DataGroup(items = oldData.items.tail)))
-      }
-
-      override def buildData(splitData: T, rep: SlickRepWrap[E, T]): Either[NotConvert, DataGroup] = {
-        Right(DataGroup(items = List(splitData)))
-      }
-    }
-  }*/
-
   def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
 
   def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {

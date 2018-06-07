@@ -104,18 +104,5 @@ trait SlickFilterColHelper {
       }
     }
   }
-  /*implicit def readerShape[R]: DataShape[SlickFilterColImpl[R], R, SlickFilterColImpl[R], SlickFilterCol] = {
-    new DataShape[SlickFilterColImpl[R], R, SlickFilterColImpl[R], SlickFilterCol] { self =>
-      override def wrapRep(base: SlickFilterColImpl[R]): SlickFilterColImpl[R] = base
-      override def toLawRep(base: SlickFilterColImpl[R]): DataRepGroup[SlickFilterCol] = DataRepGroup(reps = List(base))
-      override def takeData(oldData: DataGroup, rep: SlickFilterColImpl[R]): Either[NotConvert, SplitData[R]] = {
-        oldData.items match {
-          case head :: tail =>
-            Right(SplitData(current = head.asInstanceOf[R], left = DataGroup(items = tail)))
-        }
-      }
-      override def buildData(splitData: R, rep: SlickFilterColImpl[R]): Either[NotConvert, DataGroup] =
-        Right(DataGroup(items = List(splitData)))
-    }
-  }*/
+
 }
