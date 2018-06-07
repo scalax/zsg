@@ -63,7 +63,6 @@ trait DataShapeValueInitWrap[D] {
 object DataShapeValue {
 
   implicit def dataShapeValueShape[U, T]: DataShape[DataShapeValue[U, T], U, DataShapeValue[U, T], T] = {
-
     new DataShape[DataShapeValue[U, T], U, DataShapeValue[U, T], T] {
       self =>
       override def wrapRep(base: DataShapeValue[U, T]): DataShapeValue[U, T] = base
@@ -71,7 +70,6 @@ object DataShapeValue {
       override def takeData(oldData: DataGroup, rep: DataShapeValue[U, T]): Either[NotConvert, SplitData[U]] = rep.shape.takeData(oldData, rep.rep)
       override def buildData(splitData: U, rep: DataShapeValue[U, T]): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
     }
-
   }
 
   def toShapeValue[D]: DataShapeValueInitWrap[D] = new DataShapeValueInitWrap[D] {}
