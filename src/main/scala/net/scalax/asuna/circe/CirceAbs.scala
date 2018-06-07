@@ -89,17 +89,16 @@ trait CirceReaderHelper {
 
   val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
 
-  def column[T](keyName: String)(
-    implicit
-    encoder: Decoder[T]): CirceReaderImpl[T, T] = {
+  def column[T](keyName: String)(implicit encoder: Decoder[T]): CirceReaderImpl[T, T] = {
     val keyName1 = keyName
-    new CirceReaderImpl[T, T] {
+    val r = new CirceReaderImpl[T, T] {
       override val keyName = keyName1
       override val circeReader = encoder
       override def validate(common: T): Future[Validated[ValidateModel, T]] = {
         Future.successful(Validated.valid(common))
       }
     }
+    r
   }
 
 }

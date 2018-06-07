@@ -1,7 +1,7 @@
 package net.scalax.asuna.shape
 
 import net.scalax.asuna.core._
-import shapeless.{ ::, HList, HNil }
+import shapeless.{ ::, HList }
 
 import scala.language.implicitConversions
 

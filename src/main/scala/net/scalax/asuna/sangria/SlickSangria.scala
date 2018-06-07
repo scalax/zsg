@@ -12,7 +12,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
 
   def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
-    new SlickRepWrap[E, D] {
+    val w = new SlickRepWrap[E, D] {
       override def slickCv(rep: E): SlickShapeValueWrap[D] = {
         val rep1 = rep
         val shape1 = shape
@@ -32,6 +32,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         }
       }
     }
+    w
   }
 
   def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
@@ -91,8 +92,8 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         }
         override def takeData(oldData: DataGroup, rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, SplitData[List[(String, Any)]]] = {
           oldData.items match {
-            case GroupStart(startKey) :: tail =>
-              val (currData, endGroup :: leftData) = tail.span(t => t match {
+            case scala.::(GroupStart(startKey), tail) =>
+              val (currData, scala.::(endGroup, leftData)) = tail.span(t => t match {
                 case GroupEnd(endKey) if (endKey == startKey) =>
                   false
                 case _ =>

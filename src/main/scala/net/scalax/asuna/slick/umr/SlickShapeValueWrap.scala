@@ -52,14 +52,15 @@ trait SlickShapeValueWrapHelper {
   val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
 
   def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] = {
-    rep(baseRep).map[(String, Json)] { (s: B) =>
+    val w = rep(baseRep).map[(String, Json)] { (s: B) =>
       (key, s.asJson(encoder))
     }
+    w
   }
 
   def rep[R, D, T, L <: FlatShapeLevel](baseRep: R)(implicit shape: Shape[L, R, D, T]): SlickShapeValueWrap[D] = {
     val shape1 = shape
-    new SlickShapeValueWrap[D] {
+    val w = new SlickShapeValueWrap[D] {
       override type TargetRep = T
       override type Data = D
       override type Rep = R
@@ -73,6 +74,7 @@ trait SlickShapeValueWrapHelper {
       }
       override val rep = baseRep
     }
+    w
   }
 
 }
