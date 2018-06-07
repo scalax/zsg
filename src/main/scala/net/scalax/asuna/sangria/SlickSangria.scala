@@ -2,7 +2,7 @@ package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
 import net.scalax.asuna.shape.ShapeHelper
-import net.scalax.asuna.slick.umr.{ ShapedValueWrap, SlickShapeValueListWrap, SlickShapeValueWrap }
+import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag
@@ -87,7 +87,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
           }
           val start: SlickRepAbs[E, Any] = unitWrap.map((_: Unit) => GroupStart(completedId.id): Any)
           val end: SlickRepAbs[E, Any] = unitWrap.map((_: Unit) => GroupEnd(completedId.id): Any)
-          DataRepGroup(reps = start :: base ::: end :: List.empty, subs = List.empty)
+          DataRepGroup(reps = start :: base ::: end :: List.empty)
         }
         override def takeData(oldData: DataGroup, rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, SplitData[List[(String, Any)]]] = {
           oldData.items match {
@@ -98,11 +98,11 @@ trait SlickSangria[E, Data] extends ShapeHelper {
                 case _ =>
                   true
               })
-              Right(SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData, subs = List.empty)))
+              Right(SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData)))
           }
         }
         override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, DataGroup] = {
-          Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty, subs = List.empty))
+          Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty))
         }
       }
     }
@@ -120,25 +120,6 @@ trait SlickSangria[E, Data] extends ShapeHelper {
     dShapeValue.mapReader(listCv)
   }
 
-  implicit def slickRepWrapShapeImplicit[T]: DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbsAbs[E]] = {
-    new DataShape[SlickRepWrap[E, T], T, SlickRepWrap[E, T], SlickRepAbsAbs[E]] {
-      self =>
-      override def wrapRep(base: SlickRepWrap[E, T]): SlickRepWrap[E, T] = base
-
-      override def toLawRep(base: SlickRepWrap[E, T]): DataRepGroup[SlickRepAbsAbs[E]] = {
-        DataRepGroup(reps = List(base), subs = List.empty)
-      }
-
-      override def takeData(oldData: DataGroup, rep: SlickRepWrap[E, T]): Either[NotConvert, SplitData[T]] = {
-        Right(SplitData(current = oldData.items.head.asInstanceOf[T], left = DataGroup(items = oldData.items.tail, subs = oldData.subs)))
-      }
-
-      override def buildData(splitData: T, rep: SlickRepWrap[E, T]): Either[NotConvert, DataGroup] = {
-        Right(DataGroup(items = List(splitData), subs = List.empty))
-      }
-    }
-  }
-
   def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
 
   def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
@@ -152,7 +133,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
     SlickShapeValueListWrap(
       convert = { (t: List[Any]) =>
-        sv.shape.takeData(DataGroup(items = t, subs = List.empty), sv.rep).right.get.current
+        sv.shape.takeData(DataGroup(items = t), sv.rep).right.get.current
       },
       reConvert = { (_: Data) => Option.empty[List[Any]] },
       ct = implicitly[ClassTag[Data]],

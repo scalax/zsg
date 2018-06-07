@@ -22,8 +22,11 @@ trait SlickFilterCol {
   def toOptionCondition(data: InputDataType): Rep[Option[Boolean]]
 }
 
-trait SlickFilterColImpl[D] extends SlickFilterCol {
+trait SlickFilterColImpl[D] extends SlickFilterCol with AtomicColumn[D, SlickFilterCol] {
+  self =>
+
   override type InputDataType = D
+  override def common: SlickFilterCol = self
 }
 
 object SlickFilterColImpl {
@@ -99,21 +102,6 @@ trait SlickFilterColHelper {
             LiteralColumn(Option(true))
         }
       }
-    }
-  }
-
-  implicit def readerShape[R]: DataShape[SlickFilterColImpl[R], R, SlickFilterColImpl[R], SlickFilterCol] = {
-    new DataShape[SlickFilterColImpl[R], R, SlickFilterColImpl[R], SlickFilterCol] { self =>
-      override def wrapRep(base: SlickFilterColImpl[R]): SlickFilterColImpl[R] = base
-      override def toLawRep(base: SlickFilterColImpl[R]): DataRepGroup[SlickFilterCol] = DataRepGroup(reps = List(base), subs = List.empty)
-      override def takeData(oldData: DataGroup, rep: SlickFilterColImpl[R]): Either[NotConvert, SplitData[R]] = {
-        oldData.items match {
-          case head :: tail =>
-            Right(SplitData(current = head.asInstanceOf[R], left = DataGroup(items = tail, subs = oldData.subs)))
-        }
-      }
-      override def buildData(splitData: R, rep: SlickFilterColImpl[R]): Either[NotConvert, DataGroup] =
-        Right(DataGroup(items = List(splitData), subs = List.empty))
     }
   }
 

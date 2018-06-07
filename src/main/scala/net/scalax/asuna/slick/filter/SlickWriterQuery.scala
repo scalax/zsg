@@ -1,7 +1,6 @@
 package net.scalax.asuna.slick.filter
 
 import net.scalax.asuna.core.{ DataShape, DataShapeValue }
-import net.scalax.asuna.slick.filter.SlickFilterCol
 import slick.lifted.Query
 
 import scala.language.higherKinds

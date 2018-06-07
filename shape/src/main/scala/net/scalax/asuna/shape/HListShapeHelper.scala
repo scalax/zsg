@@ -10,9 +10,9 @@ trait HListShapeHelper {
   implicit def hnilDateShape[J]: DataShape[HNil, HNil, HNil, J] = {
     new DataShape[HNil, HNil, HNil, J] { self =>
       override def wrapRep(base: HNil): HNil = base
-      override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty, subs = List.empty)
+      override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty)
       override def takeData(oldData: DataGroup, rep: HNil): Either[NotConvert, SplitData[HNil]] = Right(SplitData(current = HNil, left = oldData))
-      override def buildData(splitData: HNil, rep: HNil): Either[NotConvert, DataGroup] = Right(DataGroup(items = List.empty, subs = List.empty))
+      override def buildData(splitData: HNil, rep: HNil): Either[NotConvert, DataGroup] = Right(DataGroup(items = List.empty))
     }
   }
 
@@ -31,8 +31,7 @@ trait HListShapeHelper {
         val headGroup = head.toLawRep(headRep)
         val tailGroup = tail.toLawRep(tailRep)
         DataRepGroup(
-          reps = headGroup.reps ::: tailGroup.reps,
-          subs = headGroup.subs ::: tailGroup.subs)
+          reps = headGroup.reps ::: tailGroup.reps)
       }
 
       override def takeData(oldData: DataGroup, rep: M :: N): Either[NotConvert, SplitData[H :: I]] = {
@@ -52,7 +51,7 @@ trait HListShapeHelper {
           newData1 <- head.buildData(headData, headRep).right
           newData2 <- tail.buildData(tailData, tailRep).right
         } yield {
-          DataGroup(items = newData1.items ::: newData2.items, subs = newData1.subs ::: newData2.subs)
+          DataGroup(items = newData1.items ::: newData2.items)
         }
       }
 

@@ -1,6 +1,6 @@
 package net.scalax.asuna.core
 
-import cats.{ Monad, Traverse }
+import cats.Traverse
 import io.circe.Decoder
 import cats.data._
 import cats.implicits._
@@ -26,11 +26,12 @@ trait CirceReaderAbs {
 
 }
 
-trait CirceReaderImpl[T, R] extends CirceReaderAbs {
+trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceReaderAbs] {
   self =>
 
   override type DataType = T
   override type ResultType = R
+  override def common: CirceReaderAbs = self
 
   def map[H](c: R => H): CirceReaderImpl[T, H] = {
     new CirceReaderImpl[T, H] {
@@ -84,26 +85,9 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
 
 }
 
-object CirceReaderImpl {
+trait CirceReaderHelper {
 
-  implicit def readerShape[T, R]: DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] = {
-    new DataShape[CirceReaderImpl[T, R], R, CirceReaderImpl[T, R], CirceReaderAbs] { self =>
-      override def wrapRep(base: CirceReaderImpl[T, R]): CirceReaderImpl[T, R] = base
-      override def toLawRep(base: CirceReaderImpl[T, R]): DataRepGroup[CirceReaderAbs] = DataRepGroup(reps = List(base), subs = List.empty)
-      override def takeData(oldData: DataGroup, rep: CirceReaderImpl[T, R]): Either[NotConvert, SplitData[R]] = {
-        oldData.items match {
-          case head :: tail =>
-            Right(SplitData(current = head.asInstanceOf[R], left = DataGroup(items = tail, subs = oldData.subs)))
-        }
-      }
-
-      override def buildData(splitData: R, rep: CirceReaderImpl[T, R]): Either[NotConvert, DataGroup] = Right(DataGroup(items = List(splitData), subs = List.empty))
-    }
-  }
-
-}
-
-object CirceReader {
+  val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
 
   def column[T](keyName: String)(
     implicit
