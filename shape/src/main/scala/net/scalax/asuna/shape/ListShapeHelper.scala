@@ -11,7 +11,7 @@ trait ListShapeHelper {
       override def wrapRep(base: List[A]): List[C] = base.map(shape.wrapRep)
       override def toLawRep(base: List[C]): DataRepGroup[D] = {
         val l = base.map(shape.toLawRep)
-        DataRepGroup(reps = l.flatMap(_.reps), subs = l.flatMap(_.subs))
+        DataRepGroup(reps = l.flatMap(_.reps))
       }
       override def takeData(oldData: DataGroup, rep: List[C]): Either[NotConvert, SplitData[List[B]]] = {
         rep.foldLeft(
@@ -28,11 +28,11 @@ trait ListShapeHelper {
         val l = splitData.zip(rep)
         val dg = l.map { case (d, r) => shape.buildData(d, r) }
         dg.foldLeft(
-          Right(DataGroup(items = List.empty[Any], subs = List.empty)): Either[NotConvert, DataGroup]) {
+          Right(DataGroup(items = List.empty[Any])): Either[NotConvert, DataGroup]) {
             case (frontEt, backEt) =>
               frontEt.right.flatMap { front =>
                 backEt.right.map { back =>
-                  DataGroup(items = front.items ::: back.items, subs = front.subs ::: back.subs)
+                  DataGroup(items = front.items ::: back.items)
                 }
               }
           }

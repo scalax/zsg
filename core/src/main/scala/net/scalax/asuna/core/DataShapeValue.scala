@@ -8,18 +8,18 @@ trait DataShapeValue[U, T] {
   val shape: DataShape[RepType, U, RepType, T]
 
   def mapReader[F](cv: U => F): DataShapeValue[F, T] = {
-    <>((s: U) => Option(cv(s)))((_: F) => Option.empty)
+    map((s: U) => Option(cv(s)))((_: F) => Option.empty)
   }
 
   def mapWriter[F](reCv: F => U): DataShapeValue[F, T] = {
-    <>((_: U) => Option.empty[F])((s: F) => Option(reCv(s)))
+    map((_: U) => Option.empty[F])((s: F) => Option(reCv(s)))
   }
 
   def mapFull[F](cv: U => F)(reCv: F => U): DataShapeValue[F, T] = {
-    <>((s: U) => Option(cv(s)))((s: F) => Option(reCv(s)))
+    map((s: U) => Option(cv(s)))((s: F) => Option(reCv(s)))
   }
 
-  def <>[F](cv: U => Option[F])(reCv: F => Option[U]): DataShapeValue[F, T] = new DataShapeValue[F, T] {
+  def map[F](cv: U => Option[F])(reCv: F => Option[U]): DataShapeValue[F, T] = new DataShapeValue[F, T] {
     override type RepType = self.RepType
     override val rep = self.rep
     override val shape = new DataShape[self.RepType, F, self.RepType, T] {

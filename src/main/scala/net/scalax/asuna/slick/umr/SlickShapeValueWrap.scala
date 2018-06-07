@@ -20,10 +20,12 @@ trait SlickShapeValueWrapAbs {
 
 }
 
-trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs {
+trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with AtomicColumn[F, SlickShapeValueWrapAbs] {
   self =>
 
   override type OutPut = F
+
+  override def common: SlickShapeValueWrapAbs = self
 
   def map[H](
     t: F => H,
@@ -72,24 +74,22 @@ trait SlickShapeValueWrapHelper {
       override val rep = baseRep
     }
   }
-
-  implicit def shapeValueWrapShapeImplicit[T]: DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrapAbs] = {
+  /*implicit def shapeValueWrapShapeImplicit[T]: DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrapAbs] = {
     new DataShape[SlickShapeValueWrap[T], T, SlickShapeValueWrap[T], SlickShapeValueWrapAbs] {
       self =>
       override def wrapRep(base: SlickShapeValueWrap[T]): SlickShapeValueWrap[T] = base
 
       override def toLawRep(base: SlickShapeValueWrap[T]): DataRepGroup[SlickShapeValueWrapAbs] = {
-        DataRepGroup(reps = List(base), subs = List.empty)
+        DataRepGroup(reps = List(base))
       }
 
       override def takeData(oldData: DataGroup, rep: SlickShapeValueWrap[T]): Either[NotConvert, SplitData[T]] = {
-        Right(SplitData(current = oldData.items.head.asInstanceOf[T], left = DataGroup(items = oldData.items.tail, subs = oldData.subs)))
+        Right(SplitData(current = oldData.items.head.asInstanceOf[T], left = DataGroup(items = oldData.items.tail)))
       }
 
       override def buildData(splitData: T, rep: SlickShapeValueWrap[T]): Either[NotConvert, DataGroup] = {
-        Right(DataGroup(items = List(splitData), subs = List.empty))
+        Right(DataGroup(items = List(splitData)))
       }
     }
-  }
-
+  }*/
 }
