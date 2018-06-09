@@ -5,6 +5,9 @@ import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
 
+import shapeless._
+import tag._
+
 trait SlickShapeValueWrapAbs {
   self =>
 
@@ -51,14 +54,14 @@ trait SlickShapeValueWrapHelper {
 
   val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
 
-  def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] = {
+  def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] @@ OutputTag = {
     val w = rep(baseRep).map[(String, Json)] { (s: B) =>
       (key, s.asJson(encoder))
     }
-    w
+    AtomicColumn.tagOutput(w)
   }
 
-  def rep[R, D, T, L <: FlatShapeLevel](baseRep: R)(implicit shape: Shape[L, R, D, T]): SlickShapeValueWrap[D] = {
+  def rep[R, D, T, L <: FlatShapeLevel](baseRep: R)(implicit shape: Shape[L, R, D, T]): SlickShapeValueWrap[D] @@ OutputTag = {
     val shape1 = shape
     val w = new SlickShapeValueWrap[D] {
       override type TargetRep = T
@@ -74,7 +77,7 @@ trait SlickShapeValueWrapHelper {
       }
       override val rep = baseRep
     }
-    w
+    AtomicColumn.tagOutput(w)
   }
 
 }

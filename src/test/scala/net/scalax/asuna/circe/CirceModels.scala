@@ -29,19 +29,21 @@ trait CirceModels extends CirceReaderHelper {
 
   trait CirceModelReader1 extends CirceModelReader0 {
 
-    override val age = super.age.validate { l =>
+    val age11 = super.age.validate { l =>
       if (l < minAge)
         Validated.invalidNel(validateStr1)
       else
         Validated.validNel(l)
     }
 
-    override val nick = super.nick.validate { l =>
+    val nick22 = super.nick.validate { l =>
       if (l.size < 30)
         Validated.invalidNel(validateStr2)
       else
         Validated.validNel(l)
     }
+
+    override lazy val playCirceSv = (id :: name :: age11 :: nick22 :: HNil).mapFull(s => gen.from(s))(t => gen.to(t))
 
   }
 

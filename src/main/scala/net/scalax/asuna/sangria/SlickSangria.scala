@@ -5,13 +5,16 @@ import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
+import shapeless._
+import tag._
+
 import scala.reflect.ClassTag
 
 trait SlickSangria[E, Data] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
 
-  def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
+  def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] @@ OutputTag = {
     val w = new SlickRepWrap[E, D] {
       override def slickCv(rep: E): SlickShapeValueWrap[D] = {
         val rep1 = rep
@@ -32,7 +35,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         }
       }
     }
-    w
+    AtomicColumn.tagOutput(w)
   }
 
   def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {

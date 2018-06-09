@@ -5,6 +5,9 @@ import io.circe.{ Decoder, Json, JsonObject }
 import net.scalax.asuna.core._
 import slick.ast.BaseTypedType
 
+import shapeless._
+import tag._
+
 import scala.language.implicitConversions
 
 trait SFilterColHelper[D] {
@@ -70,7 +73,7 @@ trait SlickFilterColHelper {
     }
   }
 
-  def filterRep[D](rep: slick.lifted.Rep[D])(implicit b: SFilterColHelper[D], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[D] = {
+  def filterRep[D](rep: slick.lifted.Rep[D])(implicit b: SFilterColHelper[D], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[D] @@ OutputTag = {
     import profile.api._
     val h = new SlickFilterColImpl[D] { self =>
       override def toOptionCondition(data: D): Rep[Option[Boolean]] = {
@@ -78,10 +81,10 @@ trait SlickFilterColHelper {
         b.rep2OptRep(rep) === b.data2OptData(data)
       }
     }
-    h
+    AtomicColumn.tagOutput(h)
   }
 
-  def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
+  def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] @@ OutputTag = {
     import profile.api._
     val h = new SlickFilterColImpl[Option[D]] { self =>
       override def toOptionCondition(data: Option[D]): Rep[Option[Boolean]] = {
@@ -89,10 +92,10 @@ trait SlickFilterColHelper {
         b.rep2OptRep(rep) === b.data2OptData(data)
       }
     }
-    h
+    AtomicColumn.tagOutput(h)
   }
 
-  def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] = {
+  def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] @@ OutputTag = {
     val f = filterRep(rep)
     val h = new SlickFilterColImpl[JsonObject] {
       import profile.api._
@@ -105,7 +108,7 @@ trait SlickFilterColHelper {
         }
       }
     }
-    h
+    AtomicColumn.tagOutput(h)
   }
 
 }
