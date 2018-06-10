@@ -25,7 +25,7 @@ trait SlickFilterCol {
   def toOptionCondition(data: InputDataType): Rep[Option[Boolean]]
 }
 
-trait SlickFilterColImpl[D] extends SlickFilterCol with AtomicColumn[D, SlickFilterCol] {
+trait SlickFilterColImpl[D] extends SlickFilterCol with OutputTag[D, SlickFilterCol] {
   self =>
 
   override type InputDataType = D
@@ -73,7 +73,7 @@ trait SlickFilterColHelper {
     }
   }
 
-  def filterRep[D](rep: slick.lifted.Rep[D])(implicit b: SFilterColHelper[D], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[D] @@ OutputTag = {
+  def filterRep[D](rep: slick.lifted.Rep[D])(implicit b: SFilterColHelper[D], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[D] = {
     import profile.api._
     val h = new SlickFilterColImpl[D] { self =>
       override def toOptionCondition(data: D): Rep[Option[Boolean]] = {
@@ -81,10 +81,10 @@ trait SlickFilterColHelper {
         b.rep2OptRep(rep) === b.data2OptData(data)
       }
     }
-    AtomicColumn.tagOutput(h)
+    h
   }
 
-  def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] @@ OutputTag = {
+  def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
     import profile.api._
     val h = new SlickFilterColImpl[Option[D]] { self =>
       override def toOptionCondition(data: Option[D]): Rep[Option[Boolean]] = {
@@ -92,10 +92,10 @@ trait SlickFilterColHelper {
         b.rep2OptRep(rep) === b.data2OptData(data)
       }
     }
-    AtomicColumn.tagOutput(h)
+    h
   }
 
-  def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] @@ OutputTag = {
+  def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] = {
     val f = filterRep(rep)
     val h = new SlickFilterColImpl[JsonObject] {
       import profile.api._
@@ -108,7 +108,7 @@ trait SlickFilterColHelper {
         }
       }
     }
-    AtomicColumn.tagOutput(h)
+    h
   }
 
 }

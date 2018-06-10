@@ -6,9 +6,6 @@ import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
 
-import shapeless._
-import tag._
-
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -29,14 +26,14 @@ trait CirceReaderAbs {
 
 }
 
-trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceReaderAbs] {
+trait CirceReaderImpl[T, R] extends CirceReaderAbs with OutputTag[R, CirceReaderAbs] {
   self =>
 
   override type DataType = T
   override type ResultType = R
   override def common: CirceReaderAbs = self
 
-  def map[H](c: R => H): CirceReaderImpl[T, H] @@ OutputTag = {
+  def map[H](c: R => H): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
       override def keyName = self.keyName
       override def circeReader = self.circeReader
@@ -44,10 +41,10 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
         self.validate(common).map(_.map(c))
       }
     }
-    AtomicColumn.tagOutput(r)
+    r
   }
 
-  def validate[H](c: R => ValidatedNel[String, H]): CirceReaderImpl[T, H] @@ OutputTag = {
+  def validate[H](c: R => ValidatedNel[String, H]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
       override def keyName = self.keyName
       override def circeReader = self.circeReader
@@ -60,10 +57,10 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
         self.validate(common).map(_.andThen(r))
       }
     }
-    AtomicColumn.tagOutput(r)
+    r
   }
 
-  def mapM[H](c: R => Future[H]): CirceReaderImpl[T, H] @@ OutputTag = {
+  def mapM[H](c: R => Future[H]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
       override def keyName = self.keyName
       override def circeReader = self.circeReader
@@ -71,10 +68,10 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
         self.validate(common).map(_.map(c)).flatMap(r => Traverse[Validated[ValidateModel, ?]].sequence(r))
       }
     }
-    AtomicColumn.tagOutput(r)
+    r
   }
 
-  def validateM[H](c: R => Future[ValidatedNel[String, H]]): CirceReaderImpl[T, H] @@ OutputTag = {
+  def validateM[H](c: R => Future[ValidatedNel[String, H]]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
       override def keyName = self.keyName
       override def circeReader = self.circeReader
@@ -87,7 +84,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
         self.validate(common).flatMap(s => Traverse[Validated[ValidateModel, ?]].sequence(s.map(r)).map(_.andThen(identity)))
       }
     }
-    AtomicColumn.tagOutput(r)
+    r
   }
 
 }
@@ -96,7 +93,7 @@ trait CirceReaderHelper {
 
   val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
 
-  def column[T](keyName: String)(implicit encoder: Decoder[T]): CirceReaderImpl[T, T] with Tagged[OutputTag] with Tagged[InputTag] = {
+  def column[T](keyName: String)(implicit encoder: Decoder[T]): CirceReaderImpl[T, T] = {
     val keyName1 = keyName
     val r = new CirceReaderImpl[T, T] {
       override val keyName = keyName1
@@ -105,7 +102,7 @@ trait CirceReaderHelper {
         Future.successful(Validated.valid(common))
       }
     }
-    AtomicColumn.tagInput(AtomicColumn.tagOutput(r))
+    r
   }
 
 }

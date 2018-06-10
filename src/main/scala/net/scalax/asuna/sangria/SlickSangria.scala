@@ -14,7 +14,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
 
-  def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] @@ OutputTag = {
+  def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
     val w = new SlickRepWrap[E, D] {
       override def slickCv(rep: E): SlickShapeValueWrap[D] = {
         val rep1 = rep
@@ -35,7 +35,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         }
       }
     }
-    AtomicColumn.tagOutput(w)
+    w
   }
 
   def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {

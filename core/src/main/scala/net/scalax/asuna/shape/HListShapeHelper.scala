@@ -8,7 +8,8 @@ import scala.language.implicitConversions
 trait HListShapeHelper {
 
   implicit def hnilDateShape[J]: DataShape[HNil, HNil, HNil, J] = {
-    new DataShape[HNil, HNil, HNil, J] { self =>
+    new DataShape[HNil, HNil, HNil, J] {
+      self =>
       override def wrapRep(base: HNil): HNil = base
       override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty)
       override def takeData(oldData: DataGroup, rep: HNil): Either[NotConvert, SplitData[HNil]] = Right(SplitData(current = HNil, left = oldData))
