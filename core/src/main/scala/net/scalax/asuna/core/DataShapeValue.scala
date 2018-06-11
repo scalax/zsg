@@ -7,7 +7,7 @@ trait DataShapeValue[U, T] {
   val rep: RepType
   val shape: DataShape[RepType, U, RepType, T]
 
-  def mapReader[F](cv: U => F): DataShapeValue[F, T] = {
+  /*def mapReader[F](cv: U => F): DataShapeValue[F, T] = {
     map((s: U) => Option(cv(s)))((_: F) => Option.empty)
   }
 
@@ -17,9 +17,10 @@ trait DataShapeValue[U, T] {
 
   def mapFull[F](cv: U => F)(reCv: F => U): DataShapeValue[F, T] = {
     map((s: U) => Option(cv(s)))((s: F) => Option(reCv(s)))
-  }
+  }*/
 
-  def map[F](cv: U => Option[F])(reCv: F => Option[U]): DataShapeValue[F, T] = new DataShapeValue[F, T] {
+  //def map[F](cv: U => Option[F])(reCv: F => Option[U]): DataShapeValue[F, T] = new DataShapeValue[F, T] {
+  def map[F](cv: U => F): DataShapeValue[F, T] = new DataShapeValue[F, T] {
     override type RepType = self.RepType
     override val rep = self.rep
     override val shape = new DataShape[self.RepType, F, self.RepType, T] {
@@ -32,24 +33,26 @@ trait DataShapeValue[U, T] {
 
         data.right.flatMap { d =>
           val current = cv(d.current)
-          current match {
+          Right(SplitData(
+            current = current,
+            left = d.left))
+          /*current match {
             case Some(s) => Right(SplitData(
               current = s,
               left = d.left))
             case None =>
               Left(NotConvert.value)
-          }
+          }*/
         }
       }
-
-      override def buildData(splitData: F, rep: RepType): Either[NotConvert, DataGroup] = {
+      /*override def buildData(splitData: F, rep: RepType): Either[NotConvert, DataGroup] = {
         reCv(splitData) match {
           case Some(s) =>
             self.shape.buildData(s, rep)
           case _ =>
             Left(NotConvert.value)
         }
-      }
+      }*/
     }
   }
 }
@@ -68,7 +71,7 @@ object DataShapeValue {
       override def wrapRep(base: DataShapeValue[U, T]): DataShapeValue[U, T] = base
       override def toLawRep(base: DataShapeValue[U, T]): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
       override def takeData(oldData: DataGroup, rep: DataShapeValue[U, T]): Either[NotConvert, SplitData[U]] = rep.shape.takeData(oldData, rep.rep)
-      override def buildData(splitData: U, rep: DataShapeValue[U, T]): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
+      //override def buildData(splitData: U, rep: DataShapeValue[U, T]): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
     }
   }
 

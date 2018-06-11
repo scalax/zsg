@@ -30,9 +30,9 @@ trait DataAtomicShapeHelper {
         val scala.::(head, tail) = oldData.items
         Right(SplitData(current = head.asInstanceOf[A], left = DataGroup(items = tail)))
       }
-      override def buildData(splitData: A, rep: OutputTag[A, C]): Either[NotConvert, DataGroup] = {
+      /*override def buildData(splitData: A, rep: OutputTag[A, C]): Either[NotConvert, DataGroup] = {
         Right(DataGroup(items = List(splitData)))
-      }
+      }*/
     }
   }
 

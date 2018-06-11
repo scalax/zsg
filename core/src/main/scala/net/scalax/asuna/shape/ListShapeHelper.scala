@@ -24,7 +24,7 @@ trait ListShapeHelper {
             }
           }
       }
-      override def buildData(splitData: List[B], rep: List[C]): Either[NotConvert, DataGroup] = {
+      /*override def buildData(splitData: List[B], rep: List[C]): Either[NotConvert, DataGroup] = {
         val l = splitData.zip(rep)
         val dg = l.map { case (d, r) => shape.buildData(d, r) }
         dg.foldLeft(
@@ -36,7 +36,7 @@ trait ListShapeHelper {
                 }
               }
           }
-      }
+      }*/
     }
   }
 

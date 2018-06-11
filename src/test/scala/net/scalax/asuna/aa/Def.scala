@@ -41,7 +41,7 @@ object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper 
   def extAge = rep(_.age)
 
   override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbsAbs[FriendTable4]] = {
-    (age :: seqRep(id, name, nick) :: extAge :: HNil).mapReader(Generic[FriendWrap].from)
+    (age :: seqRep(id, name, nick) :: extAge :: HNil).map(Generic[FriendWrap].from)
   }
 }
 
@@ -67,6 +67,10 @@ class SangriaTest extends FlatSpec with Matchers
 
   override def beforeAll = {
     await(db.run(friendTq4.schema.create))
+  }
+
+  override def afterAll = {
+    await(db.run(friendTq4.schema.drop))
   }
 
   before {
@@ -146,7 +150,7 @@ class SangriaTest extends FlatSpec with Matchers
 
   lazy val schema = Schema(QueryType)
 
-  val result: Future[Json] = Executor.execute(schema, QueryParser.parse("""
+  lazy val result: Future[Json] = Executor.execute(schema, QueryParser.parse("""
     query  MyProduct {
       product(name: "name2") {
         age

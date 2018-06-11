@@ -19,9 +19,9 @@ object DataProvenShape {
       override def takeData(oldData: DataGroup, rep: R): Either[NotConvert, SplitData[U]] =
         rep.dataShapeValue.shape.takeData(oldData, rep.dataShapeValue.rep)
 
-      override def buildData(splitData: U, rep: R): Either[NotConvert, DataGroup] = {
+      /*override def buildData(splitData: U, rep: R): Either[NotConvert, DataGroup] = {
         rep.dataShapeValue.shape.buildData(splitData, rep.dataShapeValue.rep)
-      }
+      }*/
     }
 
   }

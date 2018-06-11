@@ -105,9 +105,9 @@ trait SlickSangria[E, Data] extends ShapeHelper {
               Right(SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData)))
           }
         }
-        override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, DataGroup] = {
+        /*override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, DataGroup] = {
           Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty))
-        }
+        }*/
       }
     }
 
@@ -121,7 +121,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
         }
       }
     }
-    dShapeValue.mapReader(listCv)
+    dShapeValue.map(listCv)
   }
 
   def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
