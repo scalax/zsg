@@ -16,7 +16,7 @@ object DataProvenShape {
       override def toLawRep(base: R): DataRepGroup[T] =
         base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep))
 
-      override def takeData(oldData: DataGroup, rep: R): Either[NotConvert, SplitData[U]] =
+      override def takeData(oldData: DataGroup, rep: R): SplitData[U] =
         rep.dataShapeValue.shape.takeData(oldData, rep.dataShapeValue.rep)
 
       /*override def buildData(splitData: U, rep: R): Either[NotConvert, DataGroup] = {

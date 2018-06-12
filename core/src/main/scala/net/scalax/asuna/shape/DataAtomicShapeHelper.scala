@@ -26,9 +26,9 @@ trait DataAtomicShapeHelper {
         val base1: OutputTag[A, C] = base
         DataRepGroup(reps = List(base1.common))
       }
-      override def takeData(oldData: DataGroup, rep: OutputTag[A, C]): Either[NotConvert, SplitData[A]] = {
+      override def takeData(oldData: DataGroup, rep: OutputTag[A, C]): SplitData[A] = {
         val scala.::(head, tail) = oldData.items
-        Right(SplitData(current = head.asInstanceOf[A], left = DataGroup(items = tail)))
+        SplitData(current = head.asInstanceOf[A], left = DataGroup(items = tail))
       }
       /*override def buildData(splitData: A, rep: OutputTag[A, C]): Either[NotConvert, DataGroup] = {
         Right(DataGroup(items = List(splitData)))

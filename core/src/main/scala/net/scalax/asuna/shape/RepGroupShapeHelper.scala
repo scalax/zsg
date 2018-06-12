@@ -14,7 +14,7 @@ trait RepGroupShapeHelper {
         shape.wrapRep(head)
       }
       override def toLawRep(base: G): DataRepGroup[H] = shape.toLawRep(base)
-      override def takeData(oldData: DataGroup, rep: G): Either[NotConvert, SplitData[E]] = shape.takeData(oldData, rep)
+      override def takeData(oldData: DataGroup, rep: G): SplitData[E] = shape.takeData(oldData, rep)
       //override def buildData(splitData: E, rep: G): Either[NotConvert, DataGroup] = shape.buildData(splitData, rep)
     }
   }
@@ -29,7 +29,7 @@ trait RepGroupShapeHelper {
         shape.wrapRep(rGroup)
       }
       override def toLawRep(base: J): DataRepGroup[H] = shape.toLawRep(base)
-      override def takeData(oldData: DataGroup, rep: J): Either[NotConvert, SplitData[F]] = shape.takeData(oldData, rep)
+      override def takeData(oldData: DataGroup, rep: J): SplitData[F] = shape.takeData(oldData, rep)
       //override def buildData(splitData: F, rep: J): Either[NotConvert, DataGroup] = shape.buildData(splitData, rep)
     }
   }

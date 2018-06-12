@@ -28,10 +28,13 @@ trait DataShapeValue[U, T] {
 
       override def wrapRep(base: self.RepType): self.RepType = base
       override def toLawRep(base: self.RepType): DataRepGroup[T] = self.shape.toLawRep(self.rep)
-      override def takeData(oldData: DataGroup, rep: self.RepType): Either[NotConvert, SplitData[F]] = {
+      override def takeData(oldData: DataGroup, rep: self.RepType): SplitData[F] = {
         val data = self.shape.takeData(oldData, rep)
-
-        data.right.flatMap { d =>
+        val current = cv(data.current)
+        SplitData(
+          current = current,
+          left = data.left)
+        /*data.right.flatMap { d =>
           val current = cv(d.current)
           Right(SplitData(
             current = current,
@@ -43,7 +46,7 @@ trait DataShapeValue[U, T] {
             case None =>
               Left(NotConvert.value)
           }*/
-        }
+        }*/
       }
       /*override def buildData(splitData: F, rep: RepType): Either[NotConvert, DataGroup] = {
         reCv(splitData) match {
@@ -70,7 +73,7 @@ object DataShapeValue {
       self =>
       override def wrapRep(base: DataShapeValue[U, T]): DataShapeValue[U, T] = base
       override def toLawRep(base: DataShapeValue[U, T]): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
-      override def takeData(oldData: DataGroup, rep: DataShapeValue[U, T]): Either[NotConvert, SplitData[U]] = rep.shape.takeData(oldData, rep.rep)
+      override def takeData(oldData: DataGroup, rep: DataShapeValue[U, T]): SplitData[U] = rep.shape.takeData(oldData, rep.rep)
       //override def buildData(splitData: U, rep: DataShapeValue[U, T]): Either[NotConvert, DataGroup] = rep.shape.buildData(splitData, rep.rep)
     }
   }
