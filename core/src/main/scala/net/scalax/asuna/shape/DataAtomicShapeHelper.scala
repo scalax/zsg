@@ -1,6 +1,8 @@
 package net.scalax.asuna.shape
 
 import net.scalax.asuna.core._
+import shapeless._
+import tag._
 
 trait DataAtomicShapeHelper {
   /*implicit def atomicShapeImplicit[A, C]: DataShape[OutputTag[A, C], DataModel[EmptyData, A, EmptyData], OutputTag[A, C], C] = {
@@ -19,7 +21,7 @@ trait DataAtomicShapeHelper {
       }
     }
   }*/
-  implicit def atomicShapeImplicit1[A, C]: DataShape[OutputTag[A, C], DataModel[EmptyData, A, EmptyData], OutputTag[A, C], C] = {
+  /*implicit def atomicShapeImplicit1[A, C]: DataShape[OutputTag[A, C], DataModel[EmptyData, A, EmptyData], OutputTag[A, C], C] = {
     new DataShape[OutputTag[A, C], DataModel[EmptyData, A, EmptyData], OutputTag[A, C], C] {
       override def wrapRep(base: OutputTag[A, C]): OutputTag[A, C] = base
       override def toLawRep(base: OutputTag[A, C]): DataRepGroup[C] = {
@@ -56,6 +58,20 @@ trait DataAtomicShapeHelper {
         val scala.::(head, tail) = oldData.items
         val currentData = head.asInstanceOf[A]
         SplitData(current = DataModelImpl(current = { (_: EmptyData) => currentData }, sub = currentData), left = DataGroup(items = tail))
+      }
+    }
+  }*/
+
+  implicit def atomicShapeImplicit1[A, C]: DataShape[OutputTag[A, C], A @@ OutputData, OutputTag[A, C], C] = {
+    new DataShape[OutputTag[A, C], A @@ OutputData, OutputTag[A, C], C] {
+      override def wrapRep(base: OutputTag[A, C]): OutputTag[A, C] = base
+      override def toLawRep(base: OutputTag[A, C]): DataRepGroup[C] = {
+        DataRepGroup(reps = List(base.common))
+      }
+      override def takeData(oldData: DataGroup, rep: OutputTag[A, C]): SplitData[A @@ OutputData] = {
+        val scala.::(head, tail) = oldData.items
+        SplitData(current = tag[OutputData](head.asInstanceOf[A]), left = DataGroup(items = tail))
+        //SplitData(current = DataModelImpl(current = { (_: EmptyData) => head.asInstanceOf[A] }, sub = EmptyData.value), left = DataGroup(items = tail))
       }
     }
   }

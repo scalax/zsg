@@ -17,7 +17,7 @@ trait CirceModels extends CirceReaderHelper {
 
     val gen = Generic[Student]
 
-    override lazy val playCirceSv = (id :: name :: age :: nick :: HNil).map(s => gen.from(s))
+    override lazy val playCirceSv = (id :: name :: age :: nick :: HNil).map(s => gen.from(DMHelper.compile(s)))
 
   }
 

@@ -2,11 +2,21 @@ package net.scalax.asuna.core
 
 import shapeless._
 
-trait DataModel[A, B, C] {
+sealed trait AbsDataModel
+trait OutputData extends AbsDataModel
+trait IOData[Input, Output] extends AbsDataModel {
+  def apply(i: Input): Output
+}
+trait OutputSubData[Output, Sub] extends AbsDataModel {
+  def current: Output
+  def sub: Sub
+}
+
+trait DataModel[A, B, C] extends AbsDataModel {
   self =>
 
-  val current: A => B
-  val sub: C
+  def current: A => B
+  def sub: C
 
   def toImpl: DataModelImpl[A, B, C] = {
     self match {

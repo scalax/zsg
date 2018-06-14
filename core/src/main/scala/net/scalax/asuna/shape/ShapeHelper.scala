@@ -1,7 +1,7 @@
 package net.scalax.asuna.shape
 
 import net.scalax.asuna.core.{ DataShape, DataShapeValue, RepGroup }
-import shapeless.{ ::, HList, HNil }
+import shapeless._
 
 import scala.language.implicitConversions
 
