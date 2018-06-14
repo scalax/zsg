@@ -38,13 +38,13 @@ trait DataModelHelper3 {
 
   implicit def helper3Implicit3[A, B <: HList, C, D, E <: HList](
     implicit
-    cv1: DModelTranHelper[B, IOData[D, E]]): DModelTranHelper[OutputSubData[A, C] :: B, DataModel[D, A :: E, C]] = {
-    new DModelTranHelper[OutputSubData[A, C] :: B, DataModel[D, A :: E, C]] {
-      override def apply(input: OutputSubData[A, C] :: B): DataModel[D, A :: E, C] = {
+    cv1: DModelTranHelper[B, IOData[D, E]]): DModelTranHelper[OutputSubData[A, C] :: B, DataModel[D, A :: E, C :: HNil]] = {
+    new DModelTranHelper[OutputSubData[A, C] :: B, DataModel[D, A :: E, C :: HNil]] {
+      override def apply(input: OutputSubData[A, C] :: B): DataModel[D, A :: E, C :: HNil] = {
         val ac :: b = input
-        new DataModel[D, A :: E, C] {
+        new DataModel[D, A :: E, C :: HNil] {
           override val current: D => A :: E = { (d: D) => ac.current :: cv1(b)(d) }
-          override val sub: C = ac.sub
+          override val sub: C :: HNil = ac.sub :: HNil
         }
       }
     }

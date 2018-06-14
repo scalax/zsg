@@ -1,8 +1,6 @@
 package net.scalax.asuna.core
 
-import shapeless._
-
-sealed trait AbsDataModel
+sealed abstract trait AbsDataModel
 trait OutputData extends AbsDataModel
 trait IOData[Input, Output] extends AbsDataModel {
   def apply(i: Input): Output
@@ -17,17 +15,14 @@ trait DataModel[A, B, C] extends AbsDataModel {
 
   def current: A => B
   def sub: C
-
-  def toImpl: DataModelImpl[A, B, C] = {
+  /*def toImpl: DataModelImpl[A, B, C] = {
     self match {
       case m: DataModelImpl[A, B, C] => m
       case _ => DataModelImpl(current = self.current, sub = self.sub)
     }
-  }
-
+  }*/
 }
-
-object DataModel {
+/*object DataModel {
 
   def simpleDModelDirectTran[T]: DModelDirectTran[T, T] = {
     new DModelDirectTran[T, T] {
@@ -49,8 +44,7 @@ object DataModel {
 
 }
 
-case class DataModelImpl[A, B, C](override val current: A => B, override val sub: C) extends DataModel[A, B, C]
-
+case class DataModelImpl[A, B, C](override val current: A => B, override val sub: C) extends DataModel[A, B, C]*/
 trait EmptyData
 
 object EmptyData {
