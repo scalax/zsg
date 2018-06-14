@@ -8,11 +8,12 @@ import scala.language.implicitConversions
 trait HListShapeHelper {
 
   implicit def hnilDateShape[J]: DataShape[HNil, HNil, HNil, J] = {
-    new DataShape[HNil, HNil, HNil, J] { self =>
+    new DataShape[HNil, HNil, HNil, J] {
+      self =>
       override def wrapRep(base: HNil): HNil = base
       override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty)
-      override def takeData(oldData: DataGroup, rep: HNil): Either[NotConvert, SplitData[HNil]] = Right(SplitData(current = HNil, left = oldData))
-      override def buildData(splitData: HNil, rep: HNil): Either[NotConvert, DataGroup] = Right(DataGroup(items = List.empty))
+      override def takeData(oldData: DataGroup, rep: HNil): SplitData[HNil] = SplitData(current = HNil, left = oldData)
+      //override def buildData(splitData: HNil, rep: HNil): Either[NotConvert, DataGroup] = Right(DataGroup(items = List.empty))
     }
   }
 
@@ -30,21 +31,17 @@ trait HListShapeHelper {
         val headRep :: tailRep = base
         val headGroup = head.toLawRep(headRep)
         val tailGroup = tail.toLawRep(tailRep)
-        DataRepGroup(
-          reps = headGroup.reps ::: tailGroup.reps)
+        DataRepGroup(reps = headGroup.reps ::: tailGroup.reps)
       }
 
-      override def takeData(oldData: DataGroup, rep: M :: N): Either[NotConvert, SplitData[H :: I]] = {
+      override def takeData(oldData: DataGroup, rep: M :: N): SplitData[H :: I] = {
         val headRep :: tailRep = rep
-        for {
-          newData1 <- head.takeData(oldData, headRep).right
-          newData2 <- tail.takeData(newData1.left, tailRep).right
-        } yield {
-          SplitData(newData1.current :: newData2.current, newData2.left)
-        }
+        val newData1 = head.takeData(oldData, headRep)
+        val newData2 = tail.takeData(newData1.left, tailRep)
+        SplitData(newData1.current :: newData2.current, newData2.left)
       }
 
-      override def buildData(splitData: H :: I, rep: M :: N): Either[NotConvert, DataGroup] = {
+      /*override def buildData(splitData: H :: I, rep: M :: N): Either[NotConvert, DataGroup] = {
         val headData :: tailData = splitData
         val headRep :: tailRep = rep
         for {
@@ -53,7 +50,7 @@ trait HListShapeHelper {
         } yield {
           DataGroup(items = newData1.items ::: newData2.items)
         }
-      }
+      }*/
 
     }
 

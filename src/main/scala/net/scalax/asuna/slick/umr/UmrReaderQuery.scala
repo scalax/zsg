@@ -33,7 +33,7 @@ object UmrReaderQuery {
           each.dataFromList(d.asInstanceOf[each.OutPut])
         }
       })
-    SlickShapeValueListWrap[Any, R](s => impl.takeData(DataGroup(items = s), cv.umrSv).right.get.current, r => Option.empty, classTag, convertedWrap: _*).shapedValue
+    SlickShapeValueListWrap[Any, R](s => impl.takeData(DataGroup(items = s), cv.umrSv).current, r => Option.empty, classTag, convertedWrap: _*).shapedValue
   }
 
 }
