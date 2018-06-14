@@ -34,11 +34,6 @@ class DataModelHelperTest
     override val sub = c
   }
 
-  /*def toIOSub[A, B, C](c: A => B, s: C): DataModel[A, B, C] = new DataModel[A, B, C] {
-    override val current = c
-    override val sub = s
-  }*/
-
   override def beforeAll: Unit = {
   }
 
