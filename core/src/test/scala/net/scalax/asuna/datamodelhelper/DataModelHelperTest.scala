@@ -46,19 +46,19 @@ class DataModelHelperTest
   "hlist data" should "merge beautiful 1" in {
     val h = toCommon("sdfasf") :: toCommon("werfsefsfsg") :: toCommon(34234) :: toCommon(2342525L) :: HNil
     val testH = "sdfasf" :: "werfsefsfsg" :: 34234 :: 2342525L :: HNil
-    DMHelper.compile(h).toString should be(testH.toString)
+    DMHelper.compile(h) should be(testH)
   }
 
   it should "merge beautiful 2" in {
     val h = toCommon("sdfasf") :: toIO[String] :: toCommon(34234) :: toCommon(2342525L) :: HNil
     val testH = "sdfasf" :: "werfsefsfsg" :: 34234 :: 2342525L :: HNil
-    DMHelper.compile(h).apply("werfsefsfsg" :: HNil).toString should be(testH.toString)
+    DMHelper.compile(h).apply("werfsefsfsg" :: HNil) should be(testH)
   }
 
   it should "merge beautiful 3" in {
     val h = toCommon("sdfasf") :: toIO[String] :: toCommon(34234) :: toIO[Long] :: toIO[Int] :: HNil
     val testH = "sdfasf" :: "werfsefsfsg" :: 34234 :: 2342525L :: 223264 :: HNil
-    DMHelper.compile(h).apply("werfsefsfsg" :: 2342525L :: 223264 :: HNil).toString should be(testH.toString)
+    DMHelper.compile(h).apply("werfsefsfsg" :: 2342525L :: 223264 :: HNil) should be(testH)
   }
 
   it should "merge beautiful 4" in {
@@ -66,8 +66,8 @@ class DataModelHelperTest
     val testH = "sdfasf" :: "werfsefsfsg" :: 34234 :: 2342525L :: 223264 :: HNil
     val testH2 = 34234 :: 2342525L :: HNil
     val m = DMHelper.compile(h)
-    m.current("werfsefsfsg" :: 223264 :: HNil).toString should be(testH.toString)
-    m.sub.toString should be(testH2.toString)
+    m.current("werfsefsfsg" :: 223264 :: HNil) should be(testH)
+    m.sub should be(testH2)
   }
 
 }

@@ -65,4 +65,19 @@ trait DataModelHelper4 {
     }
   }
 
+  implicit def helper4Implicit5[A, B <: HList, D <: HList, E <: HList](
+    implicit
+    cv1: DModelTranHelper[B, OutputSubData[D, E]]): DModelTranHelper[SubOnly[A] :: B, OutputSubData[D, A :: E]] = {
+    new DModelTranHelper[SubOnly[A] :: B, OutputSubData[D, A :: E]] {
+      override def apply(input: SubOnly[A] :: B): OutputSubData[D, A :: E] = {
+        val a :: b = input
+        val de = cv1(b)
+        new OutputSubData[D, A :: E] {
+          override def current: D = de.current
+          override def sub: A :: E = a.sub :: de.sub
+        }
+      }
+    }
+  }
+
 }

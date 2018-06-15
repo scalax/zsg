@@ -71,4 +71,19 @@ trait DataModelHelper5 {
     }
   }
 
+  implicit def helper5Implicit5[A, B <: HList, C, D <: HList, E <: HList](
+    implicit
+    cv1: DModelTranHelper[B, DataModel[C, D, E]]): DModelTranHelper[SubOnly[A] :: B, DataModel[C, D, A :: E]] = {
+    new DModelTranHelper[SubOnly[A] :: B, DataModel[C, D, A :: E]] {
+      override def apply(input: SubOnly[A] :: B): DataModel[C, D, A :: E] = {
+        val a :: b = input
+        val cde = cv1(b)
+        new DataModel[C, D, A :: E] {
+          override def current: C => D = { (c: C) => cde.current(c) }
+          override def sub: A :: E = a.sub :: cde.sub
+        }
+      }
+    }
+  }
+
 }

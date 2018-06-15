@@ -1,10 +1,10 @@
 package net.scalax.asuna.sangria
 
+import net.scalax.asuna.core.DelayTag.DelayTagGen
 import net.scalax.asuna.core._
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
-
 import shapeless._
 import tag._
 
@@ -13,6 +13,7 @@ import scala.reflect.ClassTag
 trait SlickSangria[E, Data] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
+  val sangraiDelay: DelayTagGen[SlickRepAbsAbs[E]] = DelayTag.createDelayTagGeneration[SlickRepAbsAbs[E]]
 
   def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
     val w = new SlickRepWrap[E, D] {
@@ -66,7 +67,7 @@ trait SlickSangria[E, Data] extends ShapeHelper {
   case class GroupStart(key: String)
   case class GroupEnd(key: String)
 
-  def seqRep(w: SlickSangriaRepWrapAbs[E]*)(implicit completedId: CompletedId[String]): DataShapeValue[SlickValueGen[E], SlickRepAbsAbs[E]] = {
+  def seqRep(w: SlickSangriaRepWrapAbs[E]*)(implicit completedId: CompletedId[String]): DataShapeValue[SlickValueGen[E] @@ OutputData, SlickRepAbsAbs[E]] = {
     implicit val dShape: DataShape[List[SlickSangriaRepWrapAbs[E]], List[(String, Any)], List[SlickSangriaRepWrapAbs[E]], SlickRepAbsAbs[E]] = {
       new DataShape[List[SlickSangriaRepWrapAbs[E]], List[(String, Any)], List[SlickSangriaRepWrapAbs[E]], SlickRepAbsAbs[E]] {
         override def wrapRep(base: List[SlickSangriaRepWrapAbs[E]]): List[SlickSangriaRepWrapAbs[E]] = base
@@ -113,13 +114,14 @@ trait SlickSangria[E, Data] extends ShapeHelper {
 
     val dShapeValue = w.toList.shaped
 
-    val listCv: List[(String, Any)] => SlickValueGen[E] = { s =>
+    val listCv: List[(String, Any)] => SlickValueGen[E] @@ OutputData = { s =>
       val map = s.toMap
-      new SlickValueGen[E] {
+      val svg = new SlickValueGen[E] {
         override def getData[DataType](r: SlickSangriaRepWrap[E, DataType]): DataType = {
           map.getOrElse(r.objectKey, throw new Exception("没有该列匹配的项")).asInstanceOf[DataType]
         }
       }
+      tag[OutputData](svg)
     }
     dShapeValue.map(listCv)
   }
