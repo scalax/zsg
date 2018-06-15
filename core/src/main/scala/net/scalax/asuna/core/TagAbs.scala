@@ -21,29 +21,19 @@ sealed abstract trait TagAbs[Data, CommonCol] {
 trait OutputTag[Data, CommonCol] extends TagAbs[Data, CommonCol]
 trait OutputSubTag[Data, CommonCol] extends TagAbs[Data, CommonCol]
 trait SubTag[Data, CommonCol] extends TagAbs[Data, CommonCol]
-//trait InputTag
-//trait IOTag
-/*object AtomicColumn {
 
-  def tagOutput[T <: AtomicColumn[_, _]](col: T): OutputTag[T] = {
-    val col1 = col
-    new OutputTag[T] {
-      override val col = col1
-    }
-  }
-  //def tagInput[T <: AtomicColumn[_, _]](ac: T): T @@ InputTag = tag[InputTag](ac)
-  //def tagIO[T <: AtomicColumn[_, _]](ac: T): T @@ IOTag = tag[IOTag](ac)
-  def tagSub[T <: AtomicColumn[_, _]](col: T): SubTag[T] = {
-    val col1 = col
-    new SubTag[T] {
-      override val col = col1
-    }
-  }
-  def tagOutputSub[T <: AtomicColumn[_, _]](col: T): OutputSubTag[T] = {
-    val col1 = col
-    new OutputSubTag[T] {
-      override val col = col1
+trait DelayTag[Data, CommonCol] {
+
+  def toIO: IOData[Data, Data] = IOData.simpleInstance[Data]
+
+}
+
+object DelayTag {
+  trait DelayTagGen[CommonCol] {
+    def apply[Data]: DelayTag[Data, CommonCol] = {
+      new DelayTag[Data, CommonCol] {}
     }
   }
 
-}*/ 
+  def createDelayTagGeneration[CommonCol]: DelayTagGen[CommonCol] = new DelayTagGen[CommonCol] {}
+}
