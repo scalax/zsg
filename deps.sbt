@@ -13,6 +13,8 @@ libraryDependencies += "com.h2database" % "h2" % "1.4.197" % Test
 
 libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.25" % Test
 
+libraryDependencies += "com.github.javafaker" % "javafaker" % "0.15" % Test
+
 val circeVersion = "0.9.3"
 
 libraryDependencies ++= Seq(

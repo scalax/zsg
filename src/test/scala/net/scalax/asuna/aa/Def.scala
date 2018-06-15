@@ -56,7 +56,14 @@ class SangriaTest extends FlatSpec with Matchers
   import sangria.marshalling.circe._
   import sangria.schema._
 
+  import com.github.javafaker.Faker
+  import java.util.Locale
+
   def await[A](f: Future[A]) = Await.result(f, duration.Duration.Inf)
+
+  val local = new Locale("zh", "CN")
+  val faker = new Faker(local)
+  val specName1 = faker.name.fullName
 
   val friendTq4 = TableQuery[FriendTable4]
 
@@ -74,9 +81,9 @@ class SangriaTest extends FlatSpec with Matchers
   }
 
   before {
-    val friend1 = Friends4(-1, "name1", "nick1", 23)
-    val friend2 = Friends4(-1, "name2", "nick2", 26)
-    val friend3 = Friends4(-1, "name3", "nick3", 20)
+    val friend1 = Friends4(-1, specName1, faker.name.username, 23)
+    val friend2 = Friends4(-1, faker.name.fullName, faker.name.username, 26)
+    val friend3 = Friends4(-1, faker.name.fullName, faker.name.username, 20)
     await(db.run(friendTq4 ++= List(friend1, friend2, friend3)))
   }
 
@@ -150,11 +157,12 @@ class SangriaTest extends FlatSpec with Matchers
 
   lazy val schema = Schema(QueryType)
 
-  lazy val result: Future[Json] = Executor.execute(schema, QueryParser.parse("""
+  lazy val result: Future[Json] = Executor.execute(schema, QueryParser.parse(s"""
     query  MyProduct {
-      product(name: "name2") {
+      product(name: "${specName1}") {
         age
-
+        name
+        nick
         picture(size: 500) {
           width, height, url
         }
@@ -162,6 +170,8 @@ class SangriaTest extends FlatSpec with Matchers
 
       products {
         id
+        name
+        nick
       }
     }
   """).get, (()))

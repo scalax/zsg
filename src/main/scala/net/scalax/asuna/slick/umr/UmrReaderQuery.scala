@@ -1,5 +1,6 @@
 package net.scalax.asuna.slick.umr
 
+import net.scalax.asuna.core.DelayTag.DelayTagGen
 import net.scalax.asuna.core._
 import slick.lifted.ShapedValue
 
@@ -10,6 +11,7 @@ trait UmrReaderQuery[U] {
   self =>
 
   def umrSv: DataShapeValue[U, SlickShapeValueWrapAbs]
+  val umrDelay: DelayTagGen[SlickShapeValueWrapAbs] = DelayTag.createDelayTagGeneration[SlickShapeValueWrapAbs]
 
 }
 
