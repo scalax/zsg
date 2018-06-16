@@ -19,11 +19,11 @@ class CirceController(val controllerComponents: ControllerComponents)
     Ok(Data.foo.asJson)
   }*/
 
-  def post = Action(validatedJson.byQuery(CirceModelReader0)) { implicit request =>
+  def post = Action(validatedJson.byQuery(CirceModelReader0.reader)) { implicit request =>
     Ok(request.body.asJson.noSpaces)
   }
 
-  def postJson = Action(validatedJson.byQuery(CirceModelReader1)) { implicit request =>
+  def postJson = Action(validatedJson.byQuery(CirceModelReader1.reader)) { implicit request =>
     Ok(request.body.asJson.noSpaces)
   }
 

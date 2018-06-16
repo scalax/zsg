@@ -56,9 +56,9 @@ trait DataModelHelper2 {
         val ace :: b = input
         val d = cv1(b)
         new DataModel[A :: HNil, C :: D, E :: HNil] {
-          override val current: (A :: HNil) => C :: D = { (i: A :: HNil) =>
+          override def apply(i: A :: HNil): C :: D = {
             val a :: _ = i
-            ace.current(a) :: d
+            ace.apply(a) :: d
           }
           override val sub: E :: HNil = ace.sub :: HNil
         }

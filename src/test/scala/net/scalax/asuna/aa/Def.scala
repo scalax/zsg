@@ -3,7 +3,7 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataShapeValue
-import net.scalax.asuna.sangria.{ SlickRepAbsAbs, SlickSangria, SlickValueGen }
+import net.scalax.asuna.sangria.{ SlickRepAbsAbs, SlickSangria, SlickSangriaHelper, SlickValueGen }
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
@@ -33,16 +33,18 @@ class FriendTable4(tag: slick.lifted.Tag) extends Table[Friends4](tag, "firend4"
 
 case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4], extAge: Int)
 
-object SFriend4 extends SlickSangria[FriendTable4, FriendWrap] with ShapeHelper {
+object SFriend4 extends SlickSangriaHelper[FriendTable4] with ShapeHelper {
+
   def id = repWithKey(_.id, "id")
   def name = repWithKey(_.name, "name")
   def nick = repWithKey(_.nick, "nick")
   def age = rep(_.age)
   def extAge = rep(_.age)
 
-  override def sangriaSv: DataShapeValue[FriendWrap, SlickRepAbsAbs[FriendTable4]] = {
-    (age :: seqRep(id, name, nick) :: extAge :: HNil).map(Generic[FriendWrap].from)
-  }
+  lazy val shape = (age :: seqRep(id, name, nick) :: extAge :: HNil).map(Generic[FriendWrap].from)
+
+  lazy val reader = toSangriaReader(shape)
+
 }
 
 class SangriaTest extends FlatSpec with Matchers
@@ -111,7 +113,7 @@ class SangriaTest extends FlatSpec with Matchers
       description = Some("Returns a product with specific `id`."),
       arguments = NameArg :: Nil,
       resolve = Projector({ (c, fields) =>
-        val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
+        val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.reader.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result.headOption
         db.run(action)
       })),
@@ -119,7 +121,7 @@ class SangriaTest extends FlatSpec with Matchers
     Field("products", ListType(ProductType),
       description = Some("Returns a list of all available products."),
       resolve = Projector({ (c, fields) =>
-        val bindQ = friendTq4.map(friend => SFriend4.bindQuery(friend, fields.toList.map(_.name)))
+        val bindQ = friendTq4.map(friend => SFriend4.reader.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result
         db.run(action)
       }))))

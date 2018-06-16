@@ -52,7 +52,7 @@ trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with OutputTag[F, Sl
 
 trait SlickShapeValueWrapHelper {
 
-  val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
+  //val umrUnwrap: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
 
   def jsonKey[A, B, C](baseRep: A, key: String)(implicit shape: Shape[_ <: FlatShapeLevel, A, B, C], encoder: Encoder[B]): SlickShapeValueWrap[(String, Json)] = {
     val w = rep(baseRep).map[(String, Json)] { (s: B) =>

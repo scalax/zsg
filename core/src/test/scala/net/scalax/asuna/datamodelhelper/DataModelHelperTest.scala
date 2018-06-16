@@ -66,7 +66,7 @@ class DataModelHelperTest
     val testH = "sdfasf" :: "werfsefsfsg" :: 34234 :: 2342525L :: 223264 :: HNil
     val testH2 = 34234 :: 2342525L :: HNil
     val m = DMHelper.compile(h)
-    m.current("werfsefsfsg" :: 223264 :: HNil) should be(testH)
+    m.apply("werfsefsfsg" :: 223264 :: HNil) should be(testH)
     m.sub should be(testH2)
   }
 

@@ -10,7 +10,29 @@ import tag._
 
 import scala.reflect.ClassTag
 
-trait SlickSangria[E, Data] extends ShapeHelper {
+trait SlickSangria[E, Data] {
+
+  def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
+
+  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
+    val sv = sangriaSv
+    val reps = sv.shape.toLawRep(sv.rep).reps
+    val filterReps = reps.filter {
+      case v: SlickSangriaRepWrapAbs[E] if !keys.contains(v.sangraiKey) => false
+      case _ => true
+    }
+    val slickReps = filterReps.map(t => t.slickCv(rep).map(s => s: Any))
+
+    SlickShapeValueListWrap(
+      convert = { (t: List[Any]) => sv.shape.takeData(DataGroup(items = t), sv.rep).current },
+      reConvert = { (_: Data) => Option.empty[List[Any]] },
+      ct = implicitly[ClassTag[Data]],
+      v = slickReps: _*).shapedValue
+  }
+
+}
+
+trait SlickSangriaHelper[E] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
   val sangraiDelay: DelayTagGen[SlickRepAbsAbs[E]] = DelayTag.createDelayTagGeneration[SlickRepAbsAbs[E]]
@@ -106,9 +128,6 @@ trait SlickSangria[E, Data] extends ShapeHelper {
               SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData))
           }
         }
-        /*override def buildData(splitData: List[(String, Any)], rep: List[SlickSangriaRepWrapAbs[E]]): Either[NotConvert, DataGroup] = {
-          Right(DataGroup(items = GroupStart(completedId.id) :: splitData ::: GroupEnd(completedId.id) :: List.empty))
-        }*/
       }
     }
 
@@ -126,22 +145,15 @@ trait SlickSangria[E, Data] extends ShapeHelper {
     dShapeValue.map(listCv)
   }
 
-  def sangriaSv: DataShapeValue[Data, SlickRepAbsAbs[E]]
-
-  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
-    val sv = sangriaSv
-    val reps = sv.shape.toLawRep(sv.rep).reps
-    val filterReps = reps.filter {
-      case v: SlickSangriaRepWrapAbs[E] if !keys.contains(v.sangraiKey) => false
-      case _ => true
+  def toSangriaReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickRepAbsAbs[E]]): SlickSangria[E, R] = {
+    val shape1 = shape
+    new SlickSangria[E, R] {
+      override def sangriaSv: DataShapeValue[R, SlickRepAbsAbs[E]] = new DataShapeValue[R, SlickRepAbsAbs[E]] {
+        override type RepType = U
+        override val rep = shape1.wrapRep(col)
+        override val shape: DataShape[U, R, U, SlickRepAbsAbs[E]] = shape1.packed
+      }
     }
-    val slickReps = filterReps.map(t => t.slickCv(rep).map(s => s: Any))
-
-    SlickShapeValueListWrap(
-      convert = { (t: List[Any]) => sv.shape.takeData(DataGroup(items = t), sv.rep).current },
-      reConvert = { (_: Data) => Option.empty[List[Any]] },
-      ct = implicitly[ClassTag[Data]],
-      v = slickReps: _*).shapedValue
   }
 
 }
