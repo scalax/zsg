@@ -4,6 +4,7 @@ import cats.Traverse
 import io.circe.Decoder
 import cats.data._
 import cats.implicits._
+import cats.kernel.CommutativeSemigroup
 import io.circe.generic.JsonCodec
 
 import scala.concurrent.Future
@@ -92,6 +93,16 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with OutputTag[R, CirceReader
 trait CirceReaderHelper {
 
   val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
+  def toCirceReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, CirceReaderAbs]): CirceReaderQuery[R] = {
+    val shape1 = shape
+    new CirceReaderQuery[R] {
+      override def playCirceSv: DataShapeValue[R, CirceReaderAbs] = new DataShapeValue[R, CirceReaderAbs] {
+        override type RepType = U
+        override val rep = shape1.wrapRep(col)
+        override val shape: DataShape[U, R, U, CirceReaderAbs] = shape1.packed
+      }
+    }
+  }
 
   def column[T](keyName: String)(implicit encoder: Decoder[T]): CirceReaderImpl[T, T] = {
     val keyName1 = keyName

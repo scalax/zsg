@@ -24,22 +24,22 @@ trait OutputSubData[Output, Sub] extends AbsDataModel {
 trait DataModel[A, B, C] extends AbsDataModel with Function1[A, B] {
   self =>
 
-  override def apply(i: A): B = current(i)
+  override def apply(i: A): B //= current(i)
 
-  def current: A => B
+  //def current: A => B
   def sub: C
 
   override def compose[F](g: F => A): DataModel[F, B, C] = new DataModel[F, B, C] {
-    override def current: F => B = { (f: F) => self.current(g(f)) }
+    override def apply(i: F): B = self.apply(g(i))
     override def sub: C = self.sub
   }
   override def andThen[F](g: B => F): DataModel[A, F, C] = new DataModel[A, F, C] {
-    override def current: A => F = { (a: A) => g(self.current(a)) }
+    override def apply(i: A): F = g(self.apply(i))
     override def sub: C = self.sub
   }
 
   def changeSub[F](cv: C => F): DataModel[A, B, F] = new DataModel[A, B, F] {
-    override def current: A => B = self.current
+    override def apply(i: A): B = self.apply(i)
     override def sub: F = cv(self.sub)
   }
 

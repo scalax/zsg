@@ -43,7 +43,7 @@ trait DataModelHelper3 {
       override def apply(input: OutputSubData[A, C] :: B): DataModel[D, A :: E, C :: HNil] = {
         val ac :: b = input
         new DataModel[D, A :: E, C :: HNil] {
-          override val current: D => A :: E = { (d: D) => ac.current :: cv1(b)(d) }
+          override def apply(d: D): A :: E = ac.current :: cv1(b)(d)
           override val sub: C :: HNil = ac.sub :: HNil
         }
       }
@@ -57,9 +57,9 @@ trait DataModelHelper3 {
       override def apply(input: DataModel[A, C, F] :: B): DataModel[A :: D, C :: E, F] = {
         new DataModel[A :: D, C :: E, F] {
           val acf :: b = input
-          override val current: A :: D => C :: E = { (ad: A :: D) =>
+          override def apply(ad: A :: D): C :: E = {
             val a :: d = ad
-            acf.current(a) :: cv1(b)(d)
+            acf.apply(a) :: cv1(b)(d)
           }
           override val sub: F = acf.sub
         }
@@ -75,7 +75,7 @@ trait DataModelHelper3 {
         val a :: b = input
         val ce = cv1(b)
         new DataModel[C, E, A :: HNil] {
-          override def current: C => E = { (c: C) => ce(c) }
+          override def apply(c: C): E = ce(c)
           override def sub: A :: HNil = a.sub :: HNil
         }
       }

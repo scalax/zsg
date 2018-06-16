@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ Await, Future, duration }
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Friends2(id: Long, name: String, nick: String, age: Int)
 
@@ -95,16 +96,17 @@ class DynModel
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = friendTq2.map(s => UmrReaderQuery(new FriendTable2Model(s)))
-    def query2(friendId: Long) = markTq.filter(_.friendId === friendId).map(s => UmrReaderQuery(new MarkTableModel(s)))
+    val query = friendTq2.map(s => new FriendTable2Model(s).reader)
+    val prepareData = db.run(query.result)
+    def fetchSub(friendId: Long) = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).to[List].result)
 
     logger.info(query.result.statements.toString)
     try {
-      val r = await(db.run(query.result))
-      val d = r.map { data =>
-        val list = await(db.run(query2(data.sub).result))
-        data(list.toList)
+      val r = prepareData.flatMap { t =>
+        val lf = t.map(l => fetchSub(l.sub).map(l.apply))
+        Future.sequence(lf)
       }
+      val d = await(r)
       println(d.asJson.spaces2)
     } catch {
       case e: Exception =>

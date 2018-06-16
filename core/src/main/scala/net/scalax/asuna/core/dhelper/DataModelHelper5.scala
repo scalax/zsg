@@ -13,7 +13,7 @@ trait DataModelHelper5 {
         val a :: b = input
         val cde = cv1(b)
         new DataModel[C, A :: D, E] {
-          override val current: C => A :: D = { (c: C) => (a: A) :: cde.current(c) }
+          override def apply(c: C): A :: D = (a: A) :: cde.apply(c)
           override val sub: E = cde.sub
         }
       }
@@ -28,9 +28,9 @@ trait DataModelHelper5 {
         val af :: b = input
         val cde = cv1(b)
         new DataModel[A :: C, F :: D, E] {
-          override val current: A :: C => F :: D = { (ac: A :: C) =>
+          override def apply(ac: A :: C): F :: D = {
             val a :: c = ac
-            af(a) :: cde.current(c)
+            af(a) :: cde.apply(c)
           }
           override val sub: E = cde.sub
         }
@@ -46,7 +46,7 @@ trait DataModelHelper5 {
         val af :: b = input
         val cde = cv1(b)
         new DataModel[C, A :: D, F :: E] {
-          override val current: C => A :: D = { (c: C) => af.current :: cde.current(c) }
+          override def apply(c: C): A :: D = { af.current :: cde.apply(c) }
           override val sub: F :: E = af.sub :: cde.sub
         }
       }
@@ -61,9 +61,9 @@ trait DataModelHelper5 {
         val afg :: b = input
         val cde = cv1(b)
         new DataModel[A :: C, F :: D, G :: E] {
-          override val current: A :: C => F :: D = { (ac: A :: C) =>
+          override def apply(ac: A :: C): F :: D = {
             val a :: c = ac
-            afg.current(a) :: cde.current(c)
+            afg.apply(a) :: cde.apply(c)
           }
           override val sub: G :: E = afg.sub :: cde.sub
         }
@@ -79,7 +79,7 @@ trait DataModelHelper5 {
         val a :: b = input
         val cde = cv1(b)
         new DataModel[C, D, A :: E] {
-          override def current: C => D = { (c: C) => cde.current(c) }
+          override def apply(c: C): D = cde.apply(c)
           override def sub: A :: E = a.sub :: cde.sub
         }
       }

@@ -18,7 +18,7 @@ class CirceTest extends FlatSpec with Matchers with CirceModels {
     val jsonEt = io.circe.parser.parse(jsonStr).flatMap(_.as[JsonObject])
     jsonEt.isRight should be(true)
     val json = jsonEt.right.get
-    val model = await(CirceModelReader0.tranData(json))
+    val model = await(CirceModelReader0.reader.tranData(json))
     model.isValid should be(true)
     model.getOrElse(throw new Exception("Error result")) should be(Student(id = 233, name = "aabbccdd", age = 23416254, nick = "hahahaha"))
   }
@@ -27,7 +27,7 @@ class CirceTest extends FlatSpec with Matchers with CirceModels {
     val jsonEt = io.circe.parser.parse(jsonStr).flatMap(_.as[JsonObject])
     jsonEt.isRight should be(true)
     val json = jsonEt.right.get
-    val model = await(CirceModelReader1.tranData(json))
+    val model = await(CirceModelReader1.reader.tranData(json))
     model.isInvalid should be(true)
     model.toEither.left.get should be(ValidateModel(fields = List(ValidateField("我是莎莎酱的年龄", validateStr1), ValidateField("我是莎莎酱的昵称", validateStr2))))
   }

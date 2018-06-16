@@ -4,11 +4,11 @@ import cats.data.Validated
 import net.scalax.asuna.shape.ShapeHelper
 import shapeless._
 
-trait CirceModels extends CirceReaderHelper {
+trait CirceModels extends CirceReaderHelper with ShapeHelper {
 
   case class Student(id: Int, name: String, age: Long, nick: String)
 
-  class CirceModelReader0 extends CirceReaderQuery[Student] with ShapeHelper {
+  trait CirceModelReader0 {
 
     def id = column[Int]("id")
     def name = column[String]("name")
@@ -17,7 +17,7 @@ trait CirceModels extends CirceReaderHelper {
 
     val gen = Generic[Student]
 
-    override lazy val playCirceSv = (id :: name :: age :: nick :: HNil).map(s => gen.from(DMHelper.compile(s)))
+    val reader = toCirceReader((id :: name :: age :: nick :: HNil).map(gen.from))
 
   }
 
@@ -43,8 +43,7 @@ trait CirceModels extends CirceReaderHelper {
         Validated.validNel(l)
     }
 
-    override lazy val playCirceSv = (id :: name :: age11 :: nick22 :: HNil).map(s => gen.from(s))
-
+    override val reader = toCirceReader((id :: name :: age11 :: nick22 :: HNil).map(gen.from))
   }
 
   object CirceModelReader1 extends CirceModelReader1

@@ -28,7 +28,7 @@ trait DataModelHelper4 {
         val ac :: b = input
         val de = cv1(b)
         new DataModel[A, C :: D, E] {
-          override def current: A => C :: D = { (a: A) => ac(a) :: de.current }
+          override def apply(a: A): C :: D = ac(a) :: de.current
           override def sub: E = de.sub
         }
       }
@@ -58,7 +58,7 @@ trait DataModelHelper4 {
         val acf :: b = input
         val de = cv1(b)
         new DataModel[A, C :: D, F :: E] {
-          override def current: A => C :: D = { (a: A) => acf.current(a) :: de.current }
+          override def apply(a: A): C :: D = acf.apply(a) :: de.current
           override def sub: F :: E = acf.sub :: de.sub
         }
       }
