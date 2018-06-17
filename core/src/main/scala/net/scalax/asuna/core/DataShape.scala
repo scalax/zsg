@@ -3,13 +3,11 @@ package net.scalax.asuna.core
 import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ListShapeHelper, RepGroupShapeHelper }
 
 case class SplitData[T](current: T, left: DataGroup)
-
-trait NotConvert
+/*trait NotConvert
 
 object NotConvert {
   val value: NotConvert = new NotConvert {}
-}
-
+}*/
 trait DataShape[-E, U, C, T] {
   self =>
   def packed: DataShape[C, U, C, T] = {

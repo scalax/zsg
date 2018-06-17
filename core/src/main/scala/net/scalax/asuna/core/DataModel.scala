@@ -24,9 +24,7 @@ trait OutputSubData[Output, Sub] extends AbsDataModel {
 trait DataModel[A, B, C] extends AbsDataModel with Function1[A, B] {
   self =>
 
-  override def apply(i: A): B //= current(i)
-
-  //def current: A => B
+  override def apply(i: A): B
   def sub: C
 
   override def compose[F](g: F => A): DataModel[F, B, C] = new DataModel[F, B, C] {

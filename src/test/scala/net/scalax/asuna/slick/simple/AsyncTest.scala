@@ -5,8 +5,9 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import io.circe.syntax._
 import io.circe.generic.auto._
+import net.scalax.asuna.core.DataModel
 import net.scalax.asuna.slick.umr.UmrReaderQuery
-import net.scalax.slick.dynamic.{ FriendTable2Model, MarkTableModel }
+import net.scalax.slick.dynamic.{ FriendTable2Model, InnerFriends2, InnerMark, MarkTableModel }
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
@@ -33,7 +34,7 @@ class MarkTable(tag: slick.lifted.Tag) extends Table[Mark](tag, "mark") {
   def id = column[Long]("id", O.AutoInc)
   def name = column[String]("name")
   def mark = column[Int]("mark")
-  def friendId = column[Long]("id")
+  def friendId = column[Long]("friend_id")
 
   def * = (id, name, mark, friendId).mapTo[Mark]
 }
@@ -96,14 +97,11 @@ class DynModel
   }
 
   "shape" should "aotu filer with case class" in {
-    val query = friendTq2.map(s => new FriendTable2Model(s).reader)
-    val prepareData = db.run(query.result)
-    def fetchSub(friendId: Long) = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).to[List].result)
-
-    logger.info(query.result.statements.toString)
+    val prepareData: Future[Seq[DataModel[List[InnerMark], InnerFriends2, Long]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
+    def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
-      val r = prepareData.flatMap { t =>
-        val lf = t.map(l => fetchSub(l.sub).map(l.apply))
+      val r: Future[Seq[InnerFriends2]] = prepareData.flatMap { t =>
+        val lf = t.map(l => fetchSub(l.sub).map(u => l(u.toList)))
         Future.sequence(lf)
       }
       val d = await(r)
