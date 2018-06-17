@@ -9,7 +9,7 @@ import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapHelper, UmrHelper, UmrRea
 import slick.jdbc.H2Profile.api._
 import shapeless._
 
-case class InnerFriends2(name: String, nick: String, age: Int, mark: List[InnerMark])
+case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
 
 class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
@@ -21,8 +21,8 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   val gen = Generic[InnerFriends2]
 
-  lazy val shape = umrShape(id.toSub :: name :: nick :: age :: umrDelay[List[InnerMark]] :: HNil).map { s =>
-    DMHelper.compile(s).compose((s: List[InnerMark]) => s :: HNil).andThen(gen.from).changeSub(_.head)
+  lazy val shape = (id.toOutputSub :: name :: nick :: age :: umrDelay[List[InnerMark]] :: HNil).map { s =>
+    DMHelper.compile(s).compose((s: List[InnerMark]) => s :: HNil).changeSub(_.head).andThen(gen.from)
   }
 
   lazy val reader = toUmrReader(shape)
@@ -37,7 +37,7 @@ class MarkTableModel(mark: MarkTable) extends UmrHelper with ShapeHelper with Sl
 
   val gen = Generic[InnerMark]
 
-  lazy val shape = umrShape(id :: name :: markRep :: HNil).map(gen.from)
+  lazy val shape = (id :: name :: markRep :: HNil).map(gen.from)
   lazy val reader = toUmrReader(shape)
 
 }

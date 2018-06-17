@@ -46,4 +46,21 @@ trait DataAtomicShapeHelper {
     }
   }
 
+  implicit def atomicShapeImplicit4[A, C]: DataShape[OutputSubTag[A, C], OutputSubData[A, A], OutputSubTag[A, C], C] = {
+    new DataShape[OutputSubTag[A, C], OutputSubData[A, A], OutputSubTag[A, C], C] {
+      override def wrapRep(base: OutputSubTag[A, C]): OutputSubTag[A, C] = base
+      override def toLawRep(base: OutputSubTag[A, C]): DataRepGroup[C] = {
+        DataRepGroup(reps = List(base.common))
+      }
+      override def takeData(oldData: DataGroup, rep: OutputSubTag[A, C]): SplitData[OutputSubData[A, A]] = {
+        val scala.::(head, tail) = oldData.items
+        val headData = head.asInstanceOf[A]
+        SplitData(current = new OutputSubData[A, A] {
+          override val current = headData
+          override val sub = headData
+        }, left = DataGroup(items = tail))
+      }
+    }
+  }
+
 }
