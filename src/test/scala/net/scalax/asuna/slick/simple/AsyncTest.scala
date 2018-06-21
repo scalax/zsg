@@ -7,7 +7,7 @@ import io.circe.syntax._
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataModel
 import net.scalax.asuna.slick.umr.UmrReaderQuery
-import net.scalax.slick.dynamic.{ FriendTable2Model, InnerFriends2, InnerMark, MarkTableModel }
+import net.scalax.slick.dynamic._
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
@@ -18,6 +18,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Friends2(id: Long, name: String, nick: String, age: Int)
+case class Friends3(id1111: Long, name1111: String, nick1111: String, age1111: Int)
 
 class FriendTable2(tag: slick.lifted.Tag) extends Table[Friends2](tag, "firend2") {
   def id = column[Long]("id", O.AutoInc)
@@ -105,6 +106,18 @@ class DynModel
         Future.sequence(lf)
       }
       val d = await(r)
+      println(d.asJson.spaces2)
+    } catch {
+      case e: Exception =>
+        logger.error("error", e)
+        throw e
+    }
+  }
+
+  "shape" should "aotu encode classType class" in {
+    val prepareData = db.run(friendTq2.map(s => new SimpleFriend(s).reader1111).result)
+    try {
+      val d = await(prepareData)
       println(d.asJson.spaces2)
     } catch {
       case e: Exception =>
