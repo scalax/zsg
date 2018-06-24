@@ -114,8 +114,20 @@ class DynModel
     }
   }
 
-  "shape" should "aotu encode classType class" in {
+  it should "aotu encode classType class" in {
     val prepareData = db.run(friendTq2.map(s => new SimpleFriend(s).reader1111).result)
+    try {
+      val d = await(prepareData)
+      println(d.asJson.spaces2)
+    } catch {
+      case e: Exception =>
+        logger.error("error", e)
+        throw e
+    }
+  }
+
+  it should "aotu create with macro" in {
+    val prepareData = db.run(friendTq2.map(s => new FriendTable3Model(s).reader).result)
     try {
       val d = await(prepareData)
       println(d.asJson.spaces2)

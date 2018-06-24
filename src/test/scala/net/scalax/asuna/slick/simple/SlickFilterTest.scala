@@ -3,7 +3,7 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.ShapeHelper
+import net.scalax.asuna.shape.{ CaseClassShapleHelper, ShapeHelper }
 import net.scalax.slick.async._
 import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapAbs, SlickShapeValueWrapHelper, UmrHelper, UmrReaderQuery }
 import slick.jdbc.H2Profile.api._
@@ -16,6 +16,22 @@ import scala.reflect.ClassTag
 
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
+
+case class Friends5(id: Long, name123: String, nick: String, age: Int)
+
+class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
+  self =>
+
+  val id = rep(friend.id)
+  val name123 = rep(friend.name)
+  val nick = rep(friend.nick)
+  val age = rep(friend.age)
+
+  lazy val shape = CaseClassShapleHelper.shapeFromCase[FriendTable3Model, Friends5, SlickShapeValueWrapAbs]
+
+  lazy val reader = toUmrReader(shape(self))
+
+}
 
 class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
 
@@ -90,25 +106,25 @@ class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with
     @implicitNotFound(msg = "属性 id 中，Shape 的数据类型 ${ShapeData} 和实体类的数据类型 ${ProData} 不对应")
     trait idPl[ShapeData, ProData] extends PropertyImplicit[ShapeData, ProData]
     object idPl {
-      implicit def plImplicit[T]: idPl[T @@ OutputData, T] = new idPl[T @@ OutputData, T] {}
+      implicit def plImplicit[S, T](implicit cv: S <:< T): idPl[S, T] = new idPl[S, T] {}
     }
 
     @implicitNotFound(msg = "属性 name 中，Shape 的数据类型 ${ShapeData} 和实体类的数据类型 ${ProData} 不对应")
     trait namePl[ShapeData, ProData] extends PropertyImplicit[ShapeData, ProData]
     object namePl {
-      implicit def plImplicit[T]: namePl[T @@ OutputData, T] = new namePl[T @@ OutputData, T] {}
+      implicit def plImplicit[S, T](implicit cv: S <:< T): namePl[S, T] = new namePl[S, T] {}
     }
 
     @implicitNotFound(msg = "属性 nick 中，Shape 的数据类型 ${ShapeData} 和实体类的数据类型 ${ProData} 不对应")
     trait nickPl[ShapeData, ProData] extends PropertyImplicit[ShapeData, ProData]
     object nickPl {
-      implicit def plImplicit[T]: nickPl[T @@ OutputData, T] = new nickPl[T @@ OutputData, T] {}
+      implicit def plImplicit[S, T](implicit cv: S <:< T): nickPl[S, T] = new nickPl[S, T] {}
     }
 
     @implicitNotFound(msg = "属性 age 中，Shape 的数据类型 ${ShapeData} 和实体类的数据类型 ${ProData} 不对应")
     trait agePl[ShapeData, ProData] extends PropertyImplicit[ShapeData, ProData]
     object agePl {
-      implicit def plImplicit[T]: agePl[T @@ OutputData, T] = new agePl[T @@ OutputData, T] {}
+      implicit def plImplicit[S, T](implicit cv: S <:< T): agePl[S, T] = new agePl[S, T] {}
     }
 
     trait ProGen[A, B, C, PL] {
