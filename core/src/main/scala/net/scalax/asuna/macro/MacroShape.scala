@@ -116,8 +116,8 @@ object MacroShape {
          """
       }
 
-      def hlistFromPros(pros: List[String], hlistVal: String) = {
-        val (result, _) = pros.foldLeft((List.empty[Tree], TermName(hlistVal))) {
+      def hlistFromPros(pros: List[String], hlistVal: TermName) = {
+        val (result, _) = pros.foldLeft((List.empty[Tree], hlistVal)) {
           case ((expr, termName), proName) =>
             val tailVal = TermName(c.freshName(proName))
             val q = List(
@@ -130,12 +130,13 @@ object MacroShape {
 
       def toShape(namePare: List[String]) = {
         val proNames = namePare
+        val termVar1 = TermName(c.freshName)
         q"""
           _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs].typeSymbol}].sv(
             ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).map { r =>
-          ..${hlistFromPros(proNames, "r")}
-          ${weakTypeOf[Case].typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
+          ).map { case ${termVar1} =>
+            ..${hlistFromPros(proNames, termVar1)}
+            ${weakTypeOf[Case].typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
           }"""
       }
 
@@ -152,6 +153,7 @@ object MacroShape {
           }
         """
       }
+      println(q)
       q
     }
 
