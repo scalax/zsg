@@ -16,11 +16,12 @@ import scala.reflect.ClassTag
 
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
+case class InnerFriendInput(mark: List[InnerMark])
+case class InnerFriendOutput(id: Long)
 
 case class Friends5(id: Long, name123: String, nick: String, age: Int)
 
 class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
-  self =>
 
   val id = rep(friend.id)
   val name123 = rep(friend.name)
@@ -31,7 +32,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   lazy val shape = CaseClassShapleHelper.shapeFromCase[FriendTable3Model, Friends5, SlickShapeValueWrapAbs]
 
-  lazy val reader = toUmrReader(shape(self))
+  lazy val reader = toUmrReader(shape(this))
 
 }
 
@@ -44,11 +45,9 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   val gen = Generic[InnerFriends2]
 
-  lazy val shape = (id.toOutputSub :: name :: nick :: age :: umrDelay[List[InnerMark]] :: HNil).map { s =>
-    DMHelper.compile(s).compose((s: List[InnerMark]) => s :: HNil).changeSub(_.head).andThen(gen.from)
-  }
+  lazy val shape = CaseClassShapleHelper.shapeFromDM[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput, SlickShapeValueWrapAbs]
 
-  lazy val reader = toUmrReader(shape)
+  lazy val reader = toUmrReader(shape(this))
 
 }
 

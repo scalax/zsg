@@ -6,7 +6,9 @@ import scala.reflect.macros.blackbox.Context
 import scala.language.experimental.macros
 import scala.language.higherKinds
 
-trait PropertyType[Pro]
+trait PropertyType[Pro] {
+  def toIO[Abs]: DelayTag[Pro, Abs] = DelayTag.createDelayTagGeneration[Abs].apply[Pro]
+}
 
 trait ModelGen[Model] {
   def apply[Pro](f: Model => Pro): PropertyType[Pro] = new PropertyType[Pro] {}
@@ -153,7 +155,7 @@ object MacroShape {
           }
         """
       }
-      println(q)
+      //println(q)
       q
     }
 

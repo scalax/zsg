@@ -74,7 +74,8 @@ object MacroUtils {
             @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
             trait ${TypeName(traitName)}[ShapeData, ProData]
             object ${TermName(traitName)} {
-              implicit def propertyImplicit[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
+              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
+              implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputSubData[S, S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputSubData[S, S], T] {}
             }
             def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
               new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {

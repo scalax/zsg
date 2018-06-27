@@ -98,11 +98,11 @@ class DynModel
   }
 
   "shape" should "aotu filer with case class" in {
-    val prepareData: Future[Seq[DataModel[List[InnerMark], InnerFriends2, Long]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
+    val prepareData: Future[Seq[DataModel[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
     def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
       val r: Future[Seq[InnerFriends2]] = prepareData.flatMap { t =>
-        val lf = t.map(l => fetchSub(l.sub).map(u => l(u.toList)))
+        val lf = t.map(l => fetchSub(l.sub.id).map(u => l(InnerFriendInput(u.toList))))
         Future.sequence(lf)
       }
       val d = await(r)
