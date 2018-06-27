@@ -44,28 +44,23 @@ trait PropertyDataShapeUnwrap[R[_, _, _], Source, Table, Abs] {
 
 object MacroShape {
 
-  class MacroShapeImpl(val c: Context) {
+  class MacroShapeImpl(override val c: Context) extends MacroUtils.MacroUtilImpl {
+    self =>
 
     import c.universe._
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DataShapeValue[Case, Abs]] = {
       val fieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
-      def hasFieldsTrait(proName: String) = {
-        val traitName = c.freshName(proName)
-        q"""
-            {
-             @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"函数源 $${Source} 所在对象的属性 ${proName} 不存在"))})
-             trait ${TypeName(traitName)}[Source]
-
-             object ${TermName(traitName)} {
-               implicit def propertyImplicit[T](implicit cv: T <:< { def ${TermName(proName)}: Any }): ${TypeName(traitName)}[T] = new ${TypeName(traitName)}[T] { }
-             }
-             def ${TermName(c.freshName(proName))} = implicitly[${TypeName(traitName)}[${weakTypeOf[Table].typeSymbol}]]
-           }
-         """
+      val fieldNameStrs = fieldNames.map(_.toString.trim)
+      def confireCaseClassFields = {
+        confirmHasFields(baseModelName = weakTypeOf[Case].typeSymbol, compareModelName = weakTypeOf[Table].typeSymbol, fieldNames = fieldNameStrs)
       }
 
-      def shapeConifrm(modelName: String, proName: String) = {
+      def fileConfirmAction(modelName: TermName) = {
+        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs].typeSymbol, fieldNames = fieldNameStrs)
+      }
+
+      /*def shapeConifrm(modelName: String, proName: String) = {
         val traitName = c.freshName(proName)
         val def1Name = c.freshName(proName)
         q"""
@@ -82,14 +77,20 @@ object MacroShape {
             def ${TermName(c.freshName(proName))} = ${TermName(def1Name)}(${TermName(modelName)}.${TermName(proName)}).unwrap
           }
          """
-      }
+      }*/
 
       def mgDef =
         q"""
            val mg: _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] = new _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] {}
          """
 
-      def proUseInShape(modelName: String, proName: String) = {
+      /*def proUseInShape(modelName: String, proName: String, isOutPutSub: Boolean) = {
+        val colDef = if (isOutPutSub) {
+          q"""${TermName(modelName)}.${TermName(proName)}.toOutputSub"""
+        } else {
+          q"""${TermName(modelName)}.${TermName(proName)}.toOutput"""
+        }
+
         val traitName = s"$proName-pro-shape-trait" //c.freshName(proName)
         val defName = c.freshName(proName + "Gen")
         q"""
@@ -111,10 +112,10 @@ object MacroShape {
                 }
               }
             }
-            ${TermName(defName)}(${TermName(modelName)}.${TermName(proName)}, mg(_.${TermName(proName)})).unwrap.sv
+            ${TermName(defName)}(${colDef}, mg(_.${TermName(proName)})).unwrap.sv
           }
          """
-      }
+      }*/
 
       def hlistFromPros(pros: List[String], hlistVal: TermName) = {
         val (result, _) = pros.foldLeft((List.empty[Tree], hlistVal)) {
@@ -142,14 +143,13 @@ object MacroShape {
 
       val q = c.Expr[Table => DataShapeValue[Case, Abs]] {
         val repModelTermName = c.freshName
-        val pros = fieldNames.map(_.toString.trim)
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
-            ..${pros.map(pro => hasFieldsTrait(pro))}
-            ..${pros.map(pro => shapeConifrm(modelName = repModelTermName, proName = pro))}
+            ..${confireCaseClassFields}
+            ..${fileConfirmAction(modelName = TermName(repModelTermName))}
             ${mgDef}
-            ..${pros.map { case proName => proUseInShape(modelName = repModelTermName, proName = proName) }}
-            ${toShape(pros)}
+            ..${fieldNameStrs.map { case proName => proUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs].typeSymbol, isOutPutSub = false) }}
+            ${toShape(fieldNameStrs)}
           }
         """
       }
