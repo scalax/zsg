@@ -81,43 +81,9 @@ object MacroShape {
          """
       }*/
 
-      def mgDef =
-        q"""
-           val mg: _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] = new _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] {}
-         """
-
-      /*def proUseInShape(modelName: String, proName: String, isOutPutSub: Boolean) = {
-        val colDef = if (isOutPutSub) {
-          q"""${TermName(modelName)}.${TermName(proName)}.toOutputSub"""
-        } else {
-          q"""${TermName(modelName)}.${TermName(proName)}.toOutput"""
-        }
-
-        val traitName = s"$proName-pro-shape-trait" //c.freshName(proName)
-        val defName = c.freshName(proName + "Gen")
-        q"""
-          val ${TermName(proName)} = {
-            @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
-            trait ${TypeName(traitName)}[ShapeData, ProData]
-            object ${TermName(traitName)} {
-              implicit def propertyImplicit[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
-            }
-            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${weakTypeOf[Abs].typeSymbol}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${weakTypeOf[Abs].typeSymbol}] = {
-              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${weakTypeOf[Abs].typeSymbol}] {
-                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${weakTypeOf[Abs].typeSymbol}] = {
-                  val rep1 = rep
-                  val shape1 = shape
-                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${weakTypeOf[Abs].typeSymbol}] {
-                    override val rep: A = rep1
-                    override val shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${weakTypeOf[Abs].typeSymbol}] = shape1
-                  }
-                }
-              }
-            }
-            ${TermName(defName)}(${colDef}, mg(_.${TermName(proName)})).unwrap.sv
-          }
-         """
-      }*/
+      def mgDef = q"""
+          lazy val mg: _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] = new _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] {}
+        """
 
       def hlistFromPros(pros: List[String], hlistVal: TermName) = {
         val (result, _) = pros.foldLeft((List.empty[Tree], hlistVal)) {

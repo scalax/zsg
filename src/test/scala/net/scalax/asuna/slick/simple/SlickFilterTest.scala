@@ -28,7 +28,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
   val nick = rep(friend.nick)
   val age = rep(friend.age)
 
-  val aa = 316
+  val aa = 317
 
   lazy val shape = CaseClassShapleHelper.shapeFromCase[FriendTable3Model, Friends5, SlickShapeValueWrapAbs]
 
