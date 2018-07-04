@@ -1,6 +1,6 @@
 package net.scalax.asuna.core
 
-import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ListShapeHelper, RepGroupShapeHelper }
+import net.scalax.asuna.shape.ListShapeHelper
 
 case class SplitData[T](current: T, left: DataGroup)
 
@@ -20,4 +20,4 @@ trait DataShape[-E, U, C, T] {
   def takeData(oldData: DataGroup, rep: C): SplitData[U]
 }
 
-object DataShape extends HListShapeHelper with DataAtomicShapeHelper with ListShapeHelper with RepGroupShapeHelper
+object DataShape extends ListShapeHelper

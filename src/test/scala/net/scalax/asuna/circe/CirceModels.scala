@@ -1,10 +1,10 @@
 package net.scalax.asuna.core
 
 import cats.data.Validated
-import net.scalax.asuna.shape.ShapeHelper
+import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
 import shapeless._
 
-trait CirceModels extends CirceReaderHelper with ShapeHelper {
+trait CirceModels extends CirceReaderHelper with HListShapeHelper with ShapeHelper with DataAtomicShapeHelper {
 
   case class Student(id: Int, name: String, age: Long, nick: String)
 

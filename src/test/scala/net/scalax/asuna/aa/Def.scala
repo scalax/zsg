@@ -4,7 +4,7 @@ import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataShapeValue
 import net.scalax.asuna.sangria.{ SlickRepAbsAbs, SlickSangria, SlickSangriaHelper, SlickValueGen }
-import net.scalax.asuna.shape.ShapeHelper
+import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
 import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
@@ -33,7 +33,7 @@ class FriendTable4(tag: slick.lifted.Tag) extends Table[Friends4](tag, "firend4"
 
 case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4], extAge: Int)
 
-object SFriend4 extends SlickSangriaHelper[FriendTable4] with ShapeHelper {
+object SFriend4 extends SlickSangriaHelper[FriendTable4] with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper {
 
   def id = repWithKey(_.id, "id")
   def name = repWithKey(_.name, "name")
