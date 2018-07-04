@@ -3,7 +3,7 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.{ CaseClassShapleHelper, ShapeHelper }
+import net.scalax.asuna.shape.{ CaseClassShapleHelper, DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
 import net.scalax.slick.async._
 import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapAbs, SlickShapeValueWrapHelper, UmrHelper, UmrReaderQuery }
 import slick.jdbc.H2Profile.api._
@@ -21,7 +21,7 @@ case class InnerFriendOutput(id: Long)
 
 case class Friends5(id: Long, name123: String, nick: String, age: Int)
 
-class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
+class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
 
   val id = rep(friend.id)
   val name123 = rep(friend.name)
@@ -34,7 +34,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
 }
 
-class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
+class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
 
   val id = rep(friend.id)
   val name = rep(friend.name)
@@ -49,7 +49,7 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
 }
 
-class MarkTableModel(mark: MarkTable) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
+class MarkTableModel(mark: MarkTable) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
 
   val id = rep(mark.id)
   val name = rep(mark.name)
@@ -61,8 +61,7 @@ class MarkTableModel(mark: MarkTable) extends UmrHelper with ShapeHelper with Sl
   lazy val reader = toUmrReader(shape)
 
 }
-
-class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
+/*class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
 
   val id = rep(friend.id)
   val name = rep(friend.name)
@@ -214,4 +213,4 @@ class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with
 
   lazy val reader1111 = toUmrReader(sv)
 
-}
+}*/ 

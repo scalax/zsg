@@ -18,27 +18,8 @@ trait ListShapeHelper {
           SplitData(current = List.empty[B], left = oldData)) { (splEt, eachRep) =>
             val currTakeEt = shape.takeData(splEt.left, eachRep)
             SplitData(current = currTakeEt.current :: splEt.current, left = currTakeEt.left)
-            /*splEt.right.flatMap { spl =>
-              val currTakeEt = shape.takeData(spl.left, eachRep)
-              currTakeEt.right.map { currTake =>
-                SplitData(current = currTake.current :: spl.current, left = currTake.left)
-              }
-            }*/
           }
       }
-      /*override def buildData(splitData: List[B], rep: List[C]): Either[NotConvert, DataGroup] = {
-        val l = splitData.zip(rep)
-        val dg = l.map { case (d, r) => shape.buildData(d, r) }
-        dg.foldLeft(
-          Right(DataGroup(items = List.empty[Any])): Either[NotConvert, DataGroup]) {
-            case (frontEt, backEt) =>
-              frontEt.right.flatMap { front =>
-                backEt.right.map { back =>
-                  DataGroup(items = front.items ::: back.items)
-                }
-              }
-          }
-      }*/
     }
   }
 

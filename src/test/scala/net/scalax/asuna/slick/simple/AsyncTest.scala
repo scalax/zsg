@@ -6,6 +6,7 @@ import com.github.javafaker.Faker
 import io.circe.syntax._
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataModel
+import net.scalax.asuna.shape.HListShapeHelper
 import net.scalax.asuna.slick.umr.UmrReaderQuery
 import net.scalax.slick.dynamic._
 import slick.jdbc.H2Profile.api._
@@ -113,8 +114,7 @@ class DynModel
         throw e
     }
   }
-
-  it should "aotu encode classType class" in {
+  /*it should "aotu encode classType class" in {
     val prepareData = db.run(friendTq2.map(s => new SimpleFriend(s).reader1111).result)
     try {
       val d = await(prepareData)
@@ -124,8 +124,7 @@ class DynModel
         logger.error("error", e)
         throw e
     }
-  }
-
+  }*/
   it should "aotu create with macro" in {
     val prepareData = db.run(friendTq2.map(s => new FriendTable3Model(s).reader).result)
     try {
