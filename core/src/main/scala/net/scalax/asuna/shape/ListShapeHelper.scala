@@ -15,9 +15,10 @@ trait ListShapeHelper {
       }
       override def takeData(oldData: DataGroup, rep: List[C]): SplitData[List[B]] = {
         rep.foldLeft(
-          SplitData(current = List.empty[B], left = oldData)) { (splEt, eachRep) =>
-            val currTakeEt = shape.takeData(splEt.left, eachRep)
-            SplitData(current = currTakeEt.current :: splEt.current, left = currTakeEt.left)
+          SplitData(current = List.empty[B], left = oldData)) {
+            case (SplitData(splCurrent, splLeft), eachRep) =>
+              val SplitData(currentData, currentLeft) = shape.takeData(splLeft, eachRep)
+              SplitData(current = currentData :: splCurrent, left = currentLeft)
           }
       }
     }
