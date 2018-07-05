@@ -59,7 +59,7 @@ object MacroShape {
       }
 
       def fileConfirmAction(modelName: TermName) = {
-        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs].typeSymbol, fieldNames = fieldNameStrs)
+        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs], fieldNames = fieldNameStrs)
       }
 
       /*def shapeConifrm(modelName: String, proName: String) = {
@@ -101,7 +101,7 @@ object MacroShape {
         val proNames = namePare
         val termVar1 = TermName(c.freshName)
         q"""
-          _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs].typeSymbol}].sv(
+          _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs]}].sv(
             ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
           ).map { case ${termVar1} =>
             ..${hlistFromPros(proNames, termVar1)}
@@ -113,11 +113,14 @@ object MacroShape {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
-            ..${confireCaseClassFields}
-            ..${fileConfirmAction(modelName = TermName(repModelTermName))}
-            ${mgDef}
-            ..${fieldNameStrs.map { case proName => proUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs].typeSymbol, isOutPutSub = false) }}
-            ${toShape(fieldNameStrs)}
+            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper with _root_.net.scalax.asuna.shape.DataAtomicShapeHelper {
+              ..${confireCaseClassFields}
+              ..${fileConfirmAction(modelName = TermName(repModelTermName))}
+              ${mgDef}
+              ..${fieldNameStrs.map { case proName => proUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = false) }}
+              val dataShapeValue = ${toShape(fieldNameStrs)}
+            }
+            CaseClassGenImpl.dataShapeValue
           }
         """
       }

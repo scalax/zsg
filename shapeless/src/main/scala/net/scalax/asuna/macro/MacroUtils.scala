@@ -34,7 +34,7 @@ object MacroUtils {
       q"""..${blocks}"""
     }
 
-    private def fieldShapeConifrm(modelName: TermName, tableName: Symbol, absName: Symbol, fieldName: String) = {
+    private def fieldShapeConifrm(modelName: TermName, tableName: Symbol, absName: Type, fieldName: String) = {
       val traitName = c.freshName(fieldName)
       val traitDef = TypeName(traitName)
       val traitObjDef = TermName(traitName)
@@ -55,12 +55,12 @@ object MacroUtils {
          """
     }
 
-    def fieldsShapeConifrm(modelName: TermName, tableName: Symbol, absName: Symbol, fieldNames: List[String]) = {
+    def fieldsShapeConifrm(modelName: TermName, tableName: Symbol, absName: Type, fieldNames: List[String]) = {
       val blocks = fieldNames.map(field => q"""..${fieldShapeConifrm(modelName = modelName, tableName = tableName, absName = absName, fieldName = field)}""")
       q"""..${blocks}"""
     }
 
-    def proUseInShape(fieldName: String, modelName: TermName, absName: Symbol, isOutPutSub: Boolean) = {
+    def proUseInShape(fieldName: String, modelName: TermName, absName: Type, isOutPutSub: Boolean) = {
       val colDef = if (isOutPutSub) {
         q"""${modelName}.${TermName(fieldName)}.toOutputSub"""
       } else {

@@ -1,10 +1,8 @@
 package net.scalax.asuna.core
 
 import cats.data.Validated
-import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
-import shapeless._
 
-trait CirceModels extends CirceReaderHelper with HListShapeHelper with ShapeHelper with DataAtomicShapeHelper {
+trait CirceModels extends CirceReaderHelper {
 
   case class Student(id: Int, name: String, age: Long, nick: String)
 
@@ -15,9 +13,7 @@ trait CirceModels extends CirceReaderHelper with HListShapeHelper with ShapeHelp
     def age = column[Long]("我是莎莎酱的年龄")
     def nick = column[String]("我是莎莎酱的昵称")
 
-    val gen = Generic[Student]
-
-    val reader = toCirceReader((id :: name :: age :: nick :: HNil).map(gen.from))
+    def reader = toCirceReader(circeCase.caseOnly[CirceModelReader0.type, Student](CirceModelReader0))
 
   }
 
@@ -27,25 +23,30 @@ trait CirceModels extends CirceReaderHelper with HListShapeHelper with ShapeHelp
   val validateStr1 = s"魔理沙的年龄必须大于${minAge}岁"
   val validateStr2 = s"昵称不能小于 30 个字"
 
-  trait CirceModelReader1 extends CirceModelReader0 {
+  class CirceModelReader1(circeTable: CirceModelReader0) {
 
-    val age11 = super.age.validate { l =>
+    val id = circeTable.id
+
+    val name = circeTable.name
+
+    val age = circeTable.age.validate { l =>
       if (l < minAge)
         Validated.invalidNel(validateStr1)
       else
         Validated.validNel(l)
     }
 
-    val nick22 = super.nick.validate { l =>
+    val nick = circeTable.nick.validate { l =>
       if (l.size < 30)
         Validated.invalidNel(validateStr2)
       else
         Validated.validNel(l)
     }
 
-    override val reader = toCirceReader((id :: name :: age11 :: nick22 :: HNil).map(gen.from))
+    def reader = toCirceReader(circeCase.caseOnly[CirceModelReader1, Student](this))
+
   }
 
-  object CirceModelReader1 extends CirceModelReader1
+  object CirceModelReader1 extends CirceModelReader1(CirceModelReader0)
 
 }
