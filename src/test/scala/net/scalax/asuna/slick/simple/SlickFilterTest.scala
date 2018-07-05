@@ -1,18 +1,9 @@
 package net.scalax.slick.dynamic
 
-import io.circe.Json
-import io.circe.generic.auto._
-import net.scalax.asuna.core._
-import net.scalax.asuna.shape.{ CaseClassShapleHelper, DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
 import net.scalax.slick.async._
-import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapAbs, SlickShapeValueWrapHelper, UmrHelper, UmrReaderQuery }
+import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapHelper, UmrHelper }
 import slick.jdbc.H2Profile.api._
 import shapeless._
-import slick.jdbc.JdbcProfile
-import tag._
-
-import scala.annotation.implicitNotFound
-import scala.reflect.ClassTag
 
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
@@ -21,20 +12,20 @@ case class InnerFriendOutput(id: Long)
 
 case class Friends5(id: Long, name123: String, nick: String, age: Int)
 
-class FriendTable3Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
+class FriendTable3Model(friend: FriendTable2) extends UmrHelper with SlickShapeValueWrapHelper {
 
   val id = rep(friend.id)
   val name123 = rep(friend.name)
   val nick = rep(friend.nick)
   val age = rep(friend.age)
 
-  lazy val shape = CaseClassShapleHelper.shapeFromCase[FriendTable3Model, Friends5, SlickShapeValueWrapAbs]
+  lazy val shape = umrCase.caseOnly[FriendTable3Model, Friends5]
 
   lazy val reader = toUmrReader(shape(this))
 
 }
 
-class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
+class FriendTable2Model(friend: FriendTable2) extends UmrHelper with SlickShapeValueWrapHelper {
 
   val id = rep(friend.id)
   val name = rep(friend.name)
@@ -43,22 +34,20 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   val gen = Generic[InnerFriends2]
 
-  lazy val shape = CaseClassShapleHelper.shapeFromDM[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput, SlickShapeValueWrapAbs]
+  lazy val shape = umrCase.dataModel[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput]
 
   lazy val reader = toUmrReader(shape(this))
 
 }
 
-class MarkTableModel(mark: MarkTable) extends UmrHelper with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper with SlickShapeValueWrapHelper {
+class MarkTableModel(markTable: MarkTable) extends UmrHelper with SlickShapeValueWrapHelper {
 
-  val id = rep(mark.id)
-  val name = rep(mark.name)
-  val markRep = rep(mark.mark)
+  val id = rep(markTable.id)
+  val name = rep(markTable.name)
+  val mark = rep(markTable.mark)
 
-  val gen = Generic[InnerMark]
-
-  lazy val shape = (id :: name :: markRep :: HNil).map(gen.from)
-  lazy val reader = toUmrReader(shape)
+  lazy val shape = umrCase.caseOnly[MarkTableModel, InnerMark]
+  lazy val reader = toUmrReader(shape(this))
 
 }
 /*class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {

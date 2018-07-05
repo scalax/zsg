@@ -2,6 +2,7 @@ package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core.DelayTag.DelayTagGen
 import net.scalax.asuna.core._
+import net.scalax.asuna.shape.CaseClassShapleHelper.CaseClassShapeMacroHelper
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
@@ -36,6 +37,7 @@ trait SlickSangriaHelper[E] extends ShapeHelper {
 
   val sangriaUnwrap: DataShapeValueInitWrap[SlickRepAbsAbs[E]] = DataShapeValue.toShapeValue[SlickRepAbsAbs[E]]
   val sangraiDelay: DelayTagGen[SlickRepAbsAbs[E]] = DelayTag.createDelayTagGeneration[SlickRepAbsAbs[E]]
+  val sangraiCase: CaseClassShapeMacroHelper[SlickRepAbsAbs[E]] = new CaseClassShapeMacroHelper[SlickRepAbsAbs[E]] {}
 
   def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
     val w = new SlickRepWrap[E, D] {

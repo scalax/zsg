@@ -1,7 +1,9 @@
 package net.scalax.asuna.slick.umr
 
 import net.scalax.asuna.core.DelayTag.DelayTagGen
+import net.scalax.asuna.core.macroImpl.{ DataModelMacroShape, MacroShape }
 import net.scalax.asuna.core.{ DataShapeValueInitWrap, _ }
+import net.scalax.asuna.shape.CaseClassShapleHelper.CaseClassShapeMacroHelper
 import slick.lifted.ShapedValue
 
 import scala.language.higherKinds
@@ -42,6 +44,8 @@ object UmrReaderQuery {
 trait UmrHelper {
   val umrShape: DataShapeValueInitWrap[SlickShapeValueWrapAbs] = DataShapeValue.toShapeValue[SlickShapeValueWrapAbs]
   val umrDelay: DelayTagGen[SlickShapeValueWrapAbs] = DelayTag.createDelayTagGeneration[SlickShapeValueWrapAbs]
+
+  val umrCase: CaseClassShapeMacroHelper[SlickShapeValueWrapAbs] = new CaseClassShapeMacroHelper[SlickShapeValueWrapAbs] {}
 
   def toUmrReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickShapeValueWrapAbs], profile: slick.jdbc.JdbcProfile, classTag: ClassTag[R]): ShapedValue[Any, R] = {
     val shape1 = shape

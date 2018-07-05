@@ -33,19 +33,25 @@ class FriendTable4(tag: slick.lifted.Tag) extends Table[Friends4](tag, "firend4"
 
 case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4], extAge: Int)
 
-object SFriend4 extends SlickSangriaHelper[FriendTable4] with ShapeHelper with HListShapeHelper with DataAtomicShapeHelper {
+trait SFriend4 extends SlickSangriaHelper[FriendTable4] {
 
   def id = repWithKey(_.id, "id")
   def name = repWithKey(_.name, "name")
   def nick = repWithKey(_.nick, "nick")
   def age = rep(_.age)
   def extAge = rep(_.age)
+  def repOut = seqRep(id, name, nick)
 
-  lazy val shape = (age :: seqRep(id, name, nick) :: extAge :: HNil).map(Generic[FriendWrap].from)
+  object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper with _root_.net.scalax.asuna.shape.DataAtomicShapeHelper {
+    val s = (age :: repOut :: extAge :: HNil).map(Generic[FriendWrap].from)
+  }
+  lazy val shape = CaseClassGenImpl.s
 
   lazy val reader = toSangriaReader(shape)
 
 }
+
+object SFriend4 extends SFriend4
 
 class SangriaTest extends FlatSpec with Matchers
   with EitherValues

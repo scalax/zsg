@@ -26,7 +26,7 @@ object DataModelMacroShape {
       }
 
       def fieldConfirmAction(modelName: TermName) = {
-        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs].typeSymbol, fieldNames = useFieldNames)
+        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs], fieldNames = useFieldNames)
       }
 
       def mgDef =
@@ -68,7 +68,7 @@ object DataModelMacroShape {
            """
 
         q"""
-          lazy val aa = _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs].typeSymbol}].sv(
+          lazy val aa = _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs]}].sv(
             ${(useFieldNames ::: iCaseFieldNames).reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
           ).map { case ${termVar1} =>
             val ${termVar2} = _root_.net.scalax.asuna.core.DMHelper.compile(${termVar1})
@@ -86,13 +86,15 @@ object DataModelMacroShape {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
+            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper with _root_.net.scalax.asuna.shape.DataAtomicShapeHelper {
             ..${confireCaseClassFields}
-            ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
-            ..${ioFieldsGen}
-            ${mgDef}
-            ..${useFieldNames.map { fieldName => proUseInShape(fieldName = fieldName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs].typeSymbol, isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
-            ${toShape}
-           aa
+              ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
+              ..${ioFieldsGen}
+              ${mgDef}
+              ..${useFieldNames.map { fieldName => proUseInShape(fieldName = fieldName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
+              ${toShape}
+            }
+           CaseClassGenImpl.aa
           }
         """
       }

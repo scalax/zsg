@@ -7,7 +7,9 @@ import scala.language.experimental.macros
 
 object CaseClassShapleHelper {
 
-  def shapeFromCase[Table, Case, Abs]: Table => DataShapeValue[Case, Abs] = macro MacroShape.MacroShapeImpl.impl[Table, Case, Abs]
-  def shapeFromDM[Table, ICase, Case, SubCase, Abs]: Table => DataShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DataModelMacroShape.DataModelMacroShapeImpl.impl[Table, ICase, Case, SubCase, Abs]
+  trait CaseClassShapeMacroHelper[Abs] {
+    def caseOnly[Table, Case]: Table => DataShapeValue[Case, Abs] = macro MacroShape.MacroShapeImpl.impl[Table, Case, Abs]
+    def dataModel[Table, ICase, Case, SubCase]: Table => DataShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DataModelMacroShape.DataModelMacroShapeImpl.impl[Table, ICase, Case, SubCase, Abs]
+  }
 
 }
