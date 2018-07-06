@@ -13,7 +13,6 @@ trait HListShapeHelper {
       override def wrapRep(base: HNil): HNil = base
       override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty)
       override def takeData(oldData: DataGroup, rep: HNil): SplitData[HNil] = SplitData(current = HNil, left = oldData)
-      //override def buildData(splitData: HNil, rep: HNil): Either[NotConvert, DataGroup] = Right(DataGroup(items = List.empty))
     }
   }
 
@@ -40,17 +39,6 @@ trait HListShapeHelper {
         val newData2 = tail.takeData(newData1.left, tailRep)
         SplitData(newData1.current :: newData2.current, newData2.left)
       }
-
-      /*override def buildData(splitData: H :: I, rep: M :: N): Either[NotConvert, DataGroup] = {
-        val headData :: tailData = splitData
-        val headRep :: tailRep = rep
-        for {
-          newData1 <- head.buildData(headData, headRep).right
-          newData2 <- tail.buildData(tailData, tailRep).right
-        } yield {
-          DataGroup(items = newData1.items ::: newData2.items)
-        }
-      }*/
 
     }
 

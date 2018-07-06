@@ -7,7 +7,7 @@ import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait PropertyType[Pro] {
-  def toIO[Abs]: DelayTag[Pro, Abs] = DelayTag.createDelayTagGeneration[Abs].apply[Pro]
+  def delay[Abs]: DelayTag[Pro, Abs] = new AllHelper[Abs] {}.delay[Pro]
 }
 
 trait ModelGen[Model] {
@@ -50,6 +50,33 @@ object MacroShape {
     self =>
 
     import c.universe._
+
+    def commonProUseInShape(fieldName: String, modelName: TermName, absName: Type, isOutPutSub: Boolean) = {
+      val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
+      val defName = c.freshName(fieldName + "Gen")
+      q"""
+          val ${TermName(fieldName)} = {
+            @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
+            trait ${TypeName(traitName)}[ShapeData, ProData]
+            object ${TermName(traitName)} {
+              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
+            }
+            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
+              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {
+                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] = {
+                  val rep1 = rep
+                  val shape1 = shape
+                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] {
+                    override val rep: A = rep1
+                    override val shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}] = shape1
+                  }
+                }
+              }
+            }
+            ${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv
+          }
+         """
+    }
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DataShapeValue[Case, Abs]] = {
       val fieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
@@ -101,7 +128,7 @@ object MacroShape {
         val proNames = namePare
         val termVar1 = TermName(c.freshName)
         q"""
-          _root_.net.scalax.asuna.core.DataShapeValue.toShapeValue[${weakTypeOf[Abs]}].sv(
+          new _root_.net.scalax.asuna.core.AllHelper[${weakTypeOf[Abs]}]{ }.shaped(
             ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
           ).map { case ${termVar1} =>
             ..${hlistFromPros(proNames, termVar1)}
@@ -113,11 +140,11 @@ object MacroShape {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
-            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper with _root_.net.scalax.asuna.shape.DataAtomicShapeHelper {
+            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper {
               ..${confireCaseClassFields}
               ..${fileConfirmAction(modelName = TermName(repModelTermName))}
               ${mgDef}
-              ..${fieldNameStrs.map { case proName => proUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = false) }}
+              ..${fieldNameStrs.map { case proName => commonProUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}
             }
             CaseClassGenImpl.dataShapeValue

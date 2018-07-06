@@ -2,7 +2,16 @@ package net.scalax.asuna.core
 
 sealed abstract trait AbsDataModel
 
-trait OutputData extends AbsDataModel
+trait OutputData[DataType] extends AbsDataModel {
+  def current: DataType
+}
+
+object OutputData {
+  def simpleLift[T](t: T): OutputData[T] = new OutputData[T] {
+    override def current = t
+  }
+  def lift[T](t: T): OutputData[T] = simpleLift(t)
+}
 
 trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   self =>
@@ -16,39 +25,11 @@ trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   }
 }
 
-trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] {
-  self =>
-
-  def current: Output
-  def sub: Sub
-
-  override def changeSub[F](cv: Sub => F): OutputSubData[Output, F] = new OutputSubData[Output, F] {
-    override def current = self.current
-    override def sub: F = cv(self.sub)
+object IOData {
+  def newInstance[A, B](f: A => B): IOData[A, B] = new IOData[A, B] {
+    override def apply(i: A): B = f(i)
   }
-
-}
-
-trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Output] with SubOnly[Sub] {
-  self =>
-
-  override def apply(i: Input): Output
-  override def sub: Sub
-
-  override def compose[F](g: F => Input): DataModel[F, Output, Sub] = new DataModel[F, Output, Sub] {
-    override def apply(i: F): Output = self.apply(g(i))
-    override def sub: Sub = self.sub
-  }
-  override def andThen[F](g: Output => F): DataModel[Input, F, Sub] = new DataModel[Input, F, Sub] {
-    override def apply(i: Input): F = g(self.apply(i))
-    override def sub: Sub = self.sub
-  }
-
-  override def changeSub[F](cv: Sub => F): DataModel[Input, Output, F] = new DataModel[Input, Output, F] {
-    override def apply(i: Input): Output = self.apply(i)
-    override def sub: F = cv(self.sub)
-  }
-
+  def simpleInstance[A]: IOData[A, A] = newInstance(identity)
 }
 
 trait SubOnly[DataType] {
@@ -62,9 +43,52 @@ trait SubOnly[DataType] {
 
 }
 
-object IOData {
-  def newInstance[A, B](f: A => B): IOData[A, B] = new IOData[A, B] {
-    override def apply(i: A): B = f(i)
+object SubOnly {
+  def simpleLift[T](t: T): SubOnly[T] = new SubOnly[T] {
+    override def sub = t
   }
-  def simpleInstance[A]: IOData[A, A] = newInstance(identity)
+  def lift[T](t: T): SubOnly[T] = simpleLift(t)
+}
+
+trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] with OutputData[Output] {
+  self =>
+
+  override def current: Output
+  override def sub: Sub
+
+  override def changeSub[F](cv: Sub => F): OutputSubData[Output, F] = new OutputSubData[Output, F] {
+    override def current = self.current
+    override def sub: F = cv(self.sub)
+  }
+
+}
+
+object OutputSubData {
+  def simpleLift[T](t: T): OutputSubData[T, T] = new OutputSubData[T, T] {
+    override def current = t
+    override def sub = t
+  }
+}
+
+trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Output] with SubOnly[Sub] {
+  self =>
+
+  override def apply(i: Input): Output
+  override def sub: Sub
+
+  override def compose[F](g: F => Input): DataModel[F, Output, Sub] = new DataModel[F, Output, Sub] {
+    override def apply(i: F): Output = self.apply(g(i))
+    override def sub: Sub = self.sub
+  }
+
+  override def andThen[F](g: Output => F): DataModel[Input, F, Sub] = new DataModel[Input, F, Sub] {
+    override def apply(i: Input): F = g(self.apply(i))
+    override def sub: Sub = self.sub
+  }
+
+  override def changeSub[F](cv: Sub => F): DataModel[Input, Output, F] = new DataModel[Input, Output, F] {
+    override def apply(i: Input): Output = self.apply(i)
+    override def sub: F = cv(self.sub)
+  }
+
 }

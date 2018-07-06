@@ -1,6 +1,6 @@
 package net.scalax.asuna.sangria
 
-import net.scalax.asuna.core.OutputTag
+import net.scalax.asuna.core.TagAbs
 import net.scalax.asuna.slick.umr.SlickShapeValueWrap
 
 sealed abstract trait SlickRepAbsAbs[Rep] {
@@ -24,7 +24,7 @@ sealed abstract trait SlickRepWrapAbs[Rep] extends SlickRepAbsAbs[Rep] {
   self =>
 }
 
-trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep, D] with SlickRepWrapAbs[Rep] with OutputTag[D, SlickRepAbsAbs[Rep]] {
+trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep, D] with SlickRepWrapAbs[Rep] with TagAbs[D, SlickRepAbsAbs[Rep]] {
   self =>
 
   override def common: SlickRepWrapAbs[Rep] = self

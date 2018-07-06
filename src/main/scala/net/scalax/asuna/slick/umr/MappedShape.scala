@@ -11,7 +11,7 @@ object MappedShape {
       override def value(t: U): SlickShapeValueWrap[Placeholder] = {
         wrap.map[Placeholder]({ (s: U) =>
           Placeholder.value
-        }, (s: Placeholder) => Option(t))
+        }, (_: Placeholder) => Option(t))
       }
     }
   }

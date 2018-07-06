@@ -5,7 +5,6 @@ import io.circe.Decoder
 import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
-import net.scalax.asuna.shape.CaseClassShapleHelper.CaseClassShapeMacroHelper
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -27,7 +26,7 @@ trait CirceReaderAbs {
 
 }
 
-trait CirceReaderImpl[T, R] extends CirceReaderAbs with OutputTag[R, CirceReaderAbs] {
+trait CirceReaderImpl[T, R] extends CirceReaderAbs with TagAbs[R, CirceReaderAbs] {
   self =>
 
   override type DataType = T
@@ -92,8 +91,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with OutputTag[R, CirceReader
 
 trait CirceReaderHelper {
 
-  val circeShape: DataShapeValueInitWrap[CirceReaderAbs] = DataShapeValue.toShapeValue[CirceReaderAbs]
-  val circeCase: CaseClassShapeMacroHelper[CirceReaderAbs] = new CaseClassShapeMacroHelper[CirceReaderAbs] {}
+  val circe: AllHelper[CirceReaderAbs] = new AllHelper[CirceReaderAbs] {}
 
   def toCirceReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, CirceReaderAbs]): CirceReaderQuery[R] = {
     val shape1 = shape

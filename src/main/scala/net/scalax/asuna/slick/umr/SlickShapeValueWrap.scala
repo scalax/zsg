@@ -5,9 +5,6 @@ import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
 
-import shapeless._
-import tag._
-
 trait SlickShapeValueWrapAbs {
   self =>
 
@@ -23,7 +20,7 @@ trait SlickShapeValueWrapAbs {
 
 }
 
-trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with OutputTag[F, SlickShapeValueWrapAbs] {
+trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with TagAbs[F, SlickShapeValueWrapAbs] {
   self =>
 
   override type OutPut = F
