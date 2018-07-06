@@ -25,6 +25,31 @@ trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   }
 }
 
+object IOData {
+  def newInstance[A, B](f: A => B): IOData[A, B] = new IOData[A, B] {
+    override def apply(i: A): B = f(i)
+  }
+  def simpleInstance[A]: IOData[A, A] = newInstance(identity)
+}
+
+trait SubOnly[DataType] {
+  self =>
+
+  def sub: DataType
+
+  def changeSub[F](cv: DataType => F): SubOnly[F] = new SubOnly[F] {
+    override def sub: F = cv(self.sub)
+  }
+
+}
+
+object SubOnly {
+  def simpleLift[T](t: T): SubOnly[T] = new SubOnly[T] {
+    override def sub = t
+  }
+  def lift[T](t: T): SubOnly[T] = simpleLift(t)
+}
+
 trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] with OutputData[Output] {
   self =>
 
@@ -66,29 +91,4 @@ trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Outp
     override def sub: F = cv(self.sub)
   }
 
-}
-
-trait SubOnly[DataType] {
-  self =>
-
-  def sub: DataType
-
-  def changeSub[F](cv: DataType => F): SubOnly[F] = new SubOnly[F] {
-    override def sub: F = cv(self.sub)
-  }
-
-}
-
-object SubOnly {
-  def simpleLift[T](t: T): SubOnly[T] = new SubOnly[T] {
-    override def sub = t
-  }
-  def lift[T](t: T): SubOnly[T] = simpleLift(t)
-}
-
-object IOData {
-  def newInstance[A, B](f: A => B): IOData[A, B] = new IOData[A, B] {
-    override def apply(i: A): B = f(i)
-  }
-  def simpleInstance[A]: IOData[A, A] = newInstance(identity)
 }
