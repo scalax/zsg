@@ -6,7 +6,7 @@ trait DModelTranHelper[Input, Output] {
   def apply(i: Input): Output
 }
 
-object DModelTranHelper extends DataModelHelper1 with DataModelHelper2 with DataModelHelper3 with DataModelHelper4 with DataModelHelper5
+object DModelTranHelper extends DataModelHelper1 with DataModelHelper2 with DataModelHelper3 with DataModelHelper4 with DataModelHelper5 with DataModelHelper6
 
 object DMHelper {
 
