@@ -13,7 +13,7 @@ trait CirceModels extends CirceReaderHelper {
     def age = column[Long]("我是莎莎酱的年龄")
     def nick = column[String]("我是莎莎酱的昵称")
 
-    def reader = toCirceReader(circeCase.caseOnly[CirceModelReader0.type, Student](CirceModelReader0))
+    def reader = toCirceReader(circe.caseOnly[CirceModelReader0.type, Student](CirceModelReader0))
 
   }
 
@@ -43,7 +43,7 @@ trait CirceModels extends CirceReaderHelper {
         Validated.validNel(l)
     }
 
-    def reader = toCirceReader(circeCase.caseOnly[CirceModelReader1, Student](this))
+    def reader = toCirceReader(circe.caseOnly[CirceModelReader1, Student](this))
 
   }
 

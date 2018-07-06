@@ -1,19 +1,18 @@
 package net.scalax.asuna.core
 
 import shapeless._
-import tag._
 
 trait DataModelHelper6 {
 
   implicit def helper6Implicit1[A, B <: HList, C <: HList](
     implicit
-    cv1: DModelTranHelper[B, SubOnly[C]]): DModelTranHelper[(A @@ OutputData) :: B, OutputSubData[A :: HNil, C]] = {
-    new DModelTranHelper[(A @@ OutputData) :: B, OutputSubData[A :: HNil, C]] {
-      override def apply(input: (A @@ OutputData) :: B): OutputSubData[A :: HNil, C] = {
+    cv1: DModelTranHelper[B, SubOnly[C]]): DModelTranHelper[OutputData[A] :: B, OutputSubData[A :: HNil, C]] = {
+    new DModelTranHelper[OutputData[A] :: B, OutputSubData[A :: HNil, C]] {
+      override def apply(input: OutputData[A] :: B): OutputSubData[A :: HNil, C] = {
         val a :: b = input
         val c = cv1(b)
         new OutputSubData[A :: HNil, C] {
-          override def current: A :: HNil = a :: HNil
+          override def current: A :: HNil = a.current :: HNil
           override def sub: C = c.sub
         }
       }

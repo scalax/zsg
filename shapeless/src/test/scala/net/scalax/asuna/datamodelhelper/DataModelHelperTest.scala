@@ -23,20 +23,15 @@ class DataModelHelperTest
 
   val logger = LoggerFactory.getLogger(getClass)
 
-  def toCommon[A](f: A): A @@ OutputData = tag[OutputData](f)
+  def toCommon[A](f: A): OutputData[A] = OutputData.lift(f)
 
   def toIO[A]: IOData[A, A] = new IOData[A, A] {
     override def apply(i: A): A = i
   }
 
-  def toSubOnly[A](c: A): SubOnly[A] = new SubOnly[A] {
-    override val sub = c
-  }
+  def toSubOnly[A](c: A): SubOnly[A] = SubOnly.lift(c)
 
-  def toSub[A](c: A): OutputSubData[A, A] = new OutputSubData[A, A] {
-    override val current = c
-    override val sub = c
-  }
+  def toSub[A](c: A): OutputSubData[A, A] = OutputSubData.simpleLift(c)
 
   override def beforeAll: Unit = {
   }

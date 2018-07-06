@@ -1,19 +1,18 @@
 package net.scalax.asuna.core
 
 import shapeless._
-import tag._
 
 trait DataModelHelper4 {
 
   implicit def helper4Implicit1[A, B <: HList, C <: HList, D](
     implicit
-    cv1: DModelTranHelper[B, OutputSubData[C, D]]): DModelTranHelper[(A @@ OutputData) :: B, OutputSubData[A :: C, D]] = {
-    new DModelTranHelper[(A @@ OutputData) :: B, OutputSubData[A :: C, D]] {
-      override def apply(input: (A @@ OutputData) :: B): OutputSubData[A :: C, D] = {
+    cv1: DModelTranHelper[B, OutputSubData[C, D]]): DModelTranHelper[OutputData[A] :: B, OutputSubData[A :: C, D]] = {
+    new DModelTranHelper[OutputData[A] :: B, OutputSubData[A :: C, D]] {
+      override def apply(input: OutputData[A] :: B): OutputSubData[A :: C, D] = {
         val a :: b = input
         val cd = cv1(b)
         new OutputSubData[A :: C, D] {
-          override def current: A :: C = (a: A) :: cd.current
+          override def current: A :: C = a.current :: cd.current
           override def sub: D = cd.sub
         }
       }
@@ -28,7 +27,10 @@ trait DataModelHelper4 {
         val ac :: b = input
         val de = cv1(b)
         new DataModel[A :: HNil, C :: D, E] {
-          override def apply(a: A :: HNil): C :: D = ac(a.head) :: de.current
+          override def apply(i: A :: HNil): C :: D = {
+            val a :: _ = i
+            ac(a) :: de.current
+          }
           override def sub: E = de.sub
         }
       }
@@ -58,7 +60,10 @@ trait DataModelHelper4 {
         val acf :: b = input
         val de = cv1(b)
         new DataModel[A :: HNil, C :: D, F :: E] {
-          override def apply(a: A :: HNil): C :: D = acf.apply(a.head) :: de.current
+          override def apply(i: A :: HNil): C :: D = {
+            val a :: _ = i
+            acf.apply(a) :: de.current
+          }
           override def sub: F :: E = acf.sub :: de.sub
         }
       }

@@ -2,18 +2,15 @@ package net.scalax.slick.dynamic
 
 import io.circe.Json
 import io.circe.generic.auto._
-import net.scalax.asuna.core.DataShapeValue
-import net.scalax.asuna.sangria.{ SlickRepAbsAbs, SlickSangria, SlickSangriaHelper, SlickValueGen }
-import net.scalax.asuna.shape.{ DataAtomicShapeHelper, HListShapeHelper, ShapeHelper }
+import net.scalax.asuna.sangria.{ SlickSangriaHelper, SlickValueGen }
+import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 import sangria.parser.QueryParser
-import shapeless._
 
 import scala.concurrent.{ Await, Future, duration }
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
 import slick.jdbc.H2Profile.api._
 
 case class Friends4(
@@ -34,6 +31,7 @@ class FriendTable4(tag: slick.lifted.Tag) extends Table[Friends4](tag, "firend4"
 case class FriendWrap(age: Int, repOut: SlickValueGen[FriendTable4], extAge: Int)
 
 trait SFriend4 extends SlickSangriaHelper[FriendTable4] {
+  self =>
 
   def id = repWithKey(_.id, "id")
   def name = repWithKey(_.name, "name")
@@ -42,12 +40,9 @@ trait SFriend4 extends SlickSangriaHelper[FriendTable4] {
   def extAge = rep(_.age)
   def repOut = seqRep(id, name, nick)
 
-  object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper with _root_.net.scalax.asuna.shape.DataAtomicShapeHelper {
-    val s = (age :: repOut :: extAge :: HNil).map(Generic[FriendWrap].from)
-  }
-  lazy val shape = CaseClassGenImpl.s
+  lazy val shape = sangria.caseOnly[SFriend4, FriendWrap]
 
-  lazy val reader = toSangriaReader(shape)
+  lazy val reader = toSangriaReader(shape(self))
 
 }
 

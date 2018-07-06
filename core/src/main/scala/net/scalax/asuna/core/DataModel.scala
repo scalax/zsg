@@ -2,7 +2,16 @@ package net.scalax.asuna.core
 
 sealed abstract trait AbsDataModel
 
-trait OutputData extends AbsDataModel
+trait OutputData[DataType] extends AbsDataModel {
+  def current: DataType
+}
+
+object OutputData {
+  def simpleLift[T](t: T): OutputData[T] = new OutputData[T] {
+    override def current = t
+  }
+  def lift[T](t: T): OutputData[T] = simpleLift(t)
+}
 
 trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   self =>
@@ -16,17 +25,24 @@ trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   }
 }
 
-trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] {
+trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] with OutputData[Output] {
   self =>
 
-  def current: Output
-  def sub: Sub
+  override def current: Output
+  override def sub: Sub
 
   override def changeSub[F](cv: Sub => F): OutputSubData[Output, F] = new OutputSubData[Output, F] {
     override def current = self.current
     override def sub: F = cv(self.sub)
   }
 
+}
+
+object OutputSubData {
+  def simpleLift[T](t: T): OutputSubData[T, T] = new OutputSubData[T, T] {
+    override def current = t
+    override def sub = t
+  }
 }
 
 trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Output] with SubOnly[Sub] {
@@ -39,6 +55,7 @@ trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Outp
     override def apply(i: F): Output = self.apply(g(i))
     override def sub: Sub = self.sub
   }
+
   override def andThen[F](g: Output => F): DataModel[Input, F, Sub] = new DataModel[Input, F, Sub] {
     override def apply(i: Input): F = g(self.apply(i))
     override def sub: Sub = self.sub
@@ -60,6 +77,13 @@ trait SubOnly[DataType] {
     override def sub: F = cv(self.sub)
   }
 
+}
+
+object SubOnly {
+  def simpleLift[T](t: T): SubOnly[T] = new SubOnly[T] {
+    override def sub = t
+  }
+  def lift[T](t: T): SubOnly[T] = simpleLift(t)
 }
 
 object IOData {
