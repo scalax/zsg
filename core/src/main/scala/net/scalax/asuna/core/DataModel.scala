@@ -16,35 +16,50 @@ trait IOData[Input, Output] extends AbsDataModel with Function1[Input, Output] {
   }
 }
 
-trait OutputSubData[Output, Sub] extends AbsDataModel {
-  def current: Output
-  def sub: Sub
-}
-
-trait DataModel[A, B, C] extends AbsDataModel with Function1[A, B] {
+trait OutputSubData[Output, Sub] extends AbsDataModel with SubOnly[Sub] {
   self =>
 
-  override def apply(i: A): B
-  def sub: C
+  def current: Output
+  def sub: Sub
 
-  override def compose[F](g: F => A): DataModel[F, B, C] = new DataModel[F, B, C] {
-    override def apply(i: F): B = self.apply(g(i))
-    override def sub: C = self.sub
-  }
-  override def andThen[F](g: B => F): DataModel[A, F, C] = new DataModel[A, F, C] {
-    override def apply(i: A): F = g(self.apply(i))
-    override def sub: C = self.sub
+  override def changeSub[F](cv: Sub => F): OutputSubData[Output, F] = new OutputSubData[Output, F] {
+    override def current = self.current
+    override def sub: F = cv(self.sub)
   }
 
-  def changeSub[F](cv: C => F): DataModel[A, B, F] = new DataModel[A, B, F] {
-    override def apply(i: A): B = self.apply(i)
+}
+
+trait DataModel[Input, Output, Sub] extends AbsDataModel with IOData[Input, Output] with SubOnly[Sub] {
+  self =>
+
+  override def apply(i: Input): Output
+  override def sub: Sub
+
+  override def compose[F](g: F => Input): DataModel[F, Output, Sub] = new DataModel[F, Output, Sub] {
+    override def apply(i: F): Output = self.apply(g(i))
+    override def sub: Sub = self.sub
+  }
+  override def andThen[F](g: Output => F): DataModel[Input, F, Sub] = new DataModel[Input, F, Sub] {
+    override def apply(i: Input): F = g(self.apply(i))
+    override def sub: Sub = self.sub
+  }
+
+  override def changeSub[F](cv: Sub => F): DataModel[Input, Output, F] = new DataModel[Input, Output, F] {
+    override def apply(i: Input): Output = self.apply(i)
     override def sub: F = cv(self.sub)
   }
 
 }
 
 trait SubOnly[DataType] {
+  self =>
+
   def sub: DataType
+
+  def changeSub[F](cv: DataType => F): SubOnly[F] = new SubOnly[F] {
+    override def sub: F = cv(self.sub)
+  }
+
 }
 
 object IOData {
@@ -53,8 +68,3 @@ object IOData {
   }
   def simpleInstance[A]: IOData[A, A] = newInstance(identity)
 }
-/*trait EmptyData
-
-object EmptyData {
-  val value: EmptyData = new EmptyData {}
-}*/ 
