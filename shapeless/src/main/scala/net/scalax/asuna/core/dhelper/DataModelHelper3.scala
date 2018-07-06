@@ -52,16 +52,16 @@ trait DataModelHelper3 {
 
   implicit def helper3Implicit4[A, B <: HList, C, D <: HList, E <: HList, F](
     implicit
-    cv1: DModelTranHelper[B, IOData[D, E]]): DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: D, C :: E, F]] = {
-    new DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: D, C :: E, F]] {
-      override def apply(input: DataModel[A, C, F] :: B): DataModel[A :: D, C :: E, F] = {
-        new DataModel[A :: D, C :: E, F] {
+    cv1: DModelTranHelper[B, IOData[D, E]]): DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: D, C :: E, F :: HNil]] = {
+    new DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: D, C :: E, F :: HNil]] {
+      override def apply(input: DataModel[A, C, F] :: B): DataModel[A :: D, C :: E, F :: HNil] = {
+        new DataModel[A :: D, C :: E, F :: HNil] {
           val acf :: b = input
           override def apply(ad: A :: D): C :: E = {
             val a :: d = ad
             acf.apply(a) :: cv1(b)(d)
           }
-          override val sub: F = acf.sub
+          override val sub: F :: HNil = acf.sub :: HNil
         }
       }
     }

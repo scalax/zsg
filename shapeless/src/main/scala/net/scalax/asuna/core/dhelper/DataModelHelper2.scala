@@ -66,15 +66,29 @@ trait DataModelHelper2 {
     }
   }
 
-  implicit def helper2Implicit5[A, B <: HList, C <: HList](
+  implicit def helper2Implicit5[A, B <: HList, C, D <: HList](
     implicit
-    cv1: DModelTranHelper[B, C]): DModelTranHelper[SubOnly[A] :: B, OutputSubData[C, A :: HNil]] = {
-    new DModelTranHelper[SubOnly[A] :: B, OutputSubData[C, A :: HNil]] {
-      override def apply(input: SubOnly[A] :: B): OutputSubData[C, A :: HNil] = {
+    cv1: DModelTranHelper[B, C :: D]): DModelTranHelper[SubOnly[A] :: B, OutputSubData[C :: D, A :: HNil]] = {
+    new DModelTranHelper[SubOnly[A] :: B, OutputSubData[C :: D, A :: HNil]] {
+      override def apply(input: SubOnly[A] :: B): OutputSubData[C :: D, A :: HNil] = {
         val a :: b = input
-        val c = cv1(b)
-        new OutputSubData[C, A :: HNil] {
-          override def current: C = c
+        val cd = cv1(b)
+        new OutputSubData[C :: D, A :: HNil] {
+          override def current: C :: D = cd
+          override def sub: A :: HNil = a.sub :: HNil
+        }
+      }
+    }
+  }
+
+  implicit def helper2Implicit6[A, B <: HList](
+    implicit
+    cv1: DModelTranHelper[B, HNil]): DModelTranHelper[SubOnly[A] :: B, SubOnly[A :: HNil]] = {
+    new DModelTranHelper[SubOnly[A] :: B, SubOnly[A :: HNil]] {
+      override def apply(input: SubOnly[A] :: B): SubOnly[A :: HNil] = {
+        val a :: b = input
+        val cd = cv1(b)
+        new SubOnly[A :: HNil] {
           override def sub: A :: HNil = a.sub :: HNil
         }
       }

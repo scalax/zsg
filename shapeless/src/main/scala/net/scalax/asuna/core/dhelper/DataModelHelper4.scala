@@ -22,13 +22,13 @@ trait DataModelHelper4 {
 
   implicit def helper4Implicit2[A, B <: HList, C, D <: HList, E](
     implicit
-    cv1: DModelTranHelper[B, OutputSubData[D, E]]): DModelTranHelper[IOData[A, C] :: B, DataModel[A, C :: D, E]] = {
-    new DModelTranHelper[IOData[A, C] :: B, DataModel[A, C :: D, E]] {
-      override def apply(input: IOData[A, C] :: B): DataModel[A, C :: D, E] = {
+    cv1: DModelTranHelper[B, OutputSubData[D, E]]): DModelTranHelper[IOData[A, C] :: B, DataModel[A :: HNil, C :: D, E]] = {
+    new DModelTranHelper[IOData[A, C] :: B, DataModel[A :: HNil, C :: D, E]] {
+      override def apply(input: IOData[A, C] :: B): DataModel[A :: HNil, C :: D, E] = {
         val ac :: b = input
         val de = cv1(b)
-        new DataModel[A, C :: D, E] {
-          override def apply(a: A): C :: D = ac(a) :: de.current
+        new DataModel[A :: HNil, C :: D, E] {
+          override def apply(a: A :: HNil): C :: D = ac(a.head) :: de.current
           override def sub: E = de.sub
         }
       }
@@ -52,13 +52,13 @@ trait DataModelHelper4 {
 
   implicit def helper4Implicit4[A, B <: HList, C, D <: HList, E <: HList, F](
     implicit
-    cv1: DModelTranHelper[B, OutputSubData[D, E]]): DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A, C :: D, F :: E]] = {
-    new DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A, C :: D, F :: E]] {
-      override def apply(input: DataModel[A, C, F] :: B): DataModel[A, C :: D, F :: E] = {
+    cv1: DModelTranHelper[B, OutputSubData[D, E]]): DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: HNil, C :: D, F :: E]] = {
+    new DModelTranHelper[DataModel[A, C, F] :: B, DataModel[A :: HNil, C :: D, F :: E]] {
+      override def apply(input: DataModel[A, C, F] :: B): DataModel[A :: HNil, C :: D, F :: E] = {
         val acf :: b = input
         val de = cv1(b)
-        new DataModel[A, C :: D, F :: E] {
-          override def apply(a: A): C :: D = acf.apply(a) :: de.current
+        new DataModel[A :: HNil, C :: D, F :: E] {
+          override def apply(a: A :: HNil): C :: D = acf.apply(a.head) :: de.current
           override def sub: F :: E = acf.sub :: de.sub
         }
       }
