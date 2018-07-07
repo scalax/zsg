@@ -116,7 +116,7 @@ class DynModel
   }
 
   it should "auto encode with FriendTable4Model" in {
-    val prepareData6 = FriendTable4Model.map(s => (s.reader6, s.age)).result
+    val prepareData6 = FriendTable4Model.map(_.reader6).result
     val prepareData7 = FriendTable4Model.map(_.reader7).result
     println(prepareData6.statements.toList)
     println(prepareData7.statements.toList)

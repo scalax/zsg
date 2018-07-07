@@ -40,7 +40,6 @@ trait SFriend4 extends SlickSangriaHelper[FriendTable4] {
   def repOut = seqRep(id, name, nick)
 
   lazy val shape = sangria.caseOnly[SFriend4, FriendWrap]
-
   lazy val reader = toSangriaReader(shape(self))
 
 }
