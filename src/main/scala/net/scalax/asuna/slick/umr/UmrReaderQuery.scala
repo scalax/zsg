@@ -31,11 +31,8 @@ object UmrReaderQuery {
         override val dataToList: each.Data => Any = { d: each.Data =>
           each.dataToList(d): Any
         }
-        override val dataFromList: Any => Option[each.Data] = { d: Any =>
-          each.dataFromList(d.asInstanceOf[each.OutPut])
-        }
       })
-    SlickShapeValueListWrap[Any, R](s => impl.takeData(DataGroup(items = s), cv.umrSv).current, r => Option.empty, classTag, convertedWrap: _*).shapedValue
+    SlickShapeValueListWrap.tran(convertedWrap: _*)(s => impl.takeData(DataGroup(items = s), cv.umrSv).current).shapedValue
   }
 
 }
@@ -61,12 +58,7 @@ trait UmrHelper {
           override type Rep = R
           override type Level = L
           override val shape = shape1
-          override val dataToList = { (data: D) =>
-            data
-          }
-          override val dataFromList = { (data: D) =>
-            Option(data)
-          }
+          override val dataToList = identity[D]
           override val rep = base
         }
         w
@@ -87,12 +79,7 @@ trait UmrHelper {
       override type Rep = R
       override type Level = L
       override val shape = shape1
-      override val dataToList = { (data: D) =>
-        data
-      }
-      override val dataFromList = { (data: D) =>
-        Option(data)
-      }
+      override val dataToList = identity[D]
       override val rep = baseRep
     }
     w

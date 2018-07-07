@@ -3,7 +3,6 @@ package net.scalax.slick.dynamic
 import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.sangria.{ SlickSangriaHelper, SlickValueGen }
-import net.scalax.asuna.shape.ShapeHelper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 import sangria.parser.QueryParser
@@ -50,7 +49,7 @@ class SangriaTest extends FlatSpec with Matchers
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
-  with BeforeAndAfter with ShapeHelper {
+  with BeforeAndAfter {
 
   import sangria.macros.derive._
   import sangria.execution._
@@ -114,6 +113,7 @@ class SangriaTest extends FlatSpec with Matchers
       resolve = Projector({ (c, fields) =>
         val bindQ = friendTq4.filter(s => s.name === c.arg(NameArg)).map(friend => SFriend4.reader.bindQuery(friend, fields.toList.map(_.name)))
         val action = bindQ.result.headOption
+        //println(action.statements)
         db.run(action)
       })),
 

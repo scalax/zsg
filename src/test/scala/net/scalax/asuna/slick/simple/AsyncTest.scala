@@ -6,8 +6,6 @@ import com.github.javafaker.Faker
 import io.circe.syntax._
 import io.circe.generic.auto._
 import net.scalax.asuna.core.DataModel
-import net.scalax.asuna.shape.HListShapeHelper
-import net.scalax.asuna.slick.umr.UmrReaderQuery
 import net.scalax.slick.dynamic._
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
