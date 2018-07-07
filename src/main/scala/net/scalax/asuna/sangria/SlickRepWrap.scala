@@ -3,34 +3,29 @@ package net.scalax.asuna.sangria
 import net.scalax.asuna.core.TagAbs
 import net.scalax.asuna.slick.umr.SlickShapeValueWrap
 
-sealed abstract trait SlickRepAbsAbs[Rep] {
+sealed abstract trait SlickRepAbs[Rep] {
   self =>
 
   type DataType
+
+  val sangraiKey: Option[String]
 
   def slickCv(rep: Rep): SlickShapeValueWrap[DataType]
 
 }
 
-sealed abstract trait SlickRepAbs[Rep, D] extends SlickRepAbsAbs[Rep] {
+trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep] with TagAbs[D, SlickRepAbs[Rep]] {
   self =>
+
+  override def common: SlickRepAbs[Rep] = self
 
   type DataType = D
+
   def slickCv(rep: Rep): SlickShapeValueWrap[D]
-
-}
-
-sealed abstract trait SlickRepWrapAbs[Rep] extends SlickRepAbsAbs[Rep] {
-  self =>
-}
-
-trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep, D] with SlickRepWrapAbs[Rep] with TagAbs[D, SlickRepAbsAbs[Rep]] {
-  self =>
-
-  override def common: SlickRepWrapAbs[Rep] = self
 
   def map[R](cv: D => R): SlickRepWrap[Rep, R] = {
     new SlickRepWrap[Rep, R] {
+      override val sangraiKey = self.sangraiKey
       override def slickCv(rep: Rep): SlickShapeValueWrap[R] = {
         self.slickCv(rep).map(cv)
       }
@@ -39,24 +34,19 @@ trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep, D] with SlickRepWrapAbs[Rep]
 
 }
 
-sealed abstract trait SlickSangriaRepWrapAbs[Rep] extends SlickRepAbsAbs[Rep] {
+trait SlickSangriaRepWrap[Rep, D] extends SlickRepWrap[Rep, (String, D)] {
   self =>
 
-  val sangraiKey: String
   val objectKey: String
-}
-
-trait SlickSangriaRepWrap[Rep, D] extends SlickRepAbs[Rep, (String, D)] with SlickSangriaRepWrapAbs[Rep] {
-  self =>
 
   override type DataType = (String, D)
 
-  def map[R](cv: D => R): SlickSangriaRepWrap[Rep, R] = {
+  def valueMap[R](cv: D => R): SlickSangriaRepWrap[Rep, R] = {
     new SlickSangriaRepWrap[Rep, R] {
       override val sangraiKey = self.sangraiKey
       override val objectKey = self.objectKey
       override def slickCv(rep: Rep): SlickShapeValueWrap[(String, R)] = {
-        self.slickCv(rep).map(t => (t._1, cv(t._2)))
+        self.slickCv(rep).map(r => (r._1, cv(r._2)))
       }
     }
   }
