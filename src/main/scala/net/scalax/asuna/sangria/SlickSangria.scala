@@ -1,7 +1,6 @@
 package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
-import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
@@ -29,7 +28,7 @@ trait SlickSangria[E, Data] {
 
 }
 
-trait SlickSangriaHelper[E] extends ShapeHelper {
+trait SlickSangriaHelper[E] {
 
   val sangria: AllHelper[SlickRepAbsAbs[E]] = new AllHelper[SlickRepAbsAbs[E]] {}
 

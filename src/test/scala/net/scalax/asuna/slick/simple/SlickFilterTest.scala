@@ -1,9 +1,8 @@
 package net.scalax.slick.dynamic
 
 import net.scalax.slick.async._
-import net.scalax.asuna.slick.umr.{ SlickShapeValueWrapHelper, UmrHelper }
+import net.scalax.asuna.slick.umr.UmrHelper
 import slick.jdbc.H2Profile.api._
-import shapeless._
 
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
@@ -12,7 +11,7 @@ case class InnerFriendOutput(id: Long)
 
 case class Friends5(id: Long, name123: String, nick: String, age: Int)
 
-class FriendTable3Model(friend: FriendTable2) extends UmrHelper with SlickShapeValueWrapHelper {
+class FriendTable3Model(friend: FriendTable2) extends UmrHelper {
 
   val id = rep(friend.id)
   val name123 = rep(friend.name)
@@ -25,14 +24,27 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper with SlickShapeV
 
 }
 
-class FriendTable2Model(friend: FriendTable2) extends UmrHelper with SlickShapeValueWrapHelper {
+case class Friends6(id: Long, nick: String)
+case class Friends7(age: Int, id: Long)
+
+class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
+
+  lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6]
+  lazy val reader6 = toUmrReader(shape6(this))
+
+  lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7]
+  lazy val reader7 = toUmrReader(shape7(this))
+
+}
+
+object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
+
+class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
 
   val id = rep(friend.id)
   val name = rep(friend.name)
   val nick = rep(friend.nick)
   val age = rep(friend.age)
-
-  val gen = Generic[InnerFriends2]
 
   lazy val shape = umr.dataModel[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput]
 
@@ -40,7 +52,7 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with SlickShapeV
 
 }
 
-class MarkTableModel(markTable: MarkTable) extends UmrHelper with SlickShapeValueWrapHelper {
+class MarkTableModel(markTable: MarkTable) extends UmrHelper {
 
   val id = rep(markTable.id)
   val name = rep(markTable.name)

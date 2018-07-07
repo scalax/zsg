@@ -98,7 +98,7 @@ class DynModel
     await(db.run(friendTq2.delete))
   }
 
-  "shape" should "aotu filer with case class" in {
+  "shape" should "auto filer with case class" in {
     val prepareData: Future[Seq[DataModel[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
     def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
@@ -107,29 +107,37 @@ class DynModel
         Future.sequence(lf)
       }
       val d = await(r)
-      println(d.asJson.spaces2)
+      //println(d.asJson.spaces2)
     } catch {
       case e: Exception =>
         logger.error("error", e)
         throw e
     }
   }
-  /*it should "aotu encode classType class" in {
-    val prepareData = db.run(friendTq2.map(s => new SimpleFriend(s).reader1111).result)
+
+  it should "auto encode with FriendTable4Model" in {
+    val prepareData6 = FriendTable4Model.map(_.reader6).result
+    val prepareData7 = FriendTable4Model.map(_.reader7).result
+    println(prepareData6.statements.toList)
+    println(prepareData7.statements.toList)
     try {
-      val d = await(prepareData)
-      println(d.asJson.spaces2)
+      val d6 = await(db.run(prepareData6))
+      println(d6.asJson.spaces2)
+
+      val d7 = await(db.run(prepareData7))
+      println(d7.asJson.spaces2)
     } catch {
       case e: Exception =>
         logger.error("error", e)
         throw e
     }
-  }*/
+  }
+
   it should "aotu create with macro" in {
     val prepareData = db.run(friendTq2.map(s => new FriendTable3Model(s).reader).result)
     try {
       val d = await(prepareData)
-      println(d.asJson.spaces2)
+      //println(d.asJson.spaces2)
     } catch {
       case e: Exception =>
         logger.error("error", e)
