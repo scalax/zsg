@@ -16,9 +16,7 @@ trait SlickSangria[E, Data] {
     val filterReps = reps.filter { _.sangraiKey.map(k => keys.contains(k)).getOrElse(true) }
     val slickReps = filterReps.map(t => t.slickCv(rep).map(s => s: Any))
 
-    SlickShapeValueListWrap.tran(slickReps: _*)({ (t: List[Any]) =>
-      sv.shape.takeData(DataGroup(items = t), sv.rep).current
-    }).shapedValue
+    SlickShapeValueListWrap(slickReps)((t: List[Any]) => sv.shape.takeData(DataGroup(items = t), sv.rep).current).shapedValue
   }
 
 }

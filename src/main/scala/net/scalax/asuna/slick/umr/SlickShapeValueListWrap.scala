@@ -139,10 +139,10 @@ object SlickShapeValueListWrap {
     def apply[S](convert: List[T] => S)(implicit ct: ClassTag[S]): ShapedValueWrap[S]
   }
 
-  def tran[T](v: SlickShapeValueWrap[T]*): ApplyHelper1[T] = {
+  def apply[T](v: List[SlickShapeValueWrap[T]]): ApplyHelper1[T] = {
     new ApplyHelper1[T] {
       def apply[S](convert: List[T] => S)(implicit ct: ClassTag[S]): ShapedValueWrap[S] = {
-        val sWrap = v.toList match {
+        val sWrap = v match {
           case head :: tail =>
             val initWrap: ReadSlickShapeValueListWrap[T] = new ReadSlickShapeValueListWrap[T] {
               override type Data = head.Data
@@ -150,11 +150,8 @@ object SlickShapeValueListWrap {
               override type TargetRep = head.TargetRep
               override type Level = head.Level
               override val rep: Rep = head.rep
-              override val shape = {
-                head.shape
-              }
-              override val dataToList: Data => List[T] = data =>
-                List(head.dataToList(data))
+              override val shape = head.shape
+              override val dataToList = (data: Data) => List(head.dataToList(data))
             }
 
             tail.foldLeft(initWrap) { (wrap, current) =>
@@ -169,10 +166,9 @@ object SlickShapeValueListWrap {
                 override val shape = {
                   Shape.tuple2Shape[FlatShapeLevel, wrap.Rep, current.Rep, wrap.Data, current.Data, wrap.TargetRep, current.TargetRep](wrap.shape, current.shape)
                 }
-                override val dataToList: ((wrap.Data, current.Data)) => List[T] = {
-                  data =>
-                    val (h, t) = data
-                    current.dataToList(t) :: wrap.dataToList(h)
+                override val dataToList = { (data: ((wrap.Data, current.Data))) =>
+                  val (h, t) = data
+                  current.dataToList(t) :: wrap.dataToList(h)
                 }
               }: ReadSlickShapeValueListWrap[T]
 
@@ -185,10 +181,8 @@ object SlickShapeValueListWrap {
               override type TargetRep = head.TargetRep
               override type Level = head.Level
               override val rep: Rep = head.rep
-              override val shape = {
-                head.shape
-              }
-              override val dataToList: Data => List[T] = data => List(head.dataToList(data))
+              override val shape = head.shape
+              override val dataToList = (data: Data) => List(head.dataToList(data))
             }: ReadSlickShapeValueListWrap[T]
           case _ =>
             new ReadSlickShapeValueListWrap[T] {
@@ -197,9 +191,7 @@ object SlickShapeValueListWrap {
               override type TargetRep = Unit
               override type Level = FlatShapeLevel
               override val rep: Rep = (())
-              override val shape = {
-                implicitly[Shape[FlatShapeLevel, Unit, Unit, Unit]]
-              }
+              override val shape = implicitly[Shape[FlatShapeLevel, Unit, Unit, Unit]]
               override val dataToList: Unit => List[T] = (_: Unit) => List.empty
             }: ReadSlickShapeValueListWrap[T]
         }
