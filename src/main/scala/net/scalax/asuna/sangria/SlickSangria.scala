@@ -6,19 +6,13 @@ import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag
 
-trait SlickSangria[E, Data] {
-
-  def sangriaSv: DataShapeValue[Data, SlickRepAbs[E]]
-
-  def bindQuery(rep: E, keys: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data] = {
-    val sv = sangriaSv
-    val reps = sv.shape.toLawRep(sv.rep).reps
-    val filterReps = reps.filter { _.sangraiKey.map(k => keys.contains(k)).getOrElse(true) }
-    val slickReps = filterReps.map(t => t.slickCv(rep).map(s => s: Any))
-
-    SlickShapeValueListWrap(slickReps)((t: List[Any]) => sv.shape.takeData(DataGroup(items = t), sv.rep).current).shapedValue
+object SlickSangriaHelper {
+  trait WithTable[Table, Data] {
+    def inputTable(table: Table): NameFilterApply[Data]
   }
-
+  trait NameFilterApply[Data] {
+    def filterNames(names: List[String]): ShapedValue[Any, Data]
+  }
 }
 
 trait SlickSangriaHelper[E] {
@@ -127,13 +121,21 @@ trait SlickSangriaHelper[E] {
 
   }
 
-  def toSangriaReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickRepAbs[E]]): SlickSangria[E, R] = {
-    val shape1 = shape
-    new SlickSangria[E, R] {
-      override def sangriaSv: DataShapeValue[R, SlickRepAbs[E]] = new DataShapeValue[R, SlickRepAbs[E]] {
-        override type RepType = U
-        override val rep = shape1.wrapRep(col)
-        override val shape: DataShape[U, R, U, SlickRepAbs[E]] = shape1.packed
+  def toSangriaReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickRepAbs[E]], ct: ClassTag[R]): SlickSangriaHelper.WithTable[E, R] = {
+    val func = { (table: E, names: List[String]) =>
+      val wrapRep = shape.wrapRep(col)
+      val reps = shape.toLawRep(wrapRep).reps
+      val filterReps = reps.filter { _.sangraiKey.map(k => names.contains(k)).getOrElse(true) }
+      val slickReps = filterReps.map(t => t.slickCv(table).map(s => s: Any))
+
+      SlickShapeValueListWrap(slickReps)((t: List[Any]) => shape.takeData(DataGroup(items = t), wrapRep).current).shapedValue
+    }
+
+    new SlickSangriaHelper.WithTable[E, R] {
+      override def inputTable(table: E): SlickSangriaHelper.NameFilterApply[R] = new SlickSangriaHelper.NameFilterApply[R] {
+        override def filterNames(names: List[String]): ShapedValue[Any, R] = {
+          func(table, names)
+        }
       }
     }
   }
