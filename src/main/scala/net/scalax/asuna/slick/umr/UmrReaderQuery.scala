@@ -72,14 +72,11 @@ trait UmrHelper {
     }
   }
 
-  def toUmrReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickShapeValueWrapAbs], profile: slick.jdbc.JdbcProfile, classTag: ClassTag[R]): ShapedValue[Any, R] = {
-    val shape1 = shape
-    val q = new DataShapeValue[R, SlickShapeValueWrapAbs] {
-      override type RepType = U
-      override val rep = shape1.wrapRep(col)
-      override val shape: DataShape[U, R, U, SlickShapeValueWrapAbs] = shape1.packed
-    }
-    UmrReaderQuery.unWrap(q)
-  }
+  def toUmrReader[T, R, U](col: T)(
+    implicit
+    shape: DataShape[T, R, U, SlickShapeValueWrapAbs],
+    profile: slick.jdbc.JdbcProfile,
+    classTag: ClassTag[R]): ShapedValue[Any, R] =
+    UmrReaderQuery.unWrap(umr.shaped(col))
 
 }
