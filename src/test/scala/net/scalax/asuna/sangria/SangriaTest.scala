@@ -4,7 +4,6 @@ import io.circe.Json
 import io.circe.generic.auto._
 import net.scalax.asuna.sangria.{ SlickSangriaHelper, SlickValueGen }
 import net.scalax.asuna.shape.ShapeHelper
-import net.scalax.asuna.slick.umr.SlickShapeValueWrapHelper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 import sangria.parser.QueryParser
@@ -52,7 +51,7 @@ class SangriaTest extends FlatSpec with Matchers
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
-  with BeforeAndAfter with ShapeHelper with SlickShapeValueWrapHelper {
+  with BeforeAndAfter with ShapeHelper {
 
   import sangria.macros.derive._
   import sangria.execution._
@@ -180,7 +179,8 @@ class SangriaTest extends FlatSpec with Matchers
   """).get, (()))
 
   "aa" should "decode bb" in {
-    println(await(result))
+    await(result)
+    //println(await(result))
   }
 
 }
