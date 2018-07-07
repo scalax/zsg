@@ -32,7 +32,8 @@ trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with TagAbs[F, Slick
       override type Level = self.Level
       override val rep = self.rep
       override val shape = self.shape
-      override val dataToList = { (s: Data) => t(self.dataToList(s)) }
+      override val dataToList = (s: Data) => t(self.dataToList(s))
     }
   }
+
 }
