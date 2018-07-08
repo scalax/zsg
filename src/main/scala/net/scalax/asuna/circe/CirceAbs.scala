@@ -1,7 +1,7 @@
 package net.scalax.asuna.core
 
 import cats.Traverse
-import io.circe.Decoder
+import io.circe.{ Decoder, JsonObject }
 import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
@@ -91,15 +91,18 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with TagAbs[R, CirceReaderAbs
 
 trait CirceReaderHelper {
 
-  val circe: AllHelper[CirceReaderAbs] = new AllHelper[CirceReaderAbs] {}
+  trait CirceWrapper[RepOut, DataType] extends AbsWrapper[RepOut, DataType] with CirceReaderQuery[DataType]
 
-  def toCirceReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, CirceReaderAbs]): CirceReaderQuery[R] = {
-    val shape1 = shape
-    new CirceReaderQuery[R] {
-      override def playCirceSv: DataShapeValue[R, CirceReaderAbs] = new DataShapeValue[R, CirceReaderAbs] {
-        override type RepType = U
-        override val rep = shape1.wrapRep(col)
-        override val shape: DataShape[U, R, U, CirceReaderAbs] = shape1.packed
+  object circe extends AllHelper[CirceReaderAbs] with WrapperHelper[CirceReaderAbs, CirceWrapper] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DataShape[Rep, D, Out, CirceReaderAbs]): CirceWrapper[Out, D] = {
+      val shape1 = shape
+      val rep1 = rep
+      new CirceWrapper[Out, D] {
+        override def playCirceSv: DataShapeValue[D, CirceReaderAbs] = new DataShapeValue[D, CirceReaderAbs] {
+          override type RepType = Out
+          override val rep = shape1.wrapRep(rep1)
+          override val shape: DataShape[Out, D, Out, CirceReaderAbs] = shape1.packed
+        }
       }
     }
   }

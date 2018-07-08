@@ -20,7 +20,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper {
 
   lazy val shape = umr.caseOnly[FriendTable3Model, Friends5]
 
-  lazy val reader = toUmrReader(shape(this))
+  lazy val reader = umr.effect(shape(this)).toSv
 
 }
 
@@ -30,10 +30,10 @@ case class Friends7(age: Int, id: Long)
 class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 
   lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6]
-  lazy val reader6 = toUmrReader(shape6(this))
+  lazy val reader6 = umr.effect(shape6(this)).toSv
 
   lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7]
-  lazy val reader7 = toUmrReader(shape7(this))
+  lazy val reader7 = umr.effect(shape7(this)).toSv
 
 }
 
@@ -48,7 +48,7 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
 
   lazy val shape = umr.dataModel[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput]
 
-  lazy val reader = toUmrReader(shape(this))
+  lazy val reader = umr.effect(shape(this)).toSv
 
 }
 
@@ -59,7 +59,7 @@ class MarkTableModel(markTable: MarkTable) extends UmrHelper {
   val mark = rep(markTable.mark)
 
   lazy val shape = umr.caseOnly[MarkTableModel, InnerMark]
-  lazy val reader = toUmrReader(shape(this))
+  lazy val reader = umr.effect(shape(this)).toSv
 
 }
 /*class SimpleFriend(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickShapeValueWrapHelper {
