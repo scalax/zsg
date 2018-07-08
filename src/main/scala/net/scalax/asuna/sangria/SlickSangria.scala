@@ -11,13 +11,36 @@ object SlickSangriaHelper {
     def inputTable(table: Table): NameFilterApply[Data]
   }
   trait NameFilterApply[Data] {
-    def filterNames(names: List[String]): ShapedValue[Any, Data]
+    def filterNames(names: List[String])(implicit ct: ClassTag[Data]): ShapedValue[Any, Data]
   }
 }
 
 trait SlickSangriaHelper[E] {
 
-  val sangria: AllHelper[SlickRepAbs[E]] = new AllHelper[SlickRepAbs[E]] {}
+  trait InnerWithTable[Out, Data] extends SlickSangriaHelper.WithTable[E, Data] with AbsWrapper[Out, Data]
+
+  object sangria extends AllHelper[SlickRepAbs[E]] with WrapperHelper[SlickRepAbs[E], InnerWithTable] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DataShape[Rep, D, Out, SlickRepAbs[E]]): InnerWithTable[Out, D] = {
+      val func = { (table: E, names: List[String], ct: ClassTag[D]) =>
+        implicit val ct1 = ct
+
+        val wrapRep = shape.wrapRep(rep)
+        val reps = shape.toLawRep(wrapRep).reps
+        val filterReps = reps.filter { _.sangraiKey.map(k => names.contains(k)).getOrElse(true) }
+        val slickReps = filterReps.map(t => t.slickCv(table).map(s => s: Any))
+
+        SlickShapeValueListWrap(slickReps)((t: List[Any]) => shape.takeData(DataGroup(items = t), wrapRep).current).shapedValue
+      }
+
+      new InnerWithTable[Out, D] {
+        override def inputTable(table: E): SlickSangriaHelper.NameFilterApply[D] = new SlickSangriaHelper.NameFilterApply[D] {
+          override def filterNames(names: List[String])(implicit ct: ClassTag[D]): ShapedValue[Any, D] = {
+            func(table, names, ct)
+          }
+        }
+      }
+    }
+  }
 
   def rep[R, D, T, L <: FlatShapeLevel](baseRep: E => R)(implicit shape: Shape[L, R, D, T]): SlickRepWrap[E, D] = {
     val w = new SlickRepWrap[E, D] {
@@ -119,25 +142,6 @@ trait SlickSangriaHelper[E] {
 
     dShapeValue.map(listCv)
 
-  }
-
-  def toSangriaReader[T, R, U](col: T)(implicit shape: DataShape[T, R, U, SlickRepAbs[E]], ct: ClassTag[R]): SlickSangriaHelper.WithTable[E, R] = {
-    val func = { (table: E, names: List[String]) =>
-      val wrapRep = shape.wrapRep(col)
-      val reps = shape.toLawRep(wrapRep).reps
-      val filterReps = reps.filter { _.sangraiKey.map(k => names.contains(k)).getOrElse(true) }
-      val slickReps = filterReps.map(t => t.slickCv(table).map(s => s: Any))
-
-      SlickShapeValueListWrap(slickReps)((t: List[Any]) => shape.takeData(DataGroup(items = t), wrapRep).current).shapedValue
-    }
-
-    new SlickSangriaHelper.WithTable[E, R] {
-      override def inputTable(table: E): SlickSangriaHelper.NameFilterApply[R] = new SlickSangriaHelper.NameFilterApply[R] {
-        override def filterNames(names: List[String]): ShapedValue[Any, R] = {
-          func(table, names)
-        }
-      }
-    }
   }
 
 }
