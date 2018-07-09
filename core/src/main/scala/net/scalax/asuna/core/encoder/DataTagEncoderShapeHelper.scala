@@ -1,6 +1,7 @@
 package net.scalax.asuna.shape
 
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, TagAbs }
 
 trait DataTagEncoderShapeHelper {
 

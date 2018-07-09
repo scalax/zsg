@@ -1,5 +1,6 @@
 package net.scalax.asuna.core
 
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.shape.{ DataAtomicShapeHelper, ListShapeHelper }
 
 case class SplitData[T](current: T, left: DataGroup)

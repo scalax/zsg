@@ -51,7 +51,6 @@ class SangriaTest extends FlatSpec with Matchers
   with BeforeAndAfterAll
   with BeforeAndAfter {
 
-  import sangria.macros.derive._
   import sangria.execution._
   import sangria.marshalling.circe._
   import sangria.schema._

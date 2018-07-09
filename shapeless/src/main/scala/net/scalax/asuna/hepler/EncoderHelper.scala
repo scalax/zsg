@@ -1,9 +1,5 @@
 package net.scalax.asuna.core
 
-import net.scalax.asuna.core.macroImpl.{ DataModelMacroShape, MacroShape }
-import net.scalax.asuna.hepler._
-
-import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait EncoderAbsWrapper[RepOut, DataType]

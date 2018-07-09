@@ -13,7 +13,6 @@ import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ Await, Future, duration }
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Friends2(id: Long, name: String, nick: String, age: Int)

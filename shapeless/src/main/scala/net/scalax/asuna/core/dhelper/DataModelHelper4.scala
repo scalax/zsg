@@ -1,6 +1,6 @@
 package net.scalax.asuna.core
 
-import shapeless._
+import shapeless.{ ::, HNil, HList }
 
 trait DataModelHelper4 {
 

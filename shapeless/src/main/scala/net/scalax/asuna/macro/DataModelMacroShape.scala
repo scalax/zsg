@@ -3,8 +3,6 @@ package net.scalax.asuna.core.macroImpl
 import net.scalax.asuna.core._
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
-import scala.language.higherKinds
 
 object DataModelMacroShape {
 

@@ -1,10 +1,11 @@
 package net.scalax.asuna.core
 
 import cats.Traverse
-import io.circe.{ Decoder, JsonObject }
+import io.circe.Decoder
 import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
+import net.scalax.asuna.core.common.TagAbs
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

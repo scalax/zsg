@@ -3,6 +3,7 @@ package net.scalax.asuna.slick.umr
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag

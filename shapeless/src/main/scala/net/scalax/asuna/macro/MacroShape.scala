@@ -1,9 +1,9 @@
 package net.scalax.asuna.core.macroImpl
 
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.DelayTag
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait PropertyType[Pro] {

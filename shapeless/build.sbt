@@ -1,6 +1,6 @@
 scalaVersion := "2.12.5"
 
-scalacOptions ++= Seq("-feature", "-deprecation")
+scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import")
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 

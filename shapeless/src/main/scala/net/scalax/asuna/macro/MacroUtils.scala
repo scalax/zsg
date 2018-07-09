@@ -1,8 +1,6 @@
 package net.scalax.asuna.core.macroImpl
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
-import scala.language.higherKinds
 
 object MacroUtils {
 

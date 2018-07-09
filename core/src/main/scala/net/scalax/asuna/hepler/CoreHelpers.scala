@@ -1,6 +1,7 @@
 package net.scalax.asuna.hepler
 
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.DelayTag
 
 trait DataShapeValueHelper[D] {
   def wrap[A, B, C](rep: A)(implicit shape: DataShape[A, B, C, D]): C = {

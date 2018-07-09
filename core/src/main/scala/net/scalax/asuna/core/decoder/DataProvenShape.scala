@@ -1,5 +1,7 @@
 package net.scalax.asuna.core
 
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+
 trait DataProvenShape[U, T] {
   val dataShapeValue: DataShapeValue[U, T]
 }

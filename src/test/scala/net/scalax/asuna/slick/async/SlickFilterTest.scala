@@ -1,13 +1,12 @@
 package net.scalax.slick.async
 
-import io.circe.{ Decoder, JsonObject }
-import io.circe.generic.auto._
+import io.circe.JsonObject
 import net.scalax.asuna.core.HListEncoderShapeHelper
 import net.scalax.asuna.slick.filter.SlickFilterQuery
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
+import shapeless.{ Generic, HNil }
 import slick.jdbc.H2Profile.api._
-import shapeless._
 
 case class FilterParam(name: String, age: Int)
 class SlickFilterTest(tag: Tag) extends FriendTable(tag) with SlickFilterColHelper with ShapeHelper with HListEncoderShapeHelper {

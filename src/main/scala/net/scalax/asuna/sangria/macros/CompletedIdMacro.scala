@@ -5,7 +5,6 @@ import java.util.UUID
 import net.scalax.asuna.sangria.CompletedId
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
 
 object CompletedIdMacro {
 

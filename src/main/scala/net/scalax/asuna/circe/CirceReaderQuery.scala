@@ -5,6 +5,7 @@ import io.circe.{ Json, JsonObject }
 import cats.kernel.CommutativeSemigroup
 import cats.data._
 import cats.implicits._
+import net.scalax.asuna.core.common.DataGroup
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
