@@ -64,13 +64,13 @@ class AsyncTest
     await(db.run(friendTq.delete))
   }
 
-  "shape" should "aotu filer with case class" in {
-    val filterQuery = SlickFilterQuery(friendTq)(s => new SlickFilterTest(s))
-    val slickQuery = filterQuery.inputData(
-      FilterParam(name = "jilen", age = 26))
-    logger.info(slickQuery.result.statements.toString)
+  "shape" should "auto filer with case class" in {
+    object filterFriendTq extends TableQuery(cons => new SlickFilterTest(cons))
+    val filterQuery = filterFriendTq.filter(t => t.filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
+
+    logger.info(filterQuery.result.statements.toString)
     try {
-      val friendQuery = slickQuery.result.head
+      val friendQuery = filterQuery.result.head
       val r = await(db.run(friendQuery))
       r.copy(id = Option.empty) should be(Friends(None, "jilen", "kerr", 26))
     } catch {
@@ -81,14 +81,13 @@ class AsyncTest
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    val filterQuery = SlickFilterQuery(friendTq)(s => new SlickFilterJson(s))
-    val slickQuery = filterQuery.inputData(
-      FilterParam1(name = "小莎莎") ::
-        JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
-        HNil)
-    logger.info(slickQuery.result.statements.toString)
+    val filterQuery = friendTq.filter(s => new SlickFilterJson(s).filterCol.inputData(FilterParam1(name = "小莎莎") ::
+      JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
+      HNil).getOrElse(LiteralColumn(Option(true))))
+
+    logger.info(filterQuery.result.statements.toString)
     try {
-      val friendQuery = slickQuery.result.head
+      val friendQuery = filterQuery.result.head
       val r = await(db.run(friendQuery))
       r.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20))
     } catch {

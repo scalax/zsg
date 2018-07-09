@@ -25,7 +25,7 @@ trait SlickFilterCol {
   def toOptionCondition(data: InputDataType): Rep[Option[Boolean]]
 }
 
-trait SlickFilterColImpl[D] extends SlickFilterCol with OutputTag[D, SlickFilterCol] {
+trait SlickFilterColImpl[D] extends SlickFilterCol with TagAbs[D, SlickFilterCol] {
   self =>
 
   override type InputDataType = D
@@ -51,7 +51,7 @@ object SlickFilterColImpl {
 
 trait SlickFilterColHelper {
 
-  val filterUnwrap: DataShapeValueInitWrap[SlickFilterCol] = DataShapeValue.toShapeValue[SlickFilterCol]
+  //val filterUnwrap: DataShapeValueInitWrap[SlickFilterCol] = DataShapeValue.toShapeValue[SlickFilterCol]
 
   implicit def JsonKeyWithSlickFilterExtensionMethod[D](implicit b: BaseTypedType[D], profile: slick.jdbc.JdbcProfile): SFilterColHelper[D] = {
     import profile.api._
@@ -84,7 +84,7 @@ trait SlickFilterColHelper {
     h
   }
 
-  def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
+  /*def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
     import profile.api._
     val h = new SlickFilterColImpl[Option[D]] { self =>
       override def toOptionCondition(data: Option[D]): Rep[Option[Boolean]] = {
@@ -93,7 +93,7 @@ trait SlickFilterColHelper {
       }
     }
     h
-  }
+  }*/
 
   def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] = {
     val f = filterRep(rep)

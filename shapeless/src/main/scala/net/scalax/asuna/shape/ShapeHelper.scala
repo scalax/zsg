@@ -1,6 +1,6 @@
 package net.scalax.asuna.shape
 
-import net.scalax.asuna.core.{ DataShape, DataShapeValue, RepGroup }
+import net.scalax.asuna.core._
 import shapeless._
 
 import scala.language.implicitConversions
@@ -11,6 +11,16 @@ trait ShapeHelper {
     val rep1 = rep
     val shape1 = shape
     new DataShapeValue[B, D] {
+      override type RepType = C
+      override val rep = shape1.wrapRep(rep1)
+      override val shape = shape1.packed
+    }
+  }
+
+  implicit def liftToEncoderShapeValueExtendsionMethod2[A, B, C, D](rep: A)(implicit shape: EncoderShape[A, B, C, D]): EncoderShapeValue[B, D] = {
+    val rep1 = rep
+    val shape1 = shape
+    new EncoderShapeValue[B, D] {
       override type RepType = C
       override val rep = shape1.wrapRep(rep1)
       override val shape = shape1.packed
