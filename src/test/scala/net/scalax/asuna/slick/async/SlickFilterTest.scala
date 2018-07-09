@@ -15,7 +15,6 @@ class SlickFilterTest(tag: Tag) extends FriendTable(tag) with SlickFilterColHelp
   val nameF = filterRep(name)
   val ageF = filterRep(age)
 
-  //val gen = Generic[FilterParam]
   def filterCol = SlickFilterQuery.effect((nameF :: ageF :: HNil).emap(Generic[FilterParam].to))
 
 }
