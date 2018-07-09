@@ -1,6 +1,7 @@
 package net.scalax.asuna.slick.filter
 
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.encoder.EncoderShape
 
 trait InputData[RepOut, Data] extends EncoderAbsWrapper[RepOut, Data] {
   def inputData(data: Data)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]]

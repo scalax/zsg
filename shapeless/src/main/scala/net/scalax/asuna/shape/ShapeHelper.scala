@@ -1,8 +1,8 @@
 package net.scalax.asuna.shape
 
-import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.RepGroup
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
+import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import shapeless.{ ::, HList, HNil }
 
 import scala.language.implicitConversions

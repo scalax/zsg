@@ -1,4 +1,4 @@
-package net.scalax.asuna.core
+package net.scalax.asuna.core.encoder
 
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 
@@ -17,9 +17,7 @@ trait EncoderShapeValue[U, T] {
 
       override def wrapRep(base: self.RepType): self.RepType = base
       override def toLawRep(base: self.RepType): DataRepGroup[T] = self.shape.toLawRep(self.rep)
-      override def buildData(data: F, rep: self.RepType): DataGroup = {
-        self.shape.buildData(cv(data), rep)
-      }
+      override def buildData(data: F, rep: self.RepType): DataGroup = self.shape.buildData(cv(data), rep)
 
     }
   }
