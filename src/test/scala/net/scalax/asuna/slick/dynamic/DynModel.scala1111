@@ -1,8 +1,10 @@
 package net.scalax.slick.async
 
+import java.util.Locale
+
+import com.github.javafaker.Faker
 import io.circe.syntax._
 import net.scalax.slick.dynamic.{ FilterParam3, FriendTable2Model }
-import net.scalax.asuna.slick.umr.UmrReaderQuery
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
@@ -12,7 +14,7 @@ import scala.concurrent.{ Await, Future, duration }
 import scala.concurrent.duration._
 
 case class Friends2(
-  id: Option[Long] = None,
+  id: Long,
   name: String,
   nick: String,
   age: Int)
@@ -23,7 +25,7 @@ class FriendTable2(tag: slick.lifted.Tag) extends Table[Friends2](tag, "firend2"
   def nick = column[String]("nick")
   def age = column[Int]("age")
 
-  def * = (id.?, name, nick, age).mapTo[Friends2]
+  def * = (id, name, nick, age).mapTo[Friends2]
 }
 
 class DynModel
@@ -33,6 +35,9 @@ class DynModel
   with ScalaFutures
   with BeforeAndAfterAll
   with BeforeAndAfter {
+
+  val local = new Locale("zh", "CN")
+  val faker = new Faker(local)
 
   def await[A](f: Future[A]) = Await.result(f, duration.Duration.Inf)
 
@@ -50,9 +55,9 @@ class DynModel
   }
 
   before {
-    val friend1 = Friends2(None, "喵", "汪", 23)
-    val friend2 = Friends2(None, "jilen", "kerr", 26)
-    val friend3 = Friends2(None, "小莎莎", "烟流", 20)
+    val friend1 = Friends2(-1, faker.name.name, faker.weather.description, 23)
+    val friend2 = Friends2(-1, faker.name.name, faker.weather.description, 26)
+    val friend3 = Friends2(-1, faker.name.name, faker.weather.description, 20)
     await(db.run(friendTq2 ++= List(friend1, friend2, friend3)))
     friendTq2.result
   }
