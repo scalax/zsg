@@ -1,17 +1,11 @@
 package net.scalax.slick.async
 
 import net.scalax.asuna.core._
-
-import scala.language.higherKinds
+import net.scalax.asuna.core.decoder.{ IOData, OutputData, OutputSubData, SubOnly }
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
-import shapeless._
-import tag._
-
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ Await, Future, duration }
+import shapeless.HNil
 
 class DataModelHelperTest
   extends FlatSpec

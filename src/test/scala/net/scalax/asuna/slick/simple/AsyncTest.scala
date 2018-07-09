@@ -5,7 +5,7 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import io.circe.syntax._
 import io.circe.generic.auto._
-import net.scalax.asuna.core.DataModel
+import net.scalax.asuna.core.decoder.DataModel
 import net.scalax.slick.dynamic._
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
@@ -13,7 +13,6 @@ import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ Await, Future, duration }
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Friends2(id: Long, name: String, nick: String, age: Int)

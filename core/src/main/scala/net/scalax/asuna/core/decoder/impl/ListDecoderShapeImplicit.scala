@@ -1,13 +1,12 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.core.decoder.impl
 
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 
-import scala.language.implicitConversions
+trait ListDecoderShapeImplicit {
 
-trait ListShapeHelper {
-
-  implicit def listDateShapeExt[A, B, C, D](implicit shape: DataShape[A, B, C, D]): DataShape[List[A], List[B], List[C], D] = {
-    new DataShape[List[A], List[B], List[C], D] { self =>
+  implicit def listDateShapeExt[A, B, C, D](implicit shape: DecoderShape[A, B, C, D]): DecoderShape[List[A], List[B], List[C], D] = {
+    new DecoderShape[List[A], List[B], List[C], D] { self =>
       override def wrapRep(base: List[A]): List[C] = base.map(shape.wrapRep)
       override def toLawRep(base: List[C]): DataRepGroup[D] = {
         val l = base.map(shape.toLawRep)

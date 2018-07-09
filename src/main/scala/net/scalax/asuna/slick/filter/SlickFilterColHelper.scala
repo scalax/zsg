@@ -2,13 +2,8 @@ package net.scalax.asuna.slick.filter
 
 import cats.Contravariant
 import io.circe.{ Decoder, Json, JsonObject }
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.TagAbs
 import slick.ast.BaseTypedType
-
-import shapeless._
-import tag._
-
-import scala.language.implicitConversions
 
 trait SFilterColHelper[D] {
   import slick.lifted.Rep

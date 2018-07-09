@@ -1,10 +1,8 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.decoder.{ DataModel, DecoderShapeValue }
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
-import scala.language.higherKinds
 
 object DataModelMacroShape {
 
@@ -27,17 +25,17 @@ object DataModelMacroShape {
             @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
             trait ${TypeName(traitName)}[ShapeData, ProData]
             object ${TermName(traitName)} {
-              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputData[S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputData[S], T] {}
-              implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputSubData[S, S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.OutputSubData[S, S], T] {}
+              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputData[S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputData[S], T] {}
+              implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputSubData[S, S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputSubData[S, S], T] {}
             }
-            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
+            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.decoder.DecoderShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
               new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {
                 override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] = {
                   val rep1 = rep
                   val shape1 = shape
                   new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] {
                     override val rep: A = rep1
-                    override val shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}] = shape1
+                    override val shape = shape1
                   }
                 }
               }
@@ -47,7 +45,7 @@ object DataModelMacroShape {
          """
     }
 
-    def impl[Table: c.WeakTypeTag, ICase: c.WeakTypeTag, Case: c.WeakTypeTag, SubCase: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DataShapeValue[DataModel[ICase, Case, SubCase], Abs]] = {
+    def impl[Table: c.WeakTypeTag, ICase: c.WeakTypeTag, Case: c.WeakTypeTag, SubCase: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs]] = {
       val caseFieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
       val iCaseFieldNames = weakTypeOf[ICase].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
       val subCaseFieldNames = weakTypeOf[SubCase].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
@@ -116,7 +114,7 @@ object DataModelMacroShape {
           }"""
       }
 
-      val q = c.Expr[Table => DataShapeValue[DataModel[ICase, Case, SubCase], Abs]] {
+      val q = c.Expr[Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs]] {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>

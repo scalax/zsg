@@ -3,6 +3,8 @@ package net.scalax.asuna.slick.umr
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag
@@ -14,7 +16,7 @@ trait UmrHelper {
   }
 
   object umr extends AllHelper[SlickShapeValueWrapAbs] with WrapperHelper[SlickShapeValueWrapAbs, UmrWrapper] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DataShape[Rep, D, Out, SlickShapeValueWrapAbs]): UmrWrapper[Out, D] = {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, SlickShapeValueWrapAbs]): UmrWrapper[Out, D] = {
       new UmrWrapper[Out, D] {
         override def toSv(implicit classTag: ClassTag[D]): ShapedValue[Any, D] = {
           val wrapCol = shape.wrapRep(rep)
@@ -39,8 +41,8 @@ trait UmrHelper {
     rep(baseRep).map[(String, Json)] { (s: B) => (key, s.asJson(encoder)) }
   }
 
-  implicit def repImplicit[R, D, T, L <: FlatShapeLevel](implicit shape: Shape[L, R, D, T]): DataShape[R, D, SlickShapeValueWrap[D], SlickShapeValueWrapAbs] = {
-    new DataShape[R, D, SlickShapeValueWrap[D], SlickShapeValueWrapAbs] {
+  implicit def repImplicit[R, D, T, L <: FlatShapeLevel](implicit shape: Shape[L, R, D, T]): DecoderShape[R, D, SlickShapeValueWrap[D], SlickShapeValueWrapAbs] = {
+    new DecoderShape[R, D, SlickShapeValueWrap[D], SlickShapeValueWrapAbs] {
       override def wrapRep(base: R): SlickShapeValueWrap[D] = {
         val shape1 = shape
         new SlickShapeValueWrap[D] {

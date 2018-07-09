@@ -1,8 +1,9 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.core.encoder.impl
 
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, TagAbs }
+import net.scalax.asuna.core.encoder.EncoderShape
 
-trait DataTagEncoderShapeHelper {
+trait TagAbsEncoderShapeImplicit {
 
   implicit def atomicShapeImplicit1[A, C]: EncoderShape[TagAbs[A, C], A, TagAbs[A, C], C] = {
     new EncoderShape[TagAbs[A, C], A, TagAbs[A, C], C] {

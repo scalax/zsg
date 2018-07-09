@@ -1,6 +1,6 @@
 scalaVersion := "2.12.5"
 
-scalacOptions ++= Seq("-feature", "-deprecation")
+scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import")
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test

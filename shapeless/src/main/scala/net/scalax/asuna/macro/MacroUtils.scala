@@ -1,8 +1,6 @@
 package net.scalax.asuna.core.macroImpl
 
 import scala.reflect.macros.blackbox.Context
-import scala.language.experimental.macros
-import scala.language.higherKinds
 
 object MacroUtils {
 
@@ -43,7 +41,7 @@ object MacroUtils {
             trait ${traitDef}[SourceTable, Source, Abs]
 
             object ${traitObjDef} {
-              implicit def propertyImplicit[SourceTable, Source, Data, Target, Abs](implicit shape: _root_.net.scalax.asuna.core.DataShape[Source, Data, Target, ${absName}]): ${traitDef}[SourceTable, Source, Abs] = new ${traitDef}[SourceTable, Source, Abs] { }
+              implicit def propertyImplicit[SourceTable, Source, Data, Target, Abs](implicit shape: _root_.net.scalax.asuna.core.decoder.DecoderShape[Source, Data, Target, ${absName}]): ${traitDef}[SourceTable, Source, Abs] = new ${traitDef}[SourceTable, Source, Abs] { }
             }
             def ${TermName(def1Name)}[T](rep: T): _root_.net.scalax.asuna.core.macroImpl.PropertyDataShapeUnwrap[${traitDef}, ${tableName}, T, ${absName}] = {
               new _root_.net.scalax.asuna.core.macroImpl.PropertyDataShapeUnwrap[${traitDef}, ${tableName}, T, ${absName}] { }

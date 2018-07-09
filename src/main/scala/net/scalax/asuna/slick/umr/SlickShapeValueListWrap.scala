@@ -2,8 +2,6 @@ package net.scalax.asuna.slick.umr
 
 import slick.lifted.{ FlatShapeLevel, MappedProjection, Shape, ShapedValue }
 
-import scala.language.existentials
-import scala.language.implicitConversions
 import scala.reflect.ClassTag
 
 /*trait SlickShapeValueListWrap[F] {

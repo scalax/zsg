@@ -1,4 +1,4 @@
-package net.scalax.asuna.core
+package net.scalax.asuna.core.decoder
 
 sealed abstract trait AbsDataModel
 

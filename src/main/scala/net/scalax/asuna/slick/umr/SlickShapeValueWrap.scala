@@ -1,7 +1,7 @@
 package net.scalax.asuna.slick.umr
 
 import slick.lifted.{ FlatShapeLevel, Shape }
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.TagAbs
 
 trait SlickShapeValueWrapAbs {
   self =>

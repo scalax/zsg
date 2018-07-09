@@ -1,6 +1,8 @@
 package net.scalax.asuna.core
 
-import shapeless._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.encoder.EncoderShape
+import shapeless.{ ::, HList, HNil }
 
 trait HListEncoderShapeHelper {
 

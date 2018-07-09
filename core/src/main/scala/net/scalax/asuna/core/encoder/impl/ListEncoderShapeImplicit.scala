@@ -1,10 +1,9 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.core.encoder.impl
 
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.encoder.EncoderShape
 
-import scala.language.implicitConversions
-
-trait ListEncoderShapeHelper {
+trait ListEncoderShapeImplicit {
 
   implicit def listDateShapeExt[A, B, C, D](implicit shape: EncoderShape[A, B, C, D]): EncoderShape[List[A], List[B], List[C], D] = {
     new EncoderShape[List[A], List[B], List[C], D] { self =>

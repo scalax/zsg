@@ -1,17 +1,12 @@
 package net.scalax.slick.async
 
 import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.slick.filter.SlickFilterQuery
-
-import scala.language.higherKinds
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
-import shapeless._
+import shapeless.HNil
 
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Await, Future, duration }
 
 case class Friends(

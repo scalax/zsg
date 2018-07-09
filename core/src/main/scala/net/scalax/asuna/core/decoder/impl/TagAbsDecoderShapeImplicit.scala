@@ -1,11 +1,12 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.core.decoder.impl
 
-import net.scalax.asuna.core._
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, DelayTag, TagAbs }
+import net.scalax.asuna.core.decoder.{ DecoderShape, IOData, SplitData }
 
-trait DataAtomicShapeHelper {
+trait TagAbsDecoderShapeImplicit {
 
-  implicit def atomicShapeImplicit1[A, C]: DataShape[TagAbs[A, C], A, TagAbs[A, C], C] = {
-    new DataShape[TagAbs[A, C], A, TagAbs[A, C], C] {
+  implicit def atomicShapeImplicit1[A, C]: DecoderShape[TagAbs[A, C], A, TagAbs[A, C], C] = {
+    new DecoderShape[TagAbs[A, C], A, TagAbs[A, C], C] {
       override def wrapRep(base: TagAbs[A, C]): TagAbs[A, C] = base
       override def toLawRep(base: TagAbs[A, C]): DataRepGroup[C] = {
         DataRepGroup(reps = List(base.common))
@@ -17,8 +18,8 @@ trait DataAtomicShapeHelper {
     }
   }
 
-  implicit def atomicShapeImplicit2[A, C]: DataShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] = {
-    new DataShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] {
+  implicit def atomicShapeImplicit2[A, C]: DecoderShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] = {
+    new DecoderShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] {
       override def wrapRep(base: DelayTag[A, C]): DelayTag[A, C] = base
       override def toLawRep(base: DelayTag[A, C]): DataRepGroup[C] = {
         DataRepGroup(reps = List.empty)
