@@ -1,16 +1,16 @@
-package net.scalax.asuna.core
+package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 
-trait DataProvenShape[U, T] {
-  val dataShapeValue: DataShapeValue[U, T]
+trait DecoderProvenShape[U, T] {
+  val dataShapeValue: DecoderShapeValue[U, T]
 }
 
-object DataProvenShape {
+object DecoderProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, T, R <: DataProvenShape[U, T]]: DataShape[R, U, R, T] = {
+  implicit def dataProvenShapeShape[E, U, T, R <: DecoderProvenShape[U, T]]: DecoderShape[R, U, R, T] = {
 
-    new DataShape[R, U, R, T] {
+    new DecoderShape[R, U, R, T] {
       self =>
 
       override def wrapRep(base: R): R = base
@@ -21,9 +21,6 @@ object DataProvenShape {
       override def takeData(oldData: DataGroup, rep: R): SplitData[U] =
         rep.dataShapeValue.shape.takeData(oldData, rep.dataShapeValue.rep)
 
-      /*override def buildData(splitData: U, rep: R): Either[NotConvert, DataGroup] = {
-        rep.dataShapeValue.shape.buildData(splitData, rep.dataShapeValue.rep)
-      }*/
     }
 
   }

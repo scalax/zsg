@@ -6,13 +6,14 @@ import cats.kernel.CommutativeSemigroup
 import cats.data._
 import cats.implicits._
 import net.scalax.asuna.core.common.DataGroup
+import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait CirceReaderQuery[U] {
 
-  def playCirceSv: DataShapeValue[U, CirceReaderAbs]
+  def playCirceSv: DecoderShapeValue[U, CirceReaderAbs]
 
   implicit val commutativeSemigroupListString: CommutativeSemigroup[ValidateModel] = {
     new CommutativeSemigroup[ValidateModel] {
@@ -43,7 +44,7 @@ trait CirceReaderQuery[U] {
   }
 
   def tranData(jsonObj: JsonObject): Future[Validated[ValidateModel, U]] = {
-    val impl = implicitly[DataShape[DataShapeValue[U, CirceReaderAbs], U, DataShapeValue[U, CirceReaderAbs], CirceReaderAbs]]
+    val impl = implicitly[DecoderShape[DecoderShapeValue[U, CirceReaderAbs], U, DecoderShapeValue[U, CirceReaderAbs], CirceReaderAbs]]
     val rGroup = impl.toLawRep(impl.wrapRep(playCirceSv))
     val listAnyData = validateJson(rGroup.reps, jsonObj)
     listAnyData.map(_.map(items => impl.takeData(DataGroup(items = items), playCirceSv).current))

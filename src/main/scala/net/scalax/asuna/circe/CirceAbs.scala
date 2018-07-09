@@ -6,6 +6,7 @@ import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
 import net.scalax.asuna.core.common.TagAbs
+import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -95,14 +96,14 @@ trait CirceReaderHelper {
   trait CirceWrapper[RepOut, DataType] extends AbsWrapper[RepOut, DataType] with CirceReaderQuery[DataType]
 
   object circe extends AllHelper[CirceReaderAbs] with WrapperHelper[CirceReaderAbs, CirceWrapper] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DataShape[Rep, D, Out, CirceReaderAbs]): CirceWrapper[Out, D] = {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, CirceReaderAbs]): CirceWrapper[Out, D] = {
       val shape1 = shape
       val rep1 = rep
       new CirceWrapper[Out, D] {
-        override def playCirceSv: DataShapeValue[D, CirceReaderAbs] = new DataShapeValue[D, CirceReaderAbs] {
+        override def playCirceSv: DecoderShapeValue[D, CirceReaderAbs] = new DecoderShapeValue[D, CirceReaderAbs] {
           override type RepType = Out
           override val rep = shape1.wrapRep(rep1)
-          override val shape: DataShape[Out, D, Out, CirceReaderAbs] = shape1.packed
+          override val shape: DecoderShape[Out, D, Out, CirceReaderAbs] = shape1.packed
         }
       }
     }

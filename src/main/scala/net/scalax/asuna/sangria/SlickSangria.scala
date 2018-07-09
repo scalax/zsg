@@ -2,6 +2,7 @@ package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.decoder._
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
@@ -21,7 +22,7 @@ trait SlickSangriaHelper[E] {
   trait InnerWithTable[Out, Data] extends SlickSangriaHelper.WithTable[E, Data] with AbsWrapper[Out, Data]
 
   object sangria extends AllHelper[SlickRepAbs[E]] with WrapperHelper[SlickRepAbs[E], InnerWithTable] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DataShape[Rep, D, Out, SlickRepAbs[E]]): InnerWithTable[Out, D] = {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, SlickRepAbs[E]]): InnerWithTable[Out, D] = {
       val func = { (table: E, names: List[String], ct: ClassTag[D]) =>
         implicit val ct1 = ct
 
@@ -86,11 +87,11 @@ trait SlickSangriaHelper[E] {
   case class GroupStart(key: String)
   case class GroupEnd(key: String)
 
-  def seqRep(w: SlickSangriaRepWrap[E, _]*)(implicit completedId: CompletedId[String]): DataShapeValue[SlickValueGen[E], SlickRepAbs[E]] = {
+  def seqRep(w: SlickSangriaRepWrap[E, _]*)(implicit completedId: CompletedId[String]): DecoderShapeValue[SlickValueGen[E], SlickRepAbs[E]] = {
 
-    val dShape: DataShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] = {
+    val dShape: DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] = {
 
-      new DataShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] {
+      new DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] {
 
         override def wrapRep(base: List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
 

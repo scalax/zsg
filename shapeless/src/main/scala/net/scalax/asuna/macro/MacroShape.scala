@@ -2,6 +2,7 @@ package net.scalax.asuna.core.macroImpl
 
 import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.DelayTag
+import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
@@ -21,11 +22,11 @@ trait PropertyFunAbs[Abs] {
   type Data
   type Out
   val rep: Rep
-  val shape: DataShape[Rep, Data, Out, Abs]
-  def sv: DataShapeValue[Data, Abs] = new DataShapeValue[Data, Abs] {
+  val shape: DecoderShape[Rep, Data, Out, Abs]
+  def sv: DecoderShapeValue[Data, Abs] = new DecoderShapeValue[Data, Abs] {
     override type RepType = self.Out
     override val rep: self.Out = self.shape.wrapRep(self.rep)
-    override val shape: DataShape[self.Out, Data, self.Out, Abs] = self.shape.packed
+    override val shape: DecoderShape[self.Out, Data, self.Out, Abs] = self.shape.packed
   }
 }
 
@@ -61,14 +62,14 @@ object MacroShape {
             object ${TermName(traitName)} {
               implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
             }
-            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
+            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.decoder.DecoderShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
               new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {
                 override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] = {
                   val rep1 = rep
                   val shape1 = shape
                   new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] {
                     override val rep: A = rep1
-                    override val shape: _root_.net.scalax.asuna.core.DataShape[A, B, C, ${absName}] = shape1
+                    override val shape = shape1
                   }
                 }
               }
@@ -78,7 +79,7 @@ object MacroShape {
          """
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DataShapeValue[Case, Abs]] = {
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DecoderShapeValue[Case, Abs]] = {
       val fieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
       def confireCaseClassFields = {
@@ -136,7 +137,7 @@ object MacroShape {
           }"""
       }
 
-      val q = c.Expr[Table => DataShapeValue[Case, Abs]] {
+      val q = c.Expr[Table => DecoderShapeValue[Case, Abs]] {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>

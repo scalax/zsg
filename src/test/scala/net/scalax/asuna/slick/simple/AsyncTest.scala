@@ -5,7 +5,7 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import io.circe.syntax._
 import io.circe.generic.auto._
-import net.scalax.asuna.core.DataModel
+import net.scalax.asuna.core.decoder.DataModel
 import net.scalax.slick.dynamic._
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
