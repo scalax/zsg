@@ -1,7 +1,7 @@
 package net.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.{DataGroup, DataRepGroup}
-import net.scalax.asuna.core.decoder.impl.{ListDecoderShapeImplicit, TagAbsDecoderShapeImplicit}
+import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
+import net.scalax.asuna.core.decoder.impl.{ ListDecoderShapeImplicit, TagAbsDecoderShapeImplicit }
 
 trait DecoderShape[-E, U, C, T] {
   self =>
