@@ -3,7 +3,7 @@ package net.scalax.asuna.shape
 import net.scalax.asuna.core.common.RepGroup
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import shapeless.{ ::, HList, HNil }
+import shapeless.{ ::, HNil }
 
 import scala.language.implicitConversions
 
@@ -29,20 +29,19 @@ trait ShapeHelper {
     }
   }
 
-  implicit class anyToRepGroupExt[A, B, C, D](rep1: A)(implicit shape: DecoderShape[A, B, C, D]) {
-    def mixin[E, G, H](rep2: E)(implicit shape: DecoderShape[E, B, G, H]): RepGroup[E :: A :: HNil, B] = {
-      new RepGroup[E :: A :: HNil, B] {
+  //TODO 删除下面第二个 implicit，只使用第一个，待测试
+  implicit class anyToRepGroupExt[A](rep1: A) {
+    def mixin[E](rep2: E): RepGroup[E :: A :: HNil] = {
+      new RepGroup[E :: A :: HNil] {
         override val repCol = rep2 :: rep1 :: HNil
       }
     }
   }
-
-  implicit class anyToRepGroupExt2[A <: HList, B](rep1: RepGroup[A, B]) {
-    def mixin[E, G, H](rep2: E)(implicit shape: DecoderShape[E, B, G, H]): RepGroup[E :: A, B] = {
-      new RepGroup[E :: A, B] {
+  /*implicit class anyToRepGroupExt2[A <: HList](rep1: RepGroup[A]) {
+    def mixin[E](rep2: E): RepGroup[E :: A] = {
+      new RepGroup[E :: A] {
         override val repCol = rep2 :: rep1.repCol
       }
     }
-  }
-
+  }*/
 }

@@ -6,9 +6,9 @@ import shapeless.{ ::, HList }
 
 trait RepGroupShapeHelper {
 
-  implicit def hlistRepGroupImplicit[B, C <: HList, E, G, H](implicit shape: DecoderShape[B, E, G, H]): DecoderShape[RepGroup[B :: C, E], E, G, H] = {
-    new DecoderShape[RepGroup[B :: C, E], E, G, H] {
-      override def wrapRep(base: RepGroup[B :: C, E]): G = {
+  implicit def hlistRepGroupImplicit[B, C <: HList, E, G, H](implicit shape: DecoderShape[B, E, G, H]): DecoderShape[RepGroup[B :: C], E, G, H] = {
+    new DecoderShape[RepGroup[B :: C], E, G, H] {
+      override def wrapRep(base: RepGroup[B :: C]): G = {
         val head :: _ = base.repCol
         shape.wrapRep(head)
       }
@@ -17,11 +17,11 @@ trait RepGroupShapeHelper {
     }
   }
 
-  implicit def hlistRepGroupImplicit2[B, C <: HList, F, G, H, I, J](implicit shape: DecoderShape[RepGroup[C, F], F, J, H]): DecoderShape[RepGroup[B :: C, F], F, J, H] = {
-    new DecoderShape[RepGroup[B :: C, F], F, J, H] {
-      override def wrapRep(base: RepGroup[B :: C, F]): J = {
+  implicit def hlistRepGroupImplicit2[B, C <: HList, F, G, H, I, J](implicit shape: DecoderShape[RepGroup[C], F, J, H]): DecoderShape[RepGroup[B :: C], F, J, H] = {
+    new DecoderShape[RepGroup[B :: C], F, J, H] {
+      override def wrapRep(base: RepGroup[B :: C]): J = {
         val _ :: tail = base.repCol
-        val rGroup = new RepGroup[C, F] {
+        val rGroup = new RepGroup[C] {
           override val repCol = tail
         }
         shape.wrapRep(rGroup)
