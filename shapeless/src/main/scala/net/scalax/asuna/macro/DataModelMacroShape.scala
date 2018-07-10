@@ -1,7 +1,9 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core.decoder.{ DataModel, DecoderShapeValue }
+import net.scalax.asuna.core.AllHelper
+import net.scalax.asuna.core.decoder._
 
+import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
 
 object DataModelMacroShape {
@@ -11,29 +13,38 @@ object DataModelMacroShape {
 
     import c.universe._
 
-    def proUseInShape(fieldName: String, modelName: TermName, absName: Type, isOutPutSub: Boolean) = {
+    def proUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
+      val abs = c.weakTypeOf[Abs]
+      val allHelper = c.weakTypeOf[AllHelper[Abs]]
+      val implicitNotFound = c.weakTypeOf[implicitNotFound]
+      val outputData = c.weakTypeOf[OutputData[_]]
+      val outputSubData = c.weakTypeOf[OutputSubData[_, _]]
+      val propertyType = c.weakTypeOf[PropertyType[_]]
+      val decoderShape = c.weakTypeOf[DecoderShape[_, _, _, _]]
+      val proGen = c.weakTypeOf[ProGen[_, _, _, _, _]]
+
       val colDef = if (isOutPutSub) {
-        q"""new _root_.net.scalax.asuna.core.AllHelper[$absName] { }.toSub(${modelName}.${TermName(fieldName)})"""
+        q"""new $allHelper { }.toSub(${modelName}.${TermName(fieldName)})"""
       } else {
-        q"""new _root_.net.scalax.asuna.core.AllHelper[$absName] { }.toOutput(${modelName}.${TermName(fieldName)})"""
+        q"""new $allHelper { }.toOutput(${modelName}.${TermName(fieldName)})"""
       }
 
       val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       val defName = c.freshName(fieldName + "Gen")
       q"""
           val ${TermName(fieldName)} = {
-            @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
+            @$implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
             trait ${TypeName(traitName)}[ShapeData, ProData]
             object ${TermName(traitName)} {
-              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputData[S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputData[S], T] {}
-              implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputSubData[S, S], T] = new ${TypeName(traitName)}[_root_.net.scalax.asuna.core.decoder.OutputSubData[S, S], T] {}
+              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[${outputData.typeSymbol}[S], T] = new ${TypeName(traitName)}[${outputData.typeSymbol}[S], T] {}
+              implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] = new ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] {}
             }
-            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.decoder.DecoderShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
-              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {
-                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] = {
+            def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${decoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
+              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
+                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, $abs] = {
                   val rep1 = rep
                   val shape1 = shape
-                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] {
+                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, $abs] {
                     override val rep: A = rep1
                     override val shape = shape1
                   }
@@ -123,7 +134,7 @@ object DataModelMacroShape {
               ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
               ..${ioFieldsGen}
               ${mgDef}
-              ..${useFieldNames.map { fieldName => proUseInShape(fieldName = fieldName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
+              ..${useFieldNames.map { fieldName => proUseInShape[Abs](fieldName = fieldName, modelName = TermName(repModelTermName), isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
               ${toShape}
             }
            CaseClassGenImpl.aa
