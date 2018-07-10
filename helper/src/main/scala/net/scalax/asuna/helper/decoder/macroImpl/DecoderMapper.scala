@@ -1,10 +1,11 @@
-package net.scalax.asuna.core.macroImpl
+package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.shape.ShapeHelper
 
+import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
 
@@ -46,9 +47,9 @@ trait PropertyDataShapeUnwrap[R[_, _, _], Source, Table, Abs] {
   def unwrap(implicit cv: R[Source, Table, Abs]): R[Source, Table, Abs] = cv
 }
 
-object MacroShape {
+object DecoderMapper {
 
-  class MacroShapeImpl(override val c: Context) extends MacroUtils.MacroUtilImpl {
+  class DecoderMapperImpl(override val c: Context) extends MacroUtils.MacroUtilImpl {
     self =>
 
     import c.universe._
@@ -61,10 +62,11 @@ object MacroShape {
       val proGen = weakTypeOf[ProGen[_, _, _, _, _]]
       val propertyFun = weakTypeOf[PropertyFun[_, _, _, _]]
       val abs = weakTypeOf[Abs]
+      val implicitNotFound = weakTypeOf[implicitNotFound]
 
       q"""
       val ${TermName(fieldName)} = {
-        @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
+        @$implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
         trait ${TypeName(traitName)}[ShapeData, ProData]
         object ${TermName(traitName)} {
           implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
@@ -97,13 +99,6 @@ object MacroShape {
 
       val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
-      def confireCaseClassFields = {
-        confirmHasFields[Case, Table](fieldNames = fieldNameStrs)
-      }
-
-      def fileConfirmAction(modelName: TermName) = {
-        fieldsShapeConifrm[Table, Abs](modelName = modelName, fieldNames = fieldNameStrs)
-      }
 
       def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
@@ -138,8 +133,6 @@ object MacroShape {
         q"""
           { (${TermName(repModelTermName)}: $table) =>
             object CaseClassGenImpl extends $shapeHelper with $hListDecoderShapeImplicit {
-              ..${confireCaseClassFields}
-              ..${fileConfirmAction(modelName = TermName(repModelTermName))}
               $mgDef
               ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}

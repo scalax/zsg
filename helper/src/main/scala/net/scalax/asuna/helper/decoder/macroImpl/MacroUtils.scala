@@ -1,4 +1,4 @@
-package net.scalax.asuna.core.macroImpl
+package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.decoder.DecoderShape
 
@@ -46,14 +46,15 @@ object MacroUtils {
       val abs = weakTypeOf[Abs]
       val decoderShape = weakTypeOf[DecoderShape[_, _, _, _]]
       val propertyDataShapeUnwrap = weakTypeOf[PropertyDataShapeUnwrap[_, _, _, _]]
+      val implicitNotFound = weakTypeOf[implicitNotFound]
 
       q"""
           {
-            @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"函数源 $${SourceTable} 的属性 ${fieldName} 找不到合适的 Shape\n列类型为 $${Source}\n抽象类型为 $${Abs}"))})
+            @$implicitNotFound(msg = ${Literal(Constant(s"函数源 $${SourceTable} 的属性 ${fieldName} 找不到合适的 Shape\n列类型为 $${Source}\n抽象类型为 $${Abs}"))})
             trait ${traitDef}[SourceTable, Source, Abs]
 
             object ${traitObjDef} {
-              implicit def propertyImplicit[SourceTable, Source, Data, Target, Abs](implicit shape: ${decoderShape.typeSymbol}[Source, Data, Target, $abs]): ${traitDef}[SourceTable, Source, Abs] = new ${traitDef}[SourceTable, Source, Abs] { }
+              implicit def propertyImplicit[SourceTable, Source, Data, Target, Abs](implicit shape: ${decoderShape.typeSymbol}[Source, Data, Target, $abs]): $traitDef[SourceTable, Source, Abs] = new ${traitDef}[SourceTable, Source, Abs] { }
             }
             def ${TermName(def1Name)}[T](rep: T): ${propertyDataShapeUnwrap.typeSymbol}[$traitDef, $tableName, T, $abs] = {
               new ${propertyDataShapeUnwrap.typeSymbol}[$traitDef, $tableName, T, $abs] { }
