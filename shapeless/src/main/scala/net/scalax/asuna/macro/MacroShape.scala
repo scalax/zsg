@@ -3,6 +3,7 @@ package net.scalax.asuna.core.macroImpl
 import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
+import net.scalax.asuna.shape.{ HListShapeHelper, ShapeHelper }
 
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
@@ -38,7 +39,7 @@ trait PropertyFun[R, D, O, Abs] extends PropertyFunAbs[Abs] {
 
 trait ProGen[A, B, C, PL, Abs] {
   protected def innperPro: PropertyFun[A, B, C, Abs]
-  def unwrap(implicit pl: PL) = innperPro
+  def unwrap(implicit pl: PL): PropertyFun[A, B, C, Abs] = innperPro
 }
 
 trait PropertyDataShapeUnwrap[R[_, _, _], Source, Table, Abs] {
@@ -52,65 +53,60 @@ object MacroShape {
 
     import c.universe._
 
-    def commonProUseInShape(fieldName: String, modelName: TermName, absName: Type, isOutPutSub: Boolean) = {
+    def commonProUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
       val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       val defName = c.freshName(fieldName + "Gen")
+      val propertyType = weakTypeOf[PropertyType[_]]
+      val decoderShape = weakTypeOf[DecoderShape[_, _, _, _]]
+      val proGen = weakTypeOf[ProGen[_, _, _, _, _]]
+      val propertyFun = weakTypeOf[PropertyFun[_, _, _, _]]
+      val abs = weakTypeOf[Abs]
+
       q"""
-          val ${TermName(fieldName)} = {
-            @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
-            trait ${TypeName(traitName)}[ShapeData, ProData]
-            object ${TermName(traitName)} {
-              implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
-            }
-            def ${TermName(defName)}[A, B, C, D](rep: A, pro: _root_.net.scalax.asuna.core.macroImpl.PropertyType[D])(implicit shape: _root_.net.scalax.asuna.core.decoder.DecoderShape[A, B, C, ${absName}]): _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] = {
-              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], ${absName}] {
-                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] = {
-                  val rep1 = rep
-                  val shape1 = shape
-                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, ${absName}] {
-                    override val rep: A = rep1
-                    override val shape = shape1
-                  }
-                }
+      val ${TermName(fieldName)} = {
+        @_root_.scala.annotation.implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
+        trait ${TypeName(traitName)}[ShapeData, ProData]
+        object ${TermName(traitName)} {
+          implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
+        }
+        def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${decoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
+          new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
+            override protected def innperPro: ${propertyFun.typeSymbol}[A, B, C, $abs] = {
+              val rep1 = rep
+              val shape1 = shape
+              new ${propertyFun.typeSymbol}[A, B, C, $abs] {
+                override val rep: A = rep1
+                override val shape = shape1
               }
             }
-            ${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv
           }
-         """
+        }
+        ${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv
+      }
+      """
     }
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DecoderShapeValue[Case, Abs]] = {
-      val fieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
+      val caseClass = weakTypeOf[Case]
+      val table = weakTypeOf[Table]
+      val modelGen = weakTypeOf[ModelGen[Case]]
+      val allHelper = weakTypeOf[AllHelper[Abs]]
+
+      val shapeHelper = weakTypeOf[ShapeHelper]
+      val hListShapeHelper = weakTypeOf[HListShapeHelper]
+
+      val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
       def confireCaseClassFields = {
-        confirmHasFields(baseModelName = weakTypeOf[Case].typeSymbol, compareModelName = weakTypeOf[Table].typeSymbol, fieldNames = fieldNameStrs)
+        confirmHasFields[Case, Table](fieldNames = fieldNameStrs)
       }
 
       def fileConfirmAction(modelName: TermName) = {
-        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs], fieldNames = fieldNameStrs)
+        fieldsShapeConifrm[Table, Abs](modelName = modelName, fieldNames = fieldNameStrs)
       }
 
-      /*def shapeConifrm(modelName: String, proName: String) = {
-        val traitName = c.freshName(proName)
-        val def1Name = c.freshName(proName)
-        q"""
-          {
-            @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"函数源 $${SourceTable} 的属性 ${proName} 找不到合适的 Shape\n列类型为 $${Source}\n抽象类型为 $${Abs}"))})
-            trait ${TypeName(traitName)}[SourceTable, Source, Abs]
-
-            object ${TermName(traitName)} {
-              implicit def propertyImplicit[SourceTable, Source, Data, Target, Abs](implicit shape: _root_.net.scalax.asuna.core.DataShape[Source, Data, Target, ${weakTypeOf[Abs].typeSymbol}]): ${TypeName(traitName)}[SourceTable, Source, Abs] = new ${TypeName(traitName)}[SourceTable, Source, Abs] { }
-            }
-            def ${TermName(def1Name)}[T](rep: T): _root_.net.scalax.asuna.core.macroImpl.PropertyDataShapeUnwrap[${TypeName(traitName)}, ${weakTypeOf[Table].typeSymbol}, T, ${weakTypeOf[Abs].typeSymbol}] = {
-              new _root_.net.scalax.asuna.core.macroImpl.PropertyDataShapeUnwrap[${TypeName(traitName)}, ${weakTypeOf[Table].typeSymbol}, T, ${weakTypeOf[Abs].typeSymbol}] { }
-            }
-            def ${TermName(c.freshName(proName))} = ${TermName(def1Name)}(${TermName(modelName)}.${TermName(proName)}).unwrap
-          }
-         """
-      }*/
-
       def mgDef = q"""
-          lazy val mg: _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] = new _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] {}
+          lazy val mg: $modelGen = new $modelGen {}
         """
 
       def hlistFromPros(pros: List[String], hlistVal: TermName) = {
@@ -129,23 +125,23 @@ object MacroShape {
         val proNames = namePare
         val termVar1 = TermName(c.freshName)
         q"""
-          new _root_.net.scalax.asuna.core.AllHelper[${weakTypeOf[Abs]}]{ }.shaped(
+          new $allHelper{ }.shaped(
             ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).map { case ${termVar1} =>
+          ).map { case $termVar1 =>
             ..${hlistFromPros(proNames, termVar1)}
-            ${weakTypeOf[Case].typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
+            ${caseClass.typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
           }"""
       }
 
       val q = c.Expr[Table => DecoderShapeValue[Case, Abs]] {
         val repModelTermName = c.freshName
         q"""
-          { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
-            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper {
+          { (${TermName(repModelTermName)}: $table) =>
+            object CaseClassGenImpl extends $shapeHelper with $hListShapeHelper {
               ..${confireCaseClassFields}
               ..${fileConfirmAction(modelName = TermName(repModelTermName))}
-              ${mgDef}
-              ..${fieldNameStrs.map { case proName => commonProUseInShape(fieldName = proName, modelName = TermName(repModelTermName), absName = weakTypeOf[Abs], isOutPutSub = false) }}
+              $mgDef
+              ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}
             }
             CaseClassGenImpl.dataShapeValue

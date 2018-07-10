@@ -1,7 +1,8 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core.AllHelper
+import net.scalax.asuna.core.{ AllHelper, DMHelper }
 import net.scalax.asuna.core.decoder._
+import net.scalax.asuna.shape.{ HListShapeHelper, ShapeHelper }
 
 import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
@@ -14,14 +15,15 @@ object DataModelMacroShape {
     import c.universe._
 
     def proUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
-      val abs = c.weakTypeOf[Abs]
-      val allHelper = c.weakTypeOf[AllHelper[Abs]]
-      val implicitNotFound = c.weakTypeOf[implicitNotFound]
-      val outputData = c.weakTypeOf[OutputData[_]]
-      val outputSubData = c.weakTypeOf[OutputSubData[_, _]]
-      val propertyType = c.weakTypeOf[PropertyType[_]]
-      val decoderShape = c.weakTypeOf[DecoderShape[_, _, _, _]]
-      val proGen = c.weakTypeOf[ProGen[_, _, _, _, _]]
+      val abs = weakTypeOf[Abs]
+      val allHelper = weakTypeOf[AllHelper[Abs]]
+      val implicitNotFound = weakTypeOf[implicitNotFound]
+      val outputData = weakTypeOf[OutputData[_]]
+      val outputSubData = weakTypeOf[OutputSubData[_, _]]
+      val propertyType = weakTypeOf[PropertyType[_]]
+      val decoderShape = weakTypeOf[DecoderShape[_, _, _, _]]
+      val proGen = weakTypeOf[ProGen[_, _, _, _, _]]
+      val propertyFun = weakTypeOf[PropertyFun[_, _, _, _]]
 
       val colDef = if (isOutPutSub) {
         q"""new $allHelper { }.toSub(${modelName}.${TermName(fieldName)})"""
@@ -40,11 +42,11 @@ object DataModelMacroShape {
               implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] = new ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] {}
             }
             def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${decoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
-              new _root_.net.scalax.asuna.core.macroImpl.ProGen[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
-                override protected def innperPro: _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, $abs] = {
+              new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
+                override protected def innperPro: ${propertyFun.typeSymbol}[A, B, C, $abs] = {
                   val rep1 = rep
                   val shape1 = shape
-                  new _root_.net.scalax.asuna.core.macroImpl.PropertyFun[A, B, C, $abs] {
+                  new ${propertyFun.typeSymbol}[A, B, C, $abs] {
                     override val rep: A = rep1
                     override val shape = shape1
                   }
@@ -57,24 +59,35 @@ object DataModelMacroShape {
     }
 
     def impl[Table: c.WeakTypeTag, ICase: c.WeakTypeTag, Case: c.WeakTypeTag, SubCase: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs]] = {
-      val caseFieldNames = weakTypeOf[Case].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
-      val iCaseFieldNames = weakTypeOf[ICase].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
-      val subCaseFieldNames = weakTypeOf[SubCase].members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
+      val modelGen = weakTypeOf[ModelGen[Case]]
+      val abs = weakTypeOf[Abs]
+      val caseClass = weakTypeOf[Case]
+      val table = weakTypeOf[Table]
+      val iCase = weakTypeOf[ICase]
+      val subCase = weakTypeOf[SubCase]
+      val allHelper = weakTypeOf[AllHelper[Abs]]
+      val shapeHelper = weakTypeOf[ShapeHelper]
+      val hListShapeHelper = weakTypeOf[HListShapeHelper]
+      val dMHelper = weakTypeOf[DMHelper]
+
+      val caseFieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
+      val iCaseFieldNames = iCase.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
+      val subCaseFieldNames = subCase.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
 
       val useFieldNames = caseFieldNames.filter(s => !iCaseFieldNames.contains(s))
       val subFieldNames = subCaseFieldNames.map(s => (s, caseFieldNames.indexOf(s))).sortBy(_._2).map(_._1)
 
       def confireCaseClassFields = {
-        confirmHasFields(baseModelName = weakTypeOf[Case].typeSymbol, compareModelName = weakTypeOf[Table].typeSymbol, fieldNames = useFieldNames)
+        confirmHasFields[Case, Table](fieldNames = useFieldNames)
       }
 
       def fieldConfirmAction(modelName: TermName) = {
-        fieldsShapeConifrm(modelName = modelName, tableName = weakTypeOf[Table].typeSymbol, absName = weakTypeOf[Abs], fieldNames = useFieldNames)
+        fieldsShapeConifrm[Table, Abs](modelName = modelName, fieldNames = useFieldNames)
       }
 
       def mgDef =
         q"""
-           lazy val mg: _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] = new _root_.net.scalax.asuna.core.macroImpl.ModelGen[${weakTypeOf[Case].typeSymbol}] {}
+           lazy val mg: $modelGen = new $modelGen {}
          """
 
       def hlistFromPros(pros: List[String], hlistVal: TermName) = {
@@ -82,8 +95,8 @@ object DataModelMacroShape {
           case ((expr, termName), proName) =>
             val tailVal = TermName(c.freshName(proName))
             val q = List(
-              q"""val ${TermName(proName)} = ${termName}.head""",
-              q"""val ${tailVal} = ${termName}.tail""")
+              q"""val ${TermName(proName)} = $termName.head""",
+              q"""val $tailVal = $termName.tail""")
             (expr ::: q, tailVal)
         }
         result
@@ -91,7 +104,7 @@ object DataModelMacroShape {
 
       def ioFieldGen(field: String) = {
         q"""
-           lazy val ${TermName(field)} = mg(s => s.${TermName(field)}).delay[${weakTypeOf[Abs]}]
+           lazy val ${TermName(field)} = mg(s => s.${TermName(field)}).delay[$abs]
          """
       }
 
@@ -105,22 +118,22 @@ object DataModelMacroShape {
         val termVar5 = TermName(c.freshName)
 
         val compose = q"""
-            (${termVar4}: ${weakTypeOf[ICase].typeSymbol}) => {
+            ($termVar4: $iCase) => {
               ${iCaseFieldNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${termVar4}.${TermName(b)}, $f)")}
             }
            """
 
         q"""
-          lazy val aa = new _root_.net.scalax.asuna.core.AllHelper[${weakTypeOf[Abs]}] { }.shaped(
+          lazy val aa = new $allHelper { }.shaped(
             ${(useFieldNames ::: iCaseFieldNames).reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).map { case ${termVar1} =>
-            val ${termVar2} = _root_.net.scalax.asuna.core.DMHelper.compile(${termVar1})
-            ${termVar2}.andThen { case ${termVar3} =>
+          ).map { case $termVar1 =>
+            val $termVar2 = ${dMHelper.typeSymbol.companion}.compile($termVar1)
+            $termVar2.andThen { case $termVar3 =>
               ..${hlistFromPros(useFieldNames ::: iCaseFieldNames, termVar3)}
-              ${weakTypeOf[Case].typeSymbol.companion}(..${(useFieldNames ::: iCaseFieldNames).map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
-            }.compose($compose).changeSub { case ${termVar5} =>
+              ${caseClass.typeSymbol.companion}(..${(useFieldNames ::: iCaseFieldNames).map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
+            }.compose($compose).changeSub { case $termVar5 =>
               ..${hlistFromPros(subFieldNames, termVar5)}
-              ${weakTypeOf[SubCase].typeSymbol.companion}(..${subFieldNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
+              ${subCase.typeSymbol.companion}(..${subFieldNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
             }
           }"""
       }
@@ -128,9 +141,9 @@ object DataModelMacroShape {
       val q = c.Expr[Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs]] {
         val repModelTermName = c.freshName
         q"""
-          { (${TermName(repModelTermName)}: ${weakTypeOf[Table].typeSymbol}) =>
-            object CaseClassGenImpl extends _root_.net.scalax.asuna.shape.ShapeHelper with _root_.net.scalax.asuna.shape.HListShapeHelper {
-            ..${confireCaseClassFields}
+          { (${TermName(repModelTermName)}: $table) =>
+            object CaseClassGenImpl extends $shapeHelper with $hListShapeHelper {
+              ..${confireCaseClassFields}
               ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
               ..${ioFieldsGen}
               ${mgDef}
@@ -141,7 +154,6 @@ object DataModelMacroShape {
           }
         """
       }
-      //println(q)
       q
     }
 
