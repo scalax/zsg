@@ -34,7 +34,7 @@ trait DateModelHelper[Abs] {
       override val rep = shape1.wrapRep(rep1)
       override val shape = shape1.packed
     }
-    sv.map(s => OutputData.lift(s))
+    sv.dmap(s => OutputData.lift(s))
   }
 
   def toSubOnly[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, Abs]): DecoderShapeValue[SubOnly[B], Abs] = {
@@ -45,7 +45,7 @@ trait DateModelHelper[Abs] {
       override val rep = shape1.wrapRep(rep1)
       override val shape = shape1.packed
     }
-    sv.map(s => SubOnly.lift(s))
+    sv.dmap(s => SubOnly.lift(s))
   }
 
   def toSub[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, Abs]): DecoderShapeValue[OutputSubData[B, B], Abs] = {
@@ -56,7 +56,7 @@ trait DateModelHelper[Abs] {
       override val rep = shape1.wrapRep(rep1)
       override val shape = shape1.packed
     }
-    sv.map(s => OutputSubData.simpleLift(s))
+    sv.dmap(s => OutputSubData.simpleLift(s))
   }
 
 }

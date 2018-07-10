@@ -127,7 +127,7 @@ object DataModelMacroShape {
         q"""
           lazy val aa = new $allHelper { }.shaped(
             ${(useFieldNames ::: iCaseFieldNames).reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).map { case $termVar1 =>
+          ).dmap { case $termVar1 =>
             val $termVar2 = ${dMHelper.typeSymbol.companion}.compile($termVar1)
             $termVar2.andThen { case $termVar3 =>
               ..${hlistFromPros(useFieldNames ::: iCaseFieldNames, termVar3)}

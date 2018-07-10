@@ -127,7 +127,7 @@ object MacroShape {
         q"""
           new $allHelper{ }.shaped(
             ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).map { case $termVar1 =>
+          ).dmap { case $termVar1 =>
             ..${hlistFromPros(proNames, termVar1)}
             ${caseClass.typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
           }"""

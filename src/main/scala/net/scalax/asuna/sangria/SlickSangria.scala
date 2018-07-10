@@ -142,7 +142,7 @@ trait SlickSangriaHelper[E] {
       svg
     }
 
-    dShapeValue.map(listCv)
+    dShapeValue.dmap(listCv)
 
   }
 
