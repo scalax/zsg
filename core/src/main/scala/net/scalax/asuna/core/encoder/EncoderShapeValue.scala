@@ -21,6 +21,7 @@ trait EncoderShapeValue[U, T] {
 
     }
   }
+
 }
 
 object EncoderShapeValue {

@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.filter
 
 import cats.Contravariant
 import io.circe.{ Decoder, Json, JsonObject }
-import net.scalax.asuna.core.common.TagAbs
+import net.scalax.asuna.core.common.AtomicColumn
 import slick.ast.BaseTypedType
 
 trait SFilterColHelper[D] {
@@ -20,7 +20,7 @@ trait SlickFilterCol {
   def toOptionCondition(data: InputDataType): Rep[Option[Boolean]]
 }
 
-trait SlickFilterColImpl[D] extends SlickFilterCol with TagAbs[D, SlickFilterCol] {
+trait SlickFilterColImpl[D] extends SlickFilterCol with AtomicColumn[D, SlickFilterCol] {
   self =>
 
   override type InputDataType = D

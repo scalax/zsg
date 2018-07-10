@@ -9,7 +9,7 @@ trait DecoderShapeValue[U, T] {
   val rep: RepType
   val shape: DecoderShape[RepType, U, RepType, T]
 
-  def map[F](cv: U => F): DecoderShapeValue[F, T] = new DecoderShapeValue[F, T] {
+  def dmap[F](cv: U => F): DecoderShapeValue[F, T] = new DecoderShapeValue[F, T] {
     override type RepType = self.RepType
     override val rep = self.rep
     override val shape = new DecoderShape[self.RepType, F, self.RepType, T] {
@@ -26,6 +26,7 @@ trait DecoderShapeValue[U, T] {
       }
     }
   }
+
 }
 
 object DecoderShapeValue {

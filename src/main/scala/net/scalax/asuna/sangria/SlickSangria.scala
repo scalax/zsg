@@ -1,8 +1,8 @@
 package net.scalax.asuna.sangria
 
-import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder._
+import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
@@ -19,9 +19,9 @@ object SlickSangriaHelper {
 
 trait SlickSangriaHelper[E] {
 
-  trait InnerWithTable[Out, Data] extends SlickSangriaHelper.WithTable[E, Data] with AbsWrapper[Out, Data]
+  trait InnerWithTable[Out, Data] extends SlickSangriaHelper.WithTable[E, Data] with DecoderContent[Out, Data]
 
-  object sangria extends AllHelper[SlickRepAbs[E]] with WrapperHelper[SlickRepAbs[E], InnerWithTable] {
+  object sangria extends DecoderHelper[SlickRepAbs[E]] with DecoderWrapperHelper[SlickRepAbs[E], InnerWithTable] {
     override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, SlickRepAbs[E]]): InnerWithTable[Out, D] = {
       val func = { (table: E, names: List[String], ct: ClassTag[D]) =>
         implicit val ct1 = ct
@@ -142,7 +142,7 @@ trait SlickSangriaHelper[E] {
       svg
     }
 
-    dShapeValue.map(listCv)
+    dShapeValue.dmap(listCv)
 
   }
 

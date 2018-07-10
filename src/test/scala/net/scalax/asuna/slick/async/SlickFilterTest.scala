@@ -1,7 +1,7 @@
 package net.scalax.slick.async
 
 import io.circe.JsonObject
-import net.scalax.asuna.core.HListEncoderShapeHelper
+import net.scalax.asuna.helper.encoder.HListEncoderShapeImplicit
 import net.scalax.asuna.slick.filter.SlickFilterQuery
 import net.scalax.asuna.shape.ShapeHelper
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
@@ -9,7 +9,7 @@ import shapeless.{ Generic, HNil }
 import slick.jdbc.H2Profile.api._
 
 case class FilterParam(name: String, age: Int)
-class SlickFilterTest(tag: Tag) extends FriendTable(tag) with SlickFilterColHelper with ShapeHelper with HListEncoderShapeHelper {
+class SlickFilterTest(tag: Tag) extends FriendTable(tag) with SlickFilterColHelper with ShapeHelper with HListEncoderShapeImplicit {
 
   val nameF = filterRep(name)
   val ageF = filterRep(age)
@@ -19,7 +19,7 @@ class SlickFilterTest(tag: Tag) extends FriendTable(tag) with SlickFilterColHelp
 }
 
 case class FilterParam1(name: String)
-class SlickFilterJson(friend: FriendTable) extends SlickFilterColHelper with ShapeHelper with HListEncoderShapeHelper {
+class SlickFilterJson(friend: FriendTable) extends SlickFilterColHelper with ShapeHelper with HListEncoderShapeImplicit {
 
   val name = filterRep(friend.name)
   val age = jsonFilterKey(friend.age, "age")

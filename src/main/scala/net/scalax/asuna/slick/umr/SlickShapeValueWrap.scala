@@ -1,7 +1,7 @@
 package net.scalax.asuna.slick.umr
 
 import slick.lifted.{ FlatShapeLevel, Shape }
-import net.scalax.asuna.core.common.TagAbs
+import net.scalax.asuna.core.common.AtomicColumn
 
 trait SlickShapeValueWrapAbs {
   self =>
@@ -17,7 +17,7 @@ trait SlickShapeValueWrapAbs {
 
 }
 
-trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with TagAbs[F, SlickShapeValueWrapAbs] {
+trait SlickShapeValueWrap[F] extends SlickShapeValueWrapAbs with AtomicColumn[F, SlickShapeValueWrapAbs] {
   self =>
 
   override type OutPut = F
