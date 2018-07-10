@@ -1,8 +1,7 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core.AllHelper
 import net.scalax.asuna.core.decoder._
-import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
+import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.helper.decoder.datamodel.DMHelper
 import net.scalax.asuna.shape.ShapeHelper
 
@@ -18,7 +17,7 @@ object DataModelMacroShape {
 
     def proUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
       val abs = weakTypeOf[Abs]
-      val allHelper = weakTypeOf[AllHelper[Abs]]
+      val allHelper = weakTypeOf[DecoderHelper[Abs]]
       val implicitNotFound = weakTypeOf[implicitNotFound]
       val outputData = weakTypeOf[OutputData[_]]
       val outputSubData = weakTypeOf[OutputSubData[_, _]]
@@ -67,7 +66,7 @@ object DataModelMacroShape {
       val table = weakTypeOf[Table]
       val iCase = weakTypeOf[ICase]
       val subCase = weakTypeOf[SubCase]
-      val allHelper = weakTypeOf[AllHelper[Abs]]
+      val allHelper = weakTypeOf[DecoderHelper[Abs]]
       val shapeHelper = weakTypeOf[ShapeHelper]
       val hListDecoderShapeImplicit = weakTypeOf[HListDecoderShapeImplicit]
       val dMHelper = weakTypeOf[DMHelper]

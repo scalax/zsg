@@ -2,20 +2,20 @@ package net.scalax.asuna.slick.umr
 
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
-import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
+import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
 import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
 
 import scala.reflect.ClassTag
 
 trait UmrHelper {
 
-  trait UmrWrapper[RepOut, DataType] extends AbsWrapper[RepOut, DataType] {
+  trait UmrWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
     def toSv(implicit classTag: ClassTag[DataType]): ShapedValue[Any, DataType]
   }
 
-  object umr extends AllHelper[SlickShapeValueWrapAbs] with WrapperHelper[SlickShapeValueWrapAbs, UmrWrapper] {
+  object umr extends DecoderHelper[SlickShapeValueWrapAbs] with DecoderWrapperHelper[SlickShapeValueWrapAbs, UmrWrapper] {
     override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, SlickShapeValueWrapAbs]): UmrWrapper[Out, D] = {
       new UmrWrapper[Out, D] {
         override def toSv(implicit classTag: ClassTag[D]): ShapedValue[Any, D] = {

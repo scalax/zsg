@@ -1,7 +1,7 @@
 package net.scalax.slick.async
 
-import net.scalax.asuna.core._
 import net.scalax.asuna.core.decoder.{ IOData, OutputData, OutputSubData, SubOnly }
+import net.scalax.asuna.helper.decoder.datamodel.DMHelper
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory

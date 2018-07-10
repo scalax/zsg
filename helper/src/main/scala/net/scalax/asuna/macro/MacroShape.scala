@@ -1,16 +1,15 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
+import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.shape.ShapeHelper
 
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
 
 trait PropertyType[Pro] {
-  def delay[Abs]: DelayTag[Pro, Abs] = new AllHelper[Abs] {}.delay[Pro]
+  def delay[Abs]: DelayTag[Pro, Abs] = new DecoderHelper[Abs] {}.delay[Pro]
 }
 
 trait ModelGen[Model] {
@@ -91,7 +90,7 @@ object MacroShape {
       val caseClass = weakTypeOf[Case]
       val table = weakTypeOf[Table]
       val modelGen = weakTypeOf[ModelGen[Case]]
-      val allHelper = weakTypeOf[AllHelper[Abs]]
+      val allHelper = weakTypeOf[DecoderHelper[Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
       val hListDecoderShapeImplicit = weakTypeOf[HListDecoderShapeImplicit]

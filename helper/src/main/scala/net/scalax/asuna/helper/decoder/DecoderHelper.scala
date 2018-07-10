@@ -1,8 +1,8 @@
-package net.scalax.asuna.core
+package net.scalax.asuna.helper.decoder
 
 import net.scalax.asuna.core.decoder.{ DataModel, DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.core.macroImpl.{ DataModelMacroShape, MacroShape }
-import net.scalax.asuna.hepler._
+import net.scalax.asuna.hepler.{ DataShapeValueHelper, DateModelHelper, DelayTagHelper }
 
 import scala.language.experimental.macros
 import scala.language.higherKinds
@@ -12,10 +12,10 @@ trait CaseClassShapeMacroHelper[Abs] {
   def dataModel[Table, ICase, Case, SubCase]: Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DataModelMacroShape.DataModelMacroShapeImpl.impl[Table, ICase, Case, SubCase, Abs]
 }
 
-trait AbsWrapper[RepOut, DataType]
+trait DecoderContent[RepOut, DataType]
 
-trait WrapperHelper[Abs, Wrapper[_, _] <: AbsWrapper[_, _]] {
+trait DecoderWrapperHelper[Abs, Wrapper[_, _] <: DecoderContent[_, _]] {
   def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, Abs]): Wrapper[Out, D]
 }
 
-trait AllHelper[Abs] extends CaseClassShapeMacroHelper[Abs] with DataShapeValueHelper[Abs] with DelayTagHelper[Abs] with DateModelHelper[Abs]
+trait DecoderHelper[Abs] extends CaseClassShapeMacroHelper[Abs] with DataShapeValueHelper[Abs] with DelayTagHelper[Abs] with DateModelHelper[Abs]

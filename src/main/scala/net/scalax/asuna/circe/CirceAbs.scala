@@ -7,6 +7,7 @@ import cats.implicits._
 import io.circe.generic.JsonCodec
 import net.scalax.asuna.core.common.AtomicColumn
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
+import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -93,9 +94,9 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
 
 trait CirceReaderHelper {
 
-  trait CirceWrapper[RepOut, DataType] extends AbsWrapper[RepOut, DataType] with CirceReaderQuery[DataType]
+  trait CirceWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] with CirceReaderQuery[DataType]
 
-  object circe extends AllHelper[CirceReaderAbs] with WrapperHelper[CirceReaderAbs, CirceWrapper] {
+  object circe extends DecoderHelper[CirceReaderAbs] with DecoderWrapperHelper[CirceReaderAbs, CirceWrapper] {
     override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, CirceReaderAbs]): CirceWrapper[Out, D] = {
       val shape1 = shape
       val rep1 = rep
