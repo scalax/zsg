@@ -47,7 +47,6 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
   val age = rep(friend.age)
 
   lazy val shape = umr.dataModel[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput]
-
   lazy val reader = umr.effect(shape(this)).toSv
 
 }

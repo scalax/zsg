@@ -1,4 +1,4 @@
-package net.scalax.asuna.core.macroImpl
+package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.decoder._
 import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
@@ -8,9 +8,9 @@ import net.scalax.asuna.shape.ShapeHelper
 import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
 
-object DataModelMacroShape {
+object DecoderDataModelMapper {
 
-  class DataModelMacroShapeImpl(override val c: Context) extends MacroUtils.MacroUtilImpl {
+  class DecoderDataModelMapperImpl(override val c: Context) extends MacroUtils.MacroUtilImpl {
     self =>
 
     import c.universe._

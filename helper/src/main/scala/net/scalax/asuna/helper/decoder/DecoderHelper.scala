@@ -1,15 +1,15 @@
 package net.scalax.asuna.helper.decoder
 
 import net.scalax.asuna.core.decoder.{ DataModel, DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.core.macroImpl.{ DataModelMacroShape, MacroShape }
+import net.scalax.asuna.helper.decoder.macroImpl.{ DecoderDataModelMapper, DecoderMapper }
 import net.scalax.asuna.hepler.{ DataShapeValueHelper, DateModelHelper, DelayTagHelper }
 
 import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait CaseClassShapeMacroHelper[Abs] {
-  def caseOnly[Table, Case]: Table => DecoderShapeValue[Case, Abs] = macro MacroShape.MacroShapeImpl.impl[Table, Case, Abs]
-  def dataModel[Table, ICase, Case, SubCase]: Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DataModelMacroShape.DataModelMacroShapeImpl.impl[Table, ICase, Case, SubCase, Abs]
+  def caseOnly[Table, Case]: Table => DecoderShapeValue[Case, Abs] = macro DecoderMapper.DecoderMapperImpl.impl[Table, Case, Abs]
+  def dataModel[Table, ICase, Case, SubCase]: Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DecoderDataModelMapper.DecoderDataModelMapperImpl.impl[Table, ICase, Case, SubCase, Abs]
 }
 
 trait DecoderContent[RepOut, DataType]

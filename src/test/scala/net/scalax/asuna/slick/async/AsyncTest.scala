@@ -5,7 +5,6 @@ import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
-import shapeless.HNil
 
 import scala.concurrent.{ Await, Future, duration }
 
@@ -60,8 +59,8 @@ class AsyncTest
   }
 
   "shape" should "auto filer with case class" in {
-    object filterFriendTq extends TableQuery(cons => new SlickFilterTest(cons))
-    val filterQuery = filterFriendTq.filter(t => t.filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
+    //object filterFriendTq extends TableQuery(cons => new SlickFilterTest(cons))
+    val filterQuery = friendTq.filter(t => new SlickFilterTest(t).filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
 
     logger.info(filterQuery.result.statements.toString)
     try {
@@ -76,9 +75,10 @@ class AsyncTest
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    val filterQuery = friendTq.filter(s => new SlickFilterJson(s).filterCol.inputData(FilterParam1(name = "小莎莎") ::
-      JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
-      HNil).getOrElse(LiteralColumn(Option(true))))
+    val filterQuery = friendTq.filter(s => new SlickFilterJson(s).filterCol.inputData(
+      FilterParam2(
+        FilterParam1(name = "小莎莎"),
+        json = JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")))).getOrElse(LiteralColumn(Option(true))))
 
     logger.info(filterQuery.result.statements.toString)
     try {
