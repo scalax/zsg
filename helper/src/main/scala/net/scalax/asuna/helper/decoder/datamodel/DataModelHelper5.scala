@@ -1,4 +1,4 @@
-package net.scalax.asuna.core
+package net.scalax.asuna.helper.decoder.datamodel
 
 import net.scalax.asuna.core.decoder._
 import shapeless.{ ::, HList }

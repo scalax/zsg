@@ -1,7 +1,7 @@
 package net.scalax.asuna.core.encoder
 
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
-import net.scalax.asuna.core.encoder.impl.{ ListEncoderShapeImplicit, TagAbsEncoderShapeImplicit }
+import net.scalax.asuna.core.encoder.impl.{ AtomicColumnEncoderShapeImplicit, ListEncoderShapeImplicit }
 
 trait EncoderShape[-E, U, C, T] {
   self =>
@@ -19,4 +19,4 @@ trait EncoderShape[-E, U, C, T] {
   def buildData(data: U, rep: C): DataGroup
 }
 
-object EncoderShape extends ListEncoderShapeImplicit with TagAbsEncoderShapeImplicit
+object EncoderShape extends ListEncoderShapeImplicit with AtomicColumnEncoderShapeImplicit

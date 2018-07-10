@@ -1,12 +1,12 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.helper.decoder
 
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import shapeless.{ ::, HList, HNil }
 
-trait HListShapeHelper {
+trait HListDecoderShapeImplicit {
 
-  implicit def hnilDateShape[J]: DecoderShape[HNil, HNil, HNil, J] = {
+  implicit def hlistDecoderImplicit1[J]: DecoderShape[HNil, HNil, HNil, J] = {
     new DecoderShape[HNil, HNil, HNil, J] {
       self =>
       override def wrapRep(base: HNil): HNil = base
@@ -15,7 +15,7 @@ trait HListShapeHelper {
     }
   }
 
-  implicit def hlistDateShape[A, B <: HList, H, I <: HList, M, N <: HList, J](implicit head: DecoderShape[A, H, M, J], tail: DecoderShape[B, I, N, J]): DecoderShape[A :: B, H :: I, M :: N, J] = {
+  implicit def hlistDecoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, J](implicit head: DecoderShape[A, H, M, J], tail: DecoderShape[B, I, N, J]): DecoderShape[A :: B, H :: I, M :: N, J] = {
 
     new DecoderShape[A :: B, H :: I, M :: N, J] {
       self =>

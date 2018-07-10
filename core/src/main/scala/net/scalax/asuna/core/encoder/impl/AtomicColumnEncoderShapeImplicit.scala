@@ -1,17 +1,15 @@
 package net.scalax.asuna.core.encoder.impl
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, TagAbs }
+import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup }
 import net.scalax.asuna.core.encoder.EncoderShape
 
-trait TagAbsEncoderShapeImplicit {
+trait AtomicColumnEncoderShapeImplicit {
 
-  implicit def atomicShapeImplicit1[A, C]: EncoderShape[TagAbs[A, C], A, TagAbs[A, C], C] = {
-    new EncoderShape[TagAbs[A, C], A, TagAbs[A, C], C] {
-      override def wrapRep(base: TagAbs[A, C]): TagAbs[A, C] = base
-      override def toLawRep(base: TagAbs[A, C]): DataRepGroup[C] = {
-        DataRepGroup(reps = List(base.common))
-      }
-      override def buildData(data: A, rep: TagAbs[A, C]): DataGroup = DataGroup(List(data))
+  implicit def atomicShapeImplicit1[A, C]: EncoderShape[AtomicColumn[A, C], A, AtomicColumn[A, C], C] = {
+    new EncoderShape[AtomicColumn[A, C], A, AtomicColumn[A, C], C] {
+      override def wrapRep(base: AtomicColumn[A, C]): AtomicColumn[A, C] = base
+      override def toLawRep(base: AtomicColumn[A, C]): DataRepGroup[C] = DataRepGroup(reps = List(base.common))
+      override def buildData(data: A, rep: AtomicColumn[A, C]): DataGroup = DataGroup(List(data))
     }
   }
   /*implicit def atomicShapeImplicit2[A, C]: EncoderShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] = {

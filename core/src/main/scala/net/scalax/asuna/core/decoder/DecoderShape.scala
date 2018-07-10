@@ -1,7 +1,7 @@
 package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
-import net.scalax.asuna.core.decoder.impl.{ ListDecoderShapeImplicit, TagAbsDecoderShapeImplicit }
+import net.scalax.asuna.core.decoder.impl.{ AtomicColumnDecoderShapeImplicit, ListDecoderShapeImplicit }
 
 trait DecoderShape[-E, U, C, T] {
   self =>
@@ -19,4 +19,4 @@ trait DecoderShape[-E, U, C, T] {
   def takeData(oldData: DataGroup, rep: C): SplitData[U]
 }
 
-object DecoderShape extends ListDecoderShapeImplicit with TagAbsDecoderShapeImplicit
+object DecoderShape extends ListDecoderShapeImplicit with AtomicColumnDecoderShapeImplicit

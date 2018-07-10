@@ -1,8 +1,10 @@
 package net.scalax.asuna.core.macroImpl
 
-import net.scalax.asuna.core.{ AllHelper, DMHelper }
+import net.scalax.asuna.core.AllHelper
 import net.scalax.asuna.core.decoder._
-import net.scalax.asuna.shape.{ HListShapeHelper, ShapeHelper }
+import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
+import net.scalax.asuna.helper.decoder.datamodel.DMHelper
+import net.scalax.asuna.shape.ShapeHelper
 
 import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
@@ -67,7 +69,7 @@ object DataModelMacroShape {
       val subCase = weakTypeOf[SubCase]
       val allHelper = weakTypeOf[AllHelper[Abs]]
       val shapeHelper = weakTypeOf[ShapeHelper]
-      val hListShapeHelper = weakTypeOf[HListShapeHelper]
+      val hListDecoderShapeImplicit = weakTypeOf[HListDecoderShapeImplicit]
       val dMHelper = weakTypeOf[DMHelper]
 
       val caseFieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
@@ -142,7 +144,7 @@ object DataModelMacroShape {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: $table) =>
-            object CaseClassGenImpl extends $shapeHelper with $hListShapeHelper {
+            object CaseClassGenImpl extends $shapeHelper with $hListDecoderShapeImplicit {
               ..${confireCaseClassFields}
               ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
               ..${ioFieldsGen}

@@ -5,7 +5,7 @@ import io.circe.Decoder
 import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
-import net.scalax.asuna.core.common.TagAbs
+import net.scalax.asuna.core.common.AtomicColumn
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 
 import scala.concurrent.Future
@@ -28,7 +28,7 @@ trait CirceReaderAbs {
 
 }
 
-trait CirceReaderImpl[T, R] extends CirceReaderAbs with TagAbs[R, CirceReaderAbs] {
+trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceReaderAbs] {
   self =>
 
   override type DataType = T

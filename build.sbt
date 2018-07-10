@@ -7,6 +7,6 @@ addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.fu
 addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.6" cross CrossVersion.binary)
 
 lazy val core = (project in file("./core"))
-lazy val shapeless = (project in file("./shapeless"))
+lazy val helper = (project in file("./helper"))
 
-lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).dependsOn(shapeless).aggregate(shapeless)
+lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).dependsOn(helper).aggregate(helper)

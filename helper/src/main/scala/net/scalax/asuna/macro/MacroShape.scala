@@ -3,7 +3,8 @@ package net.scalax.asuna.core.macroImpl
 import net.scalax.asuna.core._
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.shape.{ HListShapeHelper, ShapeHelper }
+import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
+import net.scalax.asuna.shape.ShapeHelper
 
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
@@ -93,7 +94,7 @@ object MacroShape {
       val allHelper = weakTypeOf[AllHelper[Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
-      val hListShapeHelper = weakTypeOf[HListShapeHelper]
+      val hListDecoderShapeImplicit = weakTypeOf[HListDecoderShapeImplicit]
 
       val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
@@ -137,7 +138,7 @@ object MacroShape {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: $table) =>
-            object CaseClassGenImpl extends $shapeHelper with $hListShapeHelper {
+            object CaseClassGenImpl extends $shapeHelper with $hListDecoderShapeImplicit {
               ..${confireCaseClassFields}
               ..${fileConfirmAction(modelName = TermName(repModelTermName))}
               $mgDef
