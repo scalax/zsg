@@ -28,16 +28,14 @@ object SlickSortBy {
       .map(name => (orderWraps.find(r => name._1 == r.key), name._2))
       .map {
         case (wrapOpt, orderWray) =>
-          wrapOpt match {
-            case Some(wrap) =>
-              val orders = wrap.column.orderByGen(wrap.column.rep)
-              orderWray match {
-                case DESC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.desc) }))
-                case ASC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.asc) }))
-                case DEFAULT => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord) }))
-              }
-            case _ =>
-              Option.empty
+          wrapOpt.flatMap { wrap =>
+            val orders = wrap.column.orderByGen(wrap.column.rep)
+            orderWray match {
+              case DESC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.desc) }))
+              case ASC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.asc) }))
+              case DEFAULT => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord) }))
+              case _ => Option.empty
+            }
           }
 
       }

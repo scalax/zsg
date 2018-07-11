@@ -79,7 +79,7 @@ class TestCase1
   it should "auto sort by with safe parameters" in {
     val sortByFriendTq = TableQuery[SlickSrotByTest]
 
-    val param3 = List(("test UTF-8 喵喵酱", "desc"), ("nick", "desc"), ("lkeindkte", "asc"), ("id", "asc"), ("age", "desc"))
+    val param3 = List(("test UTF-8 喵喵酱", "desc"), ("nick", "desc"), ("lkeindkte", "asc"), ("extColumn", "length"), ("id", "asc"), ("age", "desc"))
     val sortByQuery3 = sortByFriendTq.sortBy(t => t.sortByCols.inputParam(param3))
     sortByQuery3.result.statements.toList should be(sortByFriendTq.sortBy(_.nick.desc).sortBy(_.id.asc).result.statements.toList)
     val friendQuery3 = sortByQuery3.to[List].result
