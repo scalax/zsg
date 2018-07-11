@@ -1,8 +1,22 @@
-package net.scalax.slick.async
+package net.scalax.asuna.slick.filter
 
 import io.circe.JsonObject
-import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import slick.jdbc.H2Profile.api._
+
+case class Friends(
+  id: Option[Long] = None,
+  name: String,
+  nick: String,
+  age: Int)
+
+class FriendTable(tag: slick.lifted.Tag) extends Table[Friends](tag, "firend") {
+  def id = column[Long]("id", O.AutoInc)
+  def name = column[String]("name")
+  def nick = column[String]("nick")
+  def age = column[Int]("age")
+
+  def * = (id.?, name, nick, age).mapTo[Friends]
+}
 
 case class FilterParam(name: String, age: Int)
 class SlickFilterTest(friend: FriendTable) extends SlickFilterColHelper {

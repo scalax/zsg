@@ -2,7 +2,6 @@ package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
-import net.scalax.asuna.hepler.EncoderDataShapeValueHelper
 
 import scala.language.experimental.macros
 import scala.language.higherKinds

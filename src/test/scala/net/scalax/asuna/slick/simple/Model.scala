@@ -1,7 +1,8 @@
-package net.scalax.slick.dynamic
+package net.scalax.asuna.slick.simple
 
-import net.scalax.slick.async._
+import io.circe.JsonObject
 import net.scalax.asuna.slick.umr.UmrHelper
+import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
 
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
@@ -27,7 +28,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper {
 case class Friends6(id: Long, nick: String)
 case class Friends7(age: Int, id: Long)
 
-class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
+class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
 
   lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6]
   lazy val reader6 = umr.effect(shape6(this)).toSv
@@ -38,6 +39,24 @@ class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 }
 
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
+
+case class DynFields(id: String = "id", name: String = "name", nick: String = "nick")
+case class Friends8(id: Long, dyn: JsonObject)
+
+class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
+  self =>
+
+  def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields](self)).decoder(DynFields()).withCols(cols)
+  def shape8 = umr.caseOnly[DynFriendModel, Friends8](self)
+  def reader8 = umr.effect(shape8).toSv
+
+}
+
+object DynFriendModelTq extends (List[String] => TableQuery[DynFriendModel]) {
+  override def apply(v1: List[String]): TableQuery[DynFriendModel] = {
+    TableQuery(cons => new DynFriendModel(cons, v1))
+  }
+}
 
 class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
 

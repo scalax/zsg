@@ -1,4 +1,4 @@
-package net.scalax.asuna.hepler
+package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 
