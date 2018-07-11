@@ -1,12 +1,12 @@
-package net.scalax.asuna.hepler
+package net.scalax.asuna.helper.decoder
 
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder._
 
-trait DataShapeValueHelper[D] {
-  def wrap[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, D]): C = {
-    shape.wrapRep(rep)
-  }
+trait DecoderDataShapeValueHelper[D] {
+
+  def wrap[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, D]): C = shape.wrapRep(rep)
+
   def shaped[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, D]): DecoderShapeValue[B, D] = {
     val shape1 = shape
     val rep1 = rep
@@ -16,15 +16,14 @@ trait DataShapeValueHelper[D] {
       override val shape = shape1.packed
     }
   }
+
 }
 
-trait DelayTagHelper[CommonCol] {
-  def delay[Data]: DelayTag[Data, CommonCol] = {
-    new DelayTag[Data, CommonCol] {}
-  }
+trait DecoderDelayTagHelper[CommonCol] {
+  def delay[Data]: DelayTag[Data, CommonCol] = new DelayTag[Data, CommonCol] {}
 }
 
-trait DateModelHelper[Abs] {
+trait DecoderDateModelHelper[Abs] {
 
   def toOutput[A, B, C](rep: A)(implicit shape: DecoderShape[A, B, C, Abs]): DecoderShapeValue[OutputData[B], Abs] = {
     val rep1 = rep

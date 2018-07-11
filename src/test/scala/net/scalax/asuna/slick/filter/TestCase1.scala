@@ -1,4 +1,4 @@
-package net.scalax.slick.async
+package net.scalax.asuna.slick.filter
 
 import io.circe.{ Json, JsonObject }
 import slick.jdbc.H2Profile.api._
@@ -8,22 +8,7 @@ import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ Await, Future, duration }
 
-case class Friends(
-  id: Option[Long] = None,
-  name: String,
-  nick: String,
-  age: Int)
-
-class FriendTable(tag: slick.lifted.Tag) extends Table[Friends](tag, "firend") {
-  def id = column[Long]("id", O.AutoInc)
-  def name = column[String]("name")
-  def nick = column[String]("nick")
-  def age = column[Int]("age")
-
-  def * = (id.?, name, nick, age).mapTo[Friends]
-}
-
-class AsyncTest
+class TestCase1
   extends FlatSpec
   with Matchers
   with EitherValues
