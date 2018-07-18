@@ -106,17 +106,6 @@ trait SlickFilterColHelper {
     h
   }
 
-  /*def filterOptRep[D](rep: slick.lifted.Rep[Option[D]])(implicit b: SFilterColHelper[Option[D]], profile: slick.jdbc.JdbcProfile): SlickFilterColImpl[Option[D]] = {
-    import profile.api._
-    val h = new SlickFilterColImpl[Option[D]] { self =>
-      override def toOptionCondition(data: Option[D]): Rep[Option[Boolean]] = {
-        implicit val impl = b.basedTypedType
-        b.rep2OptRep(rep) === b.data2OptData(data)
-      }
-    }
-    h
-  }*/
-
   def jsonFilterKey[E](rep: slick.lifted.Rep[E], key: String)(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] = {
     val f = filterRep(rep)
     val h = new SlickFilterColImpl[JsonObject] {

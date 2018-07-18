@@ -1,6 +1,7 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
+import net.scalax.asuna.helper.{ ColumnInfo, ColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, HListEncoderShapeImplicit }
 import net.scalax.asuna.shape.ShapeHelper
@@ -41,7 +42,7 @@ object EncoderMapper {
 
     import c.universe._
 
-    def commonProUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
+    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
       val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       val defName = c.freshName(fieldName + "Gen")
       val propertyType = weakTypeOf[PropertyType[_]]
@@ -50,14 +51,30 @@ object EncoderMapper {
       val propertyEncoderFun = weakTypeOf[PropertyEncoderFun[_, _, _, _]]
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
+      val columnInfo = weakTypeOf[ColumnInfo]
+      val columnInfoImpl = weakTypeOf[ColumnInfoImpl[_, _, _, _]]
+
+      val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
+      val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
+
+      val wtTRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
+      val wtMRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
 
       q"""
       val ${TermName(fieldName)} = {
         @$implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
         trait ${TypeName(traitName)}[ShapeData, ProData]
         object ${TermName(traitName)} {
-          implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
+          implicit def propertyImplicit1[S, T](implicit cv: T <:< S): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
         }
+        implicit val ${TermName(c.freshName)}: $columnInfo = ${columnInfoImpl.typeSymbol.companion}(
+             tableColumnName = ${Literal(Constant(fieldName))},
+             modelColumnName = ${Literal(Constant(fieldName))},
+             tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
+             modelTag = _root_.scala.Predef.implicitly[${wtMT}],
+             tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
+             modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+        )
         def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
           new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
             override protected def innperPro: ${propertyEncoderFun.typeSymbol}[A, B, C, $abs] = {
@@ -113,7 +130,7 @@ object EncoderMapper {
           { (${TermName(repModelTermName)}: $table) =>
             object CaseClassGenImpl extends $shapeHelper with $hListEncoderShapeImplicit {
               $mgDef
-              ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
+              ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}
             }
             CaseClassGenImpl.dataShapeValue
