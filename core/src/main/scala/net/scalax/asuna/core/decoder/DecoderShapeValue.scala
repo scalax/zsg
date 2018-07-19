@@ -24,6 +24,7 @@ trait DecoderShapeValue[U, T] {
           current = current,
           left = data.left)
       }
+
     }
   }
 
