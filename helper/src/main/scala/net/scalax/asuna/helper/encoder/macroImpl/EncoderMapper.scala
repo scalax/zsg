@@ -1,9 +1,9 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{ ColumnInfo, ColumnInfoImpl }
+import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
-import net.scalax.asuna.helper.encoder.{ EncoderHelper, HListEncoderShapeImplicit }
+import net.scalax.asuna.helper.encoder.EncoderHelper
 import net.scalax.asuna.shape.ShapeHelper
 
 import scala.annotation.implicitNotFound
@@ -52,8 +52,8 @@ object EncoderMapper {
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
 
-      val columnInfo = weakTypeOf[ColumnInfo]
-      val columnInfoImpl = weakTypeOf[ColumnInfoImpl[_, _, _, _]]
+      val columnInfo = weakTypeOf[MacoColumnInfo]
+      val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -100,7 +100,7 @@ object EncoderMapper {
       val allHelper = weakTypeOf[EncoderHelper[Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
-      val hListEncoderShapeImplicit = weakTypeOf[HListEncoderShapeImplicit]
+      //val hListEncoderShapeImplicit = weakTypeOf[HListEncoderShapeImplicit]
 
       val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
@@ -112,15 +112,18 @@ object EncoderMapper {
       def toShape(namePare: List[String]) = {
         val proNames = namePare
         val termVar1 = TermName(c.freshName)
+        val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
+        //${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::($termVar1.${TermName(b)}, $f)")}
+
         val func = q"""
         { ($termVar1: $caseClass) =>
-          ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::($termVar1.${TermName(b)}, $f)")}
+          $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
         }
         """
 
         q"""
         new $allHelper{ }.shaped(
-          ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
+          $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName)}.emap((s: Any) => mg(_.${TermName(eachName)}).convertData(s))""")})
         ).emap($func)
         """
       }
@@ -129,9 +132,9 @@ object EncoderMapper {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: $table) =>
-            object CaseClassGenImpl extends $shapeHelper with $hListEncoderShapeImplicit {
+            object CaseClassGenImpl extends $shapeHelper {
               $mgDef
-              ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
+              ..${fieldNameStrs.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}
             }
             CaseClassGenImpl.dataShapeValue

@@ -13,12 +13,13 @@ trait ListDecoderShapeImplicit {
         DataRepGroup(reps = l.flatMap(_.reps))
       }
       override def takeData(oldData: DataGroup, rep: List[C]): SplitData[List[B]] = {
-        rep.foldLeft(
+        val result = rep.foldLeft(
           SplitData(current = List.empty[B], left = oldData)) {
             case (SplitData(splCurrent, splLeft), eachRep) =>
               val SplitData(currentData, currentLeft) = shape.takeData(splLeft, eachRep)
               SplitData(current = currentData :: splCurrent, left = currentLeft)
           }
+        result.copy(current = result.current.reverse)
       }
     }
   }

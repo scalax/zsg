@@ -2,7 +2,7 @@ package net.scalax.asuna.helper
 
 import scala.reflect.runtime.universe._
 
-trait ColumnInfo {
+trait MacoColumnInfo {
 
   val tableColumnName: String
   val modelColumnName: String
@@ -21,13 +21,13 @@ trait ColumnInfo {
 
 }
 
-case class ColumnInfoImpl[TT, MT, TRT, MRT](
+case class MacoColumnInfoImpl[TT, MT, TRT, MRT](
   override val tableColumnName: String,
   override val modelColumnName: String,
   override val tableWeakTypeTag: WeakTypeTag[TT],
   override val modelTag: WeakTypeTag[MT],
   override val tableRepWeakTypeTag: WeakTypeTag[TRT],
-  override val modelRepTag: WeakTypeTag[MRT]) extends ColumnInfo {
+  override val modelRepTag: WeakTypeTag[MRT]) extends MacoColumnInfo {
 
   override type TableType = TT
   override type ModelType = MT

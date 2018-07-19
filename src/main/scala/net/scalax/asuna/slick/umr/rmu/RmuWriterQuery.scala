@@ -5,7 +5,7 @@ import io.circe.syntax._
 import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.DecoderShapeValue
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.ColumnInfo
+import net.scalax.asuna.helper.MacoColumnInfo
 import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderHelper, EncoderWrapperHelper }
 import net.scalax.asuna.slick.umr.{ SlickShapeValueWrap, SlickShapeValueWrapAbs, UmrHelper }
 import slick.lifted.{ FlatShapeLevel, Shape }
@@ -53,7 +53,7 @@ trait RmuWriterQuery extends UmrHelper {
     }
   }
 
-  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: ColumnInfo): EncoderShape[R, Any, R, SlickRmuWrapper] = {
+  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacoColumnInfo): EncoderShape[R, Any, R, SlickRmuWrapper] = {
     new EncoderShape[R, Any, R, SlickRmuWrapper] {
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R): DataRepGroup[SlickRmuWrapper] = {

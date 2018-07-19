@@ -2,8 +2,8 @@ package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.common.DelayTag
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.helper.{ ColumnInfo, ColumnInfoImpl }
-import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
+import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
+import net.scalax.asuna.helper.decoder.DecoderHelper
 import net.scalax.asuna.shape.ShapeHelper
 
 import scala.annotation.implicitNotFound
@@ -12,6 +12,7 @@ import scala.language.higherKinds
 
 trait PropertyType[Pro] {
   def delay[Abs]: DelayTag[Pro, Abs] = new DecoderHelper[Abs] {}.delay[Pro]
+  def convertData(f: Any): Pro = f.asInstanceOf[Pro]
 }
 
 trait ModelGen[Model] {
@@ -65,8 +66,8 @@ object DecoderMapper {
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
 
-      val columnInfo = weakTypeOf[ColumnInfo]
-      val columnInfoImpl = weakTypeOf[ColumnInfoImpl[_, _, _, _]]
+      val columnInfo = weakTypeOf[MacoColumnInfo]
+      val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -113,7 +114,6 @@ object DecoderMapper {
       val allHelper = weakTypeOf[DecoderHelper[Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
-      val hListDecoderShapeImplicit = weakTypeOf[HListDecoderShapeImplicit]
 
       val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
@@ -122,27 +122,17 @@ object DecoderMapper {
           lazy val mg: $modelGen = new $modelGen {}
         """
 
-      def hlistFromPros(pros: List[String], hlistVal: TermName) = {
-        val (result, _) = pros.foldLeft((List.empty[Tree], hlistVal)) {
-          case ((expr, termName), proName) =>
-            val tailVal = TermName(c.freshName(proName))
-            val q = List(
-              q"""val ${TermName(proName)} = ${termName}.head""",
-              q"""val ${tailVal} = ${termName}.tail""")
-            (expr ::: q, tailVal)
-        }
-        result
-      }
-
       def toShape(namePare: List[String]) = {
         val proNames = namePare
-        val termVar1 = TermName(c.freshName)
+        val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
+        val proSuffix = c.freshName
+
+        val pqMatch = pq"""$listSymbol(..${proNames.map(fName => pq"""${TermName(fName + proSuffix)} @ (_: Any)""")})"""
         q"""
           new $allHelper{ }.shaped(
-            ${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::(${TermName(b)}, $f)")}
-          ).dmap { case $termVar1 =>
-            ..${hlistFromPros(proNames, termVar1)}
-            ${caseClass.typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = ${TermName(fName)}""")})
+            List(..${proNames.map(fName => q"""${TermName(fName)}.dmap(s => s: Any)""")})
+          ).dmap { case $pqMatch =>
+            ${caseClass.typeSymbol.companion}(..${proNames.map(fName => q"""${TermName(fName)} = mg(_.${TermName(fName)}).convertData(${TermName(fName + proSuffix)})""")})
           }"""
       }
 
@@ -150,16 +140,15 @@ object DecoderMapper {
         val repModelTermName = c.freshName
         q"""
           { (${TermName(repModelTermName)}: $table) =>
-            object CaseClassGenImpl extends $shapeHelper with $hListDecoderShapeImplicit {
+            object CaseClassGenImpl extends $shapeHelper {
               $mgDef
-              ..${fieldNameStrs.map { case proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
+              ..${fieldNameStrs.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
               val dataShapeValue = ${toShape(fieldNameStrs)}
             }
             CaseClassGenImpl.dataShapeValue
           }
         """
       }
-      //println(q)
       q
     }
 
