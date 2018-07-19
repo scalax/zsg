@@ -60,22 +60,6 @@ trait SlickSortByHelper {
     override def apply(param: List[(String, String)]): slick.lifted.Ordered = inputParam(param)
   }
 
-  /*trait InputOrderColumn[RepOut, Data] extends EncoderContent[RepOut, Data] {
-    def inputData(data: Data): InputParameter
-  }*/
-
-  /*implicit def slickSortByEncoderShapeImplicit[T](implicit cv1: T => slick.lifted.Ordered): EncoderShape[T, String, T, SlickSortBy.OrderColumn] = {
-    new EncoderShape[T, String, T, SlickSortBy.OrderColumn] {
-      override def wrapRep(base: T): T = base
-      override def toLawRep(base: T): DataRepGroup[SlickSortBy.OrderColumn] = DataRepGroup(List(new SlickSortBy.OrderColumn {
-        override type Rep = T
-        override val rep: T = base
-        override val orderByGen = cv1
-      }))
-      override def buildData(data: String, rep: T): DataGroup = DataGroup(List(data))
-    }
-  }*/
-
   implicit def sortByImplicitWithColumnInfo[T](implicit cv1: T => slick.lifted.Ordered, columnInfo: MacoColumnInfo): EncoderShape[T, Any, T, SlickSortBy.OrderColumn] = {
     val columnInfo1 = columnInfo
     new EncoderShape[T, Any, T, SlickSortBy.OrderColumn] {
@@ -97,9 +81,7 @@ trait SlickSortByHelper {
     override def effect[E, U, R](rep: E)(implicit shape: EncoderShape[E, U, R, SlickSortBy.OrderColumn]): InputParameter[R, U] = {
       new InputParameter[R, U] {
         override def inputParam(map: List[(String, String)]): slick.lifted.Ordered = {
-          //val w = shape.wrapRep(rep)
           val reps = shape.toLawRep(shape.wrapRep(rep)).reps
-          //val dataList = shape.buildData(data, w).items.map(_.asInstanceOf[String])
           SlickSortBy.extractOrder(reps, map)
         }
       }

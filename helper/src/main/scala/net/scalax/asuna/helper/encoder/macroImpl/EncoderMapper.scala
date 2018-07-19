@@ -100,7 +100,6 @@ object EncoderMapper {
       val allHelper = weakTypeOf[EncoderHelper[Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
-      //val hListEncoderShapeImplicit = weakTypeOf[HListEncoderShapeImplicit]
 
       val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
       val fieldNameStrs = fieldNames.map(_.toString.trim)
@@ -113,7 +112,6 @@ object EncoderMapper {
         val proNames = namePare
         val termVar1 = TermName(c.freshName)
         val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
-        //${proNames.reverse.foldLeft(q"_root_.shapeless.HNil": Tree)((f, b) => q"_root_.shapeless.::($termVar1.${TermName(b)}, $f)")}
 
         val func = q"""
         { ($termVar1: $caseClass) =>
