@@ -51,6 +51,7 @@ object EncoderMapper {
       val propertyEncoderFun = weakTypeOf[PropertyEncoderFun[_, _, _, _]]
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
+
       val columnInfo = weakTypeOf[ColumnInfo]
       val columnInfoImpl = weakTypeOf[ColumnInfoImpl[_, _, _, _]]
 
