@@ -5,6 +5,7 @@ import io.circe.syntax._
 import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.DecoderShapeValue
 import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.helper.ColumnInfo
 import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderHelper, EncoderWrapperHelper }
 import net.scalax.asuna.slick.umr.{ SlickShapeValueWrap, SlickShapeValueWrapAbs, UmrHelper }
 import slick.lifted.{ FlatShapeLevel, Shape }
@@ -14,6 +15,7 @@ trait SlickRmuWrapper {
   type DataType
   val circeEncoder: Encoder[DataType]
   val slickWrapper: SlickShapeValueWrap[DataType]
+  val key: String
 
 }
 
@@ -26,38 +28,33 @@ trait SlickRmuWrapperImpl extends SlickRmuWrapper with AtomicColumn[String, Slic
 
 trait RmuWriterQuery extends UmrHelper {
 
-  trait WithCols extends Function1[List[String], DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs]] {
+  trait WithCols[RepOut, DataType] extends Function1[List[String], DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs]] with EncoderContent[RepOut, DataType] {
     def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs]
     override def apply(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = withCols(param)
   }
 
-  trait RmuWrapper[RepOut, DataType] extends EncoderContent[RepOut, DataType] {
+  /*trait RmuWrapper[RepOut, DataType] extends EncoderContent[RepOut, DataType] {
     def decoder(data: DataType): WithCols
-  }
+  }*/
 
-  object rmu extends EncoderHelper[SlickRmuWrapper] with EncoderWrapperHelper[SlickRmuWrapper, RmuWrapper] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, SlickRmuWrapper]): RmuWrapper[Out, D] = {
-      new RmuWrapper[Out, D] {
-        override def decoder(cols: D): WithCols = {
-          new WithCols {
-            override def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = {
-              val wrapCol = shape.wrapRep(rep)
-              val reps = shape.toLawRep(wrapCol).reps
-              val allColNames = shape.buildData(cols, wrapCol).items.map(_.asInstanceOf[String])
-              val jsonColumns = reps.zip(allColNames).filter(s => param.contains(s._2)).map {
-                case (wrap, name) =>
-                  umr.shaped(wrap.slickWrapper.map(r => (name, r.asJson(wrap.circeEncoder))))
-              }
-              umr.shaped(jsonColumns).dmap(s => JsonObject.fromMap(s.toMap))
-            }
+  object rmu extends EncoderHelper[SlickRmuWrapper] with EncoderWrapperHelper[SlickRmuWrapper, WithCols] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, SlickRmuWrapper]): WithCols[Out, D] = {
+      new WithCols[Out, D] {
+        override def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = {
+          val wrapCol = shape.wrapRep(rep)
+          val reps = shape.toLawRep(wrapCol).reps
+          //val allColNames = shape.buildData(cols, wrapCol).items.map(_.asInstanceOf[String])
+          val jsonColumns = reps.filter(s => param.contains(s.key)).map { wrap =>
+            umr.shaped(wrap.slickWrapper.map(r => (wrap.key, r.asJson(wrap.circeEncoder))))
           }
+          umr.shaped(jsonColumns).dmap(s => JsonObject.fromMap(s.toMap))
         }
       }
     }
   }
 
-  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M]): EncoderShape[R, String, R, SlickRmuWrapper] = {
-    new EncoderShape[R, String, R, SlickRmuWrapper] {
+  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: ColumnInfo): EncoderShape[R, Any, R, SlickRmuWrapper] = {
+    new EncoderShape[R, Any, R, SlickRmuWrapper] {
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R): DataRepGroup[SlickRmuWrapper] = {
         type Level1 = Level
@@ -65,6 +62,7 @@ trait RmuWriterQuery extends UmrHelper {
         val impl = new SlickRmuWrapperImpl {
           override type DataType = M
           override val circeEncoder = encoder
+          override val key = columnInfo.modelColumnName
           override val slickWrapper: SlickShapeValueWrap[M] = new SlickShapeValueWrap[M] {
             override type Data = M
             override type Rep = R
@@ -77,7 +75,7 @@ trait RmuWriterQuery extends UmrHelper {
         }
         DataRepGroup(List(impl))
       }
-      override def buildData(data: String, rep: R): DataGroup = DataGroup(List(data.asInstanceOf[String]))
+      override def buildData(data: Any, rep: R): DataGroup = DataGroup(List(data))
     }
   }
 

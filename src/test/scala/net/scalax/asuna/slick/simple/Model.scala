@@ -40,13 +40,13 @@ class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper wit
 
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
 
-case class DynFields(id: String = "id", name: String = "name", nick: String = "nick")
+case class DynFields(id: Int, name: String, age: Friends6)
 case class Friends8(id: Long, dyn: JsonObject)
 
 class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
   self =>
 
-  def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields](self)).decoder(DynFields()).withCols(cols)
+  def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields](self)).withCols(cols)
   def shape8 = umr.caseOnly[DynFriendModel, Friends8](self)
   def reader8 = umr.effect(shape8).toSv
 

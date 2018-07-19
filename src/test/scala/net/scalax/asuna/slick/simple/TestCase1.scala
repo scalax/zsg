@@ -142,15 +142,16 @@ class DynModel
   }
 
   it should "dynamic filter columns and output to JsonObject" in {
-    val cols = List("id", "nick")
+    val cols = List("id", "nick", "age")
+    val autalCols = List("id", "age")
     val tq = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
-    prepareData.result.statements.toList should be(friendTq2.map(s => (s.nick, s.id, s.id)).result.statements.toList)
+    prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.id, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))
     d.size should be(3)
     d.foreach { item =>
       item.getClass should be(classOf[Friends8])
-      item.dyn.toMap.keys.toSet should be(cols.toSet)
+      item.dyn.toMap.keys.toSet should be(autalCols.toSet)
     }
   }
 

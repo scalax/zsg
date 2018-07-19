@@ -1,6 +1,7 @@
 package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.decoder._
+import net.scalax.asuna.helper.{ ColumnInfo, ColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.{ DecoderHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.helper.decoder.datamodel.DMHelper
 import net.scalax.asuna.shape.ShapeHelper
@@ -15,7 +16,7 @@ object DecoderDataModelMapper {
 
     import c.universe._
 
-    def proUseInShape[Abs: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
+    def proUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
       val abs = weakTypeOf[Abs]
       val allHelper = weakTypeOf[DecoderHelper[Abs]]
       val implicitNotFound = weakTypeOf[implicitNotFound]
@@ -25,6 +26,15 @@ object DecoderDataModelMapper {
       val decoderShape = weakTypeOf[DecoderShape[_, _, _, _]]
       val proGen = weakTypeOf[ProGen[_, _, _, _, _]]
       val propertyFun = weakTypeOf[PropertyFun[_, _, _, _]]
+
+      val columnInfo = weakTypeOf[ColumnInfo]
+      val columnInfoImpl = weakTypeOf[ColumnInfoImpl[_, _, _, _]]
+
+      val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
+      val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
+
+      val wtTRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
+      val wtMRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
 
       val colDef = if (isOutPutSub) {
         q"""new $allHelper { }.toSub(${modelName}.${TermName(fieldName)})"""
@@ -42,6 +52,14 @@ object DecoderDataModelMapper {
               implicit def propertyImplicit1[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[${outputData.typeSymbol}[S], T] = new ${TypeName(traitName)}[${outputData.typeSymbol}[S], T] {}
               implicit def propertyImplicit2[S, T](implicit cv: S <:< T): ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] = new ${TypeName(traitName)}[${outputSubData.typeSymbol}[S, S], T] {}
             }
+            implicit val ${TermName(c.freshName)}: $columnInfo = ${columnInfoImpl.typeSymbol.companion}(
+              tableColumnName = ${Literal(Constant(fieldName))},
+              modelColumnName = ${Literal(Constant(fieldName))},
+              tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
+              modelTag = _root_.scala.Predef.implicitly[${wtMT}],
+              tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
+              modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+            )
             def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${decoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
               new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
                 override protected def innperPro: ${propertyFun.typeSymbol}[A, B, C, $abs] = {
@@ -148,7 +166,7 @@ object DecoderDataModelMapper {
               ..${fieldConfirmAction(modelName = TermName(repModelTermName))}
               ..${ioFieldsGen}
               ${mgDef}
-              ..${useFieldNames.map { fieldName => proUseInShape[Abs](fieldName = fieldName, modelName = TermName(repModelTermName), isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
+              ..${useFieldNames.map { fieldName => proUseInShape[Abs, Table, Case](fieldName = fieldName, modelName = TermName(repModelTermName), isOutPutSub = subCaseFieldNames.contains(fieldName)) }}
               ${toShape}
             }
            CaseClassGenImpl.aa
