@@ -4,7 +4,7 @@ import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import shapeless.{ ::, HList, HNil }
 
-trait HListDecoderShapeImplicit {
+trait HListDecoderShapeImplicit1111 {
 
   implicit def hlistDecoderImplicit1[J]: DecoderShape[HNil, HNil, HNil, J] = {
     new DecoderShape[HNil, HNil, HNil, J] {
