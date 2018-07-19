@@ -75,9 +75,9 @@ object DecoderDataModelMapper {
       val allHelper = weakTypeOf[DecoderHelper[Abs]]
       val shapeHelper = weakTypeOf[ShapeHelper]
 
-      val caseFieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
-      val iCaseFieldNames = iCase.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
-      val subCaseFieldNames = subCase.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name.toString.trim }.toList
+      val caseFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val iCaseFieldNames = iCase.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val subCaseFieldNames = subCase.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
 
       val useFieldNames = caseFieldNames.filter(s => !iCaseFieldNames.contains(s))
 

@@ -115,8 +115,8 @@ object DecoderMapper {
 
       val shapeHelper = weakTypeOf[ShapeHelper]
 
-      val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
-      val fieldNameStrs = fieldNames.map(_.toString.trim)
+      val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      //val fieldNameStrs = fieldNames.map(_.toString.trim)
 
       def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
