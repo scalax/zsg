@@ -33,17 +33,12 @@ trait RmuWriterQuery extends UmrHelper {
     override def apply(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = withCols(param)
   }
 
-  /*trait RmuWrapper[RepOut, DataType] extends EncoderContent[RepOut, DataType] {
-    def decoder(data: DataType): WithCols
-  }*/
-
   object rmu extends EncoderHelper[SlickRmuWrapper] with EncoderWrapperHelper[SlickRmuWrapper, WithCols] {
     override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, SlickRmuWrapper]): WithCols[Out, D] = {
       new WithCols[Out, D] {
         override def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = {
           val wrapCol = shape.wrapRep(rep)
           val reps = shape.toLawRep(wrapCol).reps
-          //val allColNames = shape.buildData(cols, wrapCol).items.map(_.asInstanceOf[String])
           val jsonColumns = reps.filter(s => param.contains(s.key)).map { wrap =>
             umr.shaped(wrap.slickWrapper.map(r => (wrap.key, r.asJson(wrap.circeEncoder))))
           }
