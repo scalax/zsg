@@ -1,6 +1,6 @@
 package net.scalax.asuna.helper.decoder.macroImpl
 
-import net.scalax.asuna.core.common.DelayTag
+import net.scalax.asuna.core.common.{ DelayTag, Placeholder }
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.DecoderHelper
@@ -13,6 +13,7 @@ import scala.language.higherKinds
 trait PropertyType[Pro] {
   def delay[Abs]: DelayTag[Pro, Abs] = new DecoderHelper[Abs] {}.delay[Pro]
   def convertData(f: Any): Pro = f.asInstanceOf[Pro]
+  def toPlaceholder: Placeholder[Pro] = Placeholder.value[Pro]
 }
 
 trait ModelGen[Model] {
@@ -116,7 +117,6 @@ object DecoderMapper {
       val shapeHelper = weakTypeOf[ShapeHelper]
 
       val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      //val fieldNameStrs = fieldNames.map(_.toString.trim)
 
       def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}

@@ -1,5 +1,8 @@
 package net.scalax.asuna.slick.filter
 
+import java.util.Locale
+
+import com.github.javafaker.Faker
 import io.circe.{ Json, JsonObject }
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
@@ -20,6 +23,9 @@ class TestCase1
 
   val logger = LoggerFactory.getLogger(getClass)
 
+  val local = new Locale("zh", "CN")
+  val faker = new Faker(local)
+
   val friendTq = TableQuery[FriendTable]
 
   val db = Database.forURL(
@@ -32,9 +38,9 @@ class TestCase1
   }
 
   before {
-    val friend1 = Friends(None, "喵", "汪", 23)
-    val friend2 = Friends(None, "jilen", "kerr", 26)
-    val friend3 = Friends(None, "小莎莎", "烟流", 20)
+    val friend1 = Friends(None, faker.name.name, faker.weather.description, 23)
+    val friend2 = Friends(None, faker.name.name, faker.weather.description, 26)
+    val friend3 = Friends(None, faker.name.name, faker.weather.description, 20)
     await(db.run(friendTq ++= List(friend1, friend2, friend3)))
     friendTq.result
   }
@@ -49,9 +55,9 @@ class TestCase1
 
     logger.info(filterQuery.result.statements.toString)
     try {
-      val friendQuery = filterQuery.result.head
+      val friendQuery = filterQuery.result.headOption
       val r = await(db.run(friendQuery))
-      r.copy(id = Option.empty) should be(Friends(None, "jilen", "kerr", 26))
+      r.map(s => s.copy(id = Option.empty) should be(Friends(None, "jilen", "kerr", 26)))
     } catch {
       case e: Exception =>
         logger.error("error", e)
@@ -67,9 +73,9 @@ class TestCase1
 
     logger.info(filterQuery.result.statements.toString)
     try {
-      val friendQuery = filterQuery.result.head
+      val friendQuery = filterQuery.result.headOption
       val r = await(db.run(friendQuery))
-      r.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20))
+      r.map(s => s.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20)))
     } catch {
       case e: Exception =>
         logger.error("error", e)

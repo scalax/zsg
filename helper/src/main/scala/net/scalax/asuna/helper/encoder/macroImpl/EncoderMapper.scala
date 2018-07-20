@@ -42,7 +42,7 @@ object EncoderMapper {
 
     import c.universe._
 
-    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isOutPutSub: Boolean) = {
+    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isMissingField: Boolean) = {
       val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       val defName = c.freshName(fieldName + "Gen")
       val propertyType = weakTypeOf[PropertyType[_]]
@@ -55,11 +55,11 @@ object EncoderMapper {
       val columnInfo = weakTypeOf[MacoColumnInfo]
       val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
 
-      val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
-      val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
+      val wtTT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
+      val wtMT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
 
-      val wtTRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
-      val wtMRT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
+      val wtTRT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
+      val wtMRT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
 
       q"""
       val ${TermName(fieldName)} = {
@@ -69,12 +69,12 @@ object EncoderMapper {
           implicit def propertyImplicit1[S, T](implicit cv: T <:< S): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
         }
         implicit val ${TermName(c.freshName)}: $columnInfo = ${columnInfoImpl.typeSymbol.companion}(
-             tableColumnName = ${Literal(Constant(fieldName))},
-             modelColumnName = ${Literal(Constant(fieldName))},
-             tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
-             modelTag = _root_.scala.Predef.implicitly[${wtMT}],
-             tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
-             modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+          tableColumnName = ${Literal(Constant(fieldName))},
+          modelColumnName = ${Literal(Constant(fieldName))},
+          tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
+          modelTag = _root_.scala.Predef.implicitly[${wtMT}],
+          tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
+          modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
         )
         def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
           new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
@@ -88,7 +88,13 @@ object EncoderMapper {
             }
           }
         }
-        ${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv
+        ${
+        if (isMissingField) {
+          q"""${TermName(defName)}(mg(_.${TermName(fieldName)}).toPlaceholder, mg(_.${TermName(fieldName)})).unwrap.sv"""
+        } else {
+          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv"""
+        }
+      }
       }
       """
     }
@@ -101,8 +107,10 @@ object EncoderMapper {
 
       val shapeHelper = weakTypeOf[ShapeHelper]
 
-      val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      //val fieldNameStrs = fieldNames.map(_.toString.trim)
+      //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n))
 
       def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
@@ -132,8 +140,8 @@ object EncoderMapper {
           { (${TermName(repModelTermName)}: $table) =>
             object CaseClassGenImpl extends $shapeHelper {
               $mgDef
-              ..${fieldNameStrs.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isOutPutSub = false) }}
-              val dataShapeValue = ${toShape(fieldNameStrs)}
+              ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
+              val dataShapeValue = ${toShape(modelFieldNames)}
             }
             CaseClassGenImpl.dataShapeValue
           }
