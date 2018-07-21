@@ -26,10 +26,9 @@ trait CirceAsunaEncoderHelper {
 
   implicit def columnEncoderWithPropertyName[A](implicit mColumnInfo: MacoColumnInfo, encoder: Encoder[A]): EncoderShape[Placeholder[A], A, CirceAsunaEncoderImpl[A], CirceAsunaEncoder] = {
     new EncoderShape[Placeholder[A], A, CirceAsunaEncoderImpl[A], CirceAsunaEncoder] {
-      override def wrapRep(base: Placeholder[A]): CirceAsunaEncoderImpl[A] =
-        new CirceAsunaEncoderImpl[A] {
-          override def write(data: A): (String, Json) = (mColumnInfo.modelColumnName, encoder(data))
-        }
+      override def wrapRep(base: Placeholder[A]): CirceAsunaEncoderImpl[A] = new CirceAsunaEncoderImpl[A] {
+        override def write(data: A): (String, Json) = (mColumnInfo.modelColumnName, encoder(data))
+      }
       override def toLawRep(base: CirceAsunaEncoderImpl[A]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
       override def buildData(data: A, rep: CirceAsunaEncoderImpl[A]): DataGroup = DataGroup(List(data))
     }

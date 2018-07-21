@@ -119,19 +119,16 @@ trait AbcTest extends CirceAsunaEncoderHelper {
     i114: String,
     i115: String,
     i116: String)
-
-  {
+  /*{
     val model: LargeModel = ???
     import io.circe.syntax._
     import io.circe.generic.auto._
     model.asJsonObject
-  }
-
-  {
+  }*/
+  /*{
     val model: LargeModel = ???
     object Abc
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel](Abc))
     circeEncoder.write(model)
-  }
-
+  }*/
 }
