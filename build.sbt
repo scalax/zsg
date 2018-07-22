@@ -1,6 +1,6 @@
 scalaVersion := "2.12.5"
 
-scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import")
+scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import"/*, "-Xlog-implicits"*/)
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 

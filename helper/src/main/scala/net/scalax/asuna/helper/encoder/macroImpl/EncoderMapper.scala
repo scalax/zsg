@@ -3,7 +3,7 @@ package net.scalax.asuna.helper.encoder.macroImpl
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
-import net.scalax.asuna.helper.encoder.EncoderHelper
+import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 import net.scalax.asuna.shape.ShapeHelper
 
 import scala.annotation.implicitNotFound
@@ -99,11 +99,13 @@ object EncoderMapper {
       """
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[Table => EncoderShapeValue[Case, Abs]] = {
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
       val caseClass = weakTypeOf[Case]
       val table = weakTypeOf[Table]
       val modelGen = weakTypeOf[ModelGen[Case]]
       val allHelper = weakTypeOf[EncoderHelper[Abs]]
+      val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
+      val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
       val shapeHelper = weakTypeOf[ShapeHelper]
 
@@ -134,20 +136,22 @@ object EncoderMapper {
         """
       }
 
-      val q = c.Expr[Table => EncoderShapeValue[Case, Abs]] {
+      val q = c.Expr[ForTableInput[Table, Case, Abs]] {
         val repModelTermName = c.freshName
         q"""
-          { (${TermName(repModelTermName)}: $table) =>
-            object CaseClassGenImpl extends $shapeHelper {
-              $mgDef
-              ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
-              val dataShapeValue = ${toShape(modelFieldNames)}
+          new $forTableInput {
+            override def input(${TermName(repModelTermName)}: $table): $shapeValue = {
+              object CaseClassGenImpl extends $shapeHelper {
+                $mgDef
+                ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
+                val dataShapeValue = ${toShape(modelFieldNames)}
+              }
+              CaseClassGenImpl.dataShapeValue
             }
-            CaseClassGenImpl.dataShapeValue
           }
         """
       }
-      //println(q)
+      //println(q + "\n" + "22" * 100)
       q
     }
 

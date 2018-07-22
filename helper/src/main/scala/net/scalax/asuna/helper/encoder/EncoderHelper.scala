@@ -7,7 +7,11 @@ import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait CaseClassEncoderShapeMapperHelper[Abs] {
-  def caseOnly[Table, Case]: Table => EncoderShapeValue[Case, Abs] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Abs]
+  def caseOnly[Table, Case]: ForTableInput[Table, Case, Abs] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Abs]
+}
+
+trait ForTableInput[Table, Case, Abs] {
+  def input(table: Table): EncoderShapeValue[Case, Abs]
 }
 
 trait EncoderContent[RepOut, DataType]
