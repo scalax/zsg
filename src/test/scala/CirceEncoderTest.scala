@@ -62,7 +62,7 @@ class CirceEncoderTest extends FlatSpec
     }
 
     println(circeEncodeResult)
-    println("111" * 100 + jsonObject)
+    println("1123" * 100 + jsonObject)
 
     jsonObject should be(circeEncodeResult)
   }
