@@ -1,7 +1,7 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
+import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl, MacroColumnInfoContent }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 import net.scalax.asuna.shape.ShapeHelper
@@ -45,15 +45,18 @@ object EncoderMapper {
     def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isMissingField: Boolean) = {
       val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       val defName = c.freshName(fieldName + "Gen")
+      val columnInfoWrapTraitName = c.freshName(fieldName)
+      //val columnInfoWrapObjectName = c.freshName(fieldName)
       val propertyType = weakTypeOf[PropertyType[_]]
       val encoderShape = weakTypeOf[EncoderShape[_, _, _, _]]
       val proGen = weakTypeOf[EncoderProGen[_, _, _, _, _]]
       val propertyEncoderFun = weakTypeOf[PropertyEncoderFun[_, _, _, _]]
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
+      val macroColumnInfoContent = weakTypeOf[MacroColumnInfoContent]
 
-      val columnInfo = weakTypeOf[MacoColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
+      val columnInfo = weakTypeOf[MacroColumnInfo]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
 
       val wtTT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -68,14 +71,6 @@ object EncoderMapper {
         object ${TermName(traitName)} {
           implicit def propertyImplicit1[S, T](implicit cv: T <:< S): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
         }
-        implicit val ${TermName(c.freshName)}: $columnInfo = ${columnInfoImpl.typeSymbol.companion}(
-          tableColumnName = ${Literal(Constant(fieldName))},
-          modelColumnName = ${Literal(Constant(fieldName))},
-          tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
-          modelTag = _root_.scala.Predef.implicitly[${wtMT}],
-          tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
-          modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
-        )
         def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
           new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
             override protected def innperPro: ${propertyEncoderFun.typeSymbol}[A, B, C, $abs] = {
@@ -88,13 +83,30 @@ object EncoderMapper {
             }
           }
         }
-        ${
+
+        trait ${TypeName(columnInfoWrapTraitName)} extends $macroColumnInfoContent {
+
+        def output = ${
         if (isMissingField) {
           q"""${TermName(defName)}(mg(_.${TermName(fieldName)}).toPlaceholder, mg(_.${TermName(fieldName)})).unwrap.sv"""
         } else {
           q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv"""
         }
       }
+        }
+
+        object ${TermName(columnInfoWrapTraitName)} extends ${TypeName(columnInfoWrapTraitName)} {
+          override implicit def columnInfo = ${columnInfoImpl.typeSymbol.companion}(
+            tableColumnName = ${Literal(Constant(fieldName))},
+            modelColumnName = ${Literal(Constant(fieldName))},
+            tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
+            modelTag = _root_.scala.Predef.implicitly[${wtMT}],
+            tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
+            modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+          )
+        }
+
+        ${TermName(columnInfoWrapTraitName)}.output
       }
       """
     }

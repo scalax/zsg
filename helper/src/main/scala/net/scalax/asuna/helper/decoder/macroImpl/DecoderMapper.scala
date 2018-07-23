@@ -2,7 +2,7 @@ package net.scalax.asuna.helper.decoder.macroImpl
 
 import net.scalax.asuna.core.common.{ DelayTag, Placeholder }
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
+import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.DecoderHelper
 import net.scalax.asuna.shape.ShapeHelper
 
@@ -67,8 +67,8 @@ object DecoderMapper {
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
 
-      val columnInfo = weakTypeOf[MacoColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
+      val columnInfo = weakTypeOf[MacroColumnInfo]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]

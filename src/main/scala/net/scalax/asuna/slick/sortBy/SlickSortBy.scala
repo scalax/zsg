@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup }
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.MacoColumnInfo
+import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderHelper, EncoderWrapperHelper }
 
 object SlickSortBy {
@@ -18,7 +18,7 @@ object SlickSortBy {
     type Rep
     val rep: Rep
     val orderByGen: Rep => slick.lifted.Ordered
-    val columnInfo: MacoColumnInfo
+    val columnInfo: MacroColumnInfo
   }
 
   val DESC = "desc"
@@ -60,7 +60,7 @@ trait SlickSortByHelper {
     override def apply(param: List[(String, String)]): slick.lifted.Ordered = inputParam(param)
   }
 
-  implicit def sortByImplicitWithColumnInfo[T](implicit cv1: T => slick.lifted.Ordered, columnInfo: MacoColumnInfo): EncoderShape[T, Any, T, SlickSortBy.OrderColumn] = {
+  implicit def sortByImplicitWithColumnInfo[T](implicit cv1: T => slick.lifted.Ordered, columnInfo: MacroColumnInfo): EncoderShape[T, Any, T, SlickSortBy.OrderColumn] = {
     val columnInfo1 = columnInfo
     new EncoderShape[T, Any, T, SlickSortBy.OrderColumn] {
       override def wrapRep(base: T): T = base

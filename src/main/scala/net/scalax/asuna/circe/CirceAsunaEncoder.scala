@@ -2,14 +2,12 @@ package net.scalax.asuna.circe
 
 import io.circe.{ Encoder, Json, JsonObject }
 import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup, Placeholder }
-import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.MacoColumnInfo
+import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
 import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderHelper, EncoderWrapperHelper, ForTableInput }
 
 import scala.language.experimental.macros
-
-import shapeless._
 
 trait CirceAsunaEncoder {
 
@@ -35,17 +33,6 @@ object CirceTableEmptyObject {
 
 trait CirceAsunaEncoderHelper {
 
-  trait AlreadHaveEncoder
-
-  object AlreadHaveEncoder {
-    implicit val alreadHaveEncoder: AlreadHaveEncoder = new AlreadHaveEncoder {}
-  }
-
-  trait CirceEncoderWrap[A] extends EncoderWrap[A] {
-    val encoder: Encoder[A]
-    type TargetType = AlreadHaveEncoder
-  }
-
   trait EncoderWrap[D] {
     type TargetType
   }
@@ -53,90 +40,100 @@ trait CirceAsunaEncoderHelper {
   object EncoderWrap {
     type Aux[D, T] = EncoderWrap[D] { type TargetType = T }
 
-    def asunaTarget[D] /*: Aux[D, ForTableInput[CirceTableEmptyObject, D, CirceAsunaEncoder]]*/ = {
-      new EncoderWrap[D] {
-        override type TargetType = ForTableInput[CirceTableEmptyObject, D, CirceAsunaEncoder]
-      }
-    }
-
-    implicit def circeEncoderImplicit[D](implicit encoder: Encoder[D]): Aux[D, AlreadHaveEncoder] = {
-      val encoder1 = encoder
-      new CirceEncoderWrap[D] {
-        override val encoder = encoder1
-      }
-    }
-  }
-
-  /*trait AlreadHaveEncoder
-
-  object AlreadHaveEncoder {
-    implicit val alreadHaveEncoder: AlreadHaveEncoder = new AlreadHaveEncoder {}
-  }
-
-  trait CirceEncoderWrap extends EncoderWrap {
-    val encoder: Encoder[DataType]
-    override type DataType
-    override type TargetType = AlreadHaveEncoder
-  }
-
-  trait EncoderWrap {
-    type DataType
-    type TargetType
-  }
-
-  object EncoderWrap {
-    type Aux[D, T] = EncoderWrap { type DataType = D; type TargetType = T }
-
-    def asunaTarget[D]: Aux[D, ForTableInput[EmptyObject.type, D, CirceAsunaEncoder]] = {
-      new EncoderWrap {
-        override type DataType = D
-        override type TargetType = ForTableInput[EmptyObject.type, D, CirceAsunaEncoder]
-      }
-    }
-
-    implicit def circeEncoderImplicit[D](implicit encoder: Encoder[D]) = {
-      val encoder1 = encoder
-      object impl extends CirceEncoderWrap {
-        override type DataType = D
-        override val encoder = encoder1
+    def asunaTarget[D]: Aux[D, UseAsunaImplicit] = {
+      object impl extends EncoderWrap[D] {
+        //override type TargetType = UseAsunaImplicit
+        override type TargetType = UseAsunaImplicit
       }
       impl
     }
+
+    implicit def circeEncoderImplicit1111[D](implicit encoder: Encoder[D]): Aux[D, HaveCirceImplicit] = {
+      object impl extends EncoderWrap[D] {
+        override type TargetType = HaveCirceImplicit
+      }
+      impl
+    }
+  }
+
+  trait HaveCirceImplicit
+
+  //object HaveCirceImplicit {
+  implicit def circeEncoderImplicit2222[D](implicit encoder: Encoder[D]): ImplicitInstance[D, HaveCirceImplicit] = {
+    //val encoder1 = encoder
+    new CirceImplicitInstance[D] {
+      override val circeEncoder = ???
+    }
+  }
+  //}
+
+  trait UseAsunaImplicit
+
+  //object UseAsunaImplicit {
+  implicit def asunaEncoderImplicit3333[D](implicit encoder: ForTableInput[CirceTableEmptyObject, D, CirceAsunaEncoder]): ImplicitInstance[D, UseAsunaImplicit] = {
+    val encoder1 = encoder
+    new AsunaImplicitInstance[D] {
+      override val asunaEncoder = encoder1
+    }
+  }
+  //}
+
+  sealed abstract trait ImplicitInstance[E, Status]
+
+  trait CirceImplicitInstance[E] extends ImplicitInstance[E, HaveCirceImplicit] {
+    //override type Status = HaveCirceImplicit
+    val circeEncoder: Encoder[E]
+  }
+
+  trait AsunaImplicitInstance[E] extends ImplicitInstance[E, UseAsunaImplicit] {
+    //override type Status = UseAsunaImplicit
+    val asunaEncoder: ForTableInput[CirceTableEmptyObject, E, CirceAsunaEncoder]
+  }
+
+  /*object ImplicitInstance {
+    type Aux[Data,S ] = ImplicitInstance[Data,S]
+
+    /*implicit def circeEncoderImplicit2222[D]: Aux[HaveCirceImplicit, D] = {
+      //val encoder1 = encoder
+      new CirceImplicitInstance[D] {
+        override val circeEncoder = ??? //encoder1
+      }
+    }
+
+    implicit def asunaEncoderImplicit[D](implicit encoder: ForTableInput[CirceTableEmptyObject, D, CirceAsunaEncoder]): Aux[UseAsunaImplicit, D] = {
+      val encoder1 = encoder
+      new AsunaImplicitInstance[D] {
+        override val asunaEncoder = encoder1
+      }
+    }*/
   }*/
 
-  implicit def caseOnly11111111111111111111111111111[Case]: ForTableInput[CirceTableEmptyObject, Case, CirceAsunaEncoder] = macro EncoderMapper.EncoderMapperImpl.impl[CirceTableEmptyObject, Case, CirceAsunaEncoder]
+  implicit def caseOnlyEncoderImplicit[Case]: ForTableInput[CirceTableEmptyObject, Case, CirceAsunaEncoder] = macro EncoderMapper.EncoderMapperImpl.impl[CirceTableEmptyObject, Case, CirceAsunaEncoder]
 
-  implicit def columnEncoderWithPropertyName[H, E](implicit mColumnInfo: MacoColumnInfo, wrapImplicit: EncoderWrap.Aux[H, E] = EncoderWrap.asunaTarget[H], encoder: E): EncoderShape[Placeholder[H], H, CirceAsunaEncoderImpl[H], CirceAsunaEncoder] = {
-    /*new EncoderShape[Placeholder[A], A, CirceAsunaEncoderImpl[A], CirceAsunaEncoder] {
-      override def wrapRep(base: Placeholder[A]): CirceAsunaEncoderImpl[A] = new CirceAsunaEncoderImpl[A] {
-        override def write(data: A): (String, Json) = (mColumnInfo.modelColumnName, encoder(data))
-      }
-      override def toLawRep(base: CirceAsunaEncoderImpl[A]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
-      override def buildData(data: A, rep: CirceAsunaEncoderImpl[A]): DataGroup = DataGroup(List(data))
-    }*/
-    wrapImplicit match {
-      case encoder1: CirceEncoderWrap[H] =>
-        new EncoderShape[Placeholder[H], H, CirceAsunaEncoderImpl[H], CirceAsunaEncoder] {
-          override def wrapRep(base: Placeholder[H]): CirceAsunaEncoderImpl[H] = new CirceAsunaEncoderImpl[H] {
-            override def write(data: H): (String, Json) = (mColumnInfo.modelColumnName + "1111", encoder1.encoder(data))
+  implicit def columnEncoderWithPropertyName[D, T](implicit mColumnInfo: MacroColumnInfo, wrapImplicit: EncoderWrap.Aux[D, T] = EncoderWrap.asunaTarget[D], encoder: ImplicitInstance[D, T]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+    encoder match {
+
+      case circeEncoder: CirceImplicitInstance[D @unchecked] =>
+        new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
+          override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
+            override def write(data: D): (String, Json) = (mColumnInfo.modelColumnName + "2222", circeEncoder.circeEncoder(data))
           }
-          override def toLawRep(base: CirceAsunaEncoderImpl[H]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
-          override def buildData(data: H, rep: CirceAsunaEncoderImpl[H]): DataGroup = DataGroup(List(data))
+          override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+          override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
         }
-      case _ =>
-        encoder match {
-          case encoder2 @ (_: ForTableInput[CirceTableEmptyObject, H, CirceAsunaEncoder]) =>
-            new EncoderShape[Placeholder[H], H, CirceAsunaEncoderImpl[H], CirceAsunaEncoder] {
-              override def wrapRep(base: Placeholder[H]): CirceAsunaEncoderImpl[H] = new CirceAsunaEncoderImpl[H] {
-                override def write(data: H): (String, Json) = {
-                  import io.circe.syntax._
-                  (mColumnInfo.modelColumnName + "1111", asunaCirce.effect(encoder2.input(CirceTableEmptyObject.value)).write(data).asJson)
-                }
-              }
-              override def toLawRep(base: CirceAsunaEncoderImpl[H]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
-              override def buildData(data: H, rep: CirceAsunaEncoderImpl[H]): DataGroup = DataGroup(List(data))
+
+      case asunaEncoder: AsunaImplicitInstance[D @unchecked] =>
+        new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
+          override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
+            override def write(data: D): (String, Json) = {
+              import io.circe.syntax._
+              (mColumnInfo.modelColumnName + "3333", asunaCirce.effect(asunaEncoder.asunaEncoder.input(CirceTableEmptyObject.value)).write(data).asJson)
             }
+          }
+          override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+          override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
         }
+
     }
     /*encoder match {
       case encoder1: Encoder[A] =>
