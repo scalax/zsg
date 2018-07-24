@@ -1,8 +1,8 @@
 package net.scalax.asuna.helper.decoder.macroImpl
 
-import net.scalax.asuna.core.common.DelayTag
+import net.scalax.asuna.core.common.{ DelayTag, Placeholder }
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.helper.{ MacoColumnInfo, MacoColumnInfoImpl }
+import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.DecoderHelper
 import net.scalax.asuna.shape.ShapeHelper
 
@@ -13,6 +13,7 @@ import scala.language.higherKinds
 trait PropertyType[Pro] {
   def delay[Abs]: DelayTag[Pro, Abs] = new DecoderHelper[Abs] {}.delay[Pro]
   def convertData(f: Any): Pro = f.asInstanceOf[Pro]
+  def toPlaceholder: Placeholder[Pro] = Placeholder.value[Pro]
 }
 
 trait ModelGen[Model] {
@@ -66,8 +67,8 @@ object DecoderMapper {
       val abs = weakTypeOf[Abs]
       val implicitNotFound = weakTypeOf[implicitNotFound]
 
-      val columnInfo = weakTypeOf[MacoColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacoColumnInfoImpl[_, _, _, _]]
+      val columnInfo = weakTypeOf[MacroColumnInfo]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -115,8 +116,7 @@ object DecoderMapper {
 
       val shapeHelper = weakTypeOf[ShapeHelper]
 
-      val fieldNames = caseClass.members.collect { case s if s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal => s.name }.toList
-      val fieldNameStrs = fieldNames.map(_.toString.trim)
+      val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
 
       def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
