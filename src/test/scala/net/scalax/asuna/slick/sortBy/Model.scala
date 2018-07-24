@@ -30,6 +30,6 @@ class SlickSrotByTest(tag: slick.lifted.Tag) extends FriendTable(tag) with Slick
 
   def extColumn = (id, nick)
 
-  def sortByCols = sortBy.effect(sortBy.caseOnly[SlickSrotByTest, SortByParam](self))
+  def sortByCols = sortBy.effect(sortBy.caseOnly[SlickSrotByTest, SortByParam].input(self))
 
 }

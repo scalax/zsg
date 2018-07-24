@@ -4,7 +4,7 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.Encoder
-import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, CirceTableEmptyObject }
+import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 
@@ -21,11 +21,11 @@ class CirceEncoderTest extends FlatSpec
 
   case class TestModel1(
     name: String,
-    olim: Long)
+    olim: Long, test3: TestModel3)
 
   case class TestModel2(
     name: String,
-    accdef: Int, test3: TestModel3)
+    accdef: Int)
 
   case class TestModel3(
     nickName: String,
@@ -42,18 +42,17 @@ class CirceEncoderTest extends FlatSpec
   object Abc
 
   "circe encoder" should "auto mapping case class with empty table" in {
-    val test1 = TestModel1(faker.weather.description, 793)
     val test3 = TestModel3(faker.address.fullAddress, 461)
-    val test2 = TestModel2(faker.book.title, 967, test3)
+    val test1 = TestModel1(faker.weather.description, 793, test3)
+    val test2 = TestModel2(faker.book.title, 967)
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, test2)
 
-    /*implicit val implicit1: Encoder[TestModel3] = {
-      /*import io.circe.generic.auto._
-      implicitly[Encoder[TestModel3]]*/
-      ???
-    }*/
+    implicit val implicit1 = {
+      import io.circe.generic.auto._
+      implicitly[Encoder[TestModel3]]
+    }
 
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[CirceTableEmptyObject, TestModel].input(CirceTableEmptyObject.value))
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel].input(EmptyCirceTable.value))
     val jsonObject = circeEncoder.write(model)
     val circeEncodeResult = {
       import io.circe.syntax._
@@ -61,10 +60,8 @@ class CirceEncoderTest extends FlatSpec
       model.asJsonObject
     }
 
-    println(circeEncodeResult)
-    println("1123" * 100 + jsonObject)
-
     jsonObject should be(circeEncodeResult)
+
   }
 
 }
