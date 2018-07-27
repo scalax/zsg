@@ -52,10 +52,10 @@ object CirceEncoderContent {
       val t = weakTypeOf[T]
       val haveCirceImplicit = weakTypeOf[HaveCirceImplicit]
       val useAsunaImplicit = weakTypeOf[UseAsunaImplicit]
-      val encoder = weakTypeOf[Encoder[T]]
+      //val encoder = weakTypeOf[Encoder[T]]
       val q = inferImplicitInPrefixContext[T](c) match {
         case EmptyTree => q"$encoderWrap.asunaEncoder[$t]: $encoderWrap.Aux[$t,$useAsunaImplicit]"
-        case _ => q"$encoderWrap.circeEncoder[$t](_root_.scala.Predef.implicitly[$encoder]): $encoderWrap.Aux[$t,$haveCirceImplicit]"
+        case _ => q"$encoderWrap.circeEncoder[$t]: $encoderWrap.Aux[$t,$haveCirceImplicit]"
       }
       q
     }
