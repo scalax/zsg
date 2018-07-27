@@ -42,3 +42,9 @@ libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria" % "1.4.1",
   "org.sangria-graphql" %% "sangria-relay" % "1.4.1"
 )
+
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-http" % "10.1.3",
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.3",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.12"
+)

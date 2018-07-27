@@ -128,7 +128,7 @@ trait AbcTest extends CirceAsunaEncoderHelper {
   /*{
     val model: LargeModel = ???
     object Abc
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel](Abc))
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
     circeEncoder.write(model)
   }*/
 }
