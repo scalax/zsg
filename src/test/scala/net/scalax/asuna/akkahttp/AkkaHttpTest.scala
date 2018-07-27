@@ -7,7 +7,7 @@ import org.scalatest._
 
 import scala.concurrent.{ Await, Future, duration }
 
-case class Model(id: Int, name: String, age: Int, nick: String, field1: String, field2: Long, field3: String, extCookieField: Map[String, String])
+case class Model(id: Int, name: String, age: Int, nick: String, cusField: String, field1: String, field2: Long, field3: String, extCookieField: Map[String, String])
 
 class AkkaHttpTest
   extends WordSpec
@@ -15,7 +15,7 @@ class AkkaHttpTest
   with ScalatestRouteTest
   with AkkaHttpParameterHelper {
 
-  class ParameterTable(cookieKeys: List[String]) {
+  class ParameterTable(fieldKeys: List[String]) {
     self =>
 
     import akka.http.scaladsl.server._
@@ -29,11 +29,13 @@ class AkkaHttpTest
     def age = helper.formFieldAs[Int]
     //String 类型字段，Url 参数
     def nick = helper.parameter
+    //model 字段名称对不上的但又不方便修改 model 的可以使用 akka-http 原生方法
+    def cusField = formField("my_name_field")
 
-    //field1 field2 field3 是表单中的字段，因为属性 key 一样可以用默认的 implicit 自动生成
+    //field1 field2 field3 是表单中的字段，因为属性名称和提交的表单一样，所以可以用默认的 implicit 自动生成，这几个字段可以达到类似 shapeless 的效果
 
     //Map[String, String] 类型的动态字段，可以与其他逻辑匹配生成
-    def extCookieField = akkahttp.shaped(cookieKeys.map(key => formField(key).map(value => Tuple1((key, value))))).dmap(_.toMap)
+    def extCookieField = akkahttp.shaped(fieldKeys.map(key => formField(key).map(value => Tuple1((key, value))))).dmap(_.toMap)
 
     //根据 asnua 生成的自定义 Directive1
     def cusDirective: Directive1[Model] = akkahttp.effect(akkahttp.caseOnly[ParameterTable, Model](self)).toDirective
@@ -48,6 +50,7 @@ class AkkaHttpTest
   val route =
     path("formtest") {
       post {
+        //此时传入由其他途径获取到的需要解析的 form 字段
         new ParameterTable(List("cKey1", "cKey2")).cusDirective { model =>
           complete(model.toString)
         }
@@ -64,6 +67,7 @@ class AkkaHttpTest
       "/formtest?nick=nick_value",
       FormData(
         ("age", "3456"),
+        ("my_name_field", "my_name_field_value"),
         ("field1", "field1Value"),
         ("field2", "52345234"),
         ("field3", "field3Value"),
@@ -77,7 +81,9 @@ class AkkaHttpTest
           Model(
             id = -1,
             name = "name_cookie_value",
-            age = 3456, nick = "nick_value",
+            age = 3456,
+            nick = "nick_value",
+            cusField = "my_name_field_value",
             field1 = "field1Value",
             field2 = 52345234L,
             field3 = "field3Value",
