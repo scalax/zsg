@@ -1,7 +1,7 @@
 package net.scalax.asuna.circe
 
 import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.core.{ AsunaEncoderContent, CirceEncoderContent }
+import net.scalax.asuna.core.AsunaEncoderContent
 import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup, Placeholder }
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
@@ -39,6 +39,7 @@ trait CirceAsunaEncoderHelper {
             override def write(data: D): (String, Json) = (mColumnInfo.modelColumnName, circeEncoder(data))
           }
           override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+
           override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
         }
 
