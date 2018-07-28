@@ -1,21 +1,26 @@
 package net.scalax.asuna.circe
 
 import io.circe.Encoder
+import net.scalax.asuna.helper.encoder.ForTableInput
 
-trait CirceEncoderContent[D] {
-  type TargetType
-  val encoderOpt: Option[Encoder[D]]
+sealed trait EncoderContentAbs[D]
+
+trait CirceEncoderContent[D] extends EncoderContentAbs[D] {
+  val circeEncoder: Encoder[D]
+
 }
 
-object CirceEncoderContent extends AsunaCirceEncoderContentImplicit {
+trait AsunaEncoderContent[D] extends EncoderContentAbs[D] {
+  val asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]
 
-  type Aux[D, T] = CirceEncoderContent[D] { type TargetType = T }
+}
 
-  implicit def circeEncoder[D](implicit encoder: Encoder[D]): Aux[D, HaveCirceImplicit] = {
+object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
+
+  implicit def circeEncoder[D](implicit encoder: Encoder[D]): CirceEncoderContent[D] = {
     val encoder1 = encoder
     object impl extends CirceEncoderContent[D] {
-      override type TargetType = HaveCirceImplicit
-      override val encoderOpt = Option(encoder1)
+      override val circeEncoder = encoder1
     }
     impl
   }
@@ -24,10 +29,9 @@ object CirceEncoderContent extends AsunaCirceEncoderContentImplicit {
 
 trait AsunaCirceEncoderContentImplicit {
 
-  implicit def asunaEncoder[D]: CirceEncoderContent.Aux[D, UseAsunaImplicit] = {
-    object impl extends CirceEncoderContent[D] {
-      override type TargetType = UseAsunaImplicit
-      override val encoderOpt = Option.empty
+  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): AsunaEncoderContent[D] = {
+    object impl extends AsunaEncoderContent[D] {
+      override val asunaEncoder = aeo
     }
     impl
   }

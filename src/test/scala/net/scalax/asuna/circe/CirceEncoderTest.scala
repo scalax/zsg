@@ -29,7 +29,7 @@ class CirceEncoderTest extends FlatSpec
 
   case class TestModel3(
     nickName: String,
-    maxAge: Int, test1: TestModel1)
+    maxAge: Int)
 
   case class TestModel(
     name: String,
@@ -42,15 +42,16 @@ class CirceEncoderTest extends FlatSpec
   object Abc
 
   "circe encoder" should "auto mapping case class with empty table" in {
-    val test3 = TestModel3(faker.address.fullAddress, 461, ???)
+    val test3 = TestModel3(faker.address.fullAddress, 461)
     val test1 = TestModel1(faker.weather.description, 793, test3)
+
     val test2 = TestModel2(faker.book.title, 967)
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, test2)
 
-    /*implicit val implicit1 = {
+    implicit val implicit1 = {
       import io.circe.generic.auto._
       implicitly[Encoder[TestModel3]]
-    }*/
+    }
 
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel].input(EmptyCirceTable.value))
     val jsonObject = circeEncoder.write(model)
@@ -60,11 +61,7 @@ class CirceEncoderTest extends FlatSpec
       model.asJsonObject
     }
 
-    import io.circe.syntax._
-    println("11" * 100)
-    println(jsonObject.asJson.spaces2)
     jsonObject should be(circeEncodeResult)
-
   }
 
 }
