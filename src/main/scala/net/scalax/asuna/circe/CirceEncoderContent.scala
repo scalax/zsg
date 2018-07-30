@@ -16,10 +16,10 @@ trait AsunaEncoderContent[D] extends EncoderContentAbs[D] {
 
 object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
-  implicit def circeEncoder[D](implicit encoder: Encoder[D]): CirceEncoderContent[D] = {
+  implicit def circeEncoder[D](implicit encoder: Lazy[Encoder[D]]): CirceEncoderContent[D] = {
     val encoder1 = encoder
     object impl extends CirceEncoderContent[D] {
-      override val circeEncoder = encoder1
+      override val circeEncoder = encoder1.value
     }
     impl
   }

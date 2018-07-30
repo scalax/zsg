@@ -132,58 +132,63 @@ object EncoderMapper {
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
       val caseClass = weakTypeOf[Case]
-      val table = weakTypeOf[Table]
-      val modelGen = weakTypeOf[ModelGen[Case]]
-      val allHelper = weakTypeOf[EncoderHelper[Abs]]
-      val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
-      val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
-      val shapeHelper = weakTypeOf[ShapeHelper]
+      if (!caseClass.typeSymbol.asClass.isCaseClass) {
+        c.abort(c.enclosingPosition, s"${caseClass.typeSymbol}不是 case class 类型")
+      } else {
+        val table = weakTypeOf[Table]
+        val modelGen = weakTypeOf[ModelGen[Case]]
+        val allHelper = weakTypeOf[EncoderHelper[Abs]]
+        val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
+        val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
-      //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      val modelFieldNames = caseClass.members
-        .filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }
-        .map(_.name)
-        .collect { case TermName(n) => n.trim }
-        .toList
-        .map(name => EncoderFieldNames(law = name, svFunction = cusFreshName(name), afterEmap = cusFreshName(name)))
-      val fieldNamesInTable = table.members
-        .filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }
-        .map(_.name)
-        .collect { case TermName(n) => n.trim }
-        .toList
-        .map(name => EncoderFieldNames(law = name, svFunction = cusFreshName(name), afterEmap = cusFreshName(name)))
+        val shapeHelper = weakTypeOf[ShapeHelper]
 
-      val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.map(_.law).contains(n.law))
+        //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+        val modelFieldNames = caseClass.members
+          .filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }
+          .map(_.name)
+          .collect { case TermName(n) => n.trim }
+          .toList
+          .map(name => EncoderFieldNames(law = name, svFunction = cusFreshName(name), afterEmap = cusFreshName(name)))
 
-      def mgDef = q"""
+        val fieldNamesInTable = table.members
+          .filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }
+          .map(_.name)
+          .collect { case TermName(n) => n.trim }
+          .toList
+          .map(name => EncoderFieldNames(law = name, svFunction = cusFreshName(name), afterEmap = cusFreshName(name)))
+
+        val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.map(_.law).contains(n.law))
+
+        def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
         """
 
-      def toShape(namePare: List[EncoderFieldNames]) = {
-        val proNames = namePare
-        val termVar1 = TermName(cusFreshName("Export"))
-        val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
+        def toShape(namePare: List[EncoderFieldNames]) = {
+          val proNames = namePare
+          val termVar1 = TermName(cusFreshName("Export"))
+          val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
 
-        val func = q"""
+          val func = q"""
         { ($termVar1: $caseClass) =>
           $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName.law)}""")})
         }
         """
 
-        q"""
+          q"""
         new $allHelper{ }.shaped(
           $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName.svFunction)}.emap((s: Any) => mg(_.${TermName(eachName.law)}).convertData(s))""")})
         ).emap($func)
         """
-      }
+        }
 
-      val q = c.Expr[ForTableInput[Table, Case, Abs]] {
-        val repModelTermName = cusFreshName("Table")
-        //TODO
-        //implicit def dataShapeValue1111: ${weakTypeOf[ForTableInput[Table, Case, Abs]]} = self
+        val q = c.Expr[ForTableInput[Table, Case, Abs]] {
+          val repModelTermName = cusFreshName("Table")
+          //TODO
+          //implicit def dataShapeValue1111: ${weakTypeOf[ForTableInput[Table, Case, Abs]]} = self
 
-        q"""
+          q"""
           new $forTableInput {
 
             override def input(${TermName(repModelTermName)}: $table): $shapeValue = {
@@ -201,11 +206,13 @@ object EncoderMapper {
 
               CaseClassGenImpl1111.dataShapeValue
             }
-          }
+          }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
         """
+        }
+        //println(q + "\n" + "22" * 100)
+        q
       }
-      //println(q + "\n" + "22" * 100)
-      q
+
     }
 
   }

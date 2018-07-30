@@ -42,7 +42,6 @@ class CirceEncoderTest extends FlatSpec
   "circe encoder" should "auto mapping case class with empty table" in {
     val test3 = TestModel3(faker.address.fullAddress, 461)
     val test1 = TestModel1(faker.weather.description, 793, test3)
-
     val test2 = TestModel2(faker.book.title, 967)
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, test2)
 

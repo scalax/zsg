@@ -1,7 +1,7 @@
 package net.scalax.asuna.circe
 
-import io.circe.{ Encoder, Json }
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, Placeholder }
+import io.circe.{ Encoder, Json, JsonObject }
+import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup, Placeholder }
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.encoder.ForTableInput
@@ -17,7 +17,40 @@ trait CirceAsunaEncoder {
 
 }
 
-object CirceAsunaEncoder extends LawCirceAsunaEncoderHelperImplicitProvider11111 {
+trait CirceAsunaEncoderImpl[E] extends AtomicColumn[E, CirceAsunaEncoder] with CirceAsunaEncoder {
+  self =>
+
+  override type DataType = E
+  override def common: CirceAsunaEncoder = self
+
+}
+
+trait ListCirceAsunaEncoder[Rep, E] extends AtomicColumn[List[E], CirceAsunaEncoder] with CirceAsunaEncoder {
+  self =>
+
+  import io.circe.syntax._
+
+  override type DataType = List[E]
+  override def common: CirceAsunaEncoder = self
+
+  val rep: Rep
+
+  val shape: EncoderShape[Rep, E, Rep, CirceAsunaEncoder]
+
+  override val key: String
+
+  def write(data: List[E]): Json = {
+    val reps = shape.toLawRep(rep).reps
+    data.map { d =>
+      val dataList = shape.buildData(d, rep).items
+      val jsonMap = dataList.zip(reps).map { case (d, r) => (r.key, r.write(d.asInstanceOf[r.DataType])) }.toMap
+      JsonObject.fromMap(jsonMap).asJson
+    }.asJson
+  }
+
+}
+
+object CirceAsunaEncoder /*extends LawCirceAsunaEncoderHelperImplicitProvider11111*/ {
 
   /*implicit def columnEncoderWithPropertyName11112222[T, R](implicit mColumnInfo: MacroColumnInfo, itemEncoder: EncoderShape[Placeholder[T], T, R, CirceAsunaEncoder]): EncoderShape[Placeholder[List[T]], List[T], ListCirceAsunaEncoder[R, T], CirceAsunaEncoder] = {
     new EncoderShape[Placeholder[List[T]], List[T], ListCirceAsunaEncoder[R, T], CirceAsunaEncoder] {
