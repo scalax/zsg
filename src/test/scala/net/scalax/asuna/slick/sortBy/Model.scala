@@ -23,7 +23,7 @@ object FriendTable {
   val tableName = "firend-" + UUID.randomUUID.toString
 }
 
-case class SortByParam(id: Int, nick: Long, extColumn: String)
+case class SortByParam(id: Any, nick: Any, extColumn: Any)
 
 class SlickSrotByTest(tag: slick.lifted.Tag) extends FriendTable(tag) with SlickSortByHelper {
   self =>

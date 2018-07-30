@@ -48,8 +48,8 @@ trait RmuWriterQuery extends UmrHelper {
     }
   }
 
-  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacroColumnInfo): EncoderShape[R, Any, R, SlickRmuWrapper] = {
-    new EncoderShape[R, Any, R, SlickRmuWrapper] {
+  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacroColumnInfo): EncoderShape[R, M, R, SlickRmuWrapper] = {
+    new EncoderShape[R, M, R, SlickRmuWrapper] {
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R): DataRepGroup[SlickRmuWrapper] = {
         type Level1 = Level
@@ -70,7 +70,7 @@ trait RmuWriterQuery extends UmrHelper {
         }
         DataRepGroup(List(impl))
       }
-      override def buildData(data: Any, rep: R): DataGroup = DataGroup(List(data))
+      override def buildData(data: M, rep: R): DataGroup = DataGroup(List(data))
     }
   }
 
