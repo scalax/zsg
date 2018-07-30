@@ -1,12 +1,11 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl, MacroColumnInfoContent }
+import net.scalax.asuna.helper.{ MacroColumnInfoImpl, MacroColumnInfoContent }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 import net.scalax.asuna.shape.ShapeHelper
 
-import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
 
 object EncoderMapper {
@@ -153,47 +152,57 @@ object EncoderMapper {
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
       val caseClass = weakTypeOf[Case]
-      val table = weakTypeOf[Table]
-      val modelGen = weakTypeOf[ModelGen[Case]]
-      val allHelper = weakTypeOf[EncoderHelper[Abs]]
-      val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
-      val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
-      val shapeHelper = weakTypeOf[ShapeHelper]
+      if (!caseClass.typeSymbol.asClass.isCaseClass) {
+        /*c.Expr[ForTableInput[Table, Case, Abs]] {
+          q"""
+              implicitly[_root_.scala.List[_root_.net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper.EncoerShapeApply[${abs}]]]
+              ???
+           """
+        }*/
+        c.abort(c.enclosingPosition, "喵喵喵")
+      } else {
+        val table = weakTypeOf[Table]
+        val modelGen = weakTypeOf[ModelGen[Case]]
+        val allHelper = weakTypeOf[EncoderHelper[Abs]]
+        val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
+        val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
-      //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
-      val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n))
+        val shapeHelper = weakTypeOf[ShapeHelper]
 
-      def mgDef = q"""
+        //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+        val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
+        val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
+        val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n))
+
+        def mgDef = q"""
           lazy val mg: $modelGen = new $modelGen {}
         """
 
-      def toShape(namePare: List[String]) = {
-        val proNames = namePare
-        val termVar1 = TermName(c.freshName)
-        val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
+        def toShape(namePare: List[String]) = {
+          val proNames = namePare
+          val termVar1 = TermName(c.freshName)
+          val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
 
-        val func = q"""
+          val func = q"""
         { ($termVar1: $caseClass) =>
           $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
         }
         """
 
-        q"""
+          q"""
         new $allHelper{ }.shaped(
           $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName)}.emap((s: Any) => mg(_.${TermName(eachName)}).convertData(s))""")})
         ).emap($func)
         """
-      }
+        }
 
-      val q = c.Expr[ForTableInput[Table, Case, Abs]] {
-        val repModelTermName = c.freshName
-        //TODO
-        //implicit def dataShapeValue1111: ${weakTypeOf[ForTableInput[Table, Case, Abs]]} = self
+        val q = c.Expr[ForTableInput[Table, Case, Abs]] {
+          val repModelTermName = c.freshName
+          //TODO
+          //implicit def dataShapeValue1111: ${weakTypeOf[ForTableInput[Table, Case, Abs]]} = self
 
-        q"""
+          q"""
           new $forTableInput {
             self =>
 
@@ -211,11 +220,13 @@ object EncoderMapper {
 
               CaseClassGenImpl1111.dataShapeValue
             }
-          }
+          }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
         """
+        }
+        //println(q + "\n" + "22" * 100)
+        q
       }
-      //println(q + "\n" + "22" * 100)
-      q
+
     }
 
   }
