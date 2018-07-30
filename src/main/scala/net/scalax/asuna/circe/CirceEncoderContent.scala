@@ -2,17 +2,16 @@ package net.scalax.asuna.circe
 
 import io.circe.Encoder
 import net.scalax.asuna.helper.encoder.ForTableInput
+import shapeless.Lazy
 
 sealed trait EncoderContentAbs[D]
 
 trait CirceEncoderContent[D] extends EncoderContentAbs[D] {
   val circeEncoder: Encoder[D]
-
 }
 
 trait AsunaEncoderContent[D] extends EncoderContentAbs[D] {
   val asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]
-
 }
 
 object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
@@ -29,9 +28,9 @@ object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
 trait AsunaCirceEncoderContentImplicit {
 
-  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): AsunaEncoderContent[D] = {
+  implicit def asunaEncoder[D](implicit aeo: Lazy[ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]]): AsunaEncoderContent[D] = {
     object impl extends AsunaEncoderContent[D] {
-      override val asunaEncoder = aeo
+      override val asunaEncoder = aeo.value
     }
     impl
   }
