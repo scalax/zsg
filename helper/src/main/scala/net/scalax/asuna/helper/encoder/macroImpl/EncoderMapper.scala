@@ -141,7 +141,7 @@ object EncoderMapper {
         val allHelper = weakTypeOf[EncoderHelper[Abs]]
         val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
         val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
-
+        val inputTable = weakTypeOf[ForTableInput[Table, Case, Abs]]
         val shapeHelper = weakTypeOf[ShapeHelper]
 
         //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
@@ -185,14 +185,17 @@ object EncoderMapper {
 
         val q = c.Expr[ForTableInput[Table, Case, Abs]] {
           val repModelTermName = cusFreshName("Table")
-          //TODO
-          //implicit def dataShapeValue1111: ${weakTypeOf[ForTableInput[Table, Case, Abs]]} = self
+
+          val implicitFunctionName = TermName(cusFreshName("SelfInputTableInplicit"))
 
           q"""
           new $forTableInput {
+            tableSelf =>
 
             override def input(${TermName(repModelTermName)}: $table): $shapeValue = {
-              trait CaseClassGenImpl extends $shapeHelper {
+              new $shapeHelper {
+
+                implicit def $implicitFunctionName: $inputTable = tableSelf
 
                 def dataShapeValue = {
                   $mgDef
@@ -200,11 +203,7 @@ object EncoderMapper {
                   ${toShape(modelFieldNames)}
                 }
 
-              }
-
-              object CaseClassGenImpl1111 extends CaseClassGenImpl
-
-              CaseClassGenImpl1111.dataShapeValue
+              }.dataShapeValue
             }
           }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
         """
