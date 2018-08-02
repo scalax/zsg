@@ -9,7 +9,7 @@ import scala.language.implicitConversions
 
 trait ShapeHelper {
 
-  implicit def liftToShapeValueExtendsionMethod[A, B, C, D](rep: A)(implicit shape: DecoderShape[A, B, C, D]): DecoderShapeValue[B, D] = {
+  /*implicit def liftToShapeValueExtendsionMethod[A, B, C, D](rep: A)(implicit shape: DecoderShape[A, B, C, D]): DecoderShapeValue[B, D] = {
     val rep1 = rep
     val shape1 = shape
     new DecoderShapeValue[B, D] {
@@ -36,7 +36,7 @@ trait ShapeHelper {
         override val repCol = rep2 :: rep1 :: HNil
       }
     }
-  }
+  }*/
   /*implicit class anyToRepGroupExt2[A <: HList](rep1: RepGroup[A]) {
     def mixin[E](rep2: E): RepGroup[E :: A] = {
       new RepGroup[E :: A] {

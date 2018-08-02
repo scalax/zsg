@@ -1,7 +1,9 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
+import java.util.UUID
+
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{ MacroColumnInfoImpl, MacroColumnInfoContent }
+import net.scalax.asuna.helper.{ MacroColumnInfoContent, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 import net.scalax.asuna.shape.ShapeHelper
@@ -13,9 +15,10 @@ object EncoderMapper {
   val encoderGlobolPrefix = "netScalaxAsunaEncoder"
 
   case class EncoderFieldNames(law: String, svFunction: String, afterEmap: String)
+  case class ContextValNames(selfInputTableImplicit: String, finalOutPutDefName: String, modelGen: String)
 
   trait EncoerShapeApply[Abs] {
-    def apply[T, D, U](rep: T, pro: PropertyType[D])(implicit shape: EncoderShape[T, D, U, Abs]): EncoderShapeValue[D, Abs] = {
+    def withEncoderShape[T, D, U](rep: T, pro: PropertyType[D])(implicit shape: EncoderShape[T, D, U, Abs]): EncoderShapeValue[D, Abs] = {
       val rep1 = rep
       val shape1 = shape
       new EncoderShapeValue[D, Abs] {
@@ -33,9 +36,9 @@ object EncoderMapper {
 
     import c.universe._
 
-    def cusFreshName(name: String): String = c.freshName(encoderGlobolPrefix + name)
+    def cusFreshName(name: String): String = c.freshName(encoderGlobolPrefix + name + UUID.randomUUID.toString.replaceAllLiterally("-", "a"))
 
-    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: EncoderFieldNames, modelName: TermName, isMissingField: Boolean) = {
+    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](ctxNames: ContextValNames, fieldName: EncoderFieldNames, modelName: TermName, isMissingField: Boolean) = {
       //val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
       //val defName = c.freshName(fieldName + "Gen")
       val columnInfoWrapTraitName = cusFreshName(fieldName.law)
@@ -107,9 +110,9 @@ object EncoderMapper {
 
         def output = ${
         if (isMissingField) {
-          q"""_root_.net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper.toEncoderShapeValueApply[$abs](mg(_.${TermName(fieldName.law)}).toPlaceholder, mg(_.${TermName(fieldName.law)}))"""
+          q"""_root_.net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper.toEncoderShapeValueApply[$abs].withEncoderShape(${TermName(ctxNames.modelGen)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(ctxNames.modelGen)}(_.${TermName(fieldName.law)}))"""
         } else {
-          q"""_root_.net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper.toEncoderShapeValueApply[$abs](${modelName}.${TermName(fieldName.law)}, mg(_.${TermName(fieldName.law)}))"""
+          q"""_root_.net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper.toEncoderShapeValueApply[$abs].withEncoderShape(${modelName}.${TermName(fieldName.law)}, ${TermName(ctxNames.modelGen)}(_.${TermName(fieldName.law)}))"""
         }
       }
         }
@@ -131,6 +134,9 @@ object EncoderMapper {
     }
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
+
+      val ctxNames = ContextValNames(selfInputTableImplicit = cusFreshName("SelfInputTableImplicit"), finalOutPutDefName = cusFreshName("FinalOutPutDefName"), modelGen = cusFreshName("ModelGen"))
+
       val caseClass = weakTypeOf[Case]
 
       if (!caseClass.typeSymbol.asClass.isCaseClass) {
@@ -162,7 +168,7 @@ object EncoderMapper {
         val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.map(_.law).contains(n.law))
 
         def mgDef = q"""
-          lazy val mg: $modelGen = new $modelGen {}
+          lazy val ${TermName(ctxNames.modelGen)}: $modelGen = new $modelGen {}
         """
 
         def toShape(namePare: List[EncoderFieldNames]) = {
@@ -178,7 +184,7 @@ object EncoderMapper {
 
           q"""
         new $allHelper{ }.shaped(
-          $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName.svFunction)}.emap((s: Any) => mg(_.${TermName(eachName.law)}).convertData(s))""")})
+          $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName.svFunction)}.emap((s: Any) => ${TermName(ctxNames.modelGen)}(_.${TermName(eachName.law)}).convertData(s))""")})
         ).emap($func)
         """
         }
@@ -187,6 +193,8 @@ object EncoderMapper {
           val repModelTermName = cusFreshName("Table")
 
           val implicitFunctionName = TermName(cusFreshName("SelfInputTableInplicit"))
+
+          val outPutDefName = TermName(cusFreshName("outPutDef"))
 
           q"""
           new $forTableInput {
@@ -197,13 +205,13 @@ object EncoderMapper {
 
                 implicit def $implicitFunctionName: $inputTable = tableSelf
 
-                def dataShapeValue = {
+                def $outPutDefName = {
                   $mgDef
-                  ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
+                  ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](ctxNames = ctxNames, fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
                   ${toShape(modelFieldNames)}
                 }
 
-              }.dataShapeValue
+              }.$outPutDefName
             }
           }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
         """

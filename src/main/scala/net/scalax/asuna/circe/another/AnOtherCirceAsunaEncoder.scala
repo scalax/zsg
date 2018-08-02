@@ -1,7 +1,8 @@
 package net.scalax.asuna.circe.another
 
 import io.circe.Encoder
-import net.scalax.asuna.circe.{ CirceAsunaEncoder, EmptyCirceTable }
+import net.scalax.asuna.circe.EmptyCirceTable
+import net.scalax.asuna.circe.aaaa.CirceAsunaEncoder
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 
 import scala.language.experimental.macros
@@ -13,8 +14,6 @@ trait CirceEncoderConfirmOrder[T] {
 }
 
 object CirceEncoderConfirmOrder {
-
-  implicit def circeEncoderContentImplicit[D]: CirceEncoderConfirmOrder[D] = macro CirceMacro.AsunaCirceEncoderHelper.inferImpl[D]
 
   def needCirce[D](encoder: Encoder[D]): CirceEncoderConfirmOrder[D] = {
     new CirceEncoderConfirmOrder[D] {
@@ -31,8 +30,7 @@ object CirceEncoderConfirmOrder {
   }
 
 }
-
-trait HaveCirceEncoderTag
+/*trait HaveCirceEncoderTag
 object HaveCirceEncoderTag {
   val haveCirceEncoderTagInstance: HaveCirceEncoderTag = new HaveCirceEncoderTag {}
 }
@@ -40,7 +38,7 @@ object HaveCirceEncoderTag {
 trait UseAsunaEncoderTag
 object UseAsunaEncoderTag {
   val useAsunaEncoderTagInstance: UseAsunaEncoderTag = new UseAsunaEncoderTag {}
-}
+}*/
 
 object CirceMacro {
 
@@ -80,11 +78,11 @@ object CirceMacro {
 
   object AsunaCirceEncoderHelper {
 
-    def inferImpl[T: c.WeakTypeTag](c: whitebox.Context): c.Tree = {
+    def inferImpl[T: c.WeakTypeTag](c: whitebox.Context): c.Expr[CirceEncoderConfirmOrder[T]] = {
       import c.universe._
       try {
         val circeConfirm = weakTypeOf[CirceEncoderConfirmOrder[T]]
-        val haveCirceImplicit = weakTypeOf[HaveCirceEncoderTag]
+        //val haveCirceImplicit = weakTypeOf[HaveCirceEncoderTag]
         val encoderHelper = weakTypeOf[EncoderHelper[CirceAsunaEncoder]]
         val t = weakTypeOf[T]
         val circeEncoder = weakTypeOf[Encoder[T]]
@@ -97,10 +95,11 @@ object CirceMacro {
             q"${circeConfirm.typeSymbol.companion}.needCirce[$t](_root_.scala.Predef.implicitly[$circeEncoder]): $circeConfirm"
           case ImplicitExists(false, true) =>
             q"${circeConfirm.typeSymbol.companion}.needInputTable[$t](_root_.scala.Predef.implicitly[$inputTable]): $circeConfirm"
+            c.abort(c.enclosingPosition, "喵喵喵")
           case ImplicitExists(false, false) =>
             q"${circeConfirm.typeSymbol.companion}.needInputTable[$t](new $encoderHelper { }.caseOnly[$emptyCirceTable, $t]): $circeConfirm"
         }
-        q
+        c.Expr[CirceEncoderConfirmOrder[T]](q)
       } catch {
         case e: Exception =>
           e.printStackTrace
