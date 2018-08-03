@@ -18,7 +18,7 @@ trait CirceAsunaEncoder {
 
 }
 
-object CirceAsunaEncoder extends LowerPriorityTupler {
+object CirceAsunaEncoder extends LowerPriorityTupler1 {
 
   implicit def eriosjgiserhtieshtehrt[D](implicit mColumnInfo: MacroColumnInfo, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
     def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
@@ -39,7 +39,7 @@ object CirceAsunaEncoder extends LowerPriorityTupler {
 
 }
 
-private[aaaa] abstract class LowerPriorityTupler {
+trait LowerPriorityTupler1 extends LowerPriorityTupler2 {
 
   implicit def columnEncoderWithPropertyNamedfdsrgrhgdrthdrthtdfhfdtyht[D](implicit mColumnInfo: MacroColumnInfo, enckeif: CirceEncoderConfirmOrder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
     def exsistingCirceEncoderToShape(proName: String, circeEncoder: Encoder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
@@ -74,6 +74,44 @@ private[aaaa] abstract class LowerPriorityTupler {
       //case n2: AsunaEncoderContent[D] => asunaInputTableToShape(mColumnInfo.modelColumnName, n2.asunaEncoder)
     }
   }
+
+}
+
+trait LowerPriorityTupler2 {
+
+  /*implicit def fsfwearzsefzsdfszdrfserserwertsertgesrtg[D](implicit mColumnInfo: MacroColumnInfo, enckeif: CirceEncoderConfirmOrder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+    def exsistingCirceEncoderToShape(proName: String, circeEncoder: Encoder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
+        override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
+          override val key = proName + "1111"
+          override def write(data: D): Json = circeEncoder(data)
+        }
+        override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
+      }
+    }
+
+    def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
+        override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
+          override val key = proName + "2222"
+          override def write(data: D): Json = {
+            import io.circe.syntax._
+            asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value)).write(data).asJson
+          }
+        }
+        override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
+      }
+    }
+    (enckeif.encoderOpt, enckeif.inputTableOpt) match {
+      case (Some(encoder), None) => exsistingCirceEncoderToShape(mColumnInfo.modelColumnName, encoder)
+      case (None, Some(inputTable)) => asunaInputTableToShape(mColumnInfo.modelColumnName, inputTable)
+      //case n1: CirceEncoderContent[D] => exsistingCirceEncoderToShape(mColumnInfo.modelColumnName, n1.circeEncoder)
+      //case n2: AsunaEncoderContent[D] => asunaInputTableToShape(mColumnInfo.modelColumnName, n2.asunaEncoder)
+    }
+  }*/
 
 }
 

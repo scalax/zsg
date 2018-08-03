@@ -6,6 +6,8 @@ import com.github.javafaker.Faker
 import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.helper.MacroColumnInfoImpl
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatest._
 
 case class TestModel1(
   name: String,
@@ -27,13 +29,13 @@ case class TestModel(
   test1: TestModel1,
   test2: TestModel2)
 
-class CirceEncoderTest extends /*FlatSpec
+class CirceEncoderTest extends FlatSpec
   with Matchers
   with EitherValues
   with ScalaFutures
   with BeforeAndAfterAll
   with BeforeAndAfter
-  with*/ CirceAsunaEncoderHelper {
+  with CirceAsunaEncoderHelper {
 
   /*
   testModel
@@ -79,6 +81,64 @@ class CirceEncoderTest extends /*FlatSpec
   //}
 
   val circeEncoder1111 = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel1].input(EmptyCirceTable.value))
+
+  trait kfike[Poly] {
+    type Out
+    val out: Out
+  }
+
+  object kfike {
+    type Aux[P, T] = kfike[P] { type Out = T }
+    type Aux2[P] = kfike[P]
+  }
+
+  object sdfjsofjweifj extends sdfjsejfweohjrfjihjwerhwerh {
+    implicit def sfejrwewurhw: kfike.Aux[sdfjsofjweifj.type, String] = new kfike[sdfjsofjweifj.type] {
+      override type Out = String
+      override val out = "sdfrertert"
+    }
+  }
+
+  trait sdfjsejfweohjrfjihjwerhwerh {
+    implicit def sdfwsegsrtrstr: kfike.Aux[sdfjsofjweifj.type, Int] = new kfike[sdfjsofjweifj.type] {
+      override type Out = Int
+      override val out = 33453
+    }
+  }
+
+  "circe encoder" should "auto mapping case class with empty table" in {
+    def sfsfsfsf[A](implicit sfserr: kfike.Aux2[A]): sfserr.Out = sfserr.out
+
+    println("aaaa" * 100)
+    //println(sfsfsfsf[sdfjsofjweifj.type])
+
+    def sokfjawoerhjawr[T, D](dfas: T)(implicit sfjfwshtfwe: efabc[T, D]): D = sfjfwshtfwe.out
+
+    println(sokfjawoerhjawr("sdfsdrerse"))
+
+  }
+
+  trait efabc[In, Out] {
+    val out: Out
+  }
+
+  object efabc extends sdfjsdofhefghseruighteurisgtgbreui {
+    implicit def lewrhguilerhguiergbhtgrbsetiges(implicit sdfwserf: TestModel1): efabc[String, Int] = new efabc[String, Int] {
+      override val out: Int = 2333
+    }
+  }
+
+  trait sdfjsdofhefghseruighteurisgtgbreui extends asgerstyreydrtyhrtdhurtyujht {
+    implicit def vargfdsgsdfgbvsertsrtg(implicit sdfwserf: TestModel1): efabc[String, String] = new efabc[String, String] {
+      override val out: String = "sdfdstgrestsert"
+    }
+  }
+
+  trait asgerstyreydrtyhrtdhurtyujht {
+    implicit def awrtfsertgsertgsedrtesrtfaer: efabc[String, TestModel2] = new efabc[String, TestModel2] {
+      override val out: TestModel2 = TestModel2("dfsdfgsertert", 4564)
+    }
+  }
 
   /*val kenfgjiejr = {
     final class $anon extends net.scalax.asuna.helper.encoder.ForTableInput[net.scalax.asuna.circe.EmptyCirceTable, aa.bb.cc.TestModel, net.scalax.asuna.circe.CirceAsunaEncoder] { tableSelf =>
