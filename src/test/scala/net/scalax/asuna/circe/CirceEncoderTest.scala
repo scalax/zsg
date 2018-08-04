@@ -4,8 +4,6 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
-import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.helper.MacroColumnInfoImpl
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
@@ -19,7 +17,12 @@ case class TestModel2(
 
 case class TestModel3(
   nickName: String,
-  maxAge: Int, test16: TestModel1)
+  maxAge: Int, test1: TestModel1, test4: TestModel4)
+
+case class TestModel4(
+  age: Int,
+  today: String,
+  test3: TestModel3)
 
 case class TestModel(
   name4: String,
@@ -52,11 +55,9 @@ class CirceEncoderTest extends FlatSpec
   lazy val faker = new Faker(local)
 
   "circe encoder" should "auto mapping case class with empty table" in {
-    val test3 = TestModel3(faker.address.fullAddress, 461, TestModel1(faker.weather.description, 793, TestModel3(faker.address.fullAddress, 461, TestModel1(faker.weather.description, 793, null))))
+    val test3 = TestModel3(faker.address.fullAddress, 461, TestModel1(faker.weather.description, 793, TestModel3(faker.address.fullAddress, 461, TestModel1(faker.weather.description, 793, null), null)), null)
     val test1 = TestModel1(faker.weather.description, 793, test3)
-
     val test2 = TestModel2(faker.book.title, 967)
-
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, test2)
 
     val circeEncoder11111111 = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel].input(EmptyCirceTable.value))

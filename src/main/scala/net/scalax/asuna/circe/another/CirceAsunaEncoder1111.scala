@@ -62,7 +62,7 @@ trait CirceAsunaEncoderHelper {
     def exsistingCirceEncoderToShape(proName: String, circeEncoder: Encoder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
       new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
-          override val key = proName + "1111"
+          override val key = proName
           override def write(data: D): Json = {
             if (data == null) {
               Json.Null
@@ -80,7 +80,7 @@ trait CirceAsunaEncoderHelper {
     def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
       new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
-          override val key = proName + "2222"
+          override val key = proName
           override def write(data: D): Json = {
             if (data == null) {
               Json.Null
