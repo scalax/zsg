@@ -26,10 +26,9 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
         val dataList = shape1.buildData(data, wrapRep).items
-        val initMap = scala.collection.mutable.LinkedHashMap.empty[String, Json]
         lazy val temp = scala.collection.mutable.Map.empty[Any, Json]
-        reps.foldLeft(dataList) {
-          case (items, rep) =>
+        val (_, list) = reps.foldLeft((dataList, List.empty[(String, Json)])) {
+          case ((items, r), rep) =>
             val head = items.head
             val json = head match {
               case _: String =>
@@ -51,10 +50,10 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
                     value
                 }
             }
-            initMap.put(rep.key, json)
-            items.tail
+            val value = ((rep.key, json)) :: r
+            (items.tail, value)
         }
-        JsonObject.fromIterable(initMap)
+        JsonObject.fromIterable(list)
       }
     }
   }
