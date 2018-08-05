@@ -7,7 +7,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   val model: LargeModel = LargeModel()
 
   //need about 16s to compile
-  //watse 2679ms
+  //watse 2610ms
   {
     import io.circe.syntax._
     import io.circe.generic.auto._
@@ -20,7 +20,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   }
 
   //need about 3s to compile
-  //watse 4558ms
+  //watse 4037ms
   {
     object Abc {
       //the property i12 will covert to Int and use Int Encoder and custom key
