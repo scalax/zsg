@@ -22,7 +22,10 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   //need about 3s to compile
   //watse 4558ms
   {
-    object Abc
+    object Abc {
+      //the property i12 will covert to Int and use Int Encoder and custom key
+      def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
+    }
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
     val data1 = System.currentTimeMillis
     for (_ <- 1 to times) {
