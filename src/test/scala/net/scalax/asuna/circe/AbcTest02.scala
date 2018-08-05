@@ -4,7 +4,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
 
   val times = 100000
 
-  val model: LargeModel = LargeModel()
+  val model: MiaoMiao = MiaoMiao()
 
   //need about 16s to compile
   //watse 2610ms
@@ -26,7 +26,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
       //the property i12 will covert to Int and use Int Encoder and custom key
       def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
     }
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, MiaoMiao].input(Abc))
     val data1 = System.currentTimeMillis
     for (_ <- 1 to times) {
       circeEncoder.write(model)
