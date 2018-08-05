@@ -3,7 +3,7 @@ package net.scalax.asuna.helper.encoder.macroImpl
 import java.util.UUID
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{  MacroColumnInfo,  MacroColumnInfoImpl }
+import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
 

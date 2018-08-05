@@ -21,33 +21,40 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
   override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, CirceAsunaEncoder]): ACirceEncoderWrapper[Out, D] = {
     val shape1 = shape
     val rep1 = rep
+    val wrapRep = shape1.wrapRep(rep1)
+    val reps = shape1.toLawRep(shape1.wrapRep(rep1)).reps
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
-        val reps = shape1.toLawRep(shape1.wrapRep(rep1)).reps
-        val dataList = shape1.buildData(data, shape1.wrapRep(rep1))
-        val map = reps.zip(dataList.items).map {
-          case (r, d) =>
-            val dItem = d.asInstanceOf[r.DataType]
-            (r.key, r.write(dItem))
-        }.toMap
-        JsonObject.fromMap(map)
-      }
-    }
-  }
-
-  def effect1111[Rep, D, Out](rep: Rep)(implicit shape: Lazy[EncoderShape[Rep, D, Out, CirceAsunaEncoder]]): ACirceEncoderWrapper[Out, D] = {
-    val shape1 = shape.value
-    val rep1 = rep
-    new ACirceEncoderWrapper[Out, D] {
-      override def write(data: D): JsonObject = {
-        val reps = shape1.toLawRep(shape1.wrapRep(rep1)).reps
-        val dataList = shape1.buildData(data, shape1.wrapRep(rep1))
-        val map = reps.zip(dataList.items).map {
-          case (r, d) =>
-            val dItem = d.asInstanceOf[r.DataType]
-            (r.key, r.write(dItem))
-        }.toMap
-        JsonObject.fromMap(map)
+        val dataList = shape1.buildData(data, wrapRep).items
+        val initMap = scala.collection.mutable.LinkedHashMap.empty[String, Json]
+        lazy val temp = scala.collection.mutable.Map.empty[Any, Json]
+        reps.foldLeft(dataList) {
+          case (items, rep) =>
+            val head = items.head
+            val json = head match {
+              case _: String =>
+                rep.write(head.asInstanceOf[rep.DataType])
+              case _: Int =>
+                rep.write(head.asInstanceOf[rep.DataType])
+              case _: Long =>
+                rep.write(head.asInstanceOf[rep.DataType])
+              case _: BigDecimal =>
+                rep.write(head.asInstanceOf[rep.DataType])
+              case _: BigInt =>
+                rep.write(head.asInstanceOf[rep.DataType])
+              case _ =>
+                temp.get(head) match {
+                  case Some(value) => value
+                  case _ =>
+                    val value = rep.write(head.asInstanceOf[rep.DataType])
+                    temp += ((head, value))
+                    value
+                }
+            }
+            initMap.put(rep.key, json)
+            items.tail
+        }
+        JsonObject.fromIterable(initMap)
       }
     }
   }
@@ -85,8 +92,7 @@ trait CirceAsunaEncoderHelper {
             if (data == null) {
               Json.Null
             } else {
-              import io.circe.syntax._
-              asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value)).write(data).asJson
+              Json.fromJsonObject(asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value)).write(data))
             }
           }
         }

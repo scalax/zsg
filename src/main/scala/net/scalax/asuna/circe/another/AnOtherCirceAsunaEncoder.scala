@@ -19,7 +19,7 @@ trait AsunaEncoderContent[D] extends EncoderContentAbs[D] {
 
 object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
-  implicit def circeEncoder[D](implicit encoder: Encoder[D]): CirceEncoderContent[D] = {
+  implicit def circeEncoder[D](implicit encoder: Encoder[D]): EncoderContentAbs[D] = {
     val encoder1 = encoder
     object impl extends CirceEncoderContent[D] {
       override val circeEncoder = encoder1
@@ -31,7 +31,7 @@ object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
 trait AsunaCirceEncoderContentImplicit {
 
-  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): AsunaEncoderContent[D] = {
+  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderContentAbs[D] = {
     object impl extends AsunaEncoderContent[D] {
       override val asunaEncoder = aeo
     }
