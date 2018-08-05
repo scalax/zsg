@@ -1,114 +1,60 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
+import java.util.UUID
+
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
-import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl, MacroColumnInfoContent }
+import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
-import net.scalax.asuna.shape.ShapeHelper
 
-import scala.annotation.implicitNotFound
 import scala.reflect.macros.blackbox.Context
 
 object EncoderMapper {
-
-  trait PropertyEncoderFunAbs[Abs] {
-    self =>
-
-    type Rep
-    type Data
-    type Out
-    val rep: Rep
-    val shape: EncoderShape[Rep, Data, Out, Abs]
-    def sv: EncoderShapeValue[Data, Abs] = new EncoderShapeValue[Data, Abs] {
-      override type RepType = self.Out
-      override val rep: self.Out = self.shape.wrapRep(self.rep)
-      override val shape = self.shape.packed
-    }
-  }
-
-  trait PropertyEncoderFun[R, D, O, Abs] extends PropertyEncoderFunAbs[Abs] {
-    override type Rep = R
-    override type Data = D
-    override type Out = O
-  }
-
-  trait EncoderProGen[A, B, C, PL, Abs] {
-    protected def innperPro: PropertyEncoderFun[A, B, C, Abs]
-    def unwrap(implicit pl: PL): PropertyEncoderFun[A, B, C, Abs] = innperPro
-  }
 
   class EncoderMapperImpl(val c: Context) {
     self =>
 
     import c.universe._
 
-    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](fieldName: String, modelName: TermName, isMissingField: Boolean) = {
-      val traitName = c.freshName(fieldName + "ProShape") //s"$proName-pro-shape-trait"
-      val defName = c.freshName(fieldName + "Gen")
-      val columnInfoWrapTraitName = c.freshName(fieldName)
-      //val columnInfoWrapObjectName = c.freshName(fieldName)
-      val propertyType = weakTypeOf[PropertyType[_]]
+    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](mgVar: String, fieldName: String, modelName: TermName, isMissingField: Boolean) = {
+      val traitName = c.freshName(fieldName)
+      val defName = c.freshName(fieldName)
       val encoderShape = weakTypeOf[EncoderShape[_, _, _, _]]
-      val proGen = weakTypeOf[EncoderProGen[_, _, _, _, _]]
-      val propertyEncoderFun = weakTypeOf[PropertyEncoderFun[_, _, _, _]]
       val abs = weakTypeOf[Abs]
-      val implicitNotFound = weakTypeOf[implicitNotFound]
-      val macroColumnInfoContent = weakTypeOf[MacroColumnInfoContent]
+      val edsv = weakTypeOf[EncoderShapeValue[Any, Abs]]
 
       val columnInfo = weakTypeOf[MacroColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
-
-      val wtTT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
-      val wtMT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
-
-      val wtTRT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
-      val wtMRT = weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[() => String]]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
+      val propertyType = weakTypeOf[PropertyType[_]]
 
       q"""
-      val ${TermName(fieldName)} = {
-        @$implicitNotFound(msg = "属性 id 中，Shape 的数据类型 $${ShapeData} 和实体类的数据类型 $${ProData} 不对应")
-        trait ${TypeName(traitName)}[ShapeData, ProData]
-        object ${TermName(traitName)} {
-          implicit def propertyImplicit1[S, T](implicit cv: T <:< S): ${TypeName(traitName)}[S, T] = new ${TypeName(traitName)}[S, T] {}
-        }
-        def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
-          new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
-            override protected def innperPro: ${propertyEncoderFun.typeSymbol}[A, B, C, $abs] = {
-              val rep1 = rep
-              val shape1 = shape
-              new ${propertyEncoderFun.typeSymbol}[A, B, C, $abs] {
-                override val rep: A = rep1
-                override val shape = shape1
-              }
+        lazy val ${TermName(fieldName)}: $edsv = {
+          def ${TermName(defName)}[A, B, C](rep: A, propertyType: ${propertyType.typeSymbol}[B])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]) = {
+            val rep1 = rep
+            val shape1 = shape
+            new _root_.net.scalax.asuna.core.encoder.EncoderShapeValue[B, $abs] {
+              override type RepType = C
+              override val rep = shape1.wrapRep(rep1)
+              override val shape = shape1.packed
             }
           }
-        }
 
-        trait ${TypeName(columnInfoWrapTraitName)} extends $macroColumnInfoContent {
-
-        def output = ${
+          def ${TermName(traitName)}(implicit columnInfo: $columnInfo): $edsv = {
+            ${
         if (isMissingField) {
-          q"""${TermName(defName)}(mg(_.${TermName(fieldName)}).toPlaceholder, mg(_.${TermName(fieldName)})).unwrap.sv"""
+          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
         } else {
-          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, mg(_.${TermName(fieldName)})).unwrap.sv"""
+          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
         }
       }
-        }
+          }
 
-        object ${TermName(columnInfoWrapTraitName)} extends ${TypeName(columnInfoWrapTraitName)} {
-          override implicit def columnInfo = ${columnInfoImpl.typeSymbol.companion}(
+          ${TermName(traitName)}(${columnInfoImpl.typeSymbol.companion}(
             tableColumnName = ${Literal(Constant(fieldName))},
-            modelColumnName = ${Literal(Constant(fieldName))},
-            tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
-            modelTag = _root_.scala.Predef.implicitly[${wtMT}],
-            tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
-            modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
-          )
+            modelColumnName = ${Literal(Constant(fieldName))}
+          ))
         }
-
-        ${TermName(columnInfoWrapTraitName)}.output
-      }
-      """
+    """
     }
 
     def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
@@ -119,15 +65,14 @@ object EncoderMapper {
       val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
       val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
 
-      val shapeHelper = weakTypeOf[ShapeHelper]
+      val mgVar = c.freshName("mg")
 
-      //val fieldNameStrs = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
       val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList
       val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
       val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n))
 
       def mgDef = q"""
-          lazy val mg: $modelGen = new $modelGen {}
+          lazy val ${TermName(mgVar)}: $modelGen = new $modelGen {}
         """
 
       def toShape(namePare: List[String]) = {
@@ -143,7 +88,7 @@ object EncoderMapper {
 
         q"""
         new $allHelper{ }.shaped(
-          $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName)}.emap((s: Any) => mg(_.${TermName(eachName)}).convertData(s))""")})
+          $listSymbol(..${proNames.map(eachName => q"""${TermName(eachName)}""")})
         ).emap($func)
         """
       }
@@ -153,14 +98,11 @@ object EncoderMapper {
         q"""
           new $forTableInput {
             override def input(${TermName(repModelTermName)}: $table): $shapeValue = {
-              object CaseClassGenImpl extends $shapeHelper {
-                $mgDef
-                ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
-                val dataShapeValue = ${toShape(modelFieldNames)}
-              }
-              CaseClassGenImpl.dataShapeValue
+              $mgDef
+              ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](mgVar = mgVar, fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
+              ${toShape(modelFieldNames)}
             }
-          }
+          }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
         """
       }
       //println(q + "\n" + "22" * 100)

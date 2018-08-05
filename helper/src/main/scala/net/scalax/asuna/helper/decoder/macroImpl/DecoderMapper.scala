@@ -70,7 +70,7 @@ object DecoderMapper {
       val macroColumnInfoContent = weakTypeOf[MacroColumnInfoContent]
 
       val columnInfo = weakTypeOf[MacroColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -141,11 +141,7 @@ object DecoderMapper {
         object ${TermName(columnInfoWrapTraitName)} extends ${TypeName(columnInfoWrapTraitName)} {
           override implicit def columnInfo = ${columnInfoImpl.typeSymbol.companion}(
             tableColumnName = ${Literal(Constant(fieldName))},
-            modelColumnName = ${Literal(Constant(fieldName))},
-            tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
-            modelTag = _root_.scala.Predef.implicitly[${wtMT}],
-            tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
-            modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+            modelColumnName = ${Literal(Constant(fieldName))}
           )
         }
 

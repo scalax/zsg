@@ -24,7 +24,7 @@ object DecoderDataModelMapper {
       val propertyFun = weakTypeOf[PropertyFun[_, _, _, _]]
 
       val columnInfo = weakTypeOf[MacroColumnInfo]
-      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl[_, _, _, _]]
+      val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
 
       val wtTT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Table]]
       val wtMT = c.weakTypeOf[scala.reflect.runtime.universe.WeakTypeTag[Model]]
@@ -43,11 +43,7 @@ object DecoderDataModelMapper {
             }
             implicit val ${TermName(c.freshName)}: $columnInfo = ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName))},
-              modelColumnName = ${Literal(Constant(fieldName))},
-              tableWeakTypeTag = _root_.scala.Predef.implicitly[${wtTT}],
-              modelTag = _root_.scala.Predef.implicitly[${wtMT}],
-              tableRepWeakTypeTag = _root_.scala.Predef.implicitly[${wtTRT}],
-              modelRepTag = _root_.scala.Predef.implicitly[${wtMRT}]
+              modelColumnName = ${Literal(Constant(fieldName))}
             )
             def ${TermName(defName)}[A, B, C, D](rep: A, pro: ${propertyType.typeSymbol}[D])(implicit shape: ${decoderShape.typeSymbol}[A, B, C, $abs]): ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] = {
               new ${proGen.typeSymbol}[A, B, C, ${TypeName(traitName)}[B, D], $abs] {
