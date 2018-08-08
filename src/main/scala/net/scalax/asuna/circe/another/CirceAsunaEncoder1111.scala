@@ -3,7 +3,7 @@ package net.scalax.asuna.circe
 import io.circe.{ Encoder, Json, JsonObject }
 import net.scalax.asuna.circe.aaaa.{ CirceAsunaEncoder, CirceAsunaEncoderImpl }
 import net.scalax.asuna.circe.another.{ AsunaEncoderContent, CirceEncoderContent, EncoderContentAbs }
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup, Placeholder }
+import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
@@ -22,34 +22,15 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
     val shape1 = shape
     val rep1 = rep
     val wrapRep = shape1.wrapRep(rep1)
-    val reps = shape1.toLawRep(shape1.wrapRep(rep1)).reps
+    val reps = shape1.toLawRep(shape1.wrapRep(rep1), List.empty)
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
-        val dataList = shape1.buildData(data, wrapRep).items
-        lazy val temp = scala.collection.mutable.Map.empty[Any, Json]
+        val dataList = shape1.buildData(data, wrapRep, List.empty)
+        //val list = reps.zip(dataList).map { case (rep, data) => (rep.key, rep.write(data.asInstanceOf[rep.DataType])) }
         val (_, list) = reps.foldLeft((dataList, List.empty[(String, Json)])) {
           case ((items, r), rep) =>
             val head = items.head
-            val json = head match {
-              case _: String =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: Int =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: Long =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: BigDecimal =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: BigInt =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _ =>
-                temp.get(head) match {
-                  case Some(value) => value
-                  case _ =>
-                    val value = rep.write(head.asInstanceOf[rep.DataType])
-                    temp += ((head, value))
-                    value
-                }
-            }
+            val json = rep.write(head.asInstanceOf[rep.DataType])
             val value = ((rep.key, json)) :: r
             (items.tail, value)
         }
@@ -77,13 +58,14 @@ trait CirceAsunaEncoderHelper {
             }
           }
         }
-        override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
+        override def toLawRep(base: CirceAsunaEncoderImpl[D], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
 
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = data :: oldData
       }
     }
 
     def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+      lazy val subEncoder = asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value))
       new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
           override val key = proName
@@ -91,12 +73,12 @@ trait CirceAsunaEncoderHelper {
             if (data == null) {
               Json.Null
             } else {
-              Json.fromJsonObject(asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value)).write(data))
+              Json.fromJsonObject(subEncoder.write(data))
             }
           }
         }
-        override def toLawRep(base: CirceAsunaEncoderImpl[D]): DataRepGroup[CirceAsunaEncoder] = DataRepGroup(List(base))
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D]): DataGroup = DataGroup(List(data))
+        override def toLawRep(base: CirceAsunaEncoderImpl[D], oldReps: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldReps
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = data :: oldData
       }
     }
     asunaEncoder.value match {

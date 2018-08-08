@@ -58,10 +58,10 @@ trait SlickFilterColHelper {
       new InputData[R, U] {
         override def inputData(data: U)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]] = {
           val w = shape.wrapRep(rep)
-          val reps = shape.toLawRep(shape.wrapRep(rep)).reps
-          val dataList = shape.buildData(data, w)
+          val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
+          val dataList = shape.buildData(data, w, List.empty)
           import profile.api._
-          val list = reps.zip(dataList.items).map {
+          val list = reps.zip(dataList).map {
             case (eachRep, eachData) =>
               eachRep.toOptionCondition(eachData.asInstanceOf[eachRep.InputDataType])
           }

@@ -37,9 +37,9 @@ trait ListCirceAsunaEncoder[Rep, E] extends AtomicColumn[List[E], CirceAsunaEnco
   override val key: String
 
   def write(data: List[E]): Json = {
-    val reps = shape.toLawRep(rep).reps
+    val reps = shape.toLawRep(rep, List.empty)
     data.map { d =>
-      val dataList = shape.buildData(d, rep).items
+      val dataList = shape.buildData(d, rep, List.empty)
       val jsonMap = dataList.zip(reps).map { case (d, r) => (r.key, r.write(d.asInstanceOf[r.DataType])) }.toMap
       JsonObject.fromMap(jsonMap).asJson
     }.asJson

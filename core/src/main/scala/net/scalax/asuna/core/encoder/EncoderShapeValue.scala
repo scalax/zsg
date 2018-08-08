@@ -1,7 +1,5 @@
 package net.scalax.asuna.core.encoder
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
-
 trait EncoderShapeValue[U, T] {
   self =>
 
@@ -16,8 +14,8 @@ trait EncoderShapeValue[U, T] {
       innerSelf =>
 
       override def wrapRep(base: self.RepType): self.RepType = base
-      override def toLawRep(base: self.RepType): DataRepGroup[T] = self.shape.toLawRep(self.rep)
-      override def buildData(data: F, rep: self.RepType): DataGroup = self.shape.buildData(cv(data), rep)
+      override def toLawRep(base: self.RepType, oldRep: List[T]): List[T] = self.shape.toLawRep(self.rep, oldRep)
+      override def buildData(data: F, rep: self.RepType, oldData: List[Any]): List[Any] = self.shape.buildData(cv(data), rep, oldData)
 
     }
   }
@@ -30,8 +28,8 @@ object EncoderShapeValue {
     new EncoderShape[EncoderShapeValue[U, T], U, EncoderShapeValue[U, T], T] {
       self =>
       override def wrapRep(base: EncoderShapeValue[U, T]): EncoderShapeValue[U, T] = base
-      override def toLawRep(base: EncoderShapeValue[U, T]): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
-      override def buildData(data: U, rep: EncoderShapeValue[U, T]): DataGroup = rep.shape.buildData(data, rep.rep)
+      override def toLawRep(base: EncoderShapeValue[U, T], oldRep: List[T]): List[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
+      override def buildData(data: U, rep: EncoderShapeValue[U, T], oldData: List[Any]): List[Any] = rep.shape.buildData(data, rep.rep, oldData)
     }
   }
 

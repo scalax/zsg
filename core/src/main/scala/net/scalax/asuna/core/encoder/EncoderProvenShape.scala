@@ -1,6 +1,5 @@
 package net.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 
 trait EncoderProvenShape[U, T] {
@@ -16,11 +15,11 @@ object EncoderProvenShape {
 
       override def wrapRep(base: R): R = base
 
-      override def toLawRep(base: R): DataRepGroup[T] =
-        base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep))
+      override def toLawRep(base: R, oldRep: List[T]): List[T] =
+        base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), oldRep)
 
-      override def buildData(data: U, rep: R): DataGroup =
-        rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep)
+      override def buildData(data: U, rep: R, oldData: List[Any]): List[Any] =
+        rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep, oldData)
 
     }
 

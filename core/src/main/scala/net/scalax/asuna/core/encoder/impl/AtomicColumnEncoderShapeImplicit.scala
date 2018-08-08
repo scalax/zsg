@@ -8,8 +8,8 @@ trait AtomicColumnEncoderShapeImplicit {
   implicit def atomicShapeImplicit1[A, C]: EncoderShape[AtomicColumn[A, C], A, AtomicColumn[A, C], C] = {
     new EncoderShape[AtomicColumn[A, C], A, AtomicColumn[A, C], C] {
       override def wrapRep(base: AtomicColumn[A, C]): AtomicColumn[A, C] = base
-      override def toLawRep(base: AtomicColumn[A, C]): DataRepGroup[C] = DataRepGroup(reps = List(base.common))
-      override def buildData(data: A, rep: AtomicColumn[A, C]): DataGroup = DataGroup(List(data))
+      override def toLawRep(base: AtomicColumn[A, C], oldRep: List[C]): List[C] = base.common :: oldRep
+      override def buildData(data: A, rep: AtomicColumn[A, C], oldData: List[Any]): List[Any] = data :: oldData
     }
   }
   /*implicit def atomicShapeImplicit2[A, C]: EncoderShape[DelayTag[A, C], IOData[A, A], DelayTag[A, C], C] = {
