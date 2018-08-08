@@ -65,7 +65,7 @@ trait CirceAsunaEncoderHelper {
     }
 
     def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
-      val subEncoder = asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value))
+      lazy val subEncoder = asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value))
       new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
           override val key = proName

@@ -146,7 +146,7 @@ class DynModel
     val autalCols = List("id", "age")
     val tq = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
-    prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.id, s.id)).result.statements.toList)
+    prepareData.result.statements.toList should be(friendTq2.map(s => (s.id, s.age, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))
     d.size should be(3)
     d.foreach { item =>
