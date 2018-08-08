@@ -38,7 +38,7 @@ trait RmuWriterQuery extends UmrHelper {
       new WithCols[Out, D] {
         override def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = {
           val wrapCol = shape.wrapRep(rep)
-          val reps = shape.toLawRep(wrapCol).reps
+          val reps = shape.toLawRep(wrapCol, List.empty)
           val jsonColumns = reps.filter(s => param.contains(s.key)).map { wrap =>
             umr.shaped(wrap.slickWrapper.map(r => (wrap.key, r.asJson(wrap.circeEncoder))))
           }
@@ -51,7 +51,7 @@ trait RmuWriterQuery extends UmrHelper {
   implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacroColumnInfo): EncoderShape[R, M, R, SlickRmuWrapper] = {
     new EncoderShape[R, M, R, SlickRmuWrapper] {
       override def wrapRep(base: R): R = base
-      override def toLawRep(base: R): DataRepGroup[SlickRmuWrapper] = {
+      override def toLawRep(base: R, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = {
         type Level1 = Level
         val shape1 = shape
         val impl = new SlickRmuWrapperImpl {
@@ -68,9 +68,9 @@ trait RmuWriterQuery extends UmrHelper {
             override val dataToList = identity[M]
           }
         }
-        DataRepGroup(List(impl))
+        impl :: oldRep
       }
-      override def buildData(data: M, rep: R): DataGroup = DataGroup(List(data))
+      override def buildData(data: M, rep: R, oldData: List[Any]): List[Any] = data :: oldData
     }
   }
 
