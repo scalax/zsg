@@ -26,30 +26,11 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
         val dataList = shape1.buildData(data, wrapRep, List.empty)
-        lazy val temp = scala.collection.mutable.Map.empty[Any, Json]
+        //val list = reps.zip(dataList).map { case (rep, data) => (rep.key, rep.write(data.asInstanceOf[rep.DataType])) }
         val (_, list) = reps.foldLeft((dataList, List.empty[(String, Json)])) {
           case ((items, r), rep) =>
             val head = items.head
-            val json = head match {
-              case _: String =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: Int =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: Long =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: BigDecimal =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _: BigInt =>
-                rep.write(head.asInstanceOf[rep.DataType])
-              case _ =>
-                temp.get(head) match {
-                  case Some(value) => value
-                  case _ =>
-                    val value = rep.write(head.asInstanceOf[rep.DataType])
-                    temp += ((head, value))
-                    value
-                }
-            }
+            val json = rep.write(head.asInstanceOf[rep.DataType])
             val value = ((rep.key, json)) :: r
             (items.tail, value)
         }
@@ -84,6 +65,7 @@ trait CirceAsunaEncoderHelper {
     }
 
     def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+      val subEncoder = asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value))
       new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
           override val key = proName
@@ -91,7 +73,7 @@ trait CirceAsunaEncoderHelper {
             if (data == null) {
               Json.Null
             } else {
-              Json.fromJsonObject(asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value)).write(data))
+              Json.fromJsonObject(subEncoder.write(data))
             }
           }
         }

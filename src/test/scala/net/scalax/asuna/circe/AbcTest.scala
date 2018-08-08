@@ -119,11 +119,11 @@ case class LargeModel(
   i116: String = "init string")
 
 case class Hahahah(
-  i1: LargeModel = LargeModel(),
-  i2: LargeModel = LargeModel(),
-  i3: LargeModel = LargeModel(),
-  i4: LargeModel = LargeModel(),
-  i5: LargeModel = LargeModel(),
-  i6: LargeModel = LargeModel())
+  i1: LargeModel = LargeModel(i103 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
+  i2: LargeModel = LargeModel(i104 = "bbbbbbbbbbbbbb"),
+  i3: LargeModel = LargeModel(i105 = "cccccccccccc"),
+  i4: LargeModel = LargeModel(i106 = "ddddddddddddddddd"),
+  i5: LargeModel = LargeModel(i107 = "eeeeeeeeeeeeeeeeeee"),
+  i6: LargeModel = LargeModel(i108 = 8867))
 
 case class MiaoMiao(i1: Hahahah = Hahahah())
