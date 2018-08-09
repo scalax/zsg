@@ -7,7 +7,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   val model: LargeModel = LargeModel()
 
   //need about 16s to compile
-  //watse 2694ms
+  //watse 2624ms
   {
     import io.circe.syntax._
     import io.circe.generic.auto._
