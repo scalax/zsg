@@ -82,9 +82,15 @@ object EncoderMapper {
         val termVar1 = TermName(c.freshName)
         val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
 
+        //          $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
+
+        val toListTree = proNames.foldRight(q"""Nil""": Tree) { (name, tree) =>
+          q"""$termVar1.${TermName(name)} :: $tree"""
+        }
+
         val func = q"""
         { ($termVar1: $caseClass) =>
-          $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
+$toListTree
         }
         """
 
