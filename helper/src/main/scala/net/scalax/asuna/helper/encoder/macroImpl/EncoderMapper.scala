@@ -16,12 +16,13 @@ object EncoderMapper {
 
     import c.universe._
 
-    def commonProUseInShape[Abs: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](mgVar: String, fieldName: String, modelName: TermName, isMissingField: Boolean) = {
+    def commonProUseInShape[RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag, Table: c.WeakTypeTag, Model: c.WeakTypeTag](mgVar: String, fieldName: String, modelName: TermName, isMissingField: Boolean) = {
       val traitName = c.freshName(fieldName)
       val defName = c.freshName(fieldName)
-      val encoderShape = weakTypeOf[EncoderShape[_, _, _, _]]
-      val abs = weakTypeOf[Abs]
-      val edsv = weakTypeOf[EncoderShapeValue[Any, Abs]]
+      val encoderShape = weakTypeOf[EncoderShape[_, _, _, _, _]]
+      val repCol = weakTypeOf[RepCol]
+      val dataCol = weakTypeOf[DataCol]
+      val edsv = weakTypeOf[EncoderShapeValue[Any, RepCol, DataCol]]
 
       val columnInfo = weakTypeOf[MacroColumnInfo]
       val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
@@ -29,10 +30,10 @@ object EncoderMapper {
 
       q"""
         val ${TermName(fieldName)}: $edsv = {
-          def ${TermName(defName)}[A, B, C](rep: A, propertyType: ${propertyType.typeSymbol}[B])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]) = {
+          def ${TermName(defName)}[A, B, C](rep: A, propertyType: ${propertyType.typeSymbol}[B])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $repCol, $dataCol]) = {
             val rep1 = rep
             val shape1 = shape
-            new _root_.net.scalax.asuna.core.encoder.EncoderShapeValue[B, $abs] {
+            new _root_.net.scalax.asuna.core.encoder.EncoderShapeValue[B, $repCol, $dataCol] {
               override type RepType = C
               override val rep = shape1.wrapRep(rep1)
               override val shape = shape1.packed
@@ -43,10 +44,10 @@ object EncoderMapper {
             ${
         if (isMissingField) {
           //q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
-          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[_root_.net.scalax.asuna.core.encoder.EncoderShapeValue[Any, $abs]]"""
+          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[$edsv]"""
         } else {
           //q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
-          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[_root_.net.scalax.asuna.core.encoder.EncoderShapeValue[Any, $abs]]"""
+          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[$edsv]"""
         }
       }
           }
@@ -59,13 +60,13 @@ object EncoderMapper {
     """
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Abs: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, Abs]] = {
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag]: c.Expr[ForTableInput[Table, Case, RepCol, DataCol]] = {
       val caseClass = weakTypeOf[Case]
       val table = weakTypeOf[Table]
       val modelGen = weakTypeOf[ModelGen[Case]]
-      val allHelper = weakTypeOf[EncoderHelper[Abs]]
-      val forTableInput = weakTypeOf[ForTableInput[Table, Case, Abs]]
-      val shapeValue = weakTypeOf[EncoderShapeValue[Case, Abs]]
+      val allHelper = weakTypeOf[EncoderHelper[RepCol, DataCol]]
+      val forTableInput = weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]
+      val shapeValue = weakTypeOf[EncoderShapeValue[Case, RepCol, DataCol]]
 
       val mgVar = c.freshName("mg")
 
@@ -101,16 +102,16 @@ $toListTree
         """
       }
 
-      val q = c.Expr[ForTableInput[Table, Case, Abs]] {
+      val q = c.Expr[ForTableInput[Table, Case, RepCol, DataCol]] {
         val repModelTermName = c.freshName
         q"""
           new $forTableInput {
             override def input(${TermName(repModelTermName)}: $table): $shapeValue = {
               $mgDef
-              ..${modelFieldNames.map { proName => commonProUseInShape[Abs, Table, Case](mgVar = mgVar, fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
+              ..${modelFieldNames.map { proName => commonProUseInShape[RepCol, DataCol, Table, Case](mgVar = mgVar, fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
               ${toShape(modelFieldNames)}
             }
-          }: ${weakTypeOf[ForTableInput[Table, Case, Abs]]}
+          }: ${weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]}
         """
       }
       //println(q + "\n" + "22" * 100)

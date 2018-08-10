@@ -10,7 +10,7 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
 
   val model: LargeModel = LargeModel()
 
-  {
+  /*{
     object Abc
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
     for (_ <- collection) {
@@ -54,6 +54,6 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
     }
     val data2 = System.currentTimeMillis
     println(s"circe 序列化 $times 次消耗了 ${data2 - data1} 毫秒")
-  }
+  }*/
 
 }

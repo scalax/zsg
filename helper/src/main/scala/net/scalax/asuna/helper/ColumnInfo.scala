@@ -1,9 +1,5 @@
 package net.scalax.asuna.helper
 
-import net.scalax.asuna.core.encoder.EncoderShapeValue
-
-import scala.reflect.runtime.universe._
-
 trait MacroColumnInfo {
 
   val tableColumnName: String
@@ -44,7 +40,6 @@ trait MacroColumnInfoContent {
   implicit def columnInfo: MacroColumnInfo
 
 }
-
-trait EncoderColumnInfo[Abs] extends MacroColumnInfoContent {
-  def edsv: EncoderShapeValue[Any, Abs]
-}
+/*trait EncoderColumnInfo[RepCol, DataCol] extends MacroColumnInfoContent {
+  def edsv: EncoderShapeValue[Any, RepCol, DataCol]
+}*/ 

@@ -30,7 +30,7 @@ trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
 
   val rep: Rep
 
-  val shape: EncoderShape[Rep, E, Rep, CirceAsunaEncoder]
+  val shape: EncoderShape[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
 
   override val key: String
 
