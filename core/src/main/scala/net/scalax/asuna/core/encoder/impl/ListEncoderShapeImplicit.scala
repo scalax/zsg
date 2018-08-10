@@ -4,15 +4,15 @@ import net.scalax.asuna.core.encoder.EncoderShape
 
 trait ListEncoderShapeImplicit {
 
-  implicit def listDateShapeExt[A, B, C, RepCol, DataCol](implicit shape: EncoderShape[A, B, C, RepCol, DataCol]): EncoderShape[List[A], List[B], List[C], RepCol, DataCol] = {
+  def listDateShapeExt[A, B, C, RepCol, DataCol](implicit shape: EncoderShape[A, B, C, RepCol, DataCol]): EncoderShape[List[A], List[B], List[C], RepCol, DataCol] = {
     new EncoderShape[List[A], List[B], List[C], RepCol, DataCol] { self =>
       override def wrapRep(base: List[A]): List[C] = base.map(shape.wrapRep)
-      override def toLawRep(base: List[C], oldRep: RepCol): RepCol = {
+      override def toLawRep(base: List[C], oldRep: List[RepCol]): List[RepCol] = {
         base.foldLeft(oldRep) { (old, each) =>
           shape.toLawRep(each, old)
         }
       }
-      override def buildData(data: List[B], rep: List[C], oldData: DataCol): DataCol = {
+      override def buildData(data: List[B], rep: List[C], oldData: List[DataCol]): List[DataCol] = {
         /*rep.zip(data).foldLeft(oldData) {
           case (old, (eachRep, eachData)) =>
             shape.buildData(eachData, eachRep, old)
@@ -26,3 +26,5 @@ trait ListEncoderShapeImplicit {
   }
 
 }
+
+object ListEncoderShapeImplicit extends ListEncoderShapeImplicit

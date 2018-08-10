@@ -41,7 +41,7 @@ class SlickFilterJson(friend: FriendTable) extends SlickFilterColHelper {
   val nameModel = filter.caseOnly[SlickFilterJson, FilterParam1].input(self)
 
   private val l = List(age, nick)
-  val json = filter.shaped(l).emap[JsonObject] { t => l.map(_ => t) }
+  val json = filter.shapedList(l).emap[JsonObject] { t => l.map(_ => t) }
 
   def filterCol = filter.effect(filter.caseOnly[SlickFilterJson, FilterParam2].input(self))
 

@@ -1,13 +1,11 @@
 package net.scalax.asuna.core.encoder
 
-import net.scalax.asuna.core.encoder.impl.ListEncoderShapeImplicit
-
-trait EncoderShape[-E, U, C, RepCol, DataCol] {
+trait EncoderShapeAbs[-E, U, C, RepCol, DataCol] {
   self =>
-  def packed: EncoderShape[C, U, C, RepCol, DataCol] = {
-    new EncoderShape[C, U, C, RepCol, DataCol] {
+  def packed: EncoderShapeAbs[C, U, C, RepCol, DataCol] = {
+    new EncoderShapeAbs[C, U, C, RepCol, DataCol] {
       subSelf =>
-      override def packed: EncoderShape[C, U, C, RepCol, DataCol] = subSelf
+      override def packed: EncoderShapeAbs[C, U, C, RepCol, DataCol] = subSelf
       override def wrapRep(base: C): C = base
       override def toLawRep(base: C, oldRep: RepCol): RepCol = self.toLawRep(base, oldRep)
       override def buildData(data: U, rep: C, oldData: DataCol): DataCol = self.buildData(data, rep, oldData)
@@ -18,4 +16,17 @@ trait EncoderShape[-E, U, C, RepCol, DataCol] {
   def buildData(data: U, rep: C, oldData: DataCol): DataCol
 }
 
-object EncoderShape extends ListEncoderShapeImplicit
+trait EncoderShape[-E, U, C, R, D] extends EncoderShapeAbs[E, U, C, List[R], List[D]] {
+  self =>
+  override def packed: EncoderShape[C, U, C, R, D] = {
+    new EncoderShape[C, U, C, R, D] {
+      subSelf =>
+      override def packed: EncoderShape[C, U, C, R, D] = subSelf
+      override def wrapRep(base: C): C = base
+      override def toLawRep(base: C, oldRep: List[R]): List[R] = self.toLawRep(base, oldRep)
+      override def buildData(data: U, rep: C, oldData: List[D]): List[D] = self.buildData(data, rep, oldData)
+    }
+  }
+}
+
+object EncoderShape

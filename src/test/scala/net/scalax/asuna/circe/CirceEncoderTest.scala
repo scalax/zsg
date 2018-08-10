@@ -40,17 +40,6 @@ class CirceEncoderTest extends FlatSpec
   with BeforeAndAfter
   with CirceAsunaEncoderHelper {
 
-  /*
-  testModel
-  -> shapeEncoderImplicit[TestModel]
-  test1
-  -> shapeEncoderImplicit[TestModel1]
-  test3
-  -> shapeEncoderImplicit[TestModel3]
-  test1
-  -> shapeEncoderImplicit[TestModel1]
-   */
-
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
 
@@ -62,80 +51,11 @@ class CirceEncoderTest extends FlatSpec
 
     val circeEncoder11111111 = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel].input(EmptyCirceTable.value))
 
-    /*implicit val implicit1 = {
-      import io.circe.generic.auto._
-      implicitly[Encoder[TestModel3]]
-    }
-
-    import io.circe.syntax._
-
-    implicitly[CirceEncoderConfirmOrder[TestModel1]]*/
-
     val jsonObject = circeEncoder11111111.write(model)
-
-    /*val circeEncodeResult = {
-      import io.circe.generic.auto._
-      model.asJsonObject
-    }*/
 
     println("11" * 100)
     println(jsonObject)
-    /*println(jsonObject.asJson.spaces2)
-    jsonObject should be(circeEncodeResult)*/
-  }
-  /*trait kfike[Poly] {
-    type Out
-    val out: Out
+
   }
 
-  object kfike {
-    type Aux[P, T] = kfike[P] { type Out = T }
-    type Aux2[P] = kfike[P]
-  }
-
-  object sdfjsofjweifj extends sdfjsejfweohjrfjihjwerhwerh {
-    implicit def sfejrwewurhw: kfike.Aux[sdfjsofjweifj.type, String] = new kfike[sdfjsofjweifj.type] {
-      override type Out = String
-      override val out = "sdfrertert"
-    }
-  }
-
-  trait sdfjsejfweohjrfjihjwerhwerh {
-    implicit def sdfwsegsrtrstr: kfike.Aux[sdfjsofjweifj.type, Int] = new kfike[sdfjsofjweifj.type] {
-      override type Out = Int
-      override val out = 33453
-    }
-  }
-
-    def sfsfsfsf[A](implicit sfserr: kfike.Aux2[A]): sfserr.Out = sfserr.out
-
-    println("aaaa" * 100)
-    //println(sfsfsfsf[sdfjsofjweifj.type])
-
-    def sokfjawoerhjawr[T, D](dfas: T)(implicit sfjfwshtfwe: efabc[T, D]): D = sfjfwshtfwe.out
-
-    println(sokfjawoerhjawr("sdfsdrerse"))
-
-
-  trait efabc[In, Out] {
-    val out: Out
-  }
-
-  object efabc extends sdfjsdofhefghseruighteurisgtgbreui {
-    implicit def lewrhguilerhguiergbhtgrbsetiges(implicit sdfwserf: TestModel1): efabc[String, Int] = new efabc[String, Int] {
-      override val out: Int = 2333
-    }
-  }
-
-  trait sdfjsdofhefghseruighteurisgtgbreui extends asgerstyreydrtyhrtdhurtyujht {
-    implicit def vargfdsgsdfgbvsertsrtg(implicit sdfwserf: TestModel1): efabc[String, String] = new efabc[String, String] {
-      override val out: String = "sdfdstgrestsert"
-    }
-  }
-
-  trait asgerstyreydrtyhrtdhurtyujht {
-    implicit def awrtfsertgsertgsedrtesrtfaer: efabc[String, TestModel2] = new efabc[String, TestModel2] {
-      override val out: TestModel2 = TestModel2("dfsdfgsertert", 4564)
-    }
-  }*/
 }

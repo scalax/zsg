@@ -20,8 +20,7 @@ trait CirceAsunaEncoderImpl[E] extends CirceAsunaEncoder {
   override type DataType = E
 
 }
-
-trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
+/*trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
   self =>
 
   import io.circe.syntax._
@@ -43,4 +42,4 @@ trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
     }.asJson
   }
 
-}
+}*/ 

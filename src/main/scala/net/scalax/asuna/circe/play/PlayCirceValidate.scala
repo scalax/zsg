@@ -69,7 +69,7 @@ trait PlayCirceValidate extends Status {
           query.tranData(j).map(s =>
             s.toEither.leftMap(onValidateError))
         }
-        Traverse[Either[Result, ?]].sequence(r).map(s => s.right.flatMap(identity))
+        Traverse[({ type X[Y] = Either[Result, Y] })#X].sequence(r).map(s => s.right.flatMap(identity))
       }
     }
 
