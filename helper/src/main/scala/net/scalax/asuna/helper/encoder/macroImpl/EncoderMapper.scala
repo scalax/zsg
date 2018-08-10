@@ -28,7 +28,7 @@ object EncoderMapper {
       val propertyType = weakTypeOf[PropertyType[_]]
 
       q"""
-        lazy val ${TermName(fieldName)}: $edsv = {
+        val ${TermName(fieldName)}: $edsv = {
           def ${TermName(defName)}[A, B, C](rep: A, propertyType: ${propertyType.typeSymbol}[B])(implicit shape: ${encoderShape.typeSymbol}[A, B, C, $abs]) = {
             val rep1 = rep
             val shape1 = shape
@@ -42,9 +42,11 @@ object EncoderMapper {
           def ${TermName(traitName)}(implicit columnInfo: $columnInfo): $edsv = {
             ${
         if (isMissingField) {
-          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
+          //q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
+          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[_root_.net.scalax.asuna.core.encoder.EncoderShapeValue[Any, $abs]]"""
         } else {
-          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
+          //q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
+          q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).asInstanceOf[_root_.net.scalax.asuna.core.encoder.EncoderShapeValue[Any, $abs]]"""
         }
       }
           }
@@ -80,9 +82,15 @@ object EncoderMapper {
         val termVar1 = TermName(c.freshName)
         val listSymbol = weakTypeOf[List[_]].typeSymbol.companion
 
+        //          $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
+
+        val toListTree = proNames.foldRight(q"""Nil""": Tree) { (name, tree) =>
+          q"""$termVar1.${TermName(name)} :: $tree"""
+        }
+
         val func = q"""
         { ($termVar1: $caseClass) =>
-          $listSymbol(..${proNames.map(eachName => q"""$termVar1.${TermName(eachName)}""")})
+$toListTree
         }
         """
 

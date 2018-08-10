@@ -14,21 +14,19 @@ trait CirceAsunaEncoder {
 
 }
 
-trait CirceAsunaEncoderImpl[E] extends AtomicColumn[E, CirceAsunaEncoder] with CirceAsunaEncoder {
+trait CirceAsunaEncoderImpl[E] extends CirceAsunaEncoder {
   self =>
 
   override type DataType = E
-  override def common: CirceAsunaEncoder = self
 
 }
 
-trait ListCirceAsunaEncoder[Rep, E] extends AtomicColumn[List[E], CirceAsunaEncoder] with CirceAsunaEncoder {
+trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
   self =>
 
   import io.circe.syntax._
 
   override type DataType = List[E]
-  override def common: CirceAsunaEncoder = self
 
   val rep: Rep
 

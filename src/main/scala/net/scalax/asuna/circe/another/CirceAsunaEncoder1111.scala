@@ -22,19 +22,19 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
     val shape1 = shape
     val rep1 = rep
     val wrapRep = shape1.wrapRep(rep1)
-    val reps = shape1.toLawRep(shape1.wrapRep(rep1), List.empty)
+    //val reps = shape1.toLawRep(shape1.wrapRep(rep1), List.empty)
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
-        val dataList = shape1.buildData(data, wrapRep, List.empty)
+        val dataList = shape1.buildData(data, wrapRep, List.empty).asInstanceOf[List[(String, Json)]]
         //val list = reps.zip(dataList).map { case (rep, data) => (rep.key, rep.write(data.asInstanceOf[rep.DataType])) }
-        val (_, list) = reps.foldLeft((dataList, List.empty[(String, Json)])) {
+        /*val (_, list) = reps.foldLeft((dataList, List.empty[(String, Json)])) {
           case ((items, r), rep) =>
             val head = items.head
             val json = rep.write(head.asInstanceOf[rep.DataType])
             val value = ((rep.key, json)) :: r
             (items.tail, value)
-        }
-        JsonObject.fromIterable(list)
+        }*/
+        JsonObject.fromIterable(dataList)
       }
     }
   }
@@ -42,6 +42,14 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder] with EncoderWrapp
 }
 
 trait CirceAsunaEncoderHelper {
+
+  implicit def sdfasfgefsgsertgdryhtryuhrtyh[D](implicit mColumnInfo: MacroColumnInfo): EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] = {
+    new EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder] {
+      override def wrapRep(base: CirceAsunaEncoderImpl[D]): CirceAsunaEncoderImpl[D] = base
+      override def toLawRep(base: CirceAsunaEncoderImpl[D], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
+      override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
+    }
+  }
 
   implicit def caseOnlyEncoderImplicit[Case]: ForTableInput[EmptyCirceTable, Case, CirceAsunaEncoder] = macro EncoderMapper.EncoderMapperImpl.impl[EmptyCirceTable, Case, CirceAsunaEncoder]
 
@@ -60,7 +68,7 @@ trait CirceAsunaEncoderHelper {
         }
         override def toLawRep(base: CirceAsunaEncoderImpl[D], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
 
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = data :: oldData
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
       }
     }
 
@@ -78,7 +86,7 @@ trait CirceAsunaEncoderHelper {
           }
         }
         override def toLawRep(base: CirceAsunaEncoderImpl[D], oldReps: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldReps
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = data :: oldData
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
       }
     }
     asunaEncoder.value match {
