@@ -1,5 +1,7 @@
 package net.scalax.asuna.circe
 
+import io.circe.Encoder
+
 object AbcTest02 extends CirceAsunaEncoderHelper with App {
 
   val times = 100000
@@ -44,11 +46,11 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   //need about 16s to compile
   //watse 2285ms
   {
-    import io.circe.syntax._
     import io.circe.generic.auto._
+    val encoder = implicitly[Encoder[LargeModel]]
     val data1 = System.currentTimeMillis
     for (_ <- collection) {
-      model.asJsonObject
+      encoder(model)
     }
     val data2 = System.currentTimeMillis
     println(s"circe 序列化 $times 次消耗了 ${data2 - data1} 毫秒")
