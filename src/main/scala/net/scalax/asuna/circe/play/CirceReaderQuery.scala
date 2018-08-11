@@ -25,7 +25,7 @@ trait CirceReaderQuery[U] {
 
   def sequence[T](list: List[Future[Validated[ValidateModel, T]]]): Future[Validated[ValidateModel, List[T]]] = {
     Traverse[List].sequence(list).map(models =>
-      Traverse[List].sequence[Validated[ValidateModel, ?], T](models))
+      Traverse[List].sequence[({ type X[U] = Validated[ValidateModel, U] })#X, T](models))
   }
 
   def validateJson(list: List[CirceReaderAbs], jsonObj: JsonObject): Future[Validated[ValidateModel, List[Any]]] = {

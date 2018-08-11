@@ -20,6 +20,10 @@ trait ModelGen[Model] {
   def apply[Pro](f: Model => Pro): PropertyType[Pro] = new PropertyType[Pro] {}
 }
 
+object ModelGen {
+  def value[Model]: ModelGen[Model] = new ModelGen[Model] {}
+}
+
 trait PropertyFunAbs[Abs] {
   self =>
 

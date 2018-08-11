@@ -1,7 +1,7 @@
 package net.scalax.asuna.core
 
 import cats.Traverse
-import io.circe.Decoder
+import io.circe.{ Decoder, Encoder }
 import cats.data._
 import cats.implicits._
 import io.circe.generic.JsonCodec
@@ -12,11 +12,21 @@ import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderW
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-@JsonCodec
 case class ValidateField(field: String, message: String)
 
-@JsonCodec
+object ValidateField {
+  import io.circe.generic.auto._
+  implicit val aa = implicitly[Encoder[ValidateField]]
+  implicit val bb = implicitly[Decoder[ValidateField]]
+}
+
 case class ValidateModel(whole: List[String] = List.empty, fields: List[ValidateField] = List.empty)
+
+object ValidateModel {
+  import io.circe.generic.auto._
+  implicit val cc = implicitly[Encoder[ValidateModel]]
+  implicit val dd = implicitly[Decoder[ValidateModel]]
+}
 
 trait CirceReaderAbs {
 
@@ -68,7 +78,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
       override def keyName = self.keyName
       override def circeReader = self.circeReader
       override def validate(common: T) = {
-        self.validate(common).map(_.map(c)).flatMap(r => Traverse[Validated[ValidateModel, ?]].sequence(r))
+        self.validate(common).map(_.map(c)).flatMap(r => Traverse[({ type X[V] = Validated[ValidateModel, V] })#X].sequence(r))
       }
     }
     r
@@ -84,7 +94,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs with AtomicColumn[R, CirceRea
             ValidateModel(fields = s.map(msg => ValidateField(field = keyName, message = msg)).toList)
           })
         }
-        self.validate(common).flatMap(s => Traverse[Validated[ValidateModel, ?]].sequence(s.map(r)).map(_.andThen(identity)))
+        self.validate(common).flatMap(s => Traverse[({ type X[V] = Validated[ValidateModel, V] })#X].sequence(s.map(r)).map(_.andThen(identity)))
       }
     }
     r

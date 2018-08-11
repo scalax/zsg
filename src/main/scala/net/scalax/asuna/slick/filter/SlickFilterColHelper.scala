@@ -52,9 +52,9 @@ trait SlickFilterColHelper {
     def inputData(data: Data)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]]
   }
 
-  object filter extends EncoderHelper[SlickFilterCol] with EncoderWrapperHelper[SlickFilterCol, InputData] {
+  object filter extends EncoderHelper[SlickFilterCol, Any] with EncoderWrapperHelper[SlickFilterCol, Any, InputData] {
 
-    override def effect[E, U, R](rep: E)(implicit shape: EncoderShape[E, U, R, SlickFilterCol]): InputData[R, U] = {
+    override def effect[E, U, R](rep: E)(implicit shape: EncoderShape[E, U, R, SlickFilterCol, Any]): InputData[R, U] = {
       new InputData[R, U] {
         override def inputData(data: U)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]] = {
           val w = shape.wrapRep(rep)
@@ -73,6 +73,14 @@ trait SlickFilterColHelper {
       }
     }
 
+  }
+
+  implicit def filterShapeImplicit[T]: EncoderShape[SlickFilterColImpl[T], T, SlickFilterColImpl[T], SlickFilterCol, Any] = {
+    new EncoderShape[SlickFilterColImpl[T], T, SlickFilterColImpl[T], SlickFilterCol, Any] {
+      override def wrapRep(base: SlickFilterColImpl[T]): SlickFilterColImpl[T] = base
+      override def toLawRep(base: SlickFilterColImpl[T], oldRep: List[SlickFilterCol]): List[SlickFilterCol] = base :: oldRep
+      override def buildData(data: T, rep: SlickFilterColImpl[T], oldData: List[Any]): List[Any] = data :: oldData
+    }
   }
 
   implicit def JsonKeyWithSlickFilterExtensionMethod[D](implicit b: BaseTypedType[D], profile: slick.jdbc.JdbcProfile): SFilterColHelper[D] = {

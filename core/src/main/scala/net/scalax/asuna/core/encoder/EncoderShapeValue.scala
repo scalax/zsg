@@ -1,21 +1,21 @@
 package net.scalax.asuna.core.encoder
 
-trait EncoderShapeValue[U, T] {
+trait EncoderShapeValue[U, RepCol, DataCol] {
   self =>
 
   type RepType
   val rep: RepType
-  val shape: EncoderShape[RepType, U, RepType, T]
+  val shape: EncoderShape[RepType, U, RepType, RepCol, DataCol]
 
-  def emap[F](cv: F => U): EncoderShapeValue[F, T] = new EncoderShapeValue[F, T] {
+  def emap[F](cv: F => U): EncoderShapeValue[F, RepCol, DataCol] = new EncoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType
     override val rep = self.rep
-    override val shape = new EncoderShape[self.RepType, F, self.RepType, T] {
+    override val shape = new EncoderShape[self.RepType, F, self.RepType, RepCol, DataCol] {
       innerSelf =>
 
       override def wrapRep(base: self.RepType): self.RepType = base
-      override def toLawRep(base: self.RepType, oldRep: List[T]): List[T] = self.shape.toLawRep(self.rep, oldRep)
-      override def buildData(data: F, rep: self.RepType, oldData: List[Any]): List[Any] = self.shape.buildData(cv(data), rep, oldData)
+      override def toLawRep(base: self.RepType, oldRep: List[RepCol]): List[RepCol] = self.shape.toLawRep(self.rep, oldRep)
+      override def buildData(data: F, rep: self.RepType, oldData: List[DataCol]): List[DataCol] = self.shape.buildData(cv(data), rep, oldData)
 
     }
   }
@@ -24,12 +24,12 @@ trait EncoderShapeValue[U, T] {
 
 object EncoderShapeValue {
 
-  implicit def dataShapeValueShape[U, T]: EncoderShape[EncoderShapeValue[U, T], U, EncoderShapeValue[U, T], T] = {
-    new EncoderShape[EncoderShapeValue[U, T], U, EncoderShapeValue[U, T], T] {
+  implicit def dataShapeValueShape[U, RepCol, DataCol]: EncoderShape[EncoderShapeValue[U, RepCol, DataCol], U, EncoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
+    new EncoderShape[EncoderShapeValue[U, RepCol, DataCol], U, EncoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] {
       self =>
-      override def wrapRep(base: EncoderShapeValue[U, T]): EncoderShapeValue[U, T] = base
-      override def toLawRep(base: EncoderShapeValue[U, T], oldRep: List[T]): List[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
-      override def buildData(data: U, rep: EncoderShapeValue[U, T], oldData: List[Any]): List[Any] = rep.shape.buildData(data, rep.rep, oldData)
+      override def wrapRep(base: EncoderShapeValue[U, RepCol, DataCol]): EncoderShapeValue[U, RepCol, DataCol] = base
+      override def toLawRep(base: EncoderShapeValue[U, RepCol, DataCol], oldRep: List[RepCol]): List[RepCol] = base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
+      override def buildData(data: U, rep: EncoderShapeValue[U, RepCol, DataCol], oldData: List[DataCol]): List[DataCol] = rep.shape.buildData(data, rep.rep, oldData)
     }
   }
 

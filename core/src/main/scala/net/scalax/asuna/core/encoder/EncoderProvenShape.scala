@@ -2,23 +2,23 @@ package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 
-trait EncoderProvenShape[U, T] {
-  val dataShapeValue: EncoderShapeValue[U, T]
+trait EncoderProvenShape[U, RepCol, DataCol] {
+  val dataShapeValue: EncoderShapeValue[U, RepCol, DataCol]
 }
 
 object EncoderProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, T, R <: EncoderProvenShape[U, T]]: EncoderShape[R, U, R, T] = {
+  implicit def dataProvenShapeShape[E, U, RepCol, DataCol, R <: EncoderProvenShape[U, RepCol, DataCol]]: EncoderShape[R, U, R, RepCol, DataCol] = {
 
-    new EncoderShape[R, U, R, T] {
+    new EncoderShape[R, U, R, RepCol, DataCol] {
       self =>
 
       override def wrapRep(base: R): R = base
 
-      override def toLawRep(base: R, oldRep: List[T]): List[T] =
+      override def toLawRep(base: R, oldRep: List[RepCol]): List[RepCol] =
         base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), oldRep)
 
-      override def buildData(data: U, rep: R, oldData: List[Any]): List[Any] =
+      override def buildData(data: U, rep: R, oldData: List[DataCol]): List[DataCol] =
         rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep, oldData)
 
     }
