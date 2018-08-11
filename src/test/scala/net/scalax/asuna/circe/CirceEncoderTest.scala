@@ -3,6 +3,7 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
+import net.scalax.asuna.circe.another.EncoderContentAbs
 import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
@@ -53,7 +54,6 @@ class CirceEncoderTest extends FlatSpec
 
     val jsonObject = circeEncoder11111111.write(model)
 
-    println("11" * 100)
     println(jsonObject)
 
   }

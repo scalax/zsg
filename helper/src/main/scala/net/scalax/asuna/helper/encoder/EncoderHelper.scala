@@ -14,6 +14,10 @@ trait ForTableInput[Table, Case, RepCol, DataCol] {
   def input(table: Table): EncoderShapeValue[Case, RepCol, DataCol]
 }
 
+class ForTableInputImpl[Table, Case, RepCol, DataCol](tableGen: Table => EncoderShapeValue[Case, RepCol, DataCol]) extends ForTableInput[Table, Case, RepCol, DataCol] {
+  override def input(table: Table): EncoderShapeValue[Case, RepCol, DataCol] = tableGen(table)
+}
+
 trait EncoderContent[RepOut, DataType]
 
 trait EncoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _]] {
@@ -21,3 +25,7 @@ trait EncoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _
 }
 
 trait EncoderHelper[RepCol, DataCol] extends EncoderDataShapeValueHelper[RepCol, DataCol] with CaseClassEncoderShapeMapperHelper[RepCol, DataCol]
+
+object EncoderHelper {
+  def value[RepCol, DataCol]: EncoderHelper[RepCol, DataCol] = new EncoderHelper[RepCol, DataCol] {}
+}

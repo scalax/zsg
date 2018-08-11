@@ -2,16 +2,18 @@ package net.scalax.asuna.circe
 
 object AbcTest02 extends CirceAsunaEncoderHelper with App {
 
-  val times = 100000
+  val preTimes = 10000
+  val testTimes = 100000
 
-  val collection = 1 to times
+  val preCollection = 1 to preTimes
+  val testCollection = 1 to testTimes
 
   val model: LargeModel = LargeModel()
 
   {
     object Abc
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
-    for (_ <- collection) {
+    for (_ <- preCollection) {
       io.circe.Json.fromJsonObject(circeEncoder.write(model))
     }
   }
@@ -19,13 +21,13 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
   {
     import io.circe.syntax._
     import io.circe.generic.auto._
-    for (_ <- collection) {
+    for (_ <- preCollection) {
       model.asJsonObject
     }
   }
 
   //need about 3s to compile
-  //watse 1756ms
+  //watse 1262ms
   {
     object Abc {
       //the property i12 will covert to Int and use Int Encoder and custom key
@@ -33,24 +35,24 @@ object AbcTest02 extends CirceAsunaEncoderHelper with App {
     }
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].input(Abc))
     val data1 = System.currentTimeMillis
-    for (_ <- collection) {
+    for (_ <- testCollection) {
       io.circe.Json.fromJsonObject(circeEncoder.write(model))
     }
     val data2 = System.currentTimeMillis
-    println(s"asuna 序列化 $times 次消耗了 ${data2 - data1} 毫秒")
+    println(s"asuna 序列化 $testTimes 次消耗了 ${data2 - data1} 毫秒")
   }
 
   //need about 16s to compile
-  //watse 2006ms
+  //watse 2102ms
   {
     import io.circe.generic.auto._
     val encoder = implicitly[io.circe.Encoder[LargeModel]]
     val data1 = System.currentTimeMillis
-    for (_ <- collection) {
+    for (_ <- testCollection) {
       encoder(model)
     }
     val data2 = System.currentTimeMillis
-    println(s"circe 序列化 $times 次消耗了 ${data2 - data1} 毫秒")
+    println(s"circe 序列化 $testTimes 次消耗了 ${data2 - data1} 毫秒")
   }
 
 }
