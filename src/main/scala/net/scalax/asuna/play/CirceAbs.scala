@@ -4,7 +4,6 @@ import cats.Traverse
 import io.circe.{ Decoder, Encoder }
 import cats.data._
 import cats.implicits._
-import io.circe.generic.JsonCodec
 import net.scalax.asuna.core.common.AtomicColumn
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
