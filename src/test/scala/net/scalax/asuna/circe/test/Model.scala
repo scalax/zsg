@@ -100,30 +100,17 @@ case class LargeModel(
   i97: String = "init string",
   i98: String = "init string",
   i99: String = "init string",
-  i100: String = "init string",
-  i101: String = "init string",
-  i102: String = "init string",
-  i103: String = "init string",
-  i104: String = "init string",
-  i105: String = "init string",
-  i106: String = "init string",
-  i107: String = "init string",
-  i108: Int = 11121314,
-  i109: String = "init string",
-  i110: String = "init string",
-  i111: String = "init string",
-  i112: String = "init string",
-  i113: String = "init string",
-  i114: String = "init string",
-  i115: String = "init string",
-  i116: String = "init string")
+  i100: String = "init string")
 
 case class Hahahah(
-  i1: LargeModel = LargeModel(i103 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
-  i2: LargeModel = LargeModel(i104 = "bbbbbbbbbbbbbb"),
-  i3: LargeModel = LargeModel(i105 = "cccccccccccc"),
-  i4: LargeModel = LargeModel(i106 = "ddddddddddddddddd"),
-  i5: LargeModel = LargeModel(i107 = "eeeeeeeeeeeeeeeeeee"),
-  i6: LargeModel = LargeModel(i108 = 8867))
+  i1: LargeModel = LargeModel(i89 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
+  i2: LargeModel = LargeModel(i90 = "bbbbbbbbbbbbbb"),
+  i3: LargeModel = LargeModel(i91 = "cccccccccccc"),
+  i4: LargeModel = LargeModel(i94 = 8867))
 
 case class MiaoMiao(i1: Hahahah = Hahahah())
+
+case class Hahahah2(
+  i1: LargeModel = LargeModel(i93 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
+
+case class MiaoMiao2(i1: Hahahah2 = Hahahah2())

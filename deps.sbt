@@ -25,7 +25,7 @@ libraryDependencies ++= Seq(
 ).map(_ % circeVersion)
 
 libraryDependencies ++= {
-  val playV = "2.6.13"
+  val playV = "2.6.17"
   Seq(
     "com.typesafe.play" %% "play" % playV,
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
@@ -48,3 +48,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-testkit" % "10.1.3",
   "com.typesafe.akka" %% "akka-stream" % "2.5.12"
 )
+
+libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.0"
+
+libraryDependencies += "com.github.fommil" % "spray-json-shapeless_2.12" % "1.4.0"
+
+libraryDependencies += "ai.x" %% "play-json-extensions" % "0.10.0"
