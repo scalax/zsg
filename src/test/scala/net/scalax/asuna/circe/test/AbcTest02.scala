@@ -48,7 +48,6 @@ object AbcTest02 extends Json4sAsunaEncoderHelper with App {
 
     val data2 = System.currentTimeMillis
     TestResult(times = TestParam.testTimes, millions = data2 - data1, jsonModel = json4sEncoder.write(model))
-
   }
 
   println(s"json4s 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")
