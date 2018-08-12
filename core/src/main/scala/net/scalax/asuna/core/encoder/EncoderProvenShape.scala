@@ -15,10 +15,10 @@ object EncoderProvenShape {
 
       override def wrapRep(base: R): R = base
 
-      override def toLawRep(base: R, oldRep: List[RepCol]): List[RepCol] =
+      override def toLawRep(base: R, oldRep: RepCol): RepCol =
         base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), oldRep)
 
-      override def buildData(data: U, rep: R, oldData: List[DataCol]): List[DataCol] =
+      override def buildData(data: U, rep: R, oldData: DataCol): DataCol =
         rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep, oldData)
 
     }

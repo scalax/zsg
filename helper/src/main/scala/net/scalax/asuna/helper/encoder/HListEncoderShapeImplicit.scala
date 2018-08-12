@@ -8,8 +8,8 @@ trait HListEncoderShapeImplicit {
   implicit def hlistEncoderImplicit1[RepCol, DataCol]: EncoderShape[HNil, HNil, HNil, RepCol, DataCol] = {
     new EncoderShape[HNil, HNil, HNil, RepCol, DataCol] {
       override def wrapRep(base: HNil): HNil = base
-      override def toLawRep(base: HNil, oldRep: List[RepCol]): List[RepCol] = oldRep
-      override def buildData(data: HNil, rep: HNil, oldData: List[DataCol]): List[DataCol] = oldData
+      override def toLawRep(base: HNil, oldRep: RepCol): RepCol = oldRep
+      override def buildData(data: HNil, rep: HNil, oldData: DataCol): DataCol = oldData
     }
   }
 
@@ -23,14 +23,14 @@ trait HListEncoderShapeImplicit {
         head.wrapRep(headRep) :: tail.wrapRep(tailRep)
       }
 
-      override def toLawRep(base: M :: N, oldRep: List[RepCol]): List[RepCol] = {
+      override def toLawRep(base: M :: N, oldRep: RepCol): RepCol = {
         val headRep :: tailRep = base
         val tailReps = tail.toLawRep(tailRep, oldRep)
         head.toLawRep(headRep, tailReps)
         //DataRepGroup(reps = headGroup.reps ::: tailGroup.reps)
       }
 
-      override def buildData(data: H :: I, rep: M :: N, oldData: List[DataCol]): List[DataCol] = {
+      override def buildData(data: H :: I, rep: M :: N, oldData: DataCol): DataCol = {
         val h :: i = data
         val m :: n = rep
         val tailData = tail.buildData(i, n, oldData)

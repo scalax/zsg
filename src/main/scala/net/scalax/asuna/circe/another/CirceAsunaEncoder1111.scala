@@ -16,16 +16,16 @@ trait ACirceEncoderWrapper[RepOut, DataType] extends EncoderContent[RepOut, Data
   def write(data: DataType): JsonObject
 }
 
-object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder, Any] with EncoderWrapperHelper[CirceAsunaEncoder, Any, ACirceEncoderWrapper] {
+object asunaCirceImpl extends EncoderHelper[List[CirceAsunaEncoder], List[(String, Json)]] with EncoderWrapperHelper[List[CirceAsunaEncoder], List[(String, Json)], ACirceEncoderWrapper] {
 
-  override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, CirceAsunaEncoder, Any]): ACirceEncoderWrapper[Out, D] = {
+  override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): ACirceEncoderWrapper[Out, D] = {
     val shape1 = shape
     val rep1 = rep
     val wrapRep = shape1.wrapRep(rep1)
     //val reps = shape1.toLawRep(shape1.wrapRep(rep1), List.empty)
     new ACirceEncoderWrapper[Out, D] {
       override def write(data: D): JsonObject = {
-        val dataList = shape1.buildData(data, wrapRep, List.empty).asInstanceOf[List[(String, Json)]]
+        val dataList = shape1.buildData(data, wrapRep, List.empty)
         //val list = reps.zip(dataList).map { case (rep, data) => (rep.key, rep.write(data.asInstanceOf[rep.DataType])) }
         /*val (_, list) = reps.foldLeft((dataList, List.empty[Any])) {
           case ((items, r), rep) =>
@@ -41,21 +41,25 @@ object asunaCirceImpl extends EncoderHelper[CirceAsunaEncoder, Any] with Encoder
 
 }
 
-trait CirceAsunaEncoderHelper {
+trait aa[A, B, C] {
+  implicit def caseOnlyEncoderImplicit[Case]: ForTableInput[A, Case, B, C] = macro EncoderMapper.EncoderMapperImpl.impl[A, Case, B, C]
+}
 
-  implicit def sdfasfgefsgsertgdryhtryuhrtyh[D](implicit mColumnInfo: MacroColumnInfo): EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] = {
-    new EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] {
+trait CirceAsunaEncoderHelper extends aa[EmptyCirceTable, List[CirceAsunaEncoder], List[(String, Json)]] {
+
+  implicit def sdfasfgefsgsertgdryhtryuhrtyh[D](implicit mColumnInfo: MacroColumnInfo): EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] = {
+    new EncoderShape[CirceAsunaEncoderImpl[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] {
       override def wrapRep(base: CirceAsunaEncoderImpl[D]): CirceAsunaEncoderImpl[D] = base
       override def toLawRep(base: CirceAsunaEncoderImpl[D], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
-      override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
+      override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[(String, Json)]): List[(String, Json)] = ((rep.key, rep.write(data))) :: oldData
     }
   }
 
-  implicit def caseOnlyEncoderImplicit[Case]: ForTableInput[EmptyCirceTable, Case, CirceAsunaEncoder, Any] = macro EncoderMapper.EncoderMapperImpl.impl[EmptyCirceTable, Case, CirceAsunaEncoder, Any]
+  //implicit def caseOnlyEncoderImplicit1111[Case]: ForTableInput[EmptyCirceTable, Case, List[CirceAsunaEncoder], List[(String, Json)]] = macro EncoderMapper.EncoderMapperImpl.impl1111[EmptyCirceTable, Case, List[CirceAsunaEncoder], List[(String, Json)]]
 
-  implicit def eriosjgiserhtieshtehrt[D](implicit mColumnInfo: MacroColumnInfo, asunaEncoder: Lazy[EncoderContentAbs[D]]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] = {
-    def exsistingCirceEncoderToShape(proName: String, circeEncoder: Encoder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] = {
-      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] {
+  implicit def eriosjgiserhtieshtehrt[D](implicit mColumnInfo: MacroColumnInfo, asunaEncoder: Lazy[EncoderContentAbs[D]]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] = {
+    def exsistingCirceEncoderToShape(proName: String, circeEncoder: Encoder[D]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] = {
+      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
           override val key = proName
           override def write(data: D): Json = {
@@ -68,13 +72,13 @@ trait CirceAsunaEncoderHelper {
         }
         override def toLawRep(base: CirceAsunaEncoderImpl[D], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
 
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[(String, Json)]): List[(String, Json)] = ((rep.key, rep.write(data))) :: oldData
       }
     }
 
-    def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, CirceAsunaEncoder, Any]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] = {
+    def asunaInputTableToShape(proName: String, asunaEncoder: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]): EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] = {
       lazy val subEncoder = asunaCirceImpl.effect(asunaEncoder.input(EmptyCirceTable.value))
-      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], CirceAsunaEncoder, Any] {
+      new EncoderShape[Placeholder[D], D, CirceAsunaEncoderImpl[D], List[CirceAsunaEncoder], List[(String, Json)]] {
         override def wrapRep(base: Placeholder[D]): CirceAsunaEncoderImpl[D] = new CirceAsunaEncoderImpl[D] {
           override val key = proName
           override def write(data: D): Json = {
@@ -86,7 +90,7 @@ trait CirceAsunaEncoderHelper {
           }
         }
         override def toLawRep(base: CirceAsunaEncoderImpl[D], oldReps: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldReps
-        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[Any]): List[Any] = ((rep.key, rep.write(data))) :: oldData
+        override def buildData(data: D, rep: CirceAsunaEncoderImpl[D], oldData: List[(String, Json)]): List[(String, Json)] = ((rep.key, rep.write(data))) :: oldData
       }
     }
     asunaEncoder.value match {

@@ -25,7 +25,7 @@ trait EncoderDataShapeValueHelper[RepCol, DataCol] {
     new EncoderShapeValue[List[B], RepCol, DataCol] {
       override type RepType = List[C]
       override val rep = rep1.map(r => shape1.wrapRep(r))
-      override val shape = ListEncoderShapeImplicit.listDateShapeExt(shape1.packed)
+      override val shape = EncoderShape.listDateShapeExt(shape1.packed)
     }
   }
 
@@ -33,7 +33,7 @@ trait EncoderDataShapeValueHelper[RepCol, DataCol] {
     new EncoderShapeValue[List[Any], RepCol, DataCol] {
       override type RepType = List[EncoderShapeValue[Any, RepCol, DataCol]]
       override val rep = reps
-      override val shape = ListEncoderShapeImplicit.listDateShapeExt(implicitly[EncoderShape[EncoderShapeValue[Any, RepCol, DataCol], Any, EncoderShapeValue[Any, RepCol, DataCol], RepCol, DataCol]])
+      override val shape = EncoderShape.listDateShapeExt(implicitly[EncoderShape[EncoderShapeValue[Any, RepCol, DataCol], Any, EncoderShapeValue[Any, RepCol, DataCol], RepCol, DataCol]])
     }
   }
 

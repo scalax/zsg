@@ -132,7 +132,7 @@ object EncoderMapper {
         """
 
         val q = q"""
-        ${TermName(encoderHelper)}.listAny(
+        ${TermName(encoderHelper)}.shaped(
           _root_.scala.List.apply(..${proNames.map(eachName => q"""${TermName(eachName.shapeValueName)}""")})
         ).emap($func)
         """

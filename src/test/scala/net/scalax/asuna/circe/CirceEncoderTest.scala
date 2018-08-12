@@ -5,6 +5,7 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import net.scalax.asuna.circe.another.EncoderContentAbs
 import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
+import net.scalax.asuna.helper.encoder.ForTableInput
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
@@ -51,11 +52,9 @@ class CirceEncoderTest extends FlatSpec
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, test2)
 
     val circeEncoder11111111 = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel].input(EmptyCirceTable.value))
-
     val jsonObject = circeEncoder11111111.write(model)
-
     println(jsonObject)
-
+    caseOnlyEncoderImplicit[TestModel2]
   }
 
 }
