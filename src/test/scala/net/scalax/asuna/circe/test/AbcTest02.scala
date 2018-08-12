@@ -1,9 +1,6 @@
 package net.scalax.asuna.circe
 
 import net.scalax.asuna.circe.json4s.Json4sAsunaEncoderHelper
-import org.json4s.NoTypeHints
-import org.json4s.native.Serialization
-import org.json4s.native.Serialization.write
 
 object AbcTest02 extends Json4sAsunaEncoderHelper with App {
 
@@ -57,11 +54,21 @@ object AbcTest02 extends Json4sAsunaEncoderHelper with App {
   {
     val data1 = System.currentTimeMillis
     for (_ <- TestParam.testCollection) {
-      implicit val formats = Serialization.formats(NoTypeHints)
-      write(result1.jsonModel)
+      implicit val formats = org.json4s.native.Serialization.formats(org.json4s.NoTypeHints)
+      org.json4s.native.Serialization.write(result1.jsonModel)
     }
     val data2 = System.currentTimeMillis
-    println(s"转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
+    println(s"native 底层转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
+  }
+
+  {
+    val data1 = System.currentTimeMillis
+    for (_ <- TestParam.testCollection) {
+      implicit val formats = org.json4s.jackson.Serialization.formats(org.json4s.NoTypeHints)
+      org.json4s.jackson.Serialization.write(result1.jsonModel)
+    }
+    val data2 = System.currentTimeMillis
+    println(s"jackson 底层转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
   }
 
 }
