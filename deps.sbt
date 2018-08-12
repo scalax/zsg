@@ -50,6 +50,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.0"
+libraryDependencies += "org.json4s" %% "json4s-jackson" % "3.6.0"
 
 libraryDependencies += "com.github.fommil" % "spray-json-shapeless_2.12" % "1.4.0"
 
