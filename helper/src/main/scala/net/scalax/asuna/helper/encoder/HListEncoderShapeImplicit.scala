@@ -1,44 +1,51 @@
 package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.EncoderShape
-import shapeless.{ ::, HList, HNil }
+import net.scalax.asuna.helper.MacroColumnInfo
+import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 
-trait HListEncoderShapeImplicit {
+trait HListEncoderShapeWrap[Rep, Data, RepCol, DataCol] {
 
-  implicit def hlistEncoderImplicit1[RepCol, DataCol]: EncoderShape[HNil, HNil, HNil, RepCol, DataCol] = {
-    new EncoderShape[HNil, HNil, HNil, RepCol, DataCol] {
-      override def wrapRep(base: HNil): HNil = base
-      override def toLawRep(base: HNil, oldRep: RepCol): RepCol = oldRep
-      override def buildData(data: HNil, rep: HNil, oldData: DataCol): DataCol = oldData
+  val rep: Rep
+  val columnInfo: MacroColumnInfo
+
+}
+
+trait EncoderWitCol[RepCol, DataCol] {
+  def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D, RepCol, DataCol] = {
+    val rep1 = rep
+    val columnInfo1 = columnInfo
+    new HListEncoderShapeWrap[T, D, RepCol, DataCol] {
+      override val rep: T = rep1
+      override val columnInfo = columnInfo1
+    }
+  }
+}
+
+object EncoderWitCol {
+  def value[RepCol, DataCol]: EncoderWitCol[RepCol, DataCol] = new EncoderWitCol[RepCol, DataCol] {}
+}
+
+trait CaseRepWrap[Table, Case, RepCol, DataCol] {
+
+  type Rep
+  def input(table: Table): Rep
+
+}
+
+object CaseRepWrap {
+  type Aux[Table, Case, R, RepCol, DatCol] = CaseRepWrap[Table, Case, RepCol, DatCol] { type Rep = R }
+
+  trait WrapApply[RepCol, DataCol] {
+    def withFunc[Table, Rep1, Case](func: Table => Rep1, mg: ModelGen[Case]): CaseRepWrap.Aux[Table, Case, Rep1, RepCol, DataCol] = new CaseRepWrap[Table, Case, RepCol, DataCol] {
+      override type Rep = Rep1
+      override def input(table: Table): Rep = func(table)
     }
   }
 
-  implicit def hlistEncoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, RepCol, DataCol](implicit head: EncoderShape[A, H, M, RepCol, DataCol], tail: EncoderShape[B, I, N, RepCol, DataCol]): EncoderShape[A :: B, H :: I, M :: N, RepCol, DataCol] = {
+  def value[RepCol, DataCol]: WrapApply[RepCol, DataCol] = new WrapApply[RepCol, DataCol] {}
+}
 
-    new EncoderShape[A :: B, H :: I, M :: N, RepCol, DataCol] {
-      self =>
-
-      override def wrapRep(base: A :: B): M :: N = {
-        val headRep :: tailRep = base
-        head.wrapRep(headRep) :: tail.wrapRep(tailRep)
-      }
-
-      override def toLawRep(base: M :: N, oldRep: RepCol): RepCol = {
-        val headRep :: tailRep = base
-        val tailReps = tail.toLawRep(tailRep, oldRep)
-        head.toLawRep(headRep, tailReps)
-        //DataRepGroup(reps = headGroup.reps ::: tailGroup.reps)
-      }
-
-      override def buildData(data: H :: I, rep: M :: N, oldData: DataCol): DataCol = {
-        val h :: i = data
-        val m :: n = rep
-        val tailData = tail.buildData(i, n, oldData)
-        head.buildData(h, m, tailData)
-      }
-
-    }
-
-  }
+trait AsunaEncoderGenericContent[RepCol, DataCol] {
 
 }

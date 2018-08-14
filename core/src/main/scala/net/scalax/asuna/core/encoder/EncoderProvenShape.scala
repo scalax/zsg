@@ -8,10 +8,12 @@ trait EncoderProvenShape[U, RepCol, DataCol] {
 
 object EncoderProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, RepCol, DataCol, R <: EncoderProvenShape[U, RepCol, DataCol]]: EncoderShape[R, U, R, RepCol, DataCol] = {
+  implicit def dataProvenShapeShape[E, U, RepCol, DataCol, R <: EncoderProvenShape[U, RepCol, DataCol]]: EncoderShape.Aux[R, U, R, RepCol, DataCol] = {
 
-    new EncoderShape[R, U, R, RepCol, DataCol] {
+    new EncoderShape[R, U, RepCol, DataCol] {
       self =>
+
+      override type Target = R
 
       override def wrapRep(base: R): R = base
 

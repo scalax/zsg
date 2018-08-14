@@ -2,27 +2,31 @@ package net.scalax.asuna.circe.another
 
 import io.circe.{ Encoder, Json }
 import net.scalax.asuna.circe.EmptyCirceTable
-import net.scalax.asuna.circe.aaaa.CirceAsunaEncoder
+import net.scalax.asuna.circe.aaaa.{ CirceAsunaEncoder, CirceAsunaEncoderImpl }
+import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.helper.encoder.ForTableInput
 import shapeless.Lazy
 
-sealed trait EncoderContentAbs[D]
-
-trait CirceEncoderContent[D] extends EncoderContentAbs[D] {
-  val circeEncoder: Encoder[D]
-
+sealed trait EncoderContentAbs[Rep, D] {
+  type RepOut
 }
 
-trait AsunaEncoderContent[D] extends EncoderContentAbs[D] {
-  val asunaEncoder: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]
+trait CirceEncoderContent[D] extends EncoderContentAbs[Placeholder[D], D] {
+  val circeEncoder: Encoder[D]
+}
 
+trait AsunaEncoderContent[D] extends EncoderContentAbs[Placeholder[D], D] {
+  val asunaEncoder: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]
 }
 
 object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
-  implicit def circeEncoder[D](implicit encoder: Lazy[Encoder[D]]): EncoderContentAbs[D] = {
+  type Aux[Rep, D, RO] = EncoderContentAbs[Rep, D] { type RepOut = RO }
+
+  implicit def circeEncoder[D](implicit encoder: Lazy[Encoder[D]]): EncoderContentAbs.Aux[Placeholder[D], D, CirceAsunaEncoderImpl[D]] = {
     val encoder1 = encoder.value
     object impl extends CirceEncoderContent[D] {
+      override type RepOut = CirceAsunaEncoderImpl[D]
       override val circeEncoder = encoder1
     }
     impl
@@ -32,9 +36,10 @@ object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
 trait AsunaCirceEncoderContentImplicit {
 
-  implicit def asunaEncoder[D](implicit aeo: Lazy[ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]]): EncoderContentAbs[D] = {
+  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]): EncoderContentAbs.Aux[Placeholder[D], D, CirceAsunaEncoderImpl[D]] = {
     object impl extends AsunaEncoderContent[D] {
-      override val asunaEncoder = aeo.value
+      override type RepOut = CirceAsunaEncoderImpl[D]
+      override val asunaEncoder = aeo
     }
     impl
   }

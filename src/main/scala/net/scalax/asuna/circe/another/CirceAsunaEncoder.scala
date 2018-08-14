@@ -27,7 +27,7 @@ trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
 
   val rep: Rep
 
-  val shape: EncoderShape[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
+  val shape: EncoderShape.Aux[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
 
   val listEncoder = implicitly[Encoder[List[Json]]]
 
@@ -49,7 +49,7 @@ trait OptionCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
 
   val rep: Rep
 
-  val shape: EncoderShape[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
+  val shape: EncoderShape.Aux[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
 
   val optEncoder = implicitly[Encoder[Option[Json]]]
 
