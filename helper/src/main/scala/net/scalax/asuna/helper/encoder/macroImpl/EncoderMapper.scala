@@ -5,22 +5,25 @@ import java.util.UUID
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import net.scalax.asuna.helper.{ MacroColumnInfo, MacroColumnInfoImpl }
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
-import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput, ForTableInputImpl }
+import net.scalax.asuna.helper.encoder.{ EncoderHelper, ForTableInput }
+import shapeless.Lazy
 
 import scala.reflect.macros.blackbox.Context
 
 object EncoderMapper {
 
   class ProEncoderWrap[RepCol, DataCol]() {
-    def propertySv[A, B, C](rep: A, propertyType: PropertyType[B])(implicit shape: EncoderShape[A, B, C, RepCol, DataCol]): EncoderShapeValue[Any, RepCol, DataCol] = {
+
+    def propertySv[A, B, C](rep: A, propertyType: PropertyType[B])(implicit shape: Lazy[EncoderShape[A, B, C, RepCol, DataCol]]): EncoderShapeValue[Any, RepCol, DataCol] = {
       val rep1 = rep
-      val shape1 = shape
+      val shape1 = shape.value
       new EncoderShapeValue[B, RepCol, DataCol] {
         override type RepType = C
         override val rep = shape1.wrapRep(rep1)
         override val shape = shape1.packed
       }.asInstanceOf[EncoderShapeValue[Any, RepCol, DataCol]]
     }
+
   }
 
   object ProEncoderWrap {
@@ -58,6 +61,7 @@ object EncoderMapper {
           }
        */
 
+      //内置 implicit 查找方法
       val q = q"""
         val ${TermName(fieldName.shapeValueName)} = {
             def ${TermName(defName)}[A, B, C](rep: A, propertyType: _root_.net.scalax.asuna.helper.decoder.macroImpl.PropertyType[B])(implicit shape: _root_.net.scalax.asuna.core.encoder.EncoderShape[A, B, C, $repCol, $dataCol]) = {
@@ -68,10 +72,12 @@ object EncoderMapper {
             ${
         if (isMissingField) {
           //q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
-          q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
+          //q"""${TermName(defName)}(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
+          q"""${TermName(proEncoderVar)}.propertySv(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
         } else {
           //q"""${TermName(defName)}(${modelName}.${TermName(fieldName)}, ${TermName(mgVar)}(_.${TermName(fieldName)})).emap((s: Any) => ${TermName(mgVar)}(_.${TermName(fieldName)}).convertData(s))"""
-          q"""${TermName(defName)}(${modelName}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
+          //q"""${TermName(defName)}(${modelName}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
+          q"""${TermName(proEncoderVar)}.propertySv(${modelName}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}))"""
         }
       }
           }
@@ -93,7 +99,11 @@ object EncoderMapper {
       //val modelGen = weakTypeOf[ModelGen[Case]]
       val allHelper = weakTypeOf[EncoderHelper[RepCol, DataCol]]
       val forTableInput = weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]
-      val forTableInputImpl = weakTypeOf[ForTableInputImpl[Table, Case, RepCol, DataCol]]
+      println("11" * 100)
+      println(repCol)
+      println(dataCol)
+
+      //val forTableInputImpl = weakTypeOf[ForTableInputImpl[Table, Case, RepCol, DataCol]]
       val shapeValue = weakTypeOf[EncoderShapeValue[Case, RepCol, DataCol]]
       //val proType = weakTypeOf[ProEncoderWrap[RepCol, DataCol]]
 
@@ -141,16 +151,18 @@ object EncoderMapper {
 
       val q = c.Expr[ForTableInput[Table, Case, RepCol, DataCol]] {
         val repModelTermName = c.freshName
+        val aa = weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]
         q"""
-          new $forTableInputImpl((${TermName(repModelTermName)}: $table) => {
+          new $aa {
+           override def input(${TermName(repModelTermName)}: $table):$shapeValue = {
            ..$mgDef
           ..${modelFieldNames.map { proName => commonProUseInShape[RepCol, DataCol, Table, Case](mgVar = mgVar, proEncoderVar = proEncoderWrap, fieldName = proName, modelName = TermName(repModelTermName), isMissingField = misFieldsInTable.contains(proName)) }}
            ${toShape1111(modelFieldNames)}
             }
-          ): ${weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]}
+          }: ${weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]}
         """
       }
-      //println(q + "\n" + "22" * 100)
+      println(q + "\n" + "22" * 100)
       q
     }
 
