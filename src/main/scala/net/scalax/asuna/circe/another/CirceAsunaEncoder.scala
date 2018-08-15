@@ -1,7 +1,6 @@
 package net.scalax.asuna.circe.aaaa
 
-import io.circe.{ Json, JsonObject }
-import net.scalax.asuna.core.common.AtomicColumn
+import io.circe.{ Encoder, Json, JsonObject }
 import net.scalax.asuna.core.encoder.EncoderShape
 
 trait CirceAsunaEncoder {
@@ -20,26 +19,47 @@ trait CirceAsunaEncoderImpl[E] extends CirceAsunaEncoder {
   override type DataType = E
 
 }
-/*trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
-  self =>
 
-  import io.circe.syntax._
+trait ListCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
+  self =>
 
   override type DataType = List[E]
 
   val rep: Rep
 
-  val shape: EncoderShape[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
+  val shape: EncoderShape.Aux[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
+
+  val listEncoder = implicitly[Encoder[List[Json]]]
 
   override val key: String
 
-  def write(data: List[E]): Json = {
-    val reps = shape.toLawRep(rep, List.empty)
-    data.map { d =>
+  override def write(data: List[E]): Json = {
+    listEncoder(data.map { d =>
       val dataList = shape.buildData(d, rep, List.empty)
-      val jsonMap = dataList.zip(reps).map { case (d, r) => (r.key, r.write(d.asInstanceOf[r.DataType])) }.toMap
-      JsonObject.fromMap(jsonMap).asJson
-    }.asJson
+      Json.fromJsonObject(JsonObject.fromIterable(dataList))
+    })
   }
 
-}*/ 
+}
+
+trait OptionCirceAsunaEncoder[Rep, E] extends CirceAsunaEncoder {
+  self =>
+
+  override type DataType = Option[E]
+
+  val rep: Rep
+
+  val shape: EncoderShape.Aux[Rep, E, Rep, List[CirceAsunaEncoder], List[(String, Json)]]
+
+  val optEncoder = implicitly[Encoder[Option[Json]]]
+
+  override val key: String
+
+  override def write(data: Option[E]): Json = {
+    optEncoder(data.map { d =>
+      val dataList = shape.buildData(d, rep, List.empty)
+      Json.fromJsonObject(JsonObject.fromIterable(dataList))
+    })
+  }
+
+}

@@ -33,8 +33,8 @@ trait RmuWriterQuery extends UmrHelper {
     override def apply(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = withCols(param)
   }
 
-  object rmu extends EncoderHelper[SlickRmuWrapper, Any] with EncoderWrapperHelper[SlickRmuWrapper, Any, WithCols] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, SlickRmuWrapper, Any]): WithCols[Out, D] = {
+  object rmu extends EncoderHelper[List[SlickRmuWrapper], List[Any]] with EncoderWrapperHelper[List[SlickRmuWrapper], List[Any], WithCols] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape[Rep, D, Out, List[SlickRmuWrapper], List[Any]]): WithCols[Out, D] = {
       new WithCols[Out, D] {
         override def withCols(param: List[String]): DecoderShapeValue[JsonObject, SlickShapeValueWrapAbs] = {
           val wrapCol = shape.wrapRep(rep)
@@ -48,8 +48,8 @@ trait RmuWriterQuery extends UmrHelper {
     }
   }
 
-  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacroColumnInfo): EncoderShape[R, M, R, SlickRmuWrapper, Any] = {
-    new EncoderShape[R, M, R, SlickRmuWrapper, Any] {
+  implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M], columnInfo: MacroColumnInfo): EncoderShape[R, M, R, List[SlickRmuWrapper], List[Any]] = {
+    new EncoderShape[R, M, R, List[SlickRmuWrapper], List[Any]] {
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = {
         type Level1 = Level
