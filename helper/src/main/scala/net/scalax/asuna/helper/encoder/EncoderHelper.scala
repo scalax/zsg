@@ -17,9 +17,9 @@ trait CaseClassEncoderShapeMapperHelper[RepCol, DataCol] {
   def toTargetWrap[Table, Case]: WrapAbcdef[Table, Case] = new WrapAbcdef[Table, Case] {}
 }
 
-trait ForTableInput[Table, Case, RepCol, DataCol] {
+/*trait ForTableInput[Table, Case, RepCol, DataCol] {
   def input(table: Table): EncoderShapeValue[Case, RepCol, DataCol]
-}
+}*/
 
 /*class ForTableInputImpl[Table, Case, RepCol, DataCol](tableGen: Table => EncoderShapeValue[Case, RepCol, DataCol]) extends ForTableInput[Table, Case, RepCol, DataCol] {
   override def input(table: Table): EncoderShapeValue[Case, RepCol, DataCol] = tableGen(table)

@@ -4,7 +4,6 @@ import io.circe.{ Encoder, Json }
 import net.scalax.asuna.circe.EmptyCirceTable
 import net.scalax.asuna.circe.aaaa.{ CirceAsunaEncoder, CirceAsunaEncoderImpl }
 import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.helper.encoder.ForTableInput
 import shapeless.Lazy
 
 sealed trait EncoderContentAbs[Rep, D] {
@@ -16,7 +15,7 @@ trait CirceEncoderContent[D] extends EncoderContentAbs[Placeholder[D], D] {
 }
 
 trait AsunaEncoderContent[D] extends EncoderContentAbs[Placeholder[D], D] {
-  val asunaEncoder: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]
+  //val asunaEncoder: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]
 }
 
 object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
@@ -36,12 +35,12 @@ object EncoderContentAbs extends AsunaCirceEncoderContentImplicit {
 
 trait AsunaCirceEncoderContentImplicit {
 
-  implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]): EncoderContentAbs.Aux[Placeholder[D], D, CirceAsunaEncoderImpl[D]] = {
+  /*implicit def asunaEncoder[D](implicit aeo: ForTableInput[EmptyCirceTable, D, List[CirceAsunaEncoder], List[(String, Json)]]): EncoderContentAbs.Aux[Placeholder[D], D, CirceAsunaEncoderImpl[D]] = {
     object impl extends AsunaEncoderContent[D] {
       override type RepOut = CirceAsunaEncoderImpl[D]
       override val asunaEncoder = aeo
     }
     impl
-  }
+  }*/
 
 }
