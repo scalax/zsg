@@ -1,6 +1,6 @@
 package net.scalax.asuna.helper.encoder
 
-import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
+import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
 import shapeless.Lazy
 
@@ -8,10 +8,10 @@ import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait CaseClassEncoderShapeMapperHelper[RepCol, DataCol] {
-  implicit def caseOnly[Table, Case, Target]: CaseRepWrap.Aux[Table, Case, Target, RepCol, DataCol] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Target, RepCol, DataCol]
+  implicit def caseOnly[Table, Case, Target, HListData]: CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Target, HListData, RepCol, DataCol]
 
   trait WrapAbcdef[Table, Case] {
-    def laoinert[Target](implicit caseOnly: CaseRepWrap.Aux[Table, Case, Target, RepCol, DataCol]): CaseRepWrap.Aux[Table, Case, Target, RepCol, DataCol] = caseOnly
+    def laoinert[Target, HListData](implicit caseOnly: CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]): CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol] = caseOnly
   }
 
   def toTargetWrap[Table, Case]: WrapAbcdef[Table, Case] = new WrapAbcdef[Table, Case] {}
@@ -28,7 +28,7 @@ trait CaseClassEncoderShapeMapperHelper[RepCol, DataCol] {
 trait EncoderContent[RepOut, DataType]
 
 trait EncoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _]] {
-  def effect[Rep, D, Out](rep: Rep)(implicit shape: Lazy[EncoderShape.Aux[Rep, D, Out, RepCol, DataCol]]): Wrapper[Out, D]
+  def effect[Rep, D, Out](rep: Rep)(implicit shape: EncoderShape.Aux[Rep, D, Out, RepCol, DataCol]): Wrapper[Out, D]
 }
 
 trait EncoderHelper[RepCol, DataCol] extends EncoderDataShapeValueHelper[RepCol, DataCol] with CaseClassEncoderShapeMapperHelper[RepCol, DataCol]

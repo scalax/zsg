@@ -5,7 +5,7 @@ import java.util.UUID
 import net.scalax.asuna.core.encoder.EncoderShapeValue
 import net.scalax.asuna.helper.MacroColumnInfoImpl
 import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.encoder.{ CaseRepWrap, EncoderHelper, EncoderWitCol, ForTableInput }
+import net.scalax.asuna.helper.encoder.{ CaseRepWrap, EncoderHelper, EncoderWitCol }
 
 import scala.reflect.macros.whitebox.Context
 
@@ -54,7 +54,7 @@ object EncoderMapper {
       q
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag]: c.Expr[CaseRepWrap.Aux[Table, Case, Target, RepCol, DataCol]] = {
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, HListData: c.WeakTypeTag, RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag]: c.Expr[CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]] = {
       val caseClass = weakTypeOf[Case]
       val table = weakTypeOf[Table]
       val repCol = weakTypeOf[RepCol]
@@ -63,7 +63,7 @@ object EncoderMapper {
       val encoderHelperType = weakTypeOf[EncoderHelper[RepCol, DataCol]]
       val encoderWitColType = weakTypeOf[EncoderWitCol[RepCol, DataCol]]
 
-      val forTableInput = weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]
+      //val forTableInput = weakTypeOf[ForTableInput[Table, Case, RepCol, DataCol]]
       println("11" * 100)
       println(repCol)
       println(dataCol)
@@ -75,7 +75,7 @@ object EncoderMapper {
       val encoderHelper = "encoderHelper" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
       val encoderWitColVar = "encoderWitCol" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
 
-      val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList.map(s => FieldNames(law = s, shapeValueName = s + UUID.randomUUID.toString.replaceAllLiterally("-", "a")))
+      val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList.map(s => FieldNames(law = s, shapeValueName = s + UUID.randomUUID.toString.replaceAllLiterally("-", "a"))).reverse
       val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
       val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n.law))
 
@@ -107,7 +107,7 @@ object EncoderMapper {
         func
       }
 
-      val q = c.Expr[CaseRepWrap.Aux[Table, Case, Target, RepCol, DataCol]] {
+      val q = c.Expr[CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]] {
         val repModelTermName = c.freshName
         val aa = weakTypeOf[CaseRepWrap[Table, Case, RepCol, DataCol]]
         q"""

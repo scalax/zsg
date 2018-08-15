@@ -1,7 +1,7 @@
 package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.EncoderShape
-import shapeless.{ ::, HList, HNil }
+import shapeless.{ ::, HList, HNil, Lazy }
 
 trait HListEncoderShapeImplicit {
 
@@ -14,7 +14,7 @@ trait HListEncoderShapeImplicit {
     }
   }
 
-  implicit def hlistEncoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, RepCol, DataCol](implicit head: EncoderShape.Aux[A, H, M, RepCol, DataCol], tail: EncoderShape.Aux[B, I, N, RepCol, DataCol]): EncoderShape.Aux[A :: B, H :: I, M :: N, RepCol, DataCol] = {
+  implicit def hlistEncoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, RepCol, DataCol](implicit head: EncoderShape.Aux[A, H, M, RepCol, DataCol], tail: Lazy[EncoderShape.Aux[B, I, N, RepCol, DataCol]]): EncoderShape.Aux[A :: B, H :: I, M :: N, RepCol, DataCol] = {
 
     new EncoderShape[A :: B, H :: I, RepCol, DataCol] {
       self =>
@@ -23,20 +23,19 @@ trait HListEncoderShapeImplicit {
 
       override def wrapRep(base: A :: B): M :: N = {
         val headRep :: tailRep = base
-        head.wrapRep(headRep) :: tail.wrapRep(tailRep)
+        head.wrapRep(headRep) :: tail.value.wrapRep(tailRep)
       }
 
       override def toLawRep(base: M :: N, oldRep: RepCol): RepCol = {
         val headRep :: tailRep = base
-        val tailReps = tail.toLawRep(tailRep, oldRep)
+        val tailReps = tail.value.toLawRep(tailRep, oldRep)
         head.toLawRep(headRep, tailReps)
-        //DataRepGroup(reps = headGroup.reps ::: tailGroup.reps)
       }
 
       override def buildData(data: H :: I, rep: M :: N, oldData: DataCol): DataCol = {
         val h :: i = data
         val m :: n = rep
-        val tailData = tail.buildData(i, n, oldData)
+        val tailData = tail.value.buildData(i, n, oldData)
         head.buildData(h, m, tailData)
       }
 

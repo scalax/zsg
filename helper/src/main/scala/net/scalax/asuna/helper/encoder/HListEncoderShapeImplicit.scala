@@ -1,8 +1,9 @@
 package net.scalax.asuna.helper.encoder
 
-import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
+import shapeless.Generic
 
 trait HListEncoderShapeWrap[Rep, Data, RepCol, DataCol] {
 
@@ -29,17 +30,40 @@ object EncoderWitCol {
 trait CaseRepWrap[Table, Case, RepCol, DataCol] {
 
   type Rep
+  type HListData
+
   def input(table: Table): Rep
+
+  def dataTransform(model: Case): HListData
+
+  def withShape[Target1](implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): Table => EncoderShapeValue[Case, RepCol, DataCol] = { table: Table =>
+    val shape1 = shape
+    val tableShape = new EncoderShape[Table, Case, RepCol, DataCol] {
+      override type Target = Target1
+      override def wrapRep(base: Table): Target1 = shape1.wrapRep(input(base))
+
+      override def toLawRep(base: Target1, oldRep: RepCol): RepCol = shape1.toLawRep(base, oldRep)
+
+      override def buildData(data: Case, rep: Target1, oldData: DataCol): DataCol = shape.buildData(dataTransform(data), rep, oldData)
+    }
+    new EncoderShapeValue[Case, RepCol, DataCol] {
+      override type RepType = Target1
+      override val rep = tableShape.wrapRep(table)
+      override val shape = tableShape.packed
+    }
+  }
 
 }
 
 object CaseRepWrap {
-  type Aux[Table, Case, R, RepCol, DatCol] = CaseRepWrap[Table, Case, RepCol, DatCol] { type Rep = R }
+  type Aux[Table, Case, R, HD, RepCol, DatCol] = CaseRepWrap[Table, Case, RepCol, DatCol] { type Rep = R; type HListData = HD }
 
   trait WrapApply[RepCol, DataCol] {
-    def withFunc[Table, Rep1, Case](func: Table => Rep1, mg: ModelGen[Case]): CaseRepWrap.Aux[Table, Case, Rep1, RepCol, DataCol] = new CaseRepWrap[Table, Case, RepCol, DataCol] {
+    def withFunc[Table, Rep1, Case, HListData1](func: Table => Rep1, mg: ModelGen[Case])(implicit generic: Generic.Aux[Case, HListData1]): CaseRepWrap.Aux[Table, Case, Rep1, HListData1, RepCol, DataCol] = new CaseRepWrap[Table, Case, RepCol, DataCol] {
       override type Rep = Rep1
+      override type HListData = HListData1
       override def input(table: Table): Rep = func(table)
+      override def dataTransform(model: Case): HListData1 = generic.to(model)
     }
   }
 

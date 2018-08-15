@@ -3,6 +3,7 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
+import io.circe.Json
 import net.scalax.asuna.circe.another.EncoderContentAbs
 import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
 import net.scalax.asuna.helper.MacroColumnInfoImpl
@@ -55,12 +56,14 @@ class CirceEncoderTest extends FlatSpec
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, List(test2, test2, test2, test2, test2))*/
 
     val test2 = TestModel2(faker.book.title, 967)
-    import asunaCirce._
-    val circeEncoder1111 = asunaCirce.toTargetWrap[EmptyCirceTable, TestModel].laoinert.input(EmptyCirceTable.value)
+
+    val circeEncoder1111 = asunaCirce.effect(toTargetWrap[EmptyCirceTable, TestModel2].laoinert.withShape.apply(EmptyCirceTable.value))
+
     println(circeEncoder1111)
 
-    /*val jsonObject = circeEncoder1111.write(test2)
-    println(jsonObject)*/
+    val jsonObject = circeEncoder1111.write(test2)
+
+    println(Json.fromJsonObject(jsonObject).noSpaces)
 
   }
 
