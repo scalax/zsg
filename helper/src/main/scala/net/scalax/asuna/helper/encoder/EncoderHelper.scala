@@ -2,13 +2,13 @@ package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
-import shapeless.Lazy
+import shapeless.{ Generic, Lazy }
 
 import scala.language.experimental.macros
 import scala.language.higherKinds
 
 trait CaseClassEncoderShapeMapperHelper[RepCol, DataCol] {
-  implicit def caseOnly[Table, Case, Target, HListData]: CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Target, HListData, RepCol, DataCol]
+  implicit def caseOnly[Table, Case, Target, HListData](implicit genImplicit: Generic.Aux[Case, HListData]): CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol] = macro EncoderMapper.EncoderMapperImpl.impl[Table, Case, Target, HListData, RepCol, DataCol]
 
   trait WrapAbcdef[Table, Case] {
     def laoinert[Target, HListData](implicit caseOnly: CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]): CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol] = caseOnly

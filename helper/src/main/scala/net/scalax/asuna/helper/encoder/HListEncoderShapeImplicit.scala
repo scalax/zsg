@@ -59,7 +59,7 @@ object CaseRepWrap {
   type Aux[Table, Case, R, HD, RepCol, DatCol] = CaseRepWrap[Table, Case, RepCol, DatCol] { type Rep = R; type HListData = HD }
 
   trait WrapApply[RepCol, DataCol] {
-    def withFunc[Table, Rep1, Case, HListData1](func: Table => Rep1, mg: ModelGen[Case])(implicit generic: Generic.Aux[Case, HListData1]): CaseRepWrap.Aux[Table, Case, Rep1, HListData1, RepCol, DataCol] = new CaseRepWrap[Table, Case, RepCol, DataCol] {
+    def withFunc[Table, Rep1, Case, HListData1](func: Table => Rep1, mg: ModelGen[Case], generic: Generic.Aux[Case, HListData1]): CaseRepWrap.Aux[Table, Case, Rep1, HListData1, RepCol, DataCol] = new CaseRepWrap[Table, Case, RepCol, DataCol] {
       override type Rep = Rep1
       override type HListData = HListData1
       override def input(table: Table): Rep = func(table)
