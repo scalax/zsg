@@ -6,6 +6,7 @@ import net.scalax.asuna.core.encoder.EncoderShapeValue
 import net.scalax.asuna.helper.MacroColumnInfoImpl
 import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
 import net.scalax.asuna.helper.encoder.{ CaseRepWrap, EncoderHelper, EncoderWitCol }
+import shapeless.Generic
 
 import scala.reflect.macros.whitebox.Context
 
@@ -54,7 +55,7 @@ object EncoderMapper {
       q
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, HListData: c.WeakTypeTag, RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag]: c.Expr[CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]] = {
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, HListData: c.WeakTypeTag, RepCol: c.WeakTypeTag, DataCol: c.WeakTypeTag](genImplicit: c.Expr[Generic.Aux[Case, HListData]]): c.Expr[CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]] = {
       val caseClass = weakTypeOf[Case]
       val table = weakTypeOf[Table]
       val repCol = weakTypeOf[RepCol]
@@ -113,7 +114,7 @@ object EncoderMapper {
         q"""
            {
            ..$mgDef
-           ${aa.typeSymbol.companion}.value[$repCol, $dataCol].withFunc(${toShape1111(modelFieldNames)}, ${TermName(mgVar)})
+           ${aa.typeSymbol.companion}.value[$repCol, $dataCol].withFunc(${toShape1111(modelFieldNames)}, ${TermName(mgVar)}, $genImplicit)
             }
         """
       }
