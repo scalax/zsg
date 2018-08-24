@@ -109,7 +109,6 @@ object EncoderMapper {
       }
 
       val q = c.Expr[CaseRepWrap.Aux[Table, Case, Target, HListData, RepCol, DataCol]] {
-        val repModelTermName = c.freshName
         val aa = weakTypeOf[CaseRepWrap[Table, Case, RepCol, DataCol]]
         q"""
            {

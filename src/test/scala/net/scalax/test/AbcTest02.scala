@@ -1,6 +1,7 @@
 package net.scalax.asuna
 
-import net.scalax.asuna.helper.CaseModelContent
+import net.scalax.asuna.helper.{ CaseModelContent, CaseModelContent1111 }
+
 import scala.language.higherKinds
 import shapeless._
 
@@ -50,7 +51,7 @@ object AbcTest02 extends App {
     gen.from(aa): Abc[Option]
   }
   val sysTimes2 = System.currentTimeMillis
-  println(s"设值 ${times} 次用了 ${sysTimes2 - sysTimes1} 毫秒")
+  println(s"HList 设值器设值 ${times} 次用了 ${sysTimes2 - sysTimes1} 毫秒")
 
   val dt = {
     val a1 = scala.collection.mutable.Map.empty[Symbol, Any]
@@ -126,7 +127,7 @@ object AbcTest02 extends App {
       i20 = dt('i20).asInstanceOf[Long]): Abc[Option]
   }
   val sysTimes4 = System.currentTimeMillis
-  println(s"设值 ${times} 次用了 ${sysTimes4 - sysTimes3} 毫秒")
+  println(s"mutable.Map 设值器设值 ${times} 次用了 ${sysTimes4 - sysTimes3} 毫秒")
 
   val caseContect = CaseModelContent.getInstance[Abc[Option]]
 
@@ -164,6 +165,24 @@ object AbcTest02 extends App {
     caseContect.toModel(arrContent): Abc[Option]
   }
   val sysTimes6 = System.currentTimeMillis
-  println(s"设值 ${times} 次用了 ${sysTimes6 - sysTimes5} 毫秒")
+  println(s"Array 设值器设值 ${times} 次用了 ${sysTimes6 - sysTimes5} 毫秒")
+
+  val caseContect1111 = CaseModelContent1111.getInstance[Abc[Option]]
+
+  def arrContent1111 = {
+    val i01 = CaseModelContent1111.set6(CaseModelContent1111.emptySetter, 'i01, "i01", 'i02, "i02", 'i03, "i03", 'i04, "i04", 'i05, "i05", 'i06, "i06", 'i07, "i07", 'i08, "i08", 'i09, "i09", 'i10, "i10")
+    CaseModelContent1111.set6(i01, 'i11, "i11", 'i12, "i12", 'i13, "i13", 'i14, "i14", 'i15, pro15, 'i16, pro16, 'i17, "i17", 'i18, "i18", 'i19, 19, 'i20, 20L)
+  }
+
+  for (_ <- preTimesCol) {
+    caseContect1111.toModel(arrContent1111): Abc[Option]
+  }
+
+  val sysTimes7 = System.currentTimeMillis
+  for (_ <- timesCol) {
+    caseContect1111.toModel(arrContent1111): Abc[Option]
+  }
+  val sysTimes8 = System.currentTimeMillis
+  println(s"Function 设值器设值 ${times} 次用了 ${sysTimes8 - sysTimes7} 毫秒")
 
 }
