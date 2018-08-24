@@ -1,6 +1,6 @@
 package net.scalax.asuna
 
-import net.scalax.asuna.helper.{ CaseModelContent, CaseModelContent1111 }
+import net.scalax.asuna.helper.{ CaseModelContent, CaseModelContent1111, CaseModelContent2222 }
 
 import scala.language.higherKinds
 import shapeless._
@@ -42,6 +42,7 @@ object AbcTest02 extends App {
   trait bb[Case] {
     def cc[H](implicit gen: Generic.Aux[Case, H]): Generic.Aux[Case, H] = gen
   }
+
   val gen = new bb[Abc[Option]] {}.cc
   for (_ <- preTimesCol) {
     gen.from(aa): Abc[Option]
@@ -184,5 +185,41 @@ object AbcTest02 extends App {
   }
   val sysTimes8 = System.currentTimeMillis
   println(s"Function 设值器设值 ${times} 次用了 ${sysTimes8 - sysTimes7} 毫秒")
+
+  def arrContent2222 = {
+    val i01 = CaseModelContent2222.set(CaseModelContent2222.empty, 'i01, "f01")
+    val i02 = CaseModelContent2222.set(i01, 'i02, "f02")
+    val i03 = CaseModelContent2222.set(i02, 'i07, "f07")
+    val i04 = CaseModelContent2222.set(i03, 'i03, "f03")
+    val i05 = CaseModelContent2222.set(i04, 'i04, "f04")
+    val i06 = CaseModelContent2222.set(i05, 'i16, pro16)
+    val i07 = CaseModelContent2222.set(i06, 'i06, "f06")
+    val i08 = CaseModelContent2222.set(i07, 'i09, "f09")
+    val i09 = CaseModelContent2222.set(i08, 'i19, 19)
+    val i10 = CaseModelContent2222.set(i09, 'i10, "f10")
+    val i11 = CaseModelContent2222.set(i10, 'i05, "f05")
+    val i12 = CaseModelContent2222.set(i11, 'i11, "f11")
+    val i13 = CaseModelContent2222.set(i12, 'i20, 20L)
+    val i14 = CaseModelContent2222.set(i13, 'i13, "f13")
+    val i15 = CaseModelContent2222.set(i14, 'i14, "f14")
+    val i16 = CaseModelContent2222.set(i15, 'i08, "f08")
+    val i17 = CaseModelContent2222.set(i16, 'i12, "f12")
+    val i18 = CaseModelContent2222.set(i17, 'i17, "f17")
+    val i19 = CaseModelContent2222.set(i18, 'i15, pro15)
+    CaseModelContent2222.set(i19, 'i18, "f18")
+  }
+
+  val cc = CaseModelContent2222.getInstance[Abc[Option]]
+
+  for (_ <- preTimesCol) {
+    cc.toModel(arrContent2222): Abc[Option]
+  }
+
+  val sysTimes11 = System.currentTimeMillis
+  for (_ <- timesCol) {
+    cc.toModel(arrContent2222): Abc[Option]
+  }
+  val sysTimes12 = System.currentTimeMillis
+  println(s"迭代设值器设值 ${times} 次用了 ${sysTimes12 - sysTimes11} 毫秒")
 
 }

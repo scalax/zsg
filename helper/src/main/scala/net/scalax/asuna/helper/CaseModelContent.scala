@@ -1,6 +1,7 @@
 package net.scalax.asuna.helper
 
 import net.scalax.asuna.helper.encoder.macroImpl.CaseModelContentHelper
+import shapeless.{ HList, HNil }
 
 import scala.language.experimental.macros
 
@@ -46,6 +47,10 @@ object CaseModelContent1111 {
         }
       }
     }
+  }
+
+  def emptySetter: Abcdef = new Abcdef {
+    override def fetchValue(symbol: Symbol): Any = ()
   }
 
   def set6(propertyGen: Abcdef, propertyName1: Symbol, value1: Any, propertyName2: Symbol, value2: Any, propertyName3: Symbol, value3: Any, propertyName4: Symbol, value4: Any, propertyName5: Symbol, value5: Any, propertyName6: Symbol, value6: Any, propertyName7: Symbol, value7: Any, propertyName8: Symbol, value8: Any, propertyName9: Symbol, value9: Any, propertyName10: Symbol, value10: Any): Abcdef = {
@@ -96,13 +101,27 @@ object CaseModelContent1111 {
     }
   }
 
-  def emptySetter: Abcdef = new Abcdef {
-    override def fetchValue(symbol: Symbol): Any = {
-      ()
-    }
-  }
-
   def getInstance[Case](implicit content: CaseModelContent1111[Case]): CaseModelContent1111[Case] = content
   implicit def getInstanceImplicit[Case]: CaseModelContent1111[Case] = macro CaseModelContentHelper.CaseModelContentHelperImpl.impl1111[Case]
 
+}
+
+trait CaseModelContent2222[Case] {
+
+  def toModel(arr: SetterContent): Case
+
+}
+
+case class SetterContent(key: Symbol, value: Any, tail: SetterContent)
+
+object CaseModelContent2222 {
+
+  def set(arr: SetterContent, pro: Symbol, data: Any): SetterContent = {
+    SetterContent(key = pro, value = data, tail = arr)
+  }
+
+  val empty: SetterContent = null
+
+  def getInstance[Case](implicit content: CaseModelContent2222[Case]): CaseModelContent2222[Case] = content
+  implicit def getInstanceImplicit[Case]: CaseModelContent2222[Case] = macro CaseModelContentHelper.CaseModelContentHelperImpl.impl2222[Case]
 }
