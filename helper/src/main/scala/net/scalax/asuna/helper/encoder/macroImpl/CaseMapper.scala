@@ -1,7 +1,5 @@
 package net.scalax.asuna.helper.encoder.macroImpl
 
-import java.util.UUID
-
 import net.scalax.asuna.helper._
 
 import scala.reflect.macros.blackbox.Context
@@ -131,20 +129,22 @@ object CaseModelContentHelper {
               q"""val ${TermName("tail" + i)} = ${TermName("tail" + (i - 1))}.tail.asInstanceOf[$abcdef]""")
           }
         }
-           @_root_.scala.inline def getValueByPropertyName(symbol: _root_.scala.Symbol): Any = {
-           ${
-          (1 to modelFieldNames.size).foldLeft(q"""(): Any""": Tree) { (tree, index) =>
-            q"""if (symbol eq ${TermName("symbol" + index)}) {
-                ${TermName("data" + index)}
-                } else {
-                $tree
-              }"""
-          }
-        }
-           }
 
            ${caseClass.typeSymbol.companion}.apply(..${
-          modelFieldNames.map(s => q"""${TermName(s.law)} = getValueByPropertyName(${symbolClass.typeSymbol.companion}.apply(${Literal(Constant(s.law))})).asInstanceOf[${s.propertyTag}]""")
+          modelFieldNames.map(s =>
+            q"""${TermName(s.law)} =
+               {
+                          ${
+              (1 to modelFieldNames.size).foldLeft(q"""(throw new _root_.scala.Exception(${Literal(Constant(s"没有匹配字段 ${s.law} 的值"))})): Any""": Tree) { (tree, index) =>
+                q"""if (${symbolClass.typeSymbol.companion}.apply(${Literal(Constant(s.law))}) eq ${TermName("symbol" + index)}) {
+                  ${TermName("data" + index)}
+                } else {
+                  $tree
+                }"""
+              }
+            }
+                          }
+               .asInstanceOf[${s.propertyTag}]""")
 
         })
 
