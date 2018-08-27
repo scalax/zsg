@@ -1,7 +1,6 @@
 package net.scalax.asuna.helper
 
 import net.scalax.asuna.helper.encoder.macroImpl.CaseModelContentHelper
-import shapeless.{ HList, HNil }
 
 import scala.language.experimental.macros
 
@@ -109,15 +108,16 @@ object CaseModelContent1111 {
 trait CaseModelContent2222[Case] {
 
   def toModel(arr: SetterContent): Case
+  def get(caseModel: Case, propertyName: Symbol): Any
 
 }
 
-case class SetterContent(key: Symbol, value: Any, tail: SetterContent)
+class SetterContent(val key: Symbol, val value: Any, val tail: SetterContent)
 
 object CaseModelContent2222 {
 
   def set(arr: SetterContent, pro: Symbol, data: Any): SetterContent = {
-    SetterContent(key = pro, value = data, tail = arr)
+    new SetterContent(key = pro, value = data, tail = arr)
   }
 
   val empty: SetterContent = null

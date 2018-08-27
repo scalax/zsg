@@ -4,14 +4,13 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.Json
-import net.scalax.asuna.circe.another.EncoderContentAbs
-import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
+import net.scalax.asuna.circe.{ CirceAsunaDecoderHelper, CirceAsunaEncoderHelper, EmptyCirceTable }
 import net.scalax.asuna.helper.MacroColumnInfoImpl
 import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.encoder.{ CaseRepWrap, EncoderHelper, EncoderWitCol }
+import net.scalax.asuna.helper.encoder.{ CaseDecoderRepWrap, EncoderHelper, EncoderWitCol }
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
-import shapeless.Lazy
+import shapeless._
 
 case class TestModel1(
   /*name1: String ,
@@ -44,7 +43,7 @@ class CirceEncoderTest extends FlatSpec
   with ScalaFutures
   with BeforeAndAfterAll
   with BeforeAndAfter
-  with CirceAsunaEncoderHelper {
+  with CirceAsunaEncoderHelper with CirceAsunaDecoderHelper {
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
@@ -64,6 +63,10 @@ class CirceEncoderTest extends FlatSpec
     val jsonObject = circeEncoder1111.write(test2)
 
     println(Json.fromJsonObject(jsonObject).noSpaces)
+
+    val circeDecoder1111 = asunaCirceDecoder.effect(toTargetWrapDecoder[EmptyCirceTable, TestModel2].laoinert.withShape.apply(EmptyCirceTable.value))
+
+    println(circeDecoder1111.read(Json.fromJsonObject(jsonObject)).toString * 100)
 
   }
 

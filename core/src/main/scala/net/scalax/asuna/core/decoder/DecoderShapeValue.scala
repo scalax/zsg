@@ -1,24 +1,22 @@
 package net.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
-
-trait DecoderShapeValue[U, T] {
+trait DecoderShapeValue[U, RepCol, DataCol] {
   self =>
 
   type RepType
   val rep: RepType
-  val shape: DecoderShape[RepType, U, RepType, T]
+  val shape: DecoderShape.Aux[RepType, U, RepType, RepCol, DataCol]
 
-  def dmap[F](cv: U => F): DecoderShapeValue[F, T] = new DecoderShapeValue[F, T] {
+  def dmap[F](cv: U => F): DecoderShapeValue[F, RepCol, DataCol] = new DecoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType
     override val rep = self.rep
-    override val shape = new DecoderShape[self.RepType, F, self.RepType, T] {
+    override val shape = new DecoderShape[self.RepType, F, RepCol, DataCol] {
       innerSelf =>
-
+      override type Target = self.RepType
       override def wrapRep(base: self.RepType): self.RepType = base
-      override def toLawRep(base: self.RepType): DataRepGroup[T] = self.shape.toLawRep(self.rep)
-      override def takeData(oldData: DataGroup, rep: self.RepType): SplitData[F] = {
-        val data = self.shape.takeData(oldData, rep)
+      override def toLawRep(base: self.RepType, oldRep: RepCol): RepCol = self.shape.toLawRep(self.rep, oldRep)
+      override def takeData(currentRep: self.RepType, oldData: DataCol): SplitData[F, DataCol] = {
+        val data = self.shape.takeData(currentRep, oldData)
         val current = cv(data.current)
         SplitData(
           current = current,
@@ -32,12 +30,13 @@ trait DecoderShapeValue[U, T] {
 
 object DecoderShapeValue {
 
-  implicit def dataShapeValueShape[U, T]: DecoderShape[DecoderShapeValue[U, T], U, DecoderShapeValue[U, T], T] = {
-    new DecoderShape[DecoderShapeValue[U, T], U, DecoderShapeValue[U, T], T] {
+  implicit def dataShapeValueShape[U, RepCol, DataCol]: DecoderShape.Aux[DecoderShapeValue[U, RepCol, DataCol], U, DecoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
+    new DecoderShape[DecoderShapeValue[U, RepCol, DataCol], U, RepCol, DataCol] {
       self =>
-      override def wrapRep(base: DecoderShapeValue[U, T]): DecoderShapeValue[U, T] = base
-      override def toLawRep(base: DecoderShapeValue[U, T]): DataRepGroup[T] = base.shape.toLawRep(base.shape.wrapRep(base.rep))
-      override def takeData(oldData: DataGroup, rep: DecoderShapeValue[U, T]): SplitData[U] = rep.shape.takeData(oldData, rep.rep)
+      override type Target = DecoderShapeValue[U, RepCol, DataCol]
+      override def wrapRep(base: DecoderShapeValue[U, RepCol, DataCol]): DecoderShapeValue[U, RepCol, DataCol] = base
+      override def toLawRep(base: DecoderShapeValue[U, RepCol, DataCol], oldRep: RepCol): RepCol = base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
+      override def takeData(rep: DecoderShapeValue[U, RepCol, DataCol], oldData: DataCol): SplitData[U, DataCol] = rep.shape.takeData(rep.rep, oldData)
     }
   }
 

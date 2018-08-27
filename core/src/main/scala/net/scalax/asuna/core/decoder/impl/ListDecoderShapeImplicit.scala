@@ -1,25 +1,20 @@
 package net.scalax.asuna.core.decoder.impl
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 
 trait ListDecoderShapeImplicit {
 
-  implicit def listDateShapeExt[A, B, C, D](implicit shape: DecoderShape[A, B, C, D]): DecoderShape[List[A], List[B], List[C], D] = {
-    new DecoderShape[List[A], List[B], List[C], D] { self =>
+  implicit def listDateShapeExt[A, B, C, RepCol, DataCol](implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]): DecoderShape.Aux[List[A], List[B], List[C], RepCol, DataCol] = {
+    new DecoderShape[List[A], List[B], RepCol, DataCol] {
+      self =>
+      override type Target = List[C]
       override def wrapRep(base: List[A]): List[C] = base.map(shape.wrapRep)
-      override def toLawRep(base: List[C]): DataRepGroup[D] = {
-        val l = base.map(shape.toLawRep)
-        DataRepGroup(reps = l.flatMap(_.reps))
-      }
-      override def takeData(oldData: DataGroup, rep: List[C]): SplitData[List[B]] = {
-        val result = rep.foldLeft(
-          SplitData(current = List.empty[B], left = oldData)) {
-            case (SplitData(splCurrent, splLeft), eachRep) =>
-              val SplitData(currentData, currentLeft) = shape.takeData(splLeft, eachRep)
-              SplitData(current = currentData :: splCurrent, left = currentLeft)
-          }
-        result.copy(current = result.current.reverse)
+      override def toLawRep(base: List[C], oldRep: RepCol): RepCol = base.foldLeft(oldRep) { (rep, item) => shape.toLawRep(item, rep) }
+      override def takeData(rep: List[C], oldData: DataCol): SplitData[List[B], DataCol] = {
+        rep.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>
+          val newSplit = shape.takeData(rep, splitData.left)
+          SplitData(newSplit.current :: splitData.current, newSplit.left)
+        }
       }
     }
   }

@@ -2,7 +2,7 @@ package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.encoder.macroImpl.EncoderMapper
-import shapeless.{ Generic, Lazy }
+import shapeless.{ Generic }
 
 import scala.language.experimental.macros
 import scala.language.higherKinds

@@ -1,25 +1,25 @@
 package net.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
-
-trait DecoderProvenShape[U, T] {
-  val dataShapeValue: DecoderShapeValue[U, T]
+trait DecoderProvenShape[U, RepCol, DataCol] {
+  val dataShapeValue: DecoderShapeValue[U, RepCol, DataCol]
 }
 
 object DecoderProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, T, R <: DecoderProvenShape[U, T]]: DecoderShape[R, U, R, T] = {
+  implicit def dataProvenShapeShape[U, RepCol, DataCol, R <: DecoderProvenShape[U, RepCol, DataCol]]: DecoderShape.Aux[R, U, R, RepCol, DataCol] = {
 
-    new DecoderShape[R, U, R, T] {
+    new DecoderShape[R, U, RepCol, DataCol] {
       self =>
+
+      override type Target = R
 
       override def wrapRep(base: R): R = base
 
-      override def toLawRep(base: R): DataRepGroup[T] =
-        base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep))
+      override def toLawRep(base: R, baseRep: RepCol): RepCol =
+        base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), baseRep)
 
-      override def takeData(oldData: DataGroup, rep: R): SplitData[U] =
-        rep.dataShapeValue.shape.takeData(oldData, rep.dataShapeValue.rep)
+      override def takeData(rep: R, oldData: DataCol): SplitData[U, DataCol] =
+        rep.dataShapeValue.shape.takeData(rep.dataShapeValue.rep, oldData)
 
     }
 

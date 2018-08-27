@@ -120,8 +120,8 @@ object CaseModelContentHelper {
         q"""
         new $modelContent {
 
-          override def toModel(tail0: $abcdef): $caseClass = {
-           ..${
+        override def toModel(tail0: $abcdef): $caseClass = {
+          ..${
           (1 to modelFieldNames.size).flatMap { i =>
             List(
               q"""val ${TermName("symbol" + i)} = ${TermName("tail" + (i - 1))}.key""",
@@ -130,25 +130,35 @@ object CaseModelContentHelper {
           }
         }
 
-           ${caseClass.typeSymbol.companion}.apply(..${
+          ${caseClass.typeSymbol.companion}.apply(..${
           modelFieldNames.map(s =>
             q"""${TermName(s.law)} =
-               {
-                          ${
+            {
+              ${
               (1 to modelFieldNames.size).foldLeft(q"""(throw new _root_.scala.Exception(${Literal(Constant(s"没有匹配字段 ${s.law} 的值"))})): Any""": Tree) { (tree, index) =>
                 q"""if (${symbolClass.typeSymbol.companion}.apply(${Literal(Constant(s.law))}) eq ${TermName("symbol" + index)}) {
-                  ${TermName("data" + index)}
-                } else {
-                  $tree
-                }"""
+                    ${TermName("data" + index)}
+                  } else {
+                    $tree
+                  }"""
               }
             }
-                          }
-               .asInstanceOf[${s.propertyTag}]""")
-
+            }.asInstanceOf[${s.propertyTag}]""")
         })
 
+        }
+
+        override def get(caseModel: $caseClass, propertyName: $symbolClass): Any = {
+        ${
+          modelFieldNames.foldLeft(q"(): Unit": Tree) { (tree, field) =>
+            q"""if (propertyName eq ${symbolClass.typeSymbol.companion}(${Literal(Constant(field.law))})) {
+              caseModel.${TermName(field.law)}
+            } else {
+                $tree
+            }"""
           }
+        }
+        }
 
         }
         """
