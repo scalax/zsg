@@ -1,20 +1,19 @@
 package net.scalax.asuna.helper.decoder
 
-import net.scalax.asuna.core.decoder.{ DataModel, DecoderShape, DecoderShapeValue }
-import net.scalax.asuna.helper.decoder.macroImpl.{ DecoderDataModelMapper, DecoderMapper }
+import net.scalax.asuna.core.decoder.DecoderShape
+import net.scalax.asuna.helper.encoder.WrapApply
 
-import scala.language.experimental.macros
 import scala.language.higherKinds
 
-trait CaseClassShapeMacroHelper[Abs] {
-  def caseOnly[Table, Case]: Table => DecoderShapeValue[Case, Abs] = macro DecoderMapper.DecoderMapperImpl.impl[Table, Case, Abs]
-  def dataModel[Table, ICase, Case, SubCase]: Table => DecoderShapeValue[DataModel[ICase, Case, SubCase], Abs] = macro DecoderDataModelMapper.DecoderDataModelMapperImpl.impl[Table, ICase, Case, SubCase, Abs]
+trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
+  private val wrapApply: WrapApply[RepCol, DataCol] = WrapApply.instance[RepCol, DataCol]
+  def caseOnly[Table, Case]: WrapApply[RepCol, DataCol]#CaseWrap[Table, Case] = wrapApply.withCase[Table, Case]
 }
 
 trait DecoderContent[RepOut, DataType]
 
-trait DecoderWrapperHelper[Abs, Wrapper[_, _] <: DecoderContent[_, _]] {
-  def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, Abs]): Wrapper[Out, D]
+trait DecoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _]] extends DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
+  def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, RepCol, DataCol]): Wrapper[Out, D]
 }
 
-trait DecoderHelper[Abs] extends CaseClassShapeMacroHelper[Abs] with DecoderDataShapeValueHelper[Abs] with DecoderDelayTagHelper[Abs] with DecoderDateModelHelper[Abs]
+trait DecoderHelper[RepCol, DataCol] extends DecoderCaseClassShapeMacroHelper[RepCol, DataCol]

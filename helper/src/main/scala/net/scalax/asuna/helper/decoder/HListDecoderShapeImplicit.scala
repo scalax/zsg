@@ -1,41 +1,42 @@
 package net.scalax.asuna.helper.decoder
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import shapeless.{ ::, HList, HNil }
 
 trait HListDecoderShapeImplicit {
 
-  implicit def hlistDecoderImplicit1[J]: DecoderShape[HNil, HNil, HNil, J] = {
-    new DecoderShape[HNil, HNil, HNil, J] {
+  implicit def hlistDecoderImplicit1[RepCol, DataCol]: DecoderShape.Aux[HNil, HNil, HNil, RepCol, DataCol] = {
+    new DecoderShape[HNil, HNil, RepCol, DataCol] {
       self =>
+      override type Target = HNil
       override def wrapRep(base: HNil): HNil = base
-      override def toLawRep(base: HNil): DataRepGroup[J] = DataRepGroup(reps = List.empty)
-      override def takeData(oldData: DataGroup, rep: HNil): SplitData[HNil] = SplitData(current = HNil, left = oldData)
+      override def toLawRep(base: HNil, oldRep: RepCol): RepCol = oldRep
+      override def takeData(rep: HNil, oldData: DataCol): SplitData[HNil, DataCol] = SplitData(current = HNil, left = oldData)
     }
   }
 
-  implicit def hlistDecoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, J](implicit head: DecoderShape[A, H, M, J], tail: DecoderShape[B, I, N, J]): DecoderShape[A :: B, H :: I, M :: N, J] = {
+  implicit def hlistDecoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, RepCol, DataCol](implicit head: DecoderShape.Aux[A, H, M, RepCol, DataCol], tail: DecoderShape.Aux[B, I, N, RepCol, DataCol]): DecoderShape.Aux[A :: B, H :: I, M :: N, RepCol, DataCol] = {
 
-    new DecoderShape[A :: B, H :: I, M :: N, J] {
+    new DecoderShape[A :: B, H :: I, RepCol, DataCol] {
       self =>
+
+      override type Target = M :: N
 
       override def wrapRep(base: A :: B): M :: N = {
         val headRep :: tailRep = base
         head.wrapRep(headRep) :: tail.wrapRep(tailRep)
       }
 
-      override def toLawRep(base: M :: N): DataRepGroup[J] = {
+      override def toLawRep(base: M :: N, repCol: RepCol): RepCol = {
         val headRep :: tailRep = base
-        val headGroup = head.toLawRep(headRep)
-        val tailGroup = tail.toLawRep(tailRep)
-        DataRepGroup(reps = headGroup.reps ::: tailGroup.reps)
+        val repCol1 = head.toLawRep(headRep, repCol)
+        tail.toLawRep(tailRep, repCol1)
       }
 
-      override def takeData(oldData: DataGroup, rep: M :: N): SplitData[H :: I] = {
+      override def takeData(rep: M :: N, oldData: DataCol): SplitData[H :: I, DataCol] = {
         val headRep :: tailRep = rep
-        val newData1 = head.takeData(oldData, headRep)
-        val newData2 = tail.takeData(newData1.left, tailRep)
+        val newData1 = head.takeData(headRep, oldData)
+        val newData2 = tail.takeData(tailRep, newData1.left)
         SplitData(newData1.current :: newData2.current, newData2.left)
       }
 

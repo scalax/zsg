@@ -1,6 +1,5 @@
 package net.scalax.asuna.helper.encoder
 
-import net.scalax.asuna.core.encoder.impl.ListEncoderShapeImplicit
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 
 trait EncoderDataShapeValueHelper[RepCol, DataCol] {
@@ -18,8 +17,7 @@ trait EncoderDataShapeValueHelper[RepCol, DataCol] {
       override val shape = shape1.packed
     }
   }
-
-  def shapedList[A, B, C](rep: List[A])(implicit shape: EncoderShape.Aux[A, B, C, RepCol, DataCol]): EncoderShapeValue[List[B], RepCol, DataCol] = {
+  /*def shapedList[A, B, C](rep: List[A])(implicit shape: EncoderShape.Aux[A, B, C, RepCol, DataCol]): EncoderShapeValue[List[B], RepCol, DataCol] = {
     val shape1 = shape
     val rep1 = rep
     new EncoderShapeValue[List[B], RepCol, DataCol] {
@@ -35,6 +33,5 @@ trait EncoderDataShapeValueHelper[RepCol, DataCol] {
       override val rep = reps
       override val shape = EncoderShape.listDateShapeExt(implicitly[EncoderShape.Aux[EncoderShapeValue[Any, RepCol, DataCol], Any, EncoderShapeValue[Any, RepCol, DataCol], RepCol, DataCol]])
     }
-  }
-
+  }*/
 }

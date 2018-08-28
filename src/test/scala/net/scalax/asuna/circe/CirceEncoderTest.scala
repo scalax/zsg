@@ -3,15 +3,10 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import io.circe.Json
-import net.scalax.asuna.circe.another.EncoderContentAbs
-import net.scalax.asuna.circe.{ CirceAsunaEncoderHelper, EmptyCirceTable }
-import net.scalax.asuna.helper.MacroColumnInfoImpl
-import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.encoder.{ CaseRepWrap, EncoderHelper, EncoderWitCol }
+import io.circe.{ Encoder, Json }
+import net.scalax.asuna.circe.{ CirceAsunaDecoderHelper, CirceAsunaEncoderHelper, EmptyCirceTable }
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
-import shapeless.Lazy
 
 case class TestModel1(
   /*name1: String ,
@@ -44,7 +39,7 @@ class CirceEncoderTest extends FlatSpec
   with ScalaFutures
   with BeforeAndAfterAll
   with BeforeAndAfter
-  with CirceAsunaEncoderHelper {
+  with CirceAsunaEncoderHelper with CirceAsunaDecoderHelper {
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
@@ -54,17 +49,31 @@ class CirceEncoderTest extends FlatSpec
     val test1 = TestModel1(faker.weather.description, 793, test3)
     val test2 = TestModel2(faker.book.title, 967)
     val model = TestModel(faker.name.name, faker.address.cityName, 123, 456L, test1, List(test2, test2, test2, test2, test2))*/
+  }
 
+  "circe encoder gen by asuna" should "auto encoder simple case class" in {
     val test2 = TestModel2(faker.book.title, 967)
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel2].compileEncoder.inputTable(EmptyCirceTable.value))
+    val provideJson = {
+      import io.circe.generic.auto._
+      val encoder = implicitly[Encoder[TestModel2]]
+      encoder(test2)
+    }
 
-    val circeEncoder1111 = asunaCirce.effect(toTargetWrap[EmptyCirceTable, TestModel2].laoinert.withShape.apply(EmptyCirceTable.value))
+    val asunaJson = circeEncoder.write(test2)
+    provideJson should be(Json.fromJsonObject(asunaJson))
+  }
 
-    println(circeEncoder1111)
+  "circe decoder gen by asuna" should "auto decode simple case class" in {
+    val test2 = TestModel2(faker.book.title, 967)
+    val provideJson = {
+      import io.circe.generic.auto._
+      val encoder = implicitly[Encoder[TestModel2]]
+      encoder(test2)
+    }
 
-    val jsonObject = circeEncoder1111.write(test2)
-
-    println(Json.fromJsonObject(jsonObject).noSpaces)
-
+    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.caseOnly[EmptyCirceTable, TestModel2].compileDecoder.inputTable(EmptyCirceTable.value))
+    circeDecoder.read(provideJson) should be(Right(test2))
   }
 
 }

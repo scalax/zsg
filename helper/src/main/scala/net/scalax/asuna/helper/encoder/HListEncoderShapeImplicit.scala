@@ -5,26 +5,22 @@ import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import shapeless.Generic
 
-trait HListEncoderShapeWrap[Rep, Data, RepCol, DataCol] {
+trait HListEncoderShapeWrap[Rep, Data] {
 
   val rep: Rep
   val columnInfo: MacroColumnInfo
 
 }
 
-trait EncoderWitCol[RepCol, DataCol] {
-  def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D, RepCol, DataCol] = {
+object EncoderWitCol {
+  def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D] = {
     val rep1 = rep
     val columnInfo1 = columnInfo
-    new HListEncoderShapeWrap[T, D, RepCol, DataCol] {
+    new HListEncoderShapeWrap[T, D] {
       override val rep: T = rep1
       override val columnInfo = columnInfo1
     }
   }
-}
-
-object EncoderWitCol {
-  def value[RepCol, DataCol]: EncoderWitCol[RepCol, DataCol] = new EncoderWitCol[RepCol, DataCol] {}
 }
 
 trait CaseRepWrap[Table, Case, RepCol, DataCol] {
@@ -38,19 +34,13 @@ trait CaseRepWrap[Table, Case, RepCol, DataCol] {
 
   def withShape[Target1](implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): Table => EncoderShapeValue[Case, RepCol, DataCol] = { table: Table =>
     val shape1 = shape
-    val tableShape = new EncoderShape[Table, Case, RepCol, DataCol] {
-      override type Target = Target1
-      override def wrapRep(base: Table): Target1 = shape1.wrapRep(input(base))
-
-      override def toLawRep(base: Target1, oldRep: RepCol): RepCol = shape1.toLawRep(base, oldRep)
-
-      override def buildData(data: Case, rep: Target1, oldData: DataCol): DataCol = shape.buildData(dataTransform(data), rep, oldData)
-    }
-    new EncoderShapeValue[Case, RepCol, DataCol] {
+    val wrappedRep = shape1.wrapRep(input(table))
+    val sv = new EncoderShapeValue[HListData, RepCol, DataCol] {
       override type RepType = Target1
-      override val rep = tableShape.wrapRep(table)
-      override val shape = tableShape.packed
+      override val rep = wrappedRep
+      override val shape = shape1.packed
     }
+    sv.emap { (caseClass: Case) => dataTransform(caseClass) }
   }
 
 }
