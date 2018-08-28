@@ -5,26 +5,22 @@ import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.decoder.macroImpl.{ ModelGen, PropertyType }
 import shapeless.Generic
 
-trait HListEncoderShapeWrap[Rep, Data, RepCol, DataCol] {
+trait HListEncoderShapeWrap[Rep, Data] {
 
   val rep: Rep
   val columnInfo: MacroColumnInfo
 
 }
 
-trait EncoderWitCol[RepCol, DataCol] {
-  def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D, RepCol, DataCol] = {
+object EncoderWitCol {
+  def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D] = {
     val rep1 = rep
     val columnInfo1 = columnInfo
-    new HListEncoderShapeWrap[T, D, RepCol, DataCol] {
+    new HListEncoderShapeWrap[T, D] {
       override val rep: T = rep1
       override val columnInfo = columnInfo1
     }
   }
-}
-
-object EncoderWitCol {
-  def value[RepCol, DataCol]: EncoderWitCol[RepCol, DataCol] = new EncoderWitCol[RepCol, DataCol] {}
 }
 
 trait CaseRepWrap[Table, Case, RepCol, DataCol] {

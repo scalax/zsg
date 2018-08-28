@@ -1,15 +1,11 @@
 package net.scalax.asuna.circe
 
-import io.circe.{ Decoder, Encoder, Json, JsonObject }
-import io.circe.syntax._
-import net.scalax.asuna.circe.aaaa.{ CirceAsunaDecoder, CirceAsunaDecoderImpl, CirceAsunaEncoder, CirceAsunaEncoderImpl }
+import io.circe.{ Decoder, Encoder, Json }
+import net.scalax.asuna.circe.aaaa.{ CirceAsunaDecoder, CirceAsunaDecoderImpl, CirceAsunaEncoderImpl }
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
-import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.helper.encoder._
-
-import scala.language.experimental.macros
 
 trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
   def read(data: Json): Either[Exception, DataType]
@@ -39,10 +35,10 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
 
 trait CirceAsunaDecoderHelper extends HListDecoderShapeImplicit with DecoderHelper[List[CirceAsunaDecoder], Map[String, Any]] {
 
-  implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](implicit someshape: Decoder[B]): DecoderShape.Aux[HListEncoderShapeWrap[Placeholder[B], B, List[CirceAsunaDecoder], Map[String, Any]], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
-    new DecoderShape[HListEncoderShapeWrap[Placeholder[B], B, List[CirceAsunaDecoder], Map[String, Any]], B, List[CirceAsunaDecoder], Map[String, Any]] {
+  implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](implicit someshape: Decoder[B]): DecoderShape.Aux[HListEncoderShapeWrap[Placeholder[B], B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
+    new DecoderShape[HListEncoderShapeWrap[Placeholder[B], B], B, List[CirceAsunaDecoder], Map[String, Any]] {
       override type Target = CirceAsunaDecoderImpl[B]
-      override def wrapRep(base: HListEncoderShapeWrap[Placeholder[B], B, List[CirceAsunaDecoder], Map[String, Any]]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
+      override def wrapRep(base: HListEncoderShapeWrap[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
         override val key = base.columnInfo.modelColumnName
         override def write(data: Json): Either[Exception, B] = {
           if (data == Json.Null) {
