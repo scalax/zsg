@@ -38,6 +38,23 @@ trait WrapApply[RepCol, DataCol] {
       }
     }
 
+    def aa[Rep, HListData](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]) = {
+      new {
+        def bb[Target1](implicit shape: DecoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] = new InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] {
+          override def inputTable(table: Table): DecoderShapeValue[Case, RepCol, DataCol] = {
+            val shape1 = shape
+            val wrappedRep = shape1.wrapRep(repWrap.input(table))
+            val sv = new DecoderShapeValue[HListData, RepCol, DataCol] {
+              override type RepType = Target1
+              override val rep = wrappedRep
+              override val shape = shape1.packed
+            }
+            sv.dmap { (hlist: HListData) => repWrap.generic.from(hlist) }
+          }
+        }
+      }
+    }
+
     def compileEncoder[Rep, HListData, Target1](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData], shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] = new InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] {
       override def inputTable(table: Table): EncoderShapeValue[Case, RepCol, DataCol] = {
         val shape1 = shape
