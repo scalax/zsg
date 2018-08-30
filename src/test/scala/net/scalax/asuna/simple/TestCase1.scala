@@ -133,7 +133,7 @@ class DynModel
     val prepareData = db.run(friendTq2.map(s => new FriendTable3Model(s).reader).result)
     try {
       val d = await(prepareData)
-      //println(d.asJson.spaces2)
+      println(d.asJson.spaces2)
     } catch {
       case e: Exception =>
         logger.error("error", e)
@@ -141,18 +141,18 @@ class DynModel
     }
   }
 
-  /*it should "dynamic filter columns and output to JsonObject" in {
-    val cols = List("id", "nick", "age")
-    val autalCols = List("id", "age")
+  it should "dynamic filter columns and output to JsonObject" in {
+    val cols = List("id", "nick", "name")
+    val autalCols = List("id", "name")
     val tq = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
-    prepareData.result.statements.toList should be(friendTq2.map(s => (s.id, s.age, s.id)).result.statements.toList)
+    prepareData.result.statements.toList should be(friendTq2.map(s => (s.id, s.name, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))
     d.size should be(3)
     d.foreach { item =>
       item.getClass should be(classOf[Friends8])
       item.dyn.toMap.keys.toSet should be(autalCols.toSet)
     }
-  }*/
+  }
 
 }

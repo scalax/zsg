@@ -30,11 +30,11 @@ case class Friends7(age: Int, id: Long)
 
 class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
 
-  lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6]
-  lazy val reader6 = umr.effect(shape6(this)).toSv
+  lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6].compileDecoder.inputTable(this)
+  lazy val reader6 = umr.effect(shape6).toSv
 
-  lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7]
-  lazy val reader7 = umr.effect(shape7(this)).toSv
+  lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7].compileDecoder.inputTable(this)
+  lazy val reader7 = umr.effect(shape7).toSv
 
 }
 
@@ -47,7 +47,7 @@ class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) w
   self =>
 
   def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields].input(self)).withCols(cols)
-  def shape8 = umr.caseOnly[DynFriendModel, Friends8](self)
+  def shape8 = umr.caseOnly[DynFriendModel, Friends8].compileDecoder.inputTable(self)
   def reader8 = umr.effect(shape8).toSv
 
 }

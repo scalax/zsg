@@ -35,8 +35,8 @@ trait HListEncoderShapeImplicit {
       override def buildData(data: H :: I, rep: M :: N, oldData: DataCol): DataCol = {
         val h :: i = data
         val m :: n = rep
-        val tailData = tail.value.buildData(i, n, oldData)
-        head.value.buildData(h, m, tailData)
+        val headData = head.value.buildData(h, m, oldData)
+        tail.value.buildData(i, n, headData)
       }
 
     }
