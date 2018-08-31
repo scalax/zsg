@@ -3,8 +3,6 @@ package net.scalax.asuna.slick.simple
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import io.circe.syntax._
-import io.circe.generic.auto._
 import net.scalax.asuna.core.decoder.DataModel
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
@@ -114,14 +112,13 @@ class DynModel
   it should "auto encode with FriendTable4Model" in {
     val prepareData6 = FriendTable4Model.map(_.reader6).result
     val prepareData7 = FriendTable4Model.map(_.reader7).result
-    println(prepareData6.statements.toList)
-    println(prepareData7.statements.toList)
+    prepareData6.statements.toList should be(FriendTable4Model.map(s => (s.id, s.nick)).result.statements.toList)
+    prepareData7.statements.toList should be(FriendTable4Model.map(s => (s.age, s.id)).result.statements.toList)
     try {
       val d6 = await(db.run(prepareData6))
-      println(d6.asJson.spaces2)
-
+      //println(d6.asJson.spaces2)
       val d7 = await(db.run(prepareData7))
-      println(d7.asJson.spaces2)
+      //println(d7.asJson.spaces2)
     } catch {
       case e: Exception =>
         logger.error("error", e)
@@ -141,18 +138,18 @@ class DynModel
     }
   }
 
-  /*it should "dynamic filter columns and output to JsonObject" in {
-    val cols = List("id", "nick", "age")
-    val autalCols = List("id", "age")
+  it should "dynamic filter columns and output to JsonObject" in {
+    val cols = List("id", "nick", "name")
+    val autalCols = List("id", "name")
     val tq = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
-    prepareData.result.statements.toList should be(friendTq2.map(s => (s.id, s.age, s.id)).result.statements.toList)
+    prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.name, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))
     d.size should be(3)
     d.foreach { item =>
       item.getClass should be(classOf[Friends8])
       item.dyn.toMap.keys.toSet should be(autalCols.toSet)
     }
-  }*/
+  }
 
 }
