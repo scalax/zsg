@@ -34,12 +34,11 @@ case class MacroColumnInfoImpl /*[TT, MT, TRT, MRT]*/ (
   override type ModelRepType = MRT*/
 
 }
-
-trait MacroColumnInfoContent {
+/*trait MacroColumnInfoContent {
 
   implicit def columnInfo: MacroColumnInfo
 
 }
-/*trait EncoderColumnInfo[RepCol, DataCol] extends MacroColumnInfoContent {
+trait EncoderColumnInfo[RepCol, DataCol] extends MacroColumnInfoContent {
   def edsv: EncoderShapeValue[Any, RepCol, DataCol]
 }*/ 

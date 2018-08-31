@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.umr
 
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
-import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue, SplitData }
+import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper, HListDecoderShapeImplicit }
 import net.scalax.asuna.helper.encoder.HListEncoderShapeWrap
 import slick.lifted.{ FlatShapeLevel, MappedProjection, Shape, ShapedValue }
@@ -48,11 +48,11 @@ trait UmrHelper extends HListDecoderShapeImplicit {
     }).shapeValue.map { (s: B) => (key, s.asJson(encoder)) }
   }
 
-  implicit def repImplicit[R, D, T, L <: FlatShapeLevel](implicit shape: Shape[L, R, D, T]): DecoderShape.Aux[HListEncoderShapeWrap[R, D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
-    val ds = implicitly[DecoderShape.Aux[HListEncoderShapeWrap[ShapeFunc[D], D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)]]
-    new DecoderShape[HListEncoderShapeWrap[R, D], D, ShapeFunc[(Any, Any)], (Any, Any)] {
+  implicit def repImplicit[R, D, T, L <: FlatShapeLevel](implicit shape: Shape[L, R, D, T]): DecoderShape.Aux[R, D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
+    val ds = implicitly[DecoderShape.Aux[ShapeFunc[D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)]]
+    new DecoderShape[R, D, ShapeFunc[(Any, Any)], (Any, Any)] {
       override type Target = ShapeFunc[D]
-      override def wrapRep(base: HListEncoderShapeWrap[R, D]): ShapeFunc[D] = {
+      override def wrapRep(base: R): ShapeFunc[D] = {
         val shape1 = shape
         (new SlickShapeValueWrap[D] {
           override type TargetRep = T
@@ -61,7 +61,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
           override type Level = L
           override val shape = shape1
           override val dataToList = identity[D]
-          override val rep = base.rep
+          override val rep = base
         }).shapeValue
       }
       override def toLawRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] = ds.toLawRep(base, oldRep)
@@ -69,10 +69,10 @@ trait UmrHelper extends HListDecoderShapeImplicit {
     }
   }
 
-  implicit def shapeFuncImplicit[D, L <: FlatShapeLevel]: DecoderShape.Aux[HListEncoderShapeWrap[ShapeFunc[D], D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
-    new DecoderShape[HListEncoderShapeWrap[ShapeFunc[D], D], D, ShapeFunc[(Any, Any)], (Any, Any)] {
+  implicit def shapeFuncImplicit[D, L <: FlatShapeLevel]: DecoderShape.Aux[ShapeFunc[D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
+    new DecoderShape[ShapeFunc[D], D, ShapeFunc[(Any, Any)], (Any, Any)] {
       override type Target = ShapeFunc[D]
-      override def wrapRep(base: HListEncoderShapeWrap[ShapeFunc[D], D]): ShapeFunc[D] = base.rep
+      override def wrapRep(base: ShapeFunc[D]): ShapeFunc[D] = base
       override def toLawRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] = new ShapeFunc[(D, (Any, Any))] {
         override type RepType = (ShapedValue[Any, base.DataType], ShapedValue[Any, oldRep.DataType])
         override type DataType = (base.DataType, oldRep.DataType)
@@ -82,16 +82,6 @@ trait UmrHelper extends HListDecoderShapeImplicit {
       override def takeData(oldData: ShapeFunc[D], rep: (Any, Any)): SplitData[D, (Any, Any)] = {
         SplitData(current = rep._1.asInstanceOf[D], left = rep._2.asInstanceOf[(Any, Any)])
       }
-    }
-  }
-
-  implicit def shapeFuncImplicit1111[D, L <: FlatShapeLevel]: DecoderShape.Aux[HListEncoderShapeWrap[DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], D], D, DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], ShapeFunc[(Any, Any)], (Any, Any)] = {
-    implicit val shape1 = implicitly[DecoderShape.Aux[DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], D, DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], ShapeFunc[(Any, Any)], (Any, Any)]]
-    new DecoderShape[HListEncoderShapeWrap[DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], D], D, ShapeFunc[(Any, Any)], (Any, Any)] {
-      override type Target = DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)]
-      override def wrapRep(base: HListEncoderShapeWrap[DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], D]): DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)] = base.rep
-      override def toLawRep(base: DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] = shape1.toLawRep(base, oldRep)
-      override def takeData(oldData: DecoderShapeValue[D, ShapeFunc[(Any, Any)], (Any, Any)], rep: (Any, Any)): SplitData[D, (Any, Any)] = shape1.takeData(oldData, rep)
     }
   }
 
