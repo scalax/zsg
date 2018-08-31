@@ -28,15 +28,15 @@ trait HListEncoderShapeImplicit {
 
       override def toLawRep(base: M :: N, oldRep: RepCol): RepCol = {
         val headRep :: tailRep = base
-        val headReps = head.value.toLawRep(headRep, oldRep)
-        tail.value.toLawRep(tailRep, headReps)
+        val tailReps = tail.value.toLawRep(tailRep, oldRep)
+        head.value.toLawRep(headRep, tailReps)
       }
 
       override def buildData(data: H :: I, rep: M :: N, oldData: DataCol): DataCol = {
         val h :: i = data
         val m :: n = rep
-        val headData = head.value.buildData(h, m, oldData)
-        tail.value.buildData(i, n, headData)
+        val tailData = tail.value.buildData(i, n, oldData)
+        head.value.buildData(h, m, tailData)
       }
 
     }

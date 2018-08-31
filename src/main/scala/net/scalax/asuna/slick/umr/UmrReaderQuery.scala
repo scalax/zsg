@@ -4,7 +4,6 @@ import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper, HListDecoderShapeImplicit }
-import net.scalax.asuna.helper.encoder.HListEncoderShapeWrap
 import slick.lifted.{ FlatShapeLevel, MappedProjection, Shape, ShapedValue }
 
 import scala.reflect.ClassTag

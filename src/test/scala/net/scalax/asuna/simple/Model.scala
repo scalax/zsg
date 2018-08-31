@@ -41,7 +41,7 @@ class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
 
 case class DynFields(id: Long, name: String, age: Int)
-case class Friends8(id: Long, dyn: JsonObject)
+case class Friends8(age: Int, dyn: JsonObject)
 
 class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
   self =>
