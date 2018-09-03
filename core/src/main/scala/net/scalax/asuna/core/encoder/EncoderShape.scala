@@ -20,6 +20,13 @@ trait EncoderShape[-E, U, RepCol, DataCol] {
   def wrapRep(base: E): Target
   def toLawRep(base: Target, oldRep: RepCol): RepCol
   def buildData(data: U, rep: Target, oldData: DataCol): DataCol
+  def emap[T](f: (Target, T) => U): EncoderShape.Aux[E, T, self.Target, RepCol, DataCol] = new EncoderShape[E, T, RepCol, DataCol] {
+    subSelf =>
+    override type Target = self.Target
+    override def wrapRep(base: E): Target = self.wrapRep(base)
+    override def toLawRep(base: Target, oldRep: RepCol): RepCol = self.toLawRep(base, oldRep)
+    override def buildData(data: T, rep: Target, oldData: DataCol): DataCol = self.buildData(f(rep, data), rep, oldData)
+  }
 }
 
 object EncoderShape extends ListEncoderShapeImplicit {

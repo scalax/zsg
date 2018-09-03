@@ -11,6 +11,7 @@ case class Friends(
   age: Int)
 
 class FriendTable(tag: slick.lifted.Tag) extends Table[Friends](tag, FriendTable.tableName) {
+
   def id = column[Long]("id", O.AutoInc)
   def name = column[String]("name")
   def nick = column[String]("nick")
@@ -30,6 +31,6 @@ class SlickSrotByTest(tag: slick.lifted.Tag) extends FriendTable(tag) with Slick
 
   def extColumn = (id, nick)
 
-  def sortByCols = sortBy.effect(sortBy.caseOnly[SlickSrotByTest, SortByParam].cc.dd.inputTable(self))
+  def sortByCols = sortBy.effect(sortBy.caseOnly[SlickSrotByTest, SortByParam].compileEncoder1111.inputTable(self))
 
 }
