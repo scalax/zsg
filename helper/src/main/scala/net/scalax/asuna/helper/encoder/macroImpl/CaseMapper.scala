@@ -130,20 +130,21 @@ object CaseModelContentHelper {
           }
         }
 
-          ${caseClass.typeSymbol.companion}.apply(..${
+        def fetchProperty(name: Symbol): Any = {
+          ${
+          (1 to modelFieldNames.size).foldLeft(q"""(throw new _root_.scala.Exception(s"没有匹配字段 $${name} 的值")): Any""": Tree) { (tree, index) =>
+            q"""if (name eq ${TermName("symbol" + index)}) {
+              ${TermName("data" + index)}
+            } else {
+              $tree
+            }"""
+          }
+        }
+        }
+
+        ${caseClass.typeSymbol.companion}.apply(..${
           modelFieldNames.map(s =>
-            q"""${TermName(s.law)} =
-            {
-              ${
-              (1 to modelFieldNames.size).foldLeft(q"""(throw new _root_.scala.Exception(${Literal(Constant(s"没有匹配字段 ${s.law} 的值"))})): Any""": Tree) { (tree, index) =>
-                q"""if (${symbolClass.typeSymbol.companion}.apply(${Literal(Constant(s.law))}) eq ${TermName("symbol" + index)}) {
-                    ${TermName("data" + index)}
-                  } else {
-                    $tree
-                  }"""
-              }
-            }
-            }.asInstanceOf[${s.propertyTag}]""")
+            q"""${TermName(s.law)} = fetchProperty(_root_.scala.Symbol(${Literal(Constant(s.law))})).asInstanceOf[${s.propertyTag}]""")
         })
 
         }
@@ -163,6 +164,20 @@ object CaseModelContentHelper {
         }
         """
       }
+      /*
+      q"""${TermName(s.law)} =
+            {
+              ${
+              (1 to modelFieldNames.size).foldLeft(q"""(throw new _root_.scala.Exception(${Literal(Constant(s"没有匹配字段 ${s.law} 的值"))})): Any""": Tree) { (tree, index) =>
+                q"""if (${symbolClass.typeSymbol.companion}.apply(${Literal(Constant(s.law))}) eq ${TermName("symbol" + index)}) {
+                    ${TermName("data" + index)}
+                  } else {
+                    $tree
+                  }"""
+              }
+            }
+            }.asInstanceOf[${s.propertyTag}]"""
+       */
       //println(q + "\n" + "22" * 100)
       q
     }

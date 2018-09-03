@@ -9,5 +9,38 @@ class CaseClassDataHelper@{count}[@for(i <- 1 to count) {
         val column@{i}: MacroColumnInfo
         @if(i < count) { , }
     }
-) {
+) extends CaseClassDataHelperAbs {
+
+  override def toSetterContent(setterContent: SetterContent): SetterContent = {
+    val setterContent@{count + 1} = setterContent
+    @for(i <- count to 1 by - 1) {
+        val setterContent@{i} = CaseModelContent2222.set(setterContent@{i + 1}, column@{i}.modelColumnSymbol, data@{i})
+    }
+    setterContent1
+  }
+
+}
+
+object CaseClassDataHelper@{count} {
+
+    def fromModel[
+    @for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }](rep: CaseClassHelper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }], cv: Symbol => Any): CaseClassDataHelper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }] = {
+        new CaseClassDataHelper@{count}(@for(i <- 1 to count) {
+            data@{i} = cv(rep.column@{i}.modelColumnSymbol).asInstanceOf[Data@{i}],
+            column@{i} = rep.column@{i}
+            @if(i < count) { , }
+        })
+    }
+
 }

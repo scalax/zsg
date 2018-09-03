@@ -53,7 +53,7 @@ class CirceEncoderTest extends FlatSpec
 
   "circe encoder gen by asuna" should "auto encoder simple case class" in {
     val test2 = TestModel2(faker.book.title, 967)
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel2].compileEncoder.inputTable(EmptyCirceTable.value))
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel2].compileEncoder1111.inputTable(EmptyCirceTable.value))
     val provideJson = {
       import io.circe.generic.auto._
       val encoder = implicitly[Encoder[TestModel2]]
@@ -72,7 +72,7 @@ class CirceEncoderTest extends FlatSpec
       encoder(test2)
     }
 
-    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.caseOnly[EmptyCirceTable, TestModel2].compileDecoder.inputTable(EmptyCirceTable.value))
+    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.caseOnly[EmptyCirceTable, TestModel2].compileDecoder1111.inputTable(EmptyCirceTable.value))
     circeDecoder.read(provideJson) should be(Right(test2))
   }
 

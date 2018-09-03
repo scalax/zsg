@@ -18,6 +18,16 @@ trait DecoderShape[-E, D, RepCol, DataCol] {
   def wrapRep(base: E): Target
   def toLawRep(base: Target, oldRep: RepCol): RepCol
   def takeData(rep: Target, oldData: DataCol): SplitData[D, DataCol]
+  def dmap[T](f: (Target, D) => T): DecoderShape.Aux[E, T, self.Target, RepCol, DataCol] = new DecoderShape[E, T, RepCol, DataCol] {
+    subSelf =>
+    override type Target = self.Target
+    override def wrapRep(base: E): Target = self.wrapRep(base)
+    override def toLawRep(base: Target, oldRep: RepCol): RepCol = self.toLawRep(base, oldRep)
+    override def takeData(rep: Target, oldData: DataCol): SplitData[T, DataCol] = {
+      val sd = self.takeData(rep, oldData)
+      sd.copy(current = f(rep, sd.current))
+    }
+  }
 }
 
 object DecoderShape extends ListDecoderShapeImplicit {

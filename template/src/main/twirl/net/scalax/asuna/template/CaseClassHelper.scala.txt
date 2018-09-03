@@ -1,0 +1,23 @@
+@(count: Int)
+
+def withRep[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    rep@{i}: Rep@{i},
+    property@{i}: PropertyType[Data@{i}],
+    column@{i}: MacroColumnInfo
+    @if(i < count) { , }
+}): CaseClassHelper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new CaseClassHelper@{count}(@for(i <- 1 to count) {
+        rep@{i} = rep@{i},
+        property@{i} = property@{i},
+        column@{i} = column@{i}
+        @if(i < count) { , }
+    })
+}

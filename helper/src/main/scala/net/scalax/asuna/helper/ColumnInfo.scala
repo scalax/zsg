@@ -5,6 +5,8 @@ trait MacroColumnInfo {
   val tableColumnName: String
   val modelColumnName: String
 
+  val tableColumnSymbol: Symbol
+  val modelColumnSymbol: Symbol
   /*type TableType
   type ModelType
 
@@ -21,9 +23,9 @@ trait MacroColumnInfo {
 
 case class MacroColumnInfoImpl /*[TT, MT, TRT, MRT]*/ (
   override val tableColumnName: String,
-  override val modelColumnName: String /*,
-  override val tableWeakTypeTag: WeakTypeTag[TT],
-  override val modelTag: WeakTypeTag[MT],
+  override val tableColumnSymbol: Symbol,
+  override val modelColumnName: String,
+  override val modelColumnSymbol: Symbol /*,
   override val tableRepWeakTypeTag: WeakTypeTag[TRT],
   override val modelRepTag: WeakTypeTag[MRT]*/ ) extends MacroColumnInfo {
 
