@@ -28,7 +28,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
       //def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
     }
 
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].compileEncoder1111.inputTable(Abc))
+    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[Abc.type, LargeModel].compileEncoder2222.inputTable(Abc))
 
     for (_ <- TestParam.preCollection) {
       io.circe.Json.fromJsonObject(circeEncoder.write(model))

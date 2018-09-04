@@ -35,6 +35,17 @@ trait LazyData[Input, Output, Sub] extends Function1[Input, Output] {
 
 }
 
+object LazyData {
+  def init[Input, Output, Sub](gen: (Input => Output), sub: Sub): LazyData[Input, Output, Sub] = {
+    val sub1 = sub
+
+    new LazyData[Input, Output, Sub] {
+      override def apply(input: Input): Output = gen(input)
+      override def sub: Sub = sub1
+    }
+  }
+}
+
 trait LazyDataWrap[Input, Output, Sub] {
 
   type CaseDataHelper
