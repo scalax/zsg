@@ -8,6 +8,7 @@ import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.helper.decoder.macroImpl.PropertyType
 import net.scalax.asuna.helper.SetterContent
 import net.scalax.asuna.helper.CaseModelContent2222
+import net.scalax.asuna.helper.data.macroImpl.DataGenWrap
 
 import shapeless._
 
@@ -16,6 +17,14 @@ trait CaseClassHelper
 object CaseClassHelper {
     @for(i <- 1 to maxItem) {
         @net.scalax.asuna.template.txt.CaseClassHelper(count = i)
+    }
+}
+
+trait CaseClassDataHelper
+
+object CaseClassDataHelper {
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template.txt.CaseClassDataHelper(count = i)
     }
 }
 
