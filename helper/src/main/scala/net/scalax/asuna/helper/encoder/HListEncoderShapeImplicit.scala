@@ -35,6 +35,8 @@ object HListEncoderShapeWrap {
   }
 }
 
+trait EncoderWitCol
+
 object EncoderWitCol {
   def toWrap[T, D](rep: T, pro: PropertyType[D], columnInfo: MacroColumnInfo): HListEncoderShapeWrap[T, D] = {
     val rep1 = rep

@@ -1,6 +1,10 @@
 package net.scalax.asuna.slick.simple
 
 import io.circe.JsonObject
+import net.scalax.asuna.helper.MacroColumnInfoImpl
+import net.scalax.asuna.helper.data.macroImpl.{ EmptyLazyOutput, LazyData }
+import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
+import net.scalax.asuna.helper.template.CaseClassDataHelper
 import net.scalax.asuna.slick.umr.UmrHelper
 import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
@@ -19,7 +23,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper {
   val nick = rep(friend.nick)
   val age = rep(friend.age)
 
-  lazy val shape = umr.caseOnly[FriendTable3Model, Friends5].compileDecoder1111
+  lazy val shape = umr.caseOnly[FriendTable3Model, Friends5].compileDecoder2222
 
   lazy val reader = umr.effect(shape.inputTable(this)).toSv
 
@@ -30,10 +34,10 @@ case class Friends7(age: Int, id: Long)
 
 class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 
-  lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6].compileDecoder1111
+  lazy val shape6 = umr.caseOnly[FriendTable4Model, Friends6].compileDecoder2222
   lazy val reader6 = umr.effect(shape6.inputTable(this)).toSv
 
-  lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7].compileDecoder1111
+  lazy val shape7 = umr.caseOnly[FriendTable4Model, Friends7].compileDecoder2222
   lazy val reader7 = umr.effect(shape7.inputTable(this)).toSv
 
 }
@@ -46,8 +50,8 @@ case class Friends8(age: Int, dyn: JsonObject)
 class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
   self =>
 
-  def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields].compileEncoder1111.inputTable(self)).withCols(cols)
-  def shape8 = umr.caseOnly[DynFriendModel, Friends8].compileDecoder1111.inputTable(self)
+  def dyn = rmu.effect(rmu.caseOnly[DynFriendModel, DynFields].compileEncoder2222.inputTable(self)).withCols(cols)
+  def shape8 = umr.caseOnly[DynFriendModel, Friends8].compileDecoder2222.inputTable(self)
   def reader8 = umr.effect(shape8).toSv
 
 }
@@ -74,7 +78,7 @@ class MarkTableModel(markTable: MarkTable) extends UmrHelper {
   val name = rep(markTable.name)
   val mark = rep(markTable.mark)
 
-  lazy val shape = umr.caseOnly[MarkTableModel, InnerMark].compileDecoder1111
+  lazy val shape = umr.caseOnly[MarkTableModel, InnerMark].compileDecoder2222
   lazy val reader = umr.effect(shape.inputTable(this)).toSv
 
 }
