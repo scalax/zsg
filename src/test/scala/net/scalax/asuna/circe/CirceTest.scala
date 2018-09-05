@@ -29,7 +29,7 @@ class CirceTest extends FlatSpec with Matchers with CirceModels {
     val json = jsonEt.right.get
     val model = await(CirceModelReader1.reader.tranData(json))
     model.isInvalid should be(true)
-    model.toEither.left.get should be(ValidateModel(fields = List(ValidateField("我是莎莎酱的昵称", validateStr2), ValidateField("我是莎莎酱的年龄", validateStr1))))
+    model.toEither.left.get should be(ValidateModel(fields = List(ValidateField("我是莎莎酱的年龄", validateStr1), ValidateField("我是莎莎酱的昵称", validateStr2))))
   }
 
 }

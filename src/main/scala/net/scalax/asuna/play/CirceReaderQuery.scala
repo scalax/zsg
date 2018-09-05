@@ -5,7 +5,6 @@ import io.circe.{ Json, JsonObject }
 import cats.kernel.CommutativeSemigroup
 import cats.data._
 import cats.implicits._
-import net.scalax.asuna.core.common.DataGroup
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 
 import scala.concurrent.Future
@@ -13,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 trait CirceReaderQuery[U] {
 
-  def playCirceSv: DecoderShapeValue[U, CirceReaderAbs]
+  def playCirceSv: DecoderShapeValue[U, List[CirceReaderAbs], List[Any]]
 
   implicit val commutativeSemigroupListString: CommutativeSemigroup[ValidateModel] = {
     new CommutativeSemigroup[ValidateModel] {
@@ -44,10 +43,10 @@ trait CirceReaderQuery[U] {
   }
 
   def tranData(jsonObj: JsonObject): Future[Validated[ValidateModel, U]] = {
-    val impl = implicitly[DecoderShape[DecoderShapeValue[U, CirceReaderAbs], U, DecoderShapeValue[U, CirceReaderAbs], CirceReaderAbs]]
-    val rGroup = impl.toLawRep(impl.wrapRep(playCirceSv))
-    val listAnyData = validateJson(rGroup.reps, jsonObj)
-    listAnyData.map(_.map(items => impl.takeData(DataGroup(items = items), playCirceSv).current))
+    val impl = implicitly[DecoderShape.Aux[DecoderShapeValue[U, List[CirceReaderAbs], List[Any]], U, DecoderShapeValue[U, List[CirceReaderAbs], List[Any]], List[CirceReaderAbs], List[Any]]]
+    val rGroup = impl.toLawRep(impl.wrapRep(playCirceSv), List.empty[CirceReaderAbs])
+    val listAnyData = validateJson(rGroup, jsonObj)
+    listAnyData.map(_.map(items => impl.takeData(playCirceSv, items).current))
   }
 
 }

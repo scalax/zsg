@@ -1,6 +1,5 @@
 package net.scalax.asuna.sangria
 
-import net.scalax.asuna.core.common.AtomicColumn
 import net.scalax.asuna.slick.umr.SlickShapeValueWrap
 
 sealed abstract trait SlickRepAbs[Rep] {
@@ -14,10 +13,8 @@ sealed abstract trait SlickRepAbs[Rep] {
 
 }
 
-trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep] with AtomicColumn[D, SlickRepAbs[Rep]] {
+trait SlickRepWrap[Rep, D] extends SlickRepAbs[Rep] {
   self =>
-
-  override def common: SlickRepAbs[Rep] = self
 
   type DataType = D
 

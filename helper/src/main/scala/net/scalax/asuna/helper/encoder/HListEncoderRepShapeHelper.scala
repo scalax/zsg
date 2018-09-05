@@ -1,7 +1,7 @@
 package net.scalax.asuna.helper.encoder
 
 import net.scalax.asuna.core.encoder.EncoderShape
-import shapeless.{ ::, HList, HNil, Lazy }
+import shapeless._
 
 trait HListEncoderShapeImplicit {
 

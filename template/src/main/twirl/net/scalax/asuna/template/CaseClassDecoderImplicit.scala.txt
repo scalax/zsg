@@ -86,31 +86,3 @@ implicit def caseClassHelper@{count}DecoderGen[@for(i <- 1 to count) {
         }
     }
 }
-
-implicit def caseClassHelper@{count}DecoderImplicit[@for(i <- 1 to count) {
-        Rep@{i},
-        Data@{i},
-        Target@{i},
-    } RepCol, DataCol](
-    implicit @for(i <- 1 to count) {
-        shape@{i}: Lazy[DecoderShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol]] @if(i < count) { , }
-    })
-    : DecoderShape.Aux[CaseClassHelper@{count}[@for(i <- 1 to count) {
-        Rep@{i},
-        Data@{i}
-        @if(i < count) { , }
-    }],
-    SetterContent => SetterContent,
-    CaseClassHelper@{count}[
-        @for(i <- 1 to count) {
-            Target@{i},
-            Data@{i}
-            @if(i < count) { , }
-    }], RepCol, DataCol] = {
-    caseClassHelper@{count}DecoderGen(
-        @for(i <- 1 to count) {
-            shape@{i}
-            @if(i < count) { , }
-        }
-    ).dmap((rep, s) => s.toSetterContent _)
-    }

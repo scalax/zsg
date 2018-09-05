@@ -26,7 +26,7 @@ object asunaCirceImpl extends EncoderWrapperHelper[List[CirceAsunaEncoder], List
 
 }
 
-trait CirceAsunaEncoderHelper extends HListEncoderShapeImplicit {
+trait CirceAsunaEncoderHelper {
 
   implicit def dfgsdgdfgdfgsetrtrtdst[B, RepCol, DataCol](implicit someshape: Encoder[B]): EncoderShape.Aux[HListEncoderShapeWrap[Placeholder[B], B], B, CirceAsunaEncoderImpl[B], List[CirceAsunaEncoder], List[(String, Json)]] = {
     new EncoderShape[HListEncoderShapeWrap[Placeholder[B], B], B, List[CirceAsunaEncoder], List[(String, Json)]] {

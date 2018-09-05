@@ -3,7 +3,7 @@ package net.scalax.asuna.slick.filter
 import cats.Contravariant
 import io.circe.{ Decoder, Json, JsonObject }
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeImplicit, HListEncoderShapeWrap }
+import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper }
 import slick.ast.BaseTypedType
 
 trait SFilterColHelper[D] {
@@ -44,7 +44,7 @@ object SlickFilterColImpl {
 
 }
 
-trait SlickFilterColHelper extends HListEncoderShapeImplicit {
+trait SlickFilterColHelper {
 
   trait InputData[RepOut, Data] extends EncoderContent[RepOut, Data] {
     def inputData(data: Data)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]]

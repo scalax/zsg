@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeImplicit, HListEncoderShapeWrap }
+import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap }
 
 object SlickSortBy {
 
@@ -46,7 +46,7 @@ object SlickSortBy {
 
 }
 
-trait SlickSortByHelper extends HListEncoderShapeImplicit {
+trait SlickSortByHelper {
 
   trait InputParameter[RepOut, Data] extends EncoderContent[RepOut, Data] {
     def inputParam(param: List[(String, String)]): slick.lifted.Ordered

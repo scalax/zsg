@@ -1,6 +1,5 @@
 package net.scalax.asuna.sangria
 
-import net.scalax.asuna.core.common.{ DataGroup, DataRepGroup }
 import net.scalax.asuna.core.decoder._
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
 import net.scalax.asuna.slick.umr.{ SlickShapeValueListWrap, SlickShapeValueWrap }
@@ -21,17 +20,17 @@ trait SlickSangriaHelper[E] {
 
   trait InnerWithTable[Out, Data] extends SlickSangriaHelper.WithTable[E, Data] with DecoderContent[Out, Data]
 
-  object sangria extends DecoderHelper[SlickRepAbs[E]] with DecoderWrapperHelper[SlickRepAbs[E], InnerWithTable] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, SlickRepAbs[E]]): InnerWithTable[Out, D] = {
+  object sangria extends DecoderHelper[List[SlickRepAbs[E]], List[Any]] with DecoderWrapperHelper[List[SlickRepAbs[E]], List[Any], InnerWithTable] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, List[SlickRepAbs[E]], List[Any]]): InnerWithTable[Out, D] = {
       val func = { (table: E, names: List[String], ct: ClassTag[D]) =>
         implicit val ct1 = ct
 
         val wrapRep = shape.wrapRep(rep)
-        val reps = shape.toLawRep(wrapRep).reps
+        val reps = shape.toLawRep(wrapRep, List.empty)
         val filterReps = reps.filter { _.sangraiKey.map(k => names.contains(k)).getOrElse(true) }
         val slickReps = filterReps.map(t => t.slickCv(table).map(s => s: Any))
 
-        SlickShapeValueListWrap(slickReps)((t: List[Any]) => shape.takeData(DataGroup(items = t), wrapRep).current).shapedValue
+        SlickShapeValueListWrap(slickReps)((t: List[Any]) => shape.takeData(wrapRep, t).current).shapedValue
       }
 
       new InnerWithTable[Out, D] {
@@ -64,6 +63,15 @@ trait SlickSangriaHelper[E] {
     w
   }
 
+  implicit def slickSangriaImplicit[E, D]: DecoderShape.Aux[SlickRepWrap[E, D], D, SlickRepWrap[E, D], List[SlickRepAbs[E]], List[Any]] = {
+    new DecoderShape[SlickRepWrap[E, D], D, List[SlickRepAbs[E]], List[Any]] {
+      override type Target = SlickRepWrap[E, D]
+      override def wrapRep(base: SlickRepWrap[E, D]): SlickRepWrap[E, D] = base
+      override def toLawRep(base: SlickRepWrap[E, D], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = base :: oldRep
+      override def takeData(rep: SlickRepWrap[E, D], oldData: List[Any]): SplitData[D, List[Any]] = SplitData(current = oldData.head.asInstanceOf[D], left = oldData.tail)
+    }
+  }
+
   def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
     new SlickSangriaRepWrap[E, D] {
       override val objectKey = completedId.id
@@ -87,15 +95,16 @@ trait SlickSangriaHelper[E] {
   case class GroupStart(key: String)
   case class GroupEnd(key: String)
 
-  def seqRep(w: SlickSangriaRepWrap[E, _]*)(implicit completedId: CompletedId[String]): DecoderShapeValue[SlickValueGen[E], SlickRepAbs[E]] = {
+  def seqRep(w: SlickSangriaRepWrap[E, _]*)(implicit completedId: CompletedId[String]): DecoderShapeValue[SlickValueGen[E], List[SlickRepAbs[E]], List[Any]] = {
 
-    val dShape: DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] = {
+    val dShape: DecoderShape.Aux[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], List[SlickRepAbs[E]], List[Any]] = {
 
-      new DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickSangriaRepWrap[E, Any]], SlickRepAbs[E]] {
+      new DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[(String, Any)], List[SlickRepAbs[E]], List[Any]] {
+        override type Target = List[SlickSangriaRepWrap[E, Any]]
 
         override def wrapRep(base: List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
 
-        override def toLawRep(base: List[SlickSangriaRepWrap[E, Any]]): DataRepGroup[SlickRepAbs[E]] = {
+        override def toLawRep(base: List[SlickSangriaRepWrap[E, Any]], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = {
           val unitWrap = new SlickRepWrap[E, Unit] {
             override val sangraiKey = Option.empty
             override def slickCv(rep: E): SlickShapeValueWrap[Unit] = {
@@ -112,18 +121,18 @@ trait SlickSangriaHelper[E] {
           }
           val start: SlickRepWrap[E, Any] = unitWrap.map((_: Unit) => GroupStart(completedId.id): Any)
           val end: SlickRepWrap[E, Any] = unitWrap.map((_: Unit) => GroupEnd(completedId.id): Any)
-          DataRepGroup(reps = start :: base ::: end :: List.empty)
+          start :: base ::: end :: oldRep
         }
 
-        override def takeData(oldData: DataGroup, rep: List[SlickSangriaRepWrap[E, Any]]): SplitData[List[(String, Any)]] = {
-          val GroupStart(startKey) :: tail = oldData.items
+        override def takeData(rep: List[SlickSangriaRepWrap[E, Any]], oldData: List[Any]): SplitData[List[(String, Any)], List[Any]] = {
+          val GroupStart(startKey) :: tail = oldData
           val (currData, GroupEnd(_) :: leftData) = tail.span(t => t match {
             case GroupEnd(endKey) if (endKey == startKey) =>
               false
             case _ =>
               true
           })
-          SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = DataGroup(items = leftData))
+          SplitData(current = currData.map(_.asInstanceOf[(String, Any)]), left = leftData)
         }
 
       }

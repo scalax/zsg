@@ -4,10 +4,10 @@ import akka.http.scaladsl.server.directives.FormFieldDirectives.FieldMagnet
 import akka.http.scaladsl.server.directives.{ FormFieldDirectives, ParameterDirectives }
 import akka.http.scaladsl.server.directives.ParameterDirectives.ParamMagnet
 import akka.http.scaladsl.server.{ Directive, Directive1, Route }
-import net.scalax.asuna.core.common.{ AtomicColumn, DataGroup, DataRepGroup, Placeholder }
+import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
-import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
+import net.scalax.asuna.helper.encoder.HListEncoderShapeWrap
 
 trait AkkaFormFieldWrapAbs {
 
@@ -16,10 +16,8 @@ trait AkkaFormFieldWrapAbs {
 
 }
 
-trait AkkaFormFieldWrap[D] extends AkkaFormFieldWrapAbs with AtomicColumn[D, AkkaFormFieldWrapAbs] {
+trait AkkaFormFieldWrap[D] extends AkkaFormFieldWrapAbs {
   self =>
-
-  override def common: AkkaFormFieldWrapAbs = self
 
   override type DataType = D
 
@@ -61,54 +59,58 @@ trait AkkaHttpParameterHelper {
     def toDirective: Directive1[DataType]
   }
 
-  object akkahttp extends DecoderHelper[AkkaFormFieldWrapAbs] with DecoderWrapperHelper[AkkaFormFieldWrapAbs, FieldWrapExecable] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape[Rep, D, Out, AkkaFormFieldWrapAbs]): FieldWrapExecable[Out, D] = {
+  object akkahttp extends DecoderHelper[List[AkkaFormFieldWrapAbs], List[Any]] with DecoderWrapperHelper[List[AkkaFormFieldWrapAbs], List[Any], FieldWrapExecable] {
+    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, List[AkkaFormFieldWrapAbs], List[Any]]): FieldWrapExecable[Out, D] = {
       new FieldWrapExecable[Out, D] {
         override def toDirective: Directive1[D] = {
-          val reps = shape.toLawRep(shape.wrapRep(rep)).reps
+          val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
           reps.foldLeft(Directive { (gen: Tuple1[List[Any]] => Route) => gen(Tuple1(List.empty[Any])) }) { (head, item) =>
             item.directive.flatMap { data => head.map(h => Tuple1(data :: h)) }
-          }.map(list => Tuple1(shape.takeData(DataGroup(list.reverse), shape.wrapRep(rep)).current))
+          }.map(list => Tuple1(shape.takeData(shape.wrapRep(rep), list.reverse).current))
         }
       }
     }
   }
 
-  implicit def akkahttpParameterWithNameImplicit[D](implicit macroColumnInfo: MacroColumnInfo): DecoderShape[ParameterWithName[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] = {
-    new DecoderShape[ParameterWithName[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] {
-      override def wrapRep(base: ParameterWithName[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
-        override val directive: Directive1[D] = base.withName(macroColumnInfo.modelColumnName)
+  implicit def akkahttpParameterWithNameImplicit[D]: DecoderShape.Aux[HListEncoderShapeWrap[ParameterWithName[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[HListEncoderShapeWrap[ParameterWithName[D], D], D, List[AkkaFormFieldWrapAbs], List[Any]] {
+      override type Target = AkkaFormFieldWrap[D]
+      override def wrapRep(base: HListEncoderShapeWrap[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+        override val directive: Directive1[D] = base.rep.withName(base.columnInfo.modelColumnName)
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D]): DataRepGroup[AkkaFormFieldWrapAbs] = DataRepGroup(List(base))
-      override def takeData(oldData: DataGroup, rep: AkkaFormFieldWrap[D]): SplitData[D] = SplitData(oldData.items.head.asInstanceOf[D], DataGroup(oldData.items.tail))
+      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]] = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
 
-  implicit def akkahttpDirective1Implicit[D]: DecoderShape[Directive1[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] = {
-    new DecoderShape[Directive1[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] {
+  implicit def akkahttpDirective1Implicit[D]: DecoderShape.Aux[Directive1[D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[Directive1[D], D, List[AkkaFormFieldWrapAbs], List[Any]] {
+      override type Target = AkkaFormFieldWrap[D]
       override def wrapRep(base: Directive1[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D]): DataRepGroup[AkkaFormFieldWrapAbs] = DataRepGroup(List(base))
-      override def takeData(oldData: DataGroup, rep: AkkaFormFieldWrap[D]): SplitData[D] = SplitData(oldData.items.head.asInstanceOf[D], DataGroup(oldData.items.tail))
+      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]] = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
 
-  implicit def akkahttpPlaceholderImplicit[D](implicit macroColumnInfo: MacroColumnInfo, fsu: akka.http.scaladsl.unmarshalling.FromStrictFormFieldUnmarshaller[D]): DecoderShape[Placeholder[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] = {
-    new DecoderShape[Placeholder[D], D, AkkaFormFieldWrap[D], AkkaFormFieldWrapAbs] {
-      override def wrapRep(base: Placeholder[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
-        override val directive: Directive1[D] = helper.formFieldAs[D].withName(macroColumnInfo.modelColumnName)
+  implicit def akkahttpPlaceholderImplicit[D](implicit fsu: akka.http.scaladsl.unmarshalling.FromStrictFormFieldUnmarshaller[D]): DecoderShape.Aux[HListEncoderShapeWrap[Placeholder[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[HListEncoderShapeWrap[Placeholder[D], D], D, List[AkkaFormFieldWrapAbs], List[Any]] {
+      override type Target = AkkaFormFieldWrap[D]
+      override def wrapRep(base: HListEncoderShapeWrap[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+        override val directive: Directive1[D] = helper.formFieldAs[D].withName(base.columnInfo.modelColumnName)
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D]): DataRepGroup[AkkaFormFieldWrapAbs] = DataRepGroup(List(base))
-      override def takeData(oldData: DataGroup, rep: AkkaFormFieldWrap[D]): SplitData[D] = SplitData(oldData.items.head.asInstanceOf[D], DataGroup(oldData.items.tail))
+      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]] = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
 
-  implicit def akkahttpLiteralColumnImplicit[D]: DecoderShape[LiteralColumn[D], D, LiteralColumn[D], AkkaFormFieldWrapAbs] = {
-    new DecoderShape[LiteralColumn[D], D, LiteralColumn[D], AkkaFormFieldWrapAbs] {
+  implicit def akkahttpLiteralColumnImplicit[D]: DecoderShape.Aux[LiteralColumn[D], D, LiteralColumn[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[LiteralColumn[D], D, List[AkkaFormFieldWrapAbs], List[Any]] {
+      override type Target = LiteralColumn[D]
       override def wrapRep(base: LiteralColumn[D]): LiteralColumn[D] = base
-      override def toLawRep(base: LiteralColumn[D]): DataRepGroup[AkkaFormFieldWrapAbs] = DataRepGroup(List.empty)
-      override def takeData(oldData: DataGroup, rep: LiteralColumn[D]): SplitData[D] = SplitData(rep.data, oldData)
+      override def toLawRep(base: LiteralColumn[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = oldRep
+      override def takeData(rep: LiteralColumn[D], oldData: List[Any]): SplitData[D, List[Any]] = SplitData(rep.data, oldData)
     }
   }
 
