@@ -7,13 +7,11 @@ import net.scalax.asuna.helper.MacroColumnInfoImpl
 import net.scalax.asuna.helper.encoder.{ EncoderWitCol, InputTable }
 import net.scalax.asuna.helper.template.CaseClassDataHelper
 
-import scala.reflect.macros.whitebox.Context
-
 object DecoderMapper {
 
   case class FieldNames(law: String, shapeValueName: String, lawIndex: Int, helperIndex: Int, needInput: Boolean, needSub: Boolean, usePlaceHolder: Boolean)
 
-  class DecoderMapperImpl(val c: Context) {
+  class DecoderMapperImpl(val c: scala.reflect.macros.whitebox.Context) {
     self =>
 
     import c.universe._
@@ -122,14 +120,18 @@ object DecoderMapper {
         }).asDecoder { (tempData, rep) =>
                  ${lazyData.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
                  ..${fields.map(field => q"""${TermName(field.law)} = ${if (field.needInput) q"""s.${TermName(field.law)}""" else q"""tempData.${TermName("data" + field.helperIndex)}"""}""")}
-                 ) }, sub = ${sub.typeSymbol.companion}(..${fields.filter(_.needSub).map(field => s"""${TermName(field.law)} = tempData.${TermName("data" + field.helperIndex)}""")}))
+                 ) }, sub = ${sub.typeSymbol.companion}(..${fields.filter(_.needSub).map(field => q"""${TermName(field.law)} = tempData.${TermName("data" + field.helperIndex)}""")}))
             }
             }
         """
       }
-      //println(q + "\n" + "22" * 100)
+      println(q + "\n" + "22" * 100)
       q
     }
+  }
+  class EncoderMapperImpl(val c: scala.reflect.macros.whitebox.Context) {
+
+    import c.universe._
 
     def caseclassEncoderGeneric[Output: c.WeakTypeTag, Table: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]: c.Expr[InputTable[Table, EncoderDataGen.Aux[Output, Rep, TempData]]] = {
       val rep = weakTypeOf[Rep]

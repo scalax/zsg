@@ -61,17 +61,20 @@ object DynFriendModelTq extends (List[String] => TableQuery[DynFriendModel]) {
     TableQuery(cons => new DynFriendModel(cons, v1))
   }
 }
-/*class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
+
+class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
+  self =>
 
   val id = rep(friend.id)
   val name = rep(friend.name)
   val nick = rep(friend.nick)
   val age = rep(friend.age)
 
-  lazy val shape = umr.dataModel[FriendTable2Model, InnerFriendInput, InnerFriends2, InnerFriendOutput]
-  lazy val reader = umr.effect(shape(this)).toSv
+  lazy val shape = umr.caseOnly[FriendTable2Model, LazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput]].compileDecoder3333.inputTable(self)
+  lazy val reader = umr.effect(shape).toSv
 
-}*/
+}
+
 class MarkTableModel(markTable: MarkTable) extends UmrHelper {
 
   val id = rep(markTable.id)
