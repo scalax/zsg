@@ -1,6 +1,5 @@
 package play.api.libs.circe
 
-import cats.syntax.either._
 import cats.implicits._
 import akka.stream.scaladsl.{ Flow, Sink }
 import akka.util.ByteString
