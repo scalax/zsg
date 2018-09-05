@@ -81,31 +81,3 @@ implicit def caseClassHelper@{count}EncoderGen[@for(i <- 1 to count) {
         }
     }
 }
-
-implicit def caseClassHelper@{count}EncoderImplicit[@for(i <- 1 to count) {
-        Rep@{i},
-        Data@{i},
-        Target@{i},
-    } RepCol, DataCol](
-    implicit @for(i <- 1 to count) {
-        shape@{i}: Lazy[EncoderShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol]] @if(i < count) { , }
-    })
-    : EncoderShape.Aux[CaseClassHelper@{count}[@for(i <- 1 to count) {
-        Rep@{i},
-        Data@{i}
-        @if(i < count) { , }
-    }],
-    Symbol => Any,
-    CaseClassHelper@{count}[
-        @for(i <- 1 to count) {
-            Target@{i},
-            Data@{i}
-            @if(i < count) { , }
-    }], RepCol, DataCol] = {
-    caseClassHelper@{count}EncoderGen(
-        @for(i <- 1 to count) {
-            shape@{i}
-            @if(i < count) { , }
-        }
-    ).emap { (rep, s: Symbol => Any) => CaseClassDataHelper@{count}.fromModel(rep, s) }
-}

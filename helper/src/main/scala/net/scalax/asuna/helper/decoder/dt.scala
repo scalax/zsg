@@ -4,7 +4,6 @@ import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.core.encoder.EncoderShape.Aux
 import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
 import net.scalax.asuna.helper.data.macroImpl._
-import net.scalax.asuna.helper.{ CaseModelContent2222, SetterContent }
 import net.scalax.asuna.helper.decoder.macroImpl.DecoderMapper
 
 import scala.language.experimental.macros
@@ -19,24 +18,6 @@ trait CaseDecoderRepWrap[Table, Case] {
 
   def generic: Generic.Aux[Case, HListData]
 
-}
-
-trait CaseDecoderRepWrap1111[Table, Case] {
-  type Rep
-  val caseContent: CaseModelContent2222[Case]
-  def input(table: Table): Rep
-}
-object CaseDecoderRepWrap1111 {
-  type Aux[R, Table, Case] = CaseDecoderRepWrap1111[Table, Case] { type Rep = R }
-  implicit def caseClassDecoderRepWrap[Rep, Table, Case](implicit content: CaseModelContent2222[Case]): CaseDecoderRepWrap1111.Aux[Rep, Table, Case] = macro DecoderMapper.DecoderMapperImpl1111.impl1111[Rep, Table, Case]
-
-  def withFunc1111[Table, Rep1, Case, HListData1](func: Table => Rep1, content: CaseModelContent2222[Case]): CaseDecoderRepWrap1111.Aux[Rep1, Table, Case] = {
-    new CaseDecoderRepWrap1111[Table, Case] {
-      override type Rep = Rep1
-      override def input(table: Table): Rep = func(table)
-      override val caseContent = content
-    }
-  }
 }
 
 trait InputTable[Table, OutPut] {
@@ -54,19 +35,6 @@ trait EncoderInputTable[Table, Rep, Data, RepCol, DataCol, CaseClass] {
 trait WrapApply[RepCol, DataCol] {
   def withCase[Table, Case]: CaseWrap[Table, Case] = new CaseWrap[Table, Case] {}
   trait CaseWrap[Table, Case] {
-
-    def compileDecoderSimpleAny[Rep](implicit repWrap: CaseDecoderRepWrap1111.Aux[Rep, Table, Case]): DecoderInputTable[Table, Rep, SetterContent => SetterContent, RepCol, DataCol, Case] = new DecoderInputTable[Table, Rep, SetterContent => SetterContent, RepCol, DataCol, Case] {
-      override def inputTable[Target1](table: Table)(implicit shape: DecoderShape.Aux[Rep, SetterContent => SetterContent, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
-        val shape1 = shape
-        val wrappedRep = shape1.wrapRep(repWrap.input(table))
-        val sv = new DecoderShapeValue[SetterContent => SetterContent, RepCol, DataCol] {
-          override type RepType = Target1
-          override val rep = wrappedRep
-          override val shape = shape1.packed
-        }
-        sv.dmap { (content: SetterContent => SetterContent) => repWrap.caseContent.toModel(content(CaseModelContent2222.empty)) }
-      }
-    }
 
     def compileDecoder2222[Rep, TempData](implicit repWrap: InputTable[Table, DecoderDataGen.Aux[EmptyLazyInput, Case, EmptyLazyOutput, Rep, TempData]]): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] = new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
       override def inputTable[Target1](table: Table)(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
@@ -123,19 +91,6 @@ trait WrapApply[RepCol, DataCol] {
             sv.dmap { (hlist: HListData) => repWrap.generic.from(hlist) }
           }
         }
-      }
-    }
-
-    def compileEncoderSimpleAny[Rep](implicit repWrap: CaseDecoderRepWrap1111.Aux[Rep, Table, Case]): EncoderInputTable[Table, Rep, Symbol => Any, RepCol, DataCol, Case] = new EncoderInputTable[Table, Rep, Symbol => Any, RepCol, DataCol, Case] {
-      override def inputTable[Target1](table: Table)(implicit shape: EncoderShape.Aux[Rep, Symbol => Any, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
-        val shape1 = shape
-        val wrappedRep = shape1.wrapRep(repWrap.input(table))
-        val sv = new EncoderShapeValue[Symbol => Any, RepCol, DataCol] {
-          override type RepType = Target1
-          override val rep = wrappedRep
-          override val shape = shape1.packed
-        }
-        sv.emap { (content: Case) => { symbol: Symbol => repWrap.caseContent.get(content, symbol) } }
       }
     }
 

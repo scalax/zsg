@@ -4,7 +4,7 @@ import io.circe.{ Encoder, JsonObject }
 import io.circe.syntax._
 import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue }
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeImplicit, HListEncoderShapeWrap }
+import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap }
 import net.scalax.asuna.slick.umr.{ ShapeFunc, SlickShapeValueWrap, UmrHelper, umrImpl }
 import slick.lifted.{ FlatShapeLevel, Shape }
 
@@ -19,7 +19,7 @@ trait SlickRmuWrapper {
 
 trait SlickRmuWrapperImpl extends SlickRmuWrapper
 
-trait RmuWriterQuery extends HListEncoderShapeImplicit {
+trait RmuWriterQuery {
 
   trait WithCols[RepOut, DataType] extends EncoderContent[RepOut, DataType] {
     def withCols(param: List[String]): DecoderShapeValue[JsonObject, ShapeFunc[(Any, Any)], (Any, Any)]

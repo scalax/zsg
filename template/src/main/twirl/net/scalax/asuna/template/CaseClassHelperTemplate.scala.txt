@@ -6,8 +6,6 @@ import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.helper.decoder.macroImpl.PropertyType
-import net.scalax.asuna.helper.SetterContent
-import net.scalax.asuna.helper.CaseModelContent2222
 import net.scalax.asuna.helper.data.macroImpl.DataGenWrap
 
 import shapeless._

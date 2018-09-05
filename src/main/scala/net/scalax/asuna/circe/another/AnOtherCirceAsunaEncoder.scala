@@ -1,8 +1,7 @@
 package net.scalax.asuna.circe.another
 
-import io.circe.{ Encoder, Json }
-import net.scalax.asuna.circe.EmptyCirceTable
-import net.scalax.asuna.circe.aaaa.{ CirceAsunaEncoder, CirceAsunaEncoderImpl }
+import io.circe.Encoder
+import net.scalax.asuna.circe.aaaa.CirceAsunaEncoderImpl
 import net.scalax.asuna.core.common.Placeholder
 import shapeless.Lazy
 
