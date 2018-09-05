@@ -3,7 +3,7 @@ package net.scalax.asuna.slick.simple
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import net.scalax.asuna.core.decoder.DataModel
+import net.scalax.asuna.helper.data.macroImpl.LazyData
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
@@ -92,8 +92,8 @@ class DynModel
     await(db.run(friendTq2.delete))
   }
 
-  /*"shape" should "auto filer with case class" in {
-    val prepareData: Future[Seq[DataModel[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
+  "shape" should "auto filer with case class" in {
+    val prepareData: Future[Seq[LazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
     def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
       val r: Future[Seq[InnerFriends2]] = prepareData.flatMap { t =>
@@ -101,13 +101,13 @@ class DynModel
         Future.sequence(lf)
       }
       val d = await(r)
-      //println(d.asJson.spaces2)
+      //println(d)
     } catch {
       case e: Exception =>
         logger.error("error", e)
         throw e
     }
-  }*/
+  }
 
   it should "auto encode with FriendTable4Model" in {
     val prepareData6 = FriendTable4Model.map(_.reader6).result
