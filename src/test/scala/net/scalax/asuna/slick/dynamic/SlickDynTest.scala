@@ -13,10 +13,10 @@ case class FilterParam4(name: String, age: Int)
 class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickFilterColHelper {
   self =>
 
-  //val name = rep(friend.name).mixin(filterRep(friend.name))
-  //val age = filterRep(friend.age).mixin(rep(friend.age))
-  val name = rep(friend.name)
-  val age = rep(friend.age)
+  val name = rep(friend.name).mixin(filterRep(friend.name))
+  val age = filterRep(friend.age).mixin(rep(friend.age))
+  //val name = rep(friend.name)
+  //val age = rep(friend.age)
   val nick = jsonKey(friend.nick, "nickName")
   val id = jsonKey(friend.id, "id")
 
@@ -24,14 +24,14 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   lazy val umrSv = umr.effect(umr.caseOnly[FriendTable2Model, FilterParam3].compileDecoder2222.inputTable(self))
 
-  /*override val slickFilterSv = filterUnwrap(name :: age :: HNil).mapReader {
+  val slickFilterSv = filter.caseOnly[FriendTable2Model, FilterParam4].compileEncoder2222.inputTable(self)
+  /*.mapReader {
     case (name :: age :: HNil) =>
       FilterParam4(name = name, age = age)
   }*/
 
 }
-
-/*class FriendTable2Model2(friend: FriendTable2) extends UmrReaderQuery[FilterParam3] with ShapeHelper with SlickShapeValueWrapHelper with SlickFilterColHelper with SlickFilterQuery[FilterParam4] {
+/*class FriendTable2Model2(friend: FriendTable2) extends UmrHelper with ShapeHelper   with SlickFilterColHelper with HListEncod {
 
   val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
   val nick = jsonKey(friend.nick, "nickName")

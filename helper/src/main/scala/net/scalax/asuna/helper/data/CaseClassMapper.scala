@@ -50,7 +50,7 @@ object DecoderMapper {
       def commonProUseInShape(modelName: String, fieldName: FieldNames, usePlaceHolder: Boolean) = {
         val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
 
-        val q =
+        val q1 =
           q"""
         {
             ${
@@ -71,6 +71,23 @@ object DecoderMapper {
               modelColumnName = ${Literal(Constant(fieldName.law))},
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
             ))
+           """
+            }
+          }
+        }
+    """
+
+        val q =
+          q"""
+        {
+            ${
+            if (usePlaceHolder) {
+              q"""
+            ${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder
+           """
+            } else {
+              q"""
+            ${TermName(modelName)}.${TermName(fieldName.law)}
            """
             }
           }
@@ -168,21 +185,11 @@ object DecoderMapper {
             ${
             if (usePlaceHolder) {
               q"""
-            ${encoderWitColType.typeSymbol.companion}.toWrap(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
-              tableColumnName = ${Literal(Constant(fieldName.law))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
-              modelColumnName = ${Literal(Constant(fieldName.law))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
-            ))
+            ${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder
            """
             } else {
               q"""
-            ${encoderWitColType.typeSymbol.companion}.toWrap(${TermName(modelName)}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
-              tableColumnName = ${Literal(Constant(fieldName.law))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
-              modelColumnName = ${Literal(Constant(fieldName.law))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
-            ))
+            ${TermName(modelName)}.${TermName(fieldName.law)}
            """
             }
           }

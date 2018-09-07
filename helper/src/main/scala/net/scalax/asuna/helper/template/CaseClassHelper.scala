@@ -4,34 +4,37 @@ import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.helper.decoder.macroImpl.PropertyType
 import net.scalax.asuna.helper.data.macroImpl.DataGenWrap
+import net.scalax.asuna.helper.data.macroImpl.RepGroupColumnWrapper
 import shapeless._
 trait CaseClassHelper
 object CaseClassHelper {
-  def withRep[Rep1, Data1](
+  def withRep[Rep1, Data1, Target1](
     rep1: Rep1,
     property1: PropertyType[Data1],
-    column1: MacroColumnInfo): CaseClassHelper1[Rep1, Data1] = {
+    column1: MacroColumnInfo)(implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]): CaseClassHelper1[Target1, Data1] = {
     new CaseClassHelper1(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1)
   }
-  def withRep[Rep1, Data1, Rep2, Data2](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
     rep2: Rep2,
     property2: PropertyType[Data2],
-    column2: MacroColumnInfo): CaseClassHelper2[Rep1, Data1, Rep2, Data2] = {
+    column2: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]): CaseClassHelper2[Target1, Data1, Target2, Data2] = {
     new CaseClassHelper2(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -40,19 +43,22 @@ object CaseClassHelper {
     column2: MacroColumnInfo,
     rep3: Rep3,
     property3: PropertyType[Data3],
-    column3: MacroColumnInfo): CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3] = {
+    column3: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]): CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3] = {
     new CaseClassHelper3(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -64,22 +70,26 @@ object CaseClassHelper {
     column3: MacroColumnInfo,
     rep4: Rep4,
     property4: PropertyType[Data4],
-    column4: MacroColumnInfo): CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4] = {
+    column4: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]): CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4] = {
     new CaseClassHelper4(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -94,25 +104,30 @@ object CaseClassHelper {
     column4: MacroColumnInfo,
     rep5: Rep5,
     property5: PropertyType[Data5],
-    column5: MacroColumnInfo): CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5] = {
+    column5: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]): CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5] = {
     new CaseClassHelper5(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -130,28 +145,34 @@ object CaseClassHelper {
     column5: MacroColumnInfo,
     rep6: Rep6,
     property6: PropertyType[Data6],
-    column6: MacroColumnInfo): CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6] = {
+    column6: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]): CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6] = {
     new CaseClassHelper6(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -172,31 +193,38 @@ object CaseClassHelper {
     column6: MacroColumnInfo,
     rep7: Rep7,
     property7: PropertyType[Data7],
-    column7: MacroColumnInfo): CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7] = {
+    column7: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]): CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7] = {
     new CaseClassHelper7(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -220,34 +248,42 @@ object CaseClassHelper {
     column7: MacroColumnInfo,
     rep8: Rep8,
     property8: PropertyType[Data8],
-    column8: MacroColumnInfo): CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8] = {
+    column8: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]): CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8] = {
     new CaseClassHelper8(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -274,37 +310,46 @@ object CaseClassHelper {
     column8: MacroColumnInfo,
     rep9: Rep9,
     property9: PropertyType[Data9],
-    column9: MacroColumnInfo): CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9] = {
+    column9: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]): CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9] = {
     new CaseClassHelper9(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -334,40 +379,50 @@ object CaseClassHelper {
     column9: MacroColumnInfo,
     rep10: Rep10,
     property10: PropertyType[Data10],
-    column10: MacroColumnInfo): CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10] = {
+    column10: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]): CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10] = {
     new CaseClassHelper10(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10, Rep11, Data11, Target11](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -400,43 +455,54 @@ object CaseClassHelper {
     column10: MacroColumnInfo,
     rep11: Rep11,
     property11: PropertyType[Data11],
-    column11: MacroColumnInfo): CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11] = {
+    column11: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]): CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11] = {
     new CaseClassHelper11(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10,
-      rep11 = rep11,
+      rep11 = wrap11.inputColumn(rep11, column11),
       property11 = property11,
       column11 = column11)
   }
-  def withRep[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12](
+  def withRep[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10, Rep11, Data11, Target11, Rep12, Data12, Target12](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -472,73 +538,87 @@ object CaseClassHelper {
     column11: MacroColumnInfo,
     rep12: Rep12,
     property12: PropertyType[Data12],
-    column12: MacroColumnInfo): CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12] = {
+    column12: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11],
+    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]): CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12] = {
     new CaseClassHelper12(
-      rep1 = rep1,
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10,
-      rep11 = rep11,
+      rep11 = wrap11.inputColumn(rep11, column11),
       property11 = property11,
       column11 = column11,
-      rep12 = rep12,
+      rep12 = wrap12.inputColumn(rep12, column12),
       property12 = property12,
       column12 = column12)
   }
 }
 trait CaseClassDataHelper
 object CaseClassDataHelper {
-  def withDataDescribe[Rep1, Data1](
+  def withDataDescribe[Rep1, Data1, Target1](
     rep1: Rep1,
     property1: PropertyType[Data1],
-    column1: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1]] = {
-    DataGenWrap.value[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1]](new CaseClassHelper1(
-      rep1 = rep1,
+    column1: MacroColumnInfo)(implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]): DataGenWrap.Aux[CaseClassHelper1[Target1, Data1], CaseClassDataHelper1[Data1]] = {
+    DataGenWrap.value[CaseClassHelper1[Target1, Data1], CaseClassDataHelper1[Data1]](new CaseClassHelper1(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
     rep2: Rep2,
     property2: PropertyType[Data2],
-    column2: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2]] = {
-    DataGenWrap.value[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2]](new CaseClassHelper2(
-      rep1 = rep1,
+    column2: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]): DataGenWrap.Aux[CaseClassHelper2[Target1, Data1, Target2, Data2], CaseClassDataHelper2[Data1, Data2]] = {
+    DataGenWrap.value[CaseClassHelper2[Target1, Data1, Target2, Data2], CaseClassDataHelper2[Data1, Data2]](new CaseClassHelper2(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -547,19 +627,22 @@ object CaseClassDataHelper {
     column2: MacroColumnInfo,
     rep3: Rep3,
     property3: PropertyType[Data3],
-    column3: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3]] = {
-    DataGenWrap.value[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3]](new CaseClassHelper3(
-      rep1 = rep1,
+    column3: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]): DataGenWrap.Aux[CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3], CaseClassDataHelper3[Data1, Data2, Data3]] = {
+    DataGenWrap.value[CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3], CaseClassDataHelper3[Data1, Data2, Data3]](new CaseClassHelper3(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -571,22 +654,26 @@ object CaseClassDataHelper {
     column3: MacroColumnInfo,
     rep4: Rep4,
     property4: PropertyType[Data4],
-    column4: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4]] = {
-    DataGenWrap.value[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4]](new CaseClassHelper4(
-      rep1 = rep1,
+    column4: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]): DataGenWrap.Aux[CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4]] = {
+    DataGenWrap.value[CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4]](new CaseClassHelper4(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -601,25 +688,30 @@ object CaseClassDataHelper {
     column4: MacroColumnInfo,
     rep5: Rep5,
     property5: PropertyType[Data5],
-    column5: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]] = {
-    DataGenWrap.value[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]](new CaseClassHelper5(
-      rep1 = rep1,
+    column5: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]): DataGenWrap.Aux[CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]] = {
+    DataGenWrap.value[CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]](new CaseClassHelper5(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -637,28 +729,34 @@ object CaseClassDataHelper {
     column5: MacroColumnInfo,
     rep6: Rep6,
     property6: PropertyType[Data6],
-    column6: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]] = {
-    DataGenWrap.value[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]](new CaseClassHelper6(
-      rep1 = rep1,
+    column6: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]): DataGenWrap.Aux[CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]] = {
+    DataGenWrap.value[CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]](new CaseClassHelper6(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -679,31 +777,38 @@ object CaseClassDataHelper {
     column6: MacroColumnInfo,
     rep7: Rep7,
     property7: PropertyType[Data7],
-    column7: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]] = {
-    DataGenWrap.value[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]](new CaseClassHelper7(
-      rep1 = rep1,
+    column7: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]): DataGenWrap.Aux[CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]] = {
+    DataGenWrap.value[CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]](new CaseClassHelper7(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -727,34 +832,42 @@ object CaseClassDataHelper {
     column7: MacroColumnInfo,
     rep8: Rep8,
     property8: PropertyType[Data8],
-    column8: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]] = {
-    DataGenWrap.value[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]](new CaseClassHelper8(
-      rep1 = rep1,
+    column8: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]): DataGenWrap.Aux[CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]] = {
+    DataGenWrap.value[CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]](new CaseClassHelper8(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -781,37 +894,46 @@ object CaseClassDataHelper {
     column8: MacroColumnInfo,
     rep9: Rep9,
     property9: PropertyType[Data9],
-    column9: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]] = {
-    DataGenWrap.value[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]](new CaseClassHelper9(
-      rep1 = rep1,
+    column9: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]): DataGenWrap.Aux[CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]] = {
+    DataGenWrap.value[CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]](new CaseClassHelper9(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -841,40 +963,50 @@ object CaseClassDataHelper {
     column9: MacroColumnInfo,
     rep10: Rep10,
     property10: PropertyType[Data10],
-    column10: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]] = {
-    DataGenWrap.value[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]](new CaseClassHelper10(
-      rep1 = rep1,
+    column10: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]): DataGenWrap.Aux[CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]] = {
+    DataGenWrap.value[CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]](new CaseClassHelper10(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10, Rep11, Data11, Target11](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -907,43 +1039,54 @@ object CaseClassDataHelper {
     column10: MacroColumnInfo,
     rep11: Rep11,
     property11: PropertyType[Data11],
-    column11: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]] = {
-    DataGenWrap.value[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]](new CaseClassHelper11(
-      rep1 = rep1,
+    column11: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]): DataGenWrap.Aux[CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]] = {
+    DataGenWrap.value[CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]](new CaseClassHelper11(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10,
-      rep11 = rep11,
+      rep11 = wrap11.inputColumn(rep11, column11),
       property11 = property11,
       column11 = column11))
   }
-  def withDataDescribe[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12](
+  def withDataDescribe[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, Rep7, Data7, Target7, Rep8, Data8, Target8, Rep9, Data9, Target9, Rep10, Data10, Target10, Rep11, Data11, Target11, Rep12, Data12, Target12](
     rep1: Rep1,
     property1: PropertyType[Data1],
     column1: MacroColumnInfo,
@@ -979,42 +1122,54 @@ object CaseClassDataHelper {
     column11: MacroColumnInfo,
     rep12: Rep12,
     property12: PropertyType[Data12],
-    column12: MacroColumnInfo): DataGenWrap.Aux[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]] = {
-    DataGenWrap.value[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]](new CaseClassHelper12(
-      rep1 = rep1,
+    column12: MacroColumnInfo)(implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11],
+    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]): DataGenWrap.Aux[CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]] = {
+    DataGenWrap.value[CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]](new CaseClassHelper12(
+      rep1 = wrap1.inputColumn(rep1, column1),
       property1 = property1,
       column1 = column1,
-      rep2 = rep2,
+      rep2 = wrap2.inputColumn(rep2, column2),
       property2 = property2,
       column2 = column2,
-      rep3 = rep3,
+      rep3 = wrap3.inputColumn(rep3, column3),
       property3 = property3,
       column3 = column3,
-      rep4 = rep4,
+      rep4 = wrap4.inputColumn(rep4, column4),
       property4 = property4,
       column4 = column4,
-      rep5 = rep5,
+      rep5 = wrap5.inputColumn(rep5, column5),
       property5 = property5,
       column5 = column5,
-      rep6 = rep6,
+      rep6 = wrap6.inputColumn(rep6, column6),
       property6 = property6,
       column6 = column6,
-      rep7 = rep7,
+      rep7 = wrap7.inputColumn(rep7, column7),
       property7 = property7,
       column7 = column7,
-      rep8 = rep8,
+      rep8 = wrap8.inputColumn(rep8, column8),
       property8 = property8,
       column8 = column8,
-      rep9 = rep9,
+      rep9 = wrap9.inputColumn(rep9, column9),
       property9 = property9,
       column9 = column9,
-      rep10 = rep10,
+      rep10 = wrap10.inputColumn(rep10, column10),
       property10 = property10,
       column10 = column10,
-      rep11 = rep11,
+      rep11 = wrap11.inputColumn(rep11, column11),
       property11 = property11,
       column11 = column11,
-      rep12 = rep12,
+      rep12 = wrap12.inputColumn(rep12, column12),
       property12 = property12,
       column12 = column12))
   }

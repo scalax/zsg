@@ -2,16 +2,20 @@
 
 def withDataDescribe[@for(i <- 1 to count) {
     Rep@{i},
-    Data@{i}
+    Data@{i},
+    Target@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
     rep@{i}: Rep@{i},
     property@{i}: PropertyType[Data@{i}],
     column@{i}: MacroColumnInfo
     @if(i < count) { , }
+})(implicit @for(i <- 1 to count) {
+    wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Target@{i}]
+    @if(i < count) { , }
 }): DataGenWrap.Aux[
 CaseClassHelper@{count}[@for(i <- 1 to count) {
-    Rep@{i},
+    Target@{i},
     Data@{i}
     @if(i < count) { , }
 }],
@@ -21,7 +25,7 @@ CaseClassDataHelper@{count}[@for(i <- 1 to count) {
 }]] = {
     DataGenWrap.value[
     CaseClassHelper@{count}[@for(i <- 1 to count) {
-        Rep@{i},
+        Target@{i},
         Data@{i}
         @if(i < count) { , }
     }],
@@ -29,7 +33,7 @@ CaseClassDataHelper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
     }]](new CaseClassHelper@{count}(@for(i <- 1 to count) {
-        rep@{i} = rep@{i},
+        rep@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i}),
         property@{i} = property@{i},
         column@{i}=column@{i}
         @if(i < count) { , }
