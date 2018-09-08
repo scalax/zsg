@@ -1,11 +1,13 @@
 package net.scalax.asuna.core.encoder
 
-trait EncoderShapeValue[U, RepCol, DataCol] {
+import net.scalax.asuna.core.common.CommonShapeValue
+
+trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol, DataCol] {
   self =>
 
-  type RepType
-  val rep: RepType
-  val shape: EncoderShape.Aux[RepType, U, RepType, RepCol, DataCol]
+  override type RepType
+  override val rep: RepType
+  override val shape: EncoderShape.Aux[RepType, U, RepType, RepCol, DataCol]
 
   def emap[F](cv: F => U): EncoderShapeValue[F, RepCol, DataCol] = new EncoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType

@@ -1,11 +1,13 @@
 package net.scalax.asuna.core.decoder
 
-trait DecoderShapeValue[U, RepCol, DataCol] {
+import net.scalax.asuna.core.common.CommonShapeValue
+
+trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol, DataCol] {
   self =>
 
-  type RepType
-  val rep: RepType
-  val shape: DecoderShape.Aux[RepType, U, RepType, RepCol, DataCol]
+  override type RepType
+  override val rep: RepType
+  override val shape: DecoderShape.Aux[RepType, U, RepType, RepCol, DataCol]
 
   def dmap[F](cv: U => F): DecoderShapeValue[F, RepCol, DataCol] = new DecoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType
