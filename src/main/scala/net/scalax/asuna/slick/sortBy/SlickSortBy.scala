@@ -53,8 +53,9 @@ trait SlickSortByHelper {
   }
 
   implicit def sortByImplicitWithColumnInfo[T, M](implicit cv1: T => slick.lifted.Ordered): EncoderShape.Aux[HListEncoderShapeWrap[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
-    new EncoderShape[HListEncoderShapeWrap[T, M], M, List[SlickSortBy.OrderColumn], List[Any]] {
+    new EncoderShape[HListEncoderShapeWrap[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
       override type Target = SlickSortBy.OrderColumn
+      override type Data = M
       override def wrapRep(base: HListEncoderShapeWrap[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
         override type Rep = T
         override val rep = base.rep

@@ -27,13 +27,13 @@ implicit def caseClassHelper@{count}EncoderGen[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }],
-    CaseClassDataHelper@{count}[@for(i <- 1 to count) {
-        Data@{i}
-        @if(i < count) { , }
     }], RepCol, DataCol] {
         override type Target = CaseClassHelper@{count}[@for(i <- 1 to count) {
             Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }]
+        override type Data = CaseClassDataHelper@{count}[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }]

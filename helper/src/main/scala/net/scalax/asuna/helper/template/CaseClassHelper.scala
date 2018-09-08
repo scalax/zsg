@@ -1187,8 +1187,9 @@ object CaseClassHelper1 {
   implicit def caseClassHelper1EncoderGen[Rep1, Data1, Target1, RepCol, DataCol](
     implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1], CaseClassHelper1[Target1, Data1], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper1[Rep1, Data1], RepCol, DataCol] {
       override type Target = CaseClassHelper1[Target1, Data1]
+      override type Data = CaseClassDataHelper1[Data1]
       override def wrapRep(base: CaseClassHelper1[Rep1, Data1]): CaseClassHelper1[Target1, Data1] = {
         new CaseClassHelper1(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1210,8 +1211,9 @@ object CaseClassHelper1 {
   implicit def caseClassHelper1DecoderGen[Rep1, Data1, Target1, RepCol, DataCol](
     implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1], CaseClassHelper1[Target1, Data1], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper1[Rep1, Data1], CaseClassDataHelper1[Data1], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper1[Rep1, Data1], RepCol, DataCol] {
       override type Target = CaseClassHelper1[Target1, Data1]
+      override type Data = CaseClassDataHelper1[Data1]
       override def wrapRep(base: CaseClassHelper1[Rep1, Data1]): CaseClassHelper1[Target1, Data1] = {
         new CaseClassHelper1(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1228,8 +1230,8 @@ object CaseClassHelper1 {
         val SplitData(item1, dataCol1) = shape1.value.takeData(rep.rep1, dataCol0)
         SplitData(
           current = new CaseClassDataHelper1(
-            data1 = item1,
-            column1 = rep.column1),
+          data1 = item1,
+          column1 = rep.column1),
           left = dataCol1)
       }
     }
@@ -1254,8 +1256,9 @@ object CaseClassHelper2 {
     implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]],
     shape2: Lazy[EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2], CaseClassHelper2[Target1, Data1, Target2, Data2], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper2[Rep1, Data1, Rep2, Data2], RepCol, DataCol] {
       override type Target = CaseClassHelper2[Target1, Data1, Target2, Data2]
+      override type Data = CaseClassDataHelper2[Data1, Data2]
       override def wrapRep(base: CaseClassHelper2[Rep1, Data1, Rep2, Data2]): CaseClassHelper2[Target1, Data1, Target2, Data2] = {
         new CaseClassHelper2(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1283,8 +1286,9 @@ object CaseClassHelper2 {
     implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]],
     shape2: Lazy[DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2], CaseClassHelper2[Target1, Data1, Target2, Data2], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper2[Rep1, Data1, Rep2, Data2], CaseClassDataHelper2[Data1, Data2], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper2[Rep1, Data1, Rep2, Data2], RepCol, DataCol] {
       override type Target = CaseClassHelper2[Target1, Data1, Target2, Data2]
+      override type Data = CaseClassDataHelper2[Data1, Data2]
       override def wrapRep(base: CaseClassHelper2[Rep1, Data1, Rep2, Data2]): CaseClassHelper2[Target1, Data1, Target2, Data2] = {
         new CaseClassHelper2(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1306,10 +1310,10 @@ object CaseClassHelper2 {
         val SplitData(item2, dataCol2) = shape2.value.takeData(rep.rep2, dataCol1)
         SplitData(
           current = new CaseClassDataHelper2(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2),
           left = dataCol2)
       }
     }
@@ -1340,8 +1344,9 @@ object CaseClassHelper3 {
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]],
     shape2: Lazy[EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]],
     shape3: Lazy[EncoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3], CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], RepCol, DataCol] {
       override type Target = CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3]
+      override type Data = CaseClassDataHelper3[Data1, Data2, Data3]
       override def wrapRep(base: CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3]): CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3] = {
         new CaseClassHelper3(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1375,8 +1380,9 @@ object CaseClassHelper3 {
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]],
     shape2: Lazy[DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]],
     shape3: Lazy[DecoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3], CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], CaseClassDataHelper3[Data1, Data2, Data3], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3], RepCol, DataCol] {
       override type Target = CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3]
+      override type Data = CaseClassDataHelper3[Data1, Data2, Data3]
       override def wrapRep(base: CaseClassHelper3[Rep1, Data1, Rep2, Data2, Rep3, Data3]): CaseClassHelper3[Target1, Data1, Target2, Data2, Target3, Data3] = {
         new CaseClassHelper3(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1403,12 +1409,12 @@ object CaseClassHelper3 {
         val SplitData(item3, dataCol3) = shape3.value.takeData(rep.rep3, dataCol2)
         SplitData(
           current = new CaseClassDataHelper3(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3),
           left = dataCol3)
       }
     }
@@ -1445,8 +1451,9 @@ object CaseClassHelper4 {
     shape2: Lazy[EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]],
     shape3: Lazy[EncoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]],
     shape4: Lazy[EncoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4], CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], RepCol, DataCol] {
       override type Target = CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4]
+      override type Data = CaseClassDataHelper4[Data1, Data2, Data3, Data4]
       override def wrapRep(base: CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4]): CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4] = {
         new CaseClassHelper4(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1486,8 +1493,9 @@ object CaseClassHelper4 {
     shape2: Lazy[DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]],
     shape3: Lazy[DecoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]],
     shape4: Lazy[DecoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4], CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], CaseClassDataHelper4[Data1, Data2, Data3, Data4], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4], RepCol, DataCol] {
       override type Target = CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4]
+      override type Data = CaseClassDataHelper4[Data1, Data2, Data3, Data4]
       override def wrapRep(base: CaseClassHelper4[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4]): CaseClassHelper4[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4] = {
         new CaseClassHelper4(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1519,14 +1527,14 @@ object CaseClassHelper4 {
         val SplitData(item4, dataCol4) = shape4.value.takeData(rep.rep4, dataCol3)
         SplitData(
           current = new CaseClassDataHelper4(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4),
           left = dataCol4)
       }
     }
@@ -1569,8 +1577,9 @@ object CaseClassHelper5 {
     shape3: Lazy[EncoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]],
     shape4: Lazy[EncoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]],
     shape5: Lazy[EncoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5], CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], RepCol, DataCol] {
       override type Target = CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5]
+      override type Data = CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]
       override def wrapRep(base: CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5]): CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5] = {
         new CaseClassHelper5(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1616,8 +1625,9 @@ object CaseClassHelper5 {
     shape3: Lazy[DecoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]],
     shape4: Lazy[DecoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]],
     shape5: Lazy[DecoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5], CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5], RepCol, DataCol] {
       override type Target = CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5]
+      override type Data = CaseClassDataHelper5[Data1, Data2, Data3, Data4, Data5]
       override def wrapRep(base: CaseClassHelper5[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5]): CaseClassHelper5[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5] = {
         new CaseClassHelper5(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1654,16 +1664,16 @@ object CaseClassHelper5 {
         val SplitData(item5, dataCol5) = shape5.value.takeData(rep.rep5, dataCol4)
         SplitData(
           current = new CaseClassDataHelper5(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5),
           left = dataCol5)
       }
     }
@@ -1712,8 +1722,9 @@ object CaseClassHelper6 {
     shape4: Lazy[EncoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]],
     shape5: Lazy[EncoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]],
     shape6: Lazy[EncoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6], CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], RepCol, DataCol] {
       override type Target = CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6]
+      override type Data = CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]
       override def wrapRep(base: CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6]): CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6] = {
         new CaseClassHelper6(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1765,8 +1776,9 @@ object CaseClassHelper6 {
     shape4: Lazy[DecoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]],
     shape5: Lazy[DecoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]],
     shape6: Lazy[DecoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6], CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6], RepCol, DataCol] {
       override type Target = CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6]
+      override type Data = CaseClassDataHelper6[Data1, Data2, Data3, Data4, Data5, Data6]
       override def wrapRep(base: CaseClassHelper6[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6]): CaseClassHelper6[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6] = {
         new CaseClassHelper6(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1808,18 +1820,18 @@ object CaseClassHelper6 {
         val SplitData(item6, dataCol6) = shape6.value.takeData(rep.rep6, dataCol5)
         SplitData(
           current = new CaseClassDataHelper6(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6),
           left = dataCol6)
       }
     }
@@ -1874,8 +1886,9 @@ object CaseClassHelper7 {
     shape5: Lazy[EncoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]],
     shape6: Lazy[EncoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]],
     shape7: Lazy[EncoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7], CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], RepCol, DataCol] {
       override type Target = CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7]
+      override type Data = CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]
       override def wrapRep(base: CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7]): CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7] = {
         new CaseClassHelper7(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1933,8 +1946,9 @@ object CaseClassHelper7 {
     shape5: Lazy[DecoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]],
     shape6: Lazy[DecoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]],
     shape7: Lazy[DecoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7], CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7], RepCol, DataCol] {
       override type Target = CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7]
+      override type Data = CaseClassDataHelper7[Data1, Data2, Data3, Data4, Data5, Data6, Data7]
       override def wrapRep(base: CaseClassHelper7[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7]): CaseClassHelper7[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7] = {
         new CaseClassHelper7(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -1981,20 +1995,20 @@ object CaseClassHelper7 {
         val SplitData(item7, dataCol7) = shape7.value.takeData(rep.rep7, dataCol6)
         SplitData(
           current = new CaseClassDataHelper7(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7),
           left = dataCol7)
       }
     }
@@ -2055,8 +2069,9 @@ object CaseClassHelper8 {
     shape6: Lazy[EncoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]],
     shape7: Lazy[EncoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]],
     shape8: Lazy[EncoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8], CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], RepCol, DataCol] {
       override type Target = CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8]
+      override type Data = CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]
       override def wrapRep(base: CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8]): CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8] = {
         new CaseClassHelper8(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2120,8 +2135,9 @@ object CaseClassHelper8 {
     shape6: Lazy[DecoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]],
     shape7: Lazy[DecoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]],
     shape8: Lazy[DecoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8], CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8], RepCol, DataCol] {
       override type Target = CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8]
+      override type Data = CaseClassDataHelper8[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8]
       override def wrapRep(base: CaseClassHelper8[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8]): CaseClassHelper8[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8] = {
         new CaseClassHelper8(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2173,22 +2189,22 @@ object CaseClassHelper8 {
         val SplitData(item8, dataCol8) = shape8.value.takeData(rep.rep8, dataCol7)
         SplitData(
           current = new CaseClassDataHelper8(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7,
-            data8 = item8,
-            column8 = rep.column8),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7,
+          data8 = item8,
+          column8 = rep.column8),
           left = dataCol8)
       }
     }
@@ -2255,8 +2271,9 @@ object CaseClassHelper9 {
     shape7: Lazy[EncoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]],
     shape8: Lazy[EncoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]],
     shape9: Lazy[EncoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9], CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], RepCol, DataCol] {
       override type Target = CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9]
+      override type Data = CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]
       override def wrapRep(base: CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9]): CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9] = {
         new CaseClassHelper9(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2326,8 +2343,9 @@ object CaseClassHelper9 {
     shape7: Lazy[DecoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]],
     shape8: Lazy[DecoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]],
     shape9: Lazy[DecoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9], CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9], RepCol, DataCol] {
       override type Target = CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9]
+      override type Data = CaseClassDataHelper9[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9]
       override def wrapRep(base: CaseClassHelper9[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9]): CaseClassHelper9[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9] = {
         new CaseClassHelper9(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2384,24 +2402,24 @@ object CaseClassHelper9 {
         val SplitData(item9, dataCol9) = shape9.value.takeData(rep.rep9, dataCol8)
         SplitData(
           current = new CaseClassDataHelper9(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7,
-            data8 = item8,
-            column8 = rep.column8,
-            data9 = item9,
-            column9 = rep.column9),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7,
+          data8 = item8,
+          column8 = rep.column8,
+          data9 = item9,
+          column9 = rep.column9),
           left = dataCol9)
       }
     }
@@ -2474,8 +2492,9 @@ object CaseClassHelper10 {
     shape8: Lazy[EncoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]],
     shape9: Lazy[EncoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]],
     shape10: Lazy[EncoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10], CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], RepCol, DataCol] {
       override type Target = CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10]
+      override type Data = CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]
       override def wrapRep(base: CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10]): CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10] = {
         new CaseClassHelper10(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2551,8 +2570,9 @@ object CaseClassHelper10 {
     shape8: Lazy[DecoderShape.Aux[Rep8, Data8, Target8, RepCol, DataCol]],
     shape9: Lazy[DecoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]],
     shape10: Lazy[DecoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10], CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10], RepCol, DataCol] {
       override type Target = CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10]
+      override type Data = CaseClassDataHelper10[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10]
       override def wrapRep(base: CaseClassHelper10[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10]): CaseClassHelper10[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10] = {
         new CaseClassHelper10(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2614,26 +2634,26 @@ object CaseClassHelper10 {
         val SplitData(item10, dataCol10) = shape10.value.takeData(rep.rep10, dataCol9)
         SplitData(
           current = new CaseClassDataHelper10(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7,
-            data8 = item8,
-            column8 = rep.column8,
-            data9 = item9,
-            column9 = rep.column9,
-            data10 = item10,
-            column10 = rep.column10),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7,
+          data8 = item8,
+          column8 = rep.column8,
+          data9 = item9,
+          column9 = rep.column9,
+          data10 = item10,
+          column10 = rep.column10),
           left = dataCol10)
       }
     }
@@ -2712,8 +2732,9 @@ object CaseClassHelper11 {
     shape9: Lazy[EncoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]],
     shape10: Lazy[EncoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]],
     shape11: Lazy[EncoderShape.Aux[Rep11, Data11, Target11, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11], CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], RepCol, DataCol] {
       override type Target = CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11]
+      override type Data = CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]
       override def wrapRep(base: CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11]): CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11] = {
         new CaseClassHelper11(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2795,8 +2816,9 @@ object CaseClassHelper11 {
     shape9: Lazy[DecoderShape.Aux[Rep9, Data9, Target9, RepCol, DataCol]],
     shape10: Lazy[DecoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]],
     shape11: Lazy[DecoderShape.Aux[Rep11, Data11, Target11, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11], CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11], RepCol, DataCol] {
       override type Target = CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11]
+      override type Data = CaseClassDataHelper11[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11]
       override def wrapRep(base: CaseClassHelper11[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11]): CaseClassHelper11[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11] = {
         new CaseClassHelper11(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -2863,28 +2885,28 @@ object CaseClassHelper11 {
         val SplitData(item11, dataCol11) = shape11.value.takeData(rep.rep11, dataCol10)
         SplitData(
           current = new CaseClassDataHelper11(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7,
-            data8 = item8,
-            column8 = rep.column8,
-            data9 = item9,
-            column9 = rep.column9,
-            data10 = item10,
-            column10 = rep.column10,
-            data11 = item11,
-            column11 = rep.column11),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7,
+          data8 = item8,
+          column8 = rep.column8,
+          data9 = item9,
+          column9 = rep.column9,
+          data10 = item10,
+          column10 = rep.column10,
+          data11 = item11,
+          column11 = rep.column11),
           left = dataCol11)
       }
     }
@@ -2969,8 +2991,9 @@ object CaseClassHelper12 {
     shape10: Lazy[EncoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]],
     shape11: Lazy[EncoderShape.Aux[Rep11, Data11, Target11, RepCol, DataCol]],
     shape12: Lazy[EncoderShape.Aux[Rep12, Data12, Target12, RepCol, DataCol]]): EncoderShape.Aux[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12], CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12], RepCol, DataCol] {
+    new EncoderShape[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], RepCol, DataCol] {
       override type Target = CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12]
+      override type Data = CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]
       override def wrapRep(base: CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12]): CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12] = {
         new CaseClassHelper12(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -3058,8 +3081,9 @@ object CaseClassHelper12 {
     shape10: Lazy[DecoderShape.Aux[Rep10, Data10, Target10, RepCol, DataCol]],
     shape11: Lazy[DecoderShape.Aux[Rep11, Data11, Target11, RepCol, DataCol]],
     shape12: Lazy[DecoderShape.Aux[Rep12, Data12, Target12, RepCol, DataCol]]): DecoderShape.Aux[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12], CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12], RepCol, DataCol] = {
-    new DecoderShape[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12], RepCol, DataCol] {
+    new DecoderShape[CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12], RepCol, DataCol] {
       override type Target = CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12]
+      override type Data = CaseClassDataHelper12[Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12]
       override def wrapRep(base: CaseClassHelper12[Rep1, Data1, Rep2, Data2, Rep3, Data3, Rep4, Data4, Rep5, Data5, Rep6, Data6, Rep7, Data7, Rep8, Data8, Rep9, Data9, Rep10, Data10, Rep11, Data11, Rep12, Data12]): CaseClassHelper12[Target1, Data1, Target2, Data2, Target3, Data3, Target4, Data4, Target5, Data5, Target6, Data6, Target7, Data7, Target8, Data8, Target9, Data9, Target10, Data10, Target11, Data11, Target12, Data12] = {
         new CaseClassHelper12(
           rep1 = shape1.value.wrapRep(base.rep1),
@@ -3131,30 +3155,30 @@ object CaseClassHelper12 {
         val SplitData(item12, dataCol12) = shape12.value.takeData(rep.rep12, dataCol11)
         SplitData(
           current = new CaseClassDataHelper12(
-            data1 = item1,
-            column1 = rep.column1,
-            data2 = item2,
-            column2 = rep.column2,
-            data3 = item3,
-            column3 = rep.column3,
-            data4 = item4,
-            column4 = rep.column4,
-            data5 = item5,
-            column5 = rep.column5,
-            data6 = item6,
-            column6 = rep.column6,
-            data7 = item7,
-            column7 = rep.column7,
-            data8 = item8,
-            column8 = rep.column8,
-            data9 = item9,
-            column9 = rep.column9,
-            data10 = item10,
-            column10 = rep.column10,
-            data11 = item11,
-            column11 = rep.column11,
-            data12 = item12,
-            column12 = rep.column12),
+          data1 = item1,
+          column1 = rep.column1,
+          data2 = item2,
+          column2 = rep.column2,
+          data3 = item3,
+          column3 = rep.column3,
+          data4 = item4,
+          column4 = rep.column4,
+          data5 = item5,
+          column5 = rep.column5,
+          data6 = item6,
+          column6 = rep.column6,
+          data7 = item7,
+          column7 = rep.column7,
+          data8 = item8,
+          column8 = rep.column8,
+          data9 = item9,
+          column9 = rep.column9,
+          data10 = item10,
+          column10 = rep.column10,
+          data11 = item11,
+          column11 = rep.column11,
+          data12 = item12,
+          column12 = rep.column12),
           left = dataCol12)
       }
     }

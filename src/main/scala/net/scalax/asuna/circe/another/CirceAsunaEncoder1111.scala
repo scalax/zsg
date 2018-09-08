@@ -29,8 +29,9 @@ object asunaCirceImpl extends EncoderWrapperHelper[List[CirceAsunaEncoder], List
 trait CirceAsunaEncoderHelper {
 
   implicit def dfgsdgdfgdfgsetrtrtdst[B, RepCol, DataCol](implicit someshape: Encoder[B]): EncoderShape.Aux[HListEncoderShapeWrap[Placeholder[B], B], B, CirceAsunaEncoderImpl[B], List[CirceAsunaEncoder], List[(String, Json)]] = {
-    new EncoderShape[HListEncoderShapeWrap[Placeholder[B], B], B, List[CirceAsunaEncoder], List[(String, Json)]] {
+    new EncoderShape[HListEncoderShapeWrap[Placeholder[B], B], List[CirceAsunaEncoder], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[B]
+      override type Data = B
       override def wrapRep(base: HListEncoderShapeWrap[Placeholder[B], B]): CirceAsunaEncoderImpl[B] = new CirceAsunaEncoderImpl[B] {
         override val key = base.columnInfo.modelColumnName
         override def write(data: B): Json = {

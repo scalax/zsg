@@ -6,9 +6,10 @@ import shapeless.{ ::, HList, HNil, Lazy }
 trait HListDecoderShapeImplicit {
 
   implicit def hlistDecoderImplicit1[RepCol, DataCol]: DecoderShape.Aux[HNil, HNil, HNil, RepCol, DataCol] = {
-    new DecoderShape[HNil, HNil, RepCol, DataCol] {
+    new DecoderShape[HNil, RepCol, DataCol] {
       self =>
       override type Target = HNil
+      override type Data = HNil
       override def wrapRep(base: HNil): HNil = base
       override def toLawRep(base: HNil, oldRep: RepCol): RepCol = oldRep
       override def takeData(rep: HNil, oldData: DataCol): SplitData[HNil, DataCol] = SplitData(current = HNil, left = oldData)
@@ -17,10 +18,11 @@ trait HListDecoderShapeImplicit {
 
   implicit def hlistDecoderImplicit2[A, B <: HList, H, I <: HList, M, N <: HList, RepCol, DataCol](implicit head: Lazy[DecoderShape.Aux[A, H, M, RepCol, DataCol]], tail: Lazy[DecoderShape.Aux[B, I, N, RepCol, DataCol]]): DecoderShape.Aux[A :: B, H :: I, M :: N, RepCol, DataCol] = {
 
-    new DecoderShape[A :: B, H :: I, RepCol, DataCol] {
+    new DecoderShape[A :: B, RepCol, DataCol] {
       self =>
 
       override type Target = M :: N
+      override type Data = H :: I
 
       override def wrapRep(base: A :: B): M :: N = {
         val headRep :: tailRep = base

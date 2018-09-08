@@ -36,8 +36,9 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
 trait CirceAsunaDecoderHelper extends HListDecoderShapeImplicit with DecoderHelper[List[CirceAsunaDecoder], Map[String, Any]] {
 
   implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](implicit someshape: Decoder[B]): DecoderShape.Aux[HListEncoderShapeWrap[Placeholder[B], B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
-    new DecoderShape[HListEncoderShapeWrap[Placeholder[B], B], B, List[CirceAsunaDecoder], Map[String, Any]] {
+    new DecoderShape[HListEncoderShapeWrap[Placeholder[B], B], List[CirceAsunaDecoder], Map[String, Any]] {
       override type Target = CirceAsunaDecoderImpl[B]
+      override type Data = B
       override def wrapRep(base: HListEncoderShapeWrap[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
         override val key = base.columnInfo.modelColumnName
         override def write(data: Json): Either[Exception, B] = {
