@@ -1,6 +1,7 @@
 package net.scalax.asuna.slick.filter
 
 import io.circe.JsonObject
+import net.scalax.slick.async.FriendTable2
 import slick.jdbc.H2Profile.api._
 
 case class Friends(

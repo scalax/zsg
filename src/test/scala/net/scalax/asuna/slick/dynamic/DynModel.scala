@@ -3,8 +3,9 @@ package net.scalax.slick.async
 import java.util.Locale
 
 import com.github.javafaker.Faker
+import io.circe.Json
 import io.circe.syntax._
-import net.scalax.slick.dynamic.{ FilterParam3, FriendTable2Model }
+import net.scalax.slick.dynamic.{ FilterParam3, FilterParam4, FriendTable2Model, FriendTable2Model2 }
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
@@ -78,21 +79,13 @@ class DynModel
   }
 
   "shape" should "auto fileter with case class and jsonobject" in {
-    /*val query = SlickWriterQuery.tranQuery(friendTq)(s => new SlickFilterJson(s))(
-      FilterParam1(name = "小莎莎") ::
-        JsonObject("age" -> Json.fromInt(20), "nick" -> Json.fromString("烟流")) ::
-        HNil)
+    val query = friendTq2.filter(s => new FriendTable2Model2(s).slickFilterSv.inputData(
+      FilterParam4(name = friend1.name, age = friend1.age)).getOrElse(LiteralColumn(Option(true)))).map(s => new FriendTable2Model2(s).umrSv.toSv)
 
-    logger.info(query.result.statements.toString)
-    try {
-      val friendQuery = query.result.head
-      val r = db.run(friendQuery).futureValue
-      r.copy(id = Option.empty) should be(Friends(None, "小莎莎", "烟流", 20))
-    } catch {
-      case e: Exception =>
-        logger.error("error", e)
-        throw e
-    }*/
+    query.result.statements.toList should be(friendTq2.filter(s => (s.name === friend1.name) && (s.age === friend1.age)).map(s => (s.name, s.age, s.id, s.nick)).result.statements.toList)
+    val friendQuery = query.result.head
+    val r = db.run(friendQuery).futureValue
+    r.copy(ext = r.ext + (("id", Json.fromLong(friend1.id)))) should be(FilterParam3(name = friend1.name, age = friend1.age, ext = Map(("nickName", Json.fromString(friend1.nick)), ("id", Json.fromLong(friend1.id)))))
   }
 
 }

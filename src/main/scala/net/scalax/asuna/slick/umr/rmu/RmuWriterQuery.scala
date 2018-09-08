@@ -46,9 +46,10 @@ trait RmuWriterQuery {
 
   implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](implicit shape: Shape[Level, R, M, U], encoder: Encoder[M]): EncoderShape.Aux[HListEncoderShapeWrap[R, M], M, SlickRmuWrapper, List[SlickRmuWrapper], List[String]] = {
     val shape1 = shape
-    new EncoderShape[HListEncoderShapeWrap[R, M], M, List[SlickRmuWrapper], List[String]] {
+    new EncoderShape[HListEncoderShapeWrap[R, M], List[SlickRmuWrapper], List[String]] {
       type Level1 = Level
       override type Target = SlickRmuWrapper
+      override type Data = M
       override def wrapRep(base: HListEncoderShapeWrap[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
         override type DataType = M
         override val circeEncoder = encoder

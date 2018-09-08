@@ -74,8 +74,9 @@ trait SlickFilterColHelper {
   }
 
   implicit def filterShapeImplicit[T]: EncoderShape.Aux[SlickFilterColImpl[T], T, SlickFilterColImpl[T], List[SlickFilterCol], List[Any]] = {
-    new EncoderShape[SlickFilterColImpl[T], T, List[SlickFilterCol], List[Any]] {
+    new EncoderShape[SlickFilterColImpl[T], List[SlickFilterCol], List[Any]] {
       override type Target = SlickFilterColImpl[T]
+      override type Data = T
       override def wrapRep(base: SlickFilterColImpl[T]): SlickFilterColImpl[T] = base
       override def toLawRep(base: SlickFilterColImpl[T], oldRep: List[SlickFilterCol]): List[SlickFilterCol] = base :: oldRep
       override def buildData(data: T, rep: SlickFilterColImpl[T], oldData: List[Any]): List[Any] = data :: oldData
