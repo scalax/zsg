@@ -1230,8 +1230,8 @@ object CaseClassHelper1 {
         val SplitData(item1, dataCol1) = shape1.value.takeData(rep.rep1, dataCol0)
         SplitData(
           current = new CaseClassDataHelper1(
-          data1 = item1,
-          column1 = rep.column1),
+            data1 = item1,
+            column1 = rep.column1),
           left = dataCol1)
       }
     }
@@ -1310,10 +1310,10 @@ object CaseClassHelper2 {
         val SplitData(item2, dataCol2) = shape2.value.takeData(rep.rep2, dataCol1)
         SplitData(
           current = new CaseClassDataHelper2(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2),
           left = dataCol2)
       }
     }
@@ -1409,12 +1409,12 @@ object CaseClassHelper3 {
         val SplitData(item3, dataCol3) = shape3.value.takeData(rep.rep3, dataCol2)
         SplitData(
           current = new CaseClassDataHelper3(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3),
           left = dataCol3)
       }
     }
@@ -1527,14 +1527,14 @@ object CaseClassHelper4 {
         val SplitData(item4, dataCol4) = shape4.value.takeData(rep.rep4, dataCol3)
         SplitData(
           current = new CaseClassDataHelper4(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4),
           left = dataCol4)
       }
     }
@@ -1664,16 +1664,16 @@ object CaseClassHelper5 {
         val SplitData(item5, dataCol5) = shape5.value.takeData(rep.rep5, dataCol4)
         SplitData(
           current = new CaseClassDataHelper5(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5),
           left = dataCol5)
       }
     }
@@ -1820,18 +1820,18 @@ object CaseClassHelper6 {
         val SplitData(item6, dataCol6) = shape6.value.takeData(rep.rep6, dataCol5)
         SplitData(
           current = new CaseClassDataHelper6(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6),
           left = dataCol6)
       }
     }
@@ -1995,20 +1995,20 @@ object CaseClassHelper7 {
         val SplitData(item7, dataCol7) = shape7.value.takeData(rep.rep7, dataCol6)
         SplitData(
           current = new CaseClassDataHelper7(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7),
           left = dataCol7)
       }
     }
@@ -2189,22 +2189,22 @@ object CaseClassHelper8 {
         val SplitData(item8, dataCol8) = shape8.value.takeData(rep.rep8, dataCol7)
         SplitData(
           current = new CaseClassDataHelper8(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7,
-          data8 = item8,
-          column8 = rep.column8),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7,
+            data8 = item8,
+            column8 = rep.column8),
           left = dataCol8)
       }
     }
@@ -2402,24 +2402,24 @@ object CaseClassHelper9 {
         val SplitData(item9, dataCol9) = shape9.value.takeData(rep.rep9, dataCol8)
         SplitData(
           current = new CaseClassDataHelper9(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7,
-          data8 = item8,
-          column8 = rep.column8,
-          data9 = item9,
-          column9 = rep.column9),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7,
+            data8 = item8,
+            column8 = rep.column8,
+            data9 = item9,
+            column9 = rep.column9),
           left = dataCol9)
       }
     }
@@ -2634,26 +2634,26 @@ object CaseClassHelper10 {
         val SplitData(item10, dataCol10) = shape10.value.takeData(rep.rep10, dataCol9)
         SplitData(
           current = new CaseClassDataHelper10(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7,
-          data8 = item8,
-          column8 = rep.column8,
-          data9 = item9,
-          column9 = rep.column9,
-          data10 = item10,
-          column10 = rep.column10),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7,
+            data8 = item8,
+            column8 = rep.column8,
+            data9 = item9,
+            column9 = rep.column9,
+            data10 = item10,
+            column10 = rep.column10),
           left = dataCol10)
       }
     }
@@ -2885,28 +2885,28 @@ object CaseClassHelper11 {
         val SplitData(item11, dataCol11) = shape11.value.takeData(rep.rep11, dataCol10)
         SplitData(
           current = new CaseClassDataHelper11(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7,
-          data8 = item8,
-          column8 = rep.column8,
-          data9 = item9,
-          column9 = rep.column9,
-          data10 = item10,
-          column10 = rep.column10,
-          data11 = item11,
-          column11 = rep.column11),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7,
+            data8 = item8,
+            column8 = rep.column8,
+            data9 = item9,
+            column9 = rep.column9,
+            data10 = item10,
+            column10 = rep.column10,
+            data11 = item11,
+            column11 = rep.column11),
           left = dataCol11)
       }
     }
@@ -3155,30 +3155,30 @@ object CaseClassHelper12 {
         val SplitData(item12, dataCol12) = shape12.value.takeData(rep.rep12, dataCol11)
         SplitData(
           current = new CaseClassDataHelper12(
-          data1 = item1,
-          column1 = rep.column1,
-          data2 = item2,
-          column2 = rep.column2,
-          data3 = item3,
-          column3 = rep.column3,
-          data4 = item4,
-          column4 = rep.column4,
-          data5 = item5,
-          column5 = rep.column5,
-          data6 = item6,
-          column6 = rep.column6,
-          data7 = item7,
-          column7 = rep.column7,
-          data8 = item8,
-          column8 = rep.column8,
-          data9 = item9,
-          column9 = rep.column9,
-          data10 = item10,
-          column10 = rep.column10,
-          data11 = item11,
-          column11 = rep.column11,
-          data12 = item12,
-          column12 = rep.column12),
+            data1 = item1,
+            column1 = rep.column1,
+            data2 = item2,
+            column2 = rep.column2,
+            data3 = item3,
+            column3 = rep.column3,
+            data4 = item4,
+            column4 = rep.column4,
+            data5 = item5,
+            column5 = rep.column5,
+            data6 = item6,
+            column6 = rep.column6,
+            data7 = item7,
+            column7 = rep.column7,
+            data8 = item8,
+            column8 = rep.column8,
+            data9 = item9,
+            column9 = rep.column9,
+            data10 = item10,
+            column10 = rep.column10,
+            data11 = item11,
+            column11 = rep.column11,
+            data12 = item12,
+            column12 = rep.column12),
           left = dataCol12)
       }
     }
