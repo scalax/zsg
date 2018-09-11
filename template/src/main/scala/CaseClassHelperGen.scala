@@ -16,7 +16,7 @@ object CaseClassHelperGen extends App {
 
   val writer = new PrintWriter(path.toFile)
   writer.println(Source.fromString(
-    net.scalax.asuna.template.txt.CaseClassHelperTemplate(maxItem = 12).body)
+    net.scalax.asuna.template.txt.CaseClassHelperTemplate(maxItem = 63).body)
     .getLines.toList.map(_.trim)
     .filter(s => !s.isEmpty)
     .mkString(System.lineSeparator))

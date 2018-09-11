@@ -42,7 +42,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
       override type Rep = A
       override type Level = L
       override val shape = shape1
-      override val dataToList = identity[B]
+      override val dataToList = identity[B] _
       override val rep = baseRep
     }).shapeValue.map { (s: B) => (key, s.asJson(encoder)) }
   }
@@ -60,7 +60,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
           override type Rep = R
           override type Level = L
           override val shape = shape1
-          override val dataToList = identity[D]
+          override val dataToList = identity[D] _
           override val rep = base
         }).shapeValue
       }
@@ -94,7 +94,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
       override type Rep = R
       override type Level = L
       override val shape = shape1
-      override val dataToList = identity[D]
+      override val dataToList = identity[D] _
       override val rep = baseRep
     }).shapeValue
   }

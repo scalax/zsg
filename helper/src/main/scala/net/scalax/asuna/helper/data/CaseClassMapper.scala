@@ -28,6 +28,7 @@ object DecoderMapper {
       val caseClassDataHelper = weakTypeOf[CaseClassDataHelper]
       val encoderWitColType = weakTypeOf[EncoderWitCol]
       val lazyData = weakTypeOf[LazyData[Input, Output, Sub]]
+      val inputTable = weakTypeOf[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]]
 
       val mgVar = "mg" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
       val tableVar = "table" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
@@ -118,9 +119,8 @@ object DecoderMapper {
       val fields = fieldsPrepare
 
       val q = c.Expr[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]] {
-        val aa = weakTypeOf[DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]
         q"""
-           { ${TermName(tableVar)}: ${table} =>
+            ${inputTable.typeSymbol.companion}{ ${TermName(tableVar)}: ${table} =>
            ..$mgDef
            ${caseClassDataHelper.typeSymbol.companion}.withDataDescribe(..${
           fields.filter(s => !s.needInput).flatMap { field =>
@@ -159,6 +159,7 @@ object DecoderMapper {
       val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
       val caseClassDataHelper = weakTypeOf[CaseClassDataHelper]
       val encoderWitColType = weakTypeOf[EncoderWitCol]
+      val inputTable = weakTypeOf[InputTable[_, _]]
 
       val mgVar = "mg" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
       val tableVar = "table" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
@@ -218,7 +219,7 @@ object DecoderMapper {
       val q = c.Expr[InputTable[Table, EncoderDataGen.Aux[Output, Rep, TempData]]] {
         val aa = weakTypeOf[EncoderDataGen.Aux[Output, Rep, TempData]]
         q"""
-           { ${TermName(tableVar)}: ${table} =>
+           ${inputTable.typeSymbol.companion}{ ${TermName(tableVar)}: ${table} =>
            ..$mgDef
            ${caseClassDataHelper.typeSymbol.companion}.withDataDescribe(..${
           fields.filter(s => !s.needInput).flatMap { field =>
