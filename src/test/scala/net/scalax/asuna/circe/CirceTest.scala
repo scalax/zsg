@@ -15,7 +15,7 @@ class CirceTest extends FlatSpec with Matchers with CirceModels {
     """.stripMargin
 
   "common json reader" should "read json as case class" in {
-    val jsonEt = io.circe.parser.parse(jsonStr).flatMap(_.as[JsonObject])
+    val jsonEt = io.circe.parser.parse(jsonStr).right.flatMap(_.as[JsonObject])
     jsonEt.isRight should be(true)
     val json = jsonEt.right.get
     val model = await(CirceModelReader0.reader.tranData(json))
@@ -24,7 +24,7 @@ class CirceTest extends FlatSpec with Matchers with CirceModels {
   }
 
   it should "read json and return validate error" in {
-    val jsonEt = io.circe.parser.parse(jsonStr).flatMap(_.as[JsonObject])
+    val jsonEt = io.circe.parser.parse(jsonStr).right.flatMap(_.as[JsonObject])
     jsonEt.isRight should be(true)
     val json = jsonEt.right.get
     val model = await(CirceModelReader1.reader.tranData(json))

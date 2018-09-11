@@ -1,7 +1,6 @@
 package net.scalax.slick.dynamic
 
 import io.circe.Json
-import io.circe.generic.auto._
 import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
 import net.scalax.asuna.helper.encoder.HListEncoderShapeImplicit
 import net.scalax.asuna.shape.ShapeHelper

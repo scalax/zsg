@@ -24,6 +24,12 @@ trait InputTable[Table, OutPut] {
   def inputTable(table: Table): OutPut
 }
 
+object InputTable {
+  def apply[T, O](f: T => O): InputTable[T, O] = new InputTable[T, O] {
+    override def inputTable(table: T): O = f(table)
+  }
+}
+
 trait DecoderInputTable[Table, Rep, Data, RepCol, DataCol, CaseClass] {
   def inputTable[Target1](table: Table)(implicit c: DecoderShape.Aux[Rep, Data, Target1, RepCol, DataCol]): DecoderShapeValue[CaseClass, RepCol, DataCol]
 }

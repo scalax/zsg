@@ -23,10 +23,10 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
         val jsonObject = data.as[Map[String, Json]].right.get
         val dataMap = lawRep.map { case (key, value) => (key, value.write(jsonObject.get(key).get)) }
         val value = dataMap.foldLeft(Right(Map.empty[String, Any]): Either[Exception, Map[String, Any]]) {
-          case (map, (key, Right(value))) => map.map(m => m + ((key, value)))
+          case (map, (key, Right(value))) => map.right.map(m => m + ((key, value)))
           case (_, (_, Left(e))) => Left(e)
         }
-        value.map(v => shape1.takeData(wrapRep, v).current)
+        value.right.map(v => shape1.takeData(wrapRep, v).current)
       }
     }
   }

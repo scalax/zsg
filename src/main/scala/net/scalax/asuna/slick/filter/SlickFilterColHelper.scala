@@ -119,8 +119,8 @@ trait SlickFilterColHelper {
     val h = new SlickFilterColImpl[JsonObject] {
       import profile.api._
       override def toOptionCondition(data: JsonObject): Rep[Option[Boolean]] = {
-        data.apply(key).getOrElse(Json.Null).as[E](decoder).toOption match {
-          case Some(s) =>
+        data.apply(key).getOrElse(Json.Null).as[E](decoder) match {
+          case Right(s) =>
             f.toOptionCondition(s)
           case _ =>
             LiteralColumn(Option(true))
