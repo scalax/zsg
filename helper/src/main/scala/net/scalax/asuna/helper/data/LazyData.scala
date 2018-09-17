@@ -20,17 +20,17 @@ trait LazyData[Input, Output, Sub] extends Function1[Input, Output] {
 
   override def compose[A](g: A => Input): LazyData[A, Output, Sub] = new LazyData[A, Output, Sub] {
     override def apply(input: A): Output = self.apply(g(input))
-    override def sub = self.sub
+    override def sub                     = self.sub
   }
 
   override def andThen[A](g: Output => A): LazyData[Input, A, Sub] = new LazyData[Input, A, Sub] {
     override def apply(input: Input): A = g(self.apply(input))
-    def sub = self.sub
+    def sub                             = self.sub
   }
 
   def changeSub[F](cv: Sub => F): LazyData[Input, Output, F] = new LazyData[Input, Output, F] {
     override def apply(input: Input): Output = self.apply(input)
-    override def sub: F = cv(self.sub)
+    override def sub: F                      = cv(self.sub)
   }
 
 }
@@ -41,7 +41,7 @@ object LazyData {
 
     new LazyData[Input, Output, Sub] {
       override def apply(input: Input): Output = gen(input)
-      override def sub: Sub = sub1
+      override def sub: Sub                    = sub1
     }
   }
 }

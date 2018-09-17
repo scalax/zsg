@@ -1,11 +1,11 @@
 package net.scalax.asuna.core
 
 import cats.Traverse
-import io.circe.{ Decoder, Encoder }
+import io.circe.{Decoder, Encoder}
 import cats.data._
 import cats.implicits._
-import net.scalax.asuna.core.decoder.{ DecoderShape, DecoderShapeValue, SplitData }
-import net.scalax.asuna.helper.decoder.{ DecoderContent, DecoderHelper, DecoderWrapperHelper }
+import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue, SplitData}
+import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -40,12 +40,12 @@ trait CirceReaderAbs {
 trait CirceReaderImpl[T, R] extends CirceReaderAbs {
   self =>
 
-  override type DataType = T
+  override type DataType   = T
   override type ResultType = R
 
   def map[H](c: R => H): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
-      override def keyName = self.keyName
+      override def keyName     = self.keyName
       override def circeReader = self.circeReader
       override def validate(common: T) = {
         self.validate(common).map(_.map(c))
@@ -56,7 +56,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
 
   def validate[H](c: R => ValidatedNel[String, H]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
-      override def keyName = self.keyName
+      override def keyName     = self.keyName
       override def circeReader = self.circeReader
       override def validate(common: T) = {
         lazy val r = { x: R =>
@@ -72,7 +72,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
 
   def mapM[H](c: R => Future[H]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
-      override def keyName = self.keyName
+      override def keyName     = self.keyName
       override def circeReader = self.circeReader
       override def validate(common: T) = {
         self.validate(common).map(_.map(c)).flatMap(r => Traverse[({ type X[V] = Validated[ValidateModel, V] })#X].sequence(r))
@@ -83,7 +83,7 @@ trait CirceReaderImpl[T, R] extends CirceReaderAbs {
 
   def validateM[H](c: R => Future[ValidatedNel[String, H]]): CirceReaderImpl[T, H] = {
     val r = new CirceReaderImpl[T, H] {
-      override def keyName = self.keyName
+      override def keyName     = self.keyName
       override def circeReader = self.circeReader
       override def validate(common: T) = {
         lazy val r = { x: R =>
@@ -106,11 +106,11 @@ trait CirceReaderHelper {
   object circe extends DecoderHelper[List[CirceReaderAbs], List[Any]] with DecoderWrapperHelper[List[CirceReaderAbs], List[Any], CirceWrapper] {
     override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, List[CirceReaderAbs], List[Any]]): CirceWrapper[Out, D] = {
       val shape1 = shape
-      val rep1 = rep
+      val rep1   = rep
       new CirceWrapper[Out, D] {
         override def playCirceSv: DecoderShapeValue[D, List[CirceReaderAbs], List[Any]] = new DecoderShapeValue[D, List[CirceReaderAbs], List[Any]] {
           override type RepType = Out
-          override val rep = shape1.wrapRep(rep1)
+          override val rep                                                                   = shape1.wrapRep(rep1)
           override val shape: DecoderShape.Aux[Out, D, Out, List[CirceReaderAbs], List[Any]] = shape1.packed
         }
       }
@@ -120,7 +120,7 @@ trait CirceReaderHelper {
   def column[T](keyName: String)(implicit encoder: Decoder[T]): CirceReaderImpl[T, T] = {
     val keyName1 = keyName
     val r = new CirceReaderImpl[T, T] {
-      override val keyName = keyName1
+      override val keyName     = keyName1
       override val circeReader = encoder
       override def validate(common: T): Future[Validated[ValidateModel, T]] = {
         Future.successful(Validated.valid(common))
@@ -132,10 +132,10 @@ trait CirceReaderHelper {
   implicit def circeReaderImplicit[T]: DecoderShape.Aux[CirceReaderImpl[T, T], T, CirceReaderImpl[T, T], List[CirceReaderAbs], List[Any]] = {
     new DecoderShape[CirceReaderImpl[T, T], List[CirceReaderAbs], List[Any]] {
       override type Target = CirceReaderImpl[T, T]
-      override type Data = T
-      override def wrapRep(base: CirceReaderImpl[T, T]): CirceReaderImpl[T, T] = base
+      override type Data   = T
+      override def wrapRep(base: CirceReaderImpl[T, T]): CirceReaderImpl[T, T]                               = base
       override def toLawRep(base: CirceReaderImpl[T, T], oldRep: List[CirceReaderAbs]): List[CirceReaderAbs] = base :: oldRep
-      override def takeData(rep: CirceReaderImpl[T, T], oldData: List[Any]): SplitData[T, List[Any]] = SplitData(current = oldData.head.asInstanceOf[T], left = oldData.tail)
+      override def takeData(rep: CirceReaderImpl[T, T], oldData: List[Any]): SplitData[T, List[Any]]         = SplitData(current = oldData.head.asInstanceOf[T], left = oldData.tail)
     }
   }
 

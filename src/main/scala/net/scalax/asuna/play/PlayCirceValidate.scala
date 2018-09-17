@@ -1,12 +1,12 @@
 package play.api.libs.circe
 
 import cats.implicits._
-import akka.stream.scaladsl.{ Flow, Sink }
+import akka.stream.scaladsl.{Flow, Sink}
 import akka.util.ByteString
 import cats.Traverse
 import io.circe._
 import io.circe.syntax._
-import net.scalax.asuna.core.{ CirceReaderQuery, ValidateModel }
+import net.scalax.asuna.core.{CirceReaderQuery, ValidateModel}
 import play.api.http._
 import play.api.libs.streams.Execution.Implicits.trampoline
 import play.api.libs.streams.Accumulator
@@ -46,10 +46,12 @@ trait PlayCirceValidate extends Status {
 
     def byQuery[U](query: CirceReaderQuery[U]): BodyParser[U] = byQuery(query, parse.DefaultMaxTextLength)
 
-    def byQuery[U](query: CirceReaderQuery[U], maxLength: Int): BodyParser[U] = parse.when(
-      _.contentType.exists(m => m.equalsIgnoreCase("text/json") || m.equalsIgnoreCase("application/json")),
-      tolerantQuery(query, maxLength),
-      createBadResult("Expecting text/json or application/json body", UNSUPPORTED_MEDIA_TYPE))
+    def byQuery[U](query: CirceReaderQuery[U], maxLength: Int): BodyParser[U] =
+      parse.when(
+          _.contentType.exists(m => m.equalsIgnoreCase("text/json") || m.equalsIgnoreCase("application/json"))
+        , tolerantQuery(query, maxLength)
+        , createBadResult("Expecting text/json or application/json body", UNSUPPORTED_MEDIA_TYPE)
+      )
 
     //def tolerantJson[T: Decoder]: BodyParser[T] = tolerantJson.validate(decodeJson[T])
 
@@ -65,8 +67,7 @@ trait PlayCirceValidate extends Status {
     def tolerantQuery[U](query: CirceReaderQuery[U], maxLength: Int): BodyParser[U] = {
       tolerantJson(maxLength).validateM { j =>
         val r = j.as[JsonObject].leftMap(_ => onValidateError(ValidateModel(whole = List(s"请求内容不是 Json 对象")))).right.map { j =>
-          query.tranData(j).map(s =>
-            s.toEither.leftMap(onValidateError))
+          query.tranData(j).map(s => s.toEither.leftMap(onValidateError))
         }
         Traverse[({ type X[Y] = Either[Result, Y] })#X].sequence(r).map(s => s.right.flatMap(identity))
       }
@@ -76,7 +77,7 @@ trait PlayCirceValidate extends Status {
       val CharsetPattern = "(?i)\\bcharset=\\s*\"?([^\\s;\"]*)".r
       request.headers.get("Content-Type") match {
         case Some(CharsetPattern(c)) => c
-        case _ => "UTF-8"
+        case _                       => "UTF-8"
       }
     }
 
@@ -106,7 +107,7 @@ trait PlayCirceValidate extends Status {
         }
 
         Accumulator.strict[ByteString, Either[Result, A]](
-          // If the body was strict
+            // If the body was strict
           {
             case Some(bytes) if bytes.size <= maxLength =>
               parseBody(bytes)
@@ -116,8 +117,8 @@ trait PlayCirceValidate extends Status {
               createBadResult("Request Entity Too Large", REQUEST_ENTITY_TOO_LARGE)(request).map(Left.apply)
           },
           // Otherwise, use an enforce max length accumulator on a folding sink
-          enforceMaxLength(request, maxLength, Accumulator(
-            Sink.fold[ByteString, ByteString](ByteString.empty)((state, bs) => state ++ bs)).mapFuture(parseBody)).toSink)
+          enforceMaxLength(request, maxLength, Accumulator(Sink.fold[ByteString, ByteString](ByteString.empty)((state, bs) => state ++ bs)).mapFuture(parseBody)).toSink
+        )
       }
     }
 

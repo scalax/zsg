@@ -1,6 +1,6 @@
 package net.scalax.asuna.shape
 
-import net.scalax.asuna.core.common.{ ++::, RNil, RepGroup }
+import net.scalax.asuna.core.common.{++::, RNil, RepGroup}
 
 trait ShapeHelper {
 

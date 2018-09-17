@@ -1,6 +1,6 @@
 package net.scalax.asuna.circe.aaaa
 
-import io.circe.{ Encoder, Json, JsonObject }
+import io.circe.{Encoder, Json, JsonObject}
 import net.scalax.asuna.core.encoder.EncoderShape
 
 trait CirceAsunaEncoder {

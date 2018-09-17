@@ -1,7 +1,7 @@
 package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.CommonProvenShape
-import net.scalax.asuna.core.encoder.{ EncoderShape, EncoderShapeValue }
+import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 
 trait EncoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol, DataCol] {
   val dataShapeValue: EncoderShapeValue[U, RepCol, DataCol]
@@ -14,7 +14,7 @@ object EncoderProvenShape {
     new EncoderShape[R, RepCol, DataCol] {
       self =>
       override type Target = R
-      override type Data = U
+      override type Data   = U
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R, oldRep: RepCol): RepCol =
         base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), oldRep)

@@ -32,7 +32,8 @@ object DecoderDataGen {
 
   type Aux[Input, Output, Sub, Rep, Temp] = DecoderDataGen[Input, Output, Sub] { type TempRep = Rep; type TempData = Temp }
 
-  implicit def decoderDataGenImplicit[Input, Output, Sub, Table, Rep, Temp]: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, Temp]] = macro DecoderMapper.DecoderMapperImpl.caseclassDecoderGeneric[Input, Output, Sub, Table, Rep, Temp]
+  implicit def decoderDataGenImplicit[Input, Output, Sub, Table, Rep, Temp]: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, Temp]] =
+    macro DecoderMapper.DecoderMapperImpl.caseclassDecoderGeneric[Input, Output, Sub, Table, Rep, Temp]
 
 }
 
@@ -50,7 +51,8 @@ object EncoderDataGen {
 
   type Aux[Output, Rep, Temp] = EncoderDataGen[Output] { type TempRep = Rep; type TempData = Temp }
 
-  implicit def encoderDataGenImplicit[Output, Table, Rep, Temp]: InputTable[Table, EncoderDataGen.Aux[Output, Rep, Temp]] = macro DecoderMapper.EncoderMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
+  implicit def encoderDataGenImplicit[Output, Table, Rep, Temp]: InputTable[Table, EncoderDataGen.Aux[Output, Rep, Temp]] =
+    macro DecoderMapper.EncoderMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
 
 }
 
@@ -63,15 +65,15 @@ trait DataGenWrap {
 
   def asDecoder[Input, Output, Sub](f: (TempData, TempRep) => LazyData[Input, Output, Sub]): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData] = new DecoderDataGen[Input, Output, Sub] {
     override type TempData = self.TempData
-    override type TempRep = self.TempRep
+    override type TempRep  = self.TempRep
     override def from(caseModel: TempData, tempRep: TempRep): LazyData[Input, Output, Sub] = f(caseModel, tempRep)
-    override val rep = self.rep
+    override val rep                                                                       = self.rep
   }
   def asEncoder[Output](f: (Output, TempRep) => TempData): EncoderDataGen.Aux[Output, TempRep, TempData] = new EncoderDataGen[Output] {
     override type TempData = self.TempData
-    override type TempRep = self.TempRep
+    override type TempRep  = self.TempRep
     override def to(caseModel: Output, tempRep: TempRep): TempData = f(caseModel, tempRep)
-    override val rep = self.rep
+    override val rep                                               = self.rep
   }
 
 }
@@ -84,7 +86,7 @@ object DataGenWrap {
     val rep1 = rep
     new DataGenWrap {
       override type TempData = Temp
-      override type TempRep = Rep
+      override type TempRep  = Rep
       override val rep = rep1
     }
   }

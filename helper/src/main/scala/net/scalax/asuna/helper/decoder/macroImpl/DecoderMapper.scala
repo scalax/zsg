@@ -37,9 +37,8 @@ object DecoderMapper {
       val q =
         q"""
         val ${TermName(fieldName.shapeValueName)} = {
-            ${
-          if (isMissingField) {
-            q"""
+            ${if (isMissingField) {
+          q"""
             ${TermName(encoderWitColVar)}.toWrap(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
@@ -47,8 +46,8 @@ object DecoderMapper {
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
             ))
            """
-          } else {
-            q"""
+        } else {
+          q"""
             ${TermName(encoderWitColVar)}.toWrap(${modelName}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
@@ -56,33 +55,50 @@ object DecoderMapper {
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
             ))
            """
-          }
-        }
+        }}
         }
     """
       q
     }
 
-    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, HListData: c.WeakTypeTag](genImplicit: c.Expr[Generic.Aux[Case, HListData]]): c.Expr[CaseDecoderRepWrap.Aux[Table, Case, Target, HListData]] = {
-      val caseClass = weakTypeOf[Case]
-      val table = weakTypeOf[Table]
-      val modelGen = weakTypeOf[ModelGen[Case]]
+    def impl[Table: c.WeakTypeTag, Case: c.WeakTypeTag, Target: c.WeakTypeTag, HListData: c.WeakTypeTag](
+        genImplicit: c.Expr[Generic.Aux[Case, HListData]]
+    ): c.Expr[CaseDecoderRepWrap.Aux[Table, Case, Target, HListData]] = {
+      val caseClass         = weakTypeOf[Case]
+      val table             = weakTypeOf[Table]
+      val modelGen          = weakTypeOf[ModelGen[Case]]
       val encoderWitColType = q"""_root_.net.scalax.asuna.helper.encoder.EncoderWitCol"""
 
-      val mgVar = "mg" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
+      val mgVar            = "mg" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
       val encoderWitColVar = "encoderWitCol" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
 
-      val modelFieldNames = caseClass.members.filter { s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal }.map(_.name).collect { case TermName(n) => n.trim }.toList.map(s => FieldNames(law = s, shapeValueName = s + UUID.randomUUID.toString.replaceAllLiterally("-", "a"))).reverse
-      val fieldNamesInTable = table.members.filter { s => s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod) }.map(_.name).collect { case TermName(n) => n.trim }.toList
+      val modelFieldNames = caseClass.members
+        .filter { s =>
+          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
+        }
+        .map(_.name)
+        .collect { case TermName(n) => n.trim }
+        .toList
+        .map(s => FieldNames(law = s, shapeValueName = s + UUID.randomUUID.toString.replaceAllLiterally("-", "a")))
+        .reverse
+      val fieldNamesInTable = table.members
+        .filter { s =>
+          s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
+        }
+        .map(_.name)
+        .collect { case TermName(n) => n.trim }
+        .toList
       val misFieldsInTable = modelFieldNames.filter(n => !fieldNamesInTable.contains(n.law))
 
-      def mgDef = List(
-        q"""
+      def mgDef =
+        List(
+            q"""
         val ${TermName(mgVar)}: $modelGen = ${modelGen.typeSymbol.companion}.value[$caseClass]
-        """,
-        q"""
+        """
+          , q"""
         val ${TermName(encoderWitColVar)}: $encoderWitColType = $encoderWitColType
-        """)
+        """
+        )
 
       def toShape1111(namePare: List[FieldNames]) = {
         val proNames = namePare
@@ -94,7 +110,15 @@ object DecoderMapper {
         val func =
           q"""
         { (${TermName(termVar1)}: $table) =>
-          ..${modelFieldNames.map { proName => commonProUseInShape[Table, Case](mgVar = mgVar, encoderWitColVar = encoderWitColVar, fieldName = proName, modelName = TermName(termVar1), isMissingField = misFieldsInTable.contains(proName)) }}
+          ..${modelFieldNames.map { proName =>
+            commonProUseInShape[Table, Case](
+                mgVar = mgVar
+              , encoderWitColVar = encoderWitColVar
+              , fieldName = proName
+              , modelName = TermName(termVar1)
+              , isMissingField = misFieldsInTable.contains(proName)
+            )
+          }}
           $toListTree
         }
         """
@@ -125,9 +149,8 @@ object DecoderMapper {
 
       val q = q"""
         {
-          ${
-        if (isMissingField) {
-          q"""
+          ${if (isMissingField) {
+        q"""
             ${TermName(encoderWitColVar)}.toWrap(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
@@ -135,8 +158,8 @@ object DecoderMapper {
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
             ))
            """
-        } else {
-          q"""
+      } else {
+        q"""
             ${TermName(encoderWitColVar)}.toWrap(${modelName}.${TermName(fieldName.law)}, ${TermName(mgVar)}(_.${TermName(fieldName.law)}), ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
@@ -144,8 +167,7 @@ object DecoderMapper {
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))})
             ))
            """
-        }
-      }
+      }}
         }
     """
       q

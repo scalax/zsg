@@ -5,15 +5,11 @@ import akka.http.scaladsl.testkit.ScalatestRouteTest
 import net.scalax.asuna.akkahttp.AkkaHttpParameterHelper
 import org.scalatest._
 
-import scala.concurrent.{ Await, Future, duration }
+import scala.concurrent.{duration, Await, Future}
 
 case class Model(id: Int, name: String, age: Int, nick: String, cusField: String, field1: String, field2: Long, field3: String, extCookieField: Map[String, String])
 
-class AkkaHttpTest
-  extends WordSpec
-  with Matchers
-  with ScalatestRouteTest
-  with AkkaHttpParameterHelper {
+class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with AkkaHttpParameterHelper {
 
   class ParameterTable(fieldKeys: List[String]) {
     self =>
@@ -64,32 +60,33 @@ class AkkaHttpTest
   "akkahttp's shape should auto shape values" in {
     import akka.http.scaladsl.model._
     Post(
-      "/formtest?nick=nick_value",
-      FormData(
-        ("age", "3456"),
-        ("my_name_field", "my_name_field_value"),
-        ("field1", "field1Value"),
-        ("field2", "52345234"),
-        ("field3", "field3Value"),
-        ("cKey1", "cKey1Value"),
-        ("cKey2", "cKey2Value"),
-        ("cKey3", "NotUsed"))) ~>
+        "/formtest?nick=nick_value"
+      , FormData(
+          ("age", "3456")
+        , ("my_name_field", "my_name_field_value")
+        , ("field1", "field1Value")
+        , ("field2", "52345234")
+        , ("field3", "field3Value")
+        , ("cKey1", "cKey1Value")
+        , ("cKey2", "cKey2Value")
+        , ("cKey3", "NotUsed")
+      )
+    ) ~>
       Cookie("name", "name_cookie_value") ~>
       route ~>
       check {
         responseAs[String] shouldEqual
           Model(
-            id = -1,
-            name = "name_cookie_value",
-            age = 3456,
-            nick = "nick_value",
-            cusField = "my_name_field_value",
-            field1 = "field1Value",
-            field2 = 52345234L,
-            field3 = "field3Value",
-            extCookieField = Map(
-              ("cKey1", "cKey1Value"),
-              ("cKey2", "cKey2Value"))).toString
+              id = -1
+            , name = "name_cookie_value"
+            , age = 3456
+            , nick = "nick_value"
+            , cusField = "my_name_field_value"
+            , field1 = "field1Value"
+            , field2 = 52345234L
+            , field3 = "field3Value"
+            , extCookieField = Map(("cKey1", "cKey1Value"), ("cKey2", "cKey2Value"))
+          ).toString
       }
   }
 

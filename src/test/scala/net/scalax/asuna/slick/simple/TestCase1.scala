@@ -9,17 +9,17 @@ import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.{ Await, Future, duration }
+import scala.concurrent.{duration, Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class Friends2(id: Long, name: String, nick: String, age: Int)
 case class Friends3(id1111: Long, name1111: String, nick1111: String, age1111: Int)
 
 class FriendTable2(tag: slick.lifted.Tag) extends Table[Friends2](tag, "firend2") {
-  def id = column[Long]("id", O.AutoInc)
+  def id   = column[Long]("id", O.AutoInc)
   def name = column[String]("name")
   def nick = column[String]("nick")
-  def age = column[Int]("age")
+  def age  = column[Int]("age")
 
   def * = (id, name, nick, age).mapTo[Friends2]
 }
@@ -27,21 +27,15 @@ class FriendTable2(tag: slick.lifted.Tag) extends Table[Friends2](tag, "firend2"
 case class Mark(id: Long, name: String, mark: Int, friendId: Long)
 
 class MarkTable(tag: slick.lifted.Tag) extends Table[Mark](tag, "mark") {
-  def id = column[Long]("id", O.AutoInc)
-  def name = column[String]("name")
-  def mark = column[Int]("mark")
+  def id       = column[Long]("id", O.AutoInc)
+  def name     = column[String]("name")
+  def mark     = column[Int]("mark")
   def friendId = column[Long]("friend_id")
 
   def * = (id, name, mark, friendId).mapTo[Mark]
 }
 
-class DynModel
-  extends FlatSpec
-  with Matchers
-  with EitherValues
-  with ScalaFutures
-  with BeforeAndAfterAll
-  with BeforeAndAfter {
+class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFutures with BeforeAndAfterAll with BeforeAndAfter {
 
   val local = new Locale("zh", "CN")
   val faker = new Faker(local)
@@ -51,12 +45,9 @@ class DynModel
   val logger = LoggerFactory.getLogger(getClass)
 
   val friendTq2 = TableQuery[FriendTable2]
-  val markTq = TableQuery[MarkTable]
+  val markTq    = TableQuery[MarkTable]
 
-  val db = Database.forURL(
-    s"jdbc:h2:mem:hfTest;DB_CLOSE_DELAY=-1",
-    driver = "org.h2.Driver",
-    keepAliveConnection = true)
+  val db = Database.forURL(s"jdbc:h2:mem:hfTest;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver", keepAliveConnection = true)
 
   override def beforeAll = {
     await(db.run((markTq.schema ++ friendTq2.schema).create))
@@ -94,7 +85,7 @@ class DynModel
 
   "shape" should "auto filer with case class" in {
     val prepareData: Future[Seq[LazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
-    def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
+    def fetchSub(friendId: Long): Future[Seq[InnerMark]]                                       = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
       val r: Future[Seq[InnerFriends2]] = prepareData.flatMap { t =>
         val lf = t.map(l => fetchSub(l.sub.id).map(u => l(InnerFriendInput(u.toList))))
@@ -139,9 +130,9 @@ class DynModel
   }
 
   it should "dynamic filter columns and output to JsonObject" in {
-    val cols = List("id", "nick", "name")
-    val autalCols = List("id", "name")
-    val tq = DynFriendModelTq(cols)
+    val cols        = List("id", "nick", "name")
+    val autalCols   = List("id", "name")
+    val tq          = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
     prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.name, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))

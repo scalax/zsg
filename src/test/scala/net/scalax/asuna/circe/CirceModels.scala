@@ -8,9 +8,9 @@ trait CirceModels extends CirceReaderHelper {
 
   trait CirceModelReader0 {
 
-    def id = column[Int]("id")
+    def id   = column[Int]("id")
     def name = column[String]("name")
-    def age = column[Long]("我是莎莎酱的年龄")
+    def age  = column[Long]("我是莎莎酱的年龄")
     def nick = column[String]("我是莎莎酱的昵称")
 
     def reader = circe.effect(circe.caseOnly[CirceModelReader0.type, Student].compileDecoder2222.inputTable(CirceModelReader0))
@@ -19,7 +19,7 @@ trait CirceModels extends CirceReaderHelper {
 
   object CirceModelReader0 extends CirceModelReader0
 
-  val minAge = 233333339L
+  val minAge       = 233333339L
   val validateStr1 = s"魔理沙的年龄必须大于${minAge}岁"
   val validateStr2 = s"昵称不能小于 30 个字"
 
