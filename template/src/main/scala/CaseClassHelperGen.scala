@@ -7,6 +7,8 @@ import scala.io.Source
 
 object CaseClassHelperGen extends App {
 
+  val maxPropertyNum = 4
+
   val path = Paths
     .get(".")
     .resolve("helper")
@@ -42,7 +44,9 @@ object CaseClassHelperGen extends App {
   Files.createDirectories(path1111.getParent)
 
   val writer1111 = new PrintWriter(path1111.toFile)
-  writer1111.println(Source.fromString(net.scalax.asuna.template1111.txt.CaseClassHelperTemplate(maxItem = 4).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty).mkString(System.lineSeparator))
+  writer1111.println(
+      Source.fromString(net.scalax.asuna.template1111.txt.CaseClassHelperTemplate(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty).mkString(System.lineSeparator)
+  )
   writer1111.close()
 
 }

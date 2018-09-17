@@ -13,15 +13,14 @@ def withRep[@for(i <- 1 to count) {
 })(implicit @for(i <- 1 to count) {
     wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Target@{i}]
     @if(i < count) { , }
-}): CaseClassHelper@{count}[@for(i <- 1 to count) {
+}): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Target@{i},
     Data@{i}
     @if(i < count) { , }
 }] = {
-    new CaseClassHelper@{count}(@for(i <- 1 to count) {
+    new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
         rep@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i}),
-        property@{i} = property@{i},
-        column@{i} = column@{i}
+        property@{i} = property@{i}
         @if(i < count) { , }
     })
 }

@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-package net.scalax.asuna.helper.template
+package net.scalax.asuna.helper.mapper
 
 import net.scalax.asuna.helper.MacroColumnInfo
 import net.scalax.asuna.core.encoder.EncoderShape
@@ -14,9 +14,9 @@ import shapeless._
 trait CaseClassMapper
 
 object CaseClassMapper {
-    @* @for(i <- 1 to maxItem) {
-        @net.scalax.asuna.template.txt.CaseClassHelper(count = i)
-    } *@
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template1111.txt.CaseClassMapperHelper(count = i)
+    }
 }
 
 trait CaseClassDataMapperHelper
@@ -28,14 +28,13 @@ object CaseClassDataMapperHelper {
 }
 
 @for(i <- 1 to maxItem) {
-    @* @net.scalax.asuna.template.txt.CaseClassRepHelper(count = i)
-
-    @net.scalax.asuna.template.txt.CaseClassRepDataHelper(count = i)
+    @net.scalax.asuna.template1111.txt.CaseClassRepMapper(count = i)
+    @net.scalax.asuna.template1111.txt.CaseClassDataMapper(count = i)
 
     object CaseClassHelper@{i} {
 
-        @net.scalax.asuna.template.txt.CaseClassEncoderImplicit(count = i)
-        @net.scalax.asuna.template.txt.CaseClassDecoderImplicit(count = i)
+        @net.scalax.asuna.template1111.txt.CaseClassEncoderImplicit(count = i)
+        @net.scalax.asuna.template1111.txt.CaseClassDecoderImplicit(count = i)
 
-    } *@
+    }
 }

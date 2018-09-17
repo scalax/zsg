@@ -1,14 +1,13 @@
 @(count: Int)
 
-class CaseClassHelper@{count}[@for(i <- 1 to count) {
+class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i}
     @if(i < count) { , }
 }](
     @for(i <- 1 to count) {
         val rep@{i}: Rep@{i},
-        val property@{i}: PropertyType[Data@{i}],
-        val column@{i}: MacroColumnInfo
+        val property@{i}: PropertyType[Data@{i}]
         @if(i < count) { , }
     }
 ) {

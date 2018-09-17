@@ -8,53 +8,52 @@ implicit def caseClassHelper@{count}EncoderGen[@for(i <- 1 to count) {
     implicit @for(i <- 1 to count) {
         shape@{i}: Lazy[EncoderShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol]] @if(i < count) { , }
     })
-    : EncoderShape.Aux[CaseClassHelper@{count}[@for(i <- 1 to count) {
+    : EncoderShape.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
     }],
-    CaseClassDataHelper@{count}[@for(i <- 1 to count) {
+    CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
     }],
-    CaseClassHelper@{count}[
+    CaseClassRepMapper@{count}[
         @for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
     }], RepCol, DataCol] = {
-    new EncoderShape[CaseClassHelper@{count}[@for(i <- 1 to count) {
+    new EncoderShape[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
     }], RepCol, DataCol] {
-        override type Target = CaseClassHelper@{count}[@for(i <- 1 to count) {
+        override type Target = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
         }]
-        override type Data = CaseClassDataHelper@{count}[@for(i <- 1 to count) {
+        override type Data = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }]
-        override def wrapRep(base: CaseClassHelper@{count}[@for(i <- 1 to count) {
+        override def wrapRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Rep@{i},
             Data@{i}
             @if(i < count) { , }
-        }]): CaseClassHelper@{count}[
+        }]): CaseClassRepMapper@{count}[
             @for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
         }] = {
-        new CaseClassHelper@{count}(@for(i <- 1 to count) {
+        new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
             rep@{i} = shape@{i}.value.wrapRep(base.rep@{i}),
-            property@{i} = base.property@{i},
-            column@{i} = base.column@{i}
+            property@{i} = base.property@{i}
             @if(i < count) { , }
         })
         }
-        override def toLawRep(base: CaseClassHelper@{count}[@for(i <- 1 to count) {
+        override def toLawRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
@@ -65,10 +64,10 @@ implicit def caseClassHelper@{count}EncoderGen[@for(i <- 1 to count) {
             }
             rep1
         }
-        override def buildData(data: CaseClassDataHelper@{count}[@for(i <- 1 to count) {
+        override def buildData(data: CaseClassDataMapper@{count}[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
-        }], rep: CaseClassHelper@{count}[@for(i <- 1 to count) {
+        }], rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
