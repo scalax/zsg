@@ -100,7 +100,6 @@ object CaseClassMapperMacro {
 
       case class FieldNameWrap(field: FieldName, deepIndex: List[Int])
 
-      @tailrec
       def countDeepImpl[T](base: List[T])(cv: T => List[FieldNameWrap]): List[FieldNameWrap] = {
         base match {
           case Nil =>
