@@ -3,6 +3,11 @@ package net.scalax.test01
 import akka.http.scaladsl.model.headers.Cookie
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import net.scalax.asuna.akkahttp.AkkaHttpParameterHelper
+import net.scalax.asuna.helper.MacroColumnInfoImpl
+import net.scalax.asuna.helper.data.macroImpl.{EmptyLazyOutput, LazyData}
+import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
+import net.scalax.asuna.helper.encoder.InputTable
+import net.scalax.asuna.helper.mapper.CaseClassMapper
 import org.scalatest._
 
 import scala.concurrent.{duration, Await, Future}

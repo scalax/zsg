@@ -17,6 +17,9 @@ object CaseClassMapper {
     @for(i <- 1 to maxItem) {
         @net.scalax.asuna.template1111.txt.CaseClassMapperHelper(count = i)
     }
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template1111.txt.CaseClassWithRawRepHelper(count = i)
+    }
 }
 
 trait CaseClassDataMapperHelper
@@ -31,7 +34,7 @@ object CaseClassDataMapperHelper {
     @net.scalax.asuna.template1111.txt.CaseClassRepMapper(count = i)
     @net.scalax.asuna.template1111.txt.CaseClassDataMapper(count = i)
 
-    object CaseClassHelper@{i} {
+    object CaseClassRepMapper@{i} {
 
         @net.scalax.asuna.template1111.txt.CaseClassEncoderImplicit(count = i)
         @net.scalax.asuna.template1111.txt.CaseClassDecoderImplicit(count = i)

@@ -83,24 +83,24 @@ case class LargeModel(
   , i80: String = "init string"
   , i81: String = "init string"
   , i82: String = "init string"
-  , i83: String = "init string" /*,
-  i84: String = "init string",
-  i85: String = "init string",
-  i86: String = "init string",
-  i87: String = "init string",
-  i88: String = "init string",
-  i89: String = "init string",
-  i90: String = "init string",
-  i91: String = "init string",
-  i92: String = "init string",
-  i93: String = "init string",
-  i94: Int = 8910,
-  i95: String = "init string",
-  i96: String = "init string",
-  i97: String = "init string",
-  i98: String = "init string",
-  i99: String = "init string",
-  i100: String = "init string"*/
+  , i83: String = "init string"
+  , i84: String = "init string"
+  , i85: String = "init string"
+  , i86: String = "init string"
+  , i87: String = "init string"
+  , i88: String = "init string"
+  , i89: String = "init string"
+  , i90: String = "init string"
+  , i91: String = "init string"
+  , i92: String = "init string"
+  , i93: String = "init string"
+  , i94: Int = 8910
+  , i95: String = "init string"
+  , i96: String = "init string"
+  , i97: String = "init string"
+  , i98: String = "init string"
+  , i99: String = "init string"
+  , i100: String = "init string"
 )
 
 case class Hahahah(

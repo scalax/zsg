@@ -5,6 +5,11 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import io.circe.{Encoder, Json}
 import net.scalax.asuna.circe.{CirceAsunaDecoderHelper, CirceAsunaEncoderHelper, EmptyCirceTable}
+import net.scalax.asuna.helper.MacroColumnInfoImpl
+import net.scalax.asuna.helper.data.macroImpl.{EmptyLazyOutput, LazyData}
+import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
+import net.scalax.asuna.helper.encoder.InputTable
+import net.scalax.asuna.helper.mapper.CaseClassMapper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 

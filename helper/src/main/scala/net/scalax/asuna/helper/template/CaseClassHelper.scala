@@ -17,7 +17,7 @@ object CaseClassHelper {
     , property1: PropertyType[Data1]
     , column1: MacroColumnInfo
   )(
-      implicit
+    implicit
     wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
   ): CaseClassHelper1[
       Target1
@@ -44,9 +44,9 @@ object CaseClassHelper {
     , property2: PropertyType[Data2]
     , column2: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
   ): CaseClassHelper2[
       Target1
     , Data1
@@ -83,10 +83,10 @@ object CaseClassHelper {
     , property3: PropertyType[Data3]
     , column3: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
   ): CaseClassHelper3[
       Target1
     , Data1
@@ -134,11 +134,11 @@ object CaseClassHelper {
     , property4: PropertyType[Data4]
     , column4: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
   ): CaseClassHelper4[
       Target1
     , Data1
@@ -197,12 +197,12 @@ object CaseClassHelper {
     , property5: PropertyType[Data5]
     , column5: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
   ): CaseClassHelper5[
       Target1
     , Data1
@@ -272,13 +272,13 @@ object CaseClassHelper {
     , property6: PropertyType[Data6]
     , column6: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
   ): CaseClassHelper6[
       Target1
     , Data1
@@ -359,14 +359,14 @@ object CaseClassHelper {
     , property7: PropertyType[Data7]
     , column7: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
   ): CaseClassHelper7[
       Target1
     , Data1
@@ -458,15 +458,15 @@ object CaseClassHelper {
     , property8: PropertyType[Data8]
     , column8: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
   ): CaseClassHelper8[
       Target1
     , Data1
@@ -569,16 +569,16 @@ object CaseClassHelper {
     , property9: PropertyType[Data9]
     , column9: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
   ): CaseClassHelper9[
       Target1
     , Data1
@@ -692,17 +692,17 @@ object CaseClassHelper {
     , property10: PropertyType[Data10]
     , column10: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
   ): CaseClassHelper10[
       Target1
     , Data1
@@ -827,18 +827,18 @@ object CaseClassHelper {
     , property11: PropertyType[Data11]
     , column11: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
-    , wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
   ): CaseClassHelper11[
       Target1
     , Data1
@@ -974,19 +974,19 @@ object CaseClassHelper {
     , property12: PropertyType[Data12]
     , column12: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
-    , wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
-    , wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11],
+    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]
   ): CaseClassHelper12[
       Target1
     , Data1
@@ -1064,7 +1064,7 @@ object CaseClassDataHelper {
     , property1: PropertyType[Data1]
     , column1: MacroColumnInfo
   )(
-      implicit
+    implicit
     wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
   ): DataGenWrap.Aux[CaseClassHelper1[
       Target1
@@ -1078,7 +1078,7 @@ object CaseClassDataHelper {
     ], CaseClassDataHelper1[
         Data1
     ]](
-        new CaseClassHelper1(
+      new CaseClassHelper1(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1100,9 +1100,9 @@ object CaseClassDataHelper {
     , property2: PropertyType[Data2]
     , column2: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
   ): DataGenWrap.Aux[CaseClassHelper2[
       Target1
     , Data1
@@ -1121,7 +1121,7 @@ object CaseClassDataHelper {
         Data1
       , Data2
     ]](
-        new CaseClassHelper2(
+      new CaseClassHelper2(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1152,10 +1152,10 @@ object CaseClassDataHelper {
     , property3: PropertyType[Data3]
     , column3: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
   ): DataGenWrap.Aux[CaseClassHelper3[
       Target1
     , Data1
@@ -1180,7 +1180,7 @@ object CaseClassDataHelper {
       , Data2
       , Data3
     ]](
-        new CaseClassHelper3(
+      new CaseClassHelper3(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1220,11 +1220,11 @@ object CaseClassDataHelper {
     , property4: PropertyType[Data4]
     , column4: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
   ): DataGenWrap.Aux[CaseClassHelper4[
       Target1
     , Data1
@@ -1255,7 +1255,7 @@ object CaseClassDataHelper {
       , Data3
       , Data4
     ]](
-        new CaseClassHelper4(
+      new CaseClassHelper4(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1304,12 +1304,12 @@ object CaseClassDataHelper {
     , property5: PropertyType[Data5]
     , column5: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
   ): DataGenWrap.Aux[CaseClassHelper5[
       Target1
     , Data1
@@ -1346,7 +1346,7 @@ object CaseClassDataHelper {
       , Data4
       , Data5
     ]](
-        new CaseClassHelper5(
+      new CaseClassHelper5(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1404,13 +1404,13 @@ object CaseClassDataHelper {
     , property6: PropertyType[Data6]
     , column6: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
   ): DataGenWrap.Aux[CaseClassHelper6[
       Target1
     , Data1
@@ -1453,7 +1453,7 @@ object CaseClassDataHelper {
       , Data5
       , Data6
     ]](
-        new CaseClassHelper6(
+      new CaseClassHelper6(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1520,14 +1520,14 @@ object CaseClassDataHelper {
     , property7: PropertyType[Data7]
     , column7: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
   ): DataGenWrap.Aux[CaseClassHelper7[
       Target1
     , Data1
@@ -1576,7 +1576,7 @@ object CaseClassDataHelper {
       , Data6
       , Data7
     ]](
-        new CaseClassHelper7(
+      new CaseClassHelper7(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1652,15 +1652,15 @@ object CaseClassDataHelper {
     , property8: PropertyType[Data8]
     , column8: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
   ): DataGenWrap.Aux[CaseClassHelper8[
       Target1
     , Data1
@@ -1715,7 +1715,7 @@ object CaseClassDataHelper {
       , Data7
       , Data8
     ]](
-        new CaseClassHelper8(
+      new CaseClassHelper8(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1800,16 +1800,16 @@ object CaseClassDataHelper {
     , property9: PropertyType[Data9]
     , column9: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
   ): DataGenWrap.Aux[CaseClassHelper9[
       Target1
     , Data1
@@ -1870,7 +1870,7 @@ object CaseClassDataHelper {
       , Data8
       , Data9
     ]](
-        new CaseClassHelper9(
+      new CaseClassHelper9(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -1964,17 +1964,17 @@ object CaseClassDataHelper {
     , property10: PropertyType[Data10]
     , column10: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
   ): DataGenWrap.Aux[CaseClassHelper10[
       Target1
     , Data1
@@ -2041,7 +2041,7 @@ object CaseClassDataHelper {
       , Data9
       , Data10
     ]](
-        new CaseClassHelper10(
+      new CaseClassHelper10(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -2144,18 +2144,18 @@ object CaseClassDataHelper {
     , property11: PropertyType[Data11]
     , column11: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
-    , wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
   ): DataGenWrap.Aux[CaseClassHelper11[
       Target1
     , Data1
@@ -2228,7 +2228,7 @@ object CaseClassDataHelper {
       , Data10
       , Data11
     ]](
-        new CaseClassHelper11(
+      new CaseClassHelper11(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -2340,19 +2340,19 @@ object CaseClassDataHelper {
     , property12: PropertyType[Data12]
     , column12: MacroColumnInfo
   )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6]
-    , wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7]
-    , wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8]
-    , wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9]
-    , wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10]
-    , wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11]
-    , wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]
+    implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Target1],
+    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Target2],
+    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Target3],
+    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Target4],
+    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Target5],
+    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Target6],
+    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Target7],
+    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Target8],
+    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Target9],
+    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Target10],
+    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Target11],
+    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Target12]
   ): DataGenWrap.Aux[CaseClassHelper12[
       Target1
     , Data1
@@ -2431,7 +2431,7 @@ object CaseClassDataHelper {
       , Data11
       , Data12
     ]](
-        new CaseClassHelper12(
+      new CaseClassHelper12(
           rep1 = wrap1.inputColumn(rep1, column1)
         , property1 = property1
         , column1 = column1
@@ -2512,7 +2512,7 @@ object CaseClassHelper1 {
           Data1
       ]
       override def wrapRep(
-          base: CaseClassHelper1[
+        base: CaseClassHelper1[
             Rep1
           , Data1
         ]
@@ -2527,25 +2527,25 @@ object CaseClassHelper1 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper1[
+        base: CaseClassHelper1[
             Target1
           , Data1
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
         val rep1 = shape1.value.toLawRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper1[
+        data: CaseClassDataHelper1[
             Data1
-        ]
-        , rep: CaseClassHelper1[
+        ],
+        rep: CaseClassHelper1[
             Target1
           , Data1
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data2 = oldData
         val data1 = shape1.value.buildData(data.data1, rep.rep1, data2)
@@ -2577,7 +2577,7 @@ object CaseClassHelper1 {
           Data1
       ]
       override def wrapRep(
-          base: CaseClassHelper1[
+        base: CaseClassHelper1[
             Rep1
           , Data1
         ]
@@ -2592,33 +2592,33 @@ object CaseClassHelper1 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper1[
+        base: CaseClassHelper1[
             Target1
           , Data1
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
         val rep1 = shape1.value.toLawRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper1[
+        rep: CaseClassHelper1[
             Target1
           , Data1
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper1[
           Data1
       ], DataCol] = {
         val dataCol0                   = oldDataCol
         val SplitData(item1, dataCol1) = shape1.value.takeData(rep.rep1, dataCol0)
         SplitData(
-            current = new CaseClassDataHelper1(
+          current = new CaseClassDataHelper1(
               data1 = item1
             , column1 = rep.column1
-          )
-          , left = dataCol1
+          ),
+          left = dataCol1
         )
       }
     }
@@ -2683,7 +2683,7 @@ object CaseClassHelper2 {
         , Data2
       ]
       override def wrapRep(
-          base: CaseClassHelper2[
+        base: CaseClassHelper2[
             Rep1
           , Data1
           , Rep2
@@ -2705,13 +2705,13 @@ object CaseClassHelper2 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper2[
+        base: CaseClassHelper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
         val rep2 = shape2.value.toLawRep(base.rep2, rep3)
@@ -2719,17 +2719,17 @@ object CaseClassHelper2 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper2[
+        data: CaseClassDataHelper2[
             Data1
           , Data2
-        ]
-        , rep: CaseClassHelper2[
+        ],
+        rep: CaseClassHelper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data3 = oldData
         val data2 = shape2.value.buildData(data.data2, rep.rep2, data3)
@@ -2773,7 +2773,7 @@ object CaseClassHelper2 {
         , Data2
       ]
       override def wrapRep(
-          base: CaseClassHelper2[
+        base: CaseClassHelper2[
             Rep1
           , Data1
           , Rep2
@@ -2795,13 +2795,13 @@ object CaseClassHelper2 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper2[
+        base: CaseClassHelper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
         val rep2 = shape2.value.toLawRep(base.rep2, rep3)
@@ -2809,13 +2809,13 @@ object CaseClassHelper2 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper2[
+        rep: CaseClassHelper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper2[
           Data1
         , Data2
@@ -2824,13 +2824,13 @@ object CaseClassHelper2 {
         val SplitData(item1, dataCol1) = shape1.value.takeData(rep.rep1, dataCol0)
         val SplitData(item2, dataCol2) = shape2.value.takeData(rep.rep2, dataCol1)
         SplitData(
-            current = new CaseClassDataHelper2(
+          current = new CaseClassDataHelper2(
               data1 = item1
             , column1 = rep.column1
             , data2 = item2
             , column2 = rep.column2
-          )
-          , left = dataCol2
+          ),
+          left = dataCol2
         )
       }
     }
@@ -2914,7 +2914,7 @@ object CaseClassHelper3 {
         , Data3
       ]
       override def wrapRep(
-          base: CaseClassHelper3[
+        base: CaseClassHelper3[
             Rep1
           , Data1
           , Rep2
@@ -2943,15 +2943,15 @@ object CaseClassHelper3 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper3[
+        base: CaseClassHelper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
         val rep3 = shape3.value.toLawRep(base.rep3, rep4)
@@ -2960,20 +2960,20 @@ object CaseClassHelper3 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper3[
+        data: CaseClassDataHelper3[
             Data1
           , Data2
           , Data3
-        ]
-        , rep: CaseClassHelper3[
+        ],
+        rep: CaseClassHelper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data4 = oldData
         val data3 = shape3.value.buildData(data.data3, rep.rep3, data4)
@@ -3029,7 +3029,7 @@ object CaseClassHelper3 {
         , Data3
       ]
       override def wrapRep(
-          base: CaseClassHelper3[
+        base: CaseClassHelper3[
             Rep1
           , Data1
           , Rep2
@@ -3058,15 +3058,15 @@ object CaseClassHelper3 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper3[
+        base: CaseClassHelper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
         val rep3 = shape3.value.toLawRep(base.rep3, rep4)
@@ -3075,15 +3075,15 @@ object CaseClassHelper3 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper3[
+        rep: CaseClassHelper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper3[
           Data1
         , Data2
@@ -3094,15 +3094,15 @@ object CaseClassHelper3 {
         val SplitData(item2, dataCol2) = shape2.value.takeData(rep.rep2, dataCol1)
         val SplitData(item3, dataCol3) = shape3.value.takeData(rep.rep3, dataCol2)
         SplitData(
-            current = new CaseClassDataHelper3(
+          current = new CaseClassDataHelper3(
               data1 = item1
             , column1 = rep.column1
             , data2 = item2
             , column2 = rep.column2
             , data3 = item3
             , column3 = rep.column3
-          )
-          , left = dataCol3
+          ),
+          left = dataCol3
         )
       }
     }
@@ -3205,7 +3205,7 @@ object CaseClassHelper4 {
         , Data4
       ]
       override def wrapRep(
-          base: CaseClassHelper4[
+        base: CaseClassHelper4[
             Rep1
           , Data1
           , Rep2
@@ -3241,7 +3241,7 @@ object CaseClassHelper4 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper4[
+        base: CaseClassHelper4[
             Target1
           , Data1
           , Target2
@@ -3250,8 +3250,8 @@ object CaseClassHelper4 {
           , Data3
           , Target4
           , Data4
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
         val rep4 = shape4.value.toLawRep(base.rep4, rep5)
@@ -3261,13 +3261,13 @@ object CaseClassHelper4 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper4[
+        data: CaseClassDataHelper4[
             Data1
           , Data2
           , Data3
           , Data4
-        ]
-        , rep: CaseClassHelper4[
+        ],
+        rep: CaseClassHelper4[
             Target1
           , Data1
           , Target2
@@ -3276,8 +3276,8 @@ object CaseClassHelper4 {
           , Data3
           , Target4
           , Data4
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data5 = oldData
         val data4 = shape4.value.buildData(data.data4, rep.rep4, data5)
@@ -3345,7 +3345,7 @@ object CaseClassHelper4 {
         , Data4
       ]
       override def wrapRep(
-          base: CaseClassHelper4[
+        base: CaseClassHelper4[
             Rep1
           , Data1
           , Rep2
@@ -3381,7 +3381,7 @@ object CaseClassHelper4 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper4[
+        base: CaseClassHelper4[
             Target1
           , Data1
           , Target2
@@ -3390,8 +3390,8 @@ object CaseClassHelper4 {
           , Data3
           , Target4
           , Data4
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
         val rep4 = shape4.value.toLawRep(base.rep4, rep5)
@@ -3401,7 +3401,7 @@ object CaseClassHelper4 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper4[
+        rep: CaseClassHelper4[
             Target1
           , Data1
           , Target2
@@ -3410,8 +3410,8 @@ object CaseClassHelper4 {
           , Data3
           , Target4
           , Data4
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper4[
           Data1
         , Data2
@@ -3556,7 +3556,7 @@ object CaseClassHelper5 {
         , Data5
       ]
       override def wrapRep(
-          base: CaseClassHelper5[
+        base: CaseClassHelper5[
             Rep1
           , Data1
           , Rep2
@@ -3599,7 +3599,7 @@ object CaseClassHelper5 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper5[
+        base: CaseClassHelper5[
             Target1
           , Data1
           , Target2
@@ -3610,8 +3610,8 @@ object CaseClassHelper5 {
           , Data4
           , Target5
           , Data5
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
         val rep5 = shape5.value.toLawRep(base.rep5, rep6)
@@ -3622,14 +3622,14 @@ object CaseClassHelper5 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper5[
+        data: CaseClassDataHelper5[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
-        ]
-        , rep: CaseClassHelper5[
+        ],
+        rep: CaseClassHelper5[
             Target1
           , Data1
           , Target2
@@ -3640,8 +3640,8 @@ object CaseClassHelper5 {
           , Data4
           , Target5
           , Data5
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data6 = oldData
         val data5 = shape5.value.buildData(data.data5, rep.rep5, data6)
@@ -3721,7 +3721,7 @@ object CaseClassHelper5 {
         , Data5
       ]
       override def wrapRep(
-          base: CaseClassHelper5[
+        base: CaseClassHelper5[
             Rep1
           , Data1
           , Rep2
@@ -3764,7 +3764,7 @@ object CaseClassHelper5 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper5[
+        base: CaseClassHelper5[
             Target1
           , Data1
           , Target2
@@ -3775,8 +3775,8 @@ object CaseClassHelper5 {
           , Data4
           , Target5
           , Data5
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
         val rep5 = shape5.value.toLawRep(base.rep5, rep6)
@@ -3787,7 +3787,7 @@ object CaseClassHelper5 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper5[
+        rep: CaseClassHelper5[
             Target1
           , Data1
           , Target2
@@ -3798,8 +3798,8 @@ object CaseClassHelper5 {
           , Data4
           , Target5
           , Data5
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper5[
           Data1
         , Data2
@@ -3967,7 +3967,7 @@ object CaseClassHelper6 {
         , Data6
       ]
       override def wrapRep(
-          base: CaseClassHelper6[
+        base: CaseClassHelper6[
             Rep1
           , Data1
           , Rep2
@@ -4017,7 +4017,7 @@ object CaseClassHelper6 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper6[
+        base: CaseClassHelper6[
             Target1
           , Data1
           , Target2
@@ -4030,8 +4030,8 @@ object CaseClassHelper6 {
           , Data5
           , Target6
           , Data6
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
         val rep6 = shape6.value.toLawRep(base.rep6, rep7)
@@ -4043,15 +4043,15 @@ object CaseClassHelper6 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper6[
+        data: CaseClassDataHelper6[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
           , Data6
-        ]
-        , rep: CaseClassHelper6[
+        ],
+        rep: CaseClassHelper6[
             Target1
           , Data1
           , Target2
@@ -4064,8 +4064,8 @@ object CaseClassHelper6 {
           , Data5
           , Target6
           , Data6
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data7 = oldData
         val data6 = shape6.value.buildData(data.data6, rep.rep6, data7)
@@ -4157,7 +4157,7 @@ object CaseClassHelper6 {
         , Data6
       ]
       override def wrapRep(
-          base: CaseClassHelper6[
+        base: CaseClassHelper6[
             Rep1
           , Data1
           , Rep2
@@ -4207,7 +4207,7 @@ object CaseClassHelper6 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper6[
+        base: CaseClassHelper6[
             Target1
           , Data1
           , Target2
@@ -4220,8 +4220,8 @@ object CaseClassHelper6 {
           , Data5
           , Target6
           , Data6
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
         val rep6 = shape6.value.toLawRep(base.rep6, rep7)
@@ -4233,7 +4233,7 @@ object CaseClassHelper6 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper6[
+        rep: CaseClassHelper6[
             Target1
           , Data1
           , Target2
@@ -4246,8 +4246,8 @@ object CaseClassHelper6 {
           , Data5
           , Target6
           , Data6
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper6[
           Data1
         , Data2
@@ -4349,29 +4349,29 @@ class CaseClassDataHelper7[
 object CaseClassDataHelper7
 object CaseClassHelper7 {
   implicit def caseClassHelper7EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -4462,7 +4462,7 @@ object CaseClassHelper7 {
         , Data7
       ]
       override def wrapRep(
-          base: CaseClassHelper7[
+        base: CaseClassHelper7[
             Rep1
           , Data1
           , Rep2
@@ -4519,7 +4519,7 @@ object CaseClassHelper7 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper7[
+        base: CaseClassHelper7[
             Target1
           , Data1
           , Target2
@@ -4534,8 +4534,8 @@ object CaseClassHelper7 {
           , Data6
           , Target7
           , Data7
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep8 = oldRep
         val rep7 = shape7.value.toLawRep(base.rep7, rep8)
@@ -4548,7 +4548,7 @@ object CaseClassHelper7 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper7[
+        data: CaseClassDataHelper7[
             Data1
           , Data2
           , Data3
@@ -4556,8 +4556,8 @@ object CaseClassHelper7 {
           , Data5
           , Data6
           , Data7
-        ]
-        , rep: CaseClassHelper7[
+        ],
+        rep: CaseClassHelper7[
             Target1
           , Data1
           , Target2
@@ -4572,8 +4572,8 @@ object CaseClassHelper7 {
           , Data6
           , Target7
           , Data7
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data8 = oldData
         val data7 = shape7.value.buildData(data.data7, rep.rep7, data8)
@@ -4588,29 +4588,29 @@ object CaseClassHelper7 {
     }
   }
   implicit def caseClassHelper7DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -4701,7 +4701,7 @@ object CaseClassHelper7 {
         , Data7
       ]
       override def wrapRep(
-          base: CaseClassHelper7[
+        base: CaseClassHelper7[
             Rep1
           , Data1
           , Rep2
@@ -4758,7 +4758,7 @@ object CaseClassHelper7 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper7[
+        base: CaseClassHelper7[
             Target1
           , Data1
           , Target2
@@ -4773,8 +4773,8 @@ object CaseClassHelper7 {
           , Data6
           , Target7
           , Data7
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep8 = oldRep
         val rep7 = shape7.value.toLawRep(base.rep7, rep8)
@@ -4787,7 +4787,7 @@ object CaseClassHelper7 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper7[
+        rep: CaseClassHelper7[
             Target1
           , Data1
           , Target2
@@ -4802,8 +4802,8 @@ object CaseClassHelper7 {
           , Data6
           , Target7
           , Data7
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper7[
           Data1
         , Data2
@@ -4917,32 +4917,32 @@ class CaseClassDataHelper8[
 object CaseClassDataHelper8
 object CaseClassHelper8 {
   implicit def caseClassHelper8EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -5044,7 +5044,7 @@ object CaseClassHelper8 {
         , Data8
       ]
       override def wrapRep(
-          base: CaseClassHelper8[
+        base: CaseClassHelper8[
             Rep1
           , Data1
           , Rep2
@@ -5108,7 +5108,7 @@ object CaseClassHelper8 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper8[
+        base: CaseClassHelper8[
             Target1
           , Data1
           , Target2
@@ -5125,8 +5125,8 @@ object CaseClassHelper8 {
           , Data7
           , Target8
           , Data8
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep9 = oldRep
         val rep8 = shape8.value.toLawRep(base.rep8, rep9)
@@ -5140,7 +5140,7 @@ object CaseClassHelper8 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper8[
+        data: CaseClassDataHelper8[
             Data1
           , Data2
           , Data3
@@ -5149,8 +5149,8 @@ object CaseClassHelper8 {
           , Data6
           , Data7
           , Data8
-        ]
-        , rep: CaseClassHelper8[
+        ],
+        rep: CaseClassHelper8[
             Target1
           , Data1
           , Target2
@@ -5167,8 +5167,8 @@ object CaseClassHelper8 {
           , Data7
           , Target8
           , Data8
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data9 = oldData
         val data8 = shape8.value.buildData(data.data8, rep.rep8, data9)
@@ -5184,32 +5184,32 @@ object CaseClassHelper8 {
     }
   }
   implicit def caseClassHelper8DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -5311,7 +5311,7 @@ object CaseClassHelper8 {
         , Data8
       ]
       override def wrapRep(
-          base: CaseClassHelper8[
+        base: CaseClassHelper8[
             Rep1
           , Data1
           , Rep2
@@ -5375,7 +5375,7 @@ object CaseClassHelper8 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper8[
+        base: CaseClassHelper8[
             Target1
           , Data1
           , Target2
@@ -5392,8 +5392,8 @@ object CaseClassHelper8 {
           , Data7
           , Target8
           , Data8
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep9 = oldRep
         val rep8 = shape8.value.toLawRep(base.rep8, rep9)
@@ -5407,7 +5407,7 @@ object CaseClassHelper8 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper8[
+        rep: CaseClassHelper8[
             Target1
           , Data1
           , Target2
@@ -5424,8 +5424,8 @@ object CaseClassHelper8 {
           , Data7
           , Target8
           , Data8
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper8[
           Data1
         , Data2
@@ -5551,35 +5551,35 @@ class CaseClassDataHelper9[
 object CaseClassDataHelper9
 object CaseClassHelper9 {
   implicit def caseClassHelper9EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -5692,7 +5692,7 @@ object CaseClassHelper9 {
         , Data9
       ]
       override def wrapRep(
-          base: CaseClassHelper9[
+        base: CaseClassHelper9[
             Rep1
           , Data1
           , Rep2
@@ -5763,7 +5763,7 @@ object CaseClassHelper9 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper9[
+        base: CaseClassHelper9[
             Target1
           , Data1
           , Target2
@@ -5782,8 +5782,8 @@ object CaseClassHelper9 {
           , Data8
           , Target9
           , Data9
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep10 = oldRep
         val rep9  = shape9.value.toLawRep(base.rep9, rep10)
@@ -5798,7 +5798,7 @@ object CaseClassHelper9 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper9[
+        data: CaseClassDataHelper9[
             Data1
           , Data2
           , Data3
@@ -5808,8 +5808,8 @@ object CaseClassHelper9 {
           , Data7
           , Data8
           , Data9
-        ]
-        , rep: CaseClassHelper9[
+        ],
+        rep: CaseClassHelper9[
             Target1
           , Data1
           , Target2
@@ -5828,8 +5828,8 @@ object CaseClassHelper9 {
           , Data8
           , Target9
           , Data9
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data10 = oldData
         val data9  = shape9.value.buildData(data.data9, rep.rep9, data10)
@@ -5846,35 +5846,35 @@ object CaseClassHelper9 {
     }
   }
   implicit def caseClassHelper9DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -5987,7 +5987,7 @@ object CaseClassHelper9 {
         , Data9
       ]
       override def wrapRep(
-          base: CaseClassHelper9[
+        base: CaseClassHelper9[
             Rep1
           , Data1
           , Rep2
@@ -6058,7 +6058,7 @@ object CaseClassHelper9 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper9[
+        base: CaseClassHelper9[
             Target1
           , Data1
           , Target2
@@ -6077,8 +6077,8 @@ object CaseClassHelper9 {
           , Data8
           , Target9
           , Data9
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep10 = oldRep
         val rep9  = shape9.value.toLawRep(base.rep9, rep10)
@@ -6093,7 +6093,7 @@ object CaseClassHelper9 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper9[
+        rep: CaseClassHelper9[
             Target1
           , Data1
           , Target2
@@ -6112,8 +6112,8 @@ object CaseClassHelper9 {
           , Data8
           , Target9
           , Data9
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper9[
           Data1
         , Data2
@@ -6251,38 +6251,38 @@ class CaseClassDataHelper10[
 object CaseClassDataHelper10
 object CaseClassHelper10 {
   implicit def caseClassHelper10EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -6406,7 +6406,7 @@ object CaseClassHelper10 {
         , Data10
       ]
       override def wrapRep(
-          base: CaseClassHelper10[
+        base: CaseClassHelper10[
             Rep1
           , Data1
           , Rep2
@@ -6484,7 +6484,7 @@ object CaseClassHelper10 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper10[
+        base: CaseClassHelper10[
             Target1
           , Data1
           , Target2
@@ -6505,8 +6505,8 @@ object CaseClassHelper10 {
           , Data9
           , Target10
           , Data10
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep11 = oldRep
         val rep10 = shape10.value.toLawRep(base.rep10, rep11)
@@ -6522,7 +6522,7 @@ object CaseClassHelper10 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper10[
+        data: CaseClassDataHelper10[
             Data1
           , Data2
           , Data3
@@ -6533,8 +6533,8 @@ object CaseClassHelper10 {
           , Data8
           , Data9
           , Data10
-        ]
-        , rep: CaseClassHelper10[
+        ],
+        rep: CaseClassHelper10[
             Target1
           , Data1
           , Target2
@@ -6555,8 +6555,8 @@ object CaseClassHelper10 {
           , Data9
           , Target10
           , Data10
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data11 = oldData
         val data10 = shape10.value.buildData(data.data10, rep.rep10, data11)
@@ -6574,38 +6574,38 @@ object CaseClassHelper10 {
     }
   }
   implicit def caseClassHelper10DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -6729,7 +6729,7 @@ object CaseClassHelper10 {
         , Data10
       ]
       override def wrapRep(
-          base: CaseClassHelper10[
+        base: CaseClassHelper10[
             Rep1
           , Data1
           , Rep2
@@ -6807,7 +6807,7 @@ object CaseClassHelper10 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper10[
+        base: CaseClassHelper10[
             Target1
           , Data1
           , Target2
@@ -6828,8 +6828,8 @@ object CaseClassHelper10 {
           , Data9
           , Target10
           , Data10
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep11 = oldRep
         val rep10 = shape10.value.toLawRep(base.rep10, rep11)
@@ -6845,7 +6845,7 @@ object CaseClassHelper10 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper10[
+        rep: CaseClassHelper10[
             Target1
           , Data1
           , Target2
@@ -6866,8 +6866,8 @@ object CaseClassHelper10 {
           , Data9
           , Target10
           , Data10
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper10[
           Data1
         , Data2
@@ -7017,41 +7017,41 @@ class CaseClassDataHelper11[
 object CaseClassDataHelper11
 object CaseClassHelper11 {
   implicit def caseClassHelper11EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , Rep11
-    , Data11
-    , Target11
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    Rep11,
+    Data11,
+    Target11,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -7186,7 +7186,7 @@ object CaseClassHelper11 {
         , Data11
       ]
       override def wrapRep(
-          base: CaseClassHelper11[
+        base: CaseClassHelper11[
             Rep1
           , Data1
           , Rep2
@@ -7271,7 +7271,7 @@ object CaseClassHelper11 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper11[
+        base: CaseClassHelper11[
             Target1
           , Data1
           , Target2
@@ -7294,8 +7294,8 @@ object CaseClassHelper11 {
           , Data10
           , Target11
           , Data11
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep12 = oldRep
         val rep11 = shape11.value.toLawRep(base.rep11, rep12)
@@ -7312,7 +7312,7 @@ object CaseClassHelper11 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper11[
+        data: CaseClassDataHelper11[
             Data1
           , Data2
           , Data3
@@ -7324,8 +7324,8 @@ object CaseClassHelper11 {
           , Data9
           , Data10
           , Data11
-        ]
-        , rep: CaseClassHelper11[
+        ],
+        rep: CaseClassHelper11[
             Target1
           , Data1
           , Target2
@@ -7348,8 +7348,8 @@ object CaseClassHelper11 {
           , Data10
           , Target11
           , Data11
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data12 = oldData
         val data11 = shape11.value.buildData(data.data11, rep.rep11, data12)
@@ -7368,41 +7368,41 @@ object CaseClassHelper11 {
     }
   }
   implicit def caseClassHelper11DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , Rep11
-    , Data11
-    , Target11
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    Rep11,
+    Data11,
+    Target11,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -7537,7 +7537,7 @@ object CaseClassHelper11 {
         , Data11
       ]
       override def wrapRep(
-          base: CaseClassHelper11[
+        base: CaseClassHelper11[
             Rep1
           , Data1
           , Rep2
@@ -7622,7 +7622,7 @@ object CaseClassHelper11 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper11[
+        base: CaseClassHelper11[
             Target1
           , Data1
           , Target2
@@ -7645,8 +7645,8 @@ object CaseClassHelper11 {
           , Data10
           , Target11
           , Data11
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep12 = oldRep
         val rep11 = shape11.value.toLawRep(base.rep11, rep12)
@@ -7663,7 +7663,7 @@ object CaseClassHelper11 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper11[
+        rep: CaseClassHelper11[
             Target1
           , Data1
           , Target2
@@ -7686,8 +7686,8 @@ object CaseClassHelper11 {
           , Data10
           , Target11
           , Data11
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper11[
           Data1
         , Data2
@@ -7849,44 +7849,44 @@ class CaseClassDataHelper12[
 object CaseClassDataHelper12
 object CaseClassHelper12 {
   implicit def caseClassHelper12EncoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , Rep11
-    , Data11
-    , Target11
-    , Rep12
-    , Data12
-    , Target12
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    Rep11,
+    Data11,
+    Target11,
+    Rep12,
+    Data12,
+    Target12,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -8032,7 +8032,7 @@ object CaseClassHelper12 {
         , Data12
       ]
       override def wrapRep(
-          base: CaseClassHelper12[
+        base: CaseClassHelper12[
             Rep1
           , Data1
           , Rep2
@@ -8124,7 +8124,7 @@ object CaseClassHelper12 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper12[
+        base: CaseClassHelper12[
             Target1
           , Data1
           , Target2
@@ -8149,8 +8149,8 @@ object CaseClassHelper12 {
           , Data11
           , Target12
           , Data12
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep13 = oldRep
         val rep12 = shape12.value.toLawRep(base.rep12, rep13)
@@ -8168,7 +8168,7 @@ object CaseClassHelper12 {
         rep1
       }
       override def buildData(
-          data: CaseClassDataHelper12[
+        data: CaseClassDataHelper12[
             Data1
           , Data2
           , Data3
@@ -8181,8 +8181,8 @@ object CaseClassHelper12 {
           , Data10
           , Data11
           , Data12
-        ]
-        , rep: CaseClassHelper12[
+        ],
+        rep: CaseClassHelper12[
             Target1
           , Data1
           , Target2
@@ -8207,8 +8207,8 @@ object CaseClassHelper12 {
           , Data11
           , Target12
           , Data12
-        ]
-        , oldData: DataCol
+        ],
+        oldData: DataCol
       ): DataCol = {
         val data13 = oldData
         val data12 = shape12.value.buildData(data.data12, rep.rep12, data13)
@@ -8228,44 +8228,44 @@ object CaseClassHelper12 {
     }
   }
   implicit def caseClassHelper12DecoderGen[
-      Rep1
-    , Data1
-    , Target1
-    , Rep2
-    , Data2
-    , Target2
-    , Rep3
-    , Data3
-    , Target3
-    , Rep4
-    , Data4
-    , Target4
-    , Rep5
-    , Data5
-    , Target5
-    , Rep6
-    , Data6
-    , Target6
-    , Rep7
-    , Data7
-    , Target7
-    , Rep8
-    , Data8
-    , Target8
-    , Rep9
-    , Data9
-    , Target9
-    , Rep10
-    , Data10
-    , Target10
-    , Rep11
-    , Data11
-    , Target11
-    , Rep12
-    , Data12
-    , Target12
-    , RepCol
-    , DataCol
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    Rep7,
+    Data7,
+    Target7,
+    Rep8,
+    Data8,
+    Target8,
+    Rep9,
+    Data9,
+    Target9,
+    Rep10,
+    Data10,
+    Target10,
+    Rep11,
+    Data11,
+    Target11,
+    Rep12,
+    Data12,
+    Target12,
+    RepCol,
+    DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -8411,7 +8411,7 @@ object CaseClassHelper12 {
         , Data12
       ]
       override def wrapRep(
-          base: CaseClassHelper12[
+        base: CaseClassHelper12[
             Rep1
           , Data1
           , Rep2
@@ -8503,7 +8503,7 @@ object CaseClassHelper12 {
         )
       }
       override def toLawRep(
-          base: CaseClassHelper12[
+        base: CaseClassHelper12[
             Target1
           , Data1
           , Target2
@@ -8528,8 +8528,8 @@ object CaseClassHelper12 {
           , Data11
           , Target12
           , Data12
-        ]
-        , oldRep: RepCol
+        ],
+        oldRep: RepCol
       ): RepCol = {
         val rep13 = oldRep
         val rep12 = shape12.value.toLawRep(base.rep12, rep13)
@@ -8547,7 +8547,7 @@ object CaseClassHelper12 {
         rep1
       }
       override def takeData(
-          rep: CaseClassHelper12[
+        rep: CaseClassHelper12[
             Target1
           , Data1
           , Target2
@@ -8572,8 +8572,8 @@ object CaseClassHelper12 {
           , Data11
           , Target12
           , Data12
-        ]
-        , oldDataCol: DataCol
+        ],
+        oldDataCol: DataCol
       ): SplitData[CaseClassDataHelper12[
           Data1
         , Data2

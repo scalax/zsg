@@ -33,7 +33,7 @@ object DecoderDataGen {
   type Aux[Input, Output, Sub, Rep, Temp] = DecoderDataGen[Input, Output, Sub] { type TempRep = Rep; type TempData = Temp }
 
   implicit def decoderDataGenImplicit[Input, Output, Sub, Table, Rep, Temp]: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, Temp]] =
-    macro DecoderMapper.DecoderMapperImpl.caseclassDecoderGeneric[Input, Output, Sub, Table, Rep, Temp]
+    macro CaseClassMapperMacro.DecoderMapperImpl.caseclassDecoderGeneric[Input, Output, Sub, Table, Rep, Temp]
 
 }
 
@@ -52,7 +52,7 @@ object EncoderDataGen {
   type Aux[Output, Rep, Temp] = EncoderDataGen[Output] { type TempRep = Rep; type TempData = Temp }
 
   implicit def encoderDataGenImplicit[Output, Table, Rep, Temp]: InputTable[Table, EncoderDataGen.Aux[Output, Rep, Temp]] =
-    macro DecoderMapper.EncoderMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
+    macro CaseClassMapperMacro.EncoderMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
 
 }
 
