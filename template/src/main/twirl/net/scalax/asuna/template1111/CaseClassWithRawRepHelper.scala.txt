@@ -1,0 +1,21 @@
+@(count: Int)
+
+def withLawRep[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    rep@{i}: Rep@{i},
+    property@{i}: PropertyType[Data@{i}]
+    @if(i < count) { , }
+}): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
+        rep@{i} = rep@{i},
+        property@{i} = property@{i}
+        @if(i < count) { , }
+    })
+}

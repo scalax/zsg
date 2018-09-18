@@ -1,9 +1,9 @@
 package net.scalax.asuna.slick.filter
 
 import cats.Contravariant
-import io.circe.{ Decoder, Json, JsonObject }
+import io.circe.{Decoder, Json, JsonObject}
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper }
+import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper}
 import slick.ast.BaseTypedType
 
 trait SFilterColHelper[D] {
@@ -55,8 +55,8 @@ trait SlickFilterColHelper {
     override def effect[E, U, R](rep: E)(implicit shape: EncoderShape.Aux[E, U, R, List[SlickFilterCol], List[Any]]): InputData[R, U] = {
       new InputData[R, U] {
         override def inputData(data: U)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]] = {
-          val w = shape.wrapRep(rep)
-          val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
+          val w        = shape.wrapRep(rep)
+          val reps     = shape.toLawRep(shape.wrapRep(rep), List.empty)
           val dataList = shape.buildData(data, w, List.empty)
           import profile.api._
           val list = reps.zip(dataList).map {
@@ -65,7 +65,10 @@ trait SlickFilterColHelper {
           }
           list match {
             case Nil => Option.empty
-            case head :: tail => Option(tail.foldLeft(head) { (left, right) => left && right })
+            case head :: tail =>
+              Option(tail.foldLeft(head) { (left, right) =>
+                left && right
+              })
           }
         }
       }
@@ -76,10 +79,10 @@ trait SlickFilterColHelper {
   implicit def filterShapeImplicit[T]: EncoderShape.Aux[SlickFilterColImpl[T], T, SlickFilterColImpl[T], List[SlickFilterCol], List[Any]] = {
     new EncoderShape[SlickFilterColImpl[T], List[SlickFilterCol], List[Any]] {
       override type Target = SlickFilterColImpl[T]
-      override type Data = T
-      override def wrapRep(base: SlickFilterColImpl[T]): SlickFilterColImpl[T] = base
+      override type Data   = T
+      override def wrapRep(base: SlickFilterColImpl[T]): SlickFilterColImpl[T]                               = base
       override def toLawRep(base: SlickFilterColImpl[T], oldRep: List[SlickFilterCol]): List[SlickFilterCol] = base :: oldRep
-      override def buildData(data: T, rep: SlickFilterColImpl[T], oldData: List[Any]): List[Any] = data :: oldData
+      override def buildData(data: T, rep: SlickFilterColImpl[T], oldData: List[Any]): List[Any]             = data :: oldData
     }
   }
 
@@ -88,8 +91,8 @@ trait SlickFilterColHelper {
     new SFilterColHelper[D] { self =>
       override type BaseDataType = D
       override val basedTypedType = b
-      override val rep2OptRep = (rep: Rep[D]) => rep.?
-      override val data2OptData = (data: D) => Option(data)
+      override val rep2OptRep     = (rep: Rep[D]) => rep.?
+      override val data2OptData   = (data: D) => Option(data)
     }
   }
 
@@ -98,8 +101,8 @@ trait SlickFilterColHelper {
     new SFilterColHelper[Option[D]] { self =>
       override type BaseDataType = D
       override val basedTypedType = b
-      override val rep2OptRep = (rep: Rep[Option[D]]) => rep
-      override val data2OptData = (data: Option[D]) => data
+      override val rep2OptRep     = (rep: Rep[Option[D]]) => rep
+      override val data2OptData   = (data: Option[D]) => data
     }
   }
 

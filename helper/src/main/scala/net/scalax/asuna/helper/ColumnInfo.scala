@@ -10,8 +10,5 @@ trait MacroColumnInfo {
 
 }
 
-case class MacroColumnInfoImpl(
-  override val tableColumnName: String,
-  override val tableColumnSymbol: Symbol,
-  override val modelColumnName: String,
-  override val modelColumnSymbol: Symbol) extends MacroColumnInfo
+case class MacroColumnInfoImpl(override val tableColumnName: String, override val tableColumnSymbol: Symbol, override val modelColumnName: String, override val modelColumnSymbol: Symbol)
+    extends MacroColumnInfo

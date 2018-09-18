@@ -3,43 +3,31 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import io.circe.{ Encoder, Json }
-import net.scalax.asuna.circe.{ CirceAsunaDecoderHelper, CirceAsunaEncoderHelper, EmptyCirceTable }
+import io.circe.{Encoder, Json}
+import net.scalax.asuna.circe.{CirceAsunaDecoderHelper, CirceAsunaEncoderHelper, EmptyCirceTable}
+import net.scalax.asuna.helper.MacroColumnInfoImpl
+import net.scalax.asuna.helper.data.macroImpl.{EmptyLazyOutput, LazyData}
+import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
+import net.scalax.asuna.helper.encoder.InputTable
+import net.scalax.asuna.helper.mapper.CaseClassMapper
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
 case class TestModel1(
-  /*name1: String ,
+/*name1: String ,
   olim3: Long ,*/ test3: TestModel3)
 
-case class TestModel2(
-  name2: String,
-  accdef: Int)
+case class TestModel2(name2: String, accdef: Int)
 
 case class TestModel3(
-  /*nickName: String,
+/*nickName: String,
   maxAge: Int,*/ test1: TestModel1 /*, test4: TestModel4*/ )
 
-case class TestModel4(
-  age: Int,
-  today: String,
-  test3: TestModel3)
+case class TestModel4(age: Int, today: String, test3: TestModel3)
 
-case class TestModel(
-  name4: String,
-  key5: String,
-  TagTagTag: Int,
-  olim: Long,
-  est1: TestModel1,
-  test2: TestModel2)
+case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, est1: TestModel1, test2: TestModel2)
 
-class CirceEncoderTest extends FlatSpec
-  with Matchers
-  with EitherValues
-  with ScalaFutures
-  with BeforeAndAfterAll
-  with BeforeAndAfter
-  with CirceAsunaEncoderHelper with CirceAsunaDecoderHelper {
+class CirceEncoderTest extends FlatSpec with Matchers with EitherValues with ScalaFutures with BeforeAndAfterAll with BeforeAndAfter with CirceAsunaEncoderHelper with CirceAsunaDecoderHelper {
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
@@ -52,7 +40,7 @@ class CirceEncoderTest extends FlatSpec
   }
 
   "circe encoder gen by asuna" should "auto encoder simple case class" in {
-    val test2 = TestModel2(faker.book.title, 967)
+    val test2        = TestModel2(faker.book.title, 967)
     val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel2].compileEncoder2222.inputTable(EmptyCirceTable.value))
     val provideJson = {
       import io.circe.generic.auto._

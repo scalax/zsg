@@ -1,0 +1,86 @@
+@(count: Int)
+
+implicit def caseClassHelper@{count}DecoderGen[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i},
+        Target@{i},
+    } RepCol, DataCol](
+    implicit @for(i <- 1 to count) {
+        shape@{i}: Lazy[DecoderShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol]] @if(i < count) { , }
+    })
+    : DecoderShape.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }],
+    CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }],
+    CaseClassRepMapper@{count}[
+        @for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+    }], RepCol, DataCol] = {
+    new DecoderShape[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }], RepCol, DataCol] {
+        override type Target = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }]
+        override type Data = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }]
+        override def wrapRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Rep@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }]): CaseClassRepMapper@{count}[
+            @for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }] = {
+        new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
+            rep@{i} = shape@{i}.value.wrapRep(base.rep@{i}),
+            property@{i} = base.property@{i}
+            @if(i < count) { , }
+        })
+        }
+        override def toLawRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }], oldRep: RepCol): RepCol = {
+            val rep@{count + 1} = oldRep
+            @for(i <- (count to 1 by - 1)) {
+                val rep@{i} = shape@{i}.value.toLawRep(base.rep@{i}, rep@{i + 1})
+            }
+            rep1
+        }
+        override def takeData(rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }], oldDataCol: DataCol): SplitData[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }], DataCol] = {
+            val dataCol0 = oldDataCol
+            @for(i <- 1 to count) {
+                val SplitData(item@{i}, dataCol@{i}) = shape@{i}.value.takeData(rep.rep@{i}, dataCol@{i - 1})
+            }
+            SplitData(current = new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
+                data@{i} = item@{i}
+                @if(i < count) { , }
+            }),
+            left = dataCol@{count})
+        }
+    }
+}

@@ -12,3 +12,5 @@ lazy val helper = (project in file("./helper"))
 lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).dependsOn(helper).aggregate(helper)
 
 lazy val template = (project in file("./template"))
+
+scalafmtOnCompile := true

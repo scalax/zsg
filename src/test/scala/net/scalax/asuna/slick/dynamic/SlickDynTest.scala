@@ -16,9 +16,9 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
   self =>
 
   val name = rep(friend.name).mixin(filterRep(friend.name))
-  val age = filterRep(friend.age).mixin(rep(friend.age))
+  val age  = filterRep(friend.age).mixin(rep(friend.age))
   val nick = jsonKey(friend.nick, "nickName")
-  val id = jsonKey(friend.id, "id")
+  val id   = jsonKey(friend.id, "id")
 
   val ext = umr.shaped(List(nick, id)).dmap(_.toMap)
 
@@ -31,10 +31,10 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 class FriendTable2Model2(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickFilterColHelper with HListEncoderShapeImplicit with HListDecoderShapeImplicit {
 
   val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
-  val nick = jsonKey(friend.nick, "nickName")
-  val id = jsonKey(friend.id, "id")
+  val nick       = jsonKey(friend.nick, "nickName")
+  val id         = jsonKey(friend.id, "id")
 
-  val gen = Generic[FilterParam3]
+  val gen  = Generic[FilterParam3]
   val gen1 = Generic[FilterParam4]
 
   lazy val umrSv = umr.effect(umr.shaped(nameAndAge :: List(nick, id) :: HNil).dmap {

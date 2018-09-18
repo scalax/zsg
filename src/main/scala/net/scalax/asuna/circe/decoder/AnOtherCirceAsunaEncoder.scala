@@ -1,6 +1,6 @@
 package net.scalax.asuna.circe.another
 
-import io.circe.{ Decoder, Encoder }
+import io.circe.{Decoder, Encoder}
 import net.scalax.asuna.circe.aaaa.CirceAsunaEncoderImpl
 import net.scalax.asuna.core.common.Placeholder
 import shapeless.Lazy

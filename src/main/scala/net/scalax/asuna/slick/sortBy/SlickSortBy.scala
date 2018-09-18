@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.{ EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap }
+import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap}
 
 object SlickSortBy {
 
@@ -14,8 +14,8 @@ object SlickSortBy {
     val columnInfo: MacroColumnInfo
   }
 
-  val DESC = "desc"
-  val ASC = "asc"
+  val DESC    = "desc"
+  val ASC     = "asc"
   val DEFAULT = "default"
 
   def extractOrder(orderWraps: List[OrderColumn], names: List[(String, String)]): slick.lifted.Ordered = {
@@ -26,10 +26,10 @@ object SlickSortBy {
           wrapOpt.flatMap { wrap =>
             val orders = wrap.orderByGen(wrap.rep)
             orderWray match {
-              case DESC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.desc) }))
-              case ASC => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.asc) }))
+              case DESC    => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.desc) }))
+              case ASC     => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord.asc) }))
               case DEFAULT => Option(new slick.lifted.Ordered(orders.columns.map { case (node, ord) => (node, ord) }))
-              case _ => Option.empty
+              case _       => Option.empty
             }
           }
 
@@ -52,18 +52,20 @@ trait SlickSortByHelper {
     def inputParam(param: List[(String, String)]): slick.lifted.Ordered
   }
 
-  implicit def sortByImplicitWithColumnInfo[T, M](implicit cv1: T => slick.lifted.Ordered): EncoderShape.Aux[HListEncoderShapeWrap[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
+  implicit def sortByImplicitWithColumnInfo[T, M](
+      implicit cv1: T => slick.lifted.Ordered
+  ): EncoderShape.Aux[HListEncoderShapeWrap[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
     new EncoderShape[HListEncoderShapeWrap[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
       override type Target = SlickSortBy.OrderColumn
-      override type Data = M
+      override type Data   = M
       override def wrapRep(base: HListEncoderShapeWrap[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
         override type Rep = T
-        override val rep = base.rep
+        override val rep        = base.rep
         override val orderByGen = cv1
         override val columnInfo = base.columnInfo
       }
       override def toLawRep(base: SlickSortBy.OrderColumn, oldRep: List[SlickSortBy.OrderColumn]): List[SlickSortBy.OrderColumn] = base :: oldRep
-      override def buildData(data: M, rep: SlickSortBy.OrderColumn, oldData: List[Any]): List[Any] = data :: oldData
+      override def buildData(data: M, rep: SlickSortBy.OrderColumn, oldData: List[Any]): List[Any]                               = data :: oldData
     }
   }
 

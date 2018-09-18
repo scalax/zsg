@@ -1,0 +1,40 @@
+@(count: Int)
+
+class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}](
+    @for(i <- 1 to count) {
+        val rep@{i}: Rep@{i},
+        val property@{i}: PropertyType[Data@{i}]
+        @if(i < count) { , }
+    }
+) {
+self =>
+
+    lazy val propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]] = new PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]] { }
+
+    lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }], CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]] = DataGenWrap.value[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }], CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]](self)
+
+}

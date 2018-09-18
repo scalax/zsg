@@ -13,7 +13,7 @@ object DecoderProvenShape {
     new DecoderShape[R, RepCol, DataCol] {
       self =>
       override type Target = R
-      override type Data = U
+      override type Data   = U
       override def wrapRep(base: R): R = base
       override def toLawRep(base: R, baseRep: RepCol): RepCol =
         base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), baseRep)

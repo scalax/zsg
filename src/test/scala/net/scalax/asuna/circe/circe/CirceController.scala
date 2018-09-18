@@ -9,9 +9,7 @@ import net.scalax.asuna.core.CirceModels
 import play.api.libs.circe.PlayCirceValidate
 import play.api.mvc._
 
-class CirceController(val controllerComponents: ControllerComponents)
-  extends BaseController
-  with PlayCirceValidate with CirceModels {
+class CirceController(val controllerComponents: ControllerComponents) extends BaseController with PlayCirceValidate with CirceModels {
 
   implicit val customPrinter = Printer.spaces2.copy(dropNullValues = true)
 
@@ -39,7 +37,7 @@ class CirceController(val controllerComponents: ControllerComponents)
 }
 
 object CirceController {
-  implicit val actorSystem = ActorSystem()
-  implicit val ec = actorSystem.dispatcher
+  implicit val actorSystem  = ActorSystem()
+  implicit val ec           = actorSystem.dispatcher
   implicit val materializer = ActorMaterializer()
 }

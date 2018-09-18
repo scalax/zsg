@@ -1,6 +1,6 @@
 package net.scalax.asuna.slick.umr
 
-import slick.lifted.{ FlatShapeLevel, Shape, ShapedValue }
+import slick.lifted.{FlatShapeLevel, Shape, ShapedValue}
 
 trait SlickShapeValueWrap[F] {
   self =>
@@ -16,22 +16,22 @@ trait SlickShapeValueWrap[F] {
 
   def map[H](t: F => H): SlickShapeValueWrap[H] = {
     new SlickShapeValueWrap[H] {
-      override type Data = self.Data
-      override type Rep = self.Rep
+      override type Data      = self.Data
+      override type Rep       = self.Rep
       override type TargetRep = self.TargetRep
-      override type Level = self.Level
-      override val rep = self.rep
-      override val shape = self.shape
+      override type Level     = self.Level
+      override val rep        = self.rep
+      override val shape      = self.shape
       override val dataToList = (s: Data) => t(self.dataToList(s))
     }
   }
 
   def shapeValue: ShapeFunc[F] = {
     new ShapeFunc[F] {
-      override type RepType = TargetRep
+      override type RepType  = TargetRep
       override type DataType = self.Data
       override protected val baseSV: ShapedValue[TargetRep, self.Data] = ShapedValue(shape.pack(rep), shape.packedShape)
-      override val output = self.dataToList
+      override val output                                              = self.dataToList
     }
   }
 
@@ -48,10 +48,12 @@ trait ShapeFunc[F] {
 
   def map[T](t: F => T): ShapeFunc[T] = {
     new ShapeFunc[T] {
-      override type RepType = self.RepType
+      override type RepType  = self.RepType
       override type DataType = self.DataType
       override protected def baseSV = self.baseSV
-      override val output = { (data: DataType) => t(self.output(data)) }
+      override val output = { (data: DataType) =>
+        t(self.output(data))
+      }
     }
   }
 

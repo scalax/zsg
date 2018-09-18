@@ -19,3 +19,5 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "export-hook" % "1.2.0",
   "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided"
 )
+
+scalafmtOnCompile := true
