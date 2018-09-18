@@ -103,12 +103,14 @@ object CaseClassMapperMacro {
       @tailrec
       def countDeepImpl[T](base: List[T])(cv: T => List[FieldNameWrap]): List[FieldNameWrap] = {
         base match {
+          case Nil =>
+            c.abort(c.enclosingPosition, "Can't not map empty case class")
           case head :: Nil =>
             cv(head)
           case l =>
             val groupedList = l.grouped(maxNum).toList
-            val newCv = { s: List[T] =>
-              s.zipWithIndex.flatMap {
+            val newCv = { list: List[T] =>
+              list.zipWithIndex.flatMap {
                 case (list, index) =>
                   cv(list).map(r => r.copy(deepIndex = (index + 1) :: r.deepIndex))
               }
@@ -211,6 +213,7 @@ object CaseClassMapperMacro {
           ((fieldName :: nameList), newLawIndex)
       }
 
+      @tailrec
       def setCaseClass(treeList: List[Tree]): List[Tree] = {
         if (treeList.size == 1)
           treeList

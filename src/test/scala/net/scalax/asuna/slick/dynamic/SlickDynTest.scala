@@ -22,9 +22,9 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   val ext = umr.shaped(List(nick, id)).dmap(_.toMap)
 
-  lazy val umrSv = umr.effect(umr.caseOnly[FriendTable2Model, FilterParam3].compileDecoder2222.inputTable(self))
+  lazy val umrSv = umr.effect(umr.caseOnly[FriendTable2Model, FilterParam3].compile.inputTable(self))
 
-  val slickFilterSv = filter.caseOnly[FriendTable2Model, FilterParam4].compileEncoder2222.inputTable(self)
+  val slickFilterSv = filter.caseOnly[FriendTable2Model, FilterParam4].compile.inputTable(self)
 
 }
 

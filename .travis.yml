@@ -19,8 +19,8 @@ before_install:
   - pip install --user codecov
 
 script:
-  - travis_wait 30 sbt +test
-  - travis_wait 30 sbt clean coverage test coverageReport
+  - sbt +test
+  - sbt clean coverage test coverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

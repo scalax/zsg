@@ -7,7 +7,7 @@ import scala.reflect.macros.blackbox.Context
 
 trait BaseCaseClassMapperUtils {
 
-  val maxNum = 4
+  val maxNum = 12
 
   val c: Context
 

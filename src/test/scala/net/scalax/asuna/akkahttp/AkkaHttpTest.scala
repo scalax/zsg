@@ -44,7 +44,7 @@ class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with A
     def extCookieField = akkahttp.shaped(fieldKeys.map(key => formField(key).map(value => Tuple1((key, value))))).dmap(_.toMap)
 
     //根据 asnua 生成的自定义 Directive1
-    def cusDirective: Directive1[Model] = akkahttp.effect(akkahttp.caseOnly[ParameterTable, Model].compileDecoder2222.inputTable(self)).toDirective
+    def cusDirective: Directive1[Model] = akkahttp.effect(akkahttp.caseOnly[ParameterTable, Model].compile.inputTable(self)).toDirective
 
   }
 

@@ -1,13 +1,15 @@
 package net.scalax.asuna.helper.decoder
 
 import net.scalax.asuna.core.decoder.DecoderShape
-import net.scalax.asuna.helper.encoder.{DecoderCoreHelpers, WrapApply}
+import net.scalax.asuna.helper.encoder.{DecoderCoreHelpers, DecoderWrapApply}
 
 import scala.language.higherKinds
 
 trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
-  private val wrapApply: WrapApply[RepCol, DataCol]                           = WrapApply.instance[RepCol, DataCol]
-  def caseOnly[Table, Case]: WrapApply[RepCol, DataCol]#CaseWrap[Table, Case] = wrapApply.withCase[Table, Case]
+  private val wrapApply: DecoderWrapApply[RepCol, DataCol]                           = DecoderWrapApply.decoderInstance[RepCol, DataCol]
+  def caseOnly[Table, Case]: DecoderWrapApply[RepCol, DataCol]#CaseWrap[Table, Case] = wrapApply.withCase[Table, Case]
+  def lazyData[Table, Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#LazyDataWrap[Table, Input, Output, Sub] =
+    wrapApply.withLazyData[Table, Input, Output, Sub]
 }
 
 trait DecoderContent[RepOut, DataType]
