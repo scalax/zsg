@@ -107,11 +107,14 @@ object CaseClassMapperMacro {
             cv(head)
           case l =>
             val groupedList = l.grouped(maxNum).toList
+            val newCv = { s: List[T] =>
+              s.zipWithIndex.flatMap {
+                case (list, index) =>
+                  cv(list).map(r => r.copy(deepIndex = (index + 1) :: r.deepIndex))
+              }
+            }
 
-            countDeepImpl(groupedList)(_.zipWithIndex.flatMap {
-              case (list, index) =>
-                cv(list).map(r => r.copy(deepIndex = (index + 1) :: r.deepIndex))
-            })
+            countDeepImpl(groupedList)(newCv)
         }
       }
 

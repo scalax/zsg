@@ -97,8 +97,8 @@ trait SlickFilterColHelper {
   }
 
   implicit def JsonKeyWithSlickFilterOptionColumnExtensionMethod[D](
-    implicit b: BaseTypedType[D],
-    profile: slick.jdbc.JdbcProfile
+      implicit b: BaseTypedType[D]
+    , profile: slick.jdbc.JdbcProfile
   ): SFilterColHelper[Option[D]] = {
     import profile.api._
     new SFilterColHelper[Option[D]] { self =>
@@ -121,8 +121,8 @@ trait SlickFilterColHelper {
   }
 
   def jsonFilterKey[E](
-    rep: slick.lifted.Rep[E],
-    key: String
+      rep: slick.lifted.Rep[E]
+    , key: String
   )(implicit profile: slick.jdbc.JdbcProfile, b: SFilterColHelper[E], decoder: Decoder[E]): SlickFilterColImpl[JsonObject] = {
     val f = filterRep(rep)
     val h = new SlickFilterColImpl[JsonObject] {

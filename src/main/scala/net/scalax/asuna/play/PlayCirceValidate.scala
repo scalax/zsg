@@ -93,7 +93,7 @@ trait PlayCirceValidate extends Status {
     }
 
     private def tolerantBodyParser[A](name: String, maxLength: Int, errorMessage: String)(
-      parser: (RequestHeader, ByteString) => Either[Result, A]
+        parser: (RequestHeader, ByteString) => Either[Result, A]
     ): BodyParser[A] = {
       BodyParser(name + ", maxLength=" + maxLength) { request =>
         import play.core.Execution.Implicits.trampoline
@@ -120,18 +120,18 @@ trait PlayCirceValidate extends Status {
           },
           // Otherwise, use an enforce max length accumulator on a folding sink
           enforceMaxLength(
-            request,
-            maxLength,
-            Accumulator(Sink.fold[ByteString, ByteString](ByteString.empty)((state, bs) => state ++ bs)).mapFuture(parseBody)
+              request
+            , maxLength
+            , Accumulator(Sink.fold[ByteString, ByteString](ByteString.empty)((state, bs) => state ++ bs)).mapFuture(parseBody)
           ).toSink
         )
       }
     }
 
     private[play] def enforceMaxLength[A](
-      request: RequestHeader,
-      maxLength: Int,
-      accumulator: Accumulator[ByteString, Either[Result, A]]
+        request: RequestHeader
+      , maxLength: Int
+      , accumulator: Accumulator[ByteString, Either[Result, A]]
     ): Accumulator[ByteString, Either[Result, A]] = {
       val takeUpToFlow = Flow.fromGraph(new BodyParsers.TakeUpTo(maxLength.toLong))
       Accumulator(takeUpToFlow.toMat(accumulator.toSink) { (statusFuture, resultFuture) =>

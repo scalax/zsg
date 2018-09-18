@@ -17,12 +17,12 @@ object DecoderMapper {
     import c.universe._
 
     def caseclassDecoderGeneric[
-      Input: c.WeakTypeTag,
-      Output: c.WeakTypeTag,
-      Sub: c.WeakTypeTag,
-      Table: c.WeakTypeTag,
-      Rep: c.WeakTypeTag,
-      TempData: c.WeakTypeTag
+        Input: c.WeakTypeTag
+      , Output: c.WeakTypeTag
+      , Sub: c.WeakTypeTag
+      , Table: c.WeakTypeTag
+      , Rep: c.WeakTypeTag
+      , TempData: c.WeakTypeTag
     ]: c.Expr[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]] = {
       val rep                 = weakTypeOf[Rep]
       val tempData            = weakTypeOf[TempData]
@@ -88,7 +88,7 @@ object DecoderMapper {
             ${if (usePlaceHolder) {
             q"""
             ${encoderWitColType.typeSymbol.companion}.toWrap(${TermName(mgVar)}(_.${TermName(fieldName.law)}).toPlaceholder, ${TermName(mgVar)}(_.${TermName(
-              fieldName.law
+                fieldName.law
             )}), ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(fieldName.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(fieldName.law))}),
@@ -166,7 +166,7 @@ object DecoderMapper {
         }}).asDecoder { (tempData, rep) =>
                  ${lazyData.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
                  ..${fields.map(
-          field =>
+            field =>
             q"""${TermName(field.law)} = ${if (field.needInput) q"""s.${TermName(field.law)}""" else q"""tempData.${TermName("data" + field.helperIndex)}"""}"""
         )}
                  ) }, sub = ${sub.typeSymbol.companion}(..${fields
@@ -249,13 +249,13 @@ object DecoderMapper {
           val newLawIndex    = lawIndex + 1
           val usePlaceHolder = !tableFieldNames.contains(name)
           val fieldName = FieldNames(
-            law = name,
-            shapeValueName = name,
-            lawIndex = newLawIndex,
-            helperIndex = newLawIndex,
-            needInput = false,
-            needSub = false,
-            usePlaceHolder = usePlaceHolder
+              law = name
+            , shapeValueName = name
+            , lawIndex = newLawIndex
+            , helperIndex = newLawIndex
+            , needInput = false
+            , needSub = false
+            , usePlaceHolder = usePlaceHolder
           )
           ((fieldName :: nameList), newLawIndex, newLawIndex)
       }
@@ -280,7 +280,7 @@ object DecoderMapper {
           )
         }}).asEncoder[$output] { (caseClass, rep) =>
                   new ${TermName("_root_")}.${TermName("net")}.${TermName("scalax")}.${TermName("asuna")}.${TermName("helper")}.${TermName("template")}.${TypeName(
-          s"CaseClassDataHelper${fields.size}"
+            s"CaseClassDataHelper${fields.size}"
         )}(
                  ..${fields.flatMap(
             field =>

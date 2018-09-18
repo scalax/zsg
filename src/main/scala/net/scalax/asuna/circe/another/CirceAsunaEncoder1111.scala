@@ -13,7 +13,7 @@ trait ACirceEncoderWrapper[RepOut, DataType] extends EncoderContent[RepOut, Data
 object asunaCirceImpl extends EncoderWrapperHelper[List[CirceAsunaEncoder], List[(String, Json)], ACirceEncoderWrapper] {
 
   override def effect[Rep, D, Out](
-    rep: Rep
+      rep: Rep
   )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): ACirceEncoderWrapper[Out, D] = {
     val shape1  = shape
     val rep1    = rep

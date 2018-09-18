@@ -44,7 +44,7 @@ trait CirceReaderQuery[U] {
   def tranData(jsonObj: JsonObject): Future[Validated[ValidateModel, U]] = {
     val impl =
       implicitly[DecoderShape.Aux[DecoderShapeValue[U, List[CirceReaderAbs], List[Any]], U, DecoderShapeValue[U, List[CirceReaderAbs], List[Any]], List[
-        CirceReaderAbs
+          CirceReaderAbs
       ], List[Any]]]
     val rGroup      = impl.toLawRep(impl.wrapRep(playCirceSv), List.empty[CirceReaderAbs])
     val listAnyData = validateJson(rGroup, jsonObj)

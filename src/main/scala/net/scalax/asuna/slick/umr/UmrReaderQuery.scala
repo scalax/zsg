@@ -61,7 +61,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
   }
 
   implicit def repImplicit[R, D, T, L <: FlatShapeLevel](
-    implicit shape: Shape[L, R, D, T]
+      implicit shape: Shape[L, R, D, T]
   ): DecoderShape.Aux[R, D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
     val ds = implicitly[DecoderShape.Aux[ShapeFunc[D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)]]
     new DecoderShape[R, ShapeFunc[(Any, Any)], (Any, Any)] {

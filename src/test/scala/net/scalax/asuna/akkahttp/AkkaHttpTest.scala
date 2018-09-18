@@ -8,15 +8,15 @@ import org.scalatest._
 import scala.concurrent.{duration, Await, Future}
 
 case class Model(
-  id: Int,
-  name: String,
-  age: Int,
-  nick: String,
-  cusField: String,
-  field1: String,
-  field2: Long,
-  field3: String,
-  extCookieField: Map[String, String]
+    id: Int
+  , name: String
+  , age: Int
+  , nick: String
+  , cusField: String
+  , field1: String
+  , field2: Long
+  , field3: String
+  , extCookieField: Map[String, String]
 )
 
 class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with AkkaHttpParameterHelper {

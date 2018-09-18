@@ -15,7 +15,7 @@ trait HListEncoderShapeWrap[Rep, Data] {
 
 object HListEncoderShapeWrap {
   implicit def shapeFuncImplicit1111[D, T, M, RepCol, DataCol](
-    implicit shape: DecoderShape.Aux[D, T, M, RepCol, DataCol]
+      implicit shape: DecoderShape.Aux[D, T, M, RepCol, DataCol]
   ): DecoderShape.Aux[HListEncoderShapeWrap[D, T], T, M, RepCol, DataCol] = {
     implicit val shape1 = shape
     new DecoderShape[HListEncoderShapeWrap[D, T], RepCol, DataCol] {
@@ -28,7 +28,7 @@ object HListEncoderShapeWrap {
   }
 
   implicit def shapeFuncImplicit2222[D, T, M, RepCol, DataCol](
-    implicit shape: EncoderShape.Aux[D, T, M, RepCol, DataCol]
+      implicit shape: EncoderShape.Aux[D, T, M, RepCol, DataCol]
   ): EncoderShape.Aux[HListEncoderShapeWrap[D, T], T, M, RepCol, DataCol] = {
     implicit val shape1 = shape
     new EncoderShape[HListEncoderShapeWrap[D, T], RepCol, DataCol] {
@@ -84,9 +84,9 @@ object CaseRepWrap {
 
   trait WrapApply[RepCol, DataCol] {
     def withFunc[Table, Rep1, Case, HListData1](
-      func: Table => Rep1,
-      mg: ModelGen[Case],
-      generic: Generic.Aux[Case, HListData1]
+        func: Table => Rep1
+      , mg: ModelGen[Case]
+      , generic: Generic.Aux[Case, HListData1]
     ): CaseRepWrap.Aux[Table, Case, Rep1, HListData1, RepCol, DataCol] =
       new CaseRepWrap[Table, Case, RepCol, DataCol] {
         override type Rep       = Rep1

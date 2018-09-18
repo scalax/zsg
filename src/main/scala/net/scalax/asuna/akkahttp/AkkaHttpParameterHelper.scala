@@ -63,7 +63,7 @@ trait AkkaHttpParameterHelper {
       extends DecoderHelper[List[AkkaFormFieldWrapAbs], List[Any]]
       with DecoderWrapperHelper[List[AkkaFormFieldWrapAbs], List[Any], FieldWrapExecable] {
     override def effect[Rep, D, Out](
-      rep: Rep
+        rep: Rep
     )(implicit shape: DecoderShape.Aux[Rep, D, Out, List[AkkaFormFieldWrapAbs], List[Any]]): FieldWrapExecable[Out, D] = {
       new FieldWrapExecable[Out, D] {
         override def toDirective: Directive1[D] = {

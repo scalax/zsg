@@ -5,7 +5,7 @@ import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 trait ListDecoderShapeImplicit {
 
   implicit def listDateShapeExt[A, B, C, RepCol, DataCol](
-    implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]
+      implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]
   ): DecoderShape.Aux[List[A], List[B], List[C], RepCol, DataCol] = {
     new DecoderShape[List[A], RepCol, DataCol] {
       self =>

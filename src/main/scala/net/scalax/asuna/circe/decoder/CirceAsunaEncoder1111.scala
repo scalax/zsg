@@ -14,7 +14,7 @@ trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, Data
 object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder], Map[String, Any], ACirceDecoderWrapper] {
 
   override def effect[Rep, D, Out](
-    rep: Rep
+      rep: Rep
   )(implicit shape: DecoderShape.Aux[Rep, D, Out, List[CirceAsunaDecoder], Map[String, Any]]): ACirceDecoderWrapper[Out, D] = {
     val shape1  = shape
     val rep1    = rep

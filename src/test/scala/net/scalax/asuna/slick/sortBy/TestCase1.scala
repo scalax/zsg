@@ -59,7 +59,7 @@ class TestCase1 extends FlatSpec with Matchers with EitherValues with ScalaFutur
     val param2       = List(("nick", "desc"), ("extColumn", "desc"), ("id", "asc"))
     val sortByQuery2 = sortByFriendTq.sortBy(t => t.sortByCols.inputParam(param2))
     sortByQuery2.result.statements.toList should be(
-      sortByFriendTq.sortBy(_.nick.desc).sortBy(s => (s.id.desc, s.nick.desc)).sortBy(_.id.asc).result.statements.toList
+        sortByFriendTq.sortBy(_.nick.desc).sortBy(s => (s.id.desc, s.nick.desc)).sortBy(_.id.asc).result.statements.toList
     )
     val friendQuery2 = sortByQuery2.to[List].result
     val list         = await(db.run(friendQuery2))

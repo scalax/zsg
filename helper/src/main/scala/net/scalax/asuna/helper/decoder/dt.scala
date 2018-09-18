@@ -46,7 +46,7 @@ trait WrapApply[RepCol, DataCol] {
         implicit repWrap: InputTable[Table, DecoderDataGen.Aux[EmptyLazyInput, Case, EmptyLazyOutput, Rep, TempData]]
     ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] = new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
       override def inputTable[Target1](
-        table: Table
+          table: Table
       )(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
         val shape1     = shape
         val wrap       = repWrap.inputTable(table)
@@ -68,7 +68,7 @@ trait WrapApply[RepCol, DataCol] {
     ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] =
       new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] {
         override def inputTable[Target1](
-          table: Table
+            table: Table
         )(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[LazyData[Input, Output, Sub], RepCol, DataCol] = {
           val shape1     = shape
           val wrap       = repWrap.inputTable(table)
@@ -105,7 +105,7 @@ trait WrapApply[RepCol, DataCol] {
     def aa[Rep, HListData](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]) = {
       new {
         def bb[Target1](
-          implicit shape: DecoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
+            implicit shape: DecoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
         ): InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] =
           new InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] {
             override def inputTable(table: Table): DecoderShapeValue[Case, RepCol, DataCol] = {
@@ -125,11 +125,11 @@ trait WrapApply[RepCol, DataCol] {
     }
 
     def compileEncoder2222[Rep, TempData](
-      implicit repWrap: InputTable[Table, EncoderDataGen.Aux[Case, Rep, TempData]]
+        implicit repWrap: InputTable[Table, EncoderDataGen.Aux[Case, Rep, TempData]]
     ): EncoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] =
       new EncoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
         override def inputTable[Target1](
-          table: Table
+            table: Table
         )(implicit shape: Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
           val shape1     = shape
           val wrap       = repWrap.inputTable(table)
@@ -166,7 +166,7 @@ trait WrapApply[RepCol, DataCol] {
     def cc[Rep, HListData](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]) = {
       new {
         def dd[Target1](
-          implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
+            implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
         ): InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] =
           new InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] {
             override def inputTable(table: Table): EncoderShapeValue[Case, RepCol, DataCol] = {
@@ -193,7 +193,7 @@ object WrapApply {
 
 object CaseDecoderRepWrap {
   implicit def caseClassDecoderRepWrap[Table, Case, Target, HListData](
-    implicit genImplicit: Generic.Aux[Case, HListData]
+      implicit genImplicit: Generic.Aux[Case, HListData]
   ): CaseDecoderRepWrap.Aux[Table, Case, Target, HListData] =
     macro DecoderMapper.DecoderMapperImpl.impl[Table, Case, Target, HListData]
 
@@ -202,8 +202,8 @@ object CaseDecoderRepWrap {
   def context[RepCol, DataCol]: WrapApply[RepCol, DataCol] = new WrapApply[RepCol, DataCol] {}
 
   def withFunc[Table, Rep1, Case, HListData1](
-    func: Table => Rep1,
-    generic: Generic.Aux[Case, HListData1]
+      func: Table => Rep1
+    , generic: Generic.Aux[Case, HListData1]
   ): CaseDecoderRepWrap.Aux[Table, Case, Rep1, HListData1] = {
     val generic1 = generic
     new CaseDecoderRepWrap[Table, Case] {

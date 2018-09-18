@@ -63,8 +63,8 @@ object SlickShapeValueListWrap {
                 override val rep: Rep = (wrap.rep, current.rep)
                 override val shape = {
                   Shape.tuple2Shape[FlatShapeLevel, wrap.Rep, current.Rep, wrap.Data, current.Data, wrap.TargetRep, current.TargetRep](
-                    wrap.shape,
-                    current.shape
+                      wrap.shape
+                    , current.shape
                   )
                 }
                 override val dataToList = { (data: ((wrap.Data, current.Data))) =>

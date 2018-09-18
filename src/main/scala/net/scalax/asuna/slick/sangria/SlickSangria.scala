@@ -77,8 +77,8 @@ trait SlickSangriaHelper[E] {
   }
 
   def repWithKey[R, D, T, L <: FlatShapeLevel](
-    baseRep: E => R,
-    key: String
+      baseRep: E => R
+    , key: String
   )(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
     new SlickSangriaRepWrap[E, D] {
       override val objectKey  = completedId.id

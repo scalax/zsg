@@ -3203,23 +3203,23 @@ class CaseClassDataMapper5[
 )
 object CaseClassRepMapper5 {
   implicit def caseClassHelper5EncoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -3381,23 +3381,23 @@ object CaseClassRepMapper5 {
     }
   }
   implicit def caseClassHelper5DecoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -3669,26 +3669,26 @@ class CaseClassDataMapper6[
 )
 object CaseClassRepMapper6 {
   implicit def caseClassHelper6EncoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    Rep6,
-    Data6,
-    Target6,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
@@ -3874,26 +3874,26 @@ object CaseClassRepMapper6 {
     }
   }
   implicit def caseClassHelper6DecoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    Rep6,
-    Data6,
-    Target6,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
