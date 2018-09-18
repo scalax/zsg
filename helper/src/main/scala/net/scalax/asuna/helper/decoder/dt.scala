@@ -45,7 +45,9 @@ trait WrapApply[RepCol, DataCol] {
     def compileDecoder2222[Rep, TempData](
         implicit repWrap: InputTable[Table, DecoderDataGen.Aux[EmptyLazyInput, Case, EmptyLazyOutput, Rep, TempData]]
     ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] = new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
-      override def inputTable[Target1](table: Table)(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
+      override def inputTable[Target1](
+        table: Table
+      )(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
         val shape1     = shape
         val wrap       = repWrap.inputTable(table)
         val wrappedRep = shape1.wrapRep(wrap.rep)
@@ -63,21 +65,24 @@ trait WrapApply[RepCol, DataCol] {
     def compileDecoder3333[Rep, TempData, Input, Output, Sub](
         implicit cv: Case <:< LazyData[Input, Output, Sub]
       , repWrap: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]
-    ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] = new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] {
-      override def inputTable[Target1](table: Table)(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[LazyData[Input, Output, Sub], RepCol, DataCol] = {
-        val shape1     = shape
-        val wrap       = repWrap.inputTable(table)
-        val wrappedRep = shape1.wrapRep(wrap.rep)
-        val sv = new DecoderShapeValue[TempData, RepCol, DataCol] {
-          override type RepType = Target1
-          override val rep   = wrappedRep
-          override val shape = shape1.packed
-        }
-        sv.dmap { (content: TempData) =>
-          wrap.from(content, wrap.rep)
+    ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] =
+      new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] {
+        override def inputTable[Target1](
+          table: Table
+        )(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[LazyData[Input, Output, Sub], RepCol, DataCol] = {
+          val shape1     = shape
+          val wrap       = repWrap.inputTable(table)
+          val wrappedRep = shape1.wrapRep(wrap.rep)
+          val sv = new DecoderShapeValue[TempData, RepCol, DataCol] {
+            override type RepType = Target1
+            override val rep   = wrappedRep
+            override val shape = shape1.packed
+          }
+          sv.dmap { (content: TempData) =>
+            wrap.from(content, wrap.rep)
+          }
         }
       }
-    }
 
     def compileDecoderHList[Rep, HListData, Target1](
         implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]
@@ -99,7 +104,9 @@ trait WrapApply[RepCol, DataCol] {
 
     def aa[Rep, HListData](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]) = {
       new {
-        def bb[Target1](implicit shape: DecoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] =
+        def bb[Target1](
+          implicit shape: DecoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
+        ): InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] =
           new InputTable[Table, DecoderShapeValue[Case, RepCol, DataCol]] {
             override def inputTable(table: Table): DecoderShapeValue[Case, RepCol, DataCol] = {
               val shape1     = shape
@@ -117,9 +124,13 @@ trait WrapApply[RepCol, DataCol] {
       }
     }
 
-    def compileEncoder2222[Rep, TempData](implicit repWrap: InputTable[Table, EncoderDataGen.Aux[Case, Rep, TempData]]): EncoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] =
+    def compileEncoder2222[Rep, TempData](
+      implicit repWrap: InputTable[Table, EncoderDataGen.Aux[Case, Rep, TempData]]
+    ): EncoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] =
       new EncoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
-        override def inputTable[Target1](table: Table)(implicit shape: Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
+        override def inputTable[Target1](
+          table: Table
+        )(implicit shape: Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
           val shape1     = shape
           val wrap       = repWrap.inputTable(table)
           val wrappedRep = shape1.wrapRep(wrap.rep)
@@ -154,7 +165,9 @@ trait WrapApply[RepCol, DataCol] {
 
     def cc[Rep, HListData](implicit repWrap: CaseDecoderRepWrap.Aux[Table, Case, Rep, HListData]) = {
       new {
-        def dd[Target1](implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]): InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] =
+        def dd[Target1](
+          implicit shape: EncoderShape.Aux[Rep, HListData, Target1, RepCol, DataCol]
+        ): InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] =
           new InputTable[Table, EncoderShapeValue[Case, RepCol, DataCol]] {
             override def inputTable(table: Table): EncoderShapeValue[Case, RepCol, DataCol] = {
               val shape1     = shape
@@ -179,14 +192,19 @@ object WrapApply {
 }
 
 object CaseDecoderRepWrap {
-  implicit def caseClassDecoderRepWrap[Table, Case, Target, HListData](implicit genImplicit: Generic.Aux[Case, HListData]): CaseDecoderRepWrap.Aux[Table, Case, Target, HListData] =
+  implicit def caseClassDecoderRepWrap[Table, Case, Target, HListData](
+    implicit genImplicit: Generic.Aux[Case, HListData]
+  ): CaseDecoderRepWrap.Aux[Table, Case, Target, HListData] =
     macro DecoderMapper.DecoderMapperImpl.impl[Table, Case, Target, HListData]
 
   type Aux[Table, Case, R, HD] = CaseDecoderRepWrap[Table, Case] { type Rep = R; type HListData = HD }
 
   def context[RepCol, DataCol]: WrapApply[RepCol, DataCol] = new WrapApply[RepCol, DataCol] {}
 
-  def withFunc[Table, Rep1, Case, HListData1](func: Table => Rep1, generic: Generic.Aux[Case, HListData1]): CaseDecoderRepWrap.Aux[Table, Case, Rep1, HListData1] = {
+  def withFunc[Table, Rep1, Case, HListData1](
+    func: Table => Rep1,
+    generic: Generic.Aux[Case, HListData1]
+  ): CaseDecoderRepWrap.Aux[Table, Case, Rep1, HListData1] = {
     val generic1 = generic
     new CaseDecoderRepWrap[Table, Case] {
       override type Rep       = Rep1

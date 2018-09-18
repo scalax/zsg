@@ -20,6 +20,9 @@ object CaseClassMapper {
     @for(i <- 1 to maxItem) {
         @net.scalax.asuna.template1111.txt.CaseClassWithRawRepHelper(count = i)
     }
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template1111.txt.CaseClassWithDataHelper(count = i)
+    }
 }
 
 trait CaseClassDataMapperHelper

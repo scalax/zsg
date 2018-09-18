@@ -30,7 +30,13 @@ object DecoderMapper {
 
     import c.universe._
 
-    def commonProUseInShape[Table: c.WeakTypeTag, Model: c.WeakTypeTag](mgVar: String, encoderWitColVar: String, fieldName: FieldNames, modelName: TermName, isMissingField: Boolean) = {
+    def commonProUseInShape[Table: c.WeakTypeTag, Model: c.WeakTypeTag](
+      mgVar: String,
+      encoderWitColVar: String,
+      fieldName: FieldNames,
+      modelName: TermName,
+      isMissingField: Boolean
+    ) = {
 
       val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
 
@@ -143,7 +149,13 @@ object DecoderMapper {
 
     import c.universe._
 
-    def commonProUseInShape1111[Table: c.WeakTypeTag, Model: c.WeakTypeTag](mgVar: String, encoderWitColVar: String, fieldName: FieldNames, modelName: TermName, isMissingField: Boolean) = {
+    def commonProUseInShape1111[Table: c.WeakTypeTag, Model: c.WeakTypeTag](
+      mgVar: String,
+      encoderWitColVar: String,
+      fieldName: FieldNames,
+      modelName: TermName,
+      isMissingField: Boolean
+    ) = {
 
       val columnInfoImpl = weakTypeOf[MacroColumnInfoImpl]
 

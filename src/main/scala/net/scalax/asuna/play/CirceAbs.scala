@@ -135,7 +135,8 @@ trait CirceReaderHelper {
       override type Data   = T
       override def wrapRep(base: CirceReaderImpl[T, T]): CirceReaderImpl[T, T]                               = base
       override def toLawRep(base: CirceReaderImpl[T, T], oldRep: List[CirceReaderAbs]): List[CirceReaderAbs] = base :: oldRep
-      override def takeData(rep: CirceReaderImpl[T, T], oldData: List[Any]): SplitData[T, List[Any]]         = SplitData(current = oldData.head.asInstanceOf[T], left = oldData.tail)
+      override def takeData(rep: CirceReaderImpl[T, T], oldData: List[Any]): SplitData[T, List[Any]] =
+        SplitData(current = oldData.head.asInstanceOf[T], left = oldData.tail)
     }
   }
 

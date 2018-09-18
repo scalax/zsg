@@ -63,12 +63,13 @@ trait DataGenWrap {
   type TempRep
   def rep: TempRep
 
-  def asDecoder[Input, Output, Sub](f: (TempData, TempRep) => LazyData[Input, Output, Sub]): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData] = new DecoderDataGen[Input, Output, Sub] {
-    override type TempData = self.TempData
-    override type TempRep  = self.TempRep
-    override def from(caseModel: TempData, tempRep: TempRep): LazyData[Input, Output, Sub] = f(caseModel, tempRep)
-    override val rep                                                                       = self.rep
-  }
+  def asDecoder[Input, Output, Sub](f: (TempData, TempRep) => LazyData[Input, Output, Sub]): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData] =
+    new DecoderDataGen[Input, Output, Sub] {
+      override type TempData = self.TempData
+      override type TempRep  = self.TempRep
+      override def from(caseModel: TempData, tempRep: TempRep): LazyData[Input, Output, Sub] = f(caseModel, tempRep)
+      override val rep                                                                       = self.rep
+    }
   def asEncoder[Output](f: (Output, TempRep) => TempData): EncoderDataGen.Aux[Output, TempRep, TempData] = new EncoderDataGen[Output] {
     override type TempData = self.TempData
     override type TempRep  = self.TempRep

@@ -12,7 +12,9 @@ trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
 
 trait DecoderContent[RepOut, DataType]
 
-trait DecoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _]] extends DecoderCaseClassShapeMacroHelper[RepCol, DataCol] with DecoderCoreHelpers[RepCol, DataCol] {
+trait DecoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _]]
+    extends DecoderCaseClassShapeMacroHelper[RepCol, DataCol]
+    with DecoderCoreHelpers[RepCol, DataCol] {
   def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, RepCol, DataCol]): Wrapper[Out, D]
 }
 

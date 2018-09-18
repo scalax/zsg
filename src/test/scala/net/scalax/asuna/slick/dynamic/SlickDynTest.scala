@@ -28,7 +28,12 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
 }
 
-class FriendTable2Model2(friend: FriendTable2) extends UmrHelper with ShapeHelper with SlickFilterColHelper with HListEncoderShapeImplicit with HListDecoderShapeImplicit {
+class FriendTable2Model2(friend: FriendTable2)
+    extends UmrHelper
+    with ShapeHelper
+    with SlickFilterColHelper
+    with HListEncoderShapeImplicit
+    with HListDecoderShapeImplicit {
 
   val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
   val nick       = jsonKey(friend.nick, "nickName")

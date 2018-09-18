@@ -41,7 +41,8 @@ class TestCase1 extends FlatSpec with Matchers with EitherValues with ScalaFutur
   }
 
   "shape" should "auto filer with case class" in {
-    val filterQuery = friendTq.filter(t => new SlickFilterTest(t).filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
+    val filterQuery =
+      friendTq.filter(t => new SlickFilterTest(t).filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
 
     filterQuery.result.statements.toList should be(friendTq.filter(s => (s.age === 26) && (s.name === "jilen")).result.statements.toList)
 

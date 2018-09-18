@@ -13,7 +13,9 @@ trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, Data
 
 object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder], Map[String, Any], ACirceDecoderWrapper] {
 
-  override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, List[CirceAsunaDecoder], Map[String, Any]]): ACirceDecoderWrapper[Out, D] = {
+  override def effect[Rep, D, Out](
+    rep: Rep
+  )(implicit shape: DecoderShape.Aux[Rep, D, Out, List[CirceAsunaDecoder], Map[String, Any]]): ACirceDecoderWrapper[Out, D] = {
     val shape1  = shape
     val rep1    = rep
     val wrapRep = shape1.wrapRep(rep1)
@@ -52,7 +54,8 @@ trait CirceAsunaDecoderHelper extends HListDecoderShapeImplicit with DecoderHelp
         }
       }
       override def toLawRep(base: CirceAsunaDecoderImpl[B], oldRep: List[CirceAsunaDecoder]): List[CirceAsunaDecoder] = base :: oldRep
-      override def takeData(rep: CirceAsunaDecoderImpl[B], oldData: Map[String, Any]): SplitData[B, Map[String, Any]] = SplitData(oldData.get(rep.key).get.asInstanceOf[B], oldData)
+      override def takeData(rep: CirceAsunaDecoderImpl[B], oldData: Map[String, Any]): SplitData[B, Map[String, Any]] =
+        SplitData(oldData.get(rep.key).get.asInstanceOf[B], oldData)
     }
   }
 

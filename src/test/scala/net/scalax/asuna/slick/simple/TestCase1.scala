@@ -84,8 +84,9 @@ class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFuture
   }
 
   "shape" should "auto filer with case class" in {
-    val prepareData: Future[Seq[LazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] = db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
-    def fetchSub(friendId: Long): Future[Seq[InnerMark]]                                       = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
+    val prepareData: Future[Seq[LazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput]]] =
+      db.run(friendTq2.map(s => new FriendTable2Model(s).reader).result)
+    def fetchSub(friendId: Long): Future[Seq[InnerMark]] = db.run(markTq.filter(_.friendId === friendId).map(s => new MarkTableModel(s).reader).result)
     try {
       val r: Future[Seq[InnerFriends2]] = prepareData.flatMap { t =>
         val lf = t.map(l => fetchSub(l.sub.id).map(u => l(InnerFriendInput(u.toList))))

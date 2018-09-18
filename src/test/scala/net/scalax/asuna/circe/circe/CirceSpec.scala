@@ -51,7 +51,9 @@ class CirceSpec extends PlaySpec with GuiceOneServerPerSuite with CirceModels {
       val response = await(resp)
       val body     = response.bodyAsBytes.decodeString(StandardCharsets.UTF_8)
       response.status mustEqual 400
-      io.circe.parser.parse(body) mustEqual Right(ValidateModel(fields = List(ValidateField("我是莎莎酱的年龄", s"魔理沙的年龄必须大于${233333339L}岁"), ValidateField("我是莎莎酱的昵称", "昵称不能小于 30 个字"))).asJson)
+      io.circe.parser.parse(body) mustEqual Right(
+        ValidateModel(fields = List(ValidateField("我是莎莎酱的年龄", s"魔理沙的年龄必须大于${233333339L}岁"), ValidateField("我是莎莎酱的昵称", "昵称不能小于 30 个字"))).asJson
+      )
     }
   }
 }
