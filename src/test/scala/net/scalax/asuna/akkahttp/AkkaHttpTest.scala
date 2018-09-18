@@ -3,16 +3,21 @@ package net.scalax.test01
 import akka.http.scaladsl.model.headers.Cookie
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import net.scalax.asuna.akkahttp.AkkaHttpParameterHelper
-import net.scalax.asuna.helper.MacroColumnInfoImpl
-import net.scalax.asuna.helper.data.macroImpl.{EmptyLazyOutput, LazyData}
-import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.encoder.InputTable
-import net.scalax.asuna.helper.mapper.CaseClassMapper
 import org.scalatest._
 
 import scala.concurrent.{duration, Await, Future}
 
-case class Model(id: Int, name: String, age: Int, nick: String, cusField: String, field1: String, field2: Long, field3: String, extCookieField: Map[String, String])
+case class Model(
+    id: Int
+  , name: String
+  , age: Int
+  , nick: String
+  , cusField: String
+  , field1: String
+  , field2: Long
+  , field3: String
+  , extCookieField: Map[String, String]
+)
 
 class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with AkkaHttpParameterHelper {
 
@@ -39,7 +44,7 @@ class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with A
     def extCookieField = akkahttp.shaped(fieldKeys.map(key => formField(key).map(value => Tuple1((key, value))))).dmap(_.toMap)
 
     //根据 asnua 生成的自定义 Directive1
-    def cusDirective: Directive1[Model] = akkahttp.effect(akkahttp.caseOnly[ParameterTable, Model].compileDecoder2222.inputTable(self)).toDirective
+    def cusDirective: Directive1[Model] = akkahttp.effect(akkahttp.caseOnly[ParameterTable, Model].compile.inputTable(self)).toDirective
 
   }
 

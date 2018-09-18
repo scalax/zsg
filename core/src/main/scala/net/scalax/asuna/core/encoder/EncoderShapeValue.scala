@@ -28,7 +28,8 @@ trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol, 
 
 object EncoderShapeValue {
 
-  implicit def dataShapeValueShape[U, RepCol, DataCol]: EncoderShape.Aux[EncoderShapeValue[U, RepCol, DataCol], U, EncoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
+  implicit def dataShapeValueShape[U, RepCol, DataCol]
+    : EncoderShape.Aux[EncoderShapeValue[U, RepCol, DataCol], U, EncoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
     new EncoderShape[EncoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] {
       self =>
       override type Target = EncoderShapeValue[U, RepCol, DataCol]

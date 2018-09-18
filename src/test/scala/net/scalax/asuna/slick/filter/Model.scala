@@ -21,7 +21,7 @@ class SlickFilterTest(friend: FriendTable) extends SlickFilterColHelper {
   val name = filterRep(friend.name)
   val age  = filterRep(friend.age)
 
-  def filterCol = filter.effect(filter.caseOnly[SlickFilterTest, FilterParam].compileEncoder2222.inputTable(self))
+  def filterCol = filter.effect(filter.caseOnly[SlickFilterTest, FilterParam].compile.inputTable(self))
 
 }
 
@@ -34,13 +34,13 @@ class SlickFilterJson(friend: FriendTable) extends SlickFilterColHelper {
   val age  = jsonFilterKey(friend.age, "age")
   val nick = jsonFilterKey(friend.nick, "nick")
 
-  val nameModel = filter.caseOnly[SlickFilterJson, FilterParam1].compileEncoder2222.inputTable(self)
+  val nameModel = filter.caseOnly[SlickFilterJson, FilterParam1].compile.inputTable(self)
 
   private val l = List(age, nick)
   val json = filter.shaped(l).emap[JsonObject] { t =>
     l.map(_ => t)
   }
 
-  def filterCol = filter.effect(filter.caseOnly[SlickFilterJson, FilterParam2].compileEncoder2222.inputTable(self))
+  def filterCol = filter.effect(filter.caseOnly[SlickFilterJson, FilterParam2].compile.inputTable(self))
 
 }

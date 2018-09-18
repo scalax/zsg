@@ -31,7 +31,8 @@ trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol, 
 
 object DecoderShapeValue {
 
-  implicit def dataShapeValueShape[U, RepCol, DataCol]: DecoderShape.Aux[DecoderShapeValue[U, RepCol, DataCol], U, DecoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
+  implicit def dataShapeValueShape[U, RepCol, DataCol]
+    : DecoderShape.Aux[DecoderShapeValue[U, RepCol, DataCol], U, DecoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] = {
     new DecoderShape[DecoderShapeValue[U, RepCol, DataCol], RepCol, DataCol] {
       self =>
       override type Target = DecoderShapeValue[U, RepCol, DataCol]

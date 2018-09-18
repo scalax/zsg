@@ -59,8 +59,12 @@ trait AkkaHttpParameterHelper {
     def toDirective: Directive1[DataType]
   }
 
-  object akkahttp extends DecoderHelper[List[AkkaFormFieldWrapAbs], List[Any]] with DecoderWrapperHelper[List[AkkaFormFieldWrapAbs], List[Any], FieldWrapExecable] {
-    override def effect[Rep, D, Out](rep: Rep)(implicit shape: DecoderShape.Aux[Rep, D, Out, List[AkkaFormFieldWrapAbs], List[Any]]): FieldWrapExecable[Out, D] = {
+  object akkahttp
+      extends DecoderHelper[List[AkkaFormFieldWrapAbs], List[Any]]
+      with DecoderWrapperHelper[List[AkkaFormFieldWrapAbs], List[Any], FieldWrapExecable] {
+    override def effect[Rep, D, Out](
+        rep: Rep
+    )(implicit shape: DecoderShape.Aux[Rep, D, Out, List[AkkaFormFieldWrapAbs], List[Any]]): FieldWrapExecable[Out, D] = {
       new FieldWrapExecable[Out, D] {
         override def toDirective: Directive1[D] = {
           val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
@@ -78,7 +82,8 @@ trait AkkaHttpParameterHelper {
     }
   }
 
-  implicit def akkahttpParameterWithNameImplicit[D]: DecoderShape.Aux[HListEncoderShapeWrap[ParameterWithName[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+  implicit def akkahttpParameterWithNameImplicit[D]
+    : DecoderShape.Aux[HListEncoderShapeWrap[ParameterWithName[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
     new DecoderShape[HListEncoderShapeWrap[ParameterWithName[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D

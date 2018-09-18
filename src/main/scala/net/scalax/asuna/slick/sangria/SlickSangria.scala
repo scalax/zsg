@@ -71,11 +71,15 @@ trait SlickSangriaHelper[E] {
       override type Data   = D
       override def wrapRep(base: SlickRepWrap[E, D]): SlickRepWrap[E, D]                                  = base
       override def toLawRep(base: SlickRepWrap[E, D], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = base :: oldRep
-      override def takeData(rep: SlickRepWrap[E, D], oldData: List[Any]): SplitData[D, List[Any]]         = SplitData(current = oldData.head.asInstanceOf[D], left = oldData.tail)
+      override def takeData(rep: SlickRepWrap[E, D], oldData: List[Any]): SplitData[D, List[Any]] =
+        SplitData(current = oldData.head.asInstanceOf[D], left = oldData.tail)
     }
   }
 
-  def repWithKey[R, D, T, L <: FlatShapeLevel](baseRep: E => R, key: String)(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
+  def repWithKey[R, D, T, L <: FlatShapeLevel](
+      baseRep: E => R
+    , key: String
+  )(implicit shape: Shape[L, R, D, T], completedId: CompletedId[String]): SlickSangriaRepWrap[E, D] = {
     new SlickSangriaRepWrap[E, D] {
       override val objectKey  = completedId.id
       override val sangraiKey = Option(key)

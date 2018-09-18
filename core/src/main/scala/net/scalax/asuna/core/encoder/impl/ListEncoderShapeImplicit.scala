@@ -4,7 +4,9 @@ import net.scalax.asuna.core.encoder.EncoderShape
 
 trait ListEncoderShapeImplicit {
 
-  implicit def listDateShapeExt[A, B, C, RepCol, DataCol](implicit shape: EncoderShape.Aux[A, B, C, RepCol, DataCol]): EncoderShape.Aux[List[A], List[B], List[C], RepCol, DataCol] = {
+  implicit def listDateShapeExt[A, B, C, RepCol, DataCol](
+      implicit shape: EncoderShape.Aux[A, B, C, RepCol, DataCol]
+  ): EncoderShape.Aux[List[A], List[B], List[C], RepCol, DataCol] = {
     new EncoderShape[List[A], RepCol, DataCol] { self =>
       override type Target = List[C]
       override type Data   = List[B]

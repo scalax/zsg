@@ -70,10 +70,14 @@ class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFuture
 
   "shape" should "auto fileter with case class and jsonobject" in {
     val query = friendTq2
-      .filter(s => new FriendTable2Model2(s).slickFilterSv.inputData(FilterParam4(name = friend1.name, age = friend1.age)).getOrElse(LiteralColumn(Option(true))))
+      .filter(
+          s => new FriendTable2Model2(s).slickFilterSv.inputData(FilterParam4(name = friend1.name, age = friend1.age)).getOrElse(LiteralColumn(Option(true)))
+      )
       .map(s => new FriendTable2Model2(s).umrSv.toSv)
 
-    query.result.statements.toList should be(friendTq2.filter(s => (s.name === friend1.name) && (s.age === friend1.age)).map(s => (s.name, s.age, s.id, s.nick)).result.statements.toList)
+    query.result.statements.toList should be(
+        friendTq2.filter(s => (s.name === friend1.name) && (s.age === friend1.age)).map(s => (s.name, s.age, s.id, s.nick)).result.statements.toList
+    )
     val friendQuery = query.result.head
     val r           = db.run(friendQuery).futureValue
     r.copy(ext = r.ext + (("id", Json.fromLong(friend1.id)))) should be(

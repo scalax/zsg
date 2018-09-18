@@ -1682,6 +1682,402 @@ object CaseClassMapper {
       , property12 = property12
     )
   }
+  def withData[
+      Data1
+  ](
+      data1: Data1
+  ): CaseClassDataMapper1[
+      Data1
+  ] = {
+    new CaseClassDataMapper1(
+        data1 = data1
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+  ](
+      data1: Data1
+    , data2: Data2
+  ): CaseClassDataMapper2[
+      Data1
+    , Data2
+  ] = {
+    new CaseClassDataMapper2(
+        data1 = data1
+      , data2 = data2
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+  ): CaseClassDataMapper3[
+      Data1
+    , Data2
+    , Data3
+  ] = {
+    new CaseClassDataMapper3(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+  ): CaseClassDataMapper4[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+  ] = {
+    new CaseClassDataMapper4(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+  ): CaseClassDataMapper5[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+  ] = {
+    new CaseClassDataMapper5(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+  ): CaseClassDataMapper6[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+  ] = {
+    new CaseClassDataMapper6(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+  ): CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ] = {
+    new CaseClassDataMapper7(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+    , data8: Data8
+  ): CaseClassDataMapper8[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+  ] = {
+    new CaseClassDataMapper8(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+      , data8 = data8
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+    , data8: Data8
+    , data9: Data9
+  ): CaseClassDataMapper9[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+  ] = {
+    new CaseClassDataMapper9(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+      , data8 = data8
+      , data9 = data9
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+    , data8: Data8
+    , data9: Data9
+    , data10: Data10
+  ): CaseClassDataMapper10[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+  ] = {
+    new CaseClassDataMapper10(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+      , data8 = data8
+      , data9 = data9
+      , data10 = data10
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+    , data8: Data8
+    , data9: Data9
+    , data10: Data10
+    , data11: Data11
+  ): CaseClassDataMapper11[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+  ] = {
+    new CaseClassDataMapper11(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+      , data8 = data8
+      , data9 = data9
+      , data10 = data10
+      , data11 = data11
+    )
+  }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+    , data8: Data8
+    , data9: Data9
+    , data10: Data10
+    , data11: Data11
+    , data12: Data12
+  ): CaseClassDataMapper12[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+  ] = {
+    new CaseClassDataMapper12(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+      , data8 = data8
+      , data9 = data9
+      , data10 = data10
+      , data11 = data11
+      , data12 = data12
+    )
+  }
 }
 trait CaseClassDataMapperHelper
 object CaseClassDataMapperHelper {}
@@ -2806,7 +3202,25 @@ class CaseClassDataMapper5[
   , val data5: Data5
 )
 object CaseClassRepMapper5 {
-  implicit def caseClassHelper5EncoderGen[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, RepCol, DataCol](
+  implicit def caseClassHelper5EncoderGen[
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    RepCol,
+    DataCol
+  ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
     , shape2: Lazy[EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]
@@ -2966,7 +3380,25 @@ object CaseClassRepMapper5 {
       }
     }
   }
-  implicit def caseClassHelper5DecoderGen[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, RepCol, DataCol](
+  implicit def caseClassHelper5DecoderGen[
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    RepCol,
+    DataCol
+  ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
     , shape2: Lazy[DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]
@@ -3236,7 +3668,28 @@ class CaseClassDataMapper6[
   , val data6: Data6
 )
 object CaseClassRepMapper6 {
-  implicit def caseClassHelper6EncoderGen[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, RepCol, DataCol](
+  implicit def caseClassHelper6EncoderGen[
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    RepCol,
+    DataCol
+  ](
       implicit
     shape1: Lazy[EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
     , shape2: Lazy[EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]
@@ -3420,7 +3873,28 @@ object CaseClassRepMapper6 {
       }
     }
   }
-  implicit def caseClassHelper6DecoderGen[Rep1, Data1, Target1, Rep2, Data2, Target2, Rep3, Data3, Target3, Rep4, Data4, Target4, Rep5, Data5, Target5, Rep6, Data6, Target6, RepCol, DataCol](
+  implicit def caseClassHelper6DecoderGen[
+    Rep1,
+    Data1,
+    Target1,
+    Rep2,
+    Data2,
+    Target2,
+    Rep3,
+    Data3,
+    Target3,
+    Rep4,
+    Data4,
+    Target4,
+    Rep5,
+    Data5,
+    Target5,
+    Rep6,
+    Data6,
+    Target6,
+    RepCol,
+    DataCol
+  ](
       implicit
     shape1: Lazy[DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]]
     , shape2: Lazy[DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]]
