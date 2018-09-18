@@ -179,7 +179,6 @@ object CaseClassMapperMacro {
         }
       }
 
-      @tailrec
       def countDeepImpl[T](base: List[T])(cv: T => List[FieldNames]): List[FieldNames] = {
         base match {
           case head :: Nil =>
