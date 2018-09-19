@@ -26,10 +26,10 @@ object InputTable {
   }
 }
 
-trait DecoderInputTable[Table, Rep, Data, RepCol, DataCol, CaseClass] {
-  def inputTable[Target1](table: Table)(implicit c: DecoderShape.Aux[Rep, Data, Target1, RepCol, DataCol]): DecoderShapeValue[CaseClass, RepCol, DataCol]
+trait DecoderCompiler[Rep, Data, RepCol, DataCol, CaseClass] {
+  def compile[Target1](implicit c: DecoderShape.Aux[Rep, Data, Target1, RepCol, DataCol]): DecoderShapeValue[CaseClass, RepCol, DataCol]
 }
 
-trait EncoderInputTable[Table, Rep, Data, RepCol, DataCol, CaseClass] {
-  def inputTable[Target1](table: Table)(implicit c: EncoderShape.Aux[Rep, Data, Target1, RepCol, DataCol]): EncoderShapeValue[CaseClass, RepCol, DataCol]
+trait EncoderCompiler[Rep, Data, RepCol, DataCol, CaseClass] {
+  def compile[Target1](implicit c: EncoderShape.Aux[Rep, Data, Target1, RepCol, DataCol]): EncoderShapeValue[CaseClass, RepCol, DataCol]
 }

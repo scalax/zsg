@@ -44,7 +44,7 @@ class CirceEncoderTest
 
   "circe encoder gen by asuna" should "auto encoder simple case class" in {
     val test2        = TestModel2(faker.book.title, 967)
-    val circeEncoder = asunaCirce.effect(asunaCirce.caseOnly[EmptyCirceTable, TestModel2].compile.inputTable(EmptyCirceTable.value))
+    val circeEncoder = asunaCirce.effect(asunaCirce.modelOnly[TestModel2](EmptyCirceTable.value).compile)
     val provideJson = {
       import io.circe.generic.auto._
       val encoder = implicitly[Encoder[TestModel2]]
@@ -63,7 +63,7 @@ class CirceEncoderTest
       encoder(test2)
     }
 
-    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.caseOnly[EmptyCirceTable, TestModel2].compile.inputTable(EmptyCirceTable.value))
+    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.modelOnly[TestModel2](EmptyCirceTable.value).compile)
     circeDecoder.read(provideJson) should be(Right(test2))
   }
 

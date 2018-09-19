@@ -13,15 +13,24 @@ trait BaseCaseClassMapperUtils {
 
   import c.universe._
 
-  case class FieldName(lawModelMember: Symbol, law: String, lawIndex: Int, mapperIndex: Int, needInput: Boolean, needSub: Boolean, usePlaceHolder: Boolean)
+  case class FieldName(
+      tableFields: Option[List[Symbol]]
+    , lawModelMember: Symbol
+    , law: String
+    , lawIndex: Int
+    , mapperIndex: Int
+    , needInput: Boolean
+    , needSub: Boolean
+  )
 
   def commonProUseInShape(modelGenName: String, tableName: String, fieldName: FieldName) = {
-    val q =
-      if (fieldName.usePlaceHolder)
-        q"""${TermName(modelGenName)}(_.${TermName(fieldName.law)}).toPlaceholder"""
-      else
-        q"""${TermName(tableName)}.${TermName(fieldName.law)}"""
-
+    val q = fieldName.tableFields match {
+      case Some(members) =>
+        members.map(_.name).collect { case TermName(name) => name.trim }.foldLeft(q"""${TermName(tableName)}""": Tree) { (tree, fieldName) =>
+          q"""${tree}.${TermName(fieldName)}"""
+        }
+      case _ => q"""${TermName(modelGenName)}(_.${TermName(fieldName.law)}).toPlaceholder"""
+    }
     q
   }
 
