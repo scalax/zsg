@@ -102,7 +102,7 @@ class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFuture
   }
 
   it should "auto encode with FriendTable4Model" in {
-    val prepareData6 = FriendTable4Model.map(_.reader6).result
+    val prepareData6 = FriendTable4Model.map(s => new dfjgoshjiotherihte(s).reader1111).result
     val prepareData7 = FriendTable4Model.map(_.reader7).result
     prepareData6.statements.toList should be(FriendTable4Model.map(s => (s.id, s.nick)).result.statements.toList)
     prepareData7.statements.toList should be(FriendTable4Model.map(s => (s.age, s.id)).result.statements.toList)

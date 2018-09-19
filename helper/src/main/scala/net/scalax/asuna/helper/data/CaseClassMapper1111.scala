@@ -1,7 +1,7 @@
 package net.scalax.asuna.helper.data.macroImpl
 
 import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.BaseCaseClassMapperUtils
+import net.scalax.asuna.helper.{BaseCaseClassMapperUtils, TableFieldsGen}
 import net.scalax.asuna.helper.encoder.InputTable
 import net.scalax.asuna.helper.mapper.CaseClassMapper
 
@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 
 object CaseClassMapperMacro {
 
-  class DecoderMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BaseCaseClassMapperUtils {
+  class DecoderMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BaseCaseClassMapperUtils with TableFieldsGen {
     self =>
 
     import c.universe._
@@ -43,6 +43,7 @@ object CaseClassMapperMacro {
         .map(_.name)
         .collect { case TermName(n) => n.trim }
         .toList
+
       //Model to output's fields
       //Some not confirm to inputFieldNames is use to map to the table
       val outputFieldNames = output.members
@@ -52,6 +53,7 @@ object CaseClassMapperMacro {
         .map(s => (s, s.name))
         .collect { case (member, TermName(n)) => (member, n.trim) }
         .toList
+
       //.reverse
       //Model to sub's fields
       val subFieldNames = sub.members
@@ -61,14 +63,40 @@ object CaseClassMapperMacro {
         .map(_.name)
         .collect { case TermName(n) => n.trim }
         .toList
+
       //Table fields
-      val tableFieldNames = table.members
+      /*val tableFieldNames = table.members
         .filter { s =>
           s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
         }
-        .map(_.name)
-        .collect { case TermName(n) => n.trim }
-        .toList
+        .map { s =>
+          try {
+            s.asTerm.typeSignature.members.toList.mkString("\n")
+            s.asTerm.annotations.map { s =>
+              s.tree match {
+                case q"""new ${r}(${Literal(Constant(num: Int))})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
+                  println("11" * 100)
+                  println(num)
+                case q"""new ${r}(${t})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
+                  println("22" * 100)
+                  println(t)
+                case _ =>
+                //println("22" * 100)
+                //println(s.tree)
+              }
+            }
+            //println(s.name + "1111")
+          } catch {
+            case e: Throwable =>
+              println("11" * 100)
+              e.printStackTrace
+          }
+          (s, s.name)
+        }
+        .collect { case (member, TermName(n)) => (List(member), n.trim) }
+        .toList*/
+
+      val tableFieldNames = fetchTableFields(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 
@@ -76,16 +104,16 @@ object CaseClassMapperMacro {
         case ((nameList, lawIndex, helperIndex), (member, strName)) =>
           val newLawIndex    = lawIndex + 1
           val needInput      = inputFieldNames.contains(strName)
-          val usePlaceHolder = !tableFieldNames.contains(strName)
+          val usePlaceHolder = tableFieldNames.find { case (s, _) => s == strName }
           val newHelperIndex = if (!needInput) helperIndex + 1 else helperIndex
           val fieldName = FieldName(
-              lawModelMember = member
+              tableFields = usePlaceHolder.map(_._2.members)
+            , lawModelMember = member
             , law = strName
             , lawIndex = newLawIndex
             , mapperIndex = newHelperIndex
             , needInput = needInput
             , needSub = subFieldNames.contains(strName)
-            , usePlaceHolder = usePlaceHolder
           )
           ((fieldName :: nameList), newLawIndex, newHelperIndex)
       }
@@ -156,7 +184,7 @@ object CaseClassMapperMacro {
     }
   }
 
-  class EncoderMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BaseCaseClassMapperUtils {
+  class EncoderMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BaseCaseClassMapperUtils with TableFieldsGen {
 
     import c.universe._
 
@@ -184,29 +212,33 @@ object CaseClassMapperMacro {
         .toList
         .reverse
 
-      val tableFieldNames = table.members
+      /*val tableFieldNames = table.members
         .filter { s =>
           s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
         }
-        .map(_.name)
-        .collect { case TermName(n) => n.trim }
-        .toList
+        .map { s =>
+          (s, s.name)
+        }
+        .collect { case (member, TermName(n)) => (List(member), n.trim) }
+        .toList*/
+
+      val tableFieldNames = fetchTableFields(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 
       val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
         case ((nameList, lawIndex), (member, strName)) =>
           val newLawIndex    = lawIndex + 1
-          val usePlaceHolder = !tableFieldNames.contains(strName)
+          val usePlaceHolder = tableFieldNames.find { case (s, _) => s == strName }
 
           val fieldName = FieldName(
-              lawModelMember = member
+              tableFields = usePlaceHolder.map(_._2.members)
+            , lawModelMember = member
             , law = strName
             , lawIndex = newLawIndex
             , mapperIndex = newLawIndex
             , needInput = false
             , needSub = false
-            , usePlaceHolder = usePlaceHolder
           )
 
           ((fieldName :: nameList), newLawIndex)
