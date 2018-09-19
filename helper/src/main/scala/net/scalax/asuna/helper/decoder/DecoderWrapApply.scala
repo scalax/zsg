@@ -15,7 +15,7 @@ trait DecoderWrapApply[RepCol, DataCol] {
     ): DecoderCompiler[Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] =
       new DecoderCompiler[Rep, TempData, RepCol, DataCol, LazyData[Input, Output, Sub]] {
         override def compile[Target1](
-          implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]
+            implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]
         ): DecoderShapeValue[LazyData[Input, Output, Sub], RepCol, DataCol] = {
           val shape1     = shape
           val wrap       = repWrap.inputTable(table)
