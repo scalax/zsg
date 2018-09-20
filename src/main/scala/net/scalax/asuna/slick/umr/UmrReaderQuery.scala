@@ -84,7 +84,7 @@ trait UmrHelper extends HListDecoderShapeImplicit {
     }
   }
 
-  implicit def shapeFuncImplicit[D, L <: FlatShapeLevel]: DecoderShape.Aux[ShapeFunc[D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
+  implicit def shapeFuncImplicit[D]: DecoderShape.Aux[ShapeFunc[D], D, ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] = {
     new DecoderShape[ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] {
       override type Target = ShapeFunc[D]
       override type Data   = D
