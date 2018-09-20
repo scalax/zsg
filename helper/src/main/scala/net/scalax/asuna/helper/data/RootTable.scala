@@ -13,3 +13,4 @@ class ReWriteProperty(name: String, order: Int = DefaultReWritePropertyOrder.ord
 object DefaultReWritePropertyOrder {
   val order: Int = 0
 }
+class RootDataProperty[T]() extends StaticAnnotation

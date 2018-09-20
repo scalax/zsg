@@ -1,7 +1,7 @@
 package net.scalax.asuna.slick.simple
 
 import io.circe.JsonObject
-import net.scalax.asuna.helper.{ReWriteProperty, RootTable}
+import net.scalax.asuna.helper.{ReWriteProperty, RootDataProperty, RootTable}
 import net.scalax.asuna.slick.umr.UmrHelper
 import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
@@ -49,6 +49,13 @@ class dfjgoshjiotherihte(@(RootTable @field) val valcons: FriendTable4Model) ext
   def jfgioseithedrihtgerithuioerht = valcons.nick.?
 
   lazy val reader1111 = umr.effect(umr.modelOnly[Friends9](this).compile).toSv
+}
+
+class Abc(aa: dfjgoshjiotherihte) extends UmrHelper {
+  @(RootDataProperty[Friends9] @field)
+  val sdfsjeriojgreig = aa.reader1111
+
+  lazy val reader2222 = umr.effect(umr.modelOnly[Friends9](this).compile).toSv
 }
 
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
