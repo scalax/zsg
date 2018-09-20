@@ -65,37 +65,6 @@ object CaseClassMapperMacro {
         .toList
 
       //Table fields
-      /*val tableFieldNames = table.members
-        .filter { s =>
-          s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
-        }
-        .map { s =>
-          try {
-            s.asTerm.typeSignature.members.toList.mkString("\n")
-            s.asTerm.annotations.map { s =>
-              s.tree match {
-                case q"""new ${r}(${Literal(Constant(num: Int))})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
-                  println("11" * 100)
-                  println(num)
-                case q"""new ${r}(${t})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
-                  println("22" * 100)
-                  println(t)
-                case _ =>
-                //println("22" * 100)
-                //println(s.tree)
-              }
-            }
-            //println(s.name + "1111")
-          } catch {
-            case e: Throwable =>
-              println("11" * 100)
-              e.printStackTrace
-          }
-          (s, s.name)
-        }
-        .collect { case (member, TermName(n)) => (List(member), n.trim) }
-        .toList*/
-
       val tableFieldNames = fetchTableFields(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
@@ -211,16 +180,6 @@ object CaseClassMapperMacro {
         .collect { case (member, TermName(n)) => (member, n.trim) }
         .toList
         .reverse
-
-      /*val tableFieldNames = table.members
-        .filter { s =>
-          s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
-        }
-        .map { s =>
-          (s, s.name)
-        }
-        .collect { case (member, TermName(n)) => (List(member), n.trim) }
-        .toList*/
 
       val tableFieldNames = fetchTableFields(table)
 

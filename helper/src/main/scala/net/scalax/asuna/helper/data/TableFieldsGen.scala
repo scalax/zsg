@@ -11,16 +11,23 @@ trait TableFieldsGen {
   case class MemberWithDeepKey(key: String, members: List[Symbol])
 
   def fetchTableFields(tableType: Type): Map[String, MemberWithDeepKey] = {
-    val rootMembers = tableType.members.toList.map(s => (s.name, s)).collect { case (TermName(n), s) => MemberWithKey(n.trim, s) }
-    val memberWithOrder = rootMembers.map { s =>
-      val orderOpt = s.member.asTerm.annotations.map(_.tree).collectFirst {
-
-        case q"""new ${r}(${Literal(Constant(num: Int))})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
-          num
-        case q"""new ${r}(${_})""" if r.tpe.<:<(weakTypeOf[RootTable]) =>
-          DefaultRootTableOrder.order
-
+    val rootMembers = tableType.members.toList
+      .filter { s =>
+        s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
       }
+      .map(s => (s.name, s))
+      .collect { case (TermName(n), s) => MemberWithKey(n.trim, s) }
+
+    val memberWithOrder = rootMembers.map { s =>
+      val orderOpt = s.member.annotations
+        .map(_.tree)
+        .collect {
+          case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+            num
+          case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+            DefaultRootTableOrder.order
+        }
+        .headOption
       (s, orderOpt)
     }
     val toUpperMembers = memberWithOrder.collect { case (member, Some(order)) => (member, order) }.sortBy(_._2).map(_._1)

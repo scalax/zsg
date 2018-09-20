@@ -6,6 +6,8 @@ import net.scalax.asuna.slick.umr.UmrHelper
 import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
 
+import scala.annotation.meta.field
+
 case class InnerFriends2(id: Long, name: String, nick: String, age: Int, mark: List[InnerMark])
 case class InnerMark(id: Long, name: String, mark: Int)
 case class InnerFriendInput(mark: List[InnerMark])
@@ -40,9 +42,8 @@ class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 
 }
 
-class dfjgoshjiotherihte(cons: FriendTable4Model) extends UmrHelper {
-  @RootTable val otherTable = cons
-  lazy val reader1111       = umr.effect(umr.modelOnly[Friends6](this).compile).toSv
+class dfjgoshjiotherihte(@(RootTable @field) val valcons: FriendTable4Model) extends UmrHelper {
+  lazy val reader1111 = umr.effect(umr.modelOnly[Friends6](this).compile).toSv
 }
 
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
