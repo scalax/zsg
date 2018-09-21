@@ -182,6 +182,7 @@ object CaseClassMapperMacro {
                 }
             }
           case _ =>
+            println("==" * 100 + s"\n找不到列${fieldName}")
             throw new Exception(s"找不到列${fieldName}")
         }
 
@@ -353,7 +354,15 @@ object CaseClassMapperMacro {
                  ..${item.zipWithIndex.flatMap {
               case (fieldItem, index) =>
                 val plusIndex = index + 1
-                fieldItem.tableFields.flatMap(_.key.toOption) match {
+                fieldItem.tableFields.flatMap(
+                    s =>
+                    s.key match {
+                      case Left(_) =>
+                        Option.empty
+                      case Right(i) =>
+                        Option(i)
+                    }
+                ) match {
                   case Some(MutiplyKey(keys, typeRef)) =>
                     List(
                         q"""${TermName("data" + plusIndex.toString)} = ${typeRef.typeSymbol.companion}(..${keys

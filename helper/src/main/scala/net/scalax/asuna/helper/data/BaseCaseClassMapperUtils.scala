@@ -47,7 +47,17 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val q = q"""
           ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.filter(s => !s.needInput).zipWithIndex.flatMap {
           case (field, index) =>
-            val proTree = field.tableFields.flatMap(_.key.toOption).map(_.fieldType) match {
+            val proTree = field.tableFields
+              .flatMap(
+                  s =>
+                  s.key match {
+                    case Left(_) =>
+                      Option.empty
+                    case Right(i) =>
+                      Option(i)
+                  }
+              )
+              .map(_.fieldType) match {
               case Some(autalType) =>
                 q"""new ${proType.typeSymbol}[${autalType}] { }"""
               case _ =>

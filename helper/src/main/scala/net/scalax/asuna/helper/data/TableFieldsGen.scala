@@ -8,9 +8,9 @@ trait TableFieldsGen {
 
   import c.universe._
   case class MemberWithKey(key: String, member: Symbol)
-  case class MemberWithDeepKey(key: String, members: List[Symbol])
+  //case class MemberWithDeepKey(key: String, members: List[Symbol])
 
-  def fetchTableFields(tableType: Type): Map[String, MemberWithDeepKey] = {
+  /*def fetchTableFields(tableType: Type): Map[String, MemberWithDeepKey] = {
     val rootMembers = tableType.members.toList
       .filter { s =>
         s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
@@ -60,7 +60,7 @@ trait TableFieldsGen {
         oldMap ++ newMap
       }
     memberCol ++ currentMemberMap
-  }
+  }*/
 
   case class SingleKey(singleKey: String)
   case class MutiplyKey(mutiplyKey: List[String], fieldType: Type)
@@ -115,7 +115,6 @@ trait TableFieldsGen {
             (s.copy(key = name), num)
           case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[ReWriteProperty]) =>
             (s.copy(key = name), DefaultReWritePropertyOrder.order)
-
         }
         .headOption
       (orderOpt.map(_._1).getOrElse(s), orderOpt.map(_._2))

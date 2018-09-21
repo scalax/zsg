@@ -44,9 +44,8 @@ class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 }
 
 class dfjgoshjiotherihte(@(RootTable @field) val valcons: FriendTable4Model) extends UmrHelper {
-
   @ReWriteProperty("nick")
-  def jfgioseithedrihtgerithuioerht = valcons.nick.?
+  val jfgioseithedrihtgerithuioerht = valcons.nick.?
 
   lazy val reader1111 = umr.effect(umr.modelOnly[Friends9](this).compile).toSv
 }
