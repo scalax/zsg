@@ -1,20 +1,21 @@
 package net.scalax.asuna.helper
 
+import net.scalax.asuna.helper.decoder.macroImpl.PropertyType
 import net.scalax.asuna.helper.mapper.CaseClassMapper
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
 
-trait BaseCaseClassMapperUtils {
+trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   val maxNum = 12
 
-  val c: Context
+  override val c: Context
 
   import c.universe._
 
   case class FieldName(
-      tableFields: Option[List[Symbol]]
+      tableFields: Option[MemberWithDeepKey1111]
     , lawModelMember: Symbol
     , law: String
     , lawIndex: Int
@@ -26,10 +27,11 @@ trait BaseCaseClassMapperUtils {
   def commonProUseInShape(modelGenName: String, tableName: String, fieldName: FieldName) = {
     val q = fieldName.tableFields match {
       case Some(members) =>
-        members.map(_.name).collect { case TermName(name) => name.trim }.foldLeft(q"""${TermName(tableName)}""": Tree) { (tree, fieldName) =>
+        members.members.map(_.name).collect { case TermName(name) => name.trim }.foldLeft(q"""${TermName(tableName)}""": Tree) { (tree, fieldName) =>
           q"""${tree}.${TermName(fieldName)}"""
         }
       case _ => q"""${TermName(modelGenName)}(_.${TermName(fieldName.law)}).toPlaceholder"""
+
     }
     q
   }
@@ -37,6 +39,7 @@ trait BaseCaseClassMapperUtils {
   def initProperty(fieldNames: List[FieldName], tableName: String, modelGenName: String): List[Tree] = {
     val caseClassMapper = weakTypeOf[CaseClassMapper]
     val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
+    val proType         = weakTypeOf[PropertyType[String]]
 
     fieldNames
       .grouped(maxNum)
@@ -44,10 +47,18 @@ trait BaseCaseClassMapperUtils {
         val q = q"""
           ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.filter(s => !s.needInput).zipWithIndex.flatMap {
           case (field, index) =>
+            val proTree = field.tableFields.flatMap(_.key.toOption).map(_.fieldType) match {
+              case Some(autalType) =>
+                q"""new ${proType.typeSymbol}[${autalType}] { }"""
+              case _ =>
+                q"""${TermName(modelGenName)}(_.${TermName(field.law)})"""
+            }
+
             val plusIndex = index + 1
             List(
                 q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(modelGenName = modelGenName, fieldName = field, tableName = tableName)}"""
-              , q"""${TermName("property" + plusIndex)} = ${TermName(modelGenName)}(_.${TermName(field.law)})"""
+              //, q"""${TermName("property" + plusIndex)} = ${TermName(modelGenName)}(_.${TermName(field.law)})"""
+              , q"""${TermName("property" + plusIndex)} = $proTree"""
               , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
               tableColumnName = ${Literal(Constant(field.law))},
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.law))}),
