@@ -64,12 +64,14 @@ object CaseClassMapperMacro {
         .collect { case TermName(n) => n.trim }
         .toList
 
+      val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.contains(s._2))
+
       //Table fields
       val tableFieldNames = fetchTableFields1111(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 
-      val (fieldsPrepare, _, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
+      val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
         case ((nameList, lawIndex, helperIndex), (member, strName)) =>
           val newLawIndex = lawIndex + 1
           val needInput   = inputFieldNames.contains(strName)
@@ -145,7 +147,7 @@ object CaseClassMapperMacro {
       val deepFields = countDeep(fieldsPrepare.filter(s => !s.needInput))
 
       def appendIndexToTree(tree: Tree, fieldName: String): Tree = {
-        val fieldNameWrap = deepFields
+        deepFields
           .map { df =>
             val keys = df.field.tableFields match {
               case Some(f) =>
@@ -161,26 +163,28 @@ object CaseClassMapperMacro {
             (keys, df)
           }
           .find {
-            case (keys, df) =>
+            case (keys, _) =>
               keys.contains(fieldName)
-          }
-          .get
-          ._2
-
-        val tree1 = fieldNameWrap.deepIndex.foldLeft(tree) { (treeItem, index) =>
-          q"""$treeItem.${TermName("data" + index.toString)}"""
-        }
-        fieldNameWrap.field.tableFields match {
-          case None =>
-            tree1
-          case Some(s) =>
-            s.key match {
-              case Left(SingleKey(_)) =>
-                tree1
-              case Right(MutiplyKey(_, _)) =>
-                q"""${tree1}.${TermName(fieldName)}"""
+          } match {
+          case Some((_, fieldNameWrap)) =>
+            val tree1 = fieldNameWrap.deepIndex.foldLeft(tree) { (treeItem, index) =>
+              q"""$treeItem.${TermName("data" + index.toString)}"""
             }
+            fieldNameWrap.field.tableFields match {
+              case None =>
+                tree1
+              case Some(s) =>
+                s.key match {
+                  case Left(SingleKey(_)) =>
+                    tree1
+                  case Right(MutiplyKey(_, _)) =>
+                    q"""${tree1}.${TermName(fieldName)}"""
+                }
+            }
+          case _ =>
+            throw new Exception(s"找不到列${fieldName}")
         }
+
       }
 
       val fields    = deepFields
@@ -195,11 +199,11 @@ object CaseClassMapperMacro {
           .asDecoder { (tempData, rep) =>
             ${lazyData.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
               ..${List(
-            outputFieldNames.map { field =>
+            notInputOutputFieldNames.map { field =>
             q"""${TermName(field._2)} = ${appendIndexToTree(q"""tempData""", field._2)}"""
           }
-          , fieldsPrepare.filter(_.needInput).map { field =>
-            q"""${TermName(field.law)} = s.${TermName(field.law)}"""
+          , inputFieldNames /*.filter(_.needInput)*/.map { field =>
+            q"""${TermName(field)} = s.${TermName(field)}"""
           }
         ).flatten}
 
@@ -248,7 +252,7 @@ object CaseClassMapperMacro {
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 
-      val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
+      /*val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
         case ((nameList, lawIndex), (member, strName)) =>
           val newLawIndex = lawIndex + 1
           val usePlaceHolder = tableFieldNames.find { s =>
@@ -271,6 +275,49 @@ object CaseClassMapperMacro {
           )
 
           ((fieldName :: nameList), newLawIndex)
+      }*/
+
+      val (fieldsPrepare, _, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
+        case ((nameList, lawIndex, helperIndex), (member, strName)) =>
+          val newLawIndex = lawIndex + 1
+
+          val alreadExists = nameList.exists { s =>
+            s.tableFields
+              .map(
+                  c =>
+                  c.key match {
+                    case Left(SingleKey(r)) =>
+                      r == strName
+                    case Right(MutiplyKey(mk, _)) =>
+                      mk.contains(strName)
+                  }
+              )
+              .getOrElse(false)
+          }
+          if (alreadExists)
+            (nameList, lawIndex, helperIndex)
+          else {
+            val usePlaceHolder = tableFieldNames.find { s =>
+              s.key match {
+                case Left(SingleKey(r)) =>
+                  r == strName
+                case Right(MutiplyKey(mk, _)) =>
+                  mk.contains(strName)
+              }
+            }
+
+            val newHelperIndex = helperIndex + 1
+            val fieldName = FieldName(
+                tableFields = usePlaceHolder
+              , lawModelMember = member
+              , law = strName
+              , lawIndex = newLawIndex
+              , mapperIndex = newHelperIndex
+              , needInput = false
+              , needSub = false
+            )
+            ((fieldName :: nameList), newLawIndex, newHelperIndex)
+          }
       }
 
       @tailrec
@@ -306,9 +353,19 @@ object CaseClassMapperMacro {
                  ..${item.zipWithIndex.flatMap {
               case (fieldItem, index) =>
                 val plusIndex = index + 1
-                List(
-                    q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(fieldItem.law)}"""
-                )
+                fieldItem.tableFields.flatMap(_.key.toOption) match {
+                  case Some(MutiplyKey(keys, typeRef)) =>
+                    List(
+                        q"""${TermName("data" + plusIndex.toString)} = ${typeRef.typeSymbol.companion}(..${keys
+                        .map(key => q"""${TermName(key)} = caseClass.${TermName(key)}""")})"""
+                    )
+
+                  case _ =>
+                    List(
+                        q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(fieldItem.law)}"""
+                    )
+                }
+
             }}
                  )
           """

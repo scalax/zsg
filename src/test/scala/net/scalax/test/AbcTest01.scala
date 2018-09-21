@@ -1,5 +1,8 @@
 package net.scalax.asuna.circe
 
+import io.circe.generic.JsonCodec
+import net.scalax.asuna.helper.RootDataProperty
+
 object AbcTest01 extends CirceAsunaEncoderHelper with App {
 
   val model: LargeModel = LargeModel()
@@ -22,10 +25,18 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
     TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = encoder(model))
   }
 
+  @JsonCodec
+  case class sdfhhitehrt(i83: String, i84: String)
+
   val result2 = {
     object Abc {
       //the property i12 will covert to Int and use Int Encoder and custom key
       //def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
+
+      @RootDataProperty[sdfhhitehrt]
+      def sdklfgjsontoerhntgioerhntgjoisdrntgjioedrhgiodrhgsdriohgsdru = {
+        cusEncoder[sdfhhitehrt].func("abc" * 100, identity)
+      }
     }
 
     val circeEncoder = asunaCirce.effect(asunaCirce.modelOnly[LargeModel](Abc).compile)
@@ -47,6 +58,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
   println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")
   println(s"circe-asuna 序列化 ${result2.times} 次消耗了 ${result2.millions} 毫秒")
   println(s"结果是否相等：${result1.jsonModel == result2.jsonModel}")
+  println(result2.jsonModel.spaces2)
 
   {
     val data1 = System.currentTimeMillis

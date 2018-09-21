@@ -52,6 +52,18 @@ trait CirceAsunaEncoderHelper {
     }
   }
 
+  implicit def sgsdhrtgrtyhrtyh[B, RepCol, DataCol]
+    : EncoderShape.Aux[HListEncoderShapeWrap[CirceAsunaEncoderImpl[B], B], B, CirceAsunaEncoderImpl[B], List[CirceAsunaEncoder], List[(String, Json)]] = {
+    new EncoderShape[HListEncoderShapeWrap[CirceAsunaEncoderImpl[B], B], List[CirceAsunaEncoder], List[(String, Json)]] {
+      override type Target = CirceAsunaEncoderImpl[B]
+      override type Data   = B
+      override def wrapRep(base: HListEncoderShapeWrap[CirceAsunaEncoderImpl[B], B]): CirceAsunaEncoderImpl[B]        = base.rep
+      override def toLawRep(base: CirceAsunaEncoderImpl[B], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
+      override def buildData(data: B, rep: CirceAsunaEncoderImpl[B], oldData: List[(String, Json)]): List[(String, Json)] =
+        ((rep.key, rep.write(data))) :: oldData
+    }
+  }
+
   trait EncoderApply[T] {
     def func[R](key: String, f: T => R)(implicit encoder: Encoder[R]): CirceAsunaEncoderImpl[T] = {
       val key1 = key
