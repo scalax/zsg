@@ -2,7 +2,7 @@ package net.scalax.asuna.helper.data.macroImpl
 
 import net.scalax.asuna.core.common.{++::, RNil, RepGroup, RepGroupContent}
 import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.HListEncoderShapeWrap
+import net.scalax.asuna.helper.encoder.RepColumnContent
 
 trait RepGroupColumnWrapper[Col, Data] {
 
@@ -53,13 +53,13 @@ trait RepGroupColumnWrapperImplicit1 extends RepGroupColumnWrapperImplicit2 {
 
 trait RepGroupColumnWrapperImplicit2 {
 
-  implicit def commonRepGroupColumnImplicit[Col, Data, Rep]: RepGroupColumnWrapper.Aux[Col, Data, HListEncoderShapeWrap[Col, Data]] =
+  implicit def commonRepGroupColumnImplicit[Col, Data, Rep]: RepGroupColumnWrapper.Aux[Col, Data, RepColumnContent[Col, Data]] =
     new RepGroupColumnWrapper[Col, Data] {
-      override type Target = HListEncoderShapeWrap[Col, Data]
-      override def inputColumn(rep: Col, columnInfo: MacroColumnInfo): HListEncoderShapeWrap[Col, Data] = {
+      override type Target = RepColumnContent[Col, Data]
+      override def inputColumn(rep: Col, columnInfo: MacroColumnInfo): RepColumnContent[Col, Data] = {
         val rep1        = rep
         val columnInfo1 = columnInfo
-        new HListEncoderShapeWrap[Col, Data] {
+        new RepColumnContent[Col, Data] {
           override val rep        = rep1
           override val columnInfo = columnInfo1
         }

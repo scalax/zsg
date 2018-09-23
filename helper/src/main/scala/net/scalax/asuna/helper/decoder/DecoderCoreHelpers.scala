@@ -4,9 +4,7 @@ import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 
 trait DecoderCoreHelpers[RepCol, DataCol] {
 
-  def wrap[A, B, C](rep: A)(implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]): C = {
-    shape.wrapRep(rep)
-  }
+  def wrap[A, B, C](rep: A)(implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]): C = shape.wrapRep(rep)
 
   def shaped[A, B, C](rep: A)(implicit shape: DecoderShape.Aux[A, B, C, RepCol, DataCol]): DecoderShapeValue[B, RepCol, DataCol] = {
     val shape1 = shape

@@ -2,7 +2,7 @@ package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap}
+import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, RepColumnContent}
 
 object SlickSortBy {
 
@@ -54,11 +54,11 @@ trait SlickSortByHelper {
 
   implicit def sortByImplicitWithColumnInfo[T, M](
       implicit cv1: T => slick.lifted.Ordered
-  ): EncoderShape.Aux[HListEncoderShapeWrap[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
-    new EncoderShape[HListEncoderShapeWrap[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
+  ): EncoderShape.Aux[RepColumnContent[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
+    new EncoderShape[RepColumnContent[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
       override type Target = SlickSortBy.OrderColumn
       override type Data   = M
-      override def wrapRep(base: HListEncoderShapeWrap[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
+      override def wrapRep(base: RepColumnContent[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
         override type Rep = T
         override val rep        = base.rep
         override val orderByGen = cv1

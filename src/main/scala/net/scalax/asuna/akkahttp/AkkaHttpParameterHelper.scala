@@ -7,7 +7,7 @@ import akka.http.scaladsl.server.{Directive, Directive1, Route}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
-import net.scalax.asuna.helper.encoder.HListEncoderShapeWrap
+import net.scalax.asuna.helper.encoder.RepColumnContent
 
 trait AkkaFormFieldWrapAbs {
 
@@ -83,11 +83,11 @@ trait AkkaHttpParameterHelper {
   }
 
   implicit def akkahttpParameterWithNameImplicit[D]
-    : DecoderShape.Aux[HListEncoderShapeWrap[ParameterWithName[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
-    new DecoderShape[HListEncoderShapeWrap[ParameterWithName[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
+    : DecoderShape.Aux[RepColumnContent[ParameterWithName[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[RepColumnContent[ParameterWithName[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: HListEncoderShapeWrap[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: RepColumnContent[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base.rep.withName(base.columnInfo.modelColumnName)
       }
       override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
@@ -109,11 +109,11 @@ trait AkkaHttpParameterHelper {
 
   implicit def akkahttpPlaceholderImplicit[D](
       implicit fsu: akka.http.scaladsl.unmarshalling.FromStrictFormFieldUnmarshaller[D]
-  ): DecoderShape.Aux[HListEncoderShapeWrap[Placeholder[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
-    new DecoderShape[HListEncoderShapeWrap[Placeholder[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
+  ): DecoderShape.Aux[RepColumnContent[Placeholder[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[RepColumnContent[Placeholder[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: HListEncoderShapeWrap[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: RepColumnContent[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = helper.formFieldAs[D].withName(base.columnInfo.modelColumnName)
       }
       override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
