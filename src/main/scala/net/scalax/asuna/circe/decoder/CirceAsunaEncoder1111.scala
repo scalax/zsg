@@ -4,8 +4,8 @@ import io.circe.{Decoder, Encoder, Json}
 import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl, CirceAsunaEncoderImpl}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper, HListDecoderShapeImplicit}
-import net.scalax.asuna.helper.encoder._
+import net.scalax.asuna.mapper.common.RepColumnContent
+import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
   def read(data: Json): Either[Exception, DataType]
@@ -35,7 +35,7 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
 
 }
 
-trait CirceAsunaDecoderHelper extends HListDecoderShapeImplicit with DecoderHelper[List[CirceAsunaDecoder], Map[String, Any]] {
+trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map[String, Any]] {
 
   implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](
       implicit someshape: Decoder[B]

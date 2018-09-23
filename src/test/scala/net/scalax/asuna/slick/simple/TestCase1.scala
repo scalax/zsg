@@ -3,7 +3,7 @@ package net.scalax.asuna.slick.simple
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import net.scalax.asuna.helper.data.macroImpl.LazyData
+import net.scalax.asuna.mapper.decoder.LazyData
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures

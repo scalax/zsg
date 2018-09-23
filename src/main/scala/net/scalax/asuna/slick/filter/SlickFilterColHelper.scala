@@ -3,7 +3,7 @@ package net.scalax.asuna.slick.filter
 import cats.Contravariant
 import io.circe.{Decoder, Json, JsonObject}
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper}
+import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 import slick.ast.BaseTypedType
 
 trait SFilterColHelper[D] {

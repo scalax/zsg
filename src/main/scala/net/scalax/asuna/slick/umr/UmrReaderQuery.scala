@@ -3,7 +3,7 @@ package net.scalax.asuna.slick.umr
 import io.circe.{Encoder, Json}
 import io.circe.syntax._
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper, HListDecoderShapeImplicit}
+import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 import slick.lifted.{FlatShapeLevel, MappedProjection, Shape, ShapedValue}
 
 import scala.reflect.ClassTag
@@ -41,7 +41,7 @@ object umrImpl extends DecoderHelper[ShapeFunc[(Any, Any)], (Any, Any)] with Dec
   }
 }
 
-trait UmrHelper extends HListDecoderShapeImplicit {
+trait UmrHelper {
 
   val umr = umrImpl
 

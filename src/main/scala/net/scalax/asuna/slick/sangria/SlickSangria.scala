@@ -1,7 +1,7 @@
 package net.scalax.asuna.sangria
 
 import net.scalax.asuna.core.decoder._
-import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 import net.scalax.asuna.slick.umr.{SlickShapeValueListWrap, SlickShapeValueWrap}
 import slick.lifted.{FlatShapeLevel, Shape, ShapedValue}
 

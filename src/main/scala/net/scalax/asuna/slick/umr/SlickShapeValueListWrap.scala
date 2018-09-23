@@ -4,17 +4,6 @@ import slick.lifted.{FlatShapeLevel, MappedProjection, Shape, ShapedValue}
 
 import scala.reflect.ClassTag
 
-/*trait SlickShapeValueListWrap[F] {
-  type Data
-  type Rep
-  type TargetRep
-  type Level <: FlatShapeLevel
-  val rep: Rep
-  val shape: Shape[Level, Rep, Data, TargetRep]
-  val dataToList: Data => List[F]
-  val dataFromList: List[F] => Option[Data]
-}*/
-
 trait ReadSlickShapeValueListWrap[F] {
   type Data
   type Rep

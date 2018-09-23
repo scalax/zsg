@@ -1,9 +1,9 @@
 package net.scalax.slick.dynamic
 
 import io.circe.Json
-import net.scalax.asuna.helper.decoder.HListDecoderShapeImplicit
-import net.scalax.asuna.helper.encoder.HListEncoderShapeImplicit
-import net.scalax.asuna.shape.ShapeHelper
+import net.scalax.asuna.mapper.common.ShapeHelper
+import net.scalax.asuna.mapper.decoder.HListDecoderShapeImplicit
+import net.scalax.asuna.mapper.encoder.HListEncoderShapeImplicit
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import net.scalax.slick.async.FriendTable2
 import net.scalax.asuna.slick.umr.UmrHelper
@@ -32,8 +32,8 @@ class FriendTable2Model2(friend: FriendTable2)
     extends UmrHelper
     with ShapeHelper
     with SlickFilterColHelper
-    with HListEncoderShapeImplicit
-    with HListDecoderShapeImplicit {
+    with HListDecoderShapeImplicit
+    with HListEncoderShapeImplicit {
 
   val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
   val nick       = jsonKey(friend.nick, "nickName")
