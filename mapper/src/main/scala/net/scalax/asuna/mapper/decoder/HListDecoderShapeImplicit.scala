@@ -1,4 +1,4 @@
-package net.scalax.asuna.helper.decoder
+package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import shapeless.{::, HList, HNil, Lazy}

@@ -1,6 +1,7 @@
-package net.scalax.asuna.helper.data.macroImpl
+package net.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.helper.encoder.InputTable
+import net.scalax.asuna.mapper.common.{DataGenWrap, InputTable}
+import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
 
 import scala.language.experimental.macros
 
@@ -20,6 +21,7 @@ object DecoderDataGen {
 
   implicit def decoderDataGenImplicit[Input, Output, Sub, Table, Rep, Temp]: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, Temp]] =
     macro DecoderCaseClassMapper.DecoderCaseClassMapperImpl.caseclassDecoderGeneric[Input, Output, Sub, Table, Rep, Temp]
+
   def fromDataGenWrap[TempRep, TempData, Input, Output, Sub](
       wrap: DataGenWrap.Aux[TempRep, TempData]
   )(f: (TempData, TempRep) => LazyData[Input, Output, Sub]): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData] =

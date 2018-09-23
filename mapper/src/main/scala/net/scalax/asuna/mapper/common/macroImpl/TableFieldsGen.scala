@@ -1,4 +1,6 @@
-package net.scalax.asuna.helper
+package net.scalax.asuna.mapper.common.macroImpl
+
+import net.scalax.asuna.mapper.common.annotations.{ReWriteProperty, RootDataProperty, RootTable}
 
 import scala.reflect.macros.blackbox.Context
 

@@ -1,4 +1,4 @@
-package net.scalax.asuna.helper.encoder
+package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 

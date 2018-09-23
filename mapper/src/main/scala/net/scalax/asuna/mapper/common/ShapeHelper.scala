@@ -1,4 +1,4 @@
-package net.scalax.asuna.shape
+package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.common.{++::, RNil, RepGroup}
 

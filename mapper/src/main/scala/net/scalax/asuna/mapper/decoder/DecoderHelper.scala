@@ -1,8 +1,6 @@
-package net.scalax.asuna.helper.decoder
+package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.helper.data.macroImpl.LazyData
-import net.scalax.asuna.helper.encoder.{DecoderCoreHelpers, DecoderWrapApply}
 
 import scala.language.higherKinds
 

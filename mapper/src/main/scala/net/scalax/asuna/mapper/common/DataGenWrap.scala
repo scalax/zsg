@@ -1,4 +1,4 @@
-package net.scalax.asuna.helper.data.macroImpl
+package net.scalax.asuna.mapper.common
 
 trait DataGenWrap {
   self =>

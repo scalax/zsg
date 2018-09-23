@@ -27,7 +27,7 @@ object CaseClassHelperGen extends App {
   val writer = new PrintWriter(path.toFile)
   writer.println(
       Source
-      .fromString(net.scalax.asuna.template1111.txt.CaseClassHelperTemplate(maxItem = maxPropertyNum).body)
+      .fromString(net.scalax.asuna.template.txt.CaseClassHelperTemplate(maxItem = maxPropertyNum).body)
       .getLines
       .toList
       .map(_.trim)

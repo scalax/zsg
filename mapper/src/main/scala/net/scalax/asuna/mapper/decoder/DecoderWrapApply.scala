@@ -1,7 +1,7 @@
-package net.scalax.asuna.helper.encoder
+package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.helper.data.macroImpl._
+import net.scalax.asuna.mapper.common.InputTable
 
 trait DecoderWrapApply[RepCol, DataCol] {
   def withLazyData[Input, Output, Sub]: LazyDataWrap[Input, Output, Sub] = new LazyDataWrap[Input, Output, Sub] {}
@@ -57,31 +57,6 @@ trait DecoderWrapApply[RepCol, DataCol] {
 
   }
 
-  /*trait CaseWrap[Table, Case] {
-
-    def compile[Rep, TempData](
-        implicit
-      repWrap: InputTable[Table, DecoderDataGen.Aux[EmptyLazyInput, Case, EmptyLazyOutput, Rep, TempData]]
-    ): DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] =
-      new DecoderInputTable[Table, Rep, TempData, RepCol, DataCol, Case] {
-        override def inputTable[Target1](
-            table: Table
-        )(implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {
-          val shape1     = shape
-          val wrap       = repWrap.inputTable(table)
-          val wrappedRep = shape1.wrapRep(wrap.rep)
-          val sv = new DecoderShapeValue[TempData, RepCol, DataCol] {
-            override type RepType = Target1
-            override val rep   = wrappedRep
-            override val shape = shape1.packed
-          }
-          sv.dmap { (content: TempData) =>
-            wrap.from(content, wrap.rep).apply(EmptyLazyInput.value)
-          }
-        }
-      }
-
-  }*/
 }
 
 object DecoderWrapApply {

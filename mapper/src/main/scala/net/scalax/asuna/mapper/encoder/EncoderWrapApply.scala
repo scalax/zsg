@@ -1,7 +1,7 @@
-package net.scalax.asuna.helper.encoder
+package net.scalax.asuna.mapper.encoder
 
 import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
-import net.scalax.asuna.helper.data.macroImpl._
+import net.scalax.asuna.mapper.common.InputTable
 
 trait EncoderWrapApply[RepCol, DataCol] {
   def withModel[Case]: CaseWrap[Case] = new CaseWrap[Case] {}
