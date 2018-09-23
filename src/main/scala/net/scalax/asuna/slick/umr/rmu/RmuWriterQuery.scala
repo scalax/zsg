@@ -4,7 +4,7 @@ import io.circe.{Encoder, JsonObject}
 import io.circe.syntax._
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, HListEncoderShapeWrap}
+import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, RepColumnContent}
 import net.scalax.asuna.slick.umr.{umrImpl, ShapeFunc, SlickShapeValueWrap, UmrHelper}
 import slick.lifted.{FlatShapeLevel, Shape}
 
@@ -47,13 +47,13 @@ trait RmuWriterQuery {
   implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](
       implicit shape: Shape[Level, R, M, U]
     , encoder: Encoder[M]
-  ): EncoderShape.Aux[HListEncoderShapeWrap[R, M], M, SlickRmuWrapper, List[SlickRmuWrapper], List[String]] = {
+  ): EncoderShape.Aux[RepColumnContent[R, M], M, SlickRmuWrapper, List[SlickRmuWrapper], List[String]] = {
     val shape1 = shape
-    new EncoderShape[HListEncoderShapeWrap[R, M], List[SlickRmuWrapper], List[String]] {
+    new EncoderShape[RepColumnContent[R, M], List[SlickRmuWrapper], List[String]] {
       type Level1          = Level
       override type Target = SlickRmuWrapper
       override type Data   = M
-      override def wrapRep(base: HListEncoderShapeWrap[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
+      override def wrapRep(base: RepColumnContent[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
         override type DataType = M
         override val circeEncoder = encoder
         override val slickWrapper = new SlickShapeValueWrap[M] {
