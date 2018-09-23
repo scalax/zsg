@@ -1,8 +1,8 @@
 package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.{EncoderContent, EncoderWrapperHelper, RepColumnContent}
+import net.scalax.asuna.mapper.common.{MacroColumnInfo, RepColumnContent}
+import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 
 object SlickSortBy {
 

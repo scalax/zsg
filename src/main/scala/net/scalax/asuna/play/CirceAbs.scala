@@ -5,7 +5,7 @@ import io.circe.{Decoder, Encoder}
 import cats.data._
 import cats.implicits._
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue, SplitData}
-import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

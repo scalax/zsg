@@ -1,8 +1,6 @@
-package net.scalax.asuna.helper.data.macroImpl
+package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.common.{++::, RNil, RepGroup, RepGroupContent}
-import net.scalax.asuna.helper.MacroColumnInfo
-import net.scalax.asuna.helper.encoder.RepColumnContent
 
 trait RepGroupColumnWrapper[Col, Data] {
 

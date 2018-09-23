@@ -1,8 +1,8 @@
-package net.scalax.asuna.helper.data.macroImpl
+package net.scalax.asuna.mapper.decoder.macroImpl
 
-import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.helper.encoder.InputTable
+import net.scalax.asuna.mapper.common.{InputTable, ModelGen}
+import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
+import net.scalax.asuna.mapper.decoder.{DecoderDataGen, LazyData}
 
 object DecoderCaseClassMapper {
 

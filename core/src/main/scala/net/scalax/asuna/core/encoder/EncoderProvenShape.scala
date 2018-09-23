@@ -1,7 +1,6 @@
-package net.scalax.asuna.core.decoder
+package net.scalax.asuna.core.encoder
 
 import net.scalax.asuna.core.common.CommonProvenShape
-import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 
 trait EncoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol, DataCol] {
   val dataShapeValue: EncoderShapeValue[U, RepCol, DataCol]

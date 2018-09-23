@@ -1,0 +1,42 @@
+@(maxItem: Int)
+
+package net.scalax.asuna.mapper.common
+
+import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
+
+import shapeless._
+
+trait CaseClassMapper
+
+object CaseClassMapper {
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template.txt.CaseClassMapperHelper(count = i)
+    }
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template.txt.CaseClassWithRawRepHelper(count = i)
+    }
+    @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template.txt.CaseClassWithDataHelper(count = i)
+    }
+}
+
+trait CaseClassDataMapperHelper
+
+object CaseClassDataMapperHelper {
+    @* @for(i <- 1 to maxItem) {
+        @net.scalax.asuna.template.txt.CaseClassDataHelper(count = i)
+    } *@
+}
+
+@for(i <- 1 to maxItem) {
+    @net.scalax.asuna.template.txt.CaseClassRepMapper(count = i)
+    @net.scalax.asuna.template.txt.CaseClassDataMapper(count = i)
+
+    object CaseClassRepMapper@{i} {
+
+        @net.scalax.asuna.template.txt.CaseClassEncoderImplicit(count = i)
+        @net.scalax.asuna.template.txt.CaseClassDecoderImplicit(count = i)
+
+    }
+}

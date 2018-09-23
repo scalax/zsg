@@ -1,7 +1,7 @@
 package net.scalax.asuna.slick.simple
 
 import io.circe.JsonObject
-import net.scalax.asuna.helper.{ReWriteProperty, RootDataProperty, RootTable}
+import net.scalax.asuna.mapper.common.annotations.{ReWriteProperty, RootDataProperty, RootTable}
 import net.scalax.asuna.slick.umr.UmrHelper
 import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._

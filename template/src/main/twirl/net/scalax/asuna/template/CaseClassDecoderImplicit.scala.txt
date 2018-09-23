@@ -73,14 +73,15 @@ implicit def caseClassHelper@{count}DecoderGen[@for(i <- 1 to count) {
             @if(i < count) { , }
         }], DataCol] = {
             val dataCol0 = oldDataCol
-            @for(i <- 1 to count) {
-                val SplitData(item@{i}, dataCol@{i}) = shape@{i}.value.takeData(rep.rep@{i}, dataCol@{i - 1})
+            val split1 = shape1.value.takeData(rep.rep1, dataCol0)
+            @for(i <- 2 to count) {
+                val split@{i} = shape@{i}.value.takeData(rep.rep@{i}, split@{i - 1}.left)
             }
             SplitData(current = new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
-                data@{i} = item@{i}
+                data@{i} = split@{i}.current
                 @if(i < count) { , }
             }),
-            left = dataCol@{count})
+            left = split@{count}.left)
         }
     }
 }

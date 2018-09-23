@@ -1,8 +1,7 @@
-package net.scalax.asuna.helper.encoder
+package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.MacroColumnInfo
 
 trait RepColumnContent[Rep, Data] {
 

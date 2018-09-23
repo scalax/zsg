@@ -1,9 +1,8 @@
 package net.scalax.asuna.helper.data.macroImpl
 
-import net.scalax.asuna.helper.decoder.macroImpl.ModelGen
-import net.scalax.asuna.helper.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.helper.encoder.InputTable
-import net.scalax.asuna.helper.mapper.CaseClassMapper
+import net.scalax.asuna.mapper.common.{CaseClassMapper, InputTable, ModelGen}
+import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
+import net.scalax.asuna.mapper.encoder.EncoderDataGen
 
 import scala.annotation.tailrec
 

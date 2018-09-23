@@ -4,7 +4,8 @@ import io.circe.{Encoder, Json, JsonObject}
 import net.scalax.asuna.circe.aaaa.{CirceAsunaEncoder, CirceAsunaEncoderImpl}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.helper.encoder._
+import net.scalax.asuna.mapper.common.RepColumnContent
+import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 
 trait ACirceEncoderWrapper[RepOut, DataType] extends EncoderContent[RepOut, DataType] {
   def write(data: DataType): JsonObject

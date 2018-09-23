@@ -6,8 +6,8 @@ import akka.http.scaladsl.server.directives.ParameterDirectives.ParamMagnet
 import akka.http.scaladsl.server.{Directive, Directive1, Route}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.helper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
-import net.scalax.asuna.helper.encoder.RepColumnContent
+import net.scalax.asuna.mapper.common.RepColumnContent
+import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait AkkaFormFieldWrapAbs {
 

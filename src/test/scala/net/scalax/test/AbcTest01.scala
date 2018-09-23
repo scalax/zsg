@@ -1,7 +1,7 @@
 package net.scalax.asuna.circe
 
 import io.circe.generic.JsonCodec
-import net.scalax.asuna.helper.RootDataProperty
+import net.scalax.asuna.mapper.common.annotations.RootDataProperty
 
 object AbcTest01 extends CirceAsunaEncoderHelper with App {
 

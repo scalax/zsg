@@ -1,4 +1,4 @@
-package net.scalax.asuna.helper.encoder
+package net.scalax.asuna.mapper.common
 
 trait InputTable[Table, OutPut] {
   def inputTable(table: Table): OutPut

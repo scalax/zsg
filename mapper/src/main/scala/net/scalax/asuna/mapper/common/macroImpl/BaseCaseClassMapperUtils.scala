@@ -1,7 +1,6 @@
-package net.scalax.asuna.helper
+package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.helper.decoder.macroImpl.PropertyType
-import net.scalax.asuna.helper.mapper.CaseClassMapper
+import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl, PropertyType}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
