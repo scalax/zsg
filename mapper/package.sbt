@@ -1,6 +1,6 @@
 organization := "net.scalax"
 
-name := "asuna-implements"
+name := "asuna-mapper"
 
 crossScalaVersions := Seq("2.11.12", "2.12.6")
 
