@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.annotations.{ReWriteProperty, RootDataProperty, RootTable}
+import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
 
 import scala.reflect.macros.blackbox.Context
 
@@ -60,10 +60,10 @@ trait TableFieldsGen {
       val orderOpt = s.member.annotations
         .map(_.tree)
         .collect {
-          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[ReWriteProperty]) =>
+          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
             (s.copy(key = name), num)
-          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[ReWriteProperty]) =>
-            (s.copy(key = name), ReWriteProperty.defaultReWritePropertyOrder)
+          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
+            (s.copy(key = name), OverrideProperty.defaultReWritePropertyOrder)
         }
         .headOption
       (orderOpt.map(_._1).getOrElse(s), orderOpt.map(_._2))
@@ -76,7 +76,7 @@ trait TableFieldsGen {
     object DataProUnlifting {
       def unapply(tree: (String, Tree)): Option[Type] = {
         val classDef = c.typecheck(tree._2, silent = true)
-        val wt       = weakTypeOf[RootDataProperty[String]]
+        val wt       = weakTypeOf[RootModel[String]]
         val typeArgs = classDef.tpe.dealias.typeArgs
         try {
           typeArgs match {

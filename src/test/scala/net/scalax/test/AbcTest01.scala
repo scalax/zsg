@@ -1,7 +1,7 @@
 package net.scalax.asuna.circe
 
 import io.circe.generic.JsonCodec
-import net.scalax.asuna.mapper.common.annotations.RootDataProperty
+import net.scalax.asuna.mapper.common.annotations.RootModel
 
 object AbcTest01 extends CirceAsunaEncoderHelper with App {
 
@@ -33,7 +33,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
       //the property i12 will covert to Int and use Int Encoder and custom key
       //def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
 
-      @RootDataProperty[sdfhhitehrt]
+      @RootModel[sdfhhitehrt]
       def sdklfgjsontoerhntgioerhntgjoisdrntgjioedrhgiodrhgsdriohgsdru = {
         cusEncoder[sdfhhitehrt].func("abc" * 100, identity)
       }
