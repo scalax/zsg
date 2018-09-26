@@ -37,7 +37,7 @@ object EncoderCaseClassMapper {
         .toList
         .reverse
 
-      val tableFieldNames = fetchTableFields1111(table)
+      val tableFieldNames = fetchTableFields(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 
