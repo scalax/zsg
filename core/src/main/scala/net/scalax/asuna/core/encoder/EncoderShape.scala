@@ -3,7 +3,7 @@ package net.scalax.asuna.core.encoder
 import net.scalax.asuna.core.common.CommonShape
 import net.scalax.asuna.core.encoder.impl.ListEncoderShapeImplicit
 
-trait EncoderShape[-E, RepCol, DataCol] extends CommonShape[E, RepCol, DataCol] {
+trait EncoderShape[-E, RepCol, DataCol] extends CommonShape[E, RepCol] {
   self =>
 
   override type Target

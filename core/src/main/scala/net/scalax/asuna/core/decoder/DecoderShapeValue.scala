@@ -2,7 +2,7 @@ package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.CommonShapeValue
 
-trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol, DataCol] {
+trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] {
   self =>
 
   override type RepType
