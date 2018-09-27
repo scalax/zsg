@@ -39,16 +39,3 @@ object LazyModel {
     }
   }
 }
-
-trait lazyModelWrap[Input, Output, Sub] {
-
-  type CaseDataHelper
-
-  def to(data: LazyModel[Input, Output, Sub]): CaseDataHelper
-  def from(data: CaseDataHelper): LazyModel[Input, Output, Sub]
-
-}
-
-object lazyModelWrap {
-  type Aux[HelperData, Input, Output, Sub] = lazyModelWrap[Input, Output, Sub] { type CaseDataHelper = HelperData }
-}
