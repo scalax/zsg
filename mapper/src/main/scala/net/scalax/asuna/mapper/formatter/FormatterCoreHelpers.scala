@@ -9,7 +9,7 @@ trait FormatterDataShapeValueHelper[RepCol, EncoderDataCol, DecoderDataCol] {
   }
 
   def shaped[A, B, C](
-    rep: A
+      rep: A
   )(implicit shape: FormatterShape.Aux[A, B, C, RepCol, EncoderDataCol, DecoderDataCol]): FormatterShapeValue[B, RepCol, EncoderDataCol, DecoderDataCol] = {
     val shape1 = shape
     val rep1   = rep
