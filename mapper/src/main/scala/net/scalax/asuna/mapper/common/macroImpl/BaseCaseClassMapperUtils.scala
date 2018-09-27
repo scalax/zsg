@@ -14,7 +14,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   import c.universe._
 
   case class FieldName(
-      tableFields: Option[MemberWithDeepKey1111]
+      tableFields: Option[MemberWithDeepKey]
     , lawModelMember: Symbol
     , law: String
     , lawIndex: Int

@@ -2,8 +2,8 @@ package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.CommonProvenShape
 
-trait DecoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol, DataCol] {
-  val dataShapeValue: DecoderShapeValue[U, RepCol, DataCol]
+trait DecoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol] {
+  override val dataShapeValue: DecoderShapeValue[U, RepCol, DataCol]
 }
 
 object DecoderProvenShape {

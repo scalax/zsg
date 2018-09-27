@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.annotations.{ReWriteProperty, RootDataProperty, RootTable}
+import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
 
 import scala.reflect.macros.blackbox.Context
 
@@ -13,9 +13,9 @@ trait TableFieldsGen {
 
   case class SingleKey(singleKey: String)
   case class MutiplyKey(mutiplyKey: List[String], fieldType: Type)
-  case class MemberWithDeepKey1111(key: Either[SingleKey, MutiplyKey], members: List[Symbol])
+  case class MemberWithDeepKey(key: Either[SingleKey, MutiplyKey], members: List[Symbol])
 
-  def membersDistinct(members: List[MemberWithDeepKey1111]) = members.foldLeft(List.empty[MemberWithDeepKey1111]) { (oldMembers, item) =>
+  def membersDistinct(members: List[MemberWithDeepKey]) = members.foldLeft(List.empty[MemberWithDeepKey]) { (oldMembers, item) =>
     val memWithKey = oldMembers.map { s =>
       val keys = s.key match {
         case Left(SingleKey(k)) =>
@@ -33,15 +33,17 @@ trait TableFieldsGen {
     }
   }
 
-  def fetchTableFields1111(tableType: Type): List[MemberWithDeepKey1111] = {
-    val rootMembers = tableType.members.toList
+  protected def lawMembers(tableType: Type): List[MemberWithKey] = {
+    tableType.members.toList
       .filter { s =>
         s.isTerm && (s.asTerm.isVal || s.asTerm.isVar || s.asTerm.isMethod)
       }
       .map(s => (s.name, s))
       .collect { case (TermName(n), s) => MemberWithKey(n.trim, s) }
+  }
 
-    val memberWithOrder = rootMembers.map { s =>
+  protected def filterToUpperMembers(law: List[MemberWithKey]): (List[MemberWithKey], List[MemberWithKey]) = {
+    val memberWithOrder = law.map { s =>
       val orderOpt = s.member.annotations
         .map(_.tree)
         .collect {
@@ -56,14 +58,19 @@ trait TableFieldsGen {
 
     val toUpperMembers = memberWithOrder.collect { case (member, Some(order)) => (member, order) }.sortBy(_._2).map(_._1)
     val lawMembers     = memberWithOrder.collect { case (member, None) => member }
-    val reWriteMemberWithOrder = lawMembers.map { s =>
+
+    (toUpperMembers, lawMembers)
+  }
+
+  protected def filterOverrideMembers(law: List[MemberWithKey]): (List[MemberWithKey], List[MemberWithKey]) = {
+    val reWriteMemberWithOrder = law.map { s =>
       val orderOpt = s.member.annotations
         .map(_.tree)
         .collect {
-          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[ReWriteProperty]) =>
+          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
             (s.copy(key = name), num)
-          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[ReWriteProperty]) =>
-            (s.copy(key = name), ReWriteProperty.defaultReWritePropertyOrder)
+          case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
+            (s.copy(key = name), OverrideProperty.defaultReWritePropertyOrder)
         }
         .headOption
       (orderOpt.map(_._1).getOrElse(s), orderOpt.map(_._2))
@@ -73,10 +80,14 @@ trait TableFieldsGen {
 
     val currentMemberMapPre = reWriteMemberWithOrder.collect { case (member, None) => member }
 
+    (currentMemberToOverride, currentMemberMapPre)
+  }
+
+  def lawMemberToMutiplyKey(members: List[MemberWithKey]): List[MemberWithDeepKey] = {
     object DataProUnlifting {
       def unapply(tree: (String, Tree)): Option[Type] = {
         val classDef = c.typecheck(tree._2, silent = true)
-        val wt       = weakTypeOf[RootDataProperty[String]]
+        val wt       = weakTypeOf[RootModel[String]]
         val typeArgs = classDef.tpe.dealias.typeArgs
         try {
           typeArgs match {
@@ -97,28 +108,35 @@ trait TableFieldsGen {
       }
     }
 
-    val currentMemberMap = currentMemberMapPre ::: currentMemberToOverride
-
-    val fixCurrentMap = currentMemberMap.map { item =>
+    members.map { item =>
       val extField = item.member.annotations
         .map { s =>
           (item.key, s.tree)
         }
         .collectFirst {
-          case DataProUnlifting(aa) =>
+          case DataProUnlifting(annoType) =>
             val fields =
-              aa.members.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).toList.collect { case TermName(s) => s.trim }
-            MutiplyKey(mutiplyKey = fields.filterNot(s => s == item.key), fieldType = aa)
+              annoType.members.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).toList.collect { case TermName(s) => s.trim }
+            MutiplyKey(mutiplyKey = fields.filterNot(s => s == item.key), fieldType = annoType)
         }
       extField match {
         case Some(field) =>
-          MemberWithDeepKey1111(key = Right(field), members = List(item.member))
+          MemberWithDeepKey(key = Right(field), members = List(item.member))
         case _ =>
-          MemberWithDeepKey1111(key = Left(SingleKey(singleKey = item.key)), members = List(item.member))
+          MemberWithDeepKey(key = Left(SingleKey(singleKey = item.key)), members = List(item.member))
       }
     }
+  }
 
-    val memberCol = toUpperMembers.map(s => fetchTableFields1111(s.member.typeSignatureIn(tableType)).map(r => r.copy(members = s.member :: r.members))).flatten
+  def fetchTableFields(tableType: Type): List[MemberWithDeepKey] = {
+    val rootMembers                            = lawMembers(tableType)
+    val (toUpperMembers, lawMembers1)          = filterToUpperMembers(rootMembers)
+    val (currentMemberToOverride, lawMembers2) = filterOverrideMembers(lawMembers1)
+
+    val currentMemberMap = lawMembers2 ::: currentMemberToOverride
+    val fixCurrentMap    = lawMemberToMutiplyKey(currentMemberMap)
+
+    val memberCol = toUpperMembers.map(s => fetchTableFields(s.member.typeSignatureIn(tableType)).map(r => r.copy(members = s.member :: r.members))).flatten
 
     membersDistinct(memberCol ::: fixCurrentMap)
   }

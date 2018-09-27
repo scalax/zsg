@@ -65,7 +65,7 @@ object DecoderCaseClassMapper {
       val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.contains(s._2))
 
       //Table fields
-      val tableFieldNames = fetchTableFields1111(table)
+      val tableFieldNames = fetchTableFields(table)
 
       def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
 

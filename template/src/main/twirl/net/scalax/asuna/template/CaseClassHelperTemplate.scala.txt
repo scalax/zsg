@@ -4,6 +4,7 @@ package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
+import net.scalax.asuna.core.formatter.FormatterShape
 
 import shapeless._
 
@@ -37,6 +38,7 @@ object CaseClassDataMapperHelper {
 
         @net.scalax.asuna.template.txt.CaseClassEncoderImplicit(count = i)
         @net.scalax.asuna.template.txt.CaseClassDecoderImplicit(count = i)
+        @net.scalax.asuna.template.txt.CaseClassFormatterImplicit(count = i)
 
     }
 }

@@ -34,9 +34,7 @@ trait HListDecoderShapeImplicit {
 
       override def toLawRep(base: M :: N, repCol: RepCol): RepCol = {
         val headRep :: tailRep = base
-        /*val repCol1 = head.toLawRep(headRep, repCol)
-        tail.toLawRep(tailRep, repCol1)*/
-        val repCol1 = tail.value.toLawRep(tailRep, repCol)
+        val repCol1            = tail.value.toLawRep(tailRep, repCol)
         head.value.toLawRep(headRep, repCol1)
       }
 

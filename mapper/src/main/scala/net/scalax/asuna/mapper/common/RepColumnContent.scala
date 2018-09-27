@@ -2,6 +2,7 @@ package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.core.formatter.FormatterShape
 
 trait RepColumnContent[Rep, Data] {
 
@@ -20,7 +21,7 @@ object RepColumnContent {
       override type Data   = T
       override def wrapRep(base: RepColumnContent[D, T]): M                  = shape1.wrapRep(base.rep)
       override def toLawRep(base: M, oldRep: RepCol): RepCol                 = shape1.toLawRep(base, oldRep)
-      override def takeData(oldData: M, rep: DataCol): SplitData[T, DataCol] = shape1.takeData(oldData, rep)
+      override def takeData(rep: M, oldData: DataCol): SplitData[T, DataCol] = shape1.takeData(rep, oldData)
     }
   }
 
@@ -34,6 +35,20 @@ object RepColumnContent {
       override def wrapRep(base: RepColumnContent[D, T]): M              = shape1.wrapRep(base.rep)
       override def toLawRep(base: M, oldRep: RepCol): RepCol             = shape1.toLawRep(base, oldRep)
       override def buildData(data: T, rep: M, oldData: DataCol): DataCol = shape1.buildData(data, rep, oldData)
+    }
+  }
+
+  implicit def shapeFuncImplicit3333[D, T, M, RepCol, EncoderDataCol, DecoderDataCol](
+      implicit shape: FormatterShape.Aux[D, T, M, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShape.Aux[RepColumnContent[D, T], T, M, RepCol, EncoderDataCol, DecoderDataCol] = {
+    implicit val shape1 = shape
+    new FormatterShape[RepColumnContent[D, T], RepCol, EncoderDataCol, DecoderDataCol] {
+      override type Target = M
+      override type Data   = T
+      override def wrapRep(base: RepColumnContent[D, T]): M                                = shape1.wrapRep(base.rep)
+      override def toLawRep(base: M, oldRep: RepCol): RepCol                               = shape1.toLawRep(base, oldRep)
+      override def buildData(data: T, rep: M, oldData: EncoderDataCol): EncoderDataCol     = shape1.buildData(data, rep, oldData)
+      override def takeData(rep: M, oldData: DecoderDataCol): SplitData[T, DecoderDataCol] = shape1.takeData(rep, oldData)
     }
   }
 }
