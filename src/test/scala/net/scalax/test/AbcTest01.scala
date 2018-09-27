@@ -7,7 +7,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
 
   val model: LargeModel = LargeModel()
 
-  val result1 = {
+  /*val result1 = {
     import io.circe.generic.auto._
     val encoder = implicitly[io.circe.Encoder[LargeModel]]
 
@@ -23,7 +23,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
 
     val data2 = System.currentTimeMillis
     TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = encoder(model))
-  }
+  }*/
 
   @JsonCodec
   case class sdfhhitehrt(i83: String, i84: String)
@@ -55,7 +55,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
     TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = io.circe.Json.fromJsonObject(circeEncoder.write(model)))
   }
 
-  println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")
+  /*println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")
   println(s"circe-asuna 序列化 ${result2.times} 次消耗了 ${result2.millions} 毫秒")
   println(s"结果是否相等：${result1.jsonModel == result2.jsonModel}")
   println(result2.jsonModel.spaces2)
@@ -67,6 +67,6 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
     }
     val data2 = System.currentTimeMillis
     println(s"转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
-  }
+  }*/
 
 }

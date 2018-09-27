@@ -2,6 +2,7 @@ package net.scalax.asuna.core.common
 
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.core.formatter.FormatterShape
 
 trait RepGroup[Rep <: RepGroupContent] {
   self =>
@@ -78,6 +79,41 @@ object RepGroup {
       }
       override def toLawRep(base: J, oldRep: RepCol): RepCol             = shape.toLawRep(base, oldRep)
       override def buildData(data: F, rep: J, oldData: DataCol): DataCol = shape.buildData(data, rep, oldData)
+    }
+  }
+
+  implicit def repGroupFormatterImplicit1[B, C <: RepGroupContent, E, G, RepCol, EncoderDataCol, DecoderDataCol](
+      implicit shape: FormatterShape.Aux[B, E, G, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShape.Aux[RepGroup[B ++:: C], E, G, RepCol, EncoderDataCol, DecoderDataCol] = {
+    new FormatterShape[RepGroup[B ++:: C], RepCol, EncoderDataCol, DecoderDataCol] {
+      override type Target = G
+      override type Data   = E
+      override def wrapRep(base: RepGroup[B ++:: C]): G = {
+        val head ++:: _ = base.repCol
+        shape.wrapRep(head)
+      }
+      override def toLawRep(base: G, oldRep: RepCol): RepCol                               = shape.toLawRep(base, oldRep)
+      override def buildData(data: E, rep: G, oldData: EncoderDataCol): EncoderDataCol     = shape.buildData(data, rep, oldData)
+      override def takeData(rep: G, oldData: DecoderDataCol): SplitData[E, DecoderDataCol] = shape.takeData(rep, oldData)
+    }
+  }
+
+  implicit def repGroupFormatterImplicit2[B, C <: RepGroupContent, F, G, I, J, RepCol, EncoderDataCol, DecoderDataCol](
+      implicit shape: FormatterShape.Aux[RepGroup[C], F, J, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShape.Aux[RepGroup[B ++:: C], F, J, RepCol, EncoderDataCol, DecoderDataCol] = {
+    new FormatterShape[RepGroup[B ++:: C], RepCol, EncoderDataCol, DecoderDataCol] {
+      override type Target = J
+      override type Data   = F
+      override def wrapRep(base: RepGroup[B ++:: C]): J = {
+        val _ ++:: tail = base.repCol
+        val rGroup = new RepGroup[C] {
+          override val repCol = tail
+        }
+        shape.wrapRep(rGroup)
+      }
+      override def toLawRep(base: J, oldRep: RepCol): RepCol                               = shape.toLawRep(base, oldRep)
+      override def buildData(data: F, rep: J, oldData: EncoderDataCol): EncoderDataCol     = shape.buildData(data, rep, oldData)
+      override def takeData(rep: J, oldData: DecoderDataCol): SplitData[F, DecoderDataCol] = shape.takeData(rep, oldData)
     }
   }
 }

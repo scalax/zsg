@@ -1,7 +1,7 @@
 package net.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.helper.data.macroImpl.EncoderCaseClassMapper
 import net.scalax.asuna.mapper.common.{DataGenWrap, InputTable}
+import net.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
 
 import scala.language.experimental.macros
 
