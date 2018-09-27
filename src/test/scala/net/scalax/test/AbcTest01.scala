@@ -39,7 +39,7 @@ object AbcTest01 extends CirceAsunaEncoderHelper with App {
       }
     }
 
-    val circeEncoder = asunaCirce.effect(asunaCirce.modelOnly[LargeModel](Abc).compile)
+    val circeEncoder = asunaCirce.effect(asunaCirce.singleModel[LargeModel](Abc).compile)
 
     for (_ <- TestParam.preCollection) {
       io.circe.Json.fromJsonObject(circeEncoder.write(model))

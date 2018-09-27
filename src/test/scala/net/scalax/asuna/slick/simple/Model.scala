@@ -23,7 +23,7 @@ class FriendTable3Model(friend: FriendTable2) extends UmrHelper {
   val nick = rep(friend.nick)
   val age  = rep(friend.age)
 
-  lazy val shape: umr.ShapeValue[Friends5] = umr.modelOnly[Friends5](this).compile
+  lazy val shape: umr.ShapeValue[Friends5] = umr.singleModel[Friends5](this).compile
 
   lazy val reader = umr.effect(shape).toSv
 
@@ -35,10 +35,10 @@ case class Friends9(id: Long, nick: Option[String])
 
 class FriendTable4Model(cons: Tag) extends FriendTable2(cons) with UmrHelper {
 
-  lazy val shape6: umr.ShapeValue[Friends6] = umr.modelOnly[Friends6](this).compile
+  lazy val shape6: umr.ShapeValue[Friends6] = umr.singleModel[Friends6](this).compile
   lazy val reader6                          = umr.effect(shape6).toSv
 
-  lazy val shape7: umr.ShapeValue[Friends7] = umr.modelOnly[Friends7](this).compile
+  lazy val shape7: umr.ShapeValue[Friends7] = umr.singleModel[Friends7](this).compile
   lazy val reader7                          = umr.effect(shape7).toSv
 
 }
@@ -47,14 +47,14 @@ class dfjgoshjiotherihte(@(RootTable @field) val valcons: FriendTable4Model) ext
   @OverrideProperty("nick")
   val jfgioseithedrihtgerithuioerht = valcons.nick.?
 
-  lazy val reader1111 = umr.effect(umr.modelOnly[Friends9](this).compile).toSv
+  lazy val reader1111 = umr.effect(umr.singleModel[Friends9](this).compile).toSv
 }
 
 class Abc(aa: dfjgoshjiotherihte) extends UmrHelper {
   @(RootModel[Friends9] @field)
   val sdfsjeriojgreig = aa.reader1111
 
-  lazy val reader2222 = umr.effect(umr.modelOnly[Friends9](this).compile).toSv
+  lazy val reader2222 = umr.effect(umr.singleModel[Friends9](this).compile).toSv
 }
 
 object FriendTable4Model extends TableQuery(cons => new FriendTable4Model(cons))
@@ -65,8 +65,8 @@ case class Friends8(age: Int, dyn: JsonObject)
 class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
   self =>
 
-  def dyn                              = rmu.effect(rmu.modelOnly[DynFields](self).compile).withCols(cols)
-  def shape8: umr.ShapeValue[Friends8] = umr.modelOnly[Friends8](self).compile
+  def dyn                              = rmu.effect(rmu.singleModel[DynFields](self).compile).withCols(cols)
+  def shape8: umr.ShapeValue[Friends8] = umr.singleModel[Friends8](self).compile
   def reader8                          = umr.effect(shape8).toSv
 
 }
@@ -85,8 +85,8 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
   val nick = rep(friend.nick)
   val age  = rep(friend.age)
 
-  lazy val shape: umr.LazyDataShapeValue[InnerFriendInput, InnerFriends2, InnerFriendOutput] =
-    umr.lazyData[InnerFriendInput, InnerFriends2, InnerFriendOutput](self).compile
+  lazy val shape: umr.LazyModelShapeValue[InnerFriendInput, InnerFriends2, InnerFriendOutput] =
+    umr.lazyModel[InnerFriendInput, InnerFriends2, InnerFriendOutput](self).compile
   lazy val reader = umr.effect(shape).toSv
 
 }
@@ -97,7 +97,7 @@ class MarkTableModel(markTable: MarkTable) extends UmrHelper {
   val name = rep(markTable.name)
   val mark = rep(markTable.mark)
 
-  lazy val shape: umr.ShapeValue[InnerMark] = umr.modelOnly[InnerMark](this).compile
+  lazy val shape: umr.ShapeValue[InnerMark] = umr.singleModel[InnerMark](this).compile
   lazy val reader                           = umr.effect(shape).toSv
 
 }

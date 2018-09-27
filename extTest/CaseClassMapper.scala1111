@@ -34,7 +34,7 @@ object DecoderMapper {
       val columnInfoImpl      = weakTypeOf[MacroColumnInfoImpl]
       val caseClassDataHelper = weakTypeOf[CaseClassDataHelper]
       val encoderWitColType   = weakTypeOf[EncoderWitCol]
-      val lazyData            = weakTypeOf[LazyData[Input, Output, Sub]]
+      val lazyModel            = weakTypeOf[lazyModel[Input, Output, Sub]]
       val inputTable          = weakTypeOf[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]]
 
       val mgVar    = "mg" + UUID.randomUUID.toString.replaceAllLiterally("-", "a")
@@ -164,7 +164,7 @@ object DecoderMapper {
             )"""
           )
         }}).asDecoder { (tempData, rep) =>
-                 ${lazyData.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
+                 ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
                  ..${fields.map(
             field =>
             q"""${TermName(field.law)} = ${if (field.needInput) q"""s.${TermName(field.law)}""" else q"""tempData.${TermName("data" + field.helperIndex)}"""}"""
