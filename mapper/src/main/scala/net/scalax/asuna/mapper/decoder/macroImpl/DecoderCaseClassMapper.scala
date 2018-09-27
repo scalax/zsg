@@ -2,7 +2,7 @@ package net.scalax.asuna.mapper.decoder.macroImpl
 
 import net.scalax.asuna.mapper.common.{InputTable, ModelGen}
 import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.mapper.decoder.{DecoderDataGen, LazyData}
+import net.scalax.asuna.mapper.decoder.{DecoderDataGen, LazyModel}
 
 object DecoderCaseClassMapper {
 
@@ -26,7 +26,7 @@ object DecoderCaseClassMapper {
       val sub            = weakTypeOf[Sub]
       val table          = weakTypeOf[Table]
       val outputModelGen = weakTypeOf[ModelGen[Output]]
-      val lazyData       = weakTypeOf[LazyData[Input, Output, Sub]]
+      val lazyModel      = weakTypeOf[LazyModel[Input, Output, Sub]]
       val inputTable     = weakTypeOf[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]]
       val decoderDataGen = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
 
@@ -195,7 +195,7 @@ object DecoderCaseClassMapper {
           $mgDef
           ${decoderDataGen.typeSymbol.companion}
           .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (tempData, rep) =>
-            ${lazyData.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
+            ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
               ..${List(
             notInputOutputFieldNames.map { field =>
             q"""${TermName(field._2)} = ${appendIndexToTree(q"""tempData""", field._2)}"""

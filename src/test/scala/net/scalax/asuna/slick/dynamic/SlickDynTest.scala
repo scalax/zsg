@@ -22,9 +22,9 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper with ShapeHelper
 
   val ext = umr.shaped(List(nick, id)).dmap(_.toMap)
 
-  lazy val umrSv = umr.effect(umr.modelOnly[FilterParam3](self).compile)
+  lazy val umrSv = umr.effect(umr.singleModel[FilterParam3](self).compile)
 
-  val slickFilterSv = filter.modelOnly[FilterParam4](self).compile
+  val slickFilterSv = filter.singleModel[FilterParam4](self).compile
 
 }
 

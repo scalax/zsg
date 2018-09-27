@@ -20,7 +20,7 @@ class FriendTable2(tag: slick.lifted.Tag) extends Table[Friends2](tag, "firend2"
   def nick = column[String]("nick")
   def age  = column[Int]("age")
 
-  override def * : ProvenShape[Friends2] = umr.effect(umr.modelOnly[Friends2](this).compile).shape
+  override def * : ProvenShape[Friends2] = umr.effect(umr.singleModel[Friends2](this).compile).shape
 }
 
 case class Mark(id: Long, name: String, mark: Int, friendId: Long)
@@ -31,7 +31,7 @@ class MarkTable(tag: slick.lifted.Tag) extends Table[Mark](tag, "mark") with Sli
   def mark     = column[Int]("mark")
   def friendId = column[Long]("friend_id")
 
-  override def * : ProvenShape[Mark] = umr.effect(umr.modelOnly[Mark](this).compile).shape
+  override def * : ProvenShape[Mark] = umr.effect(umr.singleModel[Mark](this).compile).shape
 }
 
 class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFutures with BeforeAndAfterAll with BeforeAndAfter {
