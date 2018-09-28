@@ -1,6 +1,7 @@
 package net.scalax.asuna.core.decoder
 
 import net.scalax.asuna.core.common.CommonShapeValue
+import net.scalax.asuna.core.decoder.impl.ZipDecoderShapeHelper
 
 trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] {
   self =>
@@ -11,8 +12,9 @@ trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
 
   def dmap[F](cv: U => F): DecoderShapeValue[F, RepCol, DataCol] = new DecoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType
-    override val rep = self.rep
-    override val shape = new DecoderShape[self.RepType, RepCol, DataCol] {
+    override val rep   = self.rep
+    override val shape = self.shape.dmap((_, u) => cv(u))
+    /*new DecoderShape[self.RepType, RepCol, DataCol] {
       innerSelf =>
       override type Data   = F
       override type Target = self.RepType
@@ -23,8 +25,13 @@ trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
         val current = cv(data.current)
         SplitData(current = current, left = data.left)
       }
+    }*/
+  }
 
-    }
+  def dzip[R](other: DecoderShapeValue[R, RepCol, DataCol]): DecoderShapeValue[(U, R), RepCol, DataCol] = new DecoderShapeValue[(U, R), RepCol, DataCol] {
+    override type RepType = (self.RepType, other.RepType)
+    override val rep   = (self.rep, other.rep)
+    override val shape = ZipDecoderShapeHelper.zipDecoder(self.shape, other.shape)
   }
 
 }

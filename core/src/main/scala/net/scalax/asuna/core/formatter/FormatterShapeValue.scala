@@ -3,6 +3,7 @@ package net.scalax.asuna.core.formatter
 import net.scalax.asuna.core.common.CommonShapeValue
 import net.scalax.asuna.core.decoder.{DecoderShapeValue, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShapeValue
+import net.scalax.asuna.core.encoder.impl.ZipFormatterShapeHelper
 
 trait FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
     extends EncoderShapeValue[U, RepCol, EncoderDataCol]
@@ -17,8 +18,9 @@ trait FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
   def fmap[F](cv: U => F)(rcv: F => U): FormatterShapeValue[F, RepCol, EncoderDataCol, DecoderDataCol] =
     new FormatterShapeValue[F, RepCol, EncoderDataCol, DecoderDataCol] {
       override type RepType = self.RepType
-      override val rep = self.rep
-      override val shape = new FormatterShape[self.RepType, RepCol, EncoderDataCol, DecoderDataCol] {
+      override val rep   = self.rep
+      override val shape = self.shape.fmap((_, u) => cv(u))((_, f) => rcv(f))
+      /*new FormatterShape[self.RepType, RepCol, EncoderDataCol, DecoderDataCol] {
         innerSelf =>
         override type Data   = F
         override type Target = self.RepType
@@ -30,7 +32,14 @@ trait FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
           SplitData(current = current, left = data.left)
         }
         override def buildData(data: F, rep: RepType, oldData: EncoderDataCol): EncoderDataCol = self.shape.buildData(rcv(data), rep, oldData)
-      }
+      }*/
+    }
+
+  def fzip[R](other: FormatterShapeValue[R, RepCol, EncoderDataCol, DecoderDataCol]): FormatterShapeValue[(U, R), RepCol, EncoderDataCol, DecoderDataCol] =
+    new FormatterShapeValue[(U, R), RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = (self.RepType, other.RepType)
+      override val rep   = (self.rep, other.rep)
+      override val shape = ZipFormatterShapeHelper.zipFormatter(self.shape, other.shape)
     }
 
 }
