@@ -2,7 +2,6 @@ package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-
 trait DecoderDataGen[Input, Output, Sub] {
 
   type TempData
@@ -27,5 +26,3 @@ object DecoderDataGen {
       override val rep                                                                        = wrap.rep
     }
 }
-
-

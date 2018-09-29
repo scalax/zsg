@@ -2,7 +2,6 @@ package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-
 trait FormatterDataGen[Output] {
 
   type TempData
@@ -33,5 +32,3 @@ object FormatterDataGen {
   def fromDataGenWrap[Output]: DataGenWrap[Output] = new DataGenWrap[Output] {}
 
 }
-
-

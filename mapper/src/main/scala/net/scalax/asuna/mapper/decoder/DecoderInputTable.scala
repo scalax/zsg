@@ -4,8 +4,6 @@ import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
 
 import scala.language.experimental.macros
 
-
-
 trait DecoderInputTable[Table, Input, Output, Sub] {
 
   type TempRep

@@ -2,8 +2,7 @@ package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
 
-
-
+import scala.language.experimental.macros
 
 trait FormatterInputTable[Table, Output] {
 

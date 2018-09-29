@@ -2,7 +2,6 @@ package net.scalax.asuna.mapper.encoder
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-
 trait EncoderDataGen[Output] {
 
   type TempData
@@ -31,5 +30,3 @@ object EncoderDataGen {
   def fromDataGenWrap[Output]: DataGenWrap[Output] = new DataGenWrap[Output] {}
 
 }
-
-
