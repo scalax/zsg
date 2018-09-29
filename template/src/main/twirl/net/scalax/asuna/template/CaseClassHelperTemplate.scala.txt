@@ -6,8 +6,6 @@ import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData }
 import net.scalax.asuna.core.formatter.FormatterShape
 
-import shapeless._
-
 trait CaseClassMapper
 
 object CaseClassMapper {

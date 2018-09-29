@@ -1,8 +1,8 @@
 package net.scalax.asuna.mapper.decoder.macroImpl
 
-import net.scalax.asuna.mapper.common.{InputTable, ModelGen}
+import net.scalax.asuna.mapper.common.ModelGen
 import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.mapper.decoder.{DecoderDataGen, LazyModel}
+import net.scalax.asuna.mapper.decoder.{DecoderDataGen, DecoderInputTable, LazyModel}
 
 object DecoderCaseClassMapper {
 
@@ -18,17 +18,17 @@ object DecoderCaseClassMapper {
       , Table: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ]: c.Expr[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]] = {
-      val rep            = weakTypeOf[Rep]
-      val tempData       = weakTypeOf[TempData]
-      val input          = weakTypeOf[Input]
-      val output         = weakTypeOf[Output]
-      val sub            = weakTypeOf[Sub]
-      val table          = weakTypeOf[Table]
-      val outputModelGen = weakTypeOf[ModelGen[Output]]
-      val lazyModel      = weakTypeOf[LazyModel[Input, Output, Sub]]
-      val inputTable     = weakTypeOf[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]]
-      val decoderDataGen = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
+    ]: c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] = {
+      val rep               = weakTypeOf[Rep]
+      val tempData          = weakTypeOf[TempData]
+      val input             = weakTypeOf[Input]
+      val output            = weakTypeOf[Output]
+      val sub               = weakTypeOf[Sub]
+      val table             = weakTypeOf[Table]
+      val outputModelGen    = weakTypeOf[ModelGen[Output]]
+      val lazyModel         = weakTypeOf[LazyModel[Input, Output, Sub]]
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Table, Input, Output, Sub]]
+      val decoderDataGen    = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
 
       val modelGenName = c.freshName("modelGen")
       val tableName    = c.freshName("tableInstance")
@@ -189,9 +189,9 @@ object DecoderCaseClassMapper {
       val fields    = deepFields
       val subFields = deepFields.filter(s => s.field.needSub)
 
-      val q = c.Expr[InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]] {
+      val q = c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] {
         q"""
-        ${inputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
+        ${decoderInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           $mgDef
           ${decoderDataGen.typeSymbol.companion}
           .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (tempData, rep) =>

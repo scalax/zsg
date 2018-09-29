@@ -1,9 +1,6 @@
 package net.scalax.asuna.mapper.formatter
 
-import net.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
-import net.scalax.asuna.mapper.common.{DataGenWrap, InputTable}
-
-import scala.language.experimental.macros
+import net.scalax.asuna.mapper.common.DataGenWrap
 
 trait FormatterDataGen[Output] {
 
@@ -19,9 +16,6 @@ trait FormatterDataGen[Output] {
 object FormatterDataGen {
 
   type Aux[Output, Rep, Temp] = FormatterDataGen[Output] { type TempRep = Rep; type TempData = Temp }
-
-  implicit def formatterDataGenImplicit[Output, Table, Rep, Temp]: InputTable[Table, FormatterDataGen.Aux[Output, Rep, Temp]] =
-    macro FormatterCaseClassMapper.FormatterCaseClassMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
 
   trait DataGenWrap[Output] {
     def apply[TempRep, TempData](

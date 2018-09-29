@@ -1,8 +1,8 @@
 package net.scalax.asuna.helper.data.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, InputTable, ModelGen}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, ModelGen}
 import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.mapper.formatter.FormatterDataGen
+import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable}
 
 import scala.annotation.tailrec
 
@@ -12,16 +12,16 @@ object FormatterCaseClassMapper {
 
     import c.universe._
 
-    def caseclassEncoderGeneric[Output: c.WeakTypeTag, Table: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
-      : c.Expr[InputTable[Table, FormatterDataGen.Aux[Output, Rep, TempData]]] = {
-      val rep              = weakTypeOf[Rep]
-      val tempData         = weakTypeOf[TempData]
-      val output           = weakTypeOf[Output]
-      val table            = weakTypeOf[Table]
-      val outputModelGen   = weakTypeOf[ModelGen[Output]]
-      val inputTable       = weakTypeOf[InputTable[Table, FormatterDataGen.Aux[Output, Rep, TempData]]]
-      val caseClassMapper  = weakTypeOf[CaseClassMapper]
-      val formatterDataGen = weakTypeOf[FormatterDataGen[Output]]
+    def caseclassFormatterGeneric[Output: c.WeakTypeTag, Table: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
+      : c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] = {
+      val rep                 = weakTypeOf[Rep]
+      val tempData            = weakTypeOf[TempData]
+      val output              = weakTypeOf[Output]
+      val table               = weakTypeOf[Table]
+      val outputModelGen      = weakTypeOf[ModelGen[Output]]
+      val formatterInputTable = weakTypeOf[FormatterInputTable[Table, Output]]
+      val caseClassMapper     = weakTypeOf[CaseClassMapper]
+      val formatterDataGen    = weakTypeOf[FormatterDataGen[Output]]
 
       val modelGenName = c.freshName("modelGen")
       val tableName    = c.freshName("tableInstance")
@@ -246,9 +246,9 @@ object FormatterCaseClassMapper {
 
       val fields = fieldsPrepare
 
-      val q = c.Expr[InputTable[Table, FormatterDataGen.Aux[Output, Rep, TempData]]] {
+      val q = c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] {
         q"""
-        ${inputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
+        ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           $mgDef
           ${formatterDataGen.typeSymbol.companion}
           .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass, rep) =>

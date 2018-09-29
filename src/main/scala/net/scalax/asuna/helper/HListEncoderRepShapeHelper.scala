@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.encoder
+package net.scalax.asuna.helper
 
 import net.scalax.asuna.core.encoder.EncoderShape
 import shapeless._

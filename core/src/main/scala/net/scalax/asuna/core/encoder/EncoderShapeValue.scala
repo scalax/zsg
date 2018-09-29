@@ -1,6 +1,7 @@
 package net.scalax.asuna.core.encoder
 
 import net.scalax.asuna.core.common.CommonShapeValue
+import net.scalax.asuna.core.encoder.impl.ZipEncoderShapeHelper
 
 trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] {
   self =>
@@ -11,8 +12,9 @@ trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
 
   def emap[F](cv: F => U): EncoderShapeValue[F, RepCol, DataCol] = new EncoderShapeValue[F, RepCol, DataCol] {
     override type RepType = self.RepType
-    override val rep = self.rep
-    override val shape = new EncoderShape[self.RepType, RepCol, DataCol] {
+    override val rep   = self.rep
+    override val shape = self.shape.emap[F]((_, f) => cv(f))
+    /*new EncoderShape[self.RepType, RepCol, DataCol] {
       innerSelf =>
 
       override type Data   = F
@@ -21,7 +23,13 @@ trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
       override def toLawRep(base: self.RepType, oldRep: RepCol): RepCol             = self.shape.toLawRep(self.rep, oldRep)
       override def buildData(data: F, rep: self.RepType, oldData: DataCol): DataCol = self.shape.buildData(cv(data), rep, oldData)
 
-    }
+    }*/
+  }
+
+  def ezip[R](other: EncoderShapeValue[R, RepCol, DataCol]): EncoderShapeValue[(U, R), RepCol, DataCol] = new EncoderShapeValue[(U, R), RepCol, DataCol] {
+    override type RepType = (self.RepType, other.RepType)
+    override val rep   = (self.rep, other.rep)
+    override val shape = ZipEncoderShapeHelper.zipEncoder(self.shape, other.shape)
   }
 
 }

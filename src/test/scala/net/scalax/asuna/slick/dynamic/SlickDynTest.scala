@@ -1,9 +1,8 @@
 package net.scalax.slick.dynamic
 
 import io.circe.Json
+import net.scalax.asuna.helper.{HListDecoderShapeImplicit, HListEncoderShapeImplicit}
 import net.scalax.asuna.mapper.common.ShapeHelper
-import net.scalax.asuna.mapper.decoder.HListDecoderShapeImplicit
-import net.scalax.asuna.mapper.encoder.HListEncoderShapeImplicit
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import net.scalax.slick.async.FriendTable2
 import net.scalax.asuna.slick.umr.UmrHelper

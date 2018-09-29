@@ -1,14 +1,13 @@
 package net.scalax.asuna.mapper.encoder
 
 import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
-import net.scalax.asuna.mapper.common.InputTable
 
 trait EncoderWrapApply[RepCol, DataCol] {
   def withModel[Case]: CaseWrap[Case] = new CaseWrap[Case] {}
   trait CaseWrap[Case] {
 
     def apply[Table, Rep, TempData](table: Table)(
-        implicit repWrap: InputTable[Table, EncoderDataGen.Aux[Case, Rep, TempData]]
+        implicit repWrap: EncoderInputTable.Aux[Table, Case, Rep, TempData]
     ): EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] =
       new EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] {
         override def compile[Target1](implicit shape: EncoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
