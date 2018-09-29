@@ -1,7 +1,7 @@
 package net.scalax.asuna.circe
 
-import io.circe.{Decoder, Encoder, Json}
-import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl, CirceAsunaEncoderImpl}
+import io.circe.{Decoder, Json}
+import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.mapper.common.RepColumnContent
@@ -60,13 +60,13 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
   }
 
   trait DecoderApply1111[T] {
-    def func[R](key: String, f: T => R)(implicit encoder: Encoder[R]): CirceAsunaEncoderImpl[T] = {
+    /*def func[R](key: String, f: T => R)(implicit encoder: Encoder[R]): CirceAsunaEncoderImpl[T] = {
       val key1 = key
       new CirceAsunaEncoderImpl[T] {
         override val key                  = key1
         override def write(data: T): Json = encoder(f(data))
       }
-    }
+    }*/
   }
 
   def cusEncoder1111[T]: DecoderApply1111[T] = new DecoderApply1111[T] {}

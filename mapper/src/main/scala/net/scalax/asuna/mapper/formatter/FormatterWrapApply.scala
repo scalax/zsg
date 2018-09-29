@@ -1,14 +1,13 @@
 package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.core.formatter.{FormatterShape, FormatterShapeValue}
-import net.scalax.asuna.mapper.common.InputTable
 
 trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
   def withModel[Case]: CaseWrap[Case] = new CaseWrap[Case] {}
   trait CaseWrap[Case] {
 
     def apply[Table, Rep, TempData](table: Table)(
-        implicit repWrap: InputTable[Table, FormatterDataGen.Aux[Case, Rep, TempData]]
+        implicit repWrap: FormatterInputTable.Aux[Table, Case, Rep, TempData]
     ): FormatterCompiler[Rep, TempData, RepCol, EncoderDataCol, DecoderDataCol, Case] =
       new FormatterCompiler[Rep, TempData, RepCol, EncoderDataCol, DecoderDataCol, Case] {
         override def compile[Target1](

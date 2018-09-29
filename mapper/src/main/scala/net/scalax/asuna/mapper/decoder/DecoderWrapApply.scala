@@ -1,7 +1,6 @@
 package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.mapper.common.InputTable
 
 trait DecoderWrapApply[RepCol, DataCol] {
   def withLazyModel[Input, Output, Sub]: LazyModelWrap[Input, Output, Sub] = new LazyModelWrap[Input, Output, Sub] {}
@@ -11,7 +10,7 @@ trait DecoderWrapApply[RepCol, DataCol] {
 
     def apply[Table, Rep, TempData](table: Table)(
         implicit
-      repWrap: InputTable[Table, DecoderDataGen.Aux[Input, Output, Sub, Rep, TempData]]
+      repWrap: DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]
     ): DecoderCompiler[Rep, TempData, RepCol, DataCol, LazyModel[Input, Output, Sub]] =
       new DecoderCompiler[Rep, TempData, RepCol, DataCol, LazyModel[Input, Output, Sub]] {
         override def compile[Target1](
@@ -37,7 +36,7 @@ trait DecoderWrapApply[RepCol, DataCol] {
 
     def apply[Table, Rep, TempData](table: Table)(
         implicit
-      repWrap: InputTable[Table, DecoderDataGen.Aux[EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]]
+      repWrap: DecoderInputTable.Aux[Table, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
     ): DecoderCompiler[Rep, TempData, RepCol, DataCol, Case] =
       new DecoderCompiler[Rep, TempData, RepCol, DataCol, Case] {
         override def compile[Target1](implicit shape: DecoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): DecoderShapeValue[Case, RepCol, DataCol] = {

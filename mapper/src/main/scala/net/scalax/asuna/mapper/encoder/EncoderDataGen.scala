@@ -1,9 +1,7 @@
 package net.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.mapper.common.{DataGenWrap, InputTable}
-import net.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
+import net.scalax.asuna.mapper.common.DataGenWrap
 
-import scala.language.experimental.macros
 
 trait EncoderDataGen[Output] {
 
@@ -17,10 +15,7 @@ trait EncoderDataGen[Output] {
 
 object EncoderDataGen {
 
-  type Aux[Output, Rep, Temp] = EncoderDataGen[Output] { type TempRep = Rep; type TempData = Temp }
-
-  implicit def encoderDataGenImplicit[Output, Table, Rep, Temp]: InputTable[Table, EncoderDataGen.Aux[Output, Rep, Temp]] =
-    macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseclassEncoderGeneric[Output, Table, Rep, Temp]
+  type Aux[Output, Rep, Data] = EncoderDataGen[Output] { type TempRep = Rep; type TempData = Data }
 
   trait DataGenWrap[Output] {
     def apply[TempRep, TempData](
@@ -36,3 +31,5 @@ object EncoderDataGen {
   def fromDataGenWrap[Output]: DataGenWrap[Output] = new DataGenWrap[Output] {}
 
 }
+
+

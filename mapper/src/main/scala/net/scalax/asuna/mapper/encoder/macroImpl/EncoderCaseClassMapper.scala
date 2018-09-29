@@ -1,8 +1,8 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, InputTable, ModelGen}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, ModelGen}
 import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
-import net.scalax.asuna.mapper.encoder.EncoderDataGen
+import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable}
 
 import scala.annotation.tailrec
 
@@ -13,15 +13,15 @@ object EncoderCaseClassMapper {
     import c.universe._
 
     def caseclassEncoderGeneric[Output: c.WeakTypeTag, Table: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
-      : c.Expr[InputTable[Table, EncoderDataGen.Aux[Output, Rep, TempData]]] = {
-      val rep             = weakTypeOf[Rep]
-      val tempData        = weakTypeOf[TempData]
-      val output          = weakTypeOf[Output]
-      val table           = weakTypeOf[Table]
-      val outputModelGen  = weakTypeOf[ModelGen[Output]]
-      val inputTable      = weakTypeOf[InputTable[Table, EncoderDataGen.Aux[Output, Rep, TempData]]]
-      val caseClassMapper = weakTypeOf[CaseClassMapper]
-      val encoderDataGen  = weakTypeOf[EncoderDataGen[Output]]
+      : c.Expr[EncoderInputTable.Aux[Table, Output, Rep, TempData]] = {
+      val rep               = weakTypeOf[Rep]
+      val tempData          = weakTypeOf[TempData]
+      val output            = weakTypeOf[Output]
+      val table             = weakTypeOf[Table]
+      val outputModelGen    = weakTypeOf[ModelGen[Output]]
+      val encoderInputTable = weakTypeOf[EncoderInputTable[Table, Output]]
+      val caseClassMapper   = weakTypeOf[CaseClassMapper]
+      val encoderDataGen    = weakTypeOf[EncoderDataGen[Output]]
 
       val modelGenName = c.freshName("modelGen")
       val tableName    = c.freshName("tableInstance")
@@ -175,9 +175,9 @@ object EncoderCaseClassMapper {
 
       val fields = fieldsPrepare
 
-      val q = c.Expr[InputTable[Table, EncoderDataGen.Aux[Output, Rep, TempData]]] {
+      val q = c.Expr[EncoderInputTable.Aux[Table, Output, Rep, TempData]] {
         q"""
-        ${inputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
+        ${encoderInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           $mgDef
           ${encoderDataGen.typeSymbol.companion}
           .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass, rep) =>
