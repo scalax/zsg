@@ -3,7 +3,7 @@ package net.scalax.asuna.helper
 import net.scalax.asuna.core.encoder.EncoderShape
 import shapeless._
 
-trait HListEncoderShapeImplicit {
+trait HListEncoderRepShapeImplicit {
 
   implicit def hlistEncoderImplicit1[RepCol, DataCol]: EncoderShape.Aux[HNil, HNil, HNil, RepCol, DataCol] = {
     new EncoderShape[HNil, RepCol, DataCol] {

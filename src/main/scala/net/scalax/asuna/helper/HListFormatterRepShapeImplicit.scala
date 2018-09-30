@@ -4,7 +4,7 @@ import net.scalax.asuna.core.decoder.SplitData
 import net.scalax.asuna.core.formatter.FormatterShape
 import shapeless._
 
-trait HListFormatterRepShapeHelper {
+trait HListFormatterRepShapeImplicit {
 
   implicit def hlistFormatterImplicit1[RepCol, EncoderDataCol, DecoderDataCol]: FormatterShape.Aux[HNil, HNil, HNil, RepCol, EncoderDataCol, DecoderDataCol] = {
     new FormatterShape[HNil, RepCol, EncoderDataCol, DecoderDataCol] {

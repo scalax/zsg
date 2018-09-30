@@ -1,7 +1,7 @@
 package net.scalax.slick.dynamic
 
 import io.circe.Json
-import net.scalax.asuna.helper.{HListDecoderShapeImplicit, HListEncoderShapeImplicit}
+import net.scalax.asuna.helper.{HListDecoderRepShapeImplicit, HListEncoderRepShapeImplicit}
 import net.scalax.asuna.mapper.common.ShapeHelper
 import net.scalax.asuna.slick.filter.SlickFilterColHelper
 import net.scalax.slick.async.FriendTable2
@@ -31,14 +31,13 @@ class FriendTable2Model2(friend: FriendTable2)
     extends UmrHelper
     with ShapeHelper
     with SlickFilterColHelper
-    with HListDecoderShapeImplicit
-    with HListEncoderShapeImplicit {
+    with HListDecoderRepShapeImplicit
+    with HListEncoderRepShapeImplicit {
 
   val nameAndAge = (rep(friend.name) :: rep(friend.age) :: HNil).mixin(filterRep(friend.name) :: filterRep(friend.age) :: HNil)
   val nick       = jsonKey(friend.nick, "nickName")
   val id         = jsonKey(friend.id, "id")
 
-  val gen  = Generic[FilterParam3]
   val gen1 = Generic[FilterParam4]
 
   lazy val umrSv = umr.effect(umr.shaped(nameAndAge :: List(nick, id) :: HNil).dmap {
