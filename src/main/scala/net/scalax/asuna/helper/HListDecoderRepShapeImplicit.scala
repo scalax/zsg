@@ -3,7 +3,7 @@ package net.scalax.asuna.helper
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import shapeless.{::, HList, HNil, Lazy}
 
-trait HListDecoderShapeImplicit {
+trait HListDecoderRepShapeImplicit {
 
   implicit def hlistDecoderImplicit1[RepCol, DataCol]: DecoderShape.Aux[HNil, HNil, HNil, RepCol, DataCol] = {
     new DecoderShape[HNil, RepCol, DataCol] {
