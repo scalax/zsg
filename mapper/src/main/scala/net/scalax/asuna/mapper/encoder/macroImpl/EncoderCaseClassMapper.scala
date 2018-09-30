@@ -1,14 +1,12 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, ModelGen}
-import net.scalax.asuna.mapper.common.macroImpl.{BaseCaseClassMapperUtils, TableFieldsGen}
+import net.scalax.asuna.mapper.common.ModelGen
+import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
 import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable}
-
-import scala.annotation.tailrec
 
 object EncoderCaseClassMapper {
 
-  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BaseCaseClassMapperUtils with TableFieldsGen {
+  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends RepMapperUtils {
 
     import c.universe._
 
@@ -20,7 +18,6 @@ object EncoderCaseClassMapper {
       val table             = weakTypeOf[Table]
       val outputModelGen    = weakTypeOf[ModelGen[Output]]
       val encoderInputTable = weakTypeOf[EncoderInputTable[Table, Output]]
-      val caseClassMapper   = weakTypeOf[CaseClassMapper]
       val encoderDataGen    = weakTypeOf[EncoderDataGen[Output]]
 
       val modelGenName = c.freshName("modelGen")
@@ -108,70 +105,6 @@ object EncoderCaseClassMapper {
             ((fieldName :: nameList), newLawIndex, newHelperIndex)
           }
       }
-
-      @tailrec
-      def setCaseClass(treeList: List[Tree]): List[Tree] = {
-        if (treeList.size == 1)
-          treeList
-        else {
-          val upper = treeList.grouped(maxNum).toList.map { items =>
-            val q =
-              q"""
-           ${caseClassMapper.typeSymbol.companion}.withData(
-                 ..${items.zipWithIndex.flatMap {
-                case (field, index) =>
-                  val plusIndex = index + 1
-                  List(
-                      q"""${TermName("data" + plusIndex.toString)} = ${field}"""
-                  )
-              }}
-                 )
-          """
-
-            q
-          }
-          setCaseClass(upper)
-        }
-      }
-
-      def initSetCaseClass(nameList: List[FieldName]): List[Tree] = {
-        nameList.grouped(maxNum).toList.map { item =>
-          val q =
-            q"""
-           ${caseClassMapper.typeSymbol.companion}.withData(
-                 ..${item.zipWithIndex.flatMap {
-              case (fieldItem, index) =>
-                val plusIndex = index + 1
-                fieldItem.tableFields.flatMap(
-                    s =>
-                    s.key match {
-                      case Left(_) =>
-                        Option.empty
-                      case Right(i) =>
-                        Option(i)
-                    }
-                ) match {
-                  case Some(MutiplyKey(keys, typeRef)) =>
-                    List(
-                        q"""${TermName("data" + plusIndex.toString)} = ${typeRef.typeSymbol.companion}(..${keys
-                        .map(key => q"""${TermName(key)} = caseClass.${TermName(key)}""")})"""
-                    )
-
-                  case _ =>
-                    List(
-                        q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(fieldItem.law)}"""
-                    )
-                }
-
-            }}
-                 )
-          """
-
-          q
-        }
-      }
-
-      def fullSetCaseClass(nameList: List[FieldName]): Tree = setCaseClass(initSetCaseClass(nameList)).head
 
       val fields = fieldsPrepare
 
