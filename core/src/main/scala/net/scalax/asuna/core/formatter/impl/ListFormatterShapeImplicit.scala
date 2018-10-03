@@ -17,7 +17,7 @@ trait ListFormatterShapeImplicit {
         shape.toLawRep(item, rep)
       }
       override def takeData(rep: List[C], oldData: DecoderDataCol): SplitData[List[B], DecoderDataCol] = {
-        rep.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>
+        rep.reverse.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>
           val newSplit = shape.takeData(rep, splitData.left)
           SplitData(newSplit.current :: splitData.current, newSplit.left)
         }

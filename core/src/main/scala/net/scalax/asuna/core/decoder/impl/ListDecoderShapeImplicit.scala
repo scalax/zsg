@@ -16,7 +16,7 @@ trait ListDecoderShapeImplicit {
         shape.toLawRep(item, rep)
       }
       override def takeData(rep: List[C], oldData: DataCol): SplitData[List[B], DataCol] = {
-        rep.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>
+        rep.reverse.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>
           val newSplit = shape.takeData(rep, splitData.left)
           SplitData(newSplit.current :: splitData.current, newSplit.left)
         }
