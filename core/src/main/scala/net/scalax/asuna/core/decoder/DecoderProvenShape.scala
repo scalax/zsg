@@ -8,7 +8,7 @@ trait DecoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol
 
 object DecoderProvenShape {
 
-  implicit def dataProvenShapeShape[U, RepCol, DataCol, R <: DecoderProvenShape[U, RepCol, DataCol]]: DecoderShape.Aux[R, U, R, RepCol, DataCol] = {
+  /*implicit def dataProvenShapeShape[U, RepCol, DataCol, R <: DecoderProvenShape[U, RepCol, DataCol]]: DecoderShape.Aux[R, U, R, RepCol, DataCol] = {
 
     new DecoderShape[R, RepCol, DataCol] {
       self =>
@@ -22,6 +22,6 @@ object DecoderProvenShape {
 
     }
 
-  }
+  }*/
 
 }

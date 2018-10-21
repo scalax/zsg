@@ -4,7 +4,7 @@ import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.formatter.FormatterShape
 
-trait RepColumnContent[Rep, Data] {
+trait RepColumnContent[+Rep, Data] {
 
   val rep: Rep
   val columnInfo: MacroColumnInfo
