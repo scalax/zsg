@@ -24,12 +24,14 @@ object EncoderCaseClassMapper {
       val output            = weakTypeOf[Output]
       val unused            = weakTypeOf[Unused]
       val table             = weakTypeOf[Table]
+      val inputModelGen     = weakTypeOf[ModelGen[Input]]
       val outputModelGen    = weakTypeOf[ModelGen[Output]]
       val encoderInputTable = weakTypeOf[EncoderInputTable[Table, Input, Output, Unused]]
       val encoderDataGen    = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
 
-      val modelGenName = c.freshName("modelGen")
-      val tableName    = c.freshName("tableInstance")
+      val modelGenName      = c.freshName("modelGen")
+      val inputModelGenName = c.freshName("inputModelGen")
+      val tableName         = c.freshName("tableInstance")
 
       val inputFieldNames = input.members
         .filter { s =>
@@ -66,7 +68,10 @@ object EncoderCaseClassMapper {
 
       val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_._2).contains(s._2)) ::: inputFieldNames
 
-      def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
+      def mgDef = List(
+          q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
+        , q"""val ${TermName(inputModelGenName)}: $inputModelGen = ${inputModelGen.typeSymbol.companion}.value[$input]"""
+      )
 
       /*val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
         case ((nameList, lawIndex), (member, strName)) =>
@@ -139,11 +144,18 @@ object EncoderCaseClassMapper {
       val fields = fieldsPrepare
 
       val q = c.Expr[EncoderInputTable.Aux[Table, Input, Output, Unused, Rep, TempData]] {
+
         q"""
         ${encoderInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
-          $mgDef
+          ..$mgDef
           ${encoderDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$input, $output, $unused](${toRepMapper(fields = fields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass, rep) =>
+          .fromDataGenWrap[$input, $output, $unused](${toRepMapper(
+            fields = fields
+          , tableName = tableName
+          , modelGenName = modelGenName
+          , inputModelName = inputModelGenName
+          , inputFields = inputFieldNames.map(_._2)
+        )}.dataGenWrap) { (caseClass, rep) =>
             ${fullSetCaseClass(nameList = fields, inputFieldNames = inputFieldNames.map(_._2), outputFieldNames = outputFieldNames.map(_._2))}
           }
         }

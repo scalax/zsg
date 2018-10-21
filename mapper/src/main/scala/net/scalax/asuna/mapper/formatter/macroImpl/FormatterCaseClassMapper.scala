@@ -91,7 +91,7 @@ object FormatterCaseClassMapper {
         ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           $mgDef
           ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass1, rep) =>
+          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, modelGenName = modelGenName, "not to use", List.empty)}.dataGenWrap) { (caseClass1, rep) =>
             val caseClass = ${unusedData.typeSymbol.companion}.simple(caseClass1)
             ${fullSetCaseClass(fieldsPrepare, inputFieldNames = List.empty, outputFieldNames = outputFieldNames.map(_._2))}
           } { (tempData, rep) =>
