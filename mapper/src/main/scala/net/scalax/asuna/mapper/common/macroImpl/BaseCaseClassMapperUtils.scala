@@ -35,7 +35,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     q
   }
 
-  def initProperty(fieldNames: List[FieldName], tableName: String, modelGenName: String): List[Tree] = {
+  def initProperty(fieldNames: List[FieldName], tableName: String, modelGenName: String, inputModelName: String, inputFields: List[String]): List[Tree] = {
     val caseClassMapper = weakTypeOf[CaseClassMapper]
     val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
     val proType         = weakTypeOf[PropertyType[String]]
@@ -46,6 +46,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val q = q"""
           ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.filter(s => !s.needInput).zipWithIndex.flatMap {
           case (field, index) =>
+            val modelNameToUse = if (inputFields.contains(field.law)) inputModelName else modelGenName
+
             val proTree = field.tableFields
               .flatMap(
                   s =>
@@ -60,12 +62,12 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
               case Some(autalType) =>
                 q"""new ${proType.typeSymbol}[${autalType}] { }"""
               case _ =>
-                q"""${TermName(modelGenName)}(_.${TermName(field.law)})"""
+                q"""${TermName(modelNameToUse)}(_.${TermName(field.law)})"""
             }
 
             val plusIndex = index + 1
             List(
-                q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(modelGenName = modelGenName, fieldName = field, tableName = tableName)}"""
+                q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(modelGenName = modelNameToUse, fieldName = field, tableName = tableName)}"""
               //, q"""${TermName("property" + plusIndex)} = ${TermName(modelGenName)}(_.${TermName(field.law)})"""
               , q"""${TermName("property" + plusIndex)} = $proTree"""
               , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
@@ -108,8 +110,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     }
   }
 
-  def toRepMapper(fields: List[FieldName], tableName: String, modelGenName: String): Tree = {
-    withDataDescribeFunc(initProperty(fieldNames = fields, tableName = tableName, modelGenName = modelGenName)).head
+  def toRepMapper(fields: List[FieldName], tableName: String, modelGenName: String, inputModelName: String, inputFields: List[String]): Tree = {
+    withDataDescribeFunc(
+        initProperty(fieldNames = fields, tableName = tableName, modelGenName = modelGenName, inputModelName = inputModelName, inputFields = inputFields)
+    ).head
   }
 
 }

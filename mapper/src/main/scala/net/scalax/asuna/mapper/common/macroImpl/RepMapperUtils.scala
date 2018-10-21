@@ -125,14 +125,14 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
                 }
             ) match {
               case Some(MutiplyKey(keys, typeRef)) =>
-                val proName = if (inputFieldNames.contains(keys.head)) "input" else "model"
+                val proName = if (inputFieldNames.exists(s => keys.head == s)) "input" else "model"
                 List(
                     q"""${TermName("data" + plusIndex.toString)} = ${typeRef.typeSymbol.companion}(..${keys
                     .map(key => q"""${TermName(key)} = caseClass.${TermName(proName)}.${TermName(key)}""")})"""
                 )
 
               case _ =>
-                val proName = if (inputFieldNames.contains(fieldItem.law)) "input" else "model"
+                val proName = if (inputFieldNames.exists(s => fieldItem.law == s)) "input" else "model"
                 List(
                     q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(proName)}.${TermName(fieldItem.law)}"""
                 )

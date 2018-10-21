@@ -122,7 +122,7 @@ object DecoderCaseClassMapper {
         ${decoderInputTable.typeSymbol.companion} { ${TermName(tableName)}: ${table} =>
           $mgDef
           ${decoderDataGen.typeSymbol.companion}
-          .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (tempData, rep) =>
+          .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, modelGenName = modelGenName, "not to use", List.empty)}.dataGenWrap) { (tempData, rep) =>
             ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
               ..${List(
             notInputOutputFieldNames.map { field =>
