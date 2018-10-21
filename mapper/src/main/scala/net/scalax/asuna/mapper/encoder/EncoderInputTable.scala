@@ -21,7 +21,7 @@ object EncoderInputTable {
     macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseclassEncoderGeneric[Input, Output, Unused, Table, Rep, Temp]
 
   def apply[T, Input, Output, Unused, Rep, Data](
-    f: T => EncoderDataGen.Aux[Input, Output, Unused, Rep, Data]
+      f: T => EncoderDataGen.Aux[Input, Output, Unused, Rep, Data]
   ): EncoderInputTable.Aux[T, Input, Output, Unused, Rep, Data] = new EncoderInputTable[T, Input, Output, Unused] {
     override type TempRep  = Rep
     override type TempData = Data
