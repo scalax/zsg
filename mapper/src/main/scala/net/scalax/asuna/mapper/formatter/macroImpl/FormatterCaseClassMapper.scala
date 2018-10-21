@@ -2,6 +2,8 @@ package net.scalax.asuna.helper.data.macroImpl
 
 import net.scalax.asuna.mapper.common.ModelGen
 import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
+import net.scalax.asuna.mapper.decoder.EmptyLazyModel
+import net.scalax.asuna.mapper.encoder.UnusedData
 import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable}
 
 object FormatterCaseClassMapper {
@@ -19,6 +21,7 @@ object FormatterCaseClassMapper {
       val outputModelGen      = weakTypeOf[ModelGen[Output]]
       val formatterInputTable = weakTypeOf[FormatterInputTable[Table, Output]]
       val formatterDataGen    = weakTypeOf[FormatterDataGen[Output]]
+      val unusedData          = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
 
       val modelGenName = c.freshName("modelGen")
       val tableName    = c.freshName("tableInstance")
@@ -88,8 +91,9 @@ object FormatterCaseClassMapper {
         ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           $mgDef
           ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(fieldsPrepare)}
+          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, modelGenName = modelGenName)}.dataGenWrap) { (caseClass1, rep) =>
+            val caseClass = ${unusedData.typeSymbol.companion}.simple(caseClass1)
+            ${fullSetCaseClass(fieldsPrepare, inputFieldNames = List.empty, outputFieldNames = outputFieldNames.map(_._2))}
           } { (tempData, rep) =>
            ${output.typeSymbol.companion}(
             ..${List(

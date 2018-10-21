@@ -13,7 +13,7 @@ trait FormatterProvenShape[U, RepCol, EncoderDataCol, DecoderDataCol]
 
 object FormatterProvenShape {
 
-  implicit def dataProvenShapeShape[U, RepCol, EncoderDataCol, DecoderDataCol, R <: FormatterProvenShape[U, RepCol, EncoderDataCol, DecoderDataCol]]
+  /*implicit def dataProvenShapeShape[U, RepCol, EncoderDataCol, DecoderDataCol, R <: FormatterProvenShape[U, RepCol, EncoderDataCol, DecoderDataCol]]
     : FormatterShape.Aux[R, U, R, RepCol, EncoderDataCol, DecoderDataCol] = {
     new FormatterShape[R, RepCol, EncoderDataCol, DecoderDataCol] {
       self =>
@@ -28,6 +28,6 @@ object FormatterProvenShape {
         rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep, oldData)
     }
 
-  }
+  }*/
 
 }

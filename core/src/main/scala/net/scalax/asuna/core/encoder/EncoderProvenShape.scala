@@ -8,7 +8,7 @@ trait EncoderProvenShape[U, RepCol, DataCol] extends CommonProvenShape[U, RepCol
 
 object EncoderProvenShape {
 
-  implicit def dataProvenShapeShape[E, U, RepCol, DataCol, R <: EncoderProvenShape[U, RepCol, DataCol]]: EncoderShape.Aux[R, U, R, RepCol, DataCol] = {
+  /*implicit def dataProvenShapeShape[E, U, RepCol, DataCol, R <: EncoderProvenShape[U, RepCol, DataCol]]: EncoderShape.Aux[R, U, R, RepCol, DataCol] = {
 
     new EncoderShape[R, RepCol, DataCol] {
       self =>
@@ -21,6 +21,6 @@ object EncoderProvenShape {
         rep.dataShapeValue.shape.buildData(data, rep.dataShapeValue.rep, oldData)
     }
 
-  }
+  }*/
 
 }
