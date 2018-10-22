@@ -52,7 +52,7 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
                 s.mutiplyKey
             }
           case None =>
-            List(df.field.law)
+            List(df.field.raw)
         }
         (keys, df)
       }
@@ -132,9 +132,9 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
                 )
 
               case _ =>
-                val proName = if (inputFieldNames.exists(s => fieldItem.law == s)) "input" else "model"
+                val proName = if (inputFieldNames.exists(s => fieldItem.raw == s)) "input" else "model"
                 List(
-                    q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(proName)}.${TermName(fieldItem.law)}"""
+                    q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(proName)}.${TermName(fieldItem.raw)}"""
                 )
             }
 

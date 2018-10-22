@@ -13,32 +13,52 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   import c.universe._
 
+  trait CaseClassField {
+    def name: String
+    def rawField: Symbol
+    def fieldType: Tree
+  }
+
+  object CaseClassField {
+    def apply(name: String, rawField: Symbol, fieldType: => Tree): CaseClassField = {
+      val name1           = name
+      val rawField1       = rawField
+      lazy val fieldType1 = fieldType
+
+      new CaseClassField {
+        override val name           = name1
+        override val rawField       = rawField1
+        override lazy val fieldType = fieldType1
+      }
+    }
+  }
+
   case class FieldName(
       tableFields: Option[MemberWithDeepKey]
-    , lawModelMember: Symbol
-    , law: String
-    , lawIndex: Int
+    , rawModelMember: Symbol
+    , raw: String
+    , rawIndex: Int
     , mapperIndex: Int
     , needInput: Boolean
     , needSub: Boolean
   )
 
-  def commonProUseInShape(modelGenName: String, tableName: String, fieldName: FieldName) = {
+  def commonProUseInShape(caseClassFields: List[CaseClassField], tableName: String, fieldName: FieldName) = {
     val q = fieldName.tableFields match {
       case Some(members) =>
         members.members.map(_.name).collect { case TermName(name) => name.trim }.foldLeft(q"""${TermName(tableName)}""": Tree) { (tree, fieldName) =>
           q"""${tree}.${TermName(fieldName)}"""
         }
-      case _ => q"""${TermName(modelGenName)}(_.${TermName(fieldName.law)}).toPlaceholder"""
+      case _ => q"""${caseClassFields.find(s => s.name == fieldName.raw).get.fieldType}.toPlaceholder"""
 
     }
     q
   }
 
-  def initProperty(fieldNames: List[FieldName], tableName: String, modelGenName: String, inputModelName: String, inputFields: List[String]): List[Tree] = {
+  def initProperty(fieldNames: List[FieldName], inputFields: List[CaseClassField], tableName: String): List[Tree] = {
     val caseClassMapper = weakTypeOf[CaseClassMapper]
     val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
-    val proType         = weakTypeOf[PropertyType[String]]
+    val proType         = weakTypeOf[PropertyType[_]]
 
     fieldNames
       .grouped(maxNum)
@@ -46,8 +66,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val q = q"""
           ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.filter(s => !s.needInput).zipWithIndex.flatMap {
           case (field, index) =>
-            val modelNameToUse = if (inputFields.contains(field.law)) inputModelName else modelGenName
-
             val proTree = field.tableFields
               .flatMap(
                   s =>
@@ -60,21 +78,20 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
               )
               .map(_.fieldType) match {
               case Some(autalType) =>
-                q"""new ${proType.typeSymbol}[${autalType}] { }"""
+                q"""${proType.typeSymbol.companion}[${autalType}]"""
               case _ =>
-                q"""${TermName(modelNameToUse)}(_.${TermName(field.law)})"""
+                inputFields.find(s => s.name == field.raw).get.fieldType
             }
 
             val plusIndex = index + 1
             List(
-                q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(modelGenName = modelNameToUse, fieldName = field, tableName = tableName)}"""
-              //, q"""${TermName("property" + plusIndex)} = ${TermName(modelGenName)}(_.${TermName(field.law)})"""
+                q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(caseClassFields = inputFields, fieldName = field, tableName = tableName)}"""
               , q"""${TermName("property" + plusIndex)} = $proTree"""
               , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
-              tableColumnName = ${Literal(Constant(field.law))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.law))}),
-              modelColumnName = ${Literal(Constant(field.law))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.law))})
+              tableColumnName = ${Literal(Constant(field.raw))},
+              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.raw))}),
+              modelColumnName = ${Literal(Constant(field.raw))},
+              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.raw))})
             )"""
             )
         }})
@@ -104,15 +121,15 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         q"""
             ..${setVal}
-            ${caseClassMapper.typeSymbol.companion}.withLawRep(..${setParameter.flatten})"""
+            ${caseClassMapper.typeSymbol.companion}.withrawRep(..${setParameter.flatten})"""
       }
       withDataDescribeFunc(newList)
     }
   }
 
-  def toRepMapper(fields: List[FieldName], tableName: String, modelGenName: String, inputModelName: String, inputFields: List[String]): Tree = {
+  def toRepMapper(fields: List[FieldName], tableName: String, inputFields: List[CaseClassField]): Tree = {
     withDataDescribeFunc(
-        initProperty(fieldNames = fields, tableName = tableName, modelGenName = modelGenName, inputModelName = inputModelName, inputFields = inputFields)
+        initProperty(fieldNames = fields, tableName = tableName, inputFields = inputFields)
     ).head
   }
 

@@ -1,12 +1,14 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
-import net.scalax.asuna.mapper.common.ModelGen
+import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
 import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable}
 
 object EncoderCaseClassMapper {
 
-  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends RepMapperUtils {
+  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends EncoderCaseClassMapperImpl_blackbox(c)
+
+  class EncoderCaseClassMapperImpl_blackbox(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
 
     import c.universe._
 
@@ -24,54 +26,55 @@ object EncoderCaseClassMapper {
       val output            = weakTypeOf[Output]
       val unused            = weakTypeOf[Unused]
       val table             = weakTypeOf[Table]
-      val inputModelGen     = weakTypeOf[ModelGen[Input]]
-      val outputModelGen    = weakTypeOf[ModelGen[Output]]
       val encoderInputTable = weakTypeOf[EncoderInputTable[Table, Input, Output, Unused]]
       val encoderDataGen    = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
+      val propertyType      = weakTypeOf[PropertyType[_]]
 
-      val modelGenName      = c.freshName("modelGen")
-      val inputModelGenName = c.freshName("inputModelGen")
-      val tableName         = c.freshName("tableInstance")
+      val tableName = c.freshName("tableInstance")
 
-      val inputFieldNames = input.members
+      val inputFieldNames = input.members.toList
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
         .map { s =>
           (s, s.name)
         }
-        .collect { case (member, TermName(n)) => (member, n.trim) }
-        .toList
+        .collect {
+          case (member, TermName(n)) =>
+            val name = n.trim
+            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})""")
+        }
 
-      val outputFieldNames = output.members
+      val outputFieldNames = output.members.toList
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
         .map { s =>
           (s, s.name)
         }
-        .collect { case (member, TermName(n)) => (member, n.trim) }
-        .toList
+        .collect {
+          case (member, TermName(n)) =>
+            val name = n.trim
+            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})""")
+        }
         .reverse
 
-      val unusedFieldNames = unused.members
+      val unusedFieldNames = unused.members.toList
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
         .map { s =>
           (s, s.name)
         }
-        .collect { case (member, TermName(n)) => (member, n.trim) }
-        .toList
+        .collect {
+          case (member, TermName(n)) =>
+            val name = n.trim
+            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${unused}](_.${TermName(name)})""")
+        }
 
       val tableFieldNames = fetchTableFields(table)
 
-      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_._2).contains(s._2)) ::: inputFieldNames
-
-      def mgDef = List(
-          q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
-        , q"""val ${TermName(inputModelGenName)}: $inputModelGen = ${inputModelGen.typeSymbol.companion}.value[$input]"""
-      )
+      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_.name).contains(s.name)) ::: inputFieldNames
 
       /*val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
         case ((nameList, lawIndex), (member, strName)) =>
@@ -99,8 +102,8 @@ object EncoderCaseClassMapper {
       }*/
 
       val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
-        case ((nameList, lawIndex, helperIndex), (member, strName)) =>
-          val newLawIndex = lawIndex + 1
+        case ((nameList, rawIndex, helperIndex), member) =>
+          val newRawIndex = rawIndex + 1
 
           val alreadExists = nameList.exists { s =>
             s.tableFields
@@ -108,36 +111,36 @@ object EncoderCaseClassMapper {
                   c =>
                   c.key match {
                     case Left(SingleKey(r)) =>
-                      r == strName
+                      r == member.name
                     case Right(MutiplyKey(mk, _)) =>
-                      mk.contains(strName)
+                      mk.contains(member.name)
                   }
               )
               .getOrElse(false)
           }
           if (alreadExists)
-            (nameList, lawIndex, helperIndex)
+            (nameList, rawIndex, helperIndex)
           else {
             val usePlaceHolder = tableFieldNames.find { s =>
               s.key match {
                 case Left(SingleKey(r)) =>
-                  r == strName
+                  r == member.name
                 case Right(MutiplyKey(mk, _)) =>
-                  mk.contains(strName)
+                  mk.contains(member.name)
               }
             }
 
             val newHelperIndex = helperIndex + 1
             val fieldName = FieldName(
                 tableFields = usePlaceHolder
-              , lawModelMember = member
-              , law = strName
-              , lawIndex = newLawIndex
+              , rawModelMember = member.rawField
+              , raw = member.name
+              , rawIndex = newRawIndex
               , mapperIndex = newHelperIndex
               , needInput = false
               , needSub = false
             )
-            ((fieldName :: nameList), newLawIndex, newHelperIndex)
+            ((fieldName :: nameList), newRawIndex, newHelperIndex)
           }
       }
 
@@ -147,16 +150,13 @@ object EncoderCaseClassMapper {
 
         q"""
         ${encoderInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
-          ..$mgDef
           ${encoderDataGen.typeSymbol.companion}
           .fromDataGenWrap[$input, $output, $unused](${toRepMapper(
             fields = fields
           , tableName = tableName
-          , modelGenName = modelGenName
-          , inputModelName = inputModelGenName
-          , inputFields = inputFieldNames.map(_._2)
+          , inputFields = notInputOutputFieldNames
         )}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(nameList = fields, inputFieldNames = inputFieldNames.map(_._2), outputFieldNames = outputFieldNames.map(_._2))}
+            ${fullSetCaseClass(nameList = fields, inputFieldNames = inputFieldNames.map(_.name), outputFieldNames = outputFieldNames.map(_.name))}
           }
         }
         """
