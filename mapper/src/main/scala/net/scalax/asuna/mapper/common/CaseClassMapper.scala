@@ -970,7 +970,7 @@ object CaseClassMapper {
       , property12 = property12
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
   ](
@@ -985,7 +985,7 @@ object CaseClassMapper {
       , property1 = property1
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1008,7 +1008,7 @@ object CaseClassMapper {
       , property2 = property2
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1039,7 +1039,7 @@ object CaseClassMapper {
       , property3 = property3
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1078,7 +1078,7 @@ object CaseClassMapper {
       , property4 = property4
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1125,7 +1125,7 @@ object CaseClassMapper {
       , property5 = property5
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1180,7 +1180,7 @@ object CaseClassMapper {
       , property6 = property6
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1243,7 +1243,7 @@ object CaseClassMapper {
       , property7 = property7
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1314,7 +1314,7 @@ object CaseClassMapper {
       , property8 = property8
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1393,7 +1393,7 @@ object CaseClassMapper {
       , property9 = property9
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1480,7 +1480,7 @@ object CaseClassMapper {
       , property10 = property10
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2
@@ -1575,7 +1575,7 @@ object CaseClassMapper {
       , property11 = property11
     )
   }
-  def withLawRep[
+  def withRawRep[
       Rep1
     , Data1
     , Rep2

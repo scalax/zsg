@@ -40,45 +40,24 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
 
   def countDeep(base: List[FieldName]) = countDeepImpl(base)(s => List(FieldNameWrap(s, List.empty)))(1)
 
-  def appendIndexToTree(deepFields: List[FieldNameWrap], tree: Tree, fieldName: String): Tree = {
-    deepFields
-      .map { df =>
-        val keys = df.field.tableFields match {
-          case Some(f) =>
-            f.key match {
-              case Left(s) =>
-                List(s.singleKey)
-              case Right(s) =>
-                s.mutiplyKey
-            }
-          case None =>
-            List(df.field.raw)
-        }
-        (keys, df)
+  def appendIndexToTree(deepFields: List[FieldNameWrap], tempDataName: String): List[(String, Tree)] = {
+    deepFields.map { fieldNameWrap =>
+      val tree1 = fieldNameWrap.deepIndex.foldLeft(Ident(TermName(tempDataName)): Tree) { (treeItem, index) =>
+        q"""$treeItem.${TermName("data" + index.toString)}"""
       }
-      .find {
-        case (keys, _) =>
-          keys.contains(fieldName)
-      } match {
-      case Some((_, fieldNameWrap)) =>
-        val tree1 = fieldNameWrap.deepIndex.foldLeft(tree) { (treeItem, index) =>
-          q"""$treeItem.${TermName("data" + index.toString)}"""
-        }
-        fieldNameWrap.field.tableFields match {
-          case None =>
-            tree1
-          case Some(s) =>
-            s.key match {
-              case Left(_: SingleKey) =>
-                tree1
-              case Right(mKey: MutiplyKey) =>
-                q"""${tree1}.${TermName(fieldName)}"""
-            }
-        }
-      case _ =>
-        println("==" * 100 + s"\n找不到列${fieldName}")
-        throw new Exception(s"找不到列${fieldName}")
-    }
+      fieldNameWrap.field.tableFields match {
+        case None =>
+          //TODO djx314 看是否能删除此对 placeholder 特别处理的分支
+          List((fieldNameWrap.field.raw, q"""${TermName(fieldNameWrap.field.raw)} = ${tree1}"""))
+        case Some(s) =>
+          s.key match {
+            case Left(s: SingleKey) =>
+              List((s.singleKey, s.modelGetter(tree1)))
+            case Right(mKey: MutiplyKey) =>
+              mKey.modelGetter.map(s => (s._1, s._2(tree1)))
+          }
+      }
+    }.flatten
 
   }
 
@@ -109,8 +88,8 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
 
   }
 
-  def initSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField]): List[Tree] = {
-    val getterCol = fieldNames.map(s => (s.name, s.modelGetter(q"""${TermName("caseClass")}""")))
+  def initSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField], caseClassVarName: String): List[Tree] = {
+    val getterCol = fieldNames.map(s => (s.name, s.modelGetter(Ident(TermName(caseClassVarName)))))
 
     nameList.grouped(maxNum).toList.map { item =>
       val q =
@@ -130,10 +109,8 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
             ) match {
               case Some(mKey: MutiplyKey) =>
                 q"""${TermName("data" + plusIndex.toString)} = ${mKey.modelSetter(getterCol)}"""
-
               case _ =>
                 q"""${TermName("data" + plusIndex.toString)} = ${getterCol.toMap.apply(fieldItem.raw)}"""
-
             }
 
         }}
@@ -144,7 +121,7 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
     }
   }
 
-  def fullSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField]): Tree =
-    setCaseClass(initSetCaseClass(nameList = nameList, fieldNames = fieldNames))
+  def fullSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField], caseClassVarName: String): Tree =
+    setCaseClass(initSetCaseClass(nameList = nameList, fieldNames = fieldNames, caseClassVarName = caseClassVarName))
 
 }

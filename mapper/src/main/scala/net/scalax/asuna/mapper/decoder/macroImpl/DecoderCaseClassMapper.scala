@@ -153,6 +153,8 @@ object DecoderCaseClassMapper {
 
       val deepFields = countDeep(fieldsPrepare.filter(s => !s.needInput))
 
+      val setterCols = appendIndexToTree(deepFields, "tempData")
+
       val q = c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] {
         q"""
         ${decoderInputTable.typeSymbol.companion} { ${TermName(tableName)}: ${table} =>
@@ -160,17 +162,13 @@ object DecoderCaseClassMapper {
           .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (tempData, rep) =>
             ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
               ..${List(
-            notInputOutputFieldNames.map { field =>
-            q"""${TermName(field.name)} = ${appendIndexToTree(deepFields, q"""tempData""", field.name)}"""
-          }
+            setterCols.filter(s => notInputOutputFieldNames.exists(r => r.name == s._1)).map(_._2)
           , inputFieldNames.map { field =>
-            q"""${TermName(field.name)} = s.${TermName(field.name)}"""
+            field.modelSetter(field.modelGetter(Ident(TermName("s"))))
           }
         ).flatten}
 
-            ) }, sub = ${sub.typeSymbol.companion}(..${subFieldNames.map { field =>
-          q"""${TermName(field.name)} = ${appendIndexToTree(deepFields, q"""tempData""", field.name)}"""
-        }}))
+            ) }, sub = ${sub.typeSymbol.companion}(..${setterCols.filter(s => subFieldNames.exists(r => r.name == s._1)).map(_._2)}))
           }
         }
         """

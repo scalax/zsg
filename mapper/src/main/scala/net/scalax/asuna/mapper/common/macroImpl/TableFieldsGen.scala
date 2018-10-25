@@ -146,7 +146,7 @@ trait TableFieldsGen {
                 SingleKey(
                   singleKey = item.key
                 , modelGetter = { modelVar: Tree =>
-                  q"""${TermName(item.key)} = ${modelVar}.${TermName(item.key)}"""
+                  q"""${TermName(item.key)} = ${modelVar}"""
                 }
                 , modelSetter = { modelVar: Tree =>
                   modelVar

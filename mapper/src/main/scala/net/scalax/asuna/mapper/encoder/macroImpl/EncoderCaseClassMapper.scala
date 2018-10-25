@@ -189,7 +189,7 @@ object EncoderCaseClassMapper {
             ${fullSetCaseClass(
             nameList = fields
           , fieldNames = inputFieldNames.map(
-            s =>
+              s =>
               s.copy(modelGetter = { tree: Tree =>
                 s.modelGetter(q"""${tree}.input""")
               })
@@ -199,6 +199,7 @@ object EncoderCaseClassMapper {
                 s.modelGetter(q"""${tree}.model""")
               })
           )
+          , caseClassVarName = "caseClass"
         )}
           }
         }

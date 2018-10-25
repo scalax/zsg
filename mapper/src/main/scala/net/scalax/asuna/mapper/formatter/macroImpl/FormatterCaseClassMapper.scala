@@ -100,16 +100,11 @@ object FormatterCaseClassMapper {
         q"""
         ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (caseClass1, rep) =>
-            val caseClass = ${unusedData.typeSymbol.companion}.simple(caseClass1)
-            ${fullSetCaseClass(fieldsPrepare, fieldNames = outputFieldNames)}
+          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (caseClass, rep) =>
+            ${fullSetCaseClass(fieldsPrepare, fieldNames = outputFieldNames, caseClassVarName = "caseClass")}
           } { (tempData, rep) =>
            ${output.typeSymbol.companion}(
-            ..${List(
-            outputFieldNames.map { field =>
-            q"""${TermName(field.name)} = ${appendIndexToTree(deepFields, q"""tempData""", field.name)}"""
-          }
-        ).flatten}
+            ..${appendIndexToTree(deepFields, "tempData").filter(s => outputFieldNames.exists(r => r.name == s._1)).map(_._2)}
             ) }
            }
                    """

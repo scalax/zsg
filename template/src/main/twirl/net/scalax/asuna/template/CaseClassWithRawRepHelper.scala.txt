@@ -1,6 +1,6 @@
 @(count: Int)
 
-def withLawRep[@for(i <- 1 to count) {
+def withRawRep[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i}
     @if(i < count) { , }

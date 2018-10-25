@@ -34,7 +34,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   def commonProUseInShape(caseClassFields: List[CaseClassField], tableName: String, fieldName: FieldName) = {
     val q = fieldName.tableFields match {
       case Some(member) =>
-        member.tableGetter(q"""${TermName(tableName)}""")
+        member.tableGetter(Ident(TermName(tableName)))
       case _ => q"""${caseClassFields.find(s => s.name == fieldName.raw).get.fieldType}.toPlaceholder"""
 
     }
@@ -107,7 +107,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         q"""
             ..${setVal}
-            ${caseClassMapper.typeSymbol.companion}.withrawRep(..${setParameter.flatten})"""
+            ${caseClassMapper.typeSymbol.companion}.withRawRep(..${setParameter.flatten})"""
       }
       withDataDescribeFunc(newList)
     }
