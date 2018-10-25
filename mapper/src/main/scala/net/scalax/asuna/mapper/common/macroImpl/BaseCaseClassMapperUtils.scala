@@ -13,25 +13,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   import c.universe._
 
-  trait CaseClassField {
-    def name: String
-    def rawField: Symbol
-    def fieldType: Tree
-  }
-
-  object CaseClassField {
-    def apply(name: String, rawField: Symbol, fieldType: => Tree): CaseClassField = {
-      val name1           = name
-      val rawField1       = rawField
-      lazy val fieldType1 = fieldType
-
-      new CaseClassField {
-        override val name           = name1
-        override val rawField       = rawField1
-        override lazy val fieldType = fieldType1
-      }
-    }
-  }
+  case class CaseClassField(
+      name: String
+    , rawField: Symbol
+    , fieldType: Tree
+    , modelGetter: Tree => Tree
+    , modelSetter: Tree => Tree
+  )
 
   case class FieldName(
       tableFields: Option[MemberWithDeepKey]
@@ -45,10 +33,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   def commonProUseInShape(caseClassFields: List[CaseClassField], tableName: String, fieldName: FieldName) = {
     val q = fieldName.tableFields match {
-      case Some(members) =>
-        members.members.map(_.name).collect { case TermName(name) => name.trim }.foldLeft(q"""${TermName(tableName)}""": Tree) { (tree, fieldName) =>
-          q"""${tree}.${TermName(fieldName)}"""
-        }
+      case Some(member) =>
+        member.tableGetter(q"""${TermName(tableName)}""")
       case _ => q"""${caseClassFields.find(s => s.name == fieldName.raw).get.fieldType}.toPlaceholder"""
 
     }

@@ -69,9 +69,9 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
             tree1
           case Some(s) =>
             s.key match {
-              case Left(SingleKey(_)) =>
+              case Left(_: SingleKey) =>
                 tree1
-              case Right(MutiplyKey(_, _)) =>
+              case Right(mKey: MutiplyKey) =>
                 q"""${tree1}.${TermName(fieldName)}"""
             }
         }
@@ -83,36 +83,40 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
   }
 
   @tailrec
-  private def setCaseClass(treeList: List[Tree]): List[Tree] = {
-    if (treeList.size == 1)
-      treeList
-    else {
-      val upper = treeList.grouped(maxNum).toList.map { items =>
-        val q =
-          q"""
+  private def setCaseClass(treeList: List[Tree]): Tree = {
+    treeList match {
+      case head :: Nil =>
+        head
+      case list =>
+        val upper = list.grouped(maxNum).toList.map { items =>
+          val q =
+            q"""
            ${caseClassMapper.typeSymbol.companion}.withData(
                  ..${items.zipWithIndex.flatMap {
-            case (field, index) =>
-              val plusIndex = index + 1
-              List(
-                  q"""${TermName("data" + plusIndex.toString)} = ${field}"""
-              )
-          }}
+              case (field, index) =>
+                val plusIndex = index + 1
+                List(
+                    q"""${TermName("data" + plusIndex.toString)} = ${field}"""
+                )
+            }}
                  )
           """
 
-        q
-      }
-      setCaseClass(upper)
+          q
+        }
+        setCaseClass(upper)
     }
+
   }
 
-  def initSetCaseClass(nameList: List[FieldName], inputFieldNames: List[String], outputFieldNames: List[String]): List[Tree] = {
+  def initSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField]): List[Tree] = {
+    val getterCol = fieldNames.map(s => (s.name, s.modelGetter(q"""${TermName("caseClass")}""")))
+
     nameList.grouped(maxNum).toList.map { item =>
       val q =
         q"""
            ${caseClassMapper.typeSymbol.companion}.withData(
-                 ..${item.zipWithIndex.flatMap {
+                 ..${item.zipWithIndex.map {
           case (fieldItem, index) =>
             val plusIndex = index + 1
             fieldItem.tableFields.flatMap(
@@ -124,18 +128,12 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
                     Option(i)
                 }
             ) match {
-              case Some(MutiplyKey(keys, typeRef)) =>
-                val proName = if (inputFieldNames.exists(s => keys.head == s)) "input" else "model"
-                List(
-                    q"""${TermName("data" + plusIndex.toString)} = ${typeRef.typeSymbol.companion}(..${keys
-                    .map(key => q"""${TermName(key)} = caseClass.${TermName(proName)}.${TermName(key)}""")})"""
-                )
+              case Some(mKey: MutiplyKey) =>
+                q"""${TermName("data" + plusIndex.toString)} = ${mKey.modelSetter(getterCol)}"""
 
               case _ =>
-                val proName = if (inputFieldNames.exists(s => fieldItem.raw == s)) "input" else "model"
-                List(
-                    q"""${TermName("data" + plusIndex.toString)} = caseClass.${TermName(proName)}.${TermName(fieldItem.raw)}"""
-                )
+                q"""${TermName("data" + plusIndex.toString)} = ${getterCol.toMap.apply(fieldItem.raw)}"""
+
             }
 
         }}
@@ -146,7 +144,7 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
     }
   }
 
-  def fullSetCaseClass(nameList: List[FieldName], inputFieldNames: List[String], outputFieldNames: List[String]): Tree =
-    setCaseClass(initSetCaseClass(nameList = nameList, inputFieldNames = inputFieldNames, outputFieldNames = outputFieldNames)).head
+  def fullSetCaseClass(nameList: List[FieldName], fieldNames: List[CaseClassField]): Tree =
+    setCaseClass(initSetCaseClass(nameList = nameList, fieldNames = fieldNames))
 
 }

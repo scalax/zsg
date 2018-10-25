@@ -41,7 +41,17 @@ object DecoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
 
       //Model to output's fields
@@ -54,7 +64,17 @@ object DecoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
 
       //.reverse
@@ -67,7 +87,17 @@ object DecoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${sub}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${sub}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
 
       val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.map(_.name).contains(s.name))
@@ -85,10 +115,10 @@ object DecoderCaseClassMapper {
               .map(
                   c =>
                   c.key match {
-                    case Left(SingleKey(r)) =>
-                      r == member.name
-                    case Right(MutiplyKey(mk, _)) =>
-                      mk.contains(member.name)
+                    case Left(r: SingleKey) =>
+                      r.singleKey == member.name
+                    case Right(mk: MutiplyKey) =>
+                      mk.mutiplyKey.contains(member.name)
                   }
               )
               .getOrElse(false)
@@ -98,10 +128,10 @@ object DecoderCaseClassMapper {
           else {
             val usePlaceHolder = tableFieldNames.find { s =>
               s.key match {
-                case Left(SingleKey(r)) =>
-                  r == member.name
-                case Right(MutiplyKey(mk, _)) =>
-                  mk.contains(member.name)
+                case Left(r: SingleKey) =>
+                  r.singleKey == member.name
+                case Right(mk: MutiplyKey) =>
+                  mk.mutiplyKey.contains(member.name)
               }
             }
 

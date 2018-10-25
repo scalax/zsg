@@ -42,7 +42,17 @@ object EncoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
 
       val outputFieldNames = output.members.toList
@@ -55,7 +65,17 @@ object EncoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
         .reverse
 
@@ -69,7 +89,17 @@ object EncoderCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${unused}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${unused}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
 
       val tableFieldNames = fetchTableFields(table)
@@ -110,10 +140,10 @@ object EncoderCaseClassMapper {
               .map(
                   c =>
                   c.key match {
-                    case Left(SingleKey(r)) =>
-                      r == member.name
-                    case Right(MutiplyKey(mk, _)) =>
-                      mk.contains(member.name)
+                    case Left(r: SingleKey) =>
+                      r.singleKey == member.name
+                    case Right(mk: MutiplyKey) =>
+                      mk.mutiplyKey.contains(member.name)
                   }
               )
               .getOrElse(false)
@@ -123,10 +153,10 @@ object EncoderCaseClassMapper {
           else {
             val usePlaceHolder = tableFieldNames.find { s =>
               s.key match {
-                case Left(SingleKey(r)) =>
-                  r == member.name
-                case Right(MutiplyKey(mk, _)) =>
-                  mk.contains(member.name)
+                case Left(r: SingleKey) =>
+                  r.singleKey == member.name
+                case Right(mk: MutiplyKey) =>
+                  mk.mutiplyKey.contains(member.name)
               }
             }
 
@@ -156,7 +186,20 @@ object EncoderCaseClassMapper {
           , tableName = tableName
           , inputFields = notInputOutputFieldNames
         )}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(nameList = fields, inputFieldNames = inputFieldNames.map(_.name), outputFieldNames = outputFieldNames.map(_.name))}
+            ${fullSetCaseClass(
+            nameList = fields
+          , fieldNames = inputFieldNames.map(
+            s =>
+              s.copy(modelGetter = { tree: Tree =>
+                s.modelGetter(q"""${tree}.input""")
+              })
+          ) ::: outputFieldNames.map(
+              s =>
+              s.copy(modelGetter = { tree: Tree =>
+                s.modelGetter(q"""${tree}.model""")
+              })
+          )
+        )}
           }
         }
         """

@@ -35,7 +35,17 @@ object FormatterCaseClassMapper {
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
-            CaseClassField(name = name, rawField = member, fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})""")
+            CaseClassField(
+                name = name
+              , rawField = member
+              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+              , modelGetter = { modelVar: Tree =>
+                q"""${modelVar}.${TermName(name)}"""
+              }
+              , modelSetter = { propertyVar: Tree =>
+                q"""${TermName(name)} = ${propertyVar}"""
+              }
+            )
         }
         .reverse
 
@@ -50,10 +60,10 @@ object FormatterCaseClassMapper {
               .map(
                   c =>
                   c.key match {
-                    case Left(SingleKey(r)) =>
-                      r == member.name
-                    case Right(MutiplyKey(mk, _)) =>
-                      mk.contains(member.name)
+                    case Left(r: SingleKey) =>
+                      r.singleKey == member.name
+                    case Right(mk: MutiplyKey) =>
+                      mk.mutiplyKey.contains(member.name)
                   }
               )
               .getOrElse(false)
@@ -63,10 +73,10 @@ object FormatterCaseClassMapper {
           else {
             val usePlaceHolder = tableFieldNames.find { s =>
               s.key match {
-                case Left(SingleKey(r)) =>
-                  r == member.name
-                case Right(MutiplyKey(mk, _)) =>
-                  mk.contains(member.name)
+                case Left(r: SingleKey) =>
+                  r.singleKey == member.name
+                case Right(mk: MutiplyKey) =>
+                  mk.mutiplyKey.contains(member.name)
               }
             }
 
@@ -92,7 +102,7 @@ object FormatterCaseClassMapper {
           ${formatterDataGen.typeSymbol.companion}
           .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (caseClass1, rep) =>
             val caseClass = ${unusedData.typeSymbol.companion}.simple(caseClass1)
-            ${fullSetCaseClass(fieldsPrepare, inputFieldNames = List.empty, outputFieldNames = outputFieldNames.map(_.name))}
+            ${fullSetCaseClass(fieldsPrepare, fieldNames = outputFieldNames)}
           } { (tempData, rep) =>
            ${output.typeSymbol.companion}(
             ..${List(
