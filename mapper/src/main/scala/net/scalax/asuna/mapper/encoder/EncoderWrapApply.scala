@@ -6,12 +6,13 @@ import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 trait EncoderWrapApply[RepCol, DataCol] {
   def withUnusedModel[Input, Output, Sub]: UnusedModelWrap[Input, Output, Sub] = new UnusedModelWrap[Input, Output, Sub] {}
   def withTable[Case]: TableWrap[Case]                                         = new TableWrap[Case]                     {}
+  def debugWithTable[Case]: DebugTableWrap[Case]                               = new DebugTableWrap[Case]                {}
 
   trait UnusedModelWrap[Input, Output, Sub] {
 
     def apply[Table, Rep, TempData](table: Table)(
         implicit
-      repWrap: EncoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]
+      repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, Input, Output, Sub, Rep, TempData]
     ): EncoderCompiler[Rep, TempData, RepCol, DataCol, UnusedData[Input, Output, Sub]] =
       new EncoderCompiler[Rep, TempData, RepCol, DataCol, UnusedData[Input, Output, Sub]] {
         override def compile[Target1](
@@ -26,7 +27,7 @@ trait EncoderWrapApply[RepCol, DataCol] {
             override val shape = shape1.packed
           }
           sv.emap { (content: UnusedData[Input, Output, Sub]) =>
-            wrap.to(content, wrap.rep)
+            wrap.to(content)
           }
         }
       }
@@ -34,9 +35,8 @@ trait EncoderWrapApply[RepCol, DataCol] {
   }
 
   trait TableWrap[Case] {
-
     def apply[Table, Rep, TempData](table: Table)(
-        implicit repWrap: EncoderInputTable.Aux[Table, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
+        implicit repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
     ): EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] =
       new EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] {
         override def compile[Target1](implicit shape: EncoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
@@ -49,12 +49,22 @@ trait EncoderWrapApply[RepCol, DataCol] {
             override val shape = shape1.packed
           }
           sv.emap { (content: Case) =>
-            wrap.to(UnusedData.simple(content), wrap.rep)
+            wrap.to(UnusedData.simple(content))
           }
         }
       }
+  }
+
+  trait DebugTableWrap[Case] {
+    def apply[Table](table: Table)(
+        implicit
+      repWrap: EncoderBlackBoxInputTable.Aux[EncoderBlackBoxInputTable, Table, EmptyLazyModel, Case, EmptyLazyModel]
+    ): EncoderShapeValue[Case, RepCol, DataCol] = {
+      ???
+    }
 
   }
+
 }
 
 object EncoderWrapApply {

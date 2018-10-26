@@ -25,7 +25,7 @@ object FormatterCaseClassMapper {
 
       val tableName = c.freshName("tableInstance")
 
-      val outputFieldNames = output.members.toList
+      val outputFieldNames = output.members.toList.reverse
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
@@ -47,7 +47,6 @@ object FormatterCaseClassMapper {
               }
             )
         }
-        .reverse
 
       val tableFieldNames = fetchTableFields(table)
 
@@ -94,14 +93,16 @@ object FormatterCaseClassMapper {
           }
       }
 
-      val deepFields = countDeep(fieldsPrepare.filter(s => !s.needInput))
+      val deepFields = countDeep(fieldsPrepare.reverse.filter(s => !s.needInput))
+
+      val fields = getEncoderMembers(outputFieldNames, tableFieldNames)
 
       val q = c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] {
         q"""
         ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
           ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(fieldsPrepare, fieldNames = outputFieldNames, caseClassVarName = "caseClass")}
+          .fromDataGenWrap[$output](${toRepMapper1111(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+            ${fullSetCaseClass1111(fields = fields, caseClassVarName = "caseClass")}
           } { (tempData, rep) =>
            ${output.typeSymbol.companion}(
             ..${appendIndexToTree(deepFields, "tempData").filter(s => outputFieldNames.exists(r => r.name == s._1)).map(_._2)}

@@ -1,5 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
+import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
 
 import scala.reflect.macros.blackbox.Context
@@ -12,7 +13,7 @@ trait TableFieldsGen {
   case class MemberWithKey(key: String, member: Symbol, tableGetter: Tree => Tree)
 
   case class SingleKey(singleKey: String, modelSetter: Tree => Tree, modelGetter: Tree => Tree)
-  case class MutiplyKey(mutiplyKey: List[String], fieldType: Type, modelSetter: List[(String, Tree)] => Tree, modelGetter: List[(String, Tree => Tree)])
+  case class MutiplyKey(mutiplyKey: List[String], properType: Tree, modelSetter: List[Tree] => Tree, modelGetter: List[(String, Tree => Tree)])
   case class MemberWithDeepKey(key: Either[SingleKey, MutiplyKey], tableGetter: Tree => Tree)
 
   def membersDistinct(members: List[MemberWithDeepKey]) = members.foldLeft(List.empty[MemberWithDeepKey]) { (oldMembers, item) =>
@@ -114,6 +115,8 @@ trait TableFieldsGen {
       }
     }
 
+    val proType = weakTypeOf[PropertyType[_]]
+
     members.map { item =>
       val extField = item.member.annotations
         .map { s =>
@@ -125,15 +128,15 @@ trait TableFieldsGen {
               annoType.members.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).toList.collect { case TermName(s) => s.trim }
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
-              , fieldType = annoType
+              , properType = q"""${proType.typeSymbol.companion}[${annoType}]"""
               , modelGetter = fields.map(
                   field =>
                   (field, { modelVar: Tree =>
                     q"""${TermName(field)} = ${modelVar}.${TermName(field)}"""
                   })
               )
-              , modelSetter = { modelVar: List[(String, Tree)] =>
-                q"""${annoType.typeSymbol.companion}(..${fields.map(field => q"""${TermName(field)} = ${modelVar.toMap.apply(field)}""")})"""
+              , modelSetter = { setters: List[Tree] =>
+                q"""${annoType.typeSymbol.companion}(..${setters})"""
               }
             )
         }

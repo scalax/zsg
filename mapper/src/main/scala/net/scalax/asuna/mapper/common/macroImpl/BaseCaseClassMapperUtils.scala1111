@@ -16,31 +16,20 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class EncoderField(names: List[String], tableGetter: Tree => Tree, modelGetter: Tree => Tree, propertyType: Tree)
 
   def getEncoderMembers(caseFields: List[CaseClassField], tableFields: List[MemberWithDeepKey]): List[EncoderField] = {
-    val (fields, _) = caseFields.foldLeft((List.empty[Either[CaseClassField, MemberWithDeepKey]], List.empty[String])) {
-      case ((list, names), s) =>
-        if (names.contains(s.name)) {
-          (list, names)
-        } else {
-          val fieldOpt = tableFields
-            .map { r =>
-              val keys = r.key match {
-                case Left(s: SingleKey) =>
-                  List(s.singleKey)
-                case Right(s: MutiplyKey) =>
-                  s.mutiplyKey
-              }
-              (r, keys, keys.contains(s.name))
+    val fields = caseFields.map(
+        s =>
+        tableFields
+          .find { r =>
+            val keys = r.key match {
+              case Left(s: SingleKey) =>
+                List(s.singleKey)
+              case Right(s: MutiplyKey) =>
+                s.mutiplyKey
             }
-            .find { case (_, _, contains) => contains }
-
-          val fieldEither = fieldOpt.fold((Left(s), List(s.name)): (Either[CaseClassField, MemberWithDeepKey], List[String])) {
-            case (r, keys, _) => (Right(r), keys)
+            keys.contains(s.name)
           }
-
-          (list ::: fieldEither._1 :: Nil, names ::: fieldEither._2)
-        }
-
-    }
+          .fold(Left(s): Either[CaseClassField, MemberWithDeepKey])(r => Right(r))
+    )
 
     fields.map { t =>
       t match {
@@ -59,7 +48,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                   names = key.mutiplyKey
                 , tableGetter = s.tableGetter
                 , modelGetter = { modelVar: Tree =>
-                  key.modelSetter(fields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
+                  key.modelSetter(fields.map(field => q"""${field.name} = ${field.modelGetter(modelVar)}"""))
                 }
                 , propertyType = key.properType
               )
@@ -199,15 +188,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     }
   }
 
-  def toRepMapper(fields: List[FieldName], tableName: String, inputFields: List[CaseClassField]): Tree = {
+  def toRepMapper(caseFields: List[CaseClassField], tableFields: List[MemberWithDeepKey], tableName: String): Tree = {
     withDataDescribeFunc(
-        initProperty(fieldNames = fields, tableName = tableName, inputFields = inputFields)
-    ).head
-  }
-
-  def toRepMapper1111(fields: List[EncoderField], tableName: String): Tree = {
-    withDataDescribeFunc(
-        initProperty1111(fields = fields, tableName)
+        initProperty1111(fields = getEncoderMembers(caseFields, tableFields), tableName)
     ).head
   }
 

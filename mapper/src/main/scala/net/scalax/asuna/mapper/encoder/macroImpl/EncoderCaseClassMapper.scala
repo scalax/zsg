@@ -6,33 +6,40 @@ import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable}
 
 object EncoderCaseClassMapper {
 
-  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends EncoderCaseClassMapperImpl_blackbox(c)
+  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends EncoderCaseClassMapperImpl_blackbox(c) {
+    override val printlnTree = false
+
+  }
 
   class EncoderCaseClassMapperImpl_blackbox(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
+
+    val printlnTree = true
 
     import c.universe._
 
     def caseclassEncoderGeneric[
-        Input: c.WeakTypeTag
+        Poly: c.WeakTypeTag
+      , Input: c.WeakTypeTag
       , Output: c.WeakTypeTag
       , Unused: c.WeakTypeTag
       , Table: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ]: c.Expr[EncoderInputTable.Aux[Table, Input, Output, Unused, Rep, TempData]] = {
+    ]: c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] = {
+      val poly              = weakTypeOf[Poly]
       val rep               = weakTypeOf[Rep]
       val tempData          = weakTypeOf[TempData]
       val input             = weakTypeOf[Input]
       val output            = weakTypeOf[Output]
       val unused            = weakTypeOf[Unused]
       val table             = weakTypeOf[Table]
-      val encoderInputTable = weakTypeOf[EncoderInputTable[Table, Input, Output, Unused]]
+      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Input, Output, Unused]]
       val encoderDataGen    = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
       val propertyType      = weakTypeOf[PropertyType[_]]
 
       val tableName = c.freshName("tableInstance")
 
-      val inputFieldNames = input.members.toList
+      val inputFieldNames = input.members.toList.reverse
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
@@ -47,7 +54,7 @@ object EncoderCaseClassMapper {
               , rawField = member
               , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
               , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
+                q"""${modelVar}.input.${TermName(name)}"""
               }
               , modelSetter = { propertyVar: Tree =>
                 q"""${TermName(name)} = ${propertyVar}"""
@@ -55,7 +62,7 @@ object EncoderCaseClassMapper {
             )
         }
 
-      val outputFieldNames = output.members.toList
+      val outputFieldNames = output.members.toList.reverse
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
@@ -70,7 +77,7 @@ object EncoderCaseClassMapper {
               , rawField = member
               , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
               , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
+                q"""${modelVar}.model.${TermName(name)}"""
               }
               , modelSetter = { propertyVar: Tree =>
                 q"""${TermName(name)} = ${propertyVar}"""
@@ -79,7 +86,7 @@ object EncoderCaseClassMapper {
         }
         .reverse
 
-      val unusedFieldNames = unused.members.toList
+      val unusedFieldNames = unused.members.toList.reverse
         .filter { s =>
           s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
         }
@@ -106,32 +113,7 @@ object EncoderCaseClassMapper {
 
       val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_.name).contains(s.name)) ::: inputFieldNames
 
-      /*val (fieldsPrepare, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0)) {
-        case ((nameList, lawIndex), (member, strName)) =>
-          val newLawIndex = lawIndex + 1
-          val usePlaceHolder = tableFieldNames.find { s =>
-            s.key match {
-              case Left(SingleKey(r)) =>
-                r == strName
-              case Right(MutiplyKey(mk, _)) =>
-                mk.contains(strName)
-            }
-          }
-
-          val fieldName = FieldName(
-              tableFields = usePlaceHolder
-            , lawModelMember = member
-            , law = strName
-            , lawIndex = newLawIndex
-            , mapperIndex = newLawIndex
-            , needInput = false
-            , needSub = false
-          )
-
-          ((fieldName :: nameList), newLawIndex)
-      }*/
-
-      val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
+      /*val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
         case ((nameList, rawIndex, helperIndex), member) =>
           val newRawIndex = rawIndex + 1
 
@@ -174,39 +156,29 @@ object EncoderCaseClassMapper {
           }
       }
 
-      val fields = fieldsPrepare
+      val fields = fieldsPrepare*/
 
-      val q = c.Expr[EncoderInputTable.Aux[Table, Input, Output, Unused, Rep, TempData]] {
+      val fields = getEncoderMembers(notInputOutputFieldNames, tableFieldNames)
 
-        q"""
-        ${encoderInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
-          ${encoderDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$input, $output, $unused](${toRepMapper(
-            fields = fields
-          , tableName = tableName
-          , inputFields = notInputOutputFieldNames
-        )}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(
-            nameList = fields
-          , fieldNames = inputFieldNames.map(
-              s =>
-              s.copy(modelGetter = { tree: Tree =>
-                s.modelGetter(q"""${tree}.input""")
-              })
-          ) ::: outputFieldNames.map(
-              s =>
-              s.copy(modelGetter = { tree: Tree =>
-                s.modelGetter(q"""${tree}.model""")
-              })
-          )
-          , caseClassVarName = "caseClass"
-        )}
-          }
+      val content = q"""${encoderDataGen.typeSymbol.companion}
+        .fromDataGenWrap[$input, $output, $unused](${toRepMapper1111(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+        ${fullSetCaseClass1111(fields = fields, caseClassVarName = "caseClass")}
+      }"""
+
+      val content1 = if (printlnTree) q"""${content}.debug""" else content
+
+      val q = q"""
+        ${encoderInputTable.typeSymbol.companion}[${poly}]{ ${TermName(tableName)}: ${table} =>
+          ${content1}
         }
         """
+
+      if (printlnTree)
+        println(q + "\n" + "22" * 100)
+
+      c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] {
+        q
       }
-      //println(q + "\n" + "22" * 100)
-      q
     }
 
   }

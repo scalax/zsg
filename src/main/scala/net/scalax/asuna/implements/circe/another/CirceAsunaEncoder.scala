@@ -6,7 +6,7 @@ import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.mapper.common.RepColumnContent
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.{EncoderInputTable, UnusedData}
+import net.scalax.asuna.mapper.encoder.{EncoderInputTable, FirstEncoderInputTableImplicit, UnusedData}
 import shapeless.Lazy
 
 trait CirceAsunaEncoder[PolyTrait] {
@@ -82,14 +82,14 @@ trait EncoderPoly2 extends EncoderPoly3 {
 
 trait EncoderPoly3 {
   implicit def encoderImplicit2[Case, Rep, TempData, Target](
-      implicit repWrap: EncoderInputTable.Aux[EmptyCirceTable, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
+      implicit repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, EmptyCirceTable, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
     , encoderShape: EncoderShape.Aux[Rep, TempData, Target, List[(String, CirceAsunaEncoder[EncoderPoly])], List[(String, Json)]]
   ): CirceAsunaEncoderImpl[Case, EncoderPoly] = {
     val dataGen = repWrap.inputTable(EmptyCirceTable.value)
     val wrapRep = encoderShape.wrapRep(dataGen.rep)
     new CirceAsunaEncoderImpl[Case, EncoderPoly] {
       override def write(data: Case): Json = {
-        val dataList = encoderShape.buildData(dataGen.to(UnusedData.simple(data), dataGen.rep), wrapRep, List.empty)
+        val dataList = encoderShape.buildData(dataGen.to(UnusedData.simple(data)), wrapRep, List.empty)
         Json.fromJsonObject(JsonObject.fromIterable(dataList))
       }
     }

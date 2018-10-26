@@ -13,8 +13,9 @@ trait EncoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _
 }
 
 trait EncoderCaseClassShapeMacroHelper[RepCol, DataCol] {
-  private val wrapApply: EncoderWrapApply[RepCol, DataCol]                 = EncoderWrapApply.encoderInstance[RepCol, DataCol]
-  def singleModel[Case]: EncoderWrapApply[RepCol, DataCol]#TableWrap[Case] = wrapApply.withTable[Case]
+  private val wrapApply: EncoderWrapApply[RepCol, DataCol]                           = EncoderWrapApply.encoderInstance[RepCol, DataCol]
+  def singleModel[Case]: EncoderWrapApply[RepCol, DataCol]#TableWrap[Case]           = wrapApply.withTable[Case]
+  def debugSingleModel[Case]: EncoderWrapApply[RepCol, DataCol]#DebugTableWrap[Case] = wrapApply.debugWithTable[Case]
   def unusedModel[Input, Output, Unused]: EncoderWrapApply[RepCol, DataCol]#UnusedModelWrap[Input, Output, Unused] =
     wrapApply.withUnusedModel[Input, Output, Unused]
 }
