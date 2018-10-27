@@ -9,28 +9,32 @@ trait TableFieldsGen {
 
   val c: Context
 
+  val printlnTree = true
+
   import c.universe._
+
   case class MemberWithKey(key: String, member: Symbol, tableGetter: Tree => Tree)
 
-  case class SingleKey(singleKey: String, modelSetter: Tree => Tree, modelGetter: Tree => Tree)
-  case class MutiplyKey(mutiplyKey: List[String], properType: Tree, modelSetter: List[Tree] => Tree, modelGetter: List[(String, Tree => Tree)])
-  case class MemberWithDeepKey(key: Either[SingleKey, MutiplyKey], tableGetter: Tree => Tree)
+  sealed trait MemberInfo {
+    def tableGetter: Tree => Tree
+    def containFields: List[String]
+    def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): MemberInfo
+  }
 
-  def membersDistinct(members: List[MemberWithDeepKey]) = members.foldLeft(List.empty[MemberWithDeepKey]) { (oldMembers, item) =>
-    val memWithKey = oldMembers.map { s =>
-      val keys = s.key match {
-        case Left(k: SingleKey) =>
-          List(k.singleKey)
-        case Right(keys: MutiplyKey) =>
-          keys.mutiplyKey
-      }
-      (keys, s)
-    }
-    item.key match {
-      case Left(sk: SingleKey) =>
-        item :: memWithKey.filterNot { case (keys, _) => keys.contains(sk.singleKey) }.map(_._2)
-      case Right(mk: MutiplyKey) =>
-        item :: memWithKey.filterNot { case (keys, _) => keys.exists(i => mk.mutiplyKey.contains(i)) }.map(_._2)
+  case class SingleKey(singleKey: String, override val tableGetter: Tree => Tree) extends MemberInfo {
+    self =>
+    override lazy val containFields: List[String]                                    = List(singleKey)
+    override def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): SingleKey = self.copy(tableGetter = old(tableGetter))
+  }
+  case class MutiplyKey(private val mutiplyKey: List[String], properType: Tree, modelSetter: List[Tree] => Tree, override val tableGetter: Tree => Tree)
+      extends MemberInfo { self =>
+    override lazy val containFields: List[String]                                     = mutiplyKey
+    override def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): MutiplyKey = self.copy(tableGetter = old(tableGetter))
+  }
+
+  def membersDistinct(members: List[MemberInfo]): List[MemberInfo] = members.foldLeft(List.empty[MemberInfo]) { (oldMembers, item) =>
+    item :: oldMembers.filterNot { oldMember =>
+      oldMember.containFields.exists(i => item.containFields.contains(i))
     }
   }
 
@@ -90,7 +94,7 @@ trait TableFieldsGen {
     (currentMemberToOverride, currentMemberMapPre)
   }
 
-  def lawMemberToMutiplyKey(members: List[MemberWithKey]): List[MemberWithDeepKey] = {
+  def lawMemberToMutiplyKey(members: List[MemberWithKey]): List[MemberInfo] = {
     object DataProUnlifting {
       def unapply(tree: (String, Tree)): Option[Type] = {
         val classDef = c.typecheck(tree._2, silent = true)
@@ -129,46 +133,31 @@ trait TableFieldsGen {
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
               , properType = q"""${proType.typeSymbol.companion}[${annoType}]"""
-              , modelGetter = fields.map(
-                  field =>
-                  (field, { modelVar: Tree =>
-                    q"""${TermName(field)} = ${modelVar}.${TermName(field)}"""
-                  })
-              )
               , modelSetter = { setters: List[Tree] =>
                 q"""${annoType.typeSymbol.companion}(..${setters})"""
               }
+              , tableGetter = item.tableGetter
             )
         }
       extField match {
-        case Some(field) =>
-          MemberWithDeepKey(key = Right(field), tableGetter = item.tableGetter)
+        case Some(field) => field
         case _ =>
-          MemberWithDeepKey(
-              key = Left(
-                SingleKey(
-                  singleKey = item.key
-                , modelGetter = { modelVar: Tree =>
-                  q"""${TermName(item.key)} = ${modelVar}"""
-                }
-                , modelSetter = { modelVar: Tree =>
-                  modelVar
-                }
-              )
-            )
+          SingleKey(
+              singleKey = item.key
             , tableGetter = item.tableGetter
           )
+
       }
     }
   }
 
-  def fetchTableFieldsImpl(tableType: Type, deepTableTreeGen: (Tree => Tree) => (Tree => Tree)): List[MemberWithDeepKey] = {
+  def fetchTableFieldsImpl(tableType: Type, deepTableTreeGen: (Tree => Tree) => (Tree => Tree)): List[MemberInfo] = {
     val rootMembers                            = lawMembers(tableType)
     val (toUpperMembers, lawMembers1)          = filterToUpperMembers(rootMembers)
     val (currentMemberToOverride, lawMembers2) = filterOverrideMembers(lawMembers1)
 
     val currentMemberMap = lawMembers2 ::: currentMemberToOverride
-    val fixCurrentMap    = lawMemberToMutiplyKey(currentMemberMap).map(s => s.copy(tableGetter = deepTableTreeGen(s.tableGetter)))
+    val fixCurrentMap    = lawMemberToMutiplyKey(currentMemberMap).map(s => s.changeTableGetter(deepTableTreeGen))
 
     val memberCol = toUpperMembers
       .map(
@@ -185,6 +174,6 @@ trait TableFieldsGen {
     membersDistinct(memberCol ::: fixCurrentMap)
   }
 
-  def fetchTableFields(tableType: Type): List[MemberWithDeepKey] = fetchTableFieldsImpl(tableType, identity)
+  def fetchTableFields(tableType: Type): List[MemberInfo] = fetchTableFieldsImpl(tableType, identity)
 
 }

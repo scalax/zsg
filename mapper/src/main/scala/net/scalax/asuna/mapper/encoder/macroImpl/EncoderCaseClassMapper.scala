@@ -6,14 +6,12 @@ import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable}
 
 object EncoderCaseClassMapper {
 
-  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends EncoderCaseClassMapperImpl_blackbox(c) {
+  class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxEncoderCaseClassMapperImpl(c) {
     override val printlnTree = false
 
   }
 
-  class EncoderCaseClassMapperImpl_blackbox(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
-
-    val printlnTree = true
+  class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
 
     import c.universe._
 
@@ -39,36 +37,22 @@ object EncoderCaseClassMapper {
 
       val tableName = c.freshName("tableInstance")
 
-      val inputFieldNames = input.members.toList.reverse
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map { s =>
-          (s, s.name)
-        }
-        .collect {
-          case (member, TermName(n)) =>
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.input.${TermName(name)}"""
-              }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
-            )
-        }
+      val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+        case (member, TermName(n)) =>
+          val name = n.trim
+          CaseClassField(
+              name = name
+            , rawField = member
+            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
+            , modelGetter = { modelVar: Tree =>
+              q"""${modelVar}.input.${TermName(name)}"""
+            }
+          )
+      }
 
       val outputFieldNames = output.members.toList.reverse
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map { s =>
-          (s, s.name)
-        }
+        .filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal)
+        .map(s => (s, s.name))
         .collect {
           case (member, TermName(n)) =>
             val name = n.trim
@@ -79,90 +63,22 @@ object EncoderCaseClassMapper {
               , modelGetter = { modelVar: Tree =>
                 q"""${modelVar}.model.${TermName(name)}"""
               }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
             )
         }
         .reverse
 
-      val unusedFieldNames = unused.members.toList.reverse
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map { s =>
-          (s, s.name)
-        }
-        .collect {
-          case (member, TermName(n)) =>
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${unused}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
-              }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
-            )
-        }
+      val unusedFieldNames =
+        unused.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val tableFieldNames = fetchTableFields(table)
 
-      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_.name).contains(s.name)) ::: inputFieldNames
-
-      /*val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
-        case ((nameList, rawIndex, helperIndex), member) =>
-          val newRawIndex = rawIndex + 1
-
-          val alreadExists = nameList.exists { s =>
-            s.tableFields
-              .map(
-                  c =>
-                  c.key match {
-                    case Left(r: SingleKey) =>
-                      r.singleKey == member.name
-                    case Right(mk: MutiplyKey) =>
-                      mk.mutiplyKey.contains(member.name)
-                  }
-              )
-              .getOrElse(false)
-          }
-          if (alreadExists)
-            (nameList, rawIndex, helperIndex)
-          else {
-            val usePlaceHolder = tableFieldNames.find { s =>
-              s.key match {
-                case Left(r: SingleKey) =>
-                  r.singleKey == member.name
-                case Right(mk: MutiplyKey) =>
-                  mk.mutiplyKey.contains(member.name)
-              }
-            }
-
-            val newHelperIndex = helperIndex + 1
-            val fieldName = FieldName(
-                tableFields = usePlaceHolder
-              , rawModelMember = member.rawField
-              , raw = member.name
-              , rawIndex = newRawIndex
-              , mapperIndex = newHelperIndex
-              , needInput = false
-              , needSub = false
-            )
-            ((fieldName :: nameList), newRawIndex, newHelperIndex)
-          }
-      }
-
-      val fields = fieldsPrepare*/
+      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.contains(s.name)) ::: inputFieldNames
 
       val fields = getEncoderMembers(notInputOutputFieldNames, tableFieldNames)
 
       val content = q"""${encoderDataGen.typeSymbol.companion}
-        .fromDataGenWrap[$input, $output, $unused](${toRepMapper1111(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
-        ${fullSetCaseClass1111(fields = fields, caseClassVarName = "caseClass")}
+        .fromDataGenWrap[$input, $output, $unused](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+        ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       }"""
 
       val content1 = if (printlnTree) q"""${content}.debug""" else content

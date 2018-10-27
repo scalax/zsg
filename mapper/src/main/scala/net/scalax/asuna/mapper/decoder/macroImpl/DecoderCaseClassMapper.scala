@@ -6,7 +6,11 @@ import net.scalax.asuna.mapper.decoder.{DecoderDataGen, DecoderInputTable, LazyM
 
 object DecoderCaseClassMapper {
 
-  class DecoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends RepMapperUtils {
+  class DecoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxDecoderCaseClassMapperImpl(c) {
+    override val printlnTree = false
+  }
+
+  class BlackboxDecoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
     self =>
 
     import c.universe._
@@ -33,142 +37,64 @@ object DecoderCaseClassMapper {
       val tableName = c.freshName("tableInstance")
 
       //Model to input's fields
-      val inputFieldNames = input.members.toList
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map(s => (s, s.name))
-        .collect {
-          case (member, TermName(n)) =>
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
-              }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
-            )
-        }
+      val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+        case (member, TermName(n)) =>
+          val name = n.trim
+          CaseClassField(
+              name = name
+            , rawField = member
+            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
+            , modelGetter = { modelVar: Tree =>
+              q"""${modelVar}.${TermName(name)}"""
+            }
+          )
+      }
 
       //Model to output's fields
       //Some not confirm to inputFieldNames is use to map to the table
-      val outputFieldNames = output.members.toList
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map(s => (s, s.name))
-        .collect {
-          case (member, TermName(n)) =>
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
-              }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
-            )
-        }
+      val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+        case (member, TermName(n)) =>
+          val name = n.trim
+          CaseClassField(
+              name = name
+            , rawField = member
+            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+            , modelGetter = { modelVar: Tree =>
+              q"""${modelVar}.${TermName(name)}"""
+            }
+          )
+      }
 
       //.reverse
       //Model to sub's fields
-      val subFieldNames = sub.members.toList
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map(s => (s, s.name))
-        .collect {
-          case (member, TermName(n)) =>
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${sub}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.${TermName(name)}"""
-              }
-              , modelSetter = { propertyVar: Tree =>
-                q"""${TermName(name)} = ${propertyVar}"""
-              }
-            )
-        }
+      val subFieldNames =
+        sub.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.map(_.name).contains(s.name))
 
       //Table fields
       val tableFieldNames = fetchTableFields(table)
 
-      val (fieldsPrepare, _, _) = notInputOutputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
-        case ((nameList, rawIndex, helperIndex), member) =>
-          val newRawIndex = rawIndex + 1
-          val needInput   = inputFieldNames.map(_.name).contains(member.name)
-
-          val alreadExists = nameList.exists { s =>
-            s.tableFields
-              .map(
-                  c =>
-                  c.key match {
-                    case Left(r: SingleKey) =>
-                      r.singleKey == member.name
-                    case Right(mk: MutiplyKey) =>
-                      mk.mutiplyKey.contains(member.name)
-                  }
-              )
-              .getOrElse(false)
-          }
-          if (alreadExists)
-            (nameList, rawIndex, helperIndex)
-          else {
-            val usePlaceHolder = tableFieldNames.find { s =>
-              s.key match {
-                case Left(r: SingleKey) =>
-                  r.singleKey == member.name
-                case Right(mk: MutiplyKey) =>
-                  mk.mutiplyKey.contains(member.name)
-              }
-            }
-
-            val newHelperIndex = if (!needInput) helperIndex + 1 else helperIndex
-            val fieldName = FieldName(
-                tableFields = usePlaceHolder
-              , rawModelMember = member.rawField
-              , raw = member.name
-              , rawIndex = newRawIndex
-              , mapperIndex = newHelperIndex
-              , needInput = needInput
-              , needSub = subFieldNames.contains(member.name)
-            )
-            ((fieldName :: nameList), newRawIndex, newHelperIndex)
-          }
-      }
-
-      val needToMapFields = fieldsPrepare.filter(s => !s.needInput)
-
-      val deepFields = countDeep(fieldsPrepare.filter(s => !s.needInput))
-
-      val setterCols = appendIndexToTree(deepFields, "tempData")
+      val decoderFields = getDecoderMembers(notInputOutputFieldNames, tableFieldNames)
+      val fieldValue = countDeep(decoderFields).flatMap { value =>
+        value.toSetter("tempData")
+      }.toMap
 
       val q = c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] {
         q"""
         ${decoderInputTable.typeSymbol.companion} { ${TermName(tableName)}: ${table} =>
           ${decoderDataGen.typeSymbol.companion}
-          .fromDataGenWrap(${toRepMapper(fields = needToMapFields, tableName = tableName, inputFields = outputFieldNames)}.dataGenWrap) { (tempData, rep) =>
+          .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = tableName)}.dataGenWrap) { (tempData, rep) =>
             ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
               ..${List(
-            setterCols.filter(s => notInputOutputFieldNames.exists(r => r.name == s._1)).map(_._2)
+            notInputOutputFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")
           , inputFieldNames.map { field =>
-            field.modelSetter(field.modelGetter(Ident(TermName("s"))))
+            val setterValue = field.modelGetter(Ident(TermName("s")))
+            q"""${TermName(field.name)} = ${setterValue}"""
           }
         ).flatten}
 
-            ) }, sub = ${sub.typeSymbol.companion}(..${setterCols.filter(s => subFieldNames.exists(r => r.name == s._1)).map(_._2)}))
+            ) }, sub = ${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s)} = ${fieldValue(s)}""")}))
           }
         }
         """

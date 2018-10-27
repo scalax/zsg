@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl, PropertyType}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -13,28 +13,107 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   import c.universe._
 
-  case class EncoderField(names: List[String], tableGetter: Tree => Tree, modelGetter: Tree => Tree, propertyType: Tree)
+  trait BaseField {
+    def names: List[String]
+    def tableGetter: Tree => Tree
+    def propertyType: Tree
+  }
 
-  def getEncoderMembers(caseFields: List[CaseClassField], tableFields: List[MemberWithDeepKey]): List[EncoderField] = {
-    val (fields, _) = caseFields.foldLeft((List.empty[Either[CaseClassField, MemberWithDeepKey]], List.empty[String])) {
+  trait EncoderField extends BaseField {
+    def modelGetter: Tree => Tree
+  }
+
+  trait DecoderField extends BaseField {
+    def modelSetter: Map[String, List[String]]
+    def toSetter(tempDataVar: String): Map[String, Tree] = {
+      modelSetter.map {
+        case (key, value) =>
+          val initTree: Tree = Ident(TermName(tempDataVar))
+          val setterTree = value.foldLeft(initTree) { (tree, name) =>
+            q"""${tree}.${TermName(name)}"""
+          }
+          (key, setterTree)
+      }
+    }
+    def appendField(name: String): DecoderField =
+      DecoderFieldImpl(names = names, tableGetter = tableGetter, propertyType = propertyType, modelSetter = modelSetter.map {
+        case (key, setter) =>
+          (key, name :: setter)
+      })
+  }
+
+  trait FormatterField extends EncoderField with DecoderField {
+    override def appendField(name: String): FormatterField =
+      FormatterFieldImpl(
+          names = names
+        , tableGetter = tableGetter
+        , propertyType = propertyType
+        , modelGetter = modelGetter
+        , modelSetter = modelSetter.map {
+          case (key, setter) =>
+            (key, name :: setter)
+        }
+      )
+  }
+
+  case class EncoderFieldImpl(
+      override val names: List[String]
+    , override val tableGetter: Tree => Tree
+    , override val modelGetter: Tree => Tree
+    , override val propertyType: Tree
+  ) extends EncoderField
+
+  case class DecoderFieldImpl(
+      override val names: List[String]
+    , override val tableGetter: Tree => Tree
+    , override val modelSetter: Map[String, List[String]]
+    , override val propertyType: Tree
+  ) extends DecoderField
+
+  case class FormatterFieldImpl(
+      override val names: List[String]
+    , override val tableGetter: Tree => Tree
+    , override val modelGetter: Tree => Tree
+    , override val modelSetter: Map[String, List[String]]
+    , override val propertyType: Tree
+  ) extends FormatterField
+
+  sealed trait FieldToWrapInfo
+
+  case class PlaceHolderFieldInfo(field: CaseClassField) extends FieldToWrapInfo
+
+  sealed trait FieldWithKeyInfo extends FieldToWrapInfo {
+    def containFields: List[String]
+    def tableGetter: Tree => Tree
+  }
+
+  case class SingleFieldInfo(key: SingleKey, caseField: CaseClassField, override val tableGetter: Tree => Tree) extends FieldWithKeyInfo {
+    override def containFields: List[String] = key.containFields
+
+  }
+  case class MutiplyFieldInfo(key: MutiplyKey, caseFields: List[CaseClassField], override val tableGetter: Tree => Tree) extends FieldWithKeyInfo {
+    override def containFields: List[String] = key.containFields
+
+  }
+
+  protected def getMemberInfo(caseFields: List[CaseClassField], tableFields: List[MemberInfo]): List[FieldToWrapInfo] = {
+    val (fields, _) = caseFields.foldLeft(
+        (List.empty[FieldToWrapInfo], List.empty[String])
+    ) {
       case ((list, names), s) =>
         if (names.contains(s.name)) {
           (list, names)
         } else {
-          val fieldOpt = tableFields
-            .map { r =>
-              val keys = r.key match {
-                case Left(s: SingleKey) =>
-                  List(s.singleKey)
-                case Right(s: MutiplyKey) =>
-                  s.mutiplyKey
-              }
-              (r, keys, keys.contains(s.name))
-            }
-            .find { case (_, _, contains) => contains }
+          val fieldOpt = tableFields.map(r => (r, r.containFields.contains(s.name))).find { case (_, contains) => contains }
 
-          val fieldEither = fieldOpt.fold((Left(s), List(s.name)): (Either[CaseClassField, MemberWithDeepKey], List[String])) {
-            case (r, keys, _) => (Right(r), keys)
+          val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s): FieldToWrapInfo, List(s.name))) {
+            case (r, _) =>
+              (r match {
+                case key: SingleKey =>
+                  SingleFieldInfo(key, caseFields.find(s => s.name == key.singleKey).get, r.tableGetter)
+                case key: MutiplyKey =>
+                  MutiplyFieldInfo(key, caseFields.filter(s => key.containFields.contains(s.name)), r.tableGetter)
+              }, r.containFields)
           }
 
           (list ::: fieldEither._1 :: Nil, names ::: fieldEither._2)
@@ -42,31 +121,107 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
     }
 
-    fields.map { t =>
-      t match {
-        case Left(s) =>
-          EncoderField(names = List(s.name), tableGetter = { tableVar: Tree =>
-            q"""${s.fieldType}.toPlaceholder"""
-          }, modelGetter = s.modelGetter, propertyType = s.fieldType)
-        case Right(s) =>
-          s.key match {
-            case Left(key: SingleKey) =>
-              val field = caseFields.find(s => s.name == key.singleKey).get
-              EncoderField(names = List(key.singleKey), tableGetter = s.tableGetter, modelGetter = field.modelGetter, propertyType = field.fieldType)
-            case Right(key: MutiplyKey) =>
-              val fields = caseFields.filter(s => key.mutiplyKey.contains(s.name))
-              EncoderField(
-                  names = key.mutiplyKey
-                , tableGetter = s.tableGetter
-                , modelGetter = { modelVar: Tree =>
-                  key.modelSetter(fields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
-                }
-                , propertyType = key.properType
-              )
+    fields
+  }
+
+  def getEncoderMembers(inputCaseFields: List[CaseClassField], tableFields: List[MemberInfo]): List[EncoderField] = {
+    val fields = getMemberInfo(inputCaseFields, tableFields)
+
+    fields.map {
+      case s: PlaceHolderFieldInfo =>
+        EncoderFieldImpl(
+            names = List(s.field.name)
+          , tableGetter = { tableVar: Tree =>
+            q"""${s.field.fieldType}.toPlaceholder"""
           }
-      }
+          , modelGetter = s.field.modelGetter
+          , propertyType = s.field.fieldType
+        )
+      case s: SingleFieldInfo =>
+        EncoderFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelGetter = s.caseField.modelGetter
+          , propertyType = s.caseField.fieldType
+        )
+      case s: MutiplyFieldInfo =>
+        EncoderFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelGetter = { modelVar: Tree =>
+            s.key.modelSetter(s.caseFields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
+          }
+          , propertyType = s.key.properType
+        )
 
     }
+  }
+
+  def getDecoderMembers(inputCaseFields: List[CaseClassField], tableFields: List[MemberInfo]): List[DecoderField] = {
+    val fields = getMemberInfo(inputCaseFields, tableFields)
+
+    fields.map {
+      case s: PlaceHolderFieldInfo =>
+        DecoderFieldImpl(
+            names = List(s.field.name)
+          , tableGetter = { tableVar: Tree =>
+            q"""${s.field.fieldType}.toPlaceholder"""
+          }
+          , modelSetter = Map((s.field.name, List.empty))
+          , propertyType = s.field.fieldType
+        )
+      case s: SingleFieldInfo =>
+        DecoderFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelSetter = Map((s.caseField.name, List.empty))
+          , propertyType = s.caseField.fieldType
+        )
+      case s: MutiplyFieldInfo =>
+        DecoderFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
+          , propertyType = s.key.properType
+        )
+    }
+
+  }
+
+  def getFormatterMembers(inputCaseFields: List[CaseClassField], tableFields: List[MemberInfo]): List[FormatterField] = {
+    val fields = getMemberInfo(inputCaseFields, tableFields)
+
+    fields.map {
+      case s: PlaceHolderFieldInfo =>
+        FormatterFieldImpl(
+            names = List(s.field.name)
+          , tableGetter = { tableVar: Tree =>
+            q"""${s.field.fieldType}.toPlaceholder"""
+          }
+          , modelGetter = s.field.modelGetter
+          , modelSetter = Map((s.field.name, List.empty))
+          , propertyType = s.field.fieldType
+        )
+      case s: SingleFieldInfo =>
+        FormatterFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelGetter = s.caseField.modelGetter
+          , modelSetter = Map((s.caseField.name, List.empty))
+          , propertyType = s.caseField.fieldType
+        )
+      case s: MutiplyFieldInfo =>
+        FormatterFieldImpl(
+            names = s.containFields
+          , tableGetter = s.tableGetter
+          , modelGetter = { modelVar: Tree =>
+            s.key.modelSetter(s.caseFields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
+          }
+          , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
+          , propertyType = s.key.properType
+        )
+    }
+
   }
 
   case class CaseClassField(
@@ -74,33 +229,11 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , rawField: Symbol
     , fieldType: Tree
     , modelGetter: Tree => Tree
-    , modelSetter: Tree => Tree
   )
 
-  case class FieldName(
-      tableFields: Option[MemberWithDeepKey]
-    , rawModelMember: Symbol
-    , raw: String
-    , rawIndex: Int
-    , mapperIndex: Int
-    , needInput: Boolean
-    , needSub: Boolean
-  )
-
-  def commonProUseInShape(caseClassFields: List[CaseClassField], tableName: String, fieldName: FieldName) = {
-    val q = fieldName.tableFields match {
-      case Some(member) =>
-        member.tableGetter(Ident(TermName(tableName)))
-      case _ => q"""${caseClassFields.find(s => s.name == fieldName.raw).get.fieldType}.toPlaceholder"""
-
-    }
-    q
-  }
-
-  def initProperty1111(fields: List[EncoderField], tableName: String): List[Tree] = {
+  def initProperty(fields: List[BaseField], tableName: String): List[Tree] = {
     val caseClassMapper = weakTypeOf[CaseClassMapper]
     val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
-    val proType         = weakTypeOf[PropertyType[_]]
 
     fields
       .grouped(maxNum)
@@ -117,53 +250,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
               tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))}),
               modelColumnName = ${Literal(Constant(field.names.head))},
               modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))})
-            )"""
-            )
-        }})
-          """
-        q
-      }
-      .toList
-  }
-
-  def initProperty(fieldNames: List[FieldName], inputFields: List[CaseClassField], tableName: String): List[Tree] = {
-    val caseClassMapper = weakTypeOf[CaseClassMapper]
-    val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
-    val proType         = weakTypeOf[PropertyType[_]]
-
-    fieldNames
-      .grouped(maxNum)
-      .map { subList =>
-        val q = q"""
-          ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.filter(s => !s.needInput).zipWithIndex.flatMap {
-          case (field, index) =>
-            val proTree = field.tableFields
-              .flatMap(
-                  s =>
-                  s.key match {
-                    case Left(_) =>
-                      Option.empty
-                    case Right(i) =>
-                      Option(i)
-                  }
-              )
-              .map(_.properType) match {
-              case Some(autalType) =>
-                q"""${proType.typeSymbol.companion}[${autalType}]"""
-                autalType
-              case _ =>
-                inputFields.find(s => s.name == field.raw).get.fieldType
-            }
-
-            val plusIndex = index + 1
-            List(
-                q"""${TermName("rep" + plusIndex)} = ${commonProUseInShape(caseClassFields = inputFields, fieldName = field, tableName = tableName)}"""
-              , q"""${TermName("property" + plusIndex)} = $proTree"""
-              , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
-              tableColumnName = ${Literal(Constant(field.raw))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.raw))}),
-              modelColumnName = ${Literal(Constant(field.raw))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.raw))})
             )"""
             )
         }})
@@ -199,15 +285,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     }
   }
 
-  def toRepMapper(fields: List[FieldName], tableName: String, inputFields: List[CaseClassField]): Tree = {
+  def toRepMapper(fields: List[BaseField], tableName: String): Tree = {
     withDataDescribeFunc(
-        initProperty(fieldNames = fields, tableName = tableName, inputFields = inputFields)
-    ).head
-  }
-
-  def toRepMapper1111(fields: List[EncoderField], tableName: String): Tree = {
-    withDataDescribeFunc(
-        initProperty1111(fields = fields, tableName)
+        initProperty(fields = fields, tableName)
     ).head
   }
 
