@@ -2,12 +2,12 @@ package net.scalax.asuna.mapper.encoder
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-trait EncoderDataGen[Input, Output, Unused] {
+trait EncoderDataGen[Input, Output, Unused] extends DataGenWrap {
   self =>
 
-  type TempData
-  type TempRep
-  def rep: TempRep
+  override type TempData
+  override type TempRep
+  override def rep: TempRep
 
   def to(caseModel: UnusedData[Input, Output, Unused]): TempData
 

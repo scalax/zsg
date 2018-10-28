@@ -2,12 +2,12 @@ package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-trait DecoderDataGen[Input, Output, Sub] {
+trait DecoderDataGen[Input, Output, Sub] extends DataGenWrap {
   self =>
 
-  type TempData
-  type TempRep
-  def rep: TempRep
+  override type TempData
+  override type TempRep
+  override def rep: TempRep
 
   def from(caseModel: TempData): LazyModel[Input, Output, Sub]
 

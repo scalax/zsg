@@ -16,21 +16,23 @@ object DecoderCaseClassMapper {
     import c.universe._
 
     def caseclassDecoderGeneric[
-        Input: c.WeakTypeTag
+        Poly: c.WeakTypeTag
+      , Table: c.WeakTypeTag
+      , Input: c.WeakTypeTag
       , Output: c.WeakTypeTag
       , Sub: c.WeakTypeTag
-      , Table: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ]: c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] = {
+    ]: c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] = {
       val rep               = weakTypeOf[Rep]
       val tempData          = weakTypeOf[TempData]
+      val poly              = weakTypeOf[Poly]
       val input             = weakTypeOf[Input]
       val output            = weakTypeOf[Output]
       val sub               = weakTypeOf[Sub]
       val table             = weakTypeOf[Table]
       val lazyModel         = weakTypeOf[LazyModel[Input, Output, Sub]]
-      val decoderInputTable = weakTypeOf[DecoderInputTable[Table, Input, Output, Sub]]
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Input, Output, Sub]]
       val decoderDataGen    = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
       val propertyType      = weakTypeOf[PropertyType[_]]
 
@@ -80,28 +82,32 @@ object DecoderCaseClassMapper {
         value.toSetter("tempData")
       }.toMap
 
-      val q = c.Expr[DecoderInputTable.Aux[Table, Input, Output, Sub, Rep, TempData]] {
-        q"""
-        ${decoderInputTable.typeSymbol.companion} { ${TermName(tableName)}: ${table} =>
-          ${decoderDataGen.typeSymbol.companion}
-          .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = tableName)}.dataGenWrap) { (tempData, rep) =>
-            ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
-              ..${List(
-            notInputOutputFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")
-          , inputFieldNames.map { field =>
-            val setterValue = field.modelGetter(Ident(TermName("s")))
-            q"""${TermName(field.name)} = ${setterValue}"""
-          }
-        ).flatten}
+      val content = q"""${decoderDataGen.typeSymbol.companion}
+        .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = tableName)}.dataGenWrap) { (tempData, rep) =>
+          ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
+            ..${List(
+          notInputOutputFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")
+        , inputFieldNames.map { field =>
+          val setterValue = field.modelGetter(Ident(TermName("s")))
+          q"""${TermName(field.name)} = ${setterValue}"""
+        }
+      ).flatten}
 
             ) }, sub = ${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s)} = ${fieldValue(s)}""")}))
-          }
-        }
-        """
+        }"""
 
-      }
-      //println(q + "\n" + "22" * 100)
-      q
+      val q = if (printlnTree)
+        q"""${decoderInputTable.typeSymbol.companion}[$poly].apply[${table}, ${input}, ${output}, ${sub}, ${rep}, ${tempData}] { ${TermName(tableName)}: ${table} =>
+          ${content}.debug
+        }"""
+      else
+        q"""${decoderInputTable.typeSymbol.companion}[$poly] { ${TermName(tableName)}: ${table} =>
+          ${content}
+        }"""
+
+      if (printlnTree)
+        println(q + "\n" + "22" * 100)
+      c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]](q)
     }
   }
 

@@ -62,7 +62,6 @@ trait EncoderWrapApply[RepCol, DataCol] {
     ): EncoderShapeValue[Case, RepCol, DataCol] = {
       ???
     }
-
   }
 
 }

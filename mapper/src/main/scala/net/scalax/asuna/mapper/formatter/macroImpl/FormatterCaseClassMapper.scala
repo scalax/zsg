@@ -16,13 +16,14 @@ object FormatterCaseClassMapper {
 
     import c.universe._
 
-    def caseclassFormatterGeneric[Output: c.WeakTypeTag, Table: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
-      : c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] = {
+    def caseclassFormatterGeneric[Poly: c.WeakTypeTag, Table: c.WeakTypeTag, Output: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
+      : c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]] = {
       val rep                 = weakTypeOf[Rep]
+      val poly                = weakTypeOf[Poly]
       val tempData            = weakTypeOf[TempData]
       val output              = weakTypeOf[Output]
       val table               = weakTypeOf[Table]
-      val formatterInputTable = weakTypeOf[FormatterInputTable[Table, Output]]
+      val formatterInputTable = weakTypeOf[FormatterInputTable[Poly, Table, Output]]
       val formatterDataGen    = weakTypeOf[FormatterDataGen[Output]]
       val unusedData          = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
       val propertyType        = weakTypeOf[PropertyType[_]]
@@ -49,21 +50,24 @@ object FormatterCaseClassMapper {
         value.toSetter("tempData")
       }.toMap
 
-      val q = c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] {
-        q"""
-        ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
-          ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
-            ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
-          } { (tempData, rep) =>
-           ${output.typeSymbol.companion}(
-            ..${outputFieldNames.map(n => q"""${TermName(n.name)} = ${fieldValue(n.name)}""")}
-            ) }
-           }
-                   """
-      }
-      //println(q + "\n" + "22" * 100)
-      q
+      val content = q"""${formatterDataGen.typeSymbol.companion}
+        .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+        ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
+      } { (tempData, rep) =>
+        ${output.typeSymbol.companion}(
+        ..${outputFieldNames.map(n => q"""${TermName(n.name)} = ${fieldValue(n.name)}""")}
+        ) }"""
+
+      val content1 = if (printlnTree) q"""${content}.debug""" else content
+
+      val q = q"""${formatterInputTable.typeSymbol.companion}[${poly}] { ${TermName(tableName)}: ${table} =>
+          ${content1}
+        }"""
+
+      if (printlnTree)
+        println(q + "\n" + "22" * 100)
+
+      c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]](q)
     }
 
   }

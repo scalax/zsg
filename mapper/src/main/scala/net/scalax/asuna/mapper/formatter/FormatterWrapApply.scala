@@ -1,13 +1,16 @@
 package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.core.formatter.{FormatterShape, FormatterShapeValue}
+import net.scalax.asuna.mapper.encoder.FormatterBlackBoxInputTable
 
 trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
-  def withModel[Case]: CaseWrap[Case] = new CaseWrap[Case] {}
+  def withModel[Case]: CaseWrap[Case]            = new CaseWrap[Case]       {}
+  def debugWithTable[Case]: DebugTableWrap[Case] = new DebugTableWrap[Case] {}
+
   trait CaseWrap[Case] {
 
     def apply[Table, Rep, TempData](table: Table)(
-        implicit repWrap: FormatterInputTable.Aux[Table, Case, Rep, TempData]
+        implicit repWrap: FormatterInputTable.Aux[FirstFormatterInputTableImplicit, Table, Case, Rep, TempData]
     ): FormatterCompiler[Rep, TempData, RepCol, EncoderDataCol, DecoderDataCol, Case] =
       new FormatterCompiler[Rep, TempData, RepCol, EncoderDataCol, DecoderDataCol, Case] {
         override def compile[Target1](
@@ -28,8 +31,17 @@ trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
           }
         }
       }
-
   }
+
+  trait DebugTableWrap[Case] {
+    def apply[Table](table: Table)(
+        implicit
+      repWrap: FormatterBlackBoxInputTable.Aux[FormatterBlackBoxInputTable, Table, Case]
+    ): FormatterShapeValue[Case, RepCol, EncoderDataCol, DecoderDataCol] = {
+      ???
+    }
+  }
+
 }
 
 object FormatterWrapApply {
