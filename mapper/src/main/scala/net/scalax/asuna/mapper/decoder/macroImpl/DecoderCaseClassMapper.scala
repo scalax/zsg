@@ -81,12 +81,15 @@ object DecoderCaseClassMapper {
       val fieldValue = countDeep(decoderFields).flatMap { value =>
         value.toSetter("tempData")
       }.toMap
+      val tempFieldSetter = notInputOutputFieldNames.map(s => (s.name, fieldValue.get(s.name))).collect { case (name, Some(s)) => (name, s) }.map {
+        case (name, tree) => q"""${TermName(name)} = ${tree}"""
+      }
 
       val content = q"""${decoderDataGen.typeSymbol.companion}
         .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = tableName)}.dataGenWrap) { (tempData, rep) =>
           ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
             ..${List(
-          notInputOutputFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")
+          tempFieldSetter
         , inputFieldNames.map { field =>
           val setterValue = field.modelGetter(Ident(TermName("s")))
           q"""${TermName(field.name)} = ${setterValue}"""
