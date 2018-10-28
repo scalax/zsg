@@ -19,10 +19,15 @@ object CaseClassMapper {
       Target1
     , Data1
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    new CaseClassRepMapper1[
+        Target1
+      , Data1
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+    }
   }
   def withRep[
       Rep1
@@ -48,12 +53,20 @@ object CaseClassMapper {
     , Target2
     , Data2
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    new CaseClassRepMapper2[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+    }
   }
   def withRep[
       Rep1
@@ -88,14 +101,25 @@ object CaseClassMapper {
     , Target3
     , Data3
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    new CaseClassRepMapper3[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+    }
   }
   def withRep[
       Rep1
@@ -139,16 +163,30 @@ object CaseClassMapper {
     , Target4
     , Data4
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    new CaseClassRepMapper4[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+    }
   }
   def withRep[
       Rep1
@@ -201,18 +239,35 @@ object CaseClassMapper {
     , Target5
     , Data5
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    def repInput5 = wrap5.inputColumn(rep5, column5)
+    new CaseClassRepMapper5[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+      override lazy val rep5 = repInput5
+    }
   }
   def withRep[
       Rep1
@@ -274,20 +329,40 @@ object CaseClassMapper {
     , Target6
     , Data6
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    def repInput5 = wrap5.inputColumn(rep5, column5)
+    def repInput6 = wrap6.inputColumn(rep6, column6)
+    new CaseClassRepMapper6[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+      override lazy val rep5 = repInput5
+      override lazy val rep6 = repInput6
+    }
   }
   def withRep[
       Rep1
@@ -358,22 +433,45 @@ object CaseClassMapper {
     , Target7
     , Data7
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    def repInput5 = wrap5.inputColumn(rep5, column5)
+    def repInput6 = wrap6.inputColumn(rep6, column6)
+    def repInput7 = wrap7.inputColumn(rep7, column7)
+    new CaseClassRepMapper7[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+      override lazy val rep5 = repInput5
+      override lazy val rep6 = repInput6
+      override lazy val rep7 = repInput7
+    }
   }
   def withRep[
       Rep1
@@ -453,24 +551,50 @@ object CaseClassMapper {
     , Target8
     , Data8
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    def repInput5 = wrap5.inputColumn(rep5, column5)
+    def repInput6 = wrap6.inputColumn(rep6, column6)
+    def repInput7 = wrap7.inputColumn(rep7, column7)
+    def repInput8 = wrap8.inputColumn(rep8, column8)
+    new CaseClassRepMapper8[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+      , Target8
+      , Data8
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
       , property8 = property8
-      , rep8 = wrap8.inputColumn(rep8, column8)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+      override lazy val rep5 = repInput5
+      override lazy val rep6 = repInput6
+      override lazy val rep7 = repInput7
+      override lazy val rep8 = repInput8
+    }
   }
   def withRep[
       Rep1
@@ -559,26 +683,55 @@ object CaseClassMapper {
     , Target9
     , Data9
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1 = wrap1.inputColumn(rep1, column1)
+    def repInput2 = wrap2.inputColumn(rep2, column2)
+    def repInput3 = wrap3.inputColumn(rep3, column3)
+    def repInput4 = wrap4.inputColumn(rep4, column4)
+    def repInput5 = wrap5.inputColumn(rep5, column5)
+    def repInput6 = wrap6.inputColumn(rep6, column6)
+    def repInput7 = wrap7.inputColumn(rep7, column7)
+    def repInput8 = wrap8.inputColumn(rep8, column8)
+    def repInput9 = wrap9.inputColumn(rep9, column9)
+    new CaseClassRepMapper9[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+      , Target8
+      , Data8
+      , Target9
+      , Data9
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
       , property8 = property8
-      , rep8 = wrap8.inputColumn(rep8, column8)
       , property9 = property9
-      , rep9 = wrap9.inputColumn(rep9, column9)
-    )
+    ) {
+      override lazy val rep1 = repInput1
+      override lazy val rep2 = repInput2
+      override lazy val rep3 = repInput3
+      override lazy val rep4 = repInput4
+      override lazy val rep5 = repInput5
+      override lazy val rep6 = repInput6
+      override lazy val rep7 = repInput7
+      override lazy val rep8 = repInput8
+      override lazy val rep9 = repInput9
+    }
   }
   def withRep[
       Rep1
@@ -676,28 +829,60 @@ object CaseClassMapper {
     , Target10
     , Data10
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1  = wrap1.inputColumn(rep1, column1)
+    def repInput2  = wrap2.inputColumn(rep2, column2)
+    def repInput3  = wrap3.inputColumn(rep3, column3)
+    def repInput4  = wrap4.inputColumn(rep4, column4)
+    def repInput5  = wrap5.inputColumn(rep5, column5)
+    def repInput6  = wrap6.inputColumn(rep6, column6)
+    def repInput7  = wrap7.inputColumn(rep7, column7)
+    def repInput8  = wrap8.inputColumn(rep8, column8)
+    def repInput9  = wrap9.inputColumn(rep9, column9)
+    def repInput10 = wrap10.inputColumn(rep10, column10)
+    new CaseClassRepMapper10[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+      , Target8
+      , Data8
+      , Target9
+      , Data9
+      , Target10
+      , Data10
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
       , property8 = property8
-      , rep8 = wrap8.inputColumn(rep8, column8)
       , property9 = property9
-      , rep9 = wrap9.inputColumn(rep9, column9)
       , property10 = property10
-      , rep10 = wrap10.inputColumn(rep10, column10)
-    )
+    ) {
+      override lazy val rep1  = repInput1
+      override lazy val rep2  = repInput2
+      override lazy val rep3  = repInput3
+      override lazy val rep4  = repInput4
+      override lazy val rep5  = repInput5
+      override lazy val rep6  = repInput6
+      override lazy val rep7  = repInput7
+      override lazy val rep8  = repInput8
+      override lazy val rep9  = repInput9
+      override lazy val rep10 = repInput10
+    }
   }
   def withRep[
       Rep1
@@ -804,30 +989,65 @@ object CaseClassMapper {
     , Target11
     , Data11
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1  = wrap1.inputColumn(rep1, column1)
+    def repInput2  = wrap2.inputColumn(rep2, column2)
+    def repInput3  = wrap3.inputColumn(rep3, column3)
+    def repInput4  = wrap4.inputColumn(rep4, column4)
+    def repInput5  = wrap5.inputColumn(rep5, column5)
+    def repInput6  = wrap6.inputColumn(rep6, column6)
+    def repInput7  = wrap7.inputColumn(rep7, column7)
+    def repInput8  = wrap8.inputColumn(rep8, column8)
+    def repInput9  = wrap9.inputColumn(rep9, column9)
+    def repInput10 = wrap10.inputColumn(rep10, column10)
+    def repInput11 = wrap11.inputColumn(rep11, column11)
+    new CaseClassRepMapper11[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+      , Target8
+      , Data8
+      , Target9
+      , Data9
+      , Target10
+      , Data10
+      , Target11
+      , Data11
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
       , property8 = property8
-      , rep8 = wrap8.inputColumn(rep8, column8)
       , property9 = property9
-      , rep9 = wrap9.inputColumn(rep9, column9)
       , property10 = property10
-      , rep10 = wrap10.inputColumn(rep10, column10)
       , property11 = property11
-      , rep11 = wrap11.inputColumn(rep11, column11)
-    )
+    ) {
+      override lazy val rep1  = repInput1
+      override lazy val rep2  = repInput2
+      override lazy val rep3  = repInput3
+      override lazy val rep4  = repInput4
+      override lazy val rep5  = repInput5
+      override lazy val rep6  = repInput6
+      override lazy val rep7  = repInput7
+      override lazy val rep8  = repInput8
+      override lazy val rep9  = repInput9
+      override lazy val rep10 = repInput10
+      override lazy val rep11 = repInput11
+    }
   }
   def withRep[
       Rep1
@@ -943,32 +1163,70 @@ object CaseClassMapper {
     , Target12
     , Data12
   ] = {
-    CaseClassMapper.withRawRep(
+    def repInput1  = wrap1.inputColumn(rep1, column1)
+    def repInput2  = wrap2.inputColumn(rep2, column2)
+    def repInput3  = wrap3.inputColumn(rep3, column3)
+    def repInput4  = wrap4.inputColumn(rep4, column4)
+    def repInput5  = wrap5.inputColumn(rep5, column5)
+    def repInput6  = wrap6.inputColumn(rep6, column6)
+    def repInput7  = wrap7.inputColumn(rep7, column7)
+    def repInput8  = wrap8.inputColumn(rep8, column8)
+    def repInput9  = wrap9.inputColumn(rep9, column9)
+    def repInput10 = wrap10.inputColumn(rep10, column10)
+    def repInput11 = wrap11.inputColumn(rep11, column11)
+    def repInput12 = wrap12.inputColumn(rep12, column12)
+    new CaseClassRepMapper12[
+        Target1
+      , Data1
+      , Target2
+      , Data2
+      , Target3
+      , Data3
+      , Target4
+      , Data4
+      , Target5
+      , Data5
+      , Target6
+      , Data6
+      , Target7
+      , Data7
+      , Target8
+      , Data8
+      , Target9
+      , Data9
+      , Target10
+      , Data10
+      , Target11
+      , Data11
+      , Target12
+      , Data12
+    ](
         property1 = property1
-      , rep1 = wrap1.inputColumn(rep1, column1)
       , property2 = property2
-      , rep2 = wrap2.inputColumn(rep2, column2)
       , property3 = property3
-      , rep3 = wrap3.inputColumn(rep3, column3)
       , property4 = property4
-      , rep4 = wrap4.inputColumn(rep4, column4)
       , property5 = property5
-      , rep5 = wrap5.inputColumn(rep5, column5)
       , property6 = property6
-      , rep6 = wrap6.inputColumn(rep6, column6)
       , property7 = property7
-      , rep7 = wrap7.inputColumn(rep7, column7)
       , property8 = property8
-      , rep8 = wrap8.inputColumn(rep8, column8)
       , property9 = property9
-      , rep9 = wrap9.inputColumn(rep9, column9)
       , property10 = property10
-      , rep10 = wrap10.inputColumn(rep10, column10)
       , property11 = property11
-      , rep11 = wrap11.inputColumn(rep11, column11)
       , property12 = property12
-      , rep12 = wrap12.inputColumn(rep12, column12)
-    )
+    ) {
+      override lazy val rep1  = repInput1
+      override lazy val rep2  = repInput2
+      override lazy val rep3  = repInput3
+      override lazy val rep4  = repInput4
+      override lazy val rep5  = repInput5
+      override lazy val rep6  = repInput6
+      override lazy val rep7  = repInput7
+      override lazy val rep8  = repInput8
+      override lazy val rep9  = repInput9
+      override lazy val rep10 = repInput10
+      override lazy val rep11 = repInput11
+      override lazy val rep12 = repInput12
+    }
   }
   def withRawRep[
       Rep1

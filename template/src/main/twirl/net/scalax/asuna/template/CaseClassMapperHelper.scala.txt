@@ -19,10 +19,21 @@ def withRep[@for(i <- 1 to count) {
     @if(i < count) { , }
 }] = {
 
-    CaseClassMapper.withRawRep(@for(i <- 1 to count) {
-        property@{i} = property@{i},
-        rep@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i})
+    @for(i <- 1 to count) {
+        def repInput@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i})
+    }
+
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Target@{i},
+        Data@{i}
         @if(i < count) { , }
-    })
+    }](@for(i <- 1 to count) {
+        property@{i} = property@{i}
+        @if(i < count) { , }
+    }) {
+        @for(i <- 1 to count) {
+            override lazy val rep@{i} = repInput@{i}
+        }
+    }
 
 }
