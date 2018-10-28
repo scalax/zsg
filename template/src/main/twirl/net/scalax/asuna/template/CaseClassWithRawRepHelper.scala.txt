@@ -1,11 +1,11 @@
 @(count: Int)
 
-def withLawRep[@for(i <- 1 to count) {
+def withRawRep[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: Rep@{i},
+    rep@{i}: => Rep@{i},
     property@{i}: PropertyType[Data@{i}]
     @if(i < count) { , }
 }): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
@@ -13,9 +13,22 @@ def withLawRep[@for(i <- 1 to count) {
     Data@{i}
     @if(i < count) { , }
 }] = {
-    new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
-        rep@{i} = rep@{i},
+
+    @for(i <- 1 to count) {
+        def repInput@{i} = rep@{i}
+    }
+
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }](@for(i <- 1 to count) {
         property@{i} = property@{i}
         @if(i < count) { , }
-    })
+    }) {
+    @for(i <- 1 to count) {
+        override lazy val rep@{i} = repInput@{i}
+    }
+    }
+
 }

@@ -25,7 +25,7 @@ trait DecoderWrapApply[RepCol, DataCol] {
             override val shape = shape1.packed
           }
           sv.dmap { (content: TempData) =>
-            wrap.from(content, wrap.rep)
+            wrap.from(content)
           }
         }
       }
@@ -49,7 +49,7 @@ trait DecoderWrapApply[RepCol, DataCol] {
             override val shape = shape1.packed
           }
           sv.dmap { (content: TempData) =>
-            wrap.from(content, wrap.rep).apply(EmptyLazyModel.value)
+            wrap.from(content).apply(EmptyLazyModel.value)
           }
         }
       }

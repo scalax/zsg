@@ -3,12 +3,21 @@ package net.scalax.asuna.mapper.encoder
 import net.scalax.asuna.mapper.common.DataGenWrap
 
 trait EncoderDataGen[Input, Output, Unused] {
+  self =>
 
   type TempData
   type TempRep
   def rep: TempRep
 
-  def to(caseModel: UnusedData[Input, Output, Unused], tempRep: TempRep): TempData
+  def to(caseModel: UnusedData[Input, Output, Unused]): TempData
+
+  def debug: EncoderDataGen.Aux[Input, Output, Unused, Any, Any] = new EncoderDataGen[Input, Output, Unused] {
+    override type TempData = Any
+    override type TempRep  = Any
+    override def rep: Any                                              = self.rep
+    override def to(caseModel: UnusedData[Input, Output, Unused]): Any = self.to(caseModel)
+
+  }
 
 }
 
@@ -23,8 +32,8 @@ object EncoderDataGen {
       new EncoderDataGen[Input, Output, Unused] {
         override type TempData = wrap.TempData
         override type TempRep  = wrap.TempRep
-        override def to(caseModel: UnusedData[Input, Output, Unused], tempRep: TempRep): TempData = f(caseModel, tempRep)
-        override val rep                                                                          = wrap.rep
+        override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
+        override val rep                                                        = wrap.rep
       }
   }
 

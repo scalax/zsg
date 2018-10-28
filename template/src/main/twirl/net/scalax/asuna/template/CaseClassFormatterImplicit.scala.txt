@@ -37,7 +37,7 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }]
-        override def wrapRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        override def wrapRep(base: => CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Rep@{i},
             Data@{i}
             @if(i < count) { , }
@@ -47,7 +47,7 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }] = {
-        new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
+        CaseClassMapper.withRawRep(@for(i <- 1 to count) {
             rep@{i} = shape@{i}.wrapRep(base.rep@{i}),
             property@{i} = base.property@{i}
             @if(i < count) { , }

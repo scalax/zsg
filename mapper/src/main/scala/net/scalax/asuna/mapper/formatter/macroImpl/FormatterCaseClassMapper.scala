@@ -1,6 +1,6 @@
 package net.scalax.asuna.helper.data.macroImpl
 
-import net.scalax.asuna.mapper.common.ModelGen
+import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.UnusedData
@@ -8,7 +8,11 @@ import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable}
 
 object FormatterCaseClassMapper {
 
-  class FormatterCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends RepMapperUtils {
+  class FormatterCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxFormatterCaseClassMapperImpl(c) {
+    override val printlnTree = false
+  }
+
+  class BlackboxFormatterCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
 
     import c.universe._
 
@@ -18,89 +22,42 @@ object FormatterCaseClassMapper {
       val tempData            = weakTypeOf[TempData]
       val output              = weakTypeOf[Output]
       val table               = weakTypeOf[Table]
-      val outputModelGen      = weakTypeOf[ModelGen[Output]]
       val formatterInputTable = weakTypeOf[FormatterInputTable[Table, Output]]
       val formatterDataGen    = weakTypeOf[FormatterDataGen[Output]]
       val unusedData          = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
+      val propertyType        = weakTypeOf[PropertyType[_]]
 
-      val modelGenName = c.freshName("modelGen")
-      val tableName    = c.freshName("tableInstance")
+      val tableName = c.freshName("tableInstance")
 
-      val outputFieldNames = output.members
-        .filter { s =>
-          s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal
-        }
-        .map { s =>
-          (s, s.name)
-        }
-        .collect { case (member, TermName(n)) => (member, n.trim) }
-        .toList
-        .reverse
+      val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+        case (member, TermName(n)) =>
+          val name = n.trim
+          CaseClassField(
+              name = name
+            , rawField = member
+            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+            , modelGetter = { modelVar: Tree =>
+              q"""${modelVar}.${TermName(name)}"""
+            }
+          )
+      }
 
       val tableFieldNames = fetchTableFields(table)
 
-      def mgDef = q"""val ${TermName(modelGenName)}: $outputModelGen = ${outputModelGen.typeSymbol.companion}.value[$output]"""
-
-      val (fieldsPrepare, _, _) = outputFieldNames.foldLeft((List.empty[FieldName], 0, 0)) {
-        case ((nameList, lawIndex, helperIndex), (member, strName)) =>
-          val newLawIndex = lawIndex + 1
-
-          val alreadExists = nameList.exists { s =>
-            s.tableFields
-              .map(
-                  c =>
-                  c.key match {
-                    case Left(SingleKey(r)) =>
-                      r == strName
-                    case Right(MutiplyKey(mk, _)) =>
-                      mk.contains(strName)
-                  }
-              )
-              .getOrElse(false)
-          }
-          if (alreadExists)
-            (nameList, lawIndex, helperIndex)
-          else {
-            val usePlaceHolder = tableFieldNames.find { s =>
-              s.key match {
-                case Left(SingleKey(r)) =>
-                  r == strName
-                case Right(MutiplyKey(mk, _)) =>
-                  mk.contains(strName)
-              }
-            }
-
-            val newHelperIndex = helperIndex + 1
-            val fieldName = FieldName(
-                tableFields = usePlaceHolder
-              , lawModelMember = member
-              , law = strName
-              , lawIndex = newLawIndex
-              , mapperIndex = newHelperIndex
-              , needInput = false
-              , needSub = false
-            )
-            ((fieldName :: nameList), newLawIndex, newHelperIndex)
-          }
-      }
-
-      val deepFields = countDeep(fieldsPrepare.filter(s => !s.needInput))
+      val fields = getFormatterMembers(outputFieldNames, tableFieldNames)
+      val fieldValue = countDeep(fields).flatMap { value =>
+        value.toSetter("tempData")
+      }.toMap
 
       val q = c.Expr[FormatterInputTable.Aux[Table, Output, Rep, TempData]] {
         q"""
         ${formatterInputTable.typeSymbol.companion}{ ${TermName(tableName)}: ${table} =>
-          $mgDef
           ${formatterDataGen.typeSymbol.companion}
-          .fromDataGenWrap[$output](${toRepMapper(fields = fieldsPrepare, tableName = tableName, modelGenName = modelGenName, "not to use", List.empty)}.dataGenWrap) { (caseClass1, rep) =>
-            val caseClass = ${unusedData.typeSymbol.companion}.simple(caseClass1)
-            ${fullSetCaseClass(fieldsPrepare, inputFieldNames = List.empty, outputFieldNames = outputFieldNames.map(_._2))}
+          .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+            ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
           } { (tempData, rep) =>
            ${output.typeSymbol.companion}(
-            ..${List(
-            outputFieldNames.map { field =>
-            q"""${TermName(field._2)} = ${appendIndexToTree(deepFields, q"""tempData""", field._2)}"""
-          }
-        ).flatten}
+            ..${outputFieldNames.map(n => q"""${TermName(n.name)} = ${fieldValue(n.name)}""")}
             ) }
            }
                    """

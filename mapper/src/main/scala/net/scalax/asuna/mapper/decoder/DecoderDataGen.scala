@@ -3,12 +3,20 @@ package net.scalax.asuna.mapper.decoder
 import net.scalax.asuna.mapper.common.DataGenWrap
 
 trait DecoderDataGen[Input, Output, Sub] {
+  self =>
 
   type TempData
   type TempRep
   def rep: TempRep
 
-  def from(caseModel: TempData, tempRep: TempRep): LazyModel[Input, Output, Sub]
+  def from(caseModel: TempData): LazyModel[Input, Output, Sub]
+
+  def debug: DecoderDataGen.Aux[Input, Output, Sub, Any, Nothing] = new DecoderDataGen[Input, Output, Sub] {
+    override type TempData = Nothing
+    override type TempRep  = Any
+    override def rep: Any                                                = self.rep
+    override def from(caseModel: Nothing): LazyModel[Input, Output, Sub] = self.from(caseModel)
+  }
 
 }
 
@@ -22,7 +30,7 @@ object DecoderDataGen {
     new DecoderDataGen[Input, Output, Sub] {
       override type TempData = wrap.TempData
       override type TempRep  = wrap.TempRep
-      override def from(caseModel: TempData, tempRep: TempRep): LazyModel[Input, Output, Sub] = f(caseModel, tempRep)
-      override val rep                                                                        = wrap.rep
+      override def from(caseModel: TempData): LazyModel[Input, Output, Sub] = f(caseModel, wrap.rep)
+      override val rep                                                      = wrap.rep
     }
 }
