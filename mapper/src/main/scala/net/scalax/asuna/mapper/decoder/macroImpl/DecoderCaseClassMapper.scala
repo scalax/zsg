@@ -1,7 +1,7 @@
 package net.scalax.asuna.mapper.decoder.macroImpl
 
 import net.scalax.asuna.mapper.common.PropertyType
-import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
+import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.{DecoderDataGen, DecoderInputTable, LazyModel}
 
 object DecoderCaseClassMapper {
@@ -10,7 +10,7 @@ object DecoderCaseClassMapper {
     override val printlnTree = false
   }
 
-  class BlackboxDecoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
+  class BlackboxDecoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
     self =>
 
     import c.universe._
@@ -108,9 +108,21 @@ object DecoderCaseClassMapper {
           ${content}
         }"""
 
-      if (printlnTree)
+      /*if (printlnTree) {
+        copySourceToTarget("aaaaaagshohowieth")
         println(q + "\n" + "22" * 100)
-      c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]](q)
+      }*/
+
+      c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] {
+        if (printlnTree) {
+          q"""
+          ${copySourceToTarget(q.toString)}
+          ${q}
+           """
+        } else {
+          q
+        }
+      }
     }
   }
 

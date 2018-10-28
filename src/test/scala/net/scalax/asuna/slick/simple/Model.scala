@@ -61,14 +61,12 @@ class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) w
   self =>
 
   def dyn     = rmu.effect(rmu.singleModel[DynFields](self).compile).withCols(cols)
-  def reader8 = umr.effect(umr.singleModel[Friends8](self).compile).toSv
+  def reader8 = umr.effect(umr.debugSingleModel[Friends8](self)).toSv
 
 }
 
 object DynFriendModelTq extends (List[String] => TableQuery[DynFriendModel]) {
-  override def apply(v1: List[String]): TableQuery[DynFriendModel] = {
-    TableQuery(cons => new DynFriendModel(cons, v1))
-  }
+  override def apply(v1: List[String]): TableQuery[DynFriendModel] = TableQuery(cons => new DynFriendModel(cons, v1))
 }
 
 class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
