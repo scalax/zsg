@@ -6,7 +6,7 @@ trait RepGroupColumnWrapper[Col, Data] {
 
   type Target
 
-  def inputColumn(rep: Col, columnInfo: MacroColumnInfo): Target
+  def inputColumn(rep: => Col, columnInfo: MacroColumnInfo): Target
 
 }
 
@@ -19,7 +19,7 @@ trait RepGroupColumnWrapperImplicit1 extends RepGroupColumnWrapperImplicit2 {
   implicit def rnilRepGroupColumnImplicit[Data]: RepGroupColumnWrapper.Aux[RepGroup[RNil], Data, RepGroup[RNil]] =
     new RepGroupColumnWrapper[RepGroup[RNil], Data] {
       override type Target = RepGroup[RNil]
-      override def inputColumn(rep: RepGroup[RNil], columnInfo: MacroColumnInfo): RepGroup[RNil] = {
+      override def inputColumn(rep: => RepGroup[RNil], columnInfo: MacroColumnInfo): RepGroup[RNil] = {
         rep
       }
     }
@@ -31,8 +31,9 @@ trait RepGroupColumnWrapperImplicit1 extends RepGroupColumnWrapperImplicit2 {
   ): RepGroupColumnWrapper.Aux[RepGroup[NewHead ++:: NewTail], Data, RepGroup[TargetHead ++:: TargetTail]] =
     new RepGroupColumnWrapper[RepGroup[NewHead ++:: NewTail], Data] {
       override type Target = RepGroup[TargetHead ++:: TargetTail]
-      override def inputColumn(rep: RepGroup[NewHead ++:: NewTail], columnInfo: MacroColumnInfo): RepGroup[TargetHead ++:: TargetTail] = {
-        val h ++:: t    = rep.repCol
+      override def inputColumn(rep: => RepGroup[NewHead ++:: NewTail], columnInfo: MacroColumnInfo): RepGroup[TargetHead ++:: TargetTail] = {
+        lazy val h      = rep.repCol.head
+        lazy val t      = rep.repCol.tail
         val columnInfo1 = columnInfo
         new RepGroup[TargetHead ++:: TargetTail] {
           override val repCol = ++::.apply(
@@ -54,11 +55,11 @@ trait RepGroupColumnWrapperImplicit2 {
   implicit def commonRepGroupColumnImplicit[Col, Data, Rep]: RepGroupColumnWrapper.Aux[Col, Data, RepColumnContent[Col, Data]] =
     new RepGroupColumnWrapper[Col, Data] {
       override type Target = RepColumnContent[Col, Data]
-      override def inputColumn(rep: Col, columnInfo: MacroColumnInfo): RepColumnContent[Col, Data] = {
-        val rep1        = rep
+      override def inputColumn(rep: => Col, columnInfo: MacroColumnInfo): RepColumnContent[Col, Data] = {
+        lazy val rep1   = rep
         val columnInfo1 = columnInfo
         new RepColumnContent[Col, Data] {
-          override val rep        = rep1
+          override def rep        = rep1
           override val columnInfo = columnInfo1
         }
       }

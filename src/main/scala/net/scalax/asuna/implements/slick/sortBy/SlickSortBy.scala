@@ -58,7 +58,7 @@ trait SlickSortByHelper {
     new EncoderShape[RepColumnContent[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
       override type Target = SlickSortBy.OrderColumn
       override type Data   = M
-      override def wrapRep(base: RepColumnContent[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
+      override def wrapRep(base: => RepColumnContent[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
         override type Rep = T
         override val rep        = base.rep
         override val orderByGen = cv1

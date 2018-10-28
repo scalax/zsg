@@ -6,7 +6,7 @@ def withRep[@for(i <- 1 to count) {
     Target@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: Rep@{i},
+    rep@{i}: => Rep@{i},
     property@{i}: PropertyType[Data@{i}],
     column@{i}: MacroColumnInfo
     @if(i < count) { , }
@@ -18,9 +18,11 @@ def withRep[@for(i <- 1 to count) {
     Data@{i}
     @if(i < count) { , }
 }] = {
-    new CaseClassRepMapper@{count}(@for(i <- 1 to count) {
-        rep@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i}),
-        property@{i} = property@{i}
+
+    CaseClassMapper.withRawRep(@for(i <- 1 to count) {
+        property@{i} = property@{i},
+        rep@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i})
         @if(i < count) { , }
     })
+
 }

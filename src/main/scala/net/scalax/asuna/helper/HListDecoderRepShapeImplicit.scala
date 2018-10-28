@@ -10,7 +10,7 @@ trait HListDecoderRepShapeImplicit {
       self =>
       override type Target = HNil
       override type Data   = HNil
-      override def wrapRep(base: HNil): HNil                                       = base
+      override def wrapRep(base: => HNil): HNil                                    = base
       override def toLawRep(base: HNil, oldRep: RepCol): RepCol                    = oldRep
       override def takeData(rep: HNil, oldData: DataCol): SplitData[HNil, DataCol] = SplitData(current = HNil, left = oldData)
     }
@@ -27,7 +27,7 @@ trait HListDecoderRepShapeImplicit {
       override type Target = M :: N
       override type Data   = H :: I
 
-      override def wrapRep(base: A :: B): M :: N = {
+      override def wrapRep(base: => A :: B): M :: N = {
         val headRep :: tailRep = base
         head.value.wrapRep(headRep) :: tail.value.wrapRep(tailRep)
       }

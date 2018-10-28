@@ -63,7 +63,7 @@ trait EncoderPoly2 extends EncoderPoly3 {
       override type Data   = T
       override type Target = (String, CirceAsunaEncoderImpl[T, EncoderPoly])
 
-      override def wrapRep(base: RepColumnContent[Placeholder[T], T]): (String, CirceAsunaEncoderImpl[T, EncoderPoly]) = {
+      override def wrapRep(base: => RepColumnContent[Placeholder[T], T]): (String, CirceAsunaEncoderImpl[T, EncoderPoly]) = {
         (base.columnInfo.modelColumnName, new CirceAsunaEncoderImpl[T, EncoderPoly] {
           override def write(data: T): Json = encoder.value.write(data)
         })

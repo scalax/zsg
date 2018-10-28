@@ -21,7 +21,7 @@ trait TableFieldsGen {
     def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): MemberInfo
   }
 
-  case class SingleKey(singleKey: String, override val tableGetter: Tree => Tree) extends MemberInfo {
+  case class SingleKey(private val singleKey: String, override val tableGetter: Tree => Tree) extends MemberInfo {
     self =>
     override lazy val containFields: List[String]                                    = List(singleKey)
     override def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): SingleKey = self.copy(tableGetter = old(tableGetter))

@@ -69,7 +69,7 @@ trait SlickSangriaHelper[E] {
     new DecoderShape[SlickRepWrap[E, D], List[SlickRepAbs[E]], List[Any]] {
       override type Target = SlickRepWrap[E, D]
       override type Data   = D
-      override def wrapRep(base: SlickRepWrap[E, D]): SlickRepWrap[E, D]                                  = base
+      override def wrapRep(base: => SlickRepWrap[E, D]): SlickRepWrap[E, D]                               = base
       override def toLawRep(base: SlickRepWrap[E, D], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = base :: oldRep
       override def takeData(rep: SlickRepWrap[E, D], oldData: List[Any]): SplitData[D, List[Any]] =
         SplitData(current = oldData.head.asInstanceOf[D], left = oldData.tail)
@@ -111,7 +111,7 @@ trait SlickSangriaHelper[E] {
       new DecoderShape[List[SlickSangriaRepWrap[E, Any]], List[SlickRepAbs[E]], List[Any]] {
         override type Target = List[SlickSangriaRepWrap[E, Any]]
         override type Data   = List[(String, Any)]
-        override def wrapRep(base: List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
+        override def wrapRep(base: => List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
 
         override def toLawRep(base: List[SlickSangriaRepWrap[E, Any]], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = {
           val unitWrap = new SlickRepWrap[E, Unit] {

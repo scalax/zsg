@@ -11,7 +11,7 @@ trait ListDecoderShapeImplicit {
       self =>
       override type Target = List[C]
       override type Data   = List[B]
-      override def wrapRep(base: List[A]): List[C] = base.map(shape.wrapRep)
+      override def wrapRep(base: => List[A]): List[C] = base.map(s => shape.wrapRep(s))
       override def toLawRep(base: List[C], oldRep: RepCol): RepCol = base.foldLeft(oldRep) { (rep, item) =>
         shape.toLawRep(item, rep)
       }

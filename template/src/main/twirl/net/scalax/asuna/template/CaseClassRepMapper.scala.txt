@@ -1,17 +1,20 @@
 @(count: Int)
 
-class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+abstract class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i}
     @if(i < count) { , }
 }](
     @for(i <- 1 to count) {
-        val rep@{i}: Rep@{i},
         val property@{i}: PropertyType[Data@{i}]
         @if(i < count) { , }
     }
 ) {
 self =>
+
+    @for(i <- 1 to count) {
+        def rep@{i}: Rep@{i}
+    }
 
     lazy val propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}

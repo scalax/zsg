@@ -78,13 +78,15 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val propertyType: Tree
   ) extends FormatterField
 
-  sealed trait FieldToWrapInfo
+  sealed trait FieldToWrapInfo {
+    def tableGetter: Tree => Tree
 
-  case class PlaceHolderFieldInfo(field: CaseClassField) extends FieldToWrapInfo
+  }
+
+  case class PlaceHolderFieldInfo(field: CaseClassField, override val tableGetter: Tree => Tree) extends FieldToWrapInfo
 
   sealed trait FieldWithKeyInfo extends FieldToWrapInfo {
     def containFields: List[String]
-    def tableGetter: Tree => Tree
   }
 
   case class SingleFieldInfo(key: SingleKey, caseField: CaseClassField, override val tableGetter: Tree => Tree) extends FieldWithKeyInfo {
@@ -106,11 +108,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         } else {
           val fieldOpt = tableFields.map(r => (r, r.containFields.contains(s.name))).find { case (_, contains) => contains }
 
-          val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s): FieldToWrapInfo, List(s.name))) {
+          val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s, tableGetter = { tableVar: Tree =>
+            q"""${s.fieldType}.toPlaceholder"""
+          }): FieldToWrapInfo, List(s.name))) {
             case (r, _) =>
               (r match {
                 case key: SingleKey =>
-                  SingleFieldInfo(key, caseFields.find(s => s.name == key.singleKey).get, r.tableGetter)
+                  SingleFieldInfo(key, s, r.tableGetter)
                 case key: MutiplyKey =>
                   MutiplyFieldInfo(key, caseFields.filter(s => key.containFields.contains(s.name)), r.tableGetter)
               }, r.containFields)
@@ -131,9 +135,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       case s: PlaceHolderFieldInfo =>
         EncoderFieldImpl(
             names = List(s.field.name)
-          , tableGetter = { tableVar: Tree =>
-            q"""${s.field.fieldType}.toPlaceholder"""
-          }
+          , tableGetter = s.tableGetter
           , modelGetter = s.field.modelGetter
           , propertyType = s.field.fieldType
         )
@@ -164,9 +166,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       case s: PlaceHolderFieldInfo =>
         DecoderFieldImpl(
             names = List(s.field.name)
-          , tableGetter = { tableVar: Tree =>
-            q"""${s.field.fieldType}.toPlaceholder"""
-          }
+          , tableGetter = s.tableGetter
           , modelSetter = Map((s.field.name, List.empty))
           , propertyType = s.field.fieldType
         )
@@ -195,9 +195,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       case s: PlaceHolderFieldInfo =>
         FormatterFieldImpl(
             names = List(s.field.name)
-          , tableGetter = { tableVar: Tree =>
-            q"""${s.field.fieldType}.toPlaceholder"""
-          }
+          , tableGetter = s.tableGetter
           , modelGetter = s.field.modelGetter
           , modelSetter = Map((s.field.name, List.empty))
           , propertyType = s.field.fieldType
