@@ -49,13 +49,16 @@ object FormatterCaseClassMapper {
       val fieldValue = countDeep(fields).flatMap { value =>
         value.toSetter("tempData")
       }.toMap
+      val tempFieldSetter = outputFieldNames.map(s => (s.name, fieldValue.get(s.name))).collect { case (name, Some(s)) => (name, s) }.map {
+        case (name, tree) => q"""${TermName(name)} = ${tree}"""
+      }
 
       val content = q"""${formatterDataGen.typeSymbol.companion}
         .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       } { (tempData, rep) =>
         ${output.typeSymbol.companion}(
-        ..${outputFieldNames.map(n => q"""${TermName(n.name)} = ${fieldValue(n.name)}""")}
+        ..${tempFieldSetter}
         ) }"""
 
       val content1 = if (printlnTree) q"""${content}.debug""" else content
