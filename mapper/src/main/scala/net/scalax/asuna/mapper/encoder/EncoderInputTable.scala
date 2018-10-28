@@ -32,7 +32,7 @@ object EncoderInputTable {
 }
 
 trait FirstEncoderInputTableImplicit {
-  implicit def encoderDataGenImplicit[Input, Output, Unused, Table, Rep, Temp]: EncoderInputTable.Aux[
+  implicit def encoderDataGenImplicit[Table, Input, Output, Unused, Rep, Temp]: EncoderInputTable.Aux[
       FirstEncoderInputTableImplicit
     , Table
     , Input
@@ -41,7 +41,7 @@ trait FirstEncoderInputTableImplicit {
     , Rep
     , Temp
   ] =
-    macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseclassEncoderGeneric[FirstEncoderInputTableImplicit, Input, Output, Unused, Table, Rep, Temp]
+    macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseclassEncoderGeneric[FirstEncoderInputTableImplicit, Table, Input, Output, Unused, Rep, Temp]
 }
 
 object FirstEncoderInputTableImplicit extends FirstEncoderInputTableImplicit

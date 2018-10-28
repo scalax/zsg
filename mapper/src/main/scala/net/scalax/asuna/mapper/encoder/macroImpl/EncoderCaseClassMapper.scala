@@ -17,10 +17,10 @@ object EncoderCaseClassMapper {
 
     def caseclassEncoderGeneric[
         Poly: c.WeakTypeTag
+      , Table: c.WeakTypeTag
       , Input: c.WeakTypeTag
       , Output: c.WeakTypeTag
       , Unused: c.WeakTypeTag
-      , Table: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
     ]: c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] = {
@@ -92,9 +92,7 @@ object EncoderCaseClassMapper {
       if (printlnTree)
         println(q + "\n" + "22" * 100)
 
-      c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] {
-        q
-      }
+      c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]](q)
     }
 
   }

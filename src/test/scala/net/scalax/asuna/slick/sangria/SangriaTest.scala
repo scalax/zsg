@@ -34,8 +34,7 @@ trait SFriend4 extends SlickSangriaHelper[FriendTable4] {
   def extAge = rep(_.age)
   def repOut = seqRep(id, name, nick)
 
-  lazy val shape: sangria.ShapeValue[FriendWrap] = sangria.singleModel[FriendWrap](self).compile
-  lazy val reader                                = sangria.effect(shape)
+  lazy val reader = sangria.effect(sangria.singleModel[FriendWrap](self).compile)
 
 }
 

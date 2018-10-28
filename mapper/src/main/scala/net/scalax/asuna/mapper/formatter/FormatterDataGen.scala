@@ -2,14 +2,17 @@ package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-trait FormatterDataGen[Output] {
+trait FormatterDataGen[Output] extends DataGenWrap {
+  self =>
 
-  type TempData
-  type TempRep
-  def rep: TempRep
+  override type TempData
+  override type TempRep
+  override def rep: TempRep
 
   def to(caseModel: Output, tempRep: TempRep): TempData
   def from(caseModel: TempData, tempRep: TempRep): Output
+
+  def debug: FormatterDataGen.Aux[Output, Any, Any] = self.asInstanceOf[FormatterDataGen.Aux[Output, Any, Any]]
 
 }
 

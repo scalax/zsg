@@ -4,7 +4,7 @@ import net.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
 
 import scala.language.experimental.macros
 
-trait FormatterInputTable[Table, Output] {
+trait FormatterInputTable[Poly, Table, Output] {
 
   type TempRep
   type TempData
@@ -15,15 +15,24 @@ trait FormatterInputTable[Table, Output] {
 
 object FormatterInputTable {
 
-  type Aux[Table, Output, Rep, Temp] = FormatterInputTable[Table, Output] { type TempRep = Rep; type TempData = Temp }
+  type Aux[Poly, Table, Output, Rep, Temp] = FormatterInputTable[Poly, Table, Output] { type TempRep = Rep; type TempData = Temp }
 
-  implicit def encoderDataGenImplicit[Output, Table, Rep, Temp]: FormatterInputTable.Aux[Table, Output, Rep, Temp] =
-    macro FormatterCaseClassMapper.FormatterCaseClassMapperImpl.caseclassFormatterGeneric[Output, Table, Rep, Temp]
+  def apply[Poly] = new FormatterInputTableApply[Poly] {}
 
-  def apply[T, O, Rep, Data](f: T => FormatterDataGen.Aux[O, Rep, Data]): FormatterInputTable.Aux[T, O, Rep, Data] = new FormatterInputTable[T, O] {
-    override type TempRep  = Rep
-    override type TempData = Data
-    override def inputTable(table: T): FormatterDataGen.Aux[O, Rep, Data] = f(table)
+  trait FormatterInputTableApply[Poly] {
+    def apply[T, O, Rep, Data](f: T => FormatterDataGen.Aux[O, Rep, Data]): FormatterInputTable.Aux[Poly, T, O, Rep, Data] =
+      new FormatterInputTable[Poly, T, O] {
+        override type TempRep  = Rep
+        override type TempData = Data
+        override def inputTable(table: T): FormatterDataGen.Aux[O, Rep, Data] = f(table)
+      }
   }
 
 }
+
+trait FirstFormatterInputTableImplicit {
+  implicit def encoderDataGenImplicit[Table, Output, Rep, Temp]: FormatterInputTable.Aux[FirstFormatterInputTableImplicit, Table, Output, Rep, Temp] =
+    macro FormatterCaseClassMapper.FormatterCaseClassMapperImpl.caseclassFormatterGeneric[FirstFormatterInputTableImplicit, Table, Output, Rep, Temp]
+}
+
+object FirstFormatterInputTableImplicit extends FirstFormatterInputTableImplicit
