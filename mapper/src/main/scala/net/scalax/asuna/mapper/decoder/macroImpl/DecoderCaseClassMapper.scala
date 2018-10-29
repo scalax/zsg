@@ -2,7 +2,7 @@ package net.scalax.asuna.mapper.decoder.macroImpl
 
 import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
-import net.scalax.asuna.mapper.decoder.{DecoderDataGen, DecoderInputTable, LazyModel}
+import net.scalax.asuna.mapper.decoder.{DecoderDataGen, DecoderInputTable, EmptyLazyModel, LazyModel}
 
 object DecoderCaseClassMapper {
 
@@ -45,7 +45,7 @@ object DecoderCaseClassMapper {
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${input}](_.${TermName(name)})"""
+            , fieldType = q"""${getObject(propertyType)}.fromModel[${input}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }
@@ -60,7 +60,7 @@ object DecoderCaseClassMapper {
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+            , fieldType = q"""${getObject(propertyType)}.fromModel[${output}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }
@@ -85,9 +85,13 @@ object DecoderCaseClassMapper {
         case (name, tree) => q"""${TermName(name)} = ${tree}"""
       }
 
-      val content = q"""${decoderDataGen.typeSymbol.companion}
+      val subSetter =
+        if (sub.<:<(weakTypeOf[EmptyLazyModel])) q"""${getObject(weakTypeOf[EmptyLazyModel])}()"""
+        else q"""${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s)} = ${fieldValue(s)}""")})"""
+
+      val content = q"""${getObject(decoderDataGen)}
         .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = tableName)}.dataGenWrap) { (tempData, rep) =>
-          ${lazyModel.typeSymbol.companion}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
+          ${getObject(lazyModel)}.init(gen = {s: ${input} => ${output.typeSymbol.companion}(
             ..${List(
           tempFieldSetter
         , inputFieldNames.map { field =>
@@ -96,15 +100,16 @@ object DecoderCaseClassMapper {
         }
       ).flatten}
 
-            ) }, sub = ${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s)} = ${fieldValue(s)}""")}))
+            ) }, sub = ${subSetter})
         }"""
 
-      val q = if (printlnTree)
-        q"""${decoderInputTable.typeSymbol.companion}[$poly].apply[${table}, ${input}, ${output}, ${sub}, ${rep}, ${tempData}] { ${TermName(tableName)}: ${table} =>
+      val q =
+        if (printlnTree)
+          q"""${getObject(decoderInputTable)}[$poly].apply[${table}, ${input}, ${output}, ${sub}, ${rep}, ${tempData}] { ${TermName(tableName)}: ${table} =>
           ${content}.debug
         }"""
-      else
-        q"""${decoderInputTable.typeSymbol.companion}[$poly] { ${TermName(tableName)}: ${table} =>
+        else
+          q"""${getObject(decoderInputTable)}[$poly] { ${TermName(tableName)}: ${table} =>
           ${content}
         }"""
 

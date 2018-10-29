@@ -13,6 +13,16 @@ trait TableFieldsGen {
 
   import c.universe._
 
+  def getObject(typeSymbol: Type): Tree = {
+    typeSymbol.typeSymbol.companion.fullName.split('.').toList.map(s => TermName(s)) match {
+      case head :: tail =>
+        tail.foldLeft(Ident(head): Tree) { (tree: Tree, name: TermName) =>
+          Select(tree, name)
+        }
+
+    }
+  }
+
   case class MemberWithKey(key: String, member: Symbol, tableGetter: Tree => Tree)
 
   sealed trait MemberInfo {

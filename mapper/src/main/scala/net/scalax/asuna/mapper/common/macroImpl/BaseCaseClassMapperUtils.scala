@@ -237,17 +237,17 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       .grouped(maxNum)
       .map { subList =>
         val q = q"""
-          ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.zipWithIndex.flatMap {
+          ${getObject(caseClassMapper)}.withRep(..${subList.zipWithIndex.flatMap {
           case (field, index) =>
             val plusIndex = index + 1
             List(
                 q"""${TermName("rep" + plusIndex)} = ${field.tableGetter(Ident(TermName(tableName)))}"""
               , q"""${TermName("property" + plusIndex)} = ${field.propertyType}"""
-              , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
+              , q"""${TermName("column" + plusIndex)} = ${getObject(columnInfoImpl)}(
               tableColumnName = ${Literal(Constant(field.names.head))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))}),
+              tableColumnSymbol = ${getObject(weakTypeOf[scala.Symbol])}(${Literal(Constant(field.names.head))}),
               modelColumnName = ${Literal(Constant(field.names.head))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))})
+              modelColumnSymbol = ${getObject(weakTypeOf[scala.Symbol])}(${Literal(Constant(field.names.head))})
             )"""
             )
         }})

@@ -6,7 +6,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 import net.scalax.asuna.mapper.utils.CopyHelper
-import org.scalafmt.config.ScalafmtRunner
 
 import scala.io.Source
 import scala.reflect.macros.blackbox.Context
@@ -37,7 +36,7 @@ trait CopyHelper {
         |optIn.breakChainOnFirstMethodDot = false
         |rewrite.rules = [SortImports]
         |poorMansTrailingCommasInConfigStyle = true
-      """.stripMargin).get.copy(runner = ScalafmtRunner.statement)
+      """.stripMargin).get.copy(runner = org.scalafmt.config.ScalafmtRunner.statement)
     val formattedCode  = org.scalafmt.Scalafmt.format(scalaCode, config).get
     val formattedCode1 = org.scalafmt.Scalafmt.format(formattedCode, config).get
 
@@ -84,7 +83,7 @@ trait CopyHelper {
 
     q"""{
        @deprecated(${Literal(
-      Constant(s"Macro code is already write to file. Open\n${rootPath.toString}\nand click the html file to see the code for debug.\n\n")
+        Constant(s"Macro code is already write to file.\nOpen\n${rootPath.toString}\nand click the html file to see the code for debug.\n\n")
     )}, ${Literal(
         Constant("")
     )})
