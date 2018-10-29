@@ -46,7 +46,7 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
         val upper = list.grouped(maxNum).toList.map { items =>
           val q =
             q"""
-           ${caseClassMapper.typeSymbol.companion}.withData(
+           ${getCompanion(caseClassMapper)}.withData(
                  ..${items.zipWithIndex.flatMap {
               case (field, index) =>
                 val plusIndex = index + 1

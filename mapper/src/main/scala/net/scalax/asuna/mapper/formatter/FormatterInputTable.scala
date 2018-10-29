@@ -32,7 +32,7 @@ object FormatterInputTable {
 
 trait FirstFormatterInputTableImplicit {
   implicit def encoderDataGenImplicit[Table, Output, Rep, Temp]: FormatterInputTable.Aux[FirstFormatterInputTableImplicit, Table, Output, Rep, Temp] =
-    macro FormatterCaseClassMapper.FormatterCaseClassMapperImpl.caseclassFormatterGeneric[FirstFormatterInputTableImplicit, Table, Output, Rep, Temp]
+    macro FormatterCaseClassMapper.FormatterCaseClassMapperImpl.caseClassFormatterGeneric[FirstFormatterInputTableImplicit, Table, Output, Rep, Temp]
 }
 
 object FirstFormatterInputTableImplicit extends FirstFormatterInputTableImplicit

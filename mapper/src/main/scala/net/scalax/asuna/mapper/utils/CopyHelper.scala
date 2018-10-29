@@ -6,7 +6,6 @@ import java.nio.file.{Files, Path, Paths}
 import java.util.Date
 import java.util.jar.JarFile
 
-import scala.concurrent.ExecutionContext
 import scala.collection.JavaConverters._
 
 object CopyHelper {

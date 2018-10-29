@@ -1,12 +1,15 @@
 package net.scalax.asuna.mapper.decoder
 
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.mapper.encoder.DecoderBlackBoxInputTable
+import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
+
+import scala.language.experimental.macros
 
 trait DecoderWrapApply[RepCol, DataCol] {
-  def withLazyModel[Input, Output, Sub]: LazyModelWrap[Input, Output, Sub] = new LazyModelWrap[Input, Output, Sub] {}
-  def withTable[Case]: TableWrap[Case]                                     = new TableWrap[Case]                   {}
-  def debugWithTable[Case]: DebugTableWrap[Case]                           = new DebugTableWrap[Case]              {}
+  def withLazyModel[Input, Output, Sub]: LazyModelWrap[Input, Output, Sub]           = new LazyModelWrap[Input, Output, Sub]      {}
+  def withSingleModel[Case]: TableWrap[Case]                                         = new TableWrap[Case]                        {}
+  def debugWithLazyModel[Input, Output, Sub]: DebugLazyModelWrap[Input, Output, Sub] = new DebugLazyModelWrap[Input, Output, Sub] {}
+  def debugWithSingleModel[Output]: DebugTableWrap[Output]                           = new DebugTableWrap[Output]                 {}
 
   trait LazyModelWrap[Input, Output, Sub] {
 
@@ -35,7 +38,6 @@ trait DecoderWrapApply[RepCol, DataCol] {
   }
 
   trait TableWrap[Case] {
-
     def apply[Table, Rep, TempData](table: Table)(
         implicit
       repWrap: DecoderInputTable.Aux[FirstDecoderInputTableImplicit, Table, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
@@ -58,12 +60,15 @@ trait DecoderWrapApply[RepCol, DataCol] {
   }
 
   trait DebugTableWrap[Case] {
-    def apply[Table](table: Table)(
-        implicit
-      repWrap: DecoderBlackBoxInputTable.Aux[DecoderBlackBoxInputTable, Table, EmptyLazyModel, Case, EmptyLazyModel]
-    ): DecoderShapeValue[Case, RepCol, DataCol] = {
-      ???
-    }
+    def apply[Table](tableParam: Table): DecoderShapeValue[Case, RepCol, DataCol] =
+      macro DecoderCaseClassMapper.BlackboxDecoderCaseClassMapperImpl
+        .debugCaseClassSingleModelDecoderGeneric[FirstDecoderInputTableImplicit, Table, Case, RepCol, DataCol]
+  }
+
+  trait DebugLazyModelWrap[Input, Output, Sub] {
+    def apply[Table](tableParam: Table): DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol] =
+      macro DecoderCaseClassMapper.BlackboxDecoderCaseClassMapperImpl
+        .debugCaseClassLazyModelDecoderGeneric[FirstDecoderInputTableImplicit, Table, Input, Output, Sub, RepCol, DataCol]
   }
 
 }

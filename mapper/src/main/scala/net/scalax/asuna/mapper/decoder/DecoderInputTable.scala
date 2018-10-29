@@ -41,7 +41,7 @@ trait FirstDecoderInputTableImplicit {
     , Rep
     , Temp
   ] =
-    macro DecoderCaseClassMapper.DecoderCaseClassMapperImpl.caseclassDecoderGeneric[FirstDecoderInputTableImplicit, Table, Input, Output, Sub, Rep, Temp]
+    macro DecoderCaseClassMapper.DecoderCaseClassMapperImpl.caseClassDecoderGeneric[FirstDecoderInputTableImplicit, Table, Input, Output, Sub, Rep, Temp]
 }
 
 object FirstDecoderInputTableImplicit extends FirstDecoderInputTableImplicit

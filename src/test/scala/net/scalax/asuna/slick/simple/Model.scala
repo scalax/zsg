@@ -60,7 +60,7 @@ case class Friends8(age: Int, dyn: JsonObject)
 class DynFriendModel(cons: Tag, cols: List[String]) extends FriendTable2(cons) with UmrHelper with RmuWriterQuery {
   self =>
   def dyn     = rmu.effect(rmu.singleModel[DynFields](self).compile).withCols(cols)
-  def reader8 = umr.effect(umr.debugSingleModel[Friends8](self)).toSv
+  def reader8 = umr.effect(umr.singleModel[Friends8](self).compile).toSv
 }
 
 object DynFriendModelTq extends (List[String] => TableQuery[DynFriendModel]) {

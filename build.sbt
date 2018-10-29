@@ -15,4 +15,4 @@ lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).dependsO
 
 lazy val template = (project in file("./template"))
 
-scalafmtOnCompile := true
+scalafmtOnCompile := false

@@ -1,7 +1,9 @@
 package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.core.formatter.{FormatterShape, FormatterShapeValue}
-import net.scalax.asuna.mapper.encoder.FormatterBlackBoxInputTable
+import net.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
+
+import scala.language.experimental.macros
 
 trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
   def withModel[Case]: CaseWrap[Case]            = new CaseWrap[Case]       {}
@@ -34,17 +36,14 @@ trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
   }
 
   trait DebugTableWrap[Case] {
-    def apply[Table](table: Table)(
-        implicit
-      repWrap: FormatterBlackBoxInputTable.Aux[FormatterBlackBoxInputTable, Table, Case]
-    ): FormatterShapeValue[Case, RepCol, EncoderDataCol, DecoderDataCol] = {
-      ???
-    }
+    def apply[Table](tableParam: Table): FormatterShapeValue[Case, RepCol, EncoderDataCol, DecoderDataCol] =
+      macro FormatterCaseClassMapper.BlackboxFormatterCaseClassMapperImpl
+        .debugCaseClassFormatterGeneric[FirstFormatterInputTableImplicit, Table, Case, RepCol, EncoderDataCol, DecoderDataCol]
   }
 
 }
 
 object FormatterWrapApply {
-  def encoderInstance[RepCol, EncoderDataCol, DecoderDataCol]: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] =
+  def formatterInstance[RepCol, EncoderDataCol, DecoderDataCol]: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] =
     new FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {}
 }

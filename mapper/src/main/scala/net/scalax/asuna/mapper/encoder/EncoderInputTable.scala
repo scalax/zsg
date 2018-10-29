@@ -41,7 +41,7 @@ trait FirstEncoderInputTableImplicit {
     , Rep
     , Temp
   ] =
-    macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseclassEncoderGeneric[FirstEncoderInputTableImplicit, Table, Input, Output, Unused, Rep, Temp]
+    macro EncoderCaseClassMapper.EncoderCaseClassMapperImpl.caseClassEncoderGeneric[FirstEncoderInputTableImplicit, Table, Input, Output, Unused, Rep, Temp]
 }
 
 object FirstEncoderInputTableImplicit extends FirstEncoderInputTableImplicit

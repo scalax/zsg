@@ -13,31 +13,37 @@ trait TableFieldsGen {
 
   import c.universe._
 
-  def getObject(typeSymbol: Type): Tree = {
-    typeSymbol.typeSymbol.companion.fullName.split('.').toList.map(s => TermName(s)) match {
+  def getCompanion(typeSymbol: Type): Tree = {
+    /*typeSymbol.typeSymbol.companion.fullName.split('.').toList.map(s => TermName(s)) match {
       case head :: tail =>
         tail.foldLeft(Ident(head): Tree) { (tree: Tree, name: TermName) =>
           Select(tree, name)
         }
-
-    }
+    }*/
+    c.parse(typeSymbol.typeSymbol.companion.fullName)
   }
 
   case class MemberWithKey(key: String, member: Symbol, tableGetter: Tree => Tree)
 
   sealed trait MemberInfo {
     def tableGetter: Tree => Tree
+    def tablePropertyName: String
     def containFields: List[String]
     def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): MemberInfo
   }
 
-  case class SingleKey(private val singleKey: String, override val tableGetter: Tree => Tree) extends MemberInfo {
+  case class SingleKey(private val singleKey: String, override val tableGetter: Tree => Tree, override val tablePropertyName: String) extends MemberInfo {
     self =>
     override lazy val containFields: List[String]                                    = List(singleKey)
     override def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): SingleKey = self.copy(tableGetter = old(tableGetter))
   }
-  case class MutiplyKey(private val mutiplyKey: List[String], properType: Tree, modelSetter: List[Tree] => Tree, override val tableGetter: Tree => Tree)
-      extends MemberInfo { self =>
+  case class MutiplyKey(
+      private val mutiplyKey: List[String]
+    , properType: Tree
+    , modelSetter: List[Tree] => Tree
+    , override val tableGetter: Tree => Tree
+    , override val tablePropertyName: String
+  ) extends MemberInfo { self =>
     override lazy val containFields: List[String]                                     = mutiplyKey
     override def changeTableGetter(old: (Tree => Tree) => (Tree => Tree)): MutiplyKey = self.copy(tableGetter = old(tableGetter))
   }
@@ -142,6 +148,7 @@ trait TableFieldsGen {
               annoType.members.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).toList.collect { case TermName(s) => s.trim }
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
+              , tablePropertyName = item.key
               , properType = q"""${proType.typeSymbol.companion}[${annoType}]"""
               , modelSetter = { setters: List[Tree] =>
                 q"""${annoType.typeSymbol.companion}(..${setters})"""
@@ -154,6 +161,7 @@ trait TableFieldsGen {
         case _ =>
           SingleKey(
               singleKey = item.key
+            , tablePropertyName = item.key
             , tableGetter = item.tableGetter
           )
 

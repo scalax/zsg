@@ -2,11 +2,15 @@ package net.scalax.asuna.mapper.encoder
 
 import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
+import net.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
+
+import scala.language.experimental.macros
 
 trait EncoderWrapApply[RepCol, DataCol] {
-  def withUnusedModel[Input, Output, Sub]: UnusedModelWrap[Input, Output, Sub] = new UnusedModelWrap[Input, Output, Sub] {}
-  def withTable[Case]: TableWrap[Case]                                         = new TableWrap[Case]                     {}
-  def debugWithTable[Case]: DebugTableWrap[Case]                               = new DebugTableWrap[Case]                {}
+  def withUnusedModel[Input, Output, Sub]: UnusedModelWrap[Input, Output, Sub]           = new UnusedModelWrap[Input, Output, Sub]      {}
+  def withSingleModel[Case]: TableWrap[Case]                                             = new TableWrap[Case]                          {}
+  def debugWithUnusedModel[Input, Output, Sub]: DebugUnusedModelWrap[Input, Output, Sub] = new DebugUnusedModelWrap[Input, Output, Sub] {}
+  def debugWithSingleModel[Case]: DebugTableWrap[Case]                                   = new DebugTableWrap[Case]                     {}
 
   trait UnusedModelWrap[Input, Output, Sub] {
 
@@ -56,12 +60,15 @@ trait EncoderWrapApply[RepCol, DataCol] {
   }
 
   trait DebugTableWrap[Case] {
-    def apply[Table](table: Table)(
-        implicit
-      repWrap: EncoderBlackBoxInputTable.Aux[EncoderBlackBoxInputTable, Table, EmptyLazyModel, Case, EmptyLazyModel]
-    ): EncoderShapeValue[Case, RepCol, DataCol] = {
-      ???
-    }
+    def apply[Table](tableParam: Table): EncoderShapeValue[Case, RepCol, DataCol] =
+      macro EncoderCaseClassMapper.BlackboxEncoderCaseClassMapperImpl
+        .debugCaseClassSingleModelEncoderGeneric[FirstEncoderInputTableImplicit, Table, Case, RepCol, DataCol]
+  }
+
+  trait DebugUnusedModelWrap[Input, Output, Sub] {
+    def apply[Table](tableParam: Table): EncoderShapeValue[UnusedData[Input, Output, Sub], RepCol, DataCol] =
+      macro EncoderCaseClassMapper.BlackboxEncoderCaseClassMapperImpl
+        .debugCaseClassLazyModelEncoderGeneric[FirstEncoderInputTableImplicit, Table, Input, Output, Sub, RepCol, DataCol]
   }
 
 }

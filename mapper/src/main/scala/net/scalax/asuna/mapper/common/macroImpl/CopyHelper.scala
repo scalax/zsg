@@ -28,7 +28,7 @@ trait CopyHelper {
     var bottom: Source           = null
     var printWriter: PrintWriter = null
 
-    val config         = org.scalafmt.Scalafmt.parseHoconConfig("""
+    val config = org.scalafmt.Scalafmt.parseHoconConfig("""
         |maxColumn = 160
         |align = more
         |continuationIndent.defnSite = 2
@@ -37,12 +37,13 @@ trait CopyHelper {
         |rewrite.rules = [SortImports]
         |poorMansTrailingCommasInConfigStyle = true
       """.stripMargin).get.copy(runner = org.scalafmt.config.ScalafmtRunner.statement)
+
     val formattedCode  = org.scalafmt.Scalafmt.format(scalaCode, config).get
     val formattedCode1 = org.scalafmt.Scalafmt.format(formattedCode, config).get
 
     try {
       head = Source.fromFile(rootPath.resolve("highlight").resolve("template").resolve("index-head.html").toFile, "utf-8")
-      content = Source.fromString(formattedCode1)
+      content = Source.fromString(formattedCode)
       bottom = Source.fromFile(rootPath.resolve("highlight").resolve("template").resolve("index-bottom.html").toFile, "utf-8")
       printWriter = new PrintWriter(rootPath.resolve("index.html").toFile, "utf-8")
 
@@ -79,6 +80,7 @@ trait CopyHelper {
       } catch {
         case _: Throwable =>
       }
+
     }
 
     q"""{

@@ -66,7 +66,7 @@ trait RmuWriterQuery {
           override val shape                      = shape1
           override val dataToList: Data => OutPut = identity[Data]
         }
-        override val key = base.columnInfo.modelColumnName
+        override val key = base.columnInfo.tableColumnSymbol.name
       }
       override def toLawRep(base: SlickRmuWrapper, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = base :: oldRep
       override def buildData(data: M, rep: SlickRmuWrapper, oldData: List[String]): List[String]         = rep.key :: oldData
