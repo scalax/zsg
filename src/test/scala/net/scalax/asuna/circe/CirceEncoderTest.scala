@@ -25,7 +25,6 @@ class CirceEncoderTest
     with ScalaFutures
     with BeforeAndAfterAll
     with BeforeAndAfter
-    //with CirceAsunaEncoderHelper
     with CirceAsunaDecoderHelper {
 
   lazy val local = new Locale("zh", "CN")
@@ -48,8 +47,7 @@ class CirceEncoderTest
   "circe encoder" should "auto mapping case class with empty table" in {}
 
   "circe encoder gen by asuna" should "auto encoder simple case class" in {
-    //val test2 = TestModel2(faker.book.title, 967)
-    //val circeEncoder = asunaCirce.effect(asunaCirce.singleModel[TestModel2](EmptyCirceTable.value).compile)
+    val test2 = TestModel2(faker.book.title, 967)
     val provideJson = {
       import io.circe.generic.auto._
       val encoder = implicitly[Encoder[TestModel]]

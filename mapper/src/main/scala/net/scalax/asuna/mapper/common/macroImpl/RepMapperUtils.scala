@@ -1,7 +1,5 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.CaseClassMapper
-
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
 
@@ -10,8 +8,6 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
   val c: Context
 
   import c.universe._
-
-  val caseClassMapper = weakTypeOf[CaseClassMapper]
 
   private def countDeepImpl[T](base: List[T])(cv: T => List[DecoderField])(deep: Int): List[DecoderField] = {
     base match {
@@ -46,7 +42,7 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
         val upper = list.grouped(maxNum).toList.map { items =>
           val q =
             q"""
-           ${caseClassMapper.typeSymbol.companion}.withData(
+           ${caseClassMapperCompanion}.withData(
                  ..${items.zipWithIndex.flatMap {
               case (field, index) =>
                 val plusIndex = index + 1

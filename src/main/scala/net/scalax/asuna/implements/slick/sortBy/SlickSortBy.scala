@@ -20,7 +20,7 @@ object SlickSortBy {
 
   def extractOrder(orderWraps: List[OrderColumn], names: List[(String, String)]): slick.lifted.Ordered = {
     val ords = names
-      .map(name => (orderWraps.find(r => name._1 == r.columnInfo.modelColumnName), name._2))
+      .map(name => (orderWraps.find(r => name._1 == r.columnInfo.tableColumnSymbol.name), name._2))
       .map {
         case (wrapOpt, orderWray) =>
           wrapOpt.flatMap { wrap =>

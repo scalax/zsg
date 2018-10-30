@@ -1,10 +1,10 @@
 package net.scalax.asuna.helper.data.macroImpl
 
-import net.scalax.asuna.mapper.common.PropertyType
-import net.scalax.asuna.mapper.common.macroImpl.RepMapperUtils
+import net.scalax.asuna.core.formatter.FormatterShapeValue
+import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.UnusedData
-import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable}
+import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable, FormatterWrapApply}
 
 object FormatterCaseClassMapper {
 
@@ -12,23 +12,79 @@ object FormatterCaseClassMapper {
     override val printlnTree = false
   }
 
-  class BlackboxFormatterCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils {
+  class BlackboxFormatterCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
 
     import c.universe._
 
-    def caseclassFormatterGeneric[Poly: c.WeakTypeTag, Table: c.WeakTypeTag, Output: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
-      : c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]] = {
-      val rep                 = weakTypeOf[Rep]
-      val poly                = weakTypeOf[Poly]
-      val tempData            = weakTypeOf[TempData]
-      val output              = weakTypeOf[Output]
-      val table               = weakTypeOf[Table]
+    def debugCaseClassFormatterGeneric[
+        Poly: c.WeakTypeTag
+      , Table: c.WeakTypeTag
+      , Output: c.WeakTypeTag
+      , RepCol: c.WeakTypeTag
+      , EncoderDataCol: c.WeakTypeTag
+      , DecoderDataCol: c.WeakTypeTag
+    ](tableParam: c.Expr[Table]): c.Expr[FormatterShapeValue[Output, RepCol, EncoderDataCol, DecoderDataCol]] = {
       val formatterInputTable = weakTypeOf[FormatterInputTable[Poly, Table, Output]]
-      val formatterDataGen    = weakTypeOf[FormatterDataGen[Output]]
-      val unusedData          = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
-      val propertyType        = weakTypeOf[PropertyType[_]]
+      val poly                = weakTypeOf[Poly]
+      val table               = weakTypeOf[Table]
+      val output              = weakTypeOf[Output]
+      val repCol              = weakTypeOf[RepCol]
+      val encoderDataCol      = weakTypeOf[EncoderDataCol]
+      val decoderDataCol      = weakTypeOf[DecoderDataCol]
+      val formatterWrapApply  = weakTypeOf[FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol]]
 
-      val tableName = c.freshName("tableInstance")
+      val tableName = c.freshName("table")
+
+      val content = baseCaseClassFormatterGeneric[Poly, Table, Output, Any, Any](tableName)
+
+      val q = q"""def aa(${TermName(tableName)}: ${table}) = {
+        ${content}.debug
+      }"""
+
+      val completeTree = q"""
+        ${getCompanion(formatterWrapApply)}.formatterInstance[${repCol}, ${encoderDataCol}, ${decoderDataCol}].withModel[${output}](${tableParam}) {
+          ${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
+            ${content}
+          }
+        }.compile
+      """
+
+      c.Expr[FormatterShapeValue[Output, RepCol, EncoderDataCol, DecoderDataCol]] {
+        q"""
+${copySourceToTarget(completeTree.toString)}
+          ${q}
+          ???
+        """
+      }
+
+    }
+
+    def caseClassFormatterGeneric[Poly: c.WeakTypeTag, Table: c.WeakTypeTag, Output: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag]
+      : c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]] = {
+      val formatterInputTable = weakTypeOf[FormatterInputTable[Poly, Table, Output]]
+      val poly                = weakTypeOf[Poly]
+      val table               = weakTypeOf[Table]
+
+      val tableName = c.freshName("table")
+
+      val content = baseCaseClassFormatterGeneric[Poly, Table, Output, Rep, TempData](tableName)
+
+      val q = q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
+          ${content}
+        }"""
+
+      c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]](q)
+    }
+
+    def baseCaseClassFormatterGeneric[Poly: c.WeakTypeTag, Table: c.WeakTypeTag, Output: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag](
+        tableName: String
+    ): Tree = {
+      val rep              = weakTypeOf[Rep]
+      val tempData         = weakTypeOf[TempData]
+      val output           = weakTypeOf[Output]
+      val table            = weakTypeOf[Table]
+      val formatterDataGen = weakTypeOf[FormatterDataGen[Output]]
+      val unusedData       = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
 
       val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
@@ -36,7 +92,7 @@ object FormatterCaseClassMapper {
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${propertyType.typeSymbol.companion}.fromModel[${output}](_.${TermName(name)})"""
+            , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }
@@ -53,24 +109,32 @@ object FormatterCaseClassMapper {
         case (name, tree) => q"""${TermName(name)} = ${tree}"""
       }
 
-      val content = q"""${formatterDataGen.typeSymbol.companion}
-        .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = tableName)}.dataGenWrap) { (caseClass, rep) =>
+      val content = q"""${getCompanion(formatterDataGen)}
+        .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       } { (tempData, rep) =>
         ${output.typeSymbol.companion}(
         ..${tempFieldSetter}
         ) }"""
 
-      val content1 = if (printlnTree) q"""${content}.debug""" else content
+      content
 
-      val q = q"""${formatterInputTable.typeSymbol.companion}[${poly}] { ${TermName(tableName)}: ${table} =>
-          ${content1}
+      /*val completeTree = q"""new ${weakTypeOf[FormatterWrapApply[]]}"""
+
+      val q = if (printlnTree) q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
+          ${content}.debug
+        }""" else q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
+          ${content}
         }"""
 
-      if (printlnTree)
-        println(q + "\n" + "22" * 100)
-
-      c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]](q)
+      c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]] {
+        if (printlnTree) {
+          q"""
+            ${copySourceToTarget(q.toString)}
+            ${q}
+          """
+        } else q
+      }*/
     }
 
   }

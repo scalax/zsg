@@ -4,4 +4,4 @@ scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import")
 
 enablePlugins(SbtTwirl)
 
-scalafmtOnCompile := true
+scalafmtOnCompile := false

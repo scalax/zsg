@@ -13,11 +13,14 @@ trait DecoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _
 }
 
 trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
-  private val wrapApply: DecoderWrapApply[RepCol, DataCol]                           = DecoderWrapApply.decoderInstance[RepCol, DataCol]
-  def singleModel[Case]: DecoderWrapApply[RepCol, DataCol]#TableWrap[Case]           = wrapApply.withTable[Case]
-  def debugSingleModel[Case]: DecoderWrapApply[RepCol, DataCol]#DebugTableWrap[Case] = wrapApply.debugWithTable[Case]
+  private val wrapApply: DecoderWrapApply[RepCol, DataCol]                               = DecoderWrapApply.decoderInstance[RepCol, DataCol]
+  def singleModel[Case]: DecoderWrapApply[RepCol, DataCol]#TableWrap[Case]               = wrapApply.withSingleModel[Case]
+  def debugSingleModel[Output]: DecoderWrapApply[RepCol, DataCol]#DebugTableWrap[Output] = wrapApply.debugWithSingleModel[Output]
   def lazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#LazyModelWrap[Input, Output, Sub] =
     wrapApply.withLazyModel[Input, Output, Sub]
+  def debugLazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#DebugLazyModelWrap[Input, Output, Sub] =
+    wrapApply.debugWithLazyModel[Input, Output, Sub]
+
 }
 
 trait DecoderHelper[RepCol, DataCol]

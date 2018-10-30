@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl, PropertyType}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -14,6 +14,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   import c.universe._
 
   trait BaseField {
+    def tablePropertyName: String
     def names: List[String]
     def tableGetter: Tree => Tree
     def propertyType: Tree
@@ -36,16 +37,23 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       }
     }
     def appendField(name: String): DecoderField =
-      DecoderFieldImpl(names = names, tableGetter = tableGetter, propertyType = propertyType, modelSetter = modelSetter.map {
-        case (key, setter) =>
-          (key, name :: setter)
-      })
+      DecoderFieldImpl(
+          tablePropertyName = tablePropertyName
+        , names = names
+        , tableGetter = tableGetter
+        , propertyType = propertyType
+        , modelSetter = modelSetter.map {
+          case (key, setter) =>
+            (key, name :: setter)
+        }
+      )
   }
 
   trait FormatterField extends EncoderField with DecoderField {
     override def appendField(name: String): FormatterField =
       FormatterFieldImpl(
-          names = names
+          tablePropertyName = tablePropertyName
+        , names = names
         , tableGetter = tableGetter
         , propertyType = propertyType
         , modelGetter = modelGetter
@@ -57,21 +65,24 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   }
 
   case class EncoderFieldImpl(
-      override val names: List[String]
+      override val tablePropertyName: String
+    , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
     , override val propertyType: Tree
   ) extends EncoderField
 
   case class DecoderFieldImpl(
-      override val names: List[String]
+      override val tablePropertyName: String
+    , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelSetter: Map[String, List[String]]
     , override val propertyType: Tree
   ) extends DecoderField
 
   case class FormatterFieldImpl(
-      override val names: List[String]
+      override val tablePropertyName: String
+    , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
     , override val modelSetter: Map[String, List[String]]
@@ -79,21 +90,24 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   ) extends FormatterField
 
   sealed trait FieldToWrapInfo {
+    val tablePropertyName: String
     def tableGetter: Tree => Tree
 
   }
 
-  case class PlaceHolderFieldInfo(field: CaseClassField, override val tableGetter: Tree => Tree) extends FieldToWrapInfo
+  case class PlaceHolderFieldInfo(field: CaseClassField, override val tableGetter: Tree => Tree, override val tablePropertyName: String) extends FieldToWrapInfo
 
   sealed trait FieldWithKeyInfo extends FieldToWrapInfo {
     def containFields: List[String]
   }
 
-  case class SingleFieldInfo(key: SingleKey, caseField: CaseClassField, override val tableGetter: Tree => Tree) extends FieldWithKeyInfo {
+  case class SingleFieldInfo(key: SingleKey, caseField: CaseClassField, override val tableGetter: Tree => Tree, override val tablePropertyName: String)
+      extends FieldWithKeyInfo {
     override def containFields: List[String] = key.containFields
 
   }
-  case class MutiplyFieldInfo(key: MutiplyKey, caseFields: List[CaseClassField], override val tableGetter: Tree => Tree) extends FieldWithKeyInfo {
+  case class MutiplyFieldInfo(key: MutiplyKey, caseFields: List[CaseClassField], override val tableGetter: Tree => Tree, override val tablePropertyName: String)
+      extends FieldWithKeyInfo {
     override def containFields: List[String] = key.containFields
 
   }
@@ -110,13 +124,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
           val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s, tableGetter = { tableVar: Tree =>
             q"""${s.fieldType}.toPlaceholder"""
-          }): FieldToWrapInfo, List(s.name))) {
+          }, tablePropertyName = s.name): FieldToWrapInfo, List(s.name))) {
             case (r, _) =>
               (r match {
                 case key: SingleKey =>
-                  SingleFieldInfo(key, s, r.tableGetter)
+                  SingleFieldInfo(key, s, r.tableGetter, tablePropertyName = key.tablePropertyName)
                 case key: MutiplyKey =>
-                  MutiplyFieldInfo(key, caseFields.filter(s => key.containFields.contains(s.name)), r.tableGetter)
+                  MutiplyFieldInfo(key, caseFields.filter(s => key.containFields.contains(s.name)), r.tableGetter, tablePropertyName = key.tablePropertyName)
               }, r.containFields)
           }
 
@@ -138,6 +152,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelGetter = s.field.modelGetter
           , propertyType = s.field.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: SingleFieldInfo =>
         EncoderFieldImpl(
@@ -145,6 +160,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelGetter = s.caseField.modelGetter
           , propertyType = s.caseField.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: MutiplyFieldInfo =>
         EncoderFieldImpl(
@@ -154,6 +170,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
             s.key.modelSetter(s.caseFields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
           }
           , propertyType = s.key.properType
+          , tablePropertyName = s.tablePropertyName
         )
 
     }
@@ -169,6 +186,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelSetter = Map((s.field.name, List.empty))
           , propertyType = s.field.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: SingleFieldInfo =>
         DecoderFieldImpl(
@@ -176,6 +194,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelSetter = Map((s.caseField.name, List.empty))
           , propertyType = s.caseField.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: MutiplyFieldInfo =>
         DecoderFieldImpl(
@@ -183,6 +202,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
           , propertyType = s.key.properType
+          , tablePropertyName = s.tablePropertyName
         )
     }
 
@@ -199,6 +219,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , modelGetter = s.field.modelGetter
           , modelSetter = Map((s.field.name, List.empty))
           , propertyType = s.field.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: SingleFieldInfo =>
         FormatterFieldImpl(
@@ -207,6 +228,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , modelGetter = s.caseField.modelGetter
           , modelSetter = Map((s.caseField.name, List.empty))
           , propertyType = s.caseField.fieldType
+          , tablePropertyName = s.tablePropertyName
         )
       case s: MutiplyFieldInfo =>
         FormatterFieldImpl(
@@ -217,6 +239,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           }
           , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
           , propertyType = s.key.properType
+          , tablePropertyName = s.tablePropertyName
         )
     }
 
@@ -229,26 +252,33 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , modelGetter: Tree => Tree
   )
 
-  def initProperty(fields: List[BaseField], tableName: String): List[Tree] = {
-    val caseClassMapper = weakTypeOf[CaseClassMapper]
-    val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
+  lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
+  lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfoImpl]
+  lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
+  lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
+  lazy val propertyType             = weakTypeOf[PropertyType[_]]
+  lazy val proCompanion             = getCompanion(propertyType)
+
+  def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
 
     fields
       .grouped(maxNum)
       .map { subList =>
         val q = q"""
-          ${caseClassMapper.typeSymbol.companion}.withRep(..${subList.zipWithIndex.flatMap {
+          ${caseClassMapperCompanion}.withRep(..${subList.zipWithIndex.flatMap {
           case (field, index) =>
             val plusIndex = index + 1
-            List(
-                q"""${TermName("rep" + plusIndex)} = ${field.tableGetter(Ident(TermName(tableName)))}"""
-              , q"""${TermName("property" + plusIndex)} = ${field.propertyType}"""
-              , q"""${TermName("column" + plusIndex)} = ${columnInfoImpl.typeSymbol.companion}(
-              tableColumnName = ${Literal(Constant(field.names.head))},
-              tableColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))}),
-              modelColumnName = ${Literal(Constant(field.names.head))},
-              modelColumnSymbol = _root_.scala.Symbol(${Literal(Constant(field.names.head))})
+            val columnInfoTree = q"""${columnInfoImplCompanion}(
+              tableColumnSymbol = ${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
+              modelColumnSymbols = ${weakTypeOf[List[scala.Symbol]].typeSymbol.companion}(..${field.names.map(
+                fieldName => q"""${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(fieldName))})"""
+            )})
             )"""
+
+            List(
+                q"""${TermName("rep" + plusIndex)} = ${field.tableGetter(tableName)}"""
+              , q"""${TermName("property" + plusIndex)} = ${field.propertyType}"""
+              , q"""${TermName("column" + plusIndex)} = ${columnInfoTree}"""
             )
         }})
           """
@@ -259,8 +289,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   @tailrec
   final def withDataDescribeFunc(treeList: List[Tree]): List[Tree] = {
-    val caseClassMapper = weakTypeOf[CaseClassMapper]
-
     if (treeList.size == 1) {
       treeList
     } else {
@@ -268,7 +296,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val (setVal, setParameter) = subList.zipWithIndex.map {
           case (item, index) =>
             val plusIndex = index + 1
-            val fName     = c.freshName("data" + index)
+            val fName     = c.freshName("data" + (index + 1))
             (
                 q"""val ${TermName(fName)} = ${item}"""
               , List(q"""${TermName("rep" + plusIndex)} = ${TermName(fName)}""", q"""${TermName("property" + plusIndex)} = ${TermName(fName)}.propertyType""")
@@ -277,13 +305,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         q"""
             ..${setVal}
-            ${caseClassMapper.typeSymbol.companion}.withRawRep(..${setParameter.flatten})"""
+            ${caseClassMapperCompanion}.withRawRep(..${setParameter.flatten})"""
       }
       withDataDescribeFunc(newList)
     }
   }
 
-  def toRepMapper(fields: List[BaseField], tableName: String): Tree = {
+  def toRepMapper(fields: List[BaseField], tableName: Tree): Tree = {
     withDataDescribeFunc(
         initProperty(fields = fields, tableName)
     ).head

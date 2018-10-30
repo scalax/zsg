@@ -8,7 +8,7 @@ import scala.language.experimental.macros
 trait DecoderBlackBoxInputTable {
   implicit def decoderDataGenImplicit[Table, Input, Output, Unused]: DecoderBlackBoxInputTable.Aux[DecoderBlackBoxInputTable, Table, Input, Output, Unused] =
     macro DecoderCaseClassMapper.BlackboxDecoderCaseClassMapperImpl
-      .caseclassDecoderGeneric[DecoderBlackBoxInputTable, Table, Input, Output, Unused, Any, Nothing]
+      .caseClassDecoderGeneric[DecoderBlackBoxInputTable, Table, Input, Output, Unused, Any, Nothing]
 }
 
 object DecoderBlackBoxInputTable extends DecoderBlackBoxInputTable {
