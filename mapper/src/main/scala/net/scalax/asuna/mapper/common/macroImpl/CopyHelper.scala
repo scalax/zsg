@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 
 import scala.io.Source
 import scala.reflect.macros.blackbox.Context
-import scala.util.{Properties, Try}
+import scala.util.{Failure, Properties, Success, Try}
 
 trait CopyHelper extends RepMapperUtils {
 
@@ -82,10 +82,12 @@ trait CopyHelper extends RepMapperUtils {
     val formattedCode1 = Try {
       val formattedCode = org.scalafmt.Scalafmt.format(autalScalaCode, config).get
       org.scalafmt.Scalafmt.format(formattedCode, config).get
-    }.fold({ fa =>
-      logger.warn(s"""Code can not be formatted by scalafmt. Output raw code by default. Error message: ${fa.getMessage}""")
-      autalScalaCode
-    }, identity)
+    } match {
+      case Success(formattedCode) => formattedCode
+      case Failure(fa) =>
+        logger.warn(s"""Code can not be formatted by scalafmt. Output raw code by default. Error message: ${fa.getMessage}""")
+        autalScalaCode
+    }
 
     try {
       head = Source.fromFile(rootPath.resolve("highlight").resolve("template").resolve("index-head.html").toFile, "utf-8")
