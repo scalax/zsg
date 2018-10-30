@@ -9,6 +9,28 @@ trait RepMapperUtils extends BaseCaseClassMapperUtils {
 
   import c.universe._
 
+  private def countIndexImpl[T](base: List[T])(cv: T => List[BaseField])(deep: Int): List[BaseField] = {
+    base match {
+      case Nil =>
+        c.abort(c.enclosingPosition, "Can't not map empty case class")
+      case head :: Nil if deep > 1 =>
+        cv(head)
+
+      case l =>
+        val groupedList = l.grouped(maxNum).toList
+        val newCv = { list: List[T] =>
+          list.zipWithIndex.flatMap {
+            case (list, index) =>
+              cv(list).map(r => r.appendIndex(index))
+          }
+        }
+
+        countIndexImpl(groupedList)(newCv)(deep + 1)
+    }
+  }
+
+  def countIndex(base: List[BaseField]): List[BaseField] = countIndexImpl(base)(s => List(s))(1)
+
   private def countDeepImpl[T](base: List[T])(cv: T => List[DecoderField])(deep: Int): List[DecoderField] = {
     base match {
       case Nil =>

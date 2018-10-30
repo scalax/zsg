@@ -34,6 +34,8 @@ trait EncoderWrapApply[RepCol, DataCol] {
             wrap.to(content)
           }
         }
+
+        override def debugCompile: Rep = repWrap.inputTable(table).rep
       }
 
   }
@@ -56,6 +58,8 @@ trait EncoderWrapApply[RepCol, DataCol] {
             wrap.to(UnusedData.simple(content))
           }
         }
+
+        override def debugCompile: Rep = repWrap.inputTable(table).rep
       }
   }
 

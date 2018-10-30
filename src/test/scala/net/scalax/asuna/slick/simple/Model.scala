@@ -48,7 +48,6 @@ class dfjgoshjiotherihte(@(RootTable @field) val valcons: FriendTable4Model) ext
 class Abc(aa: dfjgoshjiotherihte) extends UmrHelper {
   @(RootModel[Friends9] @field)
   val sdfsjeriojgreig = aa.reader1111
-
   lazy val reader2222 = umr.effect(umr.singleModel[Friends9](this).compile).toSv
 }
 

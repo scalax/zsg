@@ -32,6 +32,8 @@ trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
             wrap.to(content, wrap.rep)
           }
         }
+
+        override def debugCompile: Rep = repWrap.inputTable(table).rep
       }
   }
 

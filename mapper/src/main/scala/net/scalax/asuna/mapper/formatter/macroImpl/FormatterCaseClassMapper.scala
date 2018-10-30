@@ -35,7 +35,7 @@ object FormatterCaseClassMapper {
 
       val tableName = c.freshName("table")
 
-      val content = baseCaseClassFormatterGeneric[Poly, Table, Output, Any, Any](tableName)
+      val (content, formatterFields) = baseCaseClassFormatterGeneric[Poly, Table, Output, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
@@ -49,9 +49,10 @@ object FormatterCaseClassMapper {
         }.compile
       """
 
+      copySourceToTarget(completeTree.toString, formatterFields)
+
       c.Expr[FormatterShapeValue[Output, RepCol, EncoderDataCol, DecoderDataCol]] {
         q"""
-${copySourceToTarget(completeTree.toString)}
           ${q}
           ???
         """
@@ -67,7 +68,7 @@ ${copySourceToTarget(completeTree.toString)}
 
       val tableName = c.freshName("table")
 
-      val content = baseCaseClassFormatterGeneric[Poly, Table, Output, Rep, TempData](tableName)
+      val (content, _) = baseCaseClassFormatterGeneric[Poly, Table, Output, Rep, TempData](tableName)
 
       val q = q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
           ${content}
@@ -78,7 +79,7 @@ ${copySourceToTarget(completeTree.toString)}
 
     def baseCaseClassFormatterGeneric[Poly: c.WeakTypeTag, Table: c.WeakTypeTag, Output: c.WeakTypeTag, Rep: c.WeakTypeTag, TempData: c.WeakTypeTag](
         tableName: String
-    ): Tree = {
+    ): (Tree, List[FormatterField]) = {
       val rep              = weakTypeOf[Rep]
       val tempData         = weakTypeOf[TempData]
       val output           = weakTypeOf[Output]
@@ -117,24 +118,8 @@ ${copySourceToTarget(completeTree.toString)}
         ..${tempFieldSetter}
         ) }"""
 
-      content
+      (content, fields)
 
-      /*val completeTree = q"""new ${weakTypeOf[FormatterWrapApply[]]}"""
-
-      val q = if (printlnTree) q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
-          ${content}.debug
-        }""" else q"""${getCompanion(formatterInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
-          ${content}
-        }"""
-
-      c.Expr[FormatterInputTable.Aux[Poly, Table, Output, Rep, TempData]] {
-        if (printlnTree) {
-          q"""
-            ${copySourceToTarget(q.toString)}
-            ${q}
-          """
-        } else q
-      }*/
     }
 
   }
