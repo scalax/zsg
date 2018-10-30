@@ -1,7 +1,6 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.EncoderShapeValue
-import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
@@ -143,7 +142,6 @@ ${copySourceToTarget(completeTree.toString)}
       val table             = weakTypeOf[Table]
       val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Input, Output, Unused]]
       val encoderDataGen    = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
-      val propertyType      = weakTypeOf[PropertyType[_]]
 
 
       val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
@@ -152,7 +150,7 @@ ${copySourceToTarget(completeTree.toString)}
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${getCompanion(propertyType)}.fromModel[${input}](_.${TermName(name)})"""
+            , fieldType = q"""${proCompanion}.fromModel[${input}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.input.${TermName(name)}"""
             }
@@ -168,7 +166,7 @@ ${copySourceToTarget(completeTree.toString)}
             CaseClassField(
                 name = name
               , rawField = member
-              , fieldType = q"""${getCompanion(propertyType)}.fromModel[${output}](_.${TermName(name)})"""
+              , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
               , modelGetter = { modelVar: Tree =>
                 q"""${modelVar}.model.${TermName(name)}"""
               }

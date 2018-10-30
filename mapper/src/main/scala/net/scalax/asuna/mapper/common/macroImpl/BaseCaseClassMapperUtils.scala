@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl, PropertyType}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -252,18 +252,23 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , modelGetter: Tree => Tree
   )
 
+  lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
+  lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfoImpl]
+  lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
+  lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
+  lazy val propertyType             = weakTypeOf[PropertyType[_]]
+  lazy val proCompanion             = getCompanion(propertyType)
+
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
-    val caseClassMapper = weakTypeOf[CaseClassMapper]
-    val columnInfoImpl  = weakTypeOf[MacroColumnInfoImpl]
 
     fields
       .grouped(maxNum)
       .map { subList =>
         val q = q"""
-          ${getCompanion(caseClassMapper)}.withRep(..${subList.zipWithIndex.flatMap {
+          ${caseClassMapperCompanion}.withRep(..${subList.zipWithIndex.flatMap {
           case (field, index) =>
             val plusIndex = index + 1
-            val columnInfoTree = q"""${getCompanion(columnInfoImpl)}(
+            val columnInfoTree = q"""${columnInfoImplCompanion}(
               tableColumnSymbol = ${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
               modelColumnSymbols = ${weakTypeOf[List[scala.Symbol]].typeSymbol.companion}(..${field.names.map(
                 fieldName => q"""${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(fieldName))})"""
@@ -284,8 +289,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   @tailrec
   final def withDataDescribeFunc(treeList: List[Tree]): List[Tree] = {
-    val caseClassMapper = weakTypeOf[CaseClassMapper]
-
     if (treeList.size == 1) {
       treeList
     } else {
@@ -302,7 +305,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         q"""
             ..${setVal}
-            ${getCompanion(caseClassMapper)}.withRawRep(..${setParameter.flatten})"""
+            ${caseClassMapperCompanion}.withRawRep(..${setParameter.flatten})"""
       }
       withDataDescribeFunc(newList)
     }

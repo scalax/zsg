@@ -1,7 +1,5 @@
 package net.scalax.asuna.circe
 
-import io.circe.generic.JsonCodec
-
 object AbcTest01 extends App {
 
   val model: LargeModel = LargeModel()
@@ -24,19 +22,7 @@ object AbcTest01 extends App {
     TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = encoder(model))
   }
 
-  @JsonCodec
-  case class sdfhhitehrt(i83: String, i84: String)
-
   val result2 = {
-    object Abc {
-      //the property i12 will covert to Int and use Int Encoder and custom key
-      //def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
-
-      /*@RootModel[sdfhhitehrt]
-      def sdklfgjsontoerhntgioerhntgjoisdrntgjioedrhgiodrhgsdriohgsdru = {
-        cusEncoder[sdfhhitehrt].func("abc" * 100, identity)
-      }*/
-    }
 
     val circeEncoder = JsonEncoderHelper.fetchEncoder[LargeModel]
 

@@ -1,7 +1,6 @@
 package net.scalax.asuna.helper.data.macroImpl
 
 import net.scalax.asuna.core.formatter.FormatterShapeValue
-import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.UnusedData
@@ -86,7 +85,6 @@ ${copySourceToTarget(completeTree.toString)}
       val table            = weakTypeOf[Table]
       val formatterDataGen = weakTypeOf[FormatterDataGen[Output]]
       val unusedData       = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
-      val propertyType     = weakTypeOf[PropertyType[_]]
 
       val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
@@ -94,7 +92,7 @@ ${copySourceToTarget(completeTree.toString)}
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${getCompanion(propertyType)}.fromModel[${output}](_.${TermName(name)})"""
+            , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }

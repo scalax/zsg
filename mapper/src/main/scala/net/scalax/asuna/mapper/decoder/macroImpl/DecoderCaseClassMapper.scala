@@ -1,7 +1,6 @@
 package net.scalax.asuna.mapper.decoder.macroImpl
 
 import net.scalax.asuna.core.decoder.DecoderShapeValue
-import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder._
 
@@ -17,12 +16,12 @@ object DecoderCaseClassMapper {
     import c.universe._
 
     def debugCaseClassSingleModelDecoderGeneric[
-    Poly: c.WeakTypeTag
-    , Table: c.WeakTypeTag
-    , Output: c.WeakTypeTag
-    , RepCol: c.WeakTypeTag
-    , DataCol: c.WeakTypeTag
-    ](tableParam: c.Expr[Table]): c.Expr[DecoderShapeValue[ Output , RepCol, DataCol]] = {
+        Poly: c.WeakTypeTag
+      , Table: c.WeakTypeTag
+      , Output: c.WeakTypeTag
+      , RepCol: c.WeakTypeTag
+      , DataCol: c.WeakTypeTag
+    ](tableParam: c.Expr[Table]): c.Expr[DecoderShapeValue[Output, RepCol, DataCol]] = {
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
@@ -47,7 +46,7 @@ object DecoderCaseClassMapper {
         }.compile
       """
 
-      c.Expr[DecoderShapeValue[ Output , RepCol, DataCol]] {
+      c.Expr[DecoderShapeValue[Output, RepCol, DataCol]] {
         q"""
 ${copySourceToTarget(completeTree.toString)}
           ${q}
@@ -69,9 +68,9 @@ ${copySourceToTarget(completeTree.toString)}
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Input, Output, Sub]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
-      val input            = weakTypeOf[Input]
+      val input             = weakTypeOf[Input]
       val output            = weakTypeOf[Output]
-      val sub            = weakTypeOf[Sub]
+      val sub               = weakTypeOf[Sub]
       val repCol            = weakTypeOf[RepCol]
       val dataCol           = weakTypeOf[DataCol]
       val decoderWrapApply  = weakTypeOf[DecoderWrapApply[RepCol, DataCol]]
@@ -143,7 +142,6 @@ ${copySourceToTarget(completeTree.toString)}
       val lazyModel         = weakTypeOf[LazyModel[Input, Output, Sub]]
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Input, Output, Sub]]
       val decoderDataGen    = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
-      val propertyType      = weakTypeOf[PropertyType[_]]
 
       //Model to input's fields
       val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
@@ -152,7 +150,7 @@ ${copySourceToTarget(completeTree.toString)}
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${getCompanion(propertyType)}.fromModel[${input}](_.${TermName(name)})"""
+            , fieldType = q"""${proCompanion}.fromModel[${input}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }
@@ -167,7 +165,7 @@ ${copySourceToTarget(completeTree.toString)}
           CaseClassField(
               name = name
             , rawField = member
-            , fieldType = q"""${getCompanion(propertyType)}.fromModel[${output}](_.${TermName(name)})"""
+            , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
             , modelGetter = { modelVar: Tree =>
               q"""${modelVar}.${TermName(name)}"""
             }
@@ -211,32 +209,6 @@ ${copySourceToTarget(completeTree.toString)}
         }"""
 
       content
-
-      /*val q =
-        if (printlnTree)
-          q"""${getCompanion(decoderInputTable)}[$poly].apply[${table}, ${input}, ${output}, ${sub}, ${rep}, ${tempData}] { ${TermName(tableName)}: ${table} =>
-          ${content}.debug
-        }"""
-        else
-          q"""${getCompanion(decoderInputTable)}[$poly] { ${TermName(tableName)}: ${table} =>
-          ${content}
-        }"""
-
-      /*if (printlnTree) {
-        copySourceToTarget("aaaaaagshohowieth")
-        println(q + "\n" + "22" * 100)
-      }*/
-
-      c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] {
-        if (printlnTree) {
-          q"""
-          ${copySourceToTarget(q.toString)}
-          ${q}
-           """
-        } else {
-          q
-        }
-      }*/
     }
   }
 
