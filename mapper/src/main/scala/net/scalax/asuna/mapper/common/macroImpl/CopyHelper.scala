@@ -12,7 +12,7 @@ import scala.io.Source
 import scala.reflect.macros.blackbox.Context
 import scala.util.{Properties, Try}
 
-trait CopyHelper extends BaseCaseClassMapperUtils {
+trait CopyHelper extends RepMapperUtils {
 
   val c: Context
 
@@ -21,6 +21,23 @@ trait CopyHelper extends BaseCaseClassMapperUtils {
   val dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
 
   def copySourceToTarget(scalaCode: String, baseFields: List[BaseField]): Unit = {
+
+    val countFields = countIndex(baseFields)
+    val appendString = countFields
+      .map { field =>
+        s"""table field = ${field.tablePropertyName}, case class field: ${field.names.mkString("[", ", ", "]")}, temp model field: tempModel.${field.repIndex
+          .map(s => s"rep${s + 1}")
+          .mkString(".")}"""
+      }
+      .map(s => s"// ${s}")
+      .mkString("\n")
+
+    val autalScalaCode =
+      s"""${scalaCode}
+         |
+         |// Mapping info
+         |${appendString}
+       """.stripMargin
 
     val rootPath = Paths.get(Properties.tmpDir).resolve("asuna-macro").resolve(dtf.format(LocalDateTime.now))
 
@@ -63,11 +80,11 @@ trait CopyHelper extends BaseCaseClassMapperUtils {
       """.stripMargin).get.copy(runner = org.scalafmt.config.ScalafmtRunner.statement)*/
 
     val formattedCode1 = Try {
-      val formattedCode = org.scalafmt.Scalafmt.format(scalaCode, config).get
+      val formattedCode = org.scalafmt.Scalafmt.format(autalScalaCode, config).get
       org.scalafmt.Scalafmt.format(formattedCode, config).get
     }.fold({ fa =>
       logger.warn(s"""Code can not be formatted by scalafmt. Output raw code by default. Error message: ${fa.getMessage}""")
-      scalaCode
+      autalScalaCode
     }, identity)
 
     try {

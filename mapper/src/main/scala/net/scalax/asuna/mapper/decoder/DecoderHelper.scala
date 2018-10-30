@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.core.decoder.DecoderShape
+import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 
 import scala.language.higherKinds
 
@@ -16,10 +16,12 @@ trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
   private val wrapApply: DecoderWrapApply[RepCol, DataCol]                               = DecoderWrapApply.decoderInstance[RepCol, DataCol]
   def singleModel[Case]: DecoderWrapApply[RepCol, DataCol]#TableWrap[Case]               = wrapApply.withSingleModel[Case]
   def debugSingleModel[Output]: DecoderWrapApply[RepCol, DataCol]#DebugTableWrap[Output] = wrapApply.debugWithSingleModel[Output]
+  def fillSingleModel[Case]: DecoderShapeValue[Case, RepCol, DataCol]                    = ???
   def lazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#LazyModelWrap[Input, Output, Sub] =
     wrapApply.withLazyModel[Input, Output, Sub]
   def debugLazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#DebugLazyModelWrap[Input, Output, Sub] =
     wrapApply.debugWithLazyModel[Input, Output, Sub]
+  def fillLazyeModel[Input, Output, Sub]: DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol] = ???
 
 }
 

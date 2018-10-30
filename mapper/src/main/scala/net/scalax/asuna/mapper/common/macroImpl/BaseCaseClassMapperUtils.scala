@@ -20,7 +20,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     def propertyType: Tree
     def repIndex: List[Int]
     def appendIndex(index: Int): BaseField
-
   }
 
   trait EncoderField extends BaseField {
@@ -84,6 +83,17 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           case (key, setter) =>
             (key, name :: setter)
         }
+      )
+
+    override def appendIndex(index: Int): FormatterField =
+      FormatterFieldImpl(
+          tablePropertyName = tablePropertyName
+        , names = names
+        , tableGetter = tableGetter
+        , propertyType = propertyType
+        , modelGetter = modelGetter
+        , modelSetter = modelSetter
+        , repIndex = index :: repIndex
       )
   }
 
