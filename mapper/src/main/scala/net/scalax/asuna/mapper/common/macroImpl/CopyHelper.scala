@@ -29,8 +29,7 @@ trait CopyHelper extends RepMapperUtils {
           .map(s => s"rep${s + 1}")
           .mkString(".")}"""
       }
-      .map(s => s"// ${s}")
-      .mkString("\n")
+      .mkString("// ", "\n// ", "")
 
     val autalScalaCode =
       s"""${scalaCode}
