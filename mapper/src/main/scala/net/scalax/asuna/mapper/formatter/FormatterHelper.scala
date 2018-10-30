@@ -13,7 +13,8 @@ trait FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, 
 }
 
 trait FormatterCaseClassShapeMacroHelper[RepCol, EncoderDataCol, DecoderDataCol] {
-  private val wrapApply: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol]                           = FormatterWrapApply.formatterInstance[RepCol, EncoderDataCol, DecoderDataCol]
+  private val wrapApply: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] =
+    FormatterWrapApply.formatterInstance[RepCol, EncoderDataCol, DecoderDataCol]
   def singleModel[Case]: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol]#CaseWrap[Case]            = wrapApply.withModel[Case]
   def debugSingleModel[Case]: FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol]#DebugTableWrap[Case] = wrapApply.debugWithTable[Case]
 }

@@ -33,6 +33,8 @@ trait DecoderWrapApply[RepCol, DataCol] {
             wrap.from(content)
           }
         }
+
+        override def debugCompile: Rep = repWrap.inputTable(table).rep
       }
 
   }
@@ -56,6 +58,8 @@ trait DecoderWrapApply[RepCol, DataCol] {
             wrap.from(content).apply(EmptyLazyModel.value)
           }
         }
+
+        override def debugCompile: Rep = repWrap.inputTable(table).rep
       }
   }
 

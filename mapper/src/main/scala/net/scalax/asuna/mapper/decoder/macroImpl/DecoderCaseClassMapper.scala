@@ -32,7 +32,7 @@ object DecoderCaseClassMapper {
 
       val tableName = c.freshName("table")
 
-      val content = baseCaseClassDecoderGeneric[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel, Any, Any](tableName)
+      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
@@ -46,9 +46,10 @@ object DecoderCaseClassMapper {
         }.compile
       """
 
+      copySourceToTarget(completeTree.toString, decoderFields)
+
       c.Expr[DecoderShapeValue[Output, RepCol, DataCol]] {
         q"""
-${copySourceToTarget(completeTree.toString)}
           ${q}
           ???
         """
@@ -77,7 +78,7 @@ ${copySourceToTarget(completeTree.toString)}
 
       val tableName = c.freshName("table")
 
-      val content = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Any, Any](tableName)
+      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
@@ -91,9 +92,10 @@ ${copySourceToTarget(completeTree.toString)}
         }.compile
       """
 
+      copySourceToTarget(completeTree.toString, decoderFields)
+
       c.Expr[DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol]] {
         q"""
-${copySourceToTarget(completeTree.toString)}
           ${q}
           ???
         """
@@ -101,20 +103,22 @@ ${copySourceToTarget(completeTree.toString)}
 
     }
 
-    def caseClassDecoderGeneric[Poly: c.WeakTypeTag,
-                                Table: c.WeakTypeTag,
-                                Input: c.WeakTypeTag,
-                                Output: c.WeakTypeTag,
-                                Sub: c.WeakTypeTag,
-                                Rep: c.WeakTypeTag,
-                                TempData: c.WeakTypeTag]: c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] = {
+    def caseClassDecoderGeneric[
+        Poly: c.WeakTypeTag
+      , Table: c.WeakTypeTag
+      , Input: c.WeakTypeTag
+      , Output: c.WeakTypeTag
+      , Sub: c.WeakTypeTag
+      , Rep: c.WeakTypeTag
+      , TempData: c.WeakTypeTag
+    ]: c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] = {
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Input, Output, Sub, Output]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
 
       val tableName = c.freshName("table")
 
-      val content = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Rep, TempData](tableName)
+      val (content, _) = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Rep, TempData](tableName)
 
       val q = q"""${getCompanion(decoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
           ${content}
@@ -131,7 +135,7 @@ ${copySourceToTarget(completeTree.toString)}
       , Sub: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ](tableName: String): Tree = {
+    ](tableName: String): (Tree, List[DecoderField]) = {
       val rep               = weakTypeOf[Rep]
       val tempData          = weakTypeOf[TempData]
       val poly              = weakTypeOf[Poly]
@@ -208,7 +212,7 @@ ${copySourceToTarget(completeTree.toString)}
             ) }, sub = ${subSetter})
         }"""
 
-      content
+      (content, decoderFields)
     }
   }
 

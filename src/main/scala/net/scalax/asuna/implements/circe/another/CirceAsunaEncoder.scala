@@ -55,13 +55,9 @@ trait EncoderPoly1 extends EncoderPoly2 {
 trait EncoderPoly2 extends EncoderPoly3 {
   implicit def encoderImplicit1[T](
       implicit encoder: Lazy[CirceAsunaEncoderImpl[T, EncoderPoly]]
-  ): EncoderShape.Aux[RepColumnContent[Placeholder[T], T],
-                      T,
-                      (String, CirceAsunaEncoderImpl[T, EncoderPoly]),
-                      List[(String, CirceAsunaEncoder[EncoderPoly])],
-                      List[
-                          (String, Json)
-                      ]] = {
+  ): EncoderShape.Aux[RepColumnContent[Placeholder[T], T], T, (String, CirceAsunaEncoderImpl[T, EncoderPoly]), List[(String, CirceAsunaEncoder[EncoderPoly])], List[
+      (String, Json)
+  ]] = {
     new EncoderShape[RepColumnContent[Placeholder[T], T], List[(String, CirceAsunaEncoder[EncoderPoly])], List[(String, Json)]] {
       override type Data   = T
       override type Target = (String, CirceAsunaEncoderImpl[T, EncoderPoly])

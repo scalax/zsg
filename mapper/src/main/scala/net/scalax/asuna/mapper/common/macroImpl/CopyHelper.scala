@@ -6,21 +6,34 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 import net.scalax.asuna.mapper.utils.CopyHelper
+import org.slf4j.LoggerFactory
 
 import scala.io.Source
 import scala.reflect.macros.blackbox.Context
-import scala.util.Properties
+import scala.util.{Properties, Try}
 
-trait CopyHelper {
+trait CopyHelper extends BaseCaseClassMapperUtils {
 
   val c: Context
 
-  import c.universe._
+  val logger = LoggerFactory.getLogger("Macro generator")
 
   val dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
 
-  def copySourceToTarget(scalaCode: String): Tree = {
+  def copySourceToTarget(scalaCode: String, baseFields: List[BaseField]): Unit = {
+
     val rootPath = Paths.get(Properties.tmpDir).resolve("asuna-macro").resolve(dtf.format(LocalDateTime.now))
+
+    logger.warn(s"""Macro code
+         |${c.enclosingPosition.source.lineToString(c.enclosingPosition.line - 1)}
+         |in
+         |${c.enclosingPosition.source.path}(line ${c.enclosingPosition.line})
+         |has been output.
+         |Open
+         |${rootPath.toString}
+         |and click the html file to see the code for debug.
+         |""".stripMargin)
+
     CopyHelper.copyFromClassPath(List("net", "scalax", "asuna", "mapper", "assets"), rootPath)
 
     var head: Source             = null
@@ -28,7 +41,18 @@ trait CopyHelper {
     var bottom: Source           = null
     var printWriter: PrintWriter = null
 
-    val config = org.scalafmt.Scalafmt.parseHoconConfig("""
+    val config = org.scalafmt.config.ScalafmtConfig.default.copy(
+        maxColumn = 160
+      , align = org.scalafmt.config.Align.more
+      , continuationIndent = org.scalafmt.config.ContinuationIndent.apply(defnSite = 2)
+      , lineEndings = org.scalafmt.config.LineEndings.unix
+      , optIn = org.scalafmt.config.OptIn(breakChainOnFirstMethodDot = false)
+      , rewrite = org.scalafmt.config.RewriteSettings(rules = List(org.scalafmt.rewrite.SortImports))
+      , poorMansTrailingCommasInConfigStyle = true
+      , runner = org.scalafmt.config.ScalafmtRunner.statement
+    )
+
+    /*val config = org.scalafmt.Scalafmt.parseHoconConfig("""
         |maxColumn = 160
         |align = more
         |continuationIndent.defnSite = 2
@@ -36,14 +60,19 @@ trait CopyHelper {
         |optIn.breakChainOnFirstMethodDot = false
         |rewrite.rules = [SortImports]
         |poorMansTrailingCommasInConfigStyle = true
-      """.stripMargin).get.copy(runner = org.scalafmt.config.ScalafmtRunner.statement)
+      """.stripMargin).get.copy(runner = org.scalafmt.config.ScalafmtRunner.statement)*/
 
-    val formattedCode  = org.scalafmt.Scalafmt.format(scalaCode, config).get
-    val formattedCode1 = org.scalafmt.Scalafmt.format(formattedCode, config).get
+    val formattedCode1 = Try {
+      val formattedCode = org.scalafmt.Scalafmt.format(scalaCode, config).get
+      org.scalafmt.Scalafmt.format(formattedCode, config).get
+    }.fold({ fa =>
+      logger.warn(s"""Code can not be formatted by scalafmt. Output raw code by default. Error message: ${fa.getMessage}""")
+      scalaCode
+    }, identity)
 
     try {
       head = Source.fromFile(rootPath.resolve("highlight").resolve("template").resolve("index-head.html").toFile, "utf-8")
-      content = Source.fromString(formattedCode)
+      content = Source.fromString(formattedCode1)
       bottom = Source.fromFile(rootPath.resolve("highlight").resolve("template").resolve("index-bottom.html").toFile, "utf-8")
       printWriter = new PrintWriter(rootPath.resolve("index.html").toFile, "utf-8")
 
@@ -82,17 +111,6 @@ trait CopyHelper {
       }
 
     }
-
-    q"""{
-       @deprecated(${Literal(
-        Constant(s"Macro code is already write to file.\nOpen\n${rootPath.toString}\nand click the html file to see the code for debug.\n\n")
-    )}, ${Literal(
-        Constant("")
-    )})
-       def output: String = ${Literal(Constant(""))}
-
-       output
-     }"""
   }
 
 }

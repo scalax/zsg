@@ -14,16 +14,6 @@ trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
     override type RepType = self.RepType
     override val rep   = self.rep
     override val shape = self.shape.emap[F]((_, f) => cv(f))
-    /*new EncoderShape[self.RepType, RepCol, DataCol] {
-      innerSelf =>
-
-      override type Data   = F
-      override type Target = self.RepType
-      override def wrapRep(base: self.RepType): self.RepType                        = base
-      override def toLawRep(base: self.RepType, oldRep: RepCol): RepCol             = self.shape.toLawRep(self.rep, oldRep)
-      override def buildData(data: F, rep: self.RepType, oldData: DataCol): DataCol = self.shape.buildData(cv(data), rep, oldData)
-
-    }*/
   }
 
   def ezip[R](other: EncoderShapeValue[R, RepCol, DataCol]): EncoderShapeValue[(U, R), RepCol, DataCol] = new EncoderShapeValue[(U, R), RepCol, DataCol] {

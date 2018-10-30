@@ -7,7 +7,7 @@ import scala.reflect.macros.blackbox.Context
 
 trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
-  val maxNum = 12
+  val maxNum = 6
 
   override val c: Context
 
@@ -18,10 +18,23 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     def names: List[String]
     def tableGetter: Tree => Tree
     def propertyType: Tree
+    def repIndex: List[Int]
+    def appendIndex(index: Int): BaseField
+
   }
 
   trait EncoderField extends BaseField {
     def modelGetter: Tree => Tree
+
+    override def appendIndex(index: Int): EncoderField =
+      EncoderFieldImpl(
+          tablePropertyName = tablePropertyName
+        , names = names
+        , tableGetter = tableGetter
+        , propertyType = propertyType
+        , modelGetter = modelGetter
+        , repIndex = index :: repIndex
+      )
   }
 
   trait DecoderField extends BaseField {
@@ -47,6 +60,16 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
             (key, name :: setter)
         }
       )
+
+    override def appendIndex(index: Int): DecoderField =
+      DecoderFieldImpl(
+          tablePropertyName = tablePropertyName
+        , names = names
+        , tableGetter = tableGetter
+        , propertyType = propertyType
+        , modelSetter = modelSetter
+        , repIndex = index :: repIndex
+      )
   }
 
   trait FormatterField extends EncoderField with DecoderField {
@@ -70,6 +93,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
     , override val propertyType: Tree
+    , override val repIndex: List[Int] = List.empty
   ) extends EncoderField
 
   case class DecoderFieldImpl(
@@ -78,6 +102,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val tableGetter: Tree => Tree
     , override val modelSetter: Map[String, List[String]]
     , override val propertyType: Tree
+    , override val repIndex: List[Int] = List.empty
   ) extends DecoderField
 
   case class FormatterFieldImpl(
@@ -87,6 +112,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val modelGetter: Tree => Tree
     , override val modelSetter: Map[String, List[String]]
     , override val propertyType: Tree
+    , override val repIndex: List[Int] = List.empty
   ) extends FormatterField
 
   sealed trait FieldToWrapInfo {

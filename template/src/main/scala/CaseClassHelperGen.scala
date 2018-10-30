@@ -7,7 +7,7 @@ import scala.io.Source
 
 object CaseClassHelperGen extends App {
 
-  val maxPropertyNum = 12
+  val maxPropertyNum = 6
 
   val path = Paths
     .get(".")
