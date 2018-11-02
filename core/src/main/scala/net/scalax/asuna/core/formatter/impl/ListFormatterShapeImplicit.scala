@@ -13,8 +13,8 @@ trait ListFormatterShapeImplicit {
       override type Target = List[C]
       override type Data   = List[B]
       override def wrapRep(base: => List[A]): List[C] = base.map(s => shape.wrapRep(s))
-      override def toLawRep(base: List[C], oldRep: RepCol): RepCol = base.foldLeft(oldRep) { (rep, item) =>
-        shape.toLawRep(item, rep)
+      override def buildRep(base: List[C], oldRep: RepCol): RepCol = base.foldLeft(oldRep) { (rep, item) =>
+        shape.buildRep(item, rep)
       }
       override def takeData(rep: List[C], oldData: DecoderDataCol): SplitData[List[B], DecoderDataCol] = {
         rep.reverse.foldLeft(SplitData(List.empty[B], oldData)) { (splitData, rep) =>

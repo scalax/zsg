@@ -11,7 +11,7 @@ trait HListFormatterRepShapeImplicit {
       override type Target = HNil
       override type Data   = HNil
       override def wrapRep(base: => HNil): HNil                                                  = base
-      override def toLawRep(base: HNil, oldRep: RepCol): RepCol                                  = oldRep
+      override def buildRep(base: HNil, oldRep: RepCol): RepCol                                  = oldRep
       override def buildData(data: HNil, rep: HNil, oldData: EncoderDataCol): EncoderDataCol     = oldData
       override def takeData(rep: HNil, oldData: DecoderDataCol): SplitData[HNil, DecoderDataCol] = SplitData(HNil, oldData)
     }
@@ -33,10 +33,10 @@ trait HListFormatterRepShapeImplicit {
         head.value.wrapRep(headRep) :: tail.value.wrapRep(tailRep)
       }
 
-      override def toLawRep(base: M :: N, oldRep: RepCol): RepCol = {
+      override def buildRep(base: M :: N, oldRep: RepCol): RepCol = {
         val headRep :: tailRep = base
-        val tailReps           = tail.value.toLawRep(tailRep, oldRep)
-        head.value.toLawRep(headRep, tailReps)
+        val tailReps           = tail.value.buildRep(tailRep, oldRep)
+        head.value.buildRep(headRep, tailReps)
       }
 
       override def buildData(data: H :: I, rep: M :: N, oldData: EncoderDataCol): EncoderDataCol = {

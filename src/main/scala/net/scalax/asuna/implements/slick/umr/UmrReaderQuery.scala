@@ -17,7 +17,7 @@ object umrImpl extends DecoderHelper[ShapeFunc[(Any, Any)], (Any, Any)] with Dec
     new UmrWrapper[Out, D] {
       override def toSv(implicit classTag: ClassTag[D]): MappedProjection[D, Any] = {
         val wrapCol = shape.wrapRep(rep)
-        val reps = shape.toLawRep(
+        val reps = shape.buildRep(
             wrapCol
           , new ShapeFunc[(Any, Any)] {
             override type RepType  = (Unit, Unit)
@@ -79,7 +79,7 @@ trait UmrHelper {
           override val rep        = base
         }).shapeValue
       }
-      override def toLawRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] = ds.toLawRep(base, oldRep)
+      override def buildRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] = ds.buildRep(base, oldRep)
       override def takeData(oldData: ShapeFunc[D], rep: (Any, Any)): SplitData[D, (Any, Any)]         = ds.takeData(oldData, rep)
     }
   }
@@ -89,7 +89,7 @@ trait UmrHelper {
       override type Target = ShapeFunc[D]
       override type Data   = D
       override def wrapRep(base: => ShapeFunc[D]): ShapeFunc[D] = base
-      override def toLawRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] =
+      override def buildRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] =
         new ShapeFunc[(D, (Any, Any))] {
           override type RepType  = (ShapedValue[Any, base.DataType], ShapedValue[Any, oldRep.DataType])
           override type DataType = (base.DataType, oldRep.DataType)

@@ -11,11 +11,11 @@ trait CommonShape[-Rep, RepCol] {
       override type Target = self.Target
       override def packed: CommonShape.Aux[self.Target, self.Target, RepCol] = subSelf
       override def wrapRep(base: => self.Target): self.Target                = base
-      override def toLawRep(base: Target, oldRep: RepCol): RepCol            = self.toLawRep(base, oldRep)
+      override def buildRep(base: Target, oldRep: RepCol): RepCol            = self.buildRep(base, oldRep)
     }
   }
   def wrapRep(base: => Rep): Target
-  def toLawRep(base: Target, oldRep: RepCol): RepCol
+  def buildRep(base: Target, oldRep: RepCol): RepCol
 
 }
 

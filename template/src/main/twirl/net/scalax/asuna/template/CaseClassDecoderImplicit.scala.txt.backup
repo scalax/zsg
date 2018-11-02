@@ -53,14 +53,14 @@ implicit def caseClassHelper@{count}DecoderGen[@for(i <- 1 to count) {
             @if(i < count) { , }
         })
         }
-        override def toLawRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        override def buildRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
         }], oldRep: RepCol): RepCol = {
             val rep@{count + 1} = oldRep
             @for(i <- (count to 1 by - 1)) {
-                val rep@{i} = shape@{i}.value.toLawRep(base.rep@{i}, rep@{i + 1})
+                val rep@{i} = shape@{i}.value.buildRep(base.rep@{i}, rep@{i + 1})
             }
             rep1
         }

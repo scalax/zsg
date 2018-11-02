@@ -26,7 +26,7 @@ trait SlickSangriaHelper[E] {
         implicit val ct1 = ct
 
         val wrapRep    = shape.wrapRep(rep)
-        val reps       = shape.toLawRep(wrapRep, List.empty)
+        val reps       = shape.buildRep(wrapRep, List.empty)
         val filterReps = reps.filter { _.sangraiKey.map(k => names.contains(k)).getOrElse(true) }
         val slickReps  = filterReps.map(t => t.slickCv(table).map(s => s: Any))
 
@@ -70,7 +70,7 @@ trait SlickSangriaHelper[E] {
       override type Target = SlickRepWrap[E, D]
       override type Data   = D
       override def wrapRep(base: => SlickRepWrap[E, D]): SlickRepWrap[E, D]                               = base
-      override def toLawRep(base: SlickRepWrap[E, D], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = base :: oldRep
+      override def buildRep(base: SlickRepWrap[E, D], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = base :: oldRep
       override def takeData(rep: SlickRepWrap[E, D], oldData: List[Any]): SplitData[D, List[Any]] =
         SplitData(current = oldData.head.asInstanceOf[D], left = oldData.tail)
     }
@@ -113,7 +113,7 @@ trait SlickSangriaHelper[E] {
         override type Data   = List[(String, Any)]
         override def wrapRep(base: => List[SlickSangriaRepWrap[E, Any]]): List[SlickSangriaRepWrap[E, Any]] = base
 
-        override def toLawRep(base: List[SlickSangriaRepWrap[E, Any]], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = {
+        override def buildRep(base: List[SlickSangriaRepWrap[E, Any]], oldRep: List[SlickRepAbs[E]]): List[SlickRepAbs[E]] = {
           val unitWrap = new SlickRepWrap[E, Unit] {
             override val sangraiKey = Option.empty
             override def slickCv(rep: E): SlickShapeValueWrap[Unit] = {

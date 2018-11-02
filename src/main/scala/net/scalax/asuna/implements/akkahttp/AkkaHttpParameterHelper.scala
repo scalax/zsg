@@ -67,7 +67,7 @@ trait AkkaHttpParameterHelper {
     )(implicit shape: DecoderShape.Aux[Rep, D, Out, List[AkkaFormFieldWrapAbs], List[Any]]): FieldWrapExecable[Out, D] = {
       new FieldWrapExecable[Out, D] {
         override def toDirective: Directive1[D] = {
-          val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
+          val reps = shape.buildRep(shape.wrapRep(rep), List.empty)
           reps
             .foldLeft(Directive { (gen: Tuple1[List[Any]] => Route) =>
               gen(Tuple1(List.empty[Any]))
@@ -90,7 +90,7 @@ trait AkkaHttpParameterHelper {
       override def wrapRep(base: => RepColumnContent[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base.rep.withName(base.columnInfo.tableColumnSymbol.name)
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
       override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]]                     = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
@@ -102,7 +102,7 @@ trait AkkaHttpParameterHelper {
       override def wrapRep(base: => Directive1[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
       override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]]                     = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
@@ -116,7 +116,7 @@ trait AkkaHttpParameterHelper {
       override def wrapRep(base: => RepColumnContent[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = helper.formFieldAs[D].withName(base.columnInfo.tableColumnSymbol.name)
       }
-      override def toLawRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
+      override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
       override def takeData(rep: AkkaFormFieldWrap[D], oldData: List[Any]): SplitData[D, List[Any]]                     = SplitData(oldData.head.asInstanceOf[D], oldData.tail)
     }
   }
@@ -126,7 +126,7 @@ trait AkkaHttpParameterHelper {
       override type Target = LiteralColumn[D]
       override type Data   = D
       override def wrapRep(base: => LiteralColumn[D]): LiteralColumn[D]                                             = base
-      override def toLawRep(base: LiteralColumn[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = oldRep
+      override def buildRep(base: LiteralColumn[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = oldRep
       override def takeData(rep: LiteralColumn[D], oldData: List[Any]): SplitData[D, List[Any]]                     = SplitData(rep.data, oldData)
     }
   }

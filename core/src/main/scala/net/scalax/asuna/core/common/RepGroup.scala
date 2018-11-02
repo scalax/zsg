@@ -26,7 +26,7 @@ object RepGroup {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
-      override def toLawRep(base: G, oldRep: RepCol): RepCol                 = shape.toLawRep(base, oldRep)
+      override def buildRep(base: G, oldRep: RepCol): RepCol                 = shape.buildRep(base, oldRep)
       override def takeData(rep: G, oldData: DataCol): SplitData[E, DataCol] = shape.takeData(rep, oldData)
     }
   }
@@ -44,7 +44,7 @@ object RepGroup {
         }
         shape.wrapRep(rGroup)
       }
-      override def toLawRep(base: J, oldRep: RepCol): RepCol                 = shape.toLawRep(base, oldRep)
+      override def buildRep(base: J, oldRep: RepCol): RepCol                 = shape.buildRep(base, oldRep)
       override def takeData(rep: J, oldData: DataCol): SplitData[F, DataCol] = shape.takeData(rep, oldData)
     }
   }
@@ -59,7 +59,7 @@ object RepGroup {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
-      override def toLawRep(base: G, oldRep: RepCol): RepCol             = shape.toLawRep(base, oldRep)
+      override def buildRep(base: G, oldRep: RepCol): RepCol             = shape.buildRep(base, oldRep)
       override def buildData(data: E, rep: G, oldData: DataCol): DataCol = shape.buildData(data, rep, oldData)
     }
   }
@@ -77,7 +77,7 @@ object RepGroup {
         }
         shape.wrapRep(rGroup)
       }
-      override def toLawRep(base: J, oldRep: RepCol): RepCol             = shape.toLawRep(base, oldRep)
+      override def buildRep(base: J, oldRep: RepCol): RepCol             = shape.buildRep(base, oldRep)
       override def buildData(data: F, rep: J, oldData: DataCol): DataCol = shape.buildData(data, rep, oldData)
     }
   }
@@ -92,7 +92,7 @@ object RepGroup {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
-      override def toLawRep(base: G, oldRep: RepCol): RepCol                               = shape.toLawRep(base, oldRep)
+      override def buildRep(base: G, oldRep: RepCol): RepCol                               = shape.buildRep(base, oldRep)
       override def buildData(data: E, rep: G, oldData: EncoderDataCol): EncoderDataCol     = shape.buildData(data, rep, oldData)
       override def takeData(rep: G, oldData: DecoderDataCol): SplitData[E, DecoderDataCol] = shape.takeData(rep, oldData)
     }
@@ -111,7 +111,7 @@ object RepGroup {
         }
         shape.wrapRep(rGroup)
       }
-      override def toLawRep(base: J, oldRep: RepCol): RepCol                               = shape.toLawRep(base, oldRep)
+      override def buildRep(base: J, oldRep: RepCol): RepCol                               = shape.buildRep(base, oldRep)
       override def buildData(data: F, rep: J, oldData: EncoderDataCol): EncoderDataCol     = shape.buildData(data, rep, oldData)
       override def takeData(rep: J, oldData: DecoderDataCol): SplitData[F, DecoderDataCol] = shape.takeData(rep, oldData)
     }
