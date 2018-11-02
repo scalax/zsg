@@ -15,9 +15,9 @@ trait ZipEncoderShapeHelper {
       override def wrapRep(base: => (A, D)): (C, F) = {
         (shape1.wrapRep(base._1), shape2.wrapRep(base._2))
       }
-      override def toLawRep(base: (C, F), oldRep: RepCol): RepCol = {
-        val repCol2 = shape2.toLawRep(base._2, oldRep)
-        shape1.toLawRep(base._1, repCol2)
+      override def buildRep(base: (C, F), oldRep: RepCol): RepCol = {
+        val repCol2 = shape2.buildRep(base._2, oldRep)
+        shape1.buildRep(base._1, repCol2)
       }
       override def buildData(data: (B, E), rep: (C, F), oldData: DataCol): DataCol = {
         val dataCol2 = shape2.buildData(data._2, rep._2, oldData)

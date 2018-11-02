@@ -68,7 +68,7 @@ trait EncoderPoly2 extends EncoderPoly3 {
         })
       }
 
-      override def toLawRep(
+      override def buildRep(
           base: (String, CirceAsunaEncoderImpl[T, EncoderPoly])
         , oldRep: List[(String, CirceAsunaEncoder[EncoderPoly])]
       ): List[(String, CirceAsunaEncoder[EncoderPoly])] = base :: oldRep

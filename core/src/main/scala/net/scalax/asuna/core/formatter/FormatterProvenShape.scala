@@ -20,8 +20,8 @@ object FormatterProvenShape {
       override type Target = R
       override type Data   = U
       override def wrapRep(base: R): R = base
-      override def toLawRep(base: R, baseRep: RepCol): RepCol =
-        base.dataShapeValue.shape.toLawRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), baseRep)
+      override def buildRep(base: R, baseRep: RepCol): RepCol =
+        base.dataShapeValue.shape.buildRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), baseRep)
       override def takeData(rep: R, oldData: DecoderDataCol): SplitData[U, DecoderDataCol] =
         rep.dataShapeValue.shape.takeData(rep.dataShapeValue.rep, oldData)
       override def buildData(data: U, rep: R, oldData: EncoderDataCol): EncoderDataCol =

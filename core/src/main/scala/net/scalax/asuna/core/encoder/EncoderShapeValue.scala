@@ -33,7 +33,7 @@ object EncoderShapeValue {
       override type Target = EncoderShapeValue[U, RepCol, DataCol]
       override type Data   = U
       override def wrapRep(base: => EncoderShapeValue[U, RepCol, DataCol]): EncoderShapeValue[U, RepCol, DataCol] = base
-      override def toLawRep(base: EncoderShapeValue[U, RepCol, DataCol], oldRep: RepCol): RepCol                  = base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
+      override def buildRep(base: EncoderShapeValue[U, RepCol, DataCol], oldRep: RepCol): RepCol                  = base.shape.buildRep(base.shape.wrapRep(base.rep), oldRep)
       override def buildData(data: U, rep: EncoderShapeValue[U, RepCol, DataCol], oldData: DataCol): DataCol      = rep.shape.buildData(data, rep.rep, oldData)
     }
   }

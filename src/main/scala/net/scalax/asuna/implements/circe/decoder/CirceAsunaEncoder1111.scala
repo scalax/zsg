@@ -19,7 +19,7 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
     val shape1  = shape
     val rep1    = rep
     val wrapRep = shape1.wrapRep(rep1)
-    val lawRep  = shape1.toLawRep(wrapRep, List.empty).map(s => (s.key, s)).toMap
+    val lawRep  = shape1.buildRep(wrapRep, List.empty).map(s => (s.key, s)).toMap
     new ACirceDecoderWrapper[Out, D] {
       override def read(data: Json): Either[Exception, D] = {
         val jsonObject = data.as[Map[String, Json]].right.get
@@ -53,7 +53,7 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
           }
         }
       }
-      override def toLawRep(base: CirceAsunaDecoderImpl[B], oldRep: List[CirceAsunaDecoder]): List[CirceAsunaDecoder] = base :: oldRep
+      override def buildRep(base: CirceAsunaDecoderImpl[B], oldRep: List[CirceAsunaDecoder]): List[CirceAsunaDecoder] = base :: oldRep
       override def takeData(rep: CirceAsunaDecoderImpl[B], oldData: Map[String, Any]): SplitData[B, Map[String, Any]] =
         SplitData(oldData.get(rep.key).get.asInstanceOf[B], oldData)
     }

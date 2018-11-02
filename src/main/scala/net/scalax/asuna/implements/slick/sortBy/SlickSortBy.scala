@@ -64,7 +64,7 @@ trait SlickSortByHelper {
         override val orderByGen = cv1
         override val columnInfo = base.columnInfo
       }
-      override def toLawRep(base: SlickSortBy.OrderColumn, oldRep: List[SlickSortBy.OrderColumn]): List[SlickSortBy.OrderColumn] = base :: oldRep
+      override def buildRep(base: SlickSortBy.OrderColumn, oldRep: List[SlickSortBy.OrderColumn]): List[SlickSortBy.OrderColumn] = base :: oldRep
       override def buildData(data: M, rep: SlickSortBy.OrderColumn, oldData: List[Any]): List[Any]                               = data :: oldData
     }
   }
@@ -74,7 +74,7 @@ trait SlickSortByHelper {
     override def effect[E, U, R](rep: E)(implicit shape: EncoderShape.Aux[E, U, R, List[SlickSortBy.OrderColumn], List[Any]]): InputParameter[R, U] = {
       new InputParameter[R, U] {
         override def inputParam(map: List[(String, String)]): slick.lifted.Ordered = {
-          val reps = shape.toLawRep(shape.wrapRep(rep), List.empty)
+          val reps = shape.buildRep(shape.wrapRep(rep), List.empty)
           SlickSortBy.extractOrder(reps, map)
         }
       }

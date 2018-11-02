@@ -35,7 +35,7 @@ trait RmuWriterQuery {
       new WithCols[Out, D] {
         override def withCols(param: List[String]): DecoderShapeValue[JsonObject, ShapeFunc[(Any, Any)], (Any, Any)] = {
           val wrapCol = shape.wrapRep(rep)
-          val reps    = shape.toLawRep(wrapCol, List.empty)
+          val reps    = shape.buildRep(wrapCol, List.empty)
           val jsonColumns = reps.filter(s => param.contains(s.key)).map { wrap =>
             umrImpl.shaped(wrap.slickWrapper.map(r => (wrap.key, r.asJson(wrap.circeEncoder))).shapeValue)
           }
@@ -68,7 +68,7 @@ trait RmuWriterQuery {
         }
         override val key = base.columnInfo.tableColumnSymbol.name
       }
-      override def toLawRep(base: SlickRmuWrapper, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = base :: oldRep
+      override def buildRep(base: SlickRmuWrapper, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = base :: oldRep
       override def buildData(data: M, rep: SlickRmuWrapper, oldData: List[String]): List[String]         = rep.key :: oldData
     }
   }

@@ -76,7 +76,7 @@ trait SlickMapper {
     )(implicit shape: FormatterShape.Aux[Rep, D, Out, SlickShapeValueWrap[(Any, Any)], (Any, Any), (Any, Any)]): UmrWrapper[Out, D] = {
       val shape1  = shape
       val wrapCol = shape1.wrapRep(rep)
-      val reps = shape1.toLawRep(
+      val reps = shape1.buildRep(
           wrapCol
         , unitInstance
       )
@@ -117,7 +117,7 @@ trait SlickMapper {
           override def cusBuildData(data: D): D = data
         }
       }
-      override def toLawRep(base: SlickShapeValueWrap[D], oldRep: SlickShapeValueWrap[(Any, Any)]): SlickShapeValueWrap[(Any, Any)] =
+      override def buildRep(base: SlickShapeValueWrap[D], oldRep: SlickShapeValueWrap[(Any, Any)]): SlickShapeValueWrap[(Any, Any)] =
         base.zip(oldRep).asInstanceOf[SlickShapeValueWrap[(Any, Any)]]
       override def takeData(oldData: SlickShapeValueWrap[D], rep: (Any, Any)): SplitData[D, (Any, Any)] =
         SplitData(current = rep._1.asInstanceOf[D], left = rep._2.asInstanceOf[(Any, Any)])
@@ -131,7 +131,7 @@ trait SlickMapper {
       override type Target = SlickShapeValueWrap[D]
       override type Data   = D
       override def wrapRep(base: SlickShapeValueWrap[D]): SlickShapeValueWrap[D] = base
-      override def toLawRep(base: SlickShapeValueWrap[D], oldRep: SlickShapeValueWrap[(Any, Any)]): SlickShapeValueWrap[(Any, Any)] =
+      override def buildRep(base: SlickShapeValueWrap[D], oldRep: SlickShapeValueWrap[(Any, Any)]): SlickShapeValueWrap[(Any, Any)] =
         base.zip(oldRep).asInstanceOf[SlickShapeValueWrap[(Any, Any)]]
       override def takeData(oldData: SlickShapeValueWrap[D], rep: (Any, Any)): SplitData[D, (Any, Any)] =
         SplitData(current = rep._1.asInstanceOf[D], left = rep._2.asInstanceOf[(Any, Any)])

@@ -901,7 +901,7 @@ object CaseClassRepMapper1 {
           , property1 = base.property1
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper1[
             Target1
           , Data1
@@ -909,7 +909,7 @@ object CaseClassRepMapper1 {
         , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -965,7 +965,7 @@ object CaseClassRepMapper1 {
           , property1 = base.property1
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper1[
             Target1
           , Data1
@@ -973,7 +973,7 @@ object CaseClassRepMapper1 {
         , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -1033,7 +1033,7 @@ object CaseClassRepMapper1 {
           , property1 = base.property1
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper1[
             Target1
           , Data1
@@ -1041,7 +1041,7 @@ object CaseClassRepMapper1 {
         , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -1259,7 +1259,7 @@ object CaseClassRepMapper2 {
           , property2 = base.property2
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper2[
             Target1
           , Data1
@@ -1269,8 +1269,8 @@ object CaseClassRepMapper2 {
         , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -1347,7 +1347,7 @@ object CaseClassRepMapper2 {
           , property2 = base.property2
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper2[
             Target1
           , Data1
@@ -1357,8 +1357,8 @@ object CaseClassRepMapper2 {
         , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -1440,7 +1440,7 @@ object CaseClassRepMapper2 {
           , property2 = base.property2
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper2[
             Target1
           , Data1
@@ -1450,8 +1450,8 @@ object CaseClassRepMapper2 {
         , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -1746,7 +1746,7 @@ object CaseClassRepMapper3 {
           , property3 = base.property3
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper3[
             Target1
           , Data1
@@ -1758,9 +1758,9 @@ object CaseClassRepMapper3 {
         , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -1858,7 +1858,7 @@ object CaseClassRepMapper3 {
           , property3 = base.property3
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper3[
             Target1
           , Data1
@@ -1870,9 +1870,9 @@ object CaseClassRepMapper3 {
         , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -1976,7 +1976,7 @@ object CaseClassRepMapper3 {
           , property3 = base.property3
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper3[
             Target1
           , Data1
@@ -1988,9 +1988,9 @@ object CaseClassRepMapper3 {
         , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -2362,7 +2362,7 @@ object CaseClassRepMapper4 {
           , property4 = base.property4
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper4[
             Target1
           , Data1
@@ -2376,10 +2376,10 @@ object CaseClassRepMapper4 {
         , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -2498,7 +2498,7 @@ object CaseClassRepMapper4 {
           , property4 = base.property4
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper4[
             Target1
           , Data1
@@ -2512,10 +2512,10 @@ object CaseClassRepMapper4 {
         , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -2657,7 +2657,7 @@ object CaseClassRepMapper4 {
           , property4 = base.property4
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper4[
             Target1
           , Data1
@@ -2671,10 +2671,10 @@ object CaseClassRepMapper4 {
         , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -3141,7 +3141,7 @@ object CaseClassRepMapper5 {
           , property5 = base.property5
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper5[
             Target1
           , Data1
@@ -3157,11 +3157,11 @@ object CaseClassRepMapper5 {
         , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -3319,7 +3319,7 @@ object CaseClassRepMapper5 {
           , property5 = base.property5
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper5[
             Target1
           , Data1
@@ -3335,11 +3335,11 @@ object CaseClassRepMapper5 {
         , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -3506,7 +3506,7 @@ object CaseClassRepMapper5 {
           , property5 = base.property5
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper5[
             Target1
           , Data1
@@ -3522,11 +3522,11 @@ object CaseClassRepMapper5 {
         , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -4073,7 +4073,7 @@ object CaseClassRepMapper6 {
           , property6 = base.property6
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper6[
             Target1
           , Data1
@@ -4091,12 +4091,12 @@ object CaseClassRepMapper6 {
         , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
-        val rep6 = shape6.toLawRep(base.rep6, rep7)
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
@@ -4278,7 +4278,7 @@ object CaseClassRepMapper6 {
           , property6 = base.property6
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper6[
             Target1
           , Data1
@@ -4296,12 +4296,12 @@ object CaseClassRepMapper6 {
         , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
-        val rep6 = shape6.toLawRep(base.rep6, rep7)
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
@@ -4493,7 +4493,7 @@ object CaseClassRepMapper6 {
           , property6 = base.property6
         )
       }
-      override def toLawRep(
+      override def buildRep(
           base: CaseClassRepMapper6[
             Target1
           , Data1
@@ -4511,12 +4511,12 @@ object CaseClassRepMapper6 {
         , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
-        val rep6 = shape6.toLawRep(base.rep6, rep7)
-        val rep5 = shape5.toLawRep(base.rep5, rep6)
-        val rep4 = shape4.toLawRep(base.rep4, rep5)
-        val rep3 = shape3.toLawRep(base.rep3, rep4)
-        val rep2 = shape2.toLawRep(base.rep2, rep3)
-        val rep1 = shape1.toLawRep(base.rep1, rep2)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(

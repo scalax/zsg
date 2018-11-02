@@ -1,8 +1,4 @@
-scalaVersion := "2.12.7"
-
-crossScalaVersions := Seq("2.11.12", "2.12.7")
-
-scalacOptions ++= Seq("-feature", "-deprecation", "-Ywarn-unused-import")
+Common.scalaSettings
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5" % Test
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test
@@ -19,5 +15,3 @@ dependsOn(core)
 libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % scalaVersion.value % "provided"
 )
-
-scalafmtOnCompile := false

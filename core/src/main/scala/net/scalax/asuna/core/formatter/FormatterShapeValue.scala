@@ -25,7 +25,7 @@ trait FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
         override type Data   = F
         override type Target = self.RepType
         override def wrapRep(base: self.RepType): self.RepType            = base
-        override def toLawRep(base: self.RepType, oldRep: RepCol): RepCol = self.shape.toLawRep(self.rep, oldRep)
+        override def buildRep(base: self.RepType, oldRep: RepCol): RepCol = self.shape.buildRep(self.rep, oldRep)
         override def takeData(currentRep: self.RepType, oldData: DecoderDataCol): SplitData[F, DecoderDataCol] = {
           val data    = self.shape.takeData(currentRep, oldData)
           val current = cv(data.current)
@@ -59,8 +59,8 @@ object FormatterShapeValue {
       override def wrapRep(
           base: => FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
       ): FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol] = base
-      override def toLawRep(base: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol], oldRep: RepCol): RepCol =
-        base.shape.toLawRep(base.shape.wrapRep(base.rep), oldRep)
+      override def buildRep(base: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol], oldRep: RepCol): RepCol =
+        base.shape.buildRep(base.shape.wrapRep(base.rep), oldRep)
       override def takeData(rep: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol], oldData: DecoderDataCol): SplitData[U, DecoderDataCol] =
         rep.shape.takeData(rep.rep, oldData)
       override def buildData(data: U, rep: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol], oldData: EncoderDataCol): EncoderDataCol =

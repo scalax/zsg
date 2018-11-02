@@ -56,7 +56,7 @@ trait SlickFilterColHelper {
       new InputData[R, U] {
         override def inputData(data: U)(implicit profile: slick.jdbc.JdbcProfile): Option[slick.lifted.Rep[Option[Boolean]]] = {
           val w        = shape.wrapRep(rep)
-          val reps     = shape.toLawRep(shape.wrapRep(rep), List.empty)
+          val reps     = shape.buildRep(shape.wrapRep(rep), List.empty)
           val dataList = shape.buildData(data, w, List.empty)
           import profile.api._
           val list = reps.zip(dataList).map {
@@ -81,7 +81,7 @@ trait SlickFilterColHelper {
       override type Target = SlickFilterColImpl[T]
       override type Data   = T
       override def wrapRep(base: => SlickFilterColImpl[T]): SlickFilterColImpl[T]                            = base
-      override def toLawRep(base: SlickFilterColImpl[T], oldRep: List[SlickFilterCol]): List[SlickFilterCol] = base :: oldRep
+      override def buildRep(base: SlickFilterColImpl[T], oldRep: List[SlickFilterCol]): List[SlickFilterCol] = base :: oldRep
       override def buildData(data: T, rep: SlickFilterColImpl[T], oldData: List[Any]): List[Any]             = data :: oldData
     }
   }
