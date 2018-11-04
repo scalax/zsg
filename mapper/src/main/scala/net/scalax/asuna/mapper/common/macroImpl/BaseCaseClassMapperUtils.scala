@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfoImpl, PropertyType}
+import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfo, PropertyType}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -289,7 +289,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   )
 
   lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
-  lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfoImpl]
+  lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfo]
   lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
   lazy val propertyType             = weakTypeOf[PropertyType[_]]
@@ -306,10 +306,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
             val plusIndex = index + 1
             val columnInfoTree = q"""${columnInfoImplCompanion}(
               tableColumnSymbol = ${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
-              modelColumnSymbols = ${weakTypeOf[List[scala.Symbol]].typeSymbol.companion}(..${field.names.map(
+              ..${field.names.map(
                 fieldName => q"""${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(fieldName))})"""
-            )})
-            )"""
+            )})"""
 
             List(
                 q"""${TermName("rep" + plusIndex)} = ${field.tableGetter(tableName)}"""

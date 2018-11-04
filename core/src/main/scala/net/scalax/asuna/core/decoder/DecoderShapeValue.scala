@@ -14,18 +14,6 @@ trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] 
     override type RepType = self.RepType
     override val rep   = self.rep
     override val shape = self.shape.dmap((_, u) => cv(u))
-    /*new DecoderShape[self.RepType, RepCol, DataCol] {
-      innerSelf =>
-      override type Data   = F
-      override type Target = self.RepType
-      override def wrapRep(base: self.RepType): self.RepType            = base
-      override def buildRep(base: self.RepType, oldRep: RepCol): RepCol = self.shape.buildRep(self.rep, oldRep)
-      override def takeData(currentRep: self.RepType, oldData: DataCol): SplitData[F, DataCol] = {
-        val data    = self.shape.takeData(currentRep, oldData)
-        val current = cv(data.current)
-        SplitData(current = current, left = data.left)
-      }
-    }*/
   }
 
   def dzip[R](other: DecoderShapeValue[R, RepCol, DataCol]): DecoderShapeValue[(U, R), RepCol, DataCol] = new DecoderShapeValue[(U, R), RepCol, DataCol] {

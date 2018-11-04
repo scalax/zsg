@@ -3,15 +3,16 @@
 def withRep[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i},
-    Target@{i}
+    Target@{i},
+    Column@{i} <: MacroColumnInfo
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
     rep@{i}: => Rep@{i},
     property@{i}: PropertyType[Data@{i}],
-    column@{i}: MacroColumnInfo
+    column@{i}: Column@{i}
     @if(i < count) { , }
 })(implicit @for(i <- 1 to count) {
-    wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Target@{i}]
+    wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Column@{i}, Target@{i}]
     @if(i < count) { , }
 }): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Target@{i},
