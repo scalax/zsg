@@ -20,7 +20,7 @@ trait CirceHelper {
 
   trait CirceContent[Out, Data] extends EncoderContent[Out, Data] {
 
-    def write(data: Data): JsonObject
+    def write: Encoder[Data]
 
   }
 
@@ -29,7 +29,9 @@ trait CirceHelper {
       implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): CirceContent[Out, D] = {
       val wrapRep = shape.wrapRep(rep)
       new CirceContent[Out, D] {
-        override def write(data: D): JsonObject = JsonObject.fromIterable(shape.buildData(data, wrapRep, List.empty))
+        override def write: Encoder[D] = Encoder.instance { data: D =>
+          Json.fromJsonObject(JsonObject.fromIterable(shape.buildData(data, wrapRep, List.empty)))
+        }
       }
     }
   }
@@ -70,23 +72,17 @@ trait CirceHelper {
   }
 
   def optionEncoder[T](sv: EncoderShapeValue[T, List[CirceAsunaEncoder], List[(String, Json)]]): Encoder[Option[T]] = {
-    implicit val e1 = Encoder.instance { data: T =>
-      Json.fromJsonObject(circe.effect(sv).write(data))
-    }
+    implicit val e1 = circe.effect(sv).write
     implicitly[Encoder[Option[T]]]
   }
 
   def listEncoder[T](sv: EncoderShapeValue[T, List[CirceAsunaEncoder], List[(String, Json)]]): Encoder[List[T]] = {
-    implicit val e1 = Encoder.instance { data: T =>
-      Json.fromJsonObject(circe.effect(sv).write(data))
-    }
+    implicit val e1 = circe.effect(sv).write
     implicitly[Encoder[List[T]]]
   }
 
   def commonEncoder[T](sv: EncoderShapeValue[T, List[CirceAsunaEncoder], List[(String, Json)]]): Encoder[T] = {
-    Encoder.instance { data: T =>
-      Json.fromJsonObject(circe.effect(sv).write(data))
-    }
+    circe.effect(sv).write
   }
 
 }

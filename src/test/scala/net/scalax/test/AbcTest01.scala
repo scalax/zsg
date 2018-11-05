@@ -5,11 +5,11 @@ import net.scalax.asuna.implements.circe.abc.CirceHelper
 
 object AbcTest01 extends App with CirceHelper {
 
-  val model: LargeModel = LargeModel()
+  val model: MiaoMiao2 = MiaoMiao2()
 
   val result1 = {
     import io.circe.generic.auto._
-    val encoder = implicitly[io.circe.Encoder[LargeModel]]
+    val encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
 
     for (_ <- TestParam.preCollection) {
       encoder(model)
@@ -36,20 +36,30 @@ object AbcTest01 extends App with CirceHelper {
 
   val result2 = {
 
-    val circeEncoder = circe.effect(circe.singleModel[LargeModel](Abc).compile)
+    object Abc {
+      object Ghi
+
+      object Def {
+        val i1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+      }
+
+      val i1 = circe.effect(circe.singleModel[Hahahah2](Def).compile).write
+    }
+
+    val circeEncoder = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
 
     for (_ <- TestParam.preCollection) {
-      Json.fromJsonObject(circeEncoder.write(model))
+      circeEncoder(model): Json
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      Json.fromJsonObject(circeEncoder.write(model))
+      circeEncoder(model): Json
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = Json.fromJsonObject(circeEncoder.write(model)))
+    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = circeEncoder(model))
   }
 
   println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

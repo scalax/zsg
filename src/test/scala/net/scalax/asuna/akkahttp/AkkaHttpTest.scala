@@ -6,6 +6,7 @@ import net.scalax.asuna.akkahttp.AkkaHttpParameterHelper
 import org.scalatest._
 
 import scala.concurrent.{duration, Await, Future}
+import scala.reflect.ClassTag
 
 case class Model(
     id: Int
@@ -99,5 +100,31 @@ class AkkaHttpTest extends WordSpec with Matchers with ScalatestRouteTest with A
           ).toString
       }
   }
+
+  trait Item2 {
+    type IdType
+    def id: IdType
+    def value: Int
+  }
+
+  trait TopList2[T <: Item2] {
+    implicit def classTagT: ClassTag[T#IdType]
+    var topList: Array[T#IdType]      = Array.empty
+    var repWaitList: Map[T#IdType, T] = Map.empty
+  }
+
+  class TopList2Impl[T <: Item2]()(override implicit val classTagT: ClassTag[T#IdType]) extends TopList2[T]
+
+  object TopList2 {
+    def apply[T <: Item2](implicit classTag: ClassTag[T#IdType]): TopList2[T] = new TopList2Impl[T]()
+  }
+
+  case class ClanItem2(override val id: Int, override val value: Int) extends Item2 {
+    override type IdType = Int
+  }
+
+  val topList2 = TopList2[ClanItem2]
+
+  val test2: TopList2[ClanItem2] = topList2
 
 }

@@ -40,8 +40,11 @@ class CirceEncoderTest
   }
 
   object TestModel3Helper {
-    lazy val test1                                    = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
-    lazy val test4: Encoder[List[Option[TestModel4]]] = Encoder.encodeList(optionEncoder(circe.singleModel[TestModel4](TestModel4Helper).compile))
+    lazy val test1 = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
+    lazy val test4: Encoder[List[Option[TestModel4]]] = {
+      implicit val test100 = circe.effect(circe.singleModel[TestModel4](TestModel4Helper).compile).write
+      implicitly
+    }
   }
 
   object TestModel4Helper {
@@ -81,7 +84,7 @@ class CirceEncoderTest
 
     val asunaJson = asunaEncoder(model)
 
-    println(asunaJson.noSpaces)
+    //println(asunaJson.noSpaces)
     provideJson should be(asunaJson)
   }
 
