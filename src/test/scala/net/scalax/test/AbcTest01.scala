@@ -1,12 +1,15 @@
 package net.scalax.asuna.circe
 
-object AbcTest01 extends App {
+import io.circe.Json
+import net.scalax.asuna.implements.circe.abc.CirceHelper
 
-  val model: LargeModel = LargeModel()
+object AbcTest01 extends App with CirceHelper {
+
+  val model: MiaoMiao2 = MiaoMiao2()
 
   val result1 = {
     import io.circe.generic.auto._
-    val encoder = implicitly[io.circe.Encoder[LargeModel]]
+    val encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
 
     for (_ <- TestParam.preCollection) {
       encoder(model)
@@ -22,22 +25,41 @@ object AbcTest01 extends App {
     TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = encoder(model))
   }
 
+  object Abc {
+    //the property i12 will covert to Int and use Int Encoder and custom key
+    //def i12 = cusEncoder[String].func("cus_pro_i12", _.toInt)
+    /*@RootModel[sdfhhitehrt]
+    def sdklfgjsontoerhntgioerhntgjoisdrntgjioedrhgiodrhgsdriohgsdru = {
+      cusEncoder[sdfhhitehrt].func("abc" * 100, identity)
+    }*/
+  }
+
   val result2 = {
 
-    val circeEncoder = JsonEncoderHelper.fetchEncoder[LargeModel]
+    object Abc {
+      object Ghi
+
+      object Def {
+        val i1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+      }
+
+      val i1 = circe.effect(circe.singleModel[Hahahah2](Def).compile).write
+    }
+
+    val circeEncoder = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
 
     for (_ <- TestParam.preCollection) {
-      circeEncoder.write(model)
+      circeEncoder(model): Json
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      circeEncoder.write(model)
+      circeEncoder(model): Json
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = circeEncoder.write(model))
+    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = circeEncoder(model))
   }
 
   println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

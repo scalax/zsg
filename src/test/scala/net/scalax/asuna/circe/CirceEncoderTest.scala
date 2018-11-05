@@ -4,7 +4,9 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.Encoder
-import net.scalax.asuna.circe.{CirceAsunaDecoderHelper, EmptyCirceTable, JsonEncoderHelper}
+import net.scalax.asuna.circe.CirceAsunaDecoderHelper
+import net.scalax.asuna.implements.circe.abc.CirceHelper
+import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
@@ -25,10 +27,36 @@ class CirceEncoderTest
     with ScalaFutures
     with BeforeAndAfterAll
     with BeforeAndAfter
-    with CirceAsunaDecoderHelper {
+    with CirceAsunaDecoderHelper
+    with CirceHelper {
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
+
+  object TestModel2Helper
+
+  object TestModel1Helper {
+    lazy val test3: Encoder[Option[TestModel3]] = optionEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
+  }
+
+  object TestModel3Helper {
+    lazy val test1 = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
+    lazy val test4: Encoder[List[Option[TestModel4]]] = {
+      implicit val test100 = circe.effect(circe.singleModel[TestModel4](TestModel4Helper).compile).write
+      implicitly
+    }
+  }
+
+  object TestModel4Helper {
+    lazy val test3 = commonEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
+  }
+
+  object TestModelHelper {
+    lazy val test2 = listEncoder(circe.singleModel[TestModel2](TestModel2Helper).compile)
+    lazy val est1  = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
+  }
+
+  val asunaEncoder: Encoder[TestModel] = commonEncoder(circe.singleModel[TestModel](TestModelHelper).compile)
 
   val test3 = TestModel3(
       faker.address.fullAddress
@@ -54,8 +82,9 @@ class CirceEncoderTest
       encoder(model)
     }
 
-    val asunaJson = JsonEncoderHelper.toJson(model)
+    val asunaJson = asunaEncoder(model)
 
+    //println(asunaJson.noSpaces)
     provideJson should be(asunaJson)
   }
 
@@ -67,7 +96,7 @@ class CirceEncoderTest
       encoder(test2)
     }
 
-    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyCirceTable.value).compile)
+    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyLazyModel.value).compile)
     circeDecoder.read(provideJson) should be(Right(test2))
   }
 
