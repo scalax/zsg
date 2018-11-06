@@ -1,6 +1,7 @@
 package net.scalax.asuna.implements.circe.abc
 
 import io.circe.{Encoder, Json, JsonObject}
+import net.scalax.asuna.LazyImplicit
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 import net.scalax.asuna.mapper.common.SingleRepContent
@@ -8,7 +9,7 @@ import net.scalax.asuna.mapper.encoder._
 
 trait CirceAsunaEncoder {
   type DataType
-  def write(data: DataType): Json
+  def write: Encoder[DataType]
   val key: String
 }
 
@@ -25,9 +26,10 @@ trait CirceHelper {
   }
 
   object circe extends EncoderWrapperHelper[List[CirceAsunaEncoder], List[(String, Json)], CirceContent] {
-    override def effect[Rep, D, Out](rep: Rep)(
-      implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): CirceContent[Out, D] = {
-      val wrapRep = shape.wrapRep(rep)
+    override def effect[Rep, D, Out](
+      rep: Rep
+    )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): CirceContent[Out, D] = {
+      lazy val wrapRep = shape.wrapRep(rep)
       new CirceContent[Out, D] {
         override def write: Encoder[D] = Encoder.instance { data: D =>
           Json.fromJsonObject(JsonObject.fromIterable(shape.buildData(data, wrapRep, List.empty)))
@@ -36,14 +38,18 @@ trait CirceHelper {
     }
   }
 
-  implicit def implicit1[T](implicit encoder: Encoder[T])
-    : EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, CirceAsunaEncoderImpl[T], List[CirceAsunaEncoder], List[(String, Json)]] = {
+  implicit def implicit1[T](
+    implicit encoder: LazyImplicit[Encoder[T]]
+  ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, CirceAsunaEncoderImpl[T], List[CirceAsunaEncoder], List[(String, Json)]] = {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = new CirceAsunaEncoderImpl[T] {
-        override def write(data: T): Json = encoder(data)
-        override val key                  = base.columnInfo.singleModelSymbol.name
+      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
+        val T = base
+        new CirceAsunaEncoderImpl[T] {
+          override lazy val write = encoder.value
+          override val key        = T.columnInfo.singleModelSymbol.name
+        }
       }
       override def buildRep(base: CirceAsunaEncoderImpl[T], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
       override def buildData(data: T, rep: CirceAsunaEncoderImpl[T], oldData: List[(String, Json)]): List[(String, Json)] =
@@ -59,8 +65,8 @@ trait CirceHelper {
       override def wrapRep(base: => SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
-          override def write(data: T): Json = base1.rep(data)
-          override val key                  = base1.columnInfo.singleModelSymbol.name
+          override lazy val write = base1.rep
+          override val key        = base1.columnInfo.singleModelSymbol.name
         }
       }
 

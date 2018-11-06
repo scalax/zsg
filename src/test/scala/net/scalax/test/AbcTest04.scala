@@ -32,13 +32,13 @@ object AbcTest04 extends PlayHelper with App {
       object Ghi
 
       object Def {
-        val i1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
+        lazy val i1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
       }
 
-      val i1 = play.effect(play.singleModel[Hahahah2](Def).compile).write
+      lazy val i1 = play.effect(play.singleModel[Hahahah2](Def).compile).write
     }
 
-    val playJsonEncoder = play.effect(play.singleModel[MiaoMiao2](Abc).compile).write
+    def playJsonEncoder = play.effect(play.singleModel[MiaoMiao2](Abc).compile).write
 
     for (_ <- TestParam.preCollection) {
       playJsonEncoder.writes(model)

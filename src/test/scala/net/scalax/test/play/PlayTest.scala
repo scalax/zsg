@@ -1,21 +1,11 @@
 package net.scalax.asuna.circe
 
-import ai.x.play.json.Jsonx
 import net.scalax.asuna.implements.play.abc.PlayHelper
 import play.api.libs.json.{Format, Json, Writes}
 
 object PlayTest extends App with PlayHelper {
 
   case class TreeItem(id: Int, name: String, items: List[TreeItem])
-
-  lazy val encoder1: Format[TreeItem] = Abc.encoder2
-
-  object Abc {
-
-    implicit lazy val encoder3: Format[TreeItem] = encoder1
-    lazy val encoder2: Format[TreeItem]          = Jsonx.formatCaseClass[TreeItem]
-
-  }
 
   val model = TreeItem(
       12
@@ -26,19 +16,25 @@ object PlayTest extends App with PlayHelper {
     )
   )
 
-  println(Json.stringify(encoder1.writes(model)))
+  val json1 = {
+    implicit lazy val encoder1: Format[TreeItem] = encoder2
+    lazy val encoder2: Format[TreeItem]          = Json.format[TreeItem]
 
-  lazy val encoder4: Writes[TreeItem] = play.effect(play.singleModel[TreeItem](Def).compile).write
-
-  object Def {
-    lazy val items: Writes[List[TreeItem]] = {
-      implicit val encoder6 = encoder4
-      implicitly
-    }
+    val json = encoder2.writes(model)
+    println(Json.stringify(json))
+    json
   }
 
-  println(Json.stringify(encoder4.writes(model)))
+  val json2 = {
+    implicit lazy val encoder6: Writes[TreeItem] = play.effect(play.singleModel[TreeItem](Def).compile).write
 
-  println(encoder1.writes(model) == encoder4.writes(model))
+    object Def
+
+    val json = encoder6.writes(model)
+    println(Json.stringify(json))
+    json
+  }
+
+  println(json1 == json2)
 
 }
