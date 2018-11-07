@@ -36,9 +36,9 @@ trait RepGroupColumnWrapperImplicit1 extends RepGroupColumnWrapperImplicit2 {
     new RepGroupColumnWrapper[RepGroup[NewHead ++:: NewTail], Data, SingleColumnInfo] {
       override type Target = RepGroup[TargetHead ++:: TargetTail]
       override def inputColumn(
-        rep: => RepGroup[NewHead ++:: NewTail],
-        columnInfo: SingleColumnInfo,
-        defaultValue: => Option[Data]
+          rep: => RepGroup[NewHead ++:: NewTail]
+        , columnInfo: SingleColumnInfo
+        , defaultValue: => Option[Data]
       ): RepGroup[TargetHead ++:: TargetTail] = {
         lazy val h      = rep.repCol.head
         lazy val t      = rep.repCol.tail
@@ -64,9 +64,9 @@ trait RepGroupColumnWrapperImplicit1 extends RepGroupColumnWrapperImplicit2 {
     new RepGroupColumnWrapper[RepGroup[NewHead ++:: NewTail], Data, MutiplyColumnInfo] {
       override type Target = RepGroup[TargetHead ++:: TargetTail]
       override def inputColumn(
-        rep: => RepGroup[NewHead ++:: NewTail],
-        columnInfo: MutiplyColumnInfo,
-        defaultValue: => Option[Data]
+          rep: => RepGroup[NewHead ++:: NewTail]
+        , columnInfo: MutiplyColumnInfo
+        , defaultValue: => Option[Data]
       ): RepGroup[TargetHead ++:: TargetTail] = {
         lazy val h      = rep.repCol.head
         lazy val t      = rep.repCol.tail
@@ -101,9 +101,9 @@ trait RepGroupColumnWrapperImplicit2 extends RepGroupColumnWrapperImplicit3 {
     new RepGroupColumnWrapper[MutiplyRepContent[Col, Data], Data, MutiplyColumnInfo] {
       override type Target = MutiplyRepContent[Col, Data]
       override def inputColumn(
-        rep: => MutiplyRepContent[Col, Data],
-        columnInfo: MutiplyColumnInfo,
-        defaultValue: => Option[Data]
+          rep: => MutiplyRepContent[Col, Data]
+        , columnInfo: MutiplyColumnInfo
+        , defaultValue: => Option[Data]
       ): MutiplyRepContent[Col, Data] = rep
     }
 

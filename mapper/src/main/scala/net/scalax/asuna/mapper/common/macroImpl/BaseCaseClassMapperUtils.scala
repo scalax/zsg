@@ -39,15 +39,15 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   }
 
   trait DecoderField extends BaseField {
-    def modelSetter: Map[String, List[String]]
+    def modelSetter: Map[String, Tree => Tree]
     def toSetter(tempDataVar: String): Map[String, Tree] = {
       modelSetter.map {
         case (key, value) =>
-          val initTree: Tree = Ident(TermName(tempDataVar))
-          val setterTree = value.foldLeft(initTree) { (tree, name) =>
+          val initTree = Ident(TermName(tempDataVar))
+          /*val setterTree = value.foldLeft(initTree) { (tree, name) =>
             q"""${tree}.${TermName(name)}"""
-          }
-          (key, setterTree)
+          }*/
+          (key, value(initTree))
       }
     }
     def appendField(name: String): DecoderField =
@@ -58,7 +58,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         , propertyType = propertyType
         , modelSetter = modelSetter.map {
           case (key, setter) =>
-            (key, name :: setter)
+            (key, { modelVar: Tree =>
+              setter(q"""${modelVar}.${TermName(name)}""")
+            })
         }
         , defaultValue = defaultValue
       )
@@ -85,7 +87,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         , modelGetter = modelGetter
         , modelSetter = modelSetter.map {
           case (key, setter) =>
-            (key, name :: setter)
+            (key, { modelVar: Tree =>
+              setter(q"""${modelVar}.${TermName(name)}""")
+            })
         }
         , defaultValue = defaultValue
       )
@@ -117,7 +121,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       override val tablePropertyName: String
     , override val names: List[String]
     , override val tableGetter: Tree => Tree
-    , override val modelSetter: Map[String, List[String]]
+    , override val modelSetter: Map[String, Tree => Tree]
     , override val propertyType: Tree
     , override val repIndex: List[Int] = List.empty
     , override val defaultValue: Option[Tree]
@@ -128,7 +132,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
-    , override val modelSetter: Map[String, List[String]]
+    , override val modelSetter: Map[String, Tree => Tree]
     , override val propertyType: Tree
     , override val repIndex: List[Int] = List.empty
     , override val defaultValue: Option[Tree]
@@ -196,10 +200,12 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                     , tablePropertyName = key.tablePropertyName
                     , defaultValue = {
                       val values = key.containFields
-                        .map(r =>
-                          caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
-                            case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                        })
+                        .map(
+                          r =>
+                            caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
+                              case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
+                            }
+                        )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
                         Option(key.modelSetter(values))
@@ -262,7 +268,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         DecoderFieldImpl(
             names = List(s.field.name)
           , tableGetter = s.tableGetter
-          , modelSetter = Map((s.field.name, List.empty))
+          , modelSetter = Map((s.field.name, identity))
           , propertyType = s.field.fieldType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
@@ -271,7 +277,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         DecoderFieldImpl(
             names = s.containFields
           , tableGetter = s.tableGetter
-          , modelSetter = Map((s.caseField.name, List.empty))
+          , modelSetter = Map((s.caseField.name, identity))
           , propertyType = s.caseField.fieldType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
@@ -280,7 +286,14 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         DecoderFieldImpl(
             names = s.containFields
           , tableGetter = s.tableGetter
-          , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
+          , modelSetter = s.caseFields
+            .map(
+              field =>
+                (field.name, { modelVar: Tree =>
+                  q"""${modelVar}.${TermName(field.name)}"""
+                })
+            )
+            .toMap
           , propertyType = s.key.properType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
@@ -298,7 +311,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
             names = List(s.field.name)
           , tableGetter = s.tableGetter
           , modelGetter = s.field.modelGetter
-          , modelSetter = Map((s.field.name, List.empty))
+          , modelSetter = Map((s.field.name, identity))
           , propertyType = s.field.fieldType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
@@ -308,7 +321,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
             names = s.containFields
           , tableGetter = s.tableGetter
           , modelGetter = s.caseField.modelGetter
-          , modelSetter = Map((s.caseField.name, List.empty))
+          , modelSetter = Map((s.caseField.name, identity))
           , propertyType = s.caseField.fieldType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
@@ -320,7 +333,14 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , modelGetter = { modelVar: Tree =>
             s.key.modelSetter(s.caseFields.map(field => q"""${TermName(field.name)} = ${field.modelGetter(modelVar)}"""))
           }
-          , modelSetter = s.caseFields.map(field => (field.name, List(field.name))).toMap
+          , modelSetter = s.caseFields
+            .map(
+              field =>
+                (field.name, { modelVar: Tree =>
+                  q"""${modelVar}.${TermName(field.name)}"""
+                })
+            )
+            .toMap
           , propertyType = s.key.properType
           , tablePropertyName = s.tablePropertyName
           , defaultValue = s.defaultValue
