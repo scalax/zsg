@@ -130,11 +130,13 @@ trait RepGroupColumnWrapperImplicit3 {
     new RepGroupColumnWrapper[Col, Data, MutiplyColumnInfo] {
       override type Target = MutiplyRepContent[Col, Data]
       override def inputColumn(rep: => Col, columnInfo: MutiplyColumnInfo, defaultValue: => Option[Data]): MutiplyRepContent[Col, Data] = {
-        lazy val rep1   = rep
-        val columnInfo1 = columnInfo
+        lazy val rep1     = rep
+        val columnInfo1   = columnInfo
+        def defaultValue1 = defaultValue
         new MutiplyRepContent[Col, Data] {
-          override def rep        = rep1
-          override val columnInfo = columnInfo1
+          override def rep          = rep1
+          override val columnInfo   = columnInfo1
+          override def defaultValue = defaultValue1
         }
       }
     }

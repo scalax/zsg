@@ -168,7 +168,7 @@ object EncoderCaseClassMapper {
       val outputFieldNames = getCaseClassFields(output).map(
           s =>
           s.copy(modelGetter = { modelVar: Tree =>
-            q"""${modelVar}.model.${TermName(s.name)}"""
+            s.modelGetter(q"""${modelVar}.model""")
           })
       )
       /*output.members.toList.reverse
@@ -206,22 +206,6 @@ object EncoderCaseClassMapper {
 
       (content, fields)
 
-      /*val q = if (printlnTree) q"""${getCompanion(encoderInputTable)}[${poly}]{ ${TermName(tableName)}: ${table} =>
-          ${content}.debug
-        }
-        """ else q"""
-        ${getCompanion(encoderInputTable)}[${poly}]{ ${TermName(tableName)}: ${table} =>
-          ${content}
-        }"""
-
-      c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] {
-        if (printlnTree) {
-          q"""
-            ${copySourceToTarget(q.toString)}
-            ${q}
-          """
-        } else q
-      }*/
     }
 
   }

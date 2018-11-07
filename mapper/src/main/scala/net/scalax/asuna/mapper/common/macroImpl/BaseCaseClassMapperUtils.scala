@@ -1,13 +1,13 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.{CaseClassMapper, MacroColumnInfo, PropertyType}
+import net.scalax.asuna.mapper.common._
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
 
 trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
-  val maxNum = 6
+  val maxNum = 7
 
   override val c: Context
 
@@ -201,10 +201,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                     , defaultValue = {
                       val values = key.containFields
                         .map(
-                          r =>
+                            r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -288,7 +288,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           , tableGetter = s.tableGetter
           , modelSetter = s.caseFields
             .map(
-              field =>
+                field =>
                 (field.name, { modelVar: Tree =>
                   q"""${modelVar}.${TermName(field.name)}"""
                 })
@@ -335,7 +335,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           }
           , modelSetter = s.caseFields
             .map(
-              field =>
+                field =>
                 (field.name, { modelVar: Tree =>
                   q"""${modelVar}.${TermName(field.name)}"""
                 })
@@ -351,14 +351,33 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   case class CaseClassField(
       name: String
-    //, rawField: Symbol
     , fieldType: Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
   )
 
   def getCaseClassFields(caseClass: Type): List[CaseClassField] = {
-    val classSym  = caseClass.typeSymbol
+    caseClass.companion.member(TermName("apply")).asTerm.alternatives.find(_.isSynthetic).get.asMethod.paramLists.head.map(_.asTerm).zipWithIndex.map {
+      case (field, i) =>
+        val TermName(paramName) = field.name
+
+        val method = TermName(s"apply$$default$$${i + 1}")
+        val defaultValueTree = caseClass.companion.member(method) match {
+          case NoSymbol => None
+          case _        => Some(q"${caseClass.typeSymbol.companion}.$method")
+        }
+
+        CaseClassField(
+          name = paramName
+          , fieldType = q"""${proCompanion}.fromModel[${caseClass}](_.${field.name})"""
+          , modelGetter = { modelVar: Tree =>
+            q"""${modelVar}.${field.name}"""
+          }
+          , defaultValueTree = defaultValueTree
+        )
+    }
+
+    /*val classSym  = caseClass.typeSymbol
     val moduleSym = classSym.companion
     val apply     = moduleSym.typeSignature.decl(TermName("apply")).asMethod
     val paramList = apply.paramLists.head.map(_.asTerm)
@@ -375,14 +394,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         CaseClassField(
             name = paramName
-          //, rawField = member
           , fieldType = q"""${proCompanion}.fromModel[${caseClass}](_.${p.name})"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${p.name}"""
           }
           , defaultValueTree = defaultValueTree
         )
-    }
+    }*/
   }
 
   lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
@@ -391,6 +409,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
   lazy val propertyType             = weakTypeOf[PropertyType[_]]
   lazy val proCompanion             = getCompanion(propertyType)
+  lazy val singleColumnInfo = weakTypeOf[SingleColumnInfo]
+  lazy val mutiplyColumnInfo = weakTypeOf[MutiplyColumnInfo]
+  lazy val symbol = weakTypeOf[scala.Symbol]
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
 
@@ -401,11 +422,27 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           ${caseClassMapperCompanion}.withRep(..${subList.zipWithIndex.flatMap {
           case (field, index) =>
             val plusIndex = index + 1
-            val columnInfoTree = q"""${columnInfoImplCompanion}(
+            val columnInfoTree = field.names match {
+              case head :: Nil =>
+                q"""new ${singleColumnInfo} {
+                  override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
+                  override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
+                  override lazy val singleModelSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(head))})
+                  override lazy val singleModelName = ${Literal(Constant(head))}
+                }: ${singleColumnInfo}"""
+              case list => q"""new ${mutiplyColumnInfo} {
+                  override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
+                  override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
+                  override lazy val mutiplyModelSymbol = List(..${list.map(l => q"""${symbol.typeSymbol.companion}(${Literal(Constant(l))})""")})
+                  override lazy val mutiplyModelName = List(..${list.map(l => q"""${Literal(Constant(l))}""")})
+                }: ${mutiplyColumnInfo}"""
+            }
+
+            /*q"""${columnInfoImplCompanion}(
               tableColumnSymbol = ${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
               ..${field.names.map(
                 fieldName => q"""${weakTypeOf[scala.Symbol].typeSymbol.companion}(${Literal(Constant(fieldName))})"""
-            )})"""
+            )})"""*/
 
             val defaultValueTree = field.defaultValue.map(r => q"""Option(${r})""").getOrElse(reify(Option.empty).tree)
 

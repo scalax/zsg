@@ -8,6 +8,7 @@ abstract sealed trait RepColumnContent[+Rep, Data] {
 
   def rep: Rep
   def columnInfo: MacroColumnInfo
+   def defaultValue: Option[Data]
 
 }
 
@@ -15,7 +16,7 @@ trait SingleRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
 
   override def rep: Rep
   override def columnInfo: SingleColumnInfo
-  def defaultValue: Option[Data]
+ override def defaultValue: Option[Data]
 
 }
 
@@ -65,6 +66,7 @@ trait MutiplyRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
 
   override def rep: Rep
   override def columnInfo: MutiplyColumnInfo
+  override def defaultValue: Option[Data]
 
 }
 

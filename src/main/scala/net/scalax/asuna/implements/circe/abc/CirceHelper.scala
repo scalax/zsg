@@ -45,13 +45,10 @@ trait CirceHelper {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
       override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
-        val T = base
-
-        println("1234" * 40 + T.defaultValue)
-
+        val base1 = base
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = encoder.value
-          override val key        = T.columnInfo.singleModelSymbol.name
+          override val key        = base1.columnInfo.singleModelName
         }
       }
       override def buildRep(base: CirceAsunaEncoderImpl[T], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
@@ -69,7 +66,7 @@ trait CirceHelper {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = base1.rep
-          override val key        = base1.columnInfo.singleModelSymbol.name
+          override val key        = base1.columnInfo.singleModelName
         }
       }
 

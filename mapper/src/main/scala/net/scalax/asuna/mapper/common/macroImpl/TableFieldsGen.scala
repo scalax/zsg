@@ -77,7 +77,7 @@ trait TableFieldsGen {
           case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
             num
           case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
-            RootTable.defaultRootTableOrder
+            RootTable.apply$default$1
         }
         .headOption
       (s, orderOpt)
@@ -97,7 +97,7 @@ trait TableFieldsGen {
           case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
             (s.copy(key = name), num)
           case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
-            (s.copy(key = name), OverrideProperty.defaultReWritePropertyOrder)
+            (s.copy(key = name), OverrideProperty.apply$default$2)
         }
         .headOption
       (orderOpt.map(_._1).getOrElse(s), orderOpt.map(_._2))
