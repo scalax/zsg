@@ -34,19 +34,19 @@ object AbcTest01 extends App with CirceHelper {
     }*/
   }
 
+
+
   val result2 = {
 
-    object Abc {
-      object Ghi
+    object Ghi
 
-      object Def {
-        val i1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
-      }
-
-      val i1 = circe.effect(circe.singleModel[Hahahah2](Def).compile).write
+    object Aa {
+      lazy implicit val a1  = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+      lazy implicit val a2  = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
+      lazy val a3 = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }
 
-    val circeEncoder = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+    lazy val circeEncoder  = Aa.a3
 
     for (_ <- TestParam.preCollection) {
       circeEncoder(model): Json
