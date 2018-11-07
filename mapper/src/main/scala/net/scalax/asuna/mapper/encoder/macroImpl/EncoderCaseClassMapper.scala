@@ -146,7 +146,13 @@ object EncoderCaseClassMapper {
       val table          = weakTypeOf[Table]
       val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
 
-      val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+      val inputFieldNames = getCaseClassFields(input).map(
+          s =>
+          s.copy(modelGetter = { modelVar: Tree =>
+            s.modelGetter(q"""${modelVar}.input""")
+          })
+      )
+      /*input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
           val name = n.trim
           CaseClassField(
@@ -157,13 +163,21 @@ object EncoderCaseClassMapper {
               q"""${modelVar}.input.${TermName(name)}"""
             }
           )
-      }
+      }*/
 
-      val outputFieldNames = output.members.toList.reverse
+      val outputFieldNames = getCaseClassFields(output).map(
+          s =>
+          s.copy(modelGetter = { modelVar: Tree =>
+            q"""${modelVar}.model.${TermName(s.name)}"""
+          })
+      )
+      /*output.members.toList.reverse
         .filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal)
         .map(s => (s, s.name))
         .collect {
           case (member, TermName(n)) =>
+            /*val Ident(TermName(aaaa)) = q"""${member.asTerm.name}"""
+            println(aaaa * 100)*/
             val name = n.trim
             CaseClassField(
                 name = name
@@ -174,14 +188,14 @@ object EncoderCaseClassMapper {
               }
             )
         }
-        .reverse
+        .reverse*/
 
-      val unusedFieldNames =
-        unused.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
+      val unusedFieldNames = getCaseClassFields(unused)
+      //unused.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val tableFieldNames = fetchTableFields(table)
 
-      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.contains(s.name)) ::: inputFieldNames
+      val notInputOutputFieldNames = outputFieldNames.filter(s => !unusedFieldNames.map(_.name).contains(s.name)) ::: inputFieldNames
 
       val fields = getEncoderMembers(notInputOutputFieldNames, tableFieldNames)
 

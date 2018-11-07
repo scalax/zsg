@@ -9,6 +9,7 @@ def withRep[@for(i <- 1 to count) {
 }](@for(i <- 1 to count) {
     rep@{i}: => Rep@{i},
     property@{i}: PropertyType[Data@{i}],
+    defaultValue@{i}: => Option[Data@{i}],
     column@{i}: Column@{i}
     @if(i < count) { , }
 })(implicit @for(i <- 1 to count) {
@@ -21,7 +22,7 @@ def withRep[@for(i <- 1 to count) {
 }] = {
 
     @for(i <- 1 to count) {
-        def repInput@{i} = wrap@{i}.inputColumn(rep@{i}, column@{i})
+        def repInput@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
     }
 
     new CaseClassRepMapper@{count}[@for(i <- 1 to count) {

@@ -27,7 +27,7 @@ trait PlayHelper {
 
   object play extends EncoderWrapperHelper[List[PlayAsunaEncoder], List[(String, JsValue)], PlayContent] {
     override def effect[Rep, D, Out](
-      rep: Rep
+        rep: Rep
     )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[PlayAsunaEncoder], List[(String, JsValue)]]): PlayContent[Out, D] = {
       val wrapRep = shape.wrapRep(rep)
       new PlayContent[Out, D] {
@@ -39,7 +39,7 @@ trait PlayHelper {
   }
 
   implicit def implicit1[T](
-    implicit encoder: LazyImplicit[Writes[T]]
+      implicit encoder: LazyImplicit[Writes[T]]
   ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, PlayAsunaEncoderImpl[T], List[PlayAsunaEncoder], List[(String, JsValue)]] = {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder], List[(String, JsValue)]] {
       override type Target = PlayAsunaEncoderImpl[T]

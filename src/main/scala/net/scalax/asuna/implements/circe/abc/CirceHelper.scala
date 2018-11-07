@@ -27,7 +27,7 @@ trait CirceHelper {
 
   object circe extends EncoderWrapperHelper[List[CirceAsunaEncoder], List[(String, Json)], CirceContent] {
     override def effect[Rep, D, Out](
-      rep: Rep
+        rep: Rep
     )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): CirceContent[Out, D] = {
       lazy val wrapRep = shape.wrapRep(rep)
       new CirceContent[Out, D] {
@@ -39,13 +39,16 @@ trait CirceHelper {
   }
 
   implicit def implicit1[T](
-    implicit encoder: LazyImplicit[Encoder[T]]
+      implicit encoder: LazyImplicit[Encoder[T]]
   ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, CirceAsunaEncoderImpl[T], List[CirceAsunaEncoder], List[(String, Json)]] = {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
       override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
         val T = base
+
+        println("1234" * 40 + T.defaultValue)
+
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = encoder.value
           override val key        = T.columnInfo.singleModelSymbol.name

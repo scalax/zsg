@@ -148,7 +148,8 @@ object DecoderCaseClassMapper {
       val decoderDataGen    = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
 
       //Model to input's fields
-      val inputFieldNames = input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+      val inputFieldNames = getCaseClassFields(input)
+      /*input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
           val name = n.trim
           CaseClassField(
@@ -159,11 +160,12 @@ object DecoderCaseClassMapper {
               q"""${modelVar}.${TermName(name)}"""
             }
           )
-      }
+      }*/
 
       //Model to output's fields
       //Some not confirm to inputFieldNames is use to map to the table
-      val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+      val outputFieldNames = getCaseClassFields(output)
+      /*output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
           val name = n.trim
           CaseClassField(
@@ -174,12 +176,12 @@ object DecoderCaseClassMapper {
               q"""${modelVar}.${TermName(name)}"""
             }
           )
-      }
+      }*/
 
       //.reverse
       //Model to sub's fields
-      val subFieldNames =
-        sub.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
+      val subFieldNames = getCaseClassFields(sub)
+      //sub.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.map(_.name).contains(s.name))
 
@@ -196,7 +198,7 @@ object DecoderCaseClassMapper {
 
       val subSetter =
         if (sub.<:<(weakTypeOf[EmptyLazyModel])) q"""${getCompanion(weakTypeOf[EmptyLazyModel])}()"""
-        else q"""${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s)} = ${fieldValue(s)}""")})"""
+        else q"""${sub.typeSymbol.companion}(..${subFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")})"""
 
       val content = q"""${getCompanion(decoderDataGen)}
         .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (tempData, rep) =>

@@ -15,6 +15,7 @@ trait SingleRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
 
   override def rep: Rep
   override def columnInfo: SingleColumnInfo
+  def defaultValue: Option[Data]
 
 }
 
