@@ -27,7 +27,7 @@ object CaseClassMapper {
     , property1: PropertyType[Data1]
     , column1: Column1
   )(
-    implicit
+      implicit
     wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
   ): CaseClassRepMapper1[
       Target1
@@ -60,9 +60,9 @@ object CaseClassMapper {
     , property2: PropertyType[Data2]
     , column2: Column2
   )(
-    implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+      implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
   ): CaseClassRepMapper2[
       Target1
     , Data1
@@ -108,10 +108,10 @@ object CaseClassMapper {
     , property3: PropertyType[Data3]
     , column3: Column3
   )(
-    implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+      implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
   ): CaseClassRepMapper3[
       Target1
     , Data1
@@ -171,11 +171,11 @@ object CaseClassMapper {
     , property4: PropertyType[Data4]
     , column4: Column4
   )(
-    implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+      implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
   ): CaseClassRepMapper4[
       Target1
     , Data1
@@ -249,12 +249,12 @@ object CaseClassMapper {
     , property5: PropertyType[Data5]
     , column5: Column5
   )(
-    implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
+      implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
   ): CaseClassRepMapper5[
       Target1
     , Data1
@@ -342,13 +342,13 @@ object CaseClassMapper {
     , property6: PropertyType[Data6]
     , column6: Column6
   )(
-    implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
+      implicit
+    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
+    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
   ): CaseClassRepMapper6[
       Target1
     , Data1
@@ -828,7 +828,7 @@ abstract class CaseClassRepMapper1[
     , Data1
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -839,7 +839,7 @@ abstract class CaseClassRepMapper1[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -850,9 +850,9 @@ abstract class CaseClassRepMapper1[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -909,7 +909,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -923,25 +923,25 @@ object CaseClassRepMapper1 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
         val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper1[
+          data: CaseClassDataMapper1[
             Data1
-        ],
-        rep: CaseClassRepMapper1[
+        ]
+        , rep: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data2 = oldData
         val data1 = shape1.buildData(data.data1, rep.rep1, data2)
@@ -973,7 +973,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -987,32 +987,32 @@ object CaseClassRepMapper1 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
         val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper1[
+          rep: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper1[
           Data1
       ], DataCol] = {
         val dataCol0 = oldDataCol
         val split1   = shape1.takeData(rep.rep1, dataCol0)
         SplitData(
-          current = new CaseClassDataMapper1(
+            current = new CaseClassDataMapper1(
               data1 = split1.current
-          ),
-          left = split1.left
+          )
+          , left = split1.left
         )
       }
     }
@@ -1041,7 +1041,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -1055,46 +1055,46 @@ object CaseClassRepMapper1 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep2 = oldRep
         val rep1 = shape1.buildRep(base.rep1, rep2)
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper1[
+          data: CaseClassDataMapper1[
             Data1
-        ],
-        rep: CaseClassRepMapper1[
+        ]
+        , rep: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data2 = oldData
         val data1 = shape1.buildData(data.data1, rep.rep1, data2)
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper1[
+          rep: CaseClassRepMapper1[
             Target1
           , Data1
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper1[
           Data1
       ], DecoderDataCol] = {
         val dataCol0 = oldDataCol
         val split1   = shape1.takeData(rep.rep1, dataCol0)
         SplitData(
-          current = new CaseClassDataMapper1(
+            current = new CaseClassDataMapper1(
               data1 = split1.current
-          ),
-          left = split1.left
+          )
+          , left = split1.left
         )
       }
     }
@@ -1124,7 +1124,7 @@ abstract class CaseClassRepMapper2[
     , Data2
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1135,7 +1135,7 @@ abstract class CaseClassRepMapper2[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1146,9 +1146,9 @@ abstract class CaseClassRepMapper2[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1159,7 +1159,7 @@ abstract class CaseClassRepMapper2[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1170,7 +1170,7 @@ abstract class CaseClassRepMapper2[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1181,9 +1181,9 @@ abstract class CaseClassRepMapper2[
     }
   }
   def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1261,7 +1261,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1281,13 +1281,13 @@ object CaseClassRepMapper2 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
         val rep2 = shape2.buildRep(base.rep2, rep3)
@@ -1295,17 +1295,17 @@ object CaseClassRepMapper2 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper2[
+          data: CaseClassDataMapper2[
             Data1
           , Data2
-        ],
-        rep: CaseClassRepMapper2[
+        ]
+        , rep: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data3 = oldData
         val data2 = shape2.buildData(data.data2, rep.rep2, data3)
@@ -1349,7 +1349,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1369,13 +1369,13 @@ object CaseClassRepMapper2 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
         val rep2 = shape2.buildRep(base.rep2, rep3)
@@ -1383,13 +1383,13 @@ object CaseClassRepMapper2 {
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper2[
+          rep: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper2[
           Data1
         , Data2
@@ -1398,11 +1398,11 @@ object CaseClassRepMapper2 {
         val split1   = shape1.takeData(rep.rep1, dataCol0)
         val split2   = shape2.takeData(rep.rep2, split1.left)
         SplitData(
-          current = new CaseClassDataMapper2(
+            current = new CaseClassDataMapper2(
               data1 = split1.current
             , data2 = split2.current
-          ),
-          left = split2.left
+          )
+          , left = split2.left
         )
       }
     }
@@ -1442,7 +1442,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1462,13 +1462,13 @@ object CaseClassRepMapper2 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep3 = oldRep
         val rep2 = shape2.buildRep(base.rep2, rep3)
@@ -1476,17 +1476,17 @@ object CaseClassRepMapper2 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper2[
+          data: CaseClassDataMapper2[
             Data1
           , Data2
-        ],
-        rep: CaseClassRepMapper2[
+        ]
+        , rep: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data3 = oldData
         val data2 = shape2.buildData(data.data2, rep.rep2, data3)
@@ -1494,13 +1494,13 @@ object CaseClassRepMapper2 {
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper2[
+          rep: CaseClassRepMapper2[
             Target1
           , Data1
           , Target2
           , Data2
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper2[
           Data1
         , Data2
@@ -1509,11 +1509,11 @@ object CaseClassRepMapper2 {
         val split1   = shape1.takeData(rep.rep1, dataCol0)
         val split2   = shape2.takeData(rep.rep2, split1.left)
         SplitData(
-          current = new CaseClassDataMapper2(
+            current = new CaseClassDataMapper2(
               data1 = split1.current
             , data2 = split2.current
-          ),
-          left = split2.left
+          )
+          , left = split2.left
         )
       }
     }
@@ -1549,7 +1549,7 @@ abstract class CaseClassRepMapper3[
     , Data3
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1560,7 +1560,7 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1571,9 +1571,9 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -1584,7 +1584,7 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1595,7 +1595,7 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1606,9 +1606,9 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -1619,7 +1619,7 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -1630,7 +1630,7 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -1641,9 +1641,9 @@ abstract class CaseClassRepMapper3[
     }
   }
   def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -1742,7 +1742,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1768,15 +1768,15 @@ object CaseClassRepMapper3 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
         val rep3 = shape3.buildRep(base.rep3, rep4)
@@ -1785,20 +1785,20 @@ object CaseClassRepMapper3 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper3[
+          data: CaseClassDataMapper3[
             Data1
           , Data2
           , Data3
-        ],
-        rep: CaseClassRepMapper3[
+        ]
+        , rep: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data4 = oldData
         val data3 = shape3.buildData(data.data3, rep.rep3, data4)
@@ -1854,7 +1854,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1880,15 +1880,15 @@ object CaseClassRepMapper3 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
         val rep3 = shape3.buildRep(base.rep3, rep4)
@@ -1897,15 +1897,15 @@ object CaseClassRepMapper3 {
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper3[
+          rep: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper3[
           Data1
         , Data2
@@ -1916,12 +1916,12 @@ object CaseClassRepMapper3 {
         val split2   = shape2.takeData(rep.rep2, split1.left)
         val split3   = shape3.takeData(rep.rep3, split2.left)
         SplitData(
-          current = new CaseClassDataMapper3(
+            current = new CaseClassDataMapper3(
               data1 = split1.current
             , data2 = split2.current
             , data3 = split3.current
-          ),
-          left = split3.left
+          )
+          , left = split3.left
         )
       }
     }
@@ -1972,7 +1972,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1998,15 +1998,15 @@ object CaseClassRepMapper3 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep4 = oldRep
         val rep3 = shape3.buildRep(base.rep3, rep4)
@@ -2015,20 +2015,20 @@ object CaseClassRepMapper3 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper3[
+          data: CaseClassDataMapper3[
             Data1
           , Data2
           , Data3
-        ],
-        rep: CaseClassRepMapper3[
+        ]
+        , rep: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data4 = oldData
         val data3 = shape3.buildData(data.data3, rep.rep3, data4)
@@ -2037,15 +2037,15 @@ object CaseClassRepMapper3 {
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper3[
+          rep: CaseClassRepMapper3[
             Target1
           , Data1
           , Target2
           , Data2
           , Target3
           , Data3
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper3[
           Data1
         , Data2
@@ -2056,12 +2056,12 @@ object CaseClassRepMapper3 {
         val split2   = shape2.takeData(rep.rep2, split1.left)
         val split3   = shape3.takeData(rep.rep3, split2.left)
         SplitData(
-          current = new CaseClassDataMapper3(
+            current = new CaseClassDataMapper3(
               data1 = split1.current
             , data2 = split2.current
             , data3 = split3.current
-          ),
-          left = split3.left
+          )
+          , left = split3.left
         )
       }
     }
@@ -2103,7 +2103,7 @@ abstract class CaseClassRepMapper4[
     , Data4
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2114,7 +2114,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2125,9 +2125,9 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2138,7 +2138,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2149,7 +2149,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2160,9 +2160,9 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2173,7 +2173,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2184,7 +2184,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2195,9 +2195,9 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2208,7 +2208,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2219,7 +2219,7 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2230,9 +2230,9 @@ abstract class CaseClassRepMapper4[
     }
   }
   def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2352,7 +2352,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2384,7 +2384,7 @@ object CaseClassRepMapper4 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2393,8 +2393,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
         val rep4 = shape4.buildRep(base.rep4, rep5)
@@ -2404,13 +2404,13 @@ object CaseClassRepMapper4 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper4[
+          data: CaseClassDataMapper4[
             Data1
           , Data2
           , Data3
           , Data4
-        ],
-        rep: CaseClassRepMapper4[
+        ]
+        , rep: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2419,8 +2419,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data5 = oldData
         val data4 = shape4.buildData(data.data4, rep.rep4, data5)
@@ -2488,7 +2488,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2520,7 +2520,7 @@ object CaseClassRepMapper4 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2529,8 +2529,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
         val rep4 = shape4.buildRep(base.rep4, rep5)
@@ -2540,7 +2540,7 @@ object CaseClassRepMapper4 {
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper4[
+          rep: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2549,8 +2549,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper4[
           Data1
         , Data2
@@ -2563,33 +2563,33 @@ object CaseClassRepMapper4 {
         val split3   = shape3.takeData(rep.rep3, split2.left)
         val split4   = shape4.takeData(rep.rep4, split3.left)
         SplitData(
-          current = new CaseClassDataMapper4(
+            current = new CaseClassDataMapper4(
               data1 = split1.current
             , data2 = split2.current
             , data3 = split3.current
             , data4 = split4.current
-          ),
-          left = split4.left
+          )
+          , left = split4.left
         )
       }
     }
   }
   implicit def caseClassHelper4FormatterGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    RepCol,
-    EncoderDataCol,
-    DecoderDataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , RepCol
+    , EncoderDataCol
+    , DecoderDataCol
   ](
       implicit
     shape1: FormatterShape.Aux[Rep1, Data1, Target1, RepCol, EncoderDataCol, DecoderDataCol]
@@ -2647,7 +2647,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2679,7 +2679,7 @@ object CaseClassRepMapper4 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2688,8 +2688,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep5 = oldRep
         val rep4 = shape4.buildRep(base.rep4, rep5)
@@ -2699,13 +2699,13 @@ object CaseClassRepMapper4 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper4[
+          data: CaseClassDataMapper4[
             Data1
           , Data2
           , Data3
           , Data4
-        ],
-        rep: CaseClassRepMapper4[
+        ]
+        , rep: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2714,8 +2714,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data5 = oldData
         val data4 = shape4.buildData(data.data4, rep.rep4, data5)
@@ -2725,7 +2725,7 @@ object CaseClassRepMapper4 {
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper4[
+          rep: CaseClassRepMapper4[
             Target1
           , Data1
           , Target2
@@ -2734,8 +2734,8 @@ object CaseClassRepMapper4 {
           , Data3
           , Target4
           , Data4
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper4[
           Data1
         , Data2
@@ -2748,13 +2748,13 @@ object CaseClassRepMapper4 {
         val split3   = shape3.takeData(rep.rep3, split2.left)
         val split4   = shape4.takeData(rep.rep4, split3.left)
         SplitData(
-          current = new CaseClassDataMapper4(
+            current = new CaseClassDataMapper4(
               data1 = split1.current
             , data2 = split2.current
             , data3 = split3.current
             , data4 = split4.current
-          ),
-          left = split4.left
+          )
+          , left = split4.left
         )
       }
     }
@@ -2802,7 +2802,7 @@ abstract class CaseClassRepMapper5[
     , Data5
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2813,7 +2813,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2824,9 +2824,9 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -2837,7 +2837,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2848,7 +2848,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2859,9 +2859,9 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -2872,7 +2872,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2883,7 +2883,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2894,9 +2894,9 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -2907,7 +2907,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2918,7 +2918,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2929,9 +2929,9 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -2942,7 +2942,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -2953,7 +2953,7 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -2964,9 +2964,9 @@ abstract class CaseClassRepMapper5[
     }
   }
   def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -3040,23 +3040,23 @@ class CaseClassDataMapper5[
 )
 object CaseClassRepMapper5 {
   implicit def caseClassHelper5EncoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
@@ -3125,7 +3125,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3163,7 +3163,7 @@ object CaseClassRepMapper5 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3174,8 +3174,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
         val rep5 = shape5.buildRep(base.rep5, rep6)
@@ -3186,14 +3186,14 @@ object CaseClassRepMapper5 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper5[
+          data: CaseClassDataMapper5[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
-        ],
-        rep: CaseClassRepMapper5[
+        ]
+        , rep: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3204,8 +3204,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data6 = oldData
         val data5 = shape5.buildData(data.data5, rep.rep5, data6)
@@ -3218,23 +3218,23 @@ object CaseClassRepMapper5 {
     }
   }
   implicit def caseClassHelper5DecoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
@@ -3303,7 +3303,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3341,7 +3341,7 @@ object CaseClassRepMapper5 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3352,8 +3352,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
         val rep5 = shape5.buildRep(base.rep5, rep6)
@@ -3364,7 +3364,7 @@ object CaseClassRepMapper5 {
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper5[
+          rep: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3375,8 +3375,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper5[
           Data1
         , Data2
@@ -3404,24 +3404,24 @@ object CaseClassRepMapper5 {
     }
   }
   implicit def caseClassHelper5FormatterGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    RepCol,
-    EncoderDataCol,
-    DecoderDataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , RepCol
+    , EncoderDataCol
+    , DecoderDataCol
   ](
       implicit
     shape1: FormatterShape.Aux[Rep1, Data1, Target1, RepCol, EncoderDataCol, DecoderDataCol]
@@ -3490,7 +3490,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3528,7 +3528,7 @@ object CaseClassRepMapper5 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3539,8 +3539,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep6 = oldRep
         val rep5 = shape5.buildRep(base.rep5, rep6)
@@ -3551,14 +3551,14 @@ object CaseClassRepMapper5 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper5[
+          data: CaseClassDataMapper5[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
-        ],
-        rep: CaseClassRepMapper5[
+        ]
+        , rep: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3569,8 +3569,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data6 = oldData
         val data5 = shape5.buildData(data.data5, rep.rep5, data6)
@@ -3581,7 +3581,7 @@ object CaseClassRepMapper5 {
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper5[
+          rep: CaseClassRepMapper5[
             Target1
           , Data1
           , Target2
@@ -3592,8 +3592,8 @@ object CaseClassRepMapper5 {
           , Data4
           , Target5
           , Data5
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper5[
           Data1
         , Data2
@@ -3669,7 +3669,7 @@ abstract class CaseClassRepMapper6[
     , Data6
   ] = self
   def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -3680,7 +3680,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -3691,9 +3691,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1)
     val shape1  = debugShape.shape.packed
@@ -3704,7 +3704,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -3715,7 +3715,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -3726,9 +3726,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2)
     val shape1  = debugShape.shape.packed
@@ -3739,7 +3739,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -3750,7 +3750,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -3761,9 +3761,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3)
     val shape1  = debugShape.shape.packed
@@ -3774,7 +3774,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -3785,7 +3785,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -3796,9 +3796,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4)
     val shape1  = debugShape.shape.packed
@@ -3809,7 +3809,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -3820,7 +3820,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -3831,9 +3831,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5)
     val shape1  = debugShape.shape.packed
@@ -3844,7 +3844,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
-    context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6)
     val shape1  = debugShape.shape.packed
@@ -3855,7 +3855,7 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
-    context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
   )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6)
     val shape1  = debugShape.shape.packed
@@ -3866,9 +3866,9 @@ abstract class CaseClassRepMapper6[
     }
   }
   def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
-    context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-    implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6)
     val shape1  = debugShape.shape.packed
@@ -3952,26 +3952,26 @@ class CaseClassDataMapper6[
 )
 object CaseClassRepMapper6 {
   implicit def caseClassHelper6EncoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    Rep6,
-    Data6,
-    Target6,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
@@ -4051,7 +4051,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4095,7 +4095,7 @@ object CaseClassRepMapper6 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4108,8 +4108,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
         val rep6 = shape6.buildRep(base.rep6, rep7)
@@ -4121,15 +4121,15 @@ object CaseClassRepMapper6 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper6[
+          data: CaseClassDataMapper6[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
           , Data6
-        ],
-        rep: CaseClassRepMapper6[
+        ]
+        , rep: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4142,8 +4142,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldData: DataCol
+        ]
+        , oldData: DataCol
       ): DataCol = {
         val data7 = oldData
         val data6 = shape6.buildData(data.data6, rep.rep6, data7)
@@ -4157,26 +4157,26 @@ object CaseClassRepMapper6 {
     }
   }
   implicit def caseClassHelper6DecoderGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    Rep6,
-    Data6,
-    Target6,
-    RepCol,
-    DataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , RepCol
+    , DataCol
   ](
       implicit
     shape1: DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
@@ -4256,7 +4256,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4300,7 +4300,7 @@ object CaseClassRepMapper6 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4313,8 +4313,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
         val rep6 = shape6.buildRep(base.rep6, rep7)
@@ -4326,7 +4326,7 @@ object CaseClassRepMapper6 {
         rep1
       }
       override def takeData(
-        rep: CaseClassRepMapper6[
+          rep: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4339,8 +4339,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldDataCol: DataCol
+        ]
+        , oldDataCol: DataCol
       ): SplitData[CaseClassDataMapper6[
           Data1
         , Data2
@@ -4371,27 +4371,27 @@ object CaseClassRepMapper6 {
     }
   }
   implicit def caseClassHelper6FormatterGen[
-    Rep1,
-    Data1,
-    Target1,
-    Rep2,
-    Data2,
-    Target2,
-    Rep3,
-    Data3,
-    Target3,
-    Rep4,
-    Data4,
-    Target4,
-    Rep5,
-    Data5,
-    Target5,
-    Rep6,
-    Data6,
-    Target6,
-    RepCol,
-    EncoderDataCol,
-    DecoderDataCol
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , RepCol
+    , EncoderDataCol
+    , DecoderDataCol
   ](
       implicit
     shape1: FormatterShape.Aux[Rep1, Data1, Target1, RepCol, EncoderDataCol, DecoderDataCol]
@@ -4471,7 +4471,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-        base: => CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4515,7 +4515,7 @@ object CaseClassRepMapper6 {
         )
       }
       override def buildRep(
-        base: CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4528,8 +4528,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldRep: RepCol
+        ]
+        , oldRep: RepCol
       ): RepCol = {
         val rep7 = oldRep
         val rep6 = shape6.buildRep(base.rep6, rep7)
@@ -4541,15 +4541,15 @@ object CaseClassRepMapper6 {
         rep1
       }
       override def buildData(
-        data: CaseClassDataMapper6[
+          data: CaseClassDataMapper6[
             Data1
           , Data2
           , Data3
           , Data4
           , Data5
           , Data6
-        ],
-        rep: CaseClassRepMapper6[
+        ]
+        , rep: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4562,8 +4562,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldData: EncoderDataCol
+        ]
+        , oldData: EncoderDataCol
       ): EncoderDataCol = {
         val data7 = oldData
         val data6 = shape6.buildData(data.data6, rep.rep6, data7)
@@ -4575,7 +4575,7 @@ object CaseClassRepMapper6 {
         data1
       }
       override def takeData(
-        rep: CaseClassRepMapper6[
+          rep: CaseClassRepMapper6[
             Target1
           , Data1
           , Target2
@@ -4588,8 +4588,8 @@ object CaseClassRepMapper6 {
           , Data5
           , Target6
           , Data6
-        ],
-        oldDataCol: DecoderDataCol
+        ]
+        , oldDataCol: DecoderDataCol
       ): SplitData[CaseClassDataMapper6[
           Data1
         , Data2

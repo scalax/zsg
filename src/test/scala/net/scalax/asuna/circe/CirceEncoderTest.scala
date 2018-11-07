@@ -33,7 +33,16 @@ class CirceEncoderTest
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
 
-  object TestModel2Helper
+  object Bb
+  object Aa {
+    implicit lazy val test3: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Bb).compile).write
+    implicit lazy val test4: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
+    implicit lazy val test1: Encoder[TestModel1] = circe.effect(circe.singleModel[TestModel1](Bb).compile).write
+    implicit lazy val test2: Encoder[TestModel2] = circe.effect(circe.singleModel[TestModel2](Bb).compile).write
+    implicit lazy val test: Encoder[TestModel]   = circe.effect(circe.singleModel[TestModel](Bb).compile).write
+  }
+
+  /*object TestModel2Helper
 
   object TestModel1Helper {
     lazy val test3: Encoder[Option[TestModel3]] = optionEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
@@ -56,7 +65,7 @@ class CirceEncoderTest
     lazy val est1  = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
   }
 
-  val asunaEncoder: Encoder[TestModel] = commonEncoder(circe.singleModel[TestModel](TestModelHelper).compile)
+  val asunaEncoder: Encoder[TestModel] = commonEncoder(circe.singleModel[TestModel](TestModelHelper).compile)*/
 
   val test3 = TestModel3(
       faker.address.fullAddress
@@ -82,9 +91,9 @@ class CirceEncoderTest
       encoder(model)
     }
 
-    val asunaJson = asunaEncoder(model)
+    val asunaJson = Aa.test(model)
 
-    //println(asunaJson.noSpaces)
+    println(asunaJson.noSpaces)
     provideJson should be(asunaJson)
   }
 
