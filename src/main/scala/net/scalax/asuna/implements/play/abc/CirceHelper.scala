@@ -62,7 +62,7 @@ trait PlayHelper {
       override def wrapRep(base: => SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
         val base1 = base
         new PlayAsunaEncoderImpl[T] {
-          override val write = base1.rep.writes
+          override val write = base1.rep
           override val key   = base1.columnInfo.singleModelSymbol.name
         }
       }
