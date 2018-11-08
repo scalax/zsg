@@ -44,7 +44,7 @@ class TestCase1 extends FlatSpec with Matchers with EitherValues with ScalaFutur
     val filterQuery =
       friendTq.filter(t => new SlickFilterTest(t).filterCol.inputData(FilterParam(name = "jilen", age = 26)).getOrElse(LiteralColumn(Option(true))))
 
-    filterQuery.result.statements.toList should be(friendTq.filter(s => (s.age === 26) && (s.name === "jilen")).result.statements.toList)
+    filterQuery.result.statements.toList should be(friendTq.filter(s => (s.name === "jilen") && (s.age === 26)).result.statements.toList)
 
     try {
       val friendQuery = filterQuery.result.headOption
@@ -65,7 +65,7 @@ class TestCase1 extends FlatSpec with Matchers with EitherValues with ScalaFutur
           .getOrElse(LiteralColumn(Option(true)))
     )
 
-    filterQuery.result.statements.toList should be(friendTq.filter(s => (s.nick === "烟流") && (s.age === 20) && (s.name === "小莎莎")).result.statements.toList)
+    filterQuery.result.statements.toList should be(friendTq.filter(s => (s.name === "小莎莎") && (s.nick === "烟流") && (s.age === 20)).result.statements.toList)
 
     try {
       val friendQuery = filterQuery.result.headOption
