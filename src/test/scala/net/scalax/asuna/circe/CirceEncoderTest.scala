@@ -11,14 +11,20 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
 case class TestModel1(name1: String, olim3: Long, test3: Option[TestModel3])
-
 case class TestModel2(name2: String, accdef: Int)
-
 case class TestModel3(nickName: String, maxAge: Int, test1: TestModel1, test4: List[Option[TestModel4]])
-
 case class TestModel4(age: Int, today: String, test3: TestModel3)
-
 case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, est1: TestModel1, test2: List[TestModel2])
+
+object Aa extends CirceHelper {
+  object Bb
+
+  implicit lazy val test3: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Bb).compile).write
+  implicit lazy val test4: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
+  implicit lazy val test1: Encoder[TestModel1] = circe.effect(circe.singleModel[TestModel1](Bb).compile).write
+  implicit lazy val test2: Encoder[TestModel2] = circe.effect(circe.singleModel[TestModel2](Bb).compile).write
+  implicit lazy val test: Encoder[TestModel]   = circe.effect(circe.singleModel[TestModel](Bb).compile).write
+}
 
 class CirceEncoderTest
     extends FlatSpec
@@ -27,20 +33,10 @@ class CirceEncoderTest
     with ScalaFutures
     with BeforeAndAfterAll
     with BeforeAndAfter
-    with CirceAsunaDecoderHelper
-    with CirceHelper {
+    with CirceAsunaDecoderHelper {
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
-
-  object Bb
-  object Aa {
-    implicit lazy val test3: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Bb).compile).write
-    implicit lazy val test4: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
-    implicit lazy val test1: Encoder[TestModel1] = circe.effect(circe.singleModel[TestModel1](Bb).compile).write
-    implicit lazy val test2: Encoder[TestModel2] = circe.effect(circe.singleModel[TestModel2](Bb).compile).write
-    implicit lazy val test: Encoder[TestModel]   = circe.effect(circe.singleModel[TestModel](Bb).compile).write
-  }
 
   /*object TestModel2Helper
 
@@ -93,7 +89,7 @@ class CirceEncoderTest
 
     val asunaJson = Aa.test(model)
 
-    println(asunaJson.noSpaces)
+    //println(asunaJson.noSpaces)
     provideJson should be(asunaJson)
   }
 

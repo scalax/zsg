@@ -34,30 +34,28 @@ object AbcTest01 extends App with CirceHelper {
     }*/
   }
 
-  val result2 = {
+  object Ghi
 
-    object Ghi
+  val result2 = {
 
     object Aa {
       implicit def a1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
       implicit def a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
-      def a3          = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+       def  a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }
 
-    def circeEncoder = Aa.a3
-
     for (_ <- TestParam.preCollection) {
-      circeEncoder(model): Json
+      Aa.a3(model): Json
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      circeEncoder(model): Json
+      Aa.a3(model): Json
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = circeEncoder(model))
+    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = Aa.a3(model))
   }
 
   println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

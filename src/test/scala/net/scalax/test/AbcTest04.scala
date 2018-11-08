@@ -36,20 +36,18 @@ object AbcTest04 extends PlayHelper with App {
       def a3          = play.effect(play.singleModel[MiaoMiao2](Ghi).compile).write
     }
 
-    def playJsonEncoder = Abc.a3
-
     for (_ <- TestParam.preCollection) {
-      playJsonEncoder.writes(model)
+      Abc.a3.writes(model)
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      playJsonEncoder.writes(model)
+      Abc.a3.writes(model)
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = data2 - data1, jsonModel = playJsonEncoder.writes(model))
+    TestResult(times = TestParam.testTimes, millions = data2 - data1, jsonModel = Abc.a3.writes(model))
   }
 
   println(s"play-json 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

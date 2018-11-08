@@ -5,7 +5,7 @@ import scala.reflect.macros.blackbox
 import scala.language.experimental.macros
 
 trait LazyImplicit[T] {
-  def value: T
+  @inline def value: T
 }
 
 object LazyImplicit {
@@ -21,7 +21,7 @@ object LazyImplicitHelper {
       val lazyImplicit = weakTypeOf[LazyImplicit[T]]
       val t            = weakTypeOf[T]
       c.Expr[LazyImplicit[T]] {
-        q"""new ${lazyImplicit} { @scala.inline override lazy val value: ${t} = implicitly }"""
+        q"""new ${lazyImplicit} { @scala.inline override def value: ${t} = implicitly }"""
       }
     }
   }

@@ -1,6 +1,5 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.mapper.common._
 
 import scala.annotation.tailrec
@@ -371,8 +370,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         CaseClassField(
             name = paramName
-          , fieldType = q"""null: ${propertyType.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
-          , placeHolder = q"""null: ${placeHolder.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
+          , fieldType = q"""null: net.scalax.asuna.mapper.common.PropertyType[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
+          , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -380,46 +379,70 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         )
     }
 
-    /*val classSym  = caseClass.typeSymbol
-    val moduleSym = classSym.companion
-    val apply     = moduleSym.typeSignature.decl(TermName("apply")).asMethod
-    val paramList = apply.paramLists.head.map(_.asTerm)
-    paramList.zipWithIndex.map {
-      case (p, i) =>
-        val TermName(paramName) = p.name
-
-        val defaultValueTree =
-          if (!p.isParamWithDefault) Option.empty
-          else {
-            val getterName = TermName("apply$default$" + (i + 1))
-            Option(q"$moduleSym.$getterName")
-          }
-
-        CaseClassField(
-            name = paramName
-          , fieldType = q"""${proCompanion}.fromModel[${caseClass}](_.${p.name})"""
-          , modelGetter = { modelVar: Tree =>
-            q"""${modelVar}.${p.name}"""
-          }
-          , defaultValueTree = defaultValueTree
-        )
-    }*/
   }
 
   lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
   lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfo]
   lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
-  lazy val propertyType             = weakTypeOf[PropertyType[_]]
+  /*lazy val propertyType             = weakTypeOf[PropertyType[_]]
   lazy val placeHolder              = weakTypeOf[Placeholder[_]]
-  lazy val proCompanion             = getCompanion(propertyType)
+  lazy val proCompanion             = getCompanion(propertyType)*/
   lazy val singleColumnInfo         = weakTypeOf[SingleColumnInfo]
   lazy val mutiplyColumnInfo        = weakTypeOf[MutiplyColumnInfo]
   lazy val symbol                   = weakTypeOf[scala.Symbol]
+  lazy val repGroupColumnWrapper    = weakTypeOf[RepGroupColumnWrapper[_, _, _]]
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
+    val treeList = fields.map { field =>
+      val columnInfoTree = /*field.names match {
+        case head :: Nil =>
+          q"""new ${singleColumnInfo} {
+            override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
+            override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
+            override lazy val singleModelSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(head))})
+            override lazy val singleModelName = ${Literal(Constant(head))}
+          }: ${singleColumnInfo}"""
+        case list =>
+          q"""new ${mutiplyColumnInfo} {
+            override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
+            override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
+            override lazy val mutiplyModelSymbol = List(..${list.map(l => q"""${symbol.typeSymbol.companion}(${Literal(Constant(l))})""")})
+            override lazy val mutiplyModelName = List(..${list.map(l => q"""${Literal(Constant(l))}""")})
+          }: ${mutiplyColumnInfo}"""
+      }*/
 
-    fields
+      q"""${columnInfoImplCompanion}(
+                  tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
+                  ..${field.names.map(
+          fieldName => q"""${symbol.typeSymbol.companion}(${Literal(Constant(fieldName))})"""
+      )})"""
+
+      val paramList = List(
+          q"""${TermName("rep")} = ${field.tableGetter(tableName)}"""
+        , q"""${TermName("propertyType")} = ${field.propertyType}"""
+        , q"""${TermName("columnInfo")} = ${columnInfoTree}"""
+      ) //:::
+        //field.defaultValue.map(value => q"""${TermName("defaultValue")} = ${value}""").toList
+
+      (field, q"""${repGroupColumnWrapper.typeSymbol.companion}(..${paramList})""")
+    }
+
+    treeList
+      .grouped(maxNum)
+      .map { subList =>
+        val q = q"""
+          ${caseClassMapperCompanion}.withRawRep(..${subList.zipWithIndex.flatMap {
+          case ((field, repTree), index) =>
+            val plusIndex = index + 1
+            List(q"""${TermName("rep" + plusIndex)} = ${repTree}""", q"""${TermName("property" + plusIndex)} = ${field.propertyType}""")
+        }})
+          """
+        q
+      }
+      .toList
+
+    /*fields
       .grouped(maxNum)
       .map { subList =>
         val q = q"""
@@ -460,7 +483,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           """
         q
       }
-      .toList
+      .toList*/
   }
 
   @tailrec

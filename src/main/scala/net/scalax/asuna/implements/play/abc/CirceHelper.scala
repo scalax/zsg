@@ -10,7 +10,7 @@ import play.api.libs.json._
 trait PlayAsunaEncoder {
   type DataType
   def write: Writes[DataType]
-  val key: String
+  def key: String
 }
 
 trait PlayAsunaEncoderImpl[T] extends PlayAsunaEncoder {
@@ -46,7 +46,7 @@ trait PlayHelper {
       override type Data   = T
       override def wrapRep(base: SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[T] = new PlayAsunaEncoderImpl[T] {
         override lazy val write = encoder.value
-        override val key        = base.columnInfo.singleModelName
+        override val key   = base.columnInfo.singleModelName
       }
       override def buildRep(base: PlayAsunaEncoderImpl[T], oldRep: List[PlayAsunaEncoder]): List[PlayAsunaEncoder] = base :: oldRep
       override def buildData(data: T, rep: PlayAsunaEncoderImpl[T], oldData: List[(String, JsValue)]): List[(String, JsValue)] =

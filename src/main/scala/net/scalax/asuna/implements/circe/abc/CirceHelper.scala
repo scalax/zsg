@@ -10,7 +10,7 @@ import net.scalax.asuna.mapper.encoder._
 trait CirceAsunaEncoder {
   type DataType
   def write: Encoder[DataType]
-  val key: String
+  def key: String
 }
 
 trait CirceAsunaEncoderImpl[T] extends CirceAsunaEncoder {
@@ -65,8 +65,8 @@ trait CirceHelper {
       override def wrapRep(base: SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
-          override lazy val write = base1.rep
-          override val key        = base1.columnInfo.singleModelName
+          override val write = base1.rep
+          override val key   = base1.columnInfo.singleModelName
         }
       }
 

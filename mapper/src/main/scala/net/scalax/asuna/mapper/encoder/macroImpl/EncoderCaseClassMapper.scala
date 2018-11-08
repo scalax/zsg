@@ -47,7 +47,17 @@ object EncoderCaseClassMapper {
         }.compile
       """
 
-      copySourceToTarget(completeTree.toString, encoderFields)
+      copySourceToTarget(
+          showCode(
+            tree = completeTree
+          , printTypes = Option(true)
+          , printIds = Option(true)
+          , printOwners = Option(true)
+          , printPositions = Option(true)
+          , printRootPkg = true
+        )
+        , encoderFields
+      )
 
       c.Expr[EncoderShapeValue[Output, RepCol, DataCol]] {
         q"""
