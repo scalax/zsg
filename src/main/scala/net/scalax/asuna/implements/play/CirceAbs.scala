@@ -133,7 +133,7 @@ trait CirceReaderHelper {
     new DecoderShape[CirceReaderImpl[T, T], List[CirceReaderAbs], List[Any]] {
       override type Target = CirceReaderImpl[T, T]
       override type Data   = T
-      override def wrapRep(base: => CirceReaderImpl[T, T]): CirceReaderImpl[T, T]                            = base
+      override def wrapRep(base: CirceReaderImpl[T, T]): CirceReaderImpl[T, T]                               = base
       override def buildRep(base: CirceReaderImpl[T, T], oldRep: List[CirceReaderAbs]): List[CirceReaderAbs] = base :: oldRep
       override def takeData(rep: CirceReaderImpl[T, T], oldData: List[Any]): SplitData[T, List[Any]] =
         SplitData(current = oldData.head.asInstanceOf[T], left = oldData.tail)

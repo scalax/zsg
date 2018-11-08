@@ -7,7 +7,7 @@ def withRep[@for(i <- 1 to count) {
     Column@{i} <: MacroColumnInfo
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: => Rep@{i},
+    rep@{i}: Rep@{i},
     property@{i}: PropertyType[Data@{i}],
     defaultValue@{i}: => Option[Data@{i}],
     column@{i}: Column@{i}
@@ -21,21 +21,13 @@ def withRep[@for(i <- 1 to count) {
     @if(i < count) { , }
 }] = {
 
-    @for(i <- 1 to count) {
-        lazy val repInput@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
-    }
-
     new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Target@{i},
         Data@{i}
         @if(i < count) { , }
     }](@for(i <- 1 to count) {
-        property@{i} = property@{i}
+        rep@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
         @if(i < count) { , }
-    }) {
-        @for(i <- 1 to count) {
-            override lazy val rep@{i} = repInput@{i}
-        }
-    }
+    })
 
 }

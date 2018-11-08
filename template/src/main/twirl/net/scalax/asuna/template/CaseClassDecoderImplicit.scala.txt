@@ -37,7 +37,7 @@ implicit def caseClassHelper@{count}DecoderGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }]
-        override def wrapRep(base: => CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        override def wrapRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Rep@{i},
             Data@{i}
             @if(i < count) { , }

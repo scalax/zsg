@@ -9,7 +9,7 @@ object AbcTest01 extends App with CirceHelper {
 
   val result1 = {
     import io.circe.generic.auto._
-    val encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
+    def encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
 
     for (_ <- TestParam.preCollection) {
       encoder(model)
@@ -34,19 +34,17 @@ object AbcTest01 extends App with CirceHelper {
     }*/
   }
 
-
-
   val result2 = {
 
     object Ghi
 
     object Aa {
-      lazy implicit val a1  = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
-      lazy implicit val a2  = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
-      lazy val a3 = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+      implicit def a1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+      implicit def a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
+      def a3          = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }
 
-    lazy val circeEncoder  = Aa.a3
+    def circeEncoder = Aa.a3
 
     for (_ <- TestParam.preCollection) {
       circeEncoder(model): Json

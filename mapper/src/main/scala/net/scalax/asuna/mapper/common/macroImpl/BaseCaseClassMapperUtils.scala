@@ -205,7 +205,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                          }
+                            }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -353,7 +353,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class CaseClassField(
       name: String
     , fieldType: Tree
-                           ,placeHolder:Tree
+    , placeHolder: Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
   )
@@ -370,9 +370,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         }
 
         CaseClassField(
-          name = paramName
+            name = paramName
           , fieldType = q"""null: ${propertyType.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
-          ,placeHolder=q"""null: ${placeHolder.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
+          , placeHolder = q"""null: ${placeHolder.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -411,11 +411,11 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
   lazy val propertyType             = weakTypeOf[PropertyType[_]]
-  lazy val placeHolder             = weakTypeOf[Placeholder[_]]
+  lazy val placeHolder              = weakTypeOf[Placeholder[_]]
   lazy val proCompanion             = getCompanion(propertyType)
-  lazy val singleColumnInfo = weakTypeOf[SingleColumnInfo]
-  lazy val mutiplyColumnInfo = weakTypeOf[MutiplyColumnInfo]
-  lazy val symbol = weakTypeOf[scala.Symbol]
+  lazy val singleColumnInfo         = weakTypeOf[SingleColumnInfo]
+  lazy val mutiplyColumnInfo        = weakTypeOf[MutiplyColumnInfo]
+  lazy val symbol                   = weakTypeOf[scala.Symbol]
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
 

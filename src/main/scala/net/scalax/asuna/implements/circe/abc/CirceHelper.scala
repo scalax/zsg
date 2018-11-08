@@ -44,7 +44,7 @@ trait CirceHelper {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
+      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = encoder.value
@@ -62,7 +62,7 @@ trait CirceHelper {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
 
-      override def wrapRep(base: => SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
+      override def wrapRep(base: SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = base1.rep

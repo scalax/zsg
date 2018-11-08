@@ -31,9 +31,9 @@ object AbcTest04 extends PlayHelper with App {
     object Ghi
 
     object Abc {
-       implicit def a1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
-       implicit def a2 = play.effect(play.singleModel[Hahahah2](Ghi).compile).write
-      def  a3          = play.effect(play.singleModel[MiaoMiao2](Ghi).compile).write
+      implicit def a1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
+      implicit def a2 = play.effect(play.singleModel[Hahahah2](Ghi).compile).write
+      def a3          = play.effect(play.singleModel[MiaoMiao2](Ghi).compile).write
     }
 
     def playJsonEncoder = Abc.a3

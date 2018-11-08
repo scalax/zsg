@@ -23,7 +23,7 @@ Data1,
 Target1,
 Column1 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
@@ -33,15 +33,12 @@ wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
 Target1,
 Data1
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 new CaseClassRepMapper1[
 Target1,
 Data1
 ](
-property1 = property1
-) {
-override lazy val rep1 = repInput1
-}
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+)
 }
 def withRep[
 Rep1,
@@ -54,12 +51,12 @@ Data2,
 Target2,
 Column2 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
@@ -74,8 +71,6 @@ Data1
 Target2,
 Data2
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 new CaseClassRepMapper2[
 Target1,
 Data1
@@ -83,13 +78,10 @@ Data1
 Target2,
 Data2
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-}
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+)
 }
 def withRep[
 Rep1,
@@ -107,17 +99,17 @@ Data3,
 Target3,
 Column3 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3],
 defaultValue3: => Option[Data3],
 column3: Column3
@@ -137,9 +129,6 @@ Data2
 Target3,
 Data3
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-def repInput3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
 new CaseClassRepMapper3[
 Target1,
 Data1
@@ -150,16 +139,12 @@ Data2
 Target3,
 Data3
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 ,
-property3 = property3
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-}
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+)
 }
 def withRep[
 Rep1,
@@ -182,22 +167,22 @@ Data4,
 Target4,
 Column4 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3],
 defaultValue3: => Option[Data3],
 column3: Column3
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4],
 defaultValue4: => Option[Data4],
 column4: Column4
@@ -222,10 +207,6 @@ Data3
 Target4,
 Data4
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-def repInput3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-def repInput4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
 new CaseClassRepMapper4[
 Target1,
 Data1
@@ -239,19 +220,14 @@ Data3
 Target4,
 Data4
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 ,
-property3 = property3
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
 ,
-property4 = property4
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-}
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+)
 }
 def withRep[
 Rep1,
@@ -279,27 +255,27 @@ Data5,
 Target5,
 Column5 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3],
 defaultValue3: => Option[Data3],
 column3: Column3
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4],
 defaultValue4: => Option[Data4],
 column4: Column4
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5],
 defaultValue5: => Option[Data5],
 column5: Column5
@@ -329,11 +305,6 @@ Data4
 Target5,
 Data5
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-def repInput3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-def repInput4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-def repInput5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
 new CaseClassRepMapper5[
 Target1,
 Data1
@@ -350,22 +321,16 @@ Data4
 Target5,
 Data5
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 ,
-property3 = property3
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
 ,
-property4 = property4
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
 ,
-property5 = property5
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-}
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
+)
 }
 def withRep[
 Rep1,
@@ -398,32 +363,32 @@ Data6,
 Target6,
 Column6 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3],
 defaultValue3: => Option[Data3],
 column3: Column3
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4],
 defaultValue4: => Option[Data4],
 column4: Column4
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5],
 defaultValue5: => Option[Data5],
 column5: Column5
 ,
-rep6: => Rep6,
+rep6: Rep6,
 property6: PropertyType[Data6],
 defaultValue6: => Option[Data6],
 column6: Column6
@@ -458,12 +423,6 @@ Data5
 Target6,
 Data6
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-def repInput3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-def repInput4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-def repInput5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-def repInput6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
 new CaseClassRepMapper6[
 Target1,
 Data1
@@ -483,25 +442,18 @@ Data5
 Target6,
 Data6
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 ,
-property3 = property3
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
 ,
-property4 = property4
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
 ,
-property5 = property5
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
 ,
-property6 = property6
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-override lazy val rep6 = repInput6
-}
+rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
+)
 }
 def withRep[
 Rep1,
@@ -539,37 +491,37 @@ Data7,
 Target7,
 Column7 <: MacroColumnInfo
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1],
 defaultValue1: => Option[Data1],
 column1: Column1
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2],
 defaultValue2: => Option[Data2],
 column2: Column2
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3],
 defaultValue3: => Option[Data3],
 column3: Column3
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4],
 defaultValue4: => Option[Data4],
 column4: Column4
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5],
 defaultValue5: => Option[Data5],
 column5: Column5
 ,
-rep6: => Rep6,
+rep6: Rep6,
 property6: PropertyType[Data6],
 defaultValue6: => Option[Data6],
 column6: Column6
 ,
-rep7: => Rep7,
+rep7: Rep7,
 property7: PropertyType[Data7],
 defaultValue7: => Option[Data7],
 column7: Column7
@@ -609,13 +561,6 @@ Data6
 Target7,
 Data7
 ] = {
-def repInput1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-def repInput2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-def repInput3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-def repInput4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-def repInput5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-def repInput6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-def repInput7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
 new CaseClassRepMapper7[
 Target1,
 Data1
@@ -638,48 +583,37 @@ Data6
 Target7,
 Data7
 ](
-property1 = property1
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
 ,
-property2 = property2
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
 ,
-property3 = property3
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
 ,
-property4 = property4
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
 ,
-property5 = property5
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
 ,
-property6 = property6
+rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
 ,
-property7 = property7
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-override lazy val rep6 = repInput6
-override lazy val rep7 = repInput7
-}
+rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
+)
 }
 def withRawRep[
 Rep1,
 Data1
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ): CaseClassRepMapper1[
 Rep1,
 Data1
 ] = {
-def repInput1 = rep1
 new CaseClassRepMapper1[
 Rep1,
 Data1
 ](
-property1 = property1
-) {
-override lazy val rep1 = repInput1
-}
+rep1 = rep1
+)
 }
 def withRawRep[
 Rep1,
@@ -688,10 +622,10 @@ Data1
 Rep2,
 Data2
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ): CaseClassRepMapper2[
 Rep1,
@@ -700,8 +634,6 @@ Data1
 Rep2,
 Data2
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
 new CaseClassRepMapper2[
 Rep1,
 Data1
@@ -709,13 +641,10 @@ Data1
 Rep2,
 Data2
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-}
+rep2 = rep2
+)
 }
 def withRawRep[
 Rep1,
@@ -727,13 +656,13 @@ Data2
 Rep3,
 Data3
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3]
 ): CaseClassRepMapper3[
 Rep1,
@@ -745,9 +674,6 @@ Data2
 Rep3,
 Data3
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
-def repInput3 = rep3
 new CaseClassRepMapper3[
 Rep1,
 Data1
@@ -758,16 +684,12 @@ Data2
 Rep3,
 Data3
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
+rep2 = rep2
 ,
-property3 = property3
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-}
+rep3 = rep3
+)
 }
 def withRawRep[
 Rep1,
@@ -782,16 +704,16 @@ Data3
 Rep4,
 Data4
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3]
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4]
 ): CaseClassRepMapper4[
 Rep1,
@@ -806,10 +728,6 @@ Data3
 Rep4,
 Data4
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
-def repInput3 = rep3
-def repInput4 = rep4
 new CaseClassRepMapper4[
 Rep1,
 Data1
@@ -823,19 +741,14 @@ Data3
 Rep4,
 Data4
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
+rep2 = rep2
 ,
-property3 = property3
+rep3 = rep3
 ,
-property4 = property4
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-}
+rep4 = rep4
+)
 }
 def withRawRep[
 Rep1,
@@ -853,19 +766,19 @@ Data4
 Rep5,
 Data5
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3]
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4]
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5]
 ): CaseClassRepMapper5[
 Rep1,
@@ -883,11 +796,6 @@ Data4
 Rep5,
 Data5
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
-def repInput3 = rep3
-def repInput4 = rep4
-def repInput5 = rep5
 new CaseClassRepMapper5[
 Rep1,
 Data1
@@ -904,22 +812,16 @@ Data4
 Rep5,
 Data5
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
+rep2 = rep2
 ,
-property3 = property3
+rep3 = rep3
 ,
-property4 = property4
+rep4 = rep4
 ,
-property5 = property5
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-}
+rep5 = rep5
+)
 }
 def withRawRep[
 Rep1,
@@ -940,22 +842,22 @@ Data5
 Rep6,
 Data6
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3]
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4]
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5]
 ,
-rep6: => Rep6,
+rep6: Rep6,
 property6: PropertyType[Data6]
 ): CaseClassRepMapper6[
 Rep1,
@@ -976,12 +878,6 @@ Data5
 Rep6,
 Data6
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
-def repInput3 = rep3
-def repInput4 = rep4
-def repInput5 = rep5
-def repInput6 = rep6
 new CaseClassRepMapper6[
 Rep1,
 Data1
@@ -1001,25 +897,18 @@ Data5
 Rep6,
 Data6
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
+rep2 = rep2
 ,
-property3 = property3
+rep3 = rep3
 ,
-property4 = property4
+rep4 = rep4
 ,
-property5 = property5
+rep5 = rep5
 ,
-property6 = property6
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-override lazy val rep6 = repInput6
-}
+rep6 = rep6
+)
 }
 def withRawRep[
 Rep1,
@@ -1043,25 +932,25 @@ Data6
 Rep7,
 Data7
 ](
-rep1: => Rep1,
+rep1: Rep1,
 property1: PropertyType[Data1]
 ,
-rep2: => Rep2,
+rep2: Rep2,
 property2: PropertyType[Data2]
 ,
-rep3: => Rep3,
+rep3: Rep3,
 property3: PropertyType[Data3]
 ,
-rep4: => Rep4,
+rep4: Rep4,
 property4: PropertyType[Data4]
 ,
-rep5: => Rep5,
+rep5: Rep5,
 property5: PropertyType[Data5]
 ,
-rep6: => Rep6,
+rep6: Rep6,
 property6: PropertyType[Data6]
 ,
-rep7: => Rep7,
+rep7: Rep7,
 property7: PropertyType[Data7]
 ): CaseClassRepMapper7[
 Rep1,
@@ -1085,13 +974,6 @@ Data6
 Rep7,
 Data7
 ] = {
-def repInput1 = rep1
-def repInput2 = rep2
-def repInput3 = rep3
-def repInput4 = rep4
-def repInput5 = rep5
-def repInput6 = rep6
-def repInput7 = rep7
 new CaseClassRepMapper7[
 Rep1,
 Data1
@@ -1114,28 +996,20 @@ Data6
 Rep7,
 Data7
 ](
-property1 = property1
+rep1 = rep1
 ,
-property2 = property2
+rep2 = rep2
 ,
-property3 = property3
+rep3 = rep3
 ,
-property4 = property4
+rep4 = rep4
 ,
-property5 = property5
+rep5 = rep5
 ,
-property6 = property6
+rep6 = rep6
 ,
-property7 = property7
-) {
-override lazy val rep1 = repInput1
-override lazy val rep2 = repInput2
-override lazy val rep3 = repInput3
-override lazy val rep4 = repInput4
-override lazy val rep5 = repInput5
-override lazy val rep6 = repInput6
-override lazy val rep7 = repInput7
-}
+rep7 = rep7
+)
 }
 def withData[
 Data1
@@ -1383,14 +1257,14 @@ data7 = data7
 )
 }
 }
-abstract class CaseClassRepMapper1[
+class CaseClassRepMapper1[
 Rep1,
 Data1
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ) {
 self =>
-def rep1: Rep1
+def property1: PropertyType[Data1] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper1. You can replace selfInfo with\n" +
 "i1(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper1[
@@ -1430,11 +1304,9 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper1[
+def propertyType: PropertyType[CaseClassDataMapper1[
 Data1
-]] = new PropertyType[CaseClassDataMapper1[
-Data1
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper1[
 Rep1,
 Data1
@@ -1483,7 +1355,7 @@ Data1
 override type Data = CaseClassDataMapper1[
 Data1
 ]
-override def wrapRep(base: => CaseClassRepMapper1[
+override def wrapRep(base: CaseClassRepMapper1[
 Rep1,
 Data1
 ]): CaseClassRepMapper1[
@@ -1545,7 +1417,7 @@ Data1
 override type Data = CaseClassDataMapper1[
 Data1
 ]
-override def wrapRep(base: => CaseClassRepMapper1[
+override def wrapRep(base: CaseClassRepMapper1[
 Rep1,
 Data1
 ]): CaseClassRepMapper1[
@@ -1610,7 +1482,7 @@ Data1
 override type Data = CaseClassDataMapper1[
 Data1
 ]
-override def wrapRep(base: => CaseClassRepMapper1[
+override def wrapRep(base: CaseClassRepMapper1[
 Rep1,
 Data1
 ]): CaseClassRepMapper1[
@@ -1656,20 +1528,20 @@ left = split1.left)
 }
 }
 }
-abstract class CaseClassRepMapper2[
+class CaseClassRepMapper2[
 Rep1,
 Data1
 ,
 Rep2,
 Data2
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper2. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper2[
@@ -1745,15 +1617,11 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper2[
+def propertyType: PropertyType[CaseClassDataMapper2[
 Data1
 ,
 Data2
-]] = new PropertyType[CaseClassDataMapper2[
-Data1
-,
-Data2
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper2[
 Rep1,
 Data1
@@ -1836,7 +1704,7 @@ Data1
 ,
 Data2
 ]
-override def wrapRep(base: => CaseClassRepMapper2[
+override def wrapRep(base: CaseClassRepMapper2[
 Rep1,
 Data1
 ,
@@ -1937,7 +1805,7 @@ Data1
 ,
 Data2
 ]
-override def wrapRep(base: => CaseClassRepMapper2[
+override def wrapRep(base: CaseClassRepMapper2[
 Rep1,
 Data1
 ,
@@ -2043,7 +1911,7 @@ Data1
 ,
 Data2
 ]
-override def wrapRep(base: => CaseClassRepMapper2[
+override def wrapRep(base: CaseClassRepMapper2[
 Rep1,
 Data1
 ,
@@ -2116,7 +1984,7 @@ left = split2.left)
 }
 }
 }
-abstract class CaseClassRepMapper3[
+class CaseClassRepMapper3[
 Rep1,
 Data1
 ,
@@ -2126,16 +1994,16 @@ Data2
 Rep3,
 Data3
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ,
-val property3: PropertyType[Data3]
+val rep3: Rep3
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
-def rep3: Rep3
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
+def property3: PropertyType[Data3] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper3. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\ni3(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper3[
@@ -2247,19 +2115,13 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper3[
+def propertyType: PropertyType[CaseClassDataMapper3[
 Data1
 ,
 Data2
 ,
 Data3
-]] = new PropertyType[CaseClassDataMapper3[
-Data1
-,
-Data2
-,
-Data3
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper3[
 Rep1,
 Data1
@@ -2376,7 +2238,7 @@ Data2
 ,
 Data3
 ]
-override def wrapRep(base: => CaseClassRepMapper3[
+override def wrapRep(base: CaseClassRepMapper3[
 Rep1,
 Data1
 ,
@@ -2516,7 +2378,7 @@ Data2
 ,
 Data3
 ]
-override def wrapRep(base: => CaseClassRepMapper3[
+override def wrapRep(base: CaseClassRepMapper3[
 Rep1,
 Data1
 ,
@@ -2663,7 +2525,7 @@ Data2
 ,
 Data3
 ]
-override def wrapRep(base: => CaseClassRepMapper3[
+override def wrapRep(base: CaseClassRepMapper3[
 Rep1,
 Data1
 ,
@@ -2763,7 +2625,7 @@ left = split3.left)
 }
 }
 }
-abstract class CaseClassRepMapper4[
+class CaseClassRepMapper4[
 Rep1,
 Data1
 ,
@@ -2776,19 +2638,19 @@ Data3
 Rep4,
 Data4
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ,
-val property3: PropertyType[Data3]
+val rep3: Rep3
 ,
-val property4: PropertyType[Data4]
+val rep4: Rep4
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
-def rep3: Rep3
-def rep4: Rep4
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
+def property3: PropertyType[Data3] = null
+def property4: PropertyType[Data4] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper4. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\ni3(context)\ni4(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper4[
@@ -2936,7 +2798,7 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper4[
+def propertyType: PropertyType[CaseClassDataMapper4[
 Data1
 ,
 Data2
@@ -2944,15 +2806,7 @@ Data2
 Data3
 ,
 Data4
-]] = new PropertyType[CaseClassDataMapper4[
-Data1
-,
-Data2
-,
-Data3
-,
-Data4
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper4[
 Rep1,
 Data1
@@ -3103,7 +2957,7 @@ Data3
 ,
 Data4
 ]
-override def wrapRep(base: => CaseClassRepMapper4[
+override def wrapRep(base: CaseClassRepMapper4[
 Rep1,
 Data1
 ,
@@ -3282,7 +3136,7 @@ Data3
 ,
 Data4
 ]
-override def wrapRep(base: => CaseClassRepMapper4[
+override def wrapRep(base: CaseClassRepMapper4[
 Rep1,
 Data1
 ,
@@ -3470,7 +3324,7 @@ Data3
 ,
 Data4
 ]
-override def wrapRep(base: => CaseClassRepMapper4[
+override def wrapRep(base: CaseClassRepMapper4[
 Rep1,
 Data1
 ,
@@ -3597,7 +3451,7 @@ left = split4.left)
 }
 }
 }
-abstract class CaseClassRepMapper5[
+class CaseClassRepMapper5[
 Rep1,
 Data1
 ,
@@ -3613,22 +3467,22 @@ Data4
 Rep5,
 Data5
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ,
-val property3: PropertyType[Data3]
+val rep3: Rep3
 ,
-val property4: PropertyType[Data4]
+val rep4: Rep4
 ,
-val property5: PropertyType[Data5]
+val rep5: Rep5
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
-def rep3: Rep3
-def rep4: Rep4
-def rep5: Rep5
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
+def property3: PropertyType[Data3] = null
+def property4: PropertyType[Data4] = null
+def property5: PropertyType[Data5] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper5. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper5[
@@ -3812,7 +3666,7 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper5[
+def propertyType: PropertyType[CaseClassDataMapper5[
 Data1
 ,
 Data2
@@ -3822,17 +3676,7 @@ Data3
 Data4
 ,
 Data5
-]] = new PropertyType[CaseClassDataMapper5[
-Data1
-,
-Data2
-,
-Data3
-,
-Data4
-,
-Data5
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper5[
 Rep1,
 Data1
@@ -4017,7 +3861,7 @@ Data4
 ,
 Data5
 ]
-override def wrapRep(base: => CaseClassRepMapper5[
+override def wrapRep(base: CaseClassRepMapper5[
 Rep1,
 Data1
 ,
@@ -4235,7 +4079,7 @@ Data4
 ,
 Data5
 ]
-override def wrapRep(base: => CaseClassRepMapper5[
+override def wrapRep(base: CaseClassRepMapper5[
 Rep1,
 Data1
 ,
@@ -4464,7 +4308,7 @@ Data4
 ,
 Data5
 ]
-override def wrapRep(base: => CaseClassRepMapper5[
+override def wrapRep(base: CaseClassRepMapper5[
 Rep1,
 Data1
 ,
@@ -4618,7 +4462,7 @@ left = split5.left)
 }
 }
 }
-abstract class CaseClassRepMapper6[
+class CaseClassRepMapper6[
 Rep1,
 Data1
 ,
@@ -4637,25 +4481,25 @@ Data5
 Rep6,
 Data6
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ,
-val property3: PropertyType[Data3]
+val rep3: Rep3
 ,
-val property4: PropertyType[Data4]
+val rep4: Rep4
 ,
-val property5: PropertyType[Data5]
+val rep5: Rep5
 ,
-val property6: PropertyType[Data6]
+val rep6: Rep6
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
-def rep3: Rep3
-def rep4: Rep4
-def rep5: Rep5
-def rep6: Rep6
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
+def property3: PropertyType[Data3] = null
+def property4: PropertyType[Data4] = null
+def property5: PropertyType[Data5] = null
+def property6: PropertyType[Data6] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper6. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper6[
@@ -4875,7 +4719,7 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper6[
+def propertyType: PropertyType[CaseClassDataMapper6[
 Data1
 ,
 Data2
@@ -4887,19 +4731,7 @@ Data4
 Data5
 ,
 Data6
-]] = new PropertyType[CaseClassDataMapper6[
-Data1
-,
-Data2
-,
-Data3
-,
-Data4
-,
-Data5
-,
-Data6
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper6[
 Rep1,
 Data1
@@ -5118,7 +4950,7 @@ Data5
 ,
 Data6
 ]
-override def wrapRep(base: => CaseClassRepMapper6[
+override def wrapRep(base: CaseClassRepMapper6[
 Rep1,
 Data1
 ,
@@ -5375,7 +5207,7 @@ Data5
 ,
 Data6
 ]
-override def wrapRep(base: => CaseClassRepMapper6[
+override def wrapRep(base: CaseClassRepMapper6[
 Rep1,
 Data1
 ,
@@ -5645,7 +5477,7 @@ Data5
 ,
 Data6
 ]
-override def wrapRep(base: => CaseClassRepMapper6[
+override def wrapRep(base: CaseClassRepMapper6[
 Rep1,
 Data1
 ,
@@ -5826,7 +5658,7 @@ left = split6.left)
 }
 }
 }
-abstract class CaseClassRepMapper7[
+class CaseClassRepMapper7[
 Rep1,
 Data1
 ,
@@ -5848,28 +5680,28 @@ Data6
 Rep7,
 Data7
 ](
-val property1: PropertyType[Data1]
+val rep1: Rep1
 ,
-val property2: PropertyType[Data2]
+val rep2: Rep2
 ,
-val property3: PropertyType[Data3]
+val rep3: Rep3
 ,
-val property4: PropertyType[Data4]
+val rep4: Rep4
 ,
-val property5: PropertyType[Data5]
+val rep5: Rep5
 ,
-val property6: PropertyType[Data6]
+val rep6: Rep6
 ,
-val property7: PropertyType[Data7]
+val rep7: Rep7
 ) {
 self =>
-def rep1: Rep1
-def rep2: Rep2
-def rep3: Rep3
-def rep4: Rep4
-def rep5: Rep5
-def rep6: Rep6
-def rep7: Rep7
+def property1: PropertyType[Data1] = null
+def property2: PropertyType[Data2] = null
+def property3: PropertyType[Data3] = null
+def property4: PropertyType[Data4] = null
+def property5: PropertyType[Data5] = null
+def property6: PropertyType[Data6] = null
+def property7: PropertyType[Data7] = null
 @deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper7. You can replace selfInfo with\n" +
 "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\nto find the missing column.", "0.0.1")
 def selfInfo: CaseClassRepMapper7[
@@ -6125,7 +5957,7 @@ override val rep = target1
 override val shape = shape1
 }
 }
-lazy val propertyType: PropertyType[CaseClassDataMapper7[
+def propertyType: PropertyType[CaseClassDataMapper7[
 Data1
 ,
 Data2
@@ -6139,21 +5971,7 @@ Data5
 Data6
 ,
 Data7
-]] = new PropertyType[CaseClassDataMapper7[
-Data1
-,
-Data2
-,
-Data3
-,
-Data4
-,
-Data5
-,
-Data6
-,
-Data7
-]] { }
+]] = null
 lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper7[
 Rep1,
 Data1
@@ -6406,7 +6224,7 @@ Data6
 ,
 Data7
 ]
-override def wrapRep(base: => CaseClassRepMapper7[
+override def wrapRep(base: CaseClassRepMapper7[
 Rep1,
 Data1
 ,
@@ -6702,7 +6520,7 @@ Data6
 ,
 Data7
 ]
-override def wrapRep(base: => CaseClassRepMapper7[
+override def wrapRep(base: CaseClassRepMapper7[
 Rep1,
 Data1
 ,
@@ -7013,7 +6831,7 @@ Data6
 ,
 Data7
 ]
-override def wrapRep(base: => CaseClassRepMapper7[
+override def wrapRep(base: CaseClassRepMapper7[
 Rep1,
 Data1
 ,

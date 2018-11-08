@@ -9,7 +9,7 @@ trait HListEncoderRepShapeImplicit {
     new EncoderShape[HNil, RepCol, DataCol] {
       override type Target = HNil
       override type Data   = HNil
-      override def wrapRep(base: => HNil): HNil                                = base
+      override def wrapRep(base: HNil): HNil                                   = base
       override def buildRep(base: HNil, oldRep: RepCol): RepCol                = oldRep
       override def buildData(data: HNil, rep: HNil, oldData: DataCol): DataCol = oldData
     }
@@ -26,7 +26,7 @@ trait HListEncoderRepShapeImplicit {
       override type Target = M :: N
       override type Data   = H :: I
 
-      override def wrapRep(base: => A :: B): M :: N = {
+      override def wrapRep(base: A :: B): M :: N = {
         val headRep :: tailRep = base
         head.value.wrapRep(headRep) :: tail.value.wrapRep(tailRep)
       }

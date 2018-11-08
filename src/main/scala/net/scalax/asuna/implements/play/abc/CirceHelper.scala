@@ -44,7 +44,7 @@ trait PlayHelper {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder], List[(String, JsValue)]] {
       override type Target = PlayAsunaEncoderImpl[T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[T] = new PlayAsunaEncoderImpl[T] {
+      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[T] = new PlayAsunaEncoderImpl[T] {
         override lazy val write = encoder.value
         override val key        = base.columnInfo.singleModelName
       }
@@ -59,7 +59,7 @@ trait PlayHelper {
       override type Target = PlayAsunaEncoderImpl[T]
       override type Data   = T
 
-      override def wrapRep(base: => SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
+      override def wrapRep(base: SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
         val base1 = base
         new PlayAsunaEncoderImpl[T] {
           override val write = base1.rep
