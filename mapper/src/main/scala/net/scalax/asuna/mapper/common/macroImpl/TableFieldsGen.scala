@@ -149,7 +149,7 @@ trait TableFieldsGen {
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
               , tablePropertyName = item.key
-              , properType = q"""${proType.typeSymbol.companion}[${annoType}]"""
+              , properType = q"""null: ${proType.typeSymbol}[${annoType}]"""
               , modelSetter = { setters: List[Tree] =>
                 q"""${annoType.typeSymbol.companion}(..${setters})"""
               }

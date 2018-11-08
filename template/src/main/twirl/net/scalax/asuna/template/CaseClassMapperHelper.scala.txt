@@ -22,7 +22,7 @@ def withRep[@for(i <- 1 to count) {
 }] = {
 
     @for(i <- 1 to count) {
-        def repInput@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
+        lazy val repInput@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
     }
 
     new CaseClassRepMapper@{count}[@for(i <- 1 to count) {

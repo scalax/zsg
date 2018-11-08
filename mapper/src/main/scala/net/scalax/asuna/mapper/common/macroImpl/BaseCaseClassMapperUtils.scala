@@ -1,5 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
+import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.mapper.common._
 
 import scala.annotation.tailrec
@@ -186,7 +187,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           val fieldOpt = tableFields.map(r => (r, r.containFields.contains(s.name))).find { case (_, contains) => contains }
 
           val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s, tableGetter = { tableVar: Tree =>
-            q"""${s.fieldType}.toPlaceholder"""
+            s.placeHolder
           }, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo, List(s.name))) {
             case (r, _) =>
               (r match {
@@ -352,6 +353,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class CaseClassField(
       name: String
     , fieldType: Tree
+                           ,placeHolder:Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
   )
@@ -369,7 +371,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         CaseClassField(
           name = paramName
-          , fieldType = q"""${proCompanion}.fromModel[${caseClass}](_.${field.name})"""
+          , fieldType = q"""null: ${propertyType.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
+          ,placeHolder=q"""null: ${placeHolder.typeSymbol}[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass)}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -408,6 +411,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
   lazy val propertyType             = weakTypeOf[PropertyType[_]]
+  lazy val placeHolder             = weakTypeOf[Placeholder[_]]
   lazy val proCompanion             = getCompanion(propertyType)
   lazy val singleColumnInfo = weakTypeOf[SingleColumnInfo]
   lazy val mutiplyColumnInfo = weakTypeOf[MutiplyColumnInfo]

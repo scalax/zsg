@@ -15,7 +15,7 @@ def withRawRep[@for(i <- 1 to count) {
 }] = {
 
     @for(i <- 1 to count) {
-        def repInput@{i} = rep@{i}
+        lazy val repInput@{i} = rep@{i}
     }
 
     new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
