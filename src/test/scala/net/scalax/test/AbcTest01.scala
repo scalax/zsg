@@ -9,7 +9,7 @@ object AbcTest01 extends App with CirceHelper {
 
   val result1 = {
     import io.circe.generic.auto._
-    val encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
+    def encoder = implicitly[io.circe.Encoder[MiaoMiao2]]
 
     for (_ <- TestParam.preCollection) {
       encoder(model)
@@ -34,32 +34,28 @@ object AbcTest01 extends App with CirceHelper {
     }*/
   }
 
-
+  object Ghi
 
   val result2 = {
 
-    object Ghi
-
     object Aa {
-      lazy implicit val a1  = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
-      lazy implicit val a2  = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
-      lazy val a3 = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+      implicit def a1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+      implicit def a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
+       def  a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }
 
-    lazy val circeEncoder  = Aa.a3
-
     for (_ <- TestParam.preCollection) {
-      circeEncoder(model): Json
+      Aa.a3(model): Json
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      circeEncoder(model): Json
+      Aa.a3(model): Json
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = circeEncoder(model))
+    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = Aa.a3(model))
   }
 
   println(s"circe 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

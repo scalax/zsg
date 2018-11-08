@@ -10,7 +10,7 @@ import net.scalax.asuna.mapper.encoder._
 trait CirceAsunaEncoder {
   type DataType
   def write: Encoder[DataType]
-  val key: String
+  def key: String
 }
 
 trait CirceAsunaEncoderImpl[T] extends CirceAsunaEncoder {
@@ -27,7 +27,7 @@ trait CirceHelper {
 
   object circe extends EncoderWrapperHelper[List[CirceAsunaEncoder], List[(String, Json)], CirceContent] {
     override def effect[Rep, D, Out](
-      rep: Rep
+        rep: Rep
     )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder], List[(String, Json)]]): CirceContent[Out, D] = {
       lazy val wrapRep = shape.wrapRep(rep)
       new CirceContent[Out, D] {
@@ -39,16 +39,16 @@ trait CirceHelper {
   }
 
   implicit def implicit1[T](
-    implicit encoder: LazyImplicit[Encoder[T]]
+      implicit encoder: LazyImplicit[Encoder[T]]
   ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, CirceAsunaEncoderImpl[T], List[CirceAsunaEncoder], List[(String, Json)]] = {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
-        val T = base
+      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T] = {
+        val base1 = base
         new CirceAsunaEncoderImpl[T] {
           override lazy val write = encoder.value
-          override val key        = T.columnInfo.singleModelSymbol.name
+          override val key        = base1.columnInfo.singleModelName
         }
       }
       override def buildRep(base: CirceAsunaEncoderImpl[T], oldRep: List[CirceAsunaEncoder]): List[CirceAsunaEncoder] = base :: oldRep
@@ -62,11 +62,11 @@ trait CirceHelper {
       override type Target = CirceAsunaEncoderImpl[T]
       override type Data   = T
 
-      override def wrapRep(base: => SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
+      override def wrapRep(base: SingleRepContent[Encoder[T], T]): CirceAsunaEncoderImpl[T] = {
         val base1 = base
         new CirceAsunaEncoderImpl[T] {
-          override lazy val write = base1.rep
-          override val key        = base1.columnInfo.singleModelSymbol.name
+          override val write = base1.rep
+          override val key   = base1.columnInfo.singleModelName
         }
       }
 

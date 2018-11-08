@@ -10,7 +10,7 @@ trait HListFormatterRepShapeImplicit {
     new FormatterShape[HNil, RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = HNil
       override type Data   = HNil
-      override def wrapRep(base: => HNil): HNil                                                  = base
+      override def wrapRep(base: HNil): HNil                                                     = base
       override def buildRep(base: HNil, oldRep: RepCol): RepCol                                  = oldRep
       override def buildData(data: HNil, rep: HNil, oldData: EncoderDataCol): EncoderDataCol     = oldData
       override def takeData(rep: HNil, oldData: DecoderDataCol): SplitData[HNil, DecoderDataCol] = SplitData(HNil, oldData)
@@ -28,7 +28,7 @@ trait HListFormatterRepShapeImplicit {
       override type Target = M :: N
       override type Data   = H :: I
 
-      override def wrapRep(base: => A :: B): M :: N = {
+      override def wrapRep(base: A :: B): M :: N = {
         val headRep :: tailRep = base
         head.value.wrapRep(headRep) :: tail.value.wrapRep(tailRep)
       }

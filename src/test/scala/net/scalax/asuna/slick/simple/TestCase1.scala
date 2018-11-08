@@ -135,7 +135,7 @@ class DynModel extends FlatSpec with Matchers with EitherValues with ScalaFuture
     val autalCols   = List("id", "name")
     val tq          = DynFriendModelTq(cols)
     val prepareData = tq.map(_.reader8)
-    prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.id, s.name)).result.statements.toList)
+    prepareData.result.statements.toList should be(friendTq2.map(s => (s.age, s.name, s.id)).result.statements.toList)
     val d = await(db.run(prepareData.result))
     d.size should be(3)
     d.foreach { item =>

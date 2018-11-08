@@ -1,19 +1,18 @@
 @(count: Int)
 
-abstract class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i}
     @if(i < count) { , }
-}](
-    @for(i <- 1 to count) {
-        val property@{i}: PropertyType[Data@{i}]
-        @if(i < count) { , }
-    }
+}](@for(i <- 1 to count) {
+    val rep@{i}: Rep@{i}
+    @if(i < count) { , }
+}
 ) {
 self =>
 
     @for(i <- 1 to count) {
-        def rep@{i}: Rep@{i}
+        def property@{i}: PropertyType[Data@{i}] = null
     }
 
     @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
@@ -60,13 +59,10 @@ self =>
         }
     }
 
-    lazy val propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+    def propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
-    }]] = new PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-        Data@{i}
-        @if(i < count) { , }
-    }]] { }
+    }]] = null
 
     lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},

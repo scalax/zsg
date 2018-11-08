@@ -1,6 +1,5 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.PropertyType
 import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
 
 import scala.reflect.macros.blackbox.Context
@@ -77,7 +76,7 @@ trait TableFieldsGen {
           case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
             num
           case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
-            RootTable.defaultRootTableOrder
+            RootTable.apply$default$1
         }
         .headOption
       (s, orderOpt)
@@ -97,7 +96,7 @@ trait TableFieldsGen {
           case q"""new ${classDef}(${Literal(Constant(name: String))}, ${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
             (s.copy(key = name), num)
           case q"""new ${classDef}(${Literal(Constant(name: String))}, ${_})""" if classDef.tpe.<:<(weakTypeOf[OverrideProperty]) =>
-            (s.copy(key = name), OverrideProperty.defaultReWritePropertyOrder)
+            (s.copy(key = name), OverrideProperty.apply$default$2)
         }
         .headOption
       (orderOpt.map(_._1).getOrElse(s), orderOpt.map(_._2))
@@ -135,8 +134,6 @@ trait TableFieldsGen {
       }
     }
 
-    val proType = weakTypeOf[PropertyType[_]]
-
     members.map { item =>
       val extField = item.member.annotations
         .map { s =>
@@ -149,7 +146,7 @@ trait TableFieldsGen {
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
               , tablePropertyName = item.key
-              , properType = q"""${proType.typeSymbol.companion}[${annoType}]"""
+              , properType = q"""null: net.scalax.asuna.mapper.common.PropertyType[${annoType}]"""
               , modelSetter = { setters: List[Tree] =>
                 q"""${annoType.typeSymbol.companion}(..${setters})"""
               }
@@ -180,11 +177,10 @@ trait TableFieldsGen {
     val memberCol = toUpperMembers
       .map(
           s =>
-          fetchTableFieldsImpl(s.member.typeSignatureIn(tableType), {
-            gen: (Tree => Tree) =>
-              { tree: Tree =>
-                gen(q"""${tree}.${TermName(s.member.name.toString.trim)}""")
-              }
+          fetchTableFieldsImpl(s.member.typeSignatureIn(tableType).resultType, { gen: (Tree => Tree) =>
+            { tree: Tree =>
+              gen(q"""${tree}.${TermName(s.member.name.toString.trim)}""")
+            }
           })
       )
       .flatten

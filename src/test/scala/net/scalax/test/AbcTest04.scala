@@ -9,9 +9,9 @@ object AbcTest04 extends PlayHelper with App {
   val result1 = {
     import ai.x.play.json.Jsonx
 
-    implicit val largeModelImplicit = Jsonx.formatCaseClass[LargeModel]
-    implicit val hahahah2Implicit   = Jsonx.formatCaseClass[Hahahah2]
-    implicit val miaoMiao2Implicit  = Jsonx.formatCaseClass[MiaoMiao2]
+    implicit def largeModelImplicit = Jsonx.formatCaseClass[LargeModel]
+    implicit def hahahah2Implicit   = Jsonx.formatCaseClass[Hahahah2]
+    implicit def miaoMiao2Implicit  = Jsonx.formatCaseClass[MiaoMiao2]
 
     for (_ <- TestParam.preCollection) {
       miaoMiao2Implicit.writes(model)
@@ -31,25 +31,23 @@ object AbcTest04 extends PlayHelper with App {
     object Ghi
 
     object Abc {
-      lazy implicit val a1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
-      lazy implicit val a2 = play.effect(play.singleModel[Hahahah2](Ghi).compile).write
-      lazy val a3          = play.effect(play.singleModel[MiaoMiao2](Ghi).compile).write
+      implicit def a1 = play.effect(play.singleModel[LargeModel](Ghi).compile).write
+      implicit def a2 = play.effect(play.singleModel[Hahahah2](Ghi).compile).write
+      def a3          = play.effect(play.singleModel[MiaoMiao2](Ghi).compile).write
     }
 
-    def playJsonEncoder = Abc.a3
-
     for (_ <- TestParam.preCollection) {
-      playJsonEncoder.writes(model)
+      Abc.a3.writes(model)
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      playJsonEncoder.writes(model)
+      Abc.a3.writes(model)
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = data2 - data1, jsonModel = playJsonEncoder.writes(model))
+    TestResult(times = TestParam.testTimes, millions = data2 - data1, jsonModel = Abc.a3.writes(model))
   }
 
   println(s"play-json 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")

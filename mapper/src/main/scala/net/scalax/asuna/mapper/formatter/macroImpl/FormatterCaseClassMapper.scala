@@ -87,7 +87,8 @@ object FormatterCaseClassMapper {
       val formatterDataGen = weakTypeOf[FormatterDataGen[Output]]
       val unusedData       = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
 
-      val outputFieldNames = output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
+      val outputFieldNames = getCaseClassFields(output)
+      /*output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
         case (member, TermName(n)) =>
           val name = n.trim
           CaseClassField(
@@ -98,7 +99,7 @@ object FormatterCaseClassMapper {
               q"""${modelVar}.${TermName(name)}"""
             }
           )
-      }
+      }*/
 
       val tableFieldNames = fetchTableFields(table)
 

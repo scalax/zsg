@@ -17,406 +17,603 @@ import net.scalax.asuna.mapper.formatter.FormatterDebugShape
 import scala.language.higherKinds
 trait CaseClassMapper
 object CaseClassMapper {
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-  ): CaseClassRepMapper1[
-      Target1
-    , Data1
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    new CaseClassRepMapper1[
-        Target1
-      , Data1
-    ](
-        property1 = property1
-    ) {
-      override lazy val rep1 = repInput1
-    }
-  }
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-    , Rep2
-    , Data2
-    , Target2
-    , Column2 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , property2: PropertyType[Data2]
-    , column2: Column2
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-  ): CaseClassRepMapper2[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    def repInput2 = wrap2.inputColumn(rep2, column2)
-    new CaseClassRepMapper2[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-    ](
-        property1 = property1
-      , property2 = property2
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-    }
-  }
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-    , Rep2
-    , Data2
-    , Target2
-    , Column2 <: MacroColumnInfo
-    , Rep3
-    , Data3
-    , Target3
-    , Column3 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , property2: PropertyType[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , property3: PropertyType[Data3]
-    , column3: Column3
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
-  ): CaseClassRepMapper3[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    def repInput2 = wrap2.inputColumn(rep2, column2)
-    def repInput3 = wrap3.inputColumn(rep3, column3)
-    new CaseClassRepMapper3[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-    ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-    }
-  }
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-    , Rep2
-    , Data2
-    , Target2
-    , Column2 <: MacroColumnInfo
-    , Rep3
-    , Data3
-    , Target3
-    , Column3 <: MacroColumnInfo
-    , Rep4
-    , Data4
-    , Target4
-    , Column4 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , property2: PropertyType[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , property3: PropertyType[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , property4: PropertyType[Data4]
-    , column4: Column4
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
-  ): CaseClassRepMapper4[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    def repInput2 = wrap2.inputColumn(rep2, column2)
-    def repInput3 = wrap3.inputColumn(rep3, column3)
-    def repInput4 = wrap4.inputColumn(rep4, column4)
-    new CaseClassRepMapper4[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-    ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-    }
-  }
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-    , Rep2
-    , Data2
-    , Target2
-    , Column2 <: MacroColumnInfo
-    , Rep3
-    , Data3
-    , Target3
-    , Column3 <: MacroColumnInfo
-    , Rep4
-    , Data4
-    , Target4
-    , Column4 <: MacroColumnInfo
-    , Rep5
-    , Data5
-    , Target5
-    , Column5 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , property2: PropertyType[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , property3: PropertyType[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , property4: PropertyType[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , property5: PropertyType[Data5]
-    , column5: Column5
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
-  ): CaseClassRepMapper5[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    def repInput2 = wrap2.inputColumn(rep2, column2)
-    def repInput3 = wrap3.inputColumn(rep3, column3)
-    def repInput4 = wrap4.inputColumn(rep4, column4)
-    def repInput5 = wrap5.inputColumn(rep5, column5)
-    new CaseClassRepMapper5[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-    ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-      , property5 = property5
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-      override lazy val rep5 = repInput5
-    }
-  }
-  def withRep[
-      Rep1
-    , Data1
-    , Target1
-    , Column1 <: MacroColumnInfo
-    , Rep2
-    , Data2
-    , Target2
-    , Column2 <: MacroColumnInfo
-    , Rep3
-    , Data3
-    , Target3
-    , Column3 <: MacroColumnInfo
-    , Rep4
-    , Data4
-    , Target4
-    , Column4 <: MacroColumnInfo
-    , Rep5
-    , Data5
-    , Target5
-    , Column5 <: MacroColumnInfo
-    , Rep6
-    , Data6
-    , Target6
-    , Column6 <: MacroColumnInfo
-  ](
-      rep1: => Rep1
-    , property1: PropertyType[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , property2: PropertyType[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , property3: PropertyType[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , property4: PropertyType[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , property5: PropertyType[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , property6: PropertyType[Data6]
-    , column6: Column6
-  )(
-      implicit
-    wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
-    , wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-    , wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
-    , wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
-    , wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
-    , wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
-  ): CaseClassRepMapper6[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-  ] = {
-    def repInput1 = wrap1.inputColumn(rep1, column1)
-    def repInput2 = wrap2.inputColumn(rep2, column2)
-    def repInput3 = wrap3.inputColumn(rep3, column3)
-    def repInput4 = wrap4.inputColumn(rep4, column4)
-    def repInput5 = wrap5.inputColumn(rep5, column5)
-    def repInput6 = wrap6.inputColumn(rep6, column6)
-    new CaseClassRepMapper6[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-    ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-      , property5 = property5
-      , property6 = property6
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-      override lazy val rep5 = repInput5
-      override lazy val rep6 = repInput6
-    }
-  }
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+): CaseClassRepMapper1[
+Target1,
+Data1
+] = {
+new CaseClassRepMapper1[
+Target1,
+Data1
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+): CaseClassRepMapper2[
+Target1,
+Data1
+,
+Target2,
+Data2
+] = {
+new CaseClassRepMapper2[
+Target1,
+Data1
+,
+Target2,
+Data2
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+,
+Rep3,
+Data3,
+Target3,
+Column3 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+,
+rep3: Rep3,
+property3: PropertyType[Data3],
+defaultValue3: => Option[Data3],
+column3: Column3
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+,
+wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+): CaseClassRepMapper3[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+] = {
+new CaseClassRepMapper3[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+,
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+,
+Rep3,
+Data3,
+Target3,
+Column3 <: MacroColumnInfo
+,
+Rep4,
+Data4,
+Target4,
+Column4 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+,
+rep3: Rep3,
+property3: PropertyType[Data3],
+defaultValue3: => Option[Data3],
+column3: Column3
+,
+rep4: Rep4,
+property4: PropertyType[Data4],
+defaultValue4: => Option[Data4],
+column4: Column4
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+,
+wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+,
+wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+): CaseClassRepMapper4[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+] = {
+new CaseClassRepMapper4[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+,
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+,
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+,
+Rep3,
+Data3,
+Target3,
+Column3 <: MacroColumnInfo
+,
+Rep4,
+Data4,
+Target4,
+Column4 <: MacroColumnInfo
+,
+Rep5,
+Data5,
+Target5,
+Column5 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+,
+rep3: Rep3,
+property3: PropertyType[Data3],
+defaultValue3: => Option[Data3],
+column3: Column3
+,
+rep4: Rep4,
+property4: PropertyType[Data4],
+defaultValue4: => Option[Data4],
+column4: Column4
+,
+rep5: Rep5,
+property5: PropertyType[Data5],
+defaultValue5: => Option[Data5],
+column5: Column5
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+,
+wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+,
+wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+,
+wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
+): CaseClassRepMapper5[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+] = {
+new CaseClassRepMapper5[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+,
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+,
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+,
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+,
+Rep3,
+Data3,
+Target3,
+Column3 <: MacroColumnInfo
+,
+Rep4,
+Data4,
+Target4,
+Column4 <: MacroColumnInfo
+,
+Rep5,
+Data5,
+Target5,
+Column5 <: MacroColumnInfo
+,
+Rep6,
+Data6,
+Target6,
+Column6 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+,
+rep3: Rep3,
+property3: PropertyType[Data3],
+defaultValue3: => Option[Data3],
+column3: Column3
+,
+rep4: Rep4,
+property4: PropertyType[Data4],
+defaultValue4: => Option[Data4],
+column4: Column4
+,
+rep5: Rep5,
+property5: PropertyType[Data5],
+defaultValue5: => Option[Data5],
+column5: Column5
+,
+rep6: Rep6,
+property6: PropertyType[Data6],
+defaultValue6: => Option[Data6],
+column6: Column6
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+,
+wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+,
+wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+,
+wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
+,
+wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
+): CaseClassRepMapper6[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+,
+Target6,
+Data6
+] = {
+new CaseClassRepMapper6[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+,
+Target6,
+Data6
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+,
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+,
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+,
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
+,
+rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
+)
+} */
+  /* def withRep[
+Rep1,
+Data1,
+Target1,
+Column1 <: MacroColumnInfo
+,
+Rep2,
+Data2,
+Target2,
+Column2 <: MacroColumnInfo
+,
+Rep3,
+Data3,
+Target3,
+Column3 <: MacroColumnInfo
+,
+Rep4,
+Data4,
+Target4,
+Column4 <: MacroColumnInfo
+,
+Rep5,
+Data5,
+Target5,
+Column5 <: MacroColumnInfo
+,
+Rep6,
+Data6,
+Target6,
+Column6 <: MacroColumnInfo
+,
+Rep7,
+Data7,
+Target7,
+Column7 <: MacroColumnInfo
+](
+rep1: Rep1,
+property1: PropertyType[Data1],
+defaultValue1: => Option[Data1],
+column1: Column1
+,
+rep2: Rep2,
+property2: PropertyType[Data2],
+defaultValue2: => Option[Data2],
+column2: Column2
+,
+rep3: Rep3,
+property3: PropertyType[Data3],
+defaultValue3: => Option[Data3],
+column3: Column3
+,
+rep4: Rep4,
+property4: PropertyType[Data4],
+defaultValue4: => Option[Data4],
+column4: Column4
+,
+rep5: Rep5,
+property5: PropertyType[Data5],
+defaultValue5: => Option[Data5],
+column5: Column5
+,
+rep6: Rep6,
+property6: PropertyType[Data6],
+defaultValue6: => Option[Data6],
+column6: Column6
+,
+rep7: Rep7,
+property7: PropertyType[Data7],
+defaultValue7: => Option[Data7],
+column7: Column7
+)(implicit
+wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]
+,
+wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
+,
+wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
+,
+wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
+,
+wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
+,
+wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
+,
+wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7]
+): CaseClassRepMapper7[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+,
+Target6,
+Data6
+,
+Target7,
+Data7
+] = {
+new CaseClassRepMapper7[
+Target1,
+Data1
+,
+Target2,
+Data2
+,
+Target3,
+Data3
+,
+Target4,
+Data4
+,
+Target5,
+Data5
+,
+Target6,
+Data6
+,
+Target7,
+Data7
+](
+rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+,
+rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+,
+rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+,
+rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+,
+rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
+,
+rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
+,
+rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
+)
+} */
   def withRawRep[
       Rep1
     , Data1
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
   ): CaseClassRepMapper1[
       Rep1
     , Data1
   ] = {
-    def repInput1 = rep1
     new CaseClassRepMapper1[
         Rep1
       , Data1
     ](
-        property1 = property1
-    ) {
-      override lazy val rep1 = repInput1
-    }
+        rep1 = rep1
+    )
   }
   def withRawRep[
       Rep1
@@ -424,9 +621,9 @@ object CaseClassMapper {
     , Rep2
     , Data2
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
-    , rep2: => Rep2
+    , rep2: Rep2
     , property2: PropertyType[Data2]
   ): CaseClassRepMapper2[
       Rep1
@@ -434,20 +631,15 @@ object CaseClassMapper {
     , Rep2
     , Data2
   ] = {
-    def repInput1 = rep1
-    def repInput2 = rep2
     new CaseClassRepMapper2[
         Rep1
       , Data1
       , Rep2
       , Data2
     ](
-        property1 = property1
-      , property2 = property2
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-    }
+        rep1 = rep1
+      , rep2 = rep2
+    )
   }
   def withRawRep[
       Rep1
@@ -457,11 +649,11 @@ object CaseClassMapper {
     , Rep3
     , Data3
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
-    , rep2: => Rep2
+    , rep2: Rep2
     , property2: PropertyType[Data2]
-    , rep3: => Rep3
+    , rep3: Rep3
     , property3: PropertyType[Data3]
   ): CaseClassRepMapper3[
       Rep1
@@ -471,9 +663,6 @@ object CaseClassMapper {
     , Rep3
     , Data3
   ] = {
-    def repInput1 = rep1
-    def repInput2 = rep2
-    def repInput3 = rep3
     new CaseClassRepMapper3[
         Rep1
       , Data1
@@ -482,14 +671,10 @@ object CaseClassMapper {
       , Rep3
       , Data3
     ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-    }
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+    )
   }
   def withRawRep[
       Rep1
@@ -501,13 +686,13 @@ object CaseClassMapper {
     , Rep4
     , Data4
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
-    , rep2: => Rep2
+    , rep2: Rep2
     , property2: PropertyType[Data2]
-    , rep3: => Rep3
+    , rep3: Rep3
     , property3: PropertyType[Data3]
-    , rep4: => Rep4
+    , rep4: Rep4
     , property4: PropertyType[Data4]
   ): CaseClassRepMapper4[
       Rep1
@@ -519,10 +704,6 @@ object CaseClassMapper {
     , Rep4
     , Data4
   ] = {
-    def repInput1 = rep1
-    def repInput2 = rep2
-    def repInput3 = rep3
-    def repInput4 = rep4
     new CaseClassRepMapper4[
         Rep1
       , Data1
@@ -533,16 +714,11 @@ object CaseClassMapper {
       , Rep4
       , Data4
     ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-    }
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+    )
   }
   def withRawRep[
       Rep1
@@ -556,15 +732,15 @@ object CaseClassMapper {
     , Rep5
     , Data5
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
-    , rep2: => Rep2
+    , rep2: Rep2
     , property2: PropertyType[Data2]
-    , rep3: => Rep3
+    , rep3: Rep3
     , property3: PropertyType[Data3]
-    , rep4: => Rep4
+    , rep4: Rep4
     , property4: PropertyType[Data4]
-    , rep5: => Rep5
+    , rep5: Rep5
     , property5: PropertyType[Data5]
   ): CaseClassRepMapper5[
       Rep1
@@ -578,11 +754,6 @@ object CaseClassMapper {
     , Rep5
     , Data5
   ] = {
-    def repInput1 = rep1
-    def repInput2 = rep2
-    def repInput3 = rep3
-    def repInput4 = rep4
-    def repInput5 = rep5
     new CaseClassRepMapper5[
         Rep1
       , Data1
@@ -595,18 +766,12 @@ object CaseClassMapper {
       , Rep5
       , Data5
     ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-      , property5 = property5
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-      override lazy val rep5 = repInput5
-    }
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+    )
   }
   def withRawRep[
       Rep1
@@ -622,17 +787,17 @@ object CaseClassMapper {
     , Rep6
     , Data6
   ](
-      rep1: => Rep1
+      rep1: Rep1
     , property1: PropertyType[Data1]
-    , rep2: => Rep2
+    , rep2: Rep2
     , property2: PropertyType[Data2]
-    , rep3: => Rep3
+    , rep3: Rep3
     , property3: PropertyType[Data3]
-    , rep4: => Rep4
+    , rep4: Rep4
     , property4: PropertyType[Data4]
-    , rep5: => Rep5
+    , rep5: Rep5
     , property5: PropertyType[Data5]
-    , rep6: => Rep6
+    , rep6: Rep6
     , property6: PropertyType[Data6]
   ): CaseClassRepMapper6[
       Rep1
@@ -648,12 +813,6 @@ object CaseClassMapper {
     , Rep6
     , Data6
   ] = {
-    def repInput1 = rep1
-    def repInput2 = rep2
-    def repInput3 = rep3
-    def repInput4 = rep4
-    def repInput5 = rep5
-    def repInput6 = rep6
     new CaseClassRepMapper6[
         Rep1
       , Data1
@@ -668,20 +827,84 @@ object CaseClassMapper {
       , Rep6
       , Data6
     ](
-        property1 = property1
-      , property2 = property2
-      , property3 = property3
-      , property4 = property4
-      , property5 = property5
-      , property6 = property6
-    ) {
-      override lazy val rep1 = repInput1
-      override lazy val rep2 = repInput2
-      override lazy val rep3 = repInput3
-      override lazy val rep4 = repInput4
-      override lazy val rep5 = repInput5
-      override lazy val rep6 = repInput6
-    }
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+    )
+  }
+  def withRawRep[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ](
+      rep1: Rep1
+    , property1: PropertyType[Data1]
+    , rep2: Rep2
+    , property2: PropertyType[Data2]
+    , rep3: Rep3
+    , property3: PropertyType[Data3]
+    , rep4: Rep4
+    , property4: PropertyType[Data4]
+    , rep5: Rep5
+    , property5: PropertyType[Data5]
+    , rep6: Rep6
+    , property6: PropertyType[Data6]
+    , rep7: Rep7
+    , property7: PropertyType[Data7]
+  ): CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ] = {
+    new CaseClassRepMapper7[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+    )
   }
   def withData[
       Data1
@@ -809,15 +1032,50 @@ object CaseClassMapper {
       , data6 = data6
     )
   }
+  def withData[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ](
+      data1: Data1
+    , data2: Data2
+    , data3: Data3
+    , data4: Data4
+    , data5: Data5
+    , data6: Data6
+    , data7: Data7
+  ): CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ] = {
+    new CaseClassDataMapper7(
+        data1 = data1
+      , data2 = data2
+      , data3 = data3
+      , data4 = data4
+      , data5 = data5
+      , data6 = data6
+      , data7 = data7
+    )
+  }
 }
-abstract class CaseClassRepMapper1[
+class CaseClassRepMapper1[
     Rep1
   , Data1
 ](
-    val property1: PropertyType[Data1]
+    val rep1: Rep1
 ) {
   self =>
-  def rep1: Rep1
+  def property1: PropertyType[Data1] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper1. You can replace selfInfo with\n" +
       "i1(context)\nto find the missing column."
@@ -862,11 +1120,9 @@ abstract class CaseClassRepMapper1[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper1[
+  def propertyType: PropertyType[CaseClassDataMapper1[
       Data1
-  ]] = new PropertyType[CaseClassDataMapper1[
-      Data1
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper1[
       Rep1
     , Data1
@@ -909,7 +1165,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -973,7 +1229,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -1041,7 +1297,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper1[
+          base: CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -1100,18 +1356,18 @@ object CaseClassRepMapper1 {
     }
   }
 }
-abstract class CaseClassRepMapper2[
+class CaseClassRepMapper2[
     Rep1
   , Data1
   , Rep2
   , Data2
 ](
-    val property1: PropertyType[Data1]
-  , val property2: PropertyType[Data2]
+    val rep1: Rep1
+  , val rep2: Rep2
 ) {
   self =>
-  def rep1: Rep1
-  def rep2: Rep2
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper2. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\nto find the missing column."
@@ -1193,13 +1449,10 @@ abstract class CaseClassRepMapper2[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper2[
+  def propertyType: PropertyType[CaseClassDataMapper2[
       Data1
     , Data2
-  ]] = new PropertyType[CaseClassDataMapper2[
-      Data1
-    , Data2
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper2[
       Rep1
     , Data1
@@ -1261,7 +1514,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1349,7 +1602,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1442,7 +1695,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper2[
+          base: CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1519,7 +1772,7 @@ object CaseClassRepMapper2 {
     }
   }
 }
-abstract class CaseClassRepMapper3[
+class CaseClassRepMapper3[
     Rep1
   , Data1
   , Rep2
@@ -1527,14 +1780,14 @@ abstract class CaseClassRepMapper3[
   , Rep3
   , Data3
 ](
-    val property1: PropertyType[Data1]
-  , val property2: PropertyType[Data2]
-  , val property3: PropertyType[Data3]
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
 ) {
   self =>
-  def rep1: Rep1
-  def rep2: Rep2
-  def rep3: Rep3
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
+  def property3: PropertyType[Data3] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper3. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\nto find the missing column."
@@ -1653,15 +1906,11 @@ abstract class CaseClassRepMapper3[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper3[
+  def propertyType: PropertyType[CaseClassDataMapper3[
       Data1
     , Data2
     , Data3
-  ]] = new PropertyType[CaseClassDataMapper3[
-      Data1
-    , Data2
-    , Data3
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper3[
       Rep1
     , Data1
@@ -1742,7 +1991,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1854,7 +2103,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1972,7 +2221,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper3[
+          base: CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -2067,7 +2316,7 @@ object CaseClassRepMapper3 {
     }
   }
 }
-abstract class CaseClassRepMapper4[
+class CaseClassRepMapper4[
     Rep1
   , Data1
   , Rep2
@@ -2077,16 +2326,16 @@ abstract class CaseClassRepMapper4[
   , Rep4
   , Data4
 ](
-    val property1: PropertyType[Data1]
-  , val property2: PropertyType[Data2]
-  , val property3: PropertyType[Data3]
-  , val property4: PropertyType[Data4]
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
 ) {
   self =>
-  def rep1: Rep1
-  def rep2: Rep2
-  def rep3: Rep3
-  def rep4: Rep4
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
+  def property3: PropertyType[Data3] = null
+  def property4: PropertyType[Data4] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper4. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\nto find the missing column."
@@ -2242,17 +2491,12 @@ abstract class CaseClassRepMapper4[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper4[
+  def propertyType: PropertyType[CaseClassDataMapper4[
       Data1
     , Data2
     , Data3
     , Data4
-  ]] = new PropertyType[CaseClassDataMapper4[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper4[
       Rep1
     , Data1
@@ -2352,7 +2596,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2488,7 +2732,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2647,7 +2891,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper4[
+          base: CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2760,7 +3004,7 @@ object CaseClassRepMapper4 {
     }
   }
 }
-abstract class CaseClassRepMapper5[
+class CaseClassRepMapper5[
     Rep1
   , Data1
   , Rep2
@@ -2772,18 +3016,18 @@ abstract class CaseClassRepMapper5[
   , Rep5
   , Data5
 ](
-    val property1: PropertyType[Data1]
-  , val property2: PropertyType[Data2]
-  , val property3: PropertyType[Data3]
-  , val property4: PropertyType[Data4]
-  , val property5: PropertyType[Data5]
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
 ) {
   self =>
-  def rep1: Rep1
-  def rep2: Rep2
-  def rep3: Rep3
-  def rep4: Rep4
-  def rep5: Rep5
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
+  def property3: PropertyType[Data3] = null
+  def property4: PropertyType[Data4] = null
+  def property5: PropertyType[Data5] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper5. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\nto find the missing column."
@@ -2976,19 +3220,13 @@ abstract class CaseClassRepMapper5[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper5[
+  def propertyType: PropertyType[CaseClassDataMapper5[
       Data1
     , Data2
     , Data3
     , Data4
     , Data5
-  ]] = new PropertyType[CaseClassDataMapper5[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper5[
       Rep1
     , Data1
@@ -3125,7 +3363,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3303,7 +3541,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3490,7 +3728,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper5[
+          base: CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3621,7 +3859,7 @@ object CaseClassRepMapper5 {
     }
   }
 }
-abstract class CaseClassRepMapper6[
+class CaseClassRepMapper6[
     Rep1
   , Data1
   , Rep2
@@ -3635,20 +3873,20 @@ abstract class CaseClassRepMapper6[
   , Rep6
   , Data6
 ](
-    val property1: PropertyType[Data1]
-  , val property2: PropertyType[Data2]
-  , val property3: PropertyType[Data3]
-  , val property4: PropertyType[Data4]
-  , val property5: PropertyType[Data5]
-  , val property6: PropertyType[Data6]
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
 ) {
   self =>
-  def rep1: Rep1
-  def rep2: Rep2
-  def rep3: Rep3
-  def rep4: Rep4
-  def rep5: Rep5
-  def rep6: Rep6
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
+  def property3: PropertyType[Data3] = null
+  def property4: PropertyType[Data4] = null
+  def property5: PropertyType[Data5] = null
+  def property6: PropertyType[Data6] = null
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper6. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\nto find the missing column."
@@ -3878,21 +4116,14 @@ abstract class CaseClassRepMapper6[
       override val shape = shape1
     }
   }
-  lazy val propertyType: PropertyType[CaseClassDataMapper6[
+  def propertyType: PropertyType[CaseClassDataMapper6[
       Data1
     , Data2
     , Data3
     , Data4
     , Data5
     , Data6
-  ]] = new PropertyType[CaseClassDataMapper6[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-  ]] {}
+  ]] = null
   lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper6[
       Rep1
     , Data1
@@ -4051,7 +4282,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4256,7 +4487,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4471,7 +4702,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: => CaseClassRepMapper6[
+          base: CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4615,6 +4846,1135 @@ object CaseClassRepMapper6 {
             , data6 = split6.current
           )
           , left = split6.left
+        )
+      }
+    }
+  }
+}
+class CaseClassRepMapper7[
+    Rep1
+  , Data1
+  , Rep2
+  , Data2
+  , Rep3
+  , Data3
+  , Rep4
+  , Data4
+  , Rep5
+  , Data5
+  , Rep6
+  , Data6
+  , Rep7
+  , Data7
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+) {
+  self =>
+  def property1: PropertyType[Data1] = null
+  def property2: PropertyType[Data2] = null
+  def property3: PropertyType[Data3] = null
+  def property4: PropertyType[Data4] = null
+  def property5: PropertyType[Data5] = null
+  def property6: PropertyType[Data6] = null
+  def property7: PropertyType[Data7] = null
+  @deprecated(
+      "Your are debugging case class mapping rule. This is CaseClassRepMapper7. You can replace selfInfo with\n" +
+      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\nto find the missing column."
+    , "0.0.1"
+  )
+  def selfInfo: CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ] = self
+  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep1)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data1, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep1)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data1, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep1)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep2)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data2, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep2)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data2, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep2)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep3)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data3, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep3)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data3, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep3)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep4)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data4, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep4)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data4, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep4)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep5)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data5, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep5)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data5, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep5)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep6)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data6, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep6)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data6, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep6)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep7)
+    val shape1  = debugShape.shape.packed
+    new EncoderShapeValue[Data7, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep7)
+    val shape1  = debugShape.shape.packed
+    new DecoderShapeValue[Data7, RepCol, DataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
+    val target1 = debugShape.shape.wrapRep(rep7)
+    val shape1  = debugShape.shape.packed
+    new FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] {
+      override type RepType = Target
+      override val rep   = target1
+      override val shape = shape1
+    }
+  }
+  def propertyType: PropertyType[CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ]] = null
+  lazy val dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ], CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ]] = DataGenWrap.value[CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ], CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ]](self)
+}
+class CaseClassDataMapper7[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+](
+    val data1: Data1
+  , val data2: Data2
+  , val data3: Data3
+  , val data4: Data4
+  , val data5: Data5
+  , val data6: Data6
+  , val data7: Data7
+)
+object CaseClassRepMapper7 {
+  implicit def caseClassHelper7EncoderGen[
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , Rep7
+    , Data7
+    , Target7
+    , RepCol
+    , DataCol
+  ](
+      implicit
+    shape1: EncoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
+    , shape2: EncoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]
+    , shape3: EncoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]
+    , shape4: EncoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]
+    , shape5: EncoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]
+    , shape6: EncoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]
+    , shape7: EncoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]
+  ): EncoderShape.Aux[CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ], CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ], CaseClassRepMapper7[
+      Target1
+    , Data1
+    , Target2
+    , Data2
+    , Target3
+    , Data3
+    , Target4
+    , Data4
+    , Target5
+    , Data5
+    , Target6
+    , Data6
+    , Target7
+    , Data7
+  ], RepCol, DataCol] = {
+    new EncoderShape[CaseClassRepMapper7[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+    ], RepCol, DataCol] {
+      override type Target = CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ]
+      override type Data = CaseClassDataMapper7[
+          Data1
+        , Data2
+        , Data3
+        , Data4
+        , Data5
+        , Data6
+        , Data7
+      ]
+      override def wrapRep(
+          base: CaseClassRepMapper7[
+            Rep1
+          , Data1
+          , Rep2
+          , Data2
+          , Rep3
+          , Data3
+          , Rep4
+          , Data4
+          , Rep5
+          , Data5
+          , Rep6
+          , Data6
+          , Rep7
+          , Data7
+        ]
+      ): CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ] = {
+        CaseClassMapper.withRawRep(
+            rep1 = shape1.wrapRep(base.rep1)
+          , property1 = base.property1
+          , rep2 = shape2.wrapRep(base.rep2)
+          , property2 = base.property2
+          , rep3 = shape3.wrapRep(base.rep3)
+          , property3 = base.property3
+          , rep4 = shape4.wrapRep(base.rep4)
+          , property4 = base.property4
+          , rep5 = shape5.wrapRep(base.rep5)
+          , property5 = base.property5
+          , rep6 = shape6.wrapRep(base.rep6)
+          , property6 = base.property6
+          , rep7 = shape7.wrapRep(base.rep7)
+          , property7 = base.property7
+        )
+      }
+      override def buildRep(
+          base: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldRep: RepCol
+      ): RepCol = {
+        val rep8 = oldRep
+        val rep7 = shape7.buildRep(base.rep7, rep8)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
+        rep1
+      }
+      override def buildData(
+          data: CaseClassDataMapper7[
+            Data1
+          , Data2
+          , Data3
+          , Data4
+          , Data5
+          , Data6
+          , Data7
+        ]
+        , rep: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldData: DataCol
+      ): DataCol = {
+        val data8 = oldData
+        val data7 = shape7.buildData(data.data7, rep.rep7, data8)
+        val data6 = shape6.buildData(data.data6, rep.rep6, data7)
+        val data5 = shape5.buildData(data.data5, rep.rep5, data6)
+        val data4 = shape4.buildData(data.data4, rep.rep4, data5)
+        val data3 = shape3.buildData(data.data3, rep.rep3, data4)
+        val data2 = shape2.buildData(data.data2, rep.rep2, data3)
+        val data1 = shape1.buildData(data.data1, rep.rep1, data2)
+        data1
+      }
+    }
+  }
+  implicit def caseClassHelper7DecoderGen[
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , Rep7
+    , Data7
+    , Target7
+    , RepCol
+    , DataCol
+  ](
+      implicit
+    shape1: DecoderShape.Aux[Rep1, Data1, Target1, RepCol, DataCol]
+    , shape2: DecoderShape.Aux[Rep2, Data2, Target2, RepCol, DataCol]
+    , shape3: DecoderShape.Aux[Rep3, Data3, Target3, RepCol, DataCol]
+    , shape4: DecoderShape.Aux[Rep4, Data4, Target4, RepCol, DataCol]
+    , shape5: DecoderShape.Aux[Rep5, Data5, Target5, RepCol, DataCol]
+    , shape6: DecoderShape.Aux[Rep6, Data6, Target6, RepCol, DataCol]
+    , shape7: DecoderShape.Aux[Rep7, Data7, Target7, RepCol, DataCol]
+  ): DecoderShape.Aux[CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ], CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ], CaseClassRepMapper7[
+      Target1
+    , Data1
+    , Target2
+    , Data2
+    , Target3
+    , Data3
+    , Target4
+    , Data4
+    , Target5
+    , Data5
+    , Target6
+    , Data6
+    , Target7
+    , Data7
+  ], RepCol, DataCol] = {
+    new DecoderShape[CaseClassRepMapper7[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+    ], RepCol, DataCol] {
+      override type Target = CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ]
+      override type Data = CaseClassDataMapper7[
+          Data1
+        , Data2
+        , Data3
+        , Data4
+        , Data5
+        , Data6
+        , Data7
+      ]
+      override def wrapRep(
+          base: CaseClassRepMapper7[
+            Rep1
+          , Data1
+          , Rep2
+          , Data2
+          , Rep3
+          , Data3
+          , Rep4
+          , Data4
+          , Rep5
+          , Data5
+          , Rep6
+          , Data6
+          , Rep7
+          , Data7
+        ]
+      ): CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ] = {
+        CaseClassMapper.withRawRep(
+            rep1 = shape1.wrapRep(base.rep1)
+          , property1 = base.property1
+          , rep2 = shape2.wrapRep(base.rep2)
+          , property2 = base.property2
+          , rep3 = shape3.wrapRep(base.rep3)
+          , property3 = base.property3
+          , rep4 = shape4.wrapRep(base.rep4)
+          , property4 = base.property4
+          , rep5 = shape5.wrapRep(base.rep5)
+          , property5 = base.property5
+          , rep6 = shape6.wrapRep(base.rep6)
+          , property6 = base.property6
+          , rep7 = shape7.wrapRep(base.rep7)
+          , property7 = base.property7
+        )
+      }
+      override def buildRep(
+          base: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldRep: RepCol
+      ): RepCol = {
+        val rep8 = oldRep
+        val rep7 = shape7.buildRep(base.rep7, rep8)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
+        rep1
+      }
+      override def takeData(
+          rep: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldDataCol: DataCol
+      ): SplitData[CaseClassDataMapper7[
+          Data1
+        , Data2
+        , Data3
+        , Data4
+        , Data5
+        , Data6
+        , Data7
+      ], DataCol] = {
+        val dataCol0 = oldDataCol
+        val split1   = shape1.takeData(rep.rep1, dataCol0)
+        val split2   = shape2.takeData(rep.rep2, split1.left)
+        val split3   = shape3.takeData(rep.rep3, split2.left)
+        val split4   = shape4.takeData(rep.rep4, split3.left)
+        val split5   = shape5.takeData(rep.rep5, split4.left)
+        val split6   = shape6.takeData(rep.rep6, split5.left)
+        val split7   = shape7.takeData(rep.rep7, split6.left)
+        SplitData(
+            current = new CaseClassDataMapper7(
+              data1 = split1.current
+            , data2 = split2.current
+            , data3 = split3.current
+            , data4 = split4.current
+            , data5 = split5.current
+            , data6 = split6.current
+            , data7 = split7.current
+          )
+          , left = split7.left
+        )
+      }
+    }
+  }
+  implicit def caseClassHelper7FormatterGen[
+      Rep1
+    , Data1
+    , Target1
+    , Rep2
+    , Data2
+    , Target2
+    , Rep3
+    , Data3
+    , Target3
+    , Rep4
+    , Data4
+    , Target4
+    , Rep5
+    , Data5
+    , Target5
+    , Rep6
+    , Data6
+    , Target6
+    , Rep7
+    , Data7
+    , Target7
+    , RepCol
+    , EncoderDataCol
+    , DecoderDataCol
+  ](
+      implicit
+    shape1: FormatterShape.Aux[Rep1, Data1, Target1, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape2: FormatterShape.Aux[Rep2, Data2, Target2, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape3: FormatterShape.Aux[Rep3, Data3, Target3, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape4: FormatterShape.Aux[Rep4, Data4, Target4, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape5: FormatterShape.Aux[Rep5, Data5, Target5, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape6: FormatterShape.Aux[Rep6, Data6, Target6, RepCol, EncoderDataCol, DecoderDataCol]
+    , shape7: FormatterShape.Aux[Rep7, Data7, Target7, RepCol, EncoderDataCol, DecoderDataCol]
+  ): FormatterShape.Aux[CaseClassRepMapper7[
+      Rep1
+    , Data1
+    , Rep2
+    , Data2
+    , Rep3
+    , Data3
+    , Rep4
+    , Data4
+    , Rep5
+    , Data5
+    , Rep6
+    , Data6
+    , Rep7
+    , Data7
+  ], CaseClassDataMapper7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ], CaseClassRepMapper7[
+      Target1
+    , Data1
+    , Target2
+    , Data2
+    , Target3
+    , Data3
+    , Target4
+    , Data4
+    , Target5
+    , Data5
+    , Target6
+    , Data6
+    , Target7
+    , Data7
+  ], RepCol, EncoderDataCol, DecoderDataCol] = {
+    new FormatterShape[CaseClassRepMapper7[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+    ], RepCol, EncoderDataCol, DecoderDataCol] {
+      override type Target = CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ]
+      override type Data = CaseClassDataMapper7[
+          Data1
+        , Data2
+        , Data3
+        , Data4
+        , Data5
+        , Data6
+        , Data7
+      ]
+      override def wrapRep(
+          base: CaseClassRepMapper7[
+            Rep1
+          , Data1
+          , Rep2
+          , Data2
+          , Rep3
+          , Data3
+          , Rep4
+          , Data4
+          , Rep5
+          , Data5
+          , Rep6
+          , Data6
+          , Rep7
+          , Data7
+        ]
+      ): CaseClassRepMapper7[
+          Target1
+        , Data1
+        , Target2
+        , Data2
+        , Target3
+        , Data3
+        , Target4
+        , Data4
+        , Target5
+        , Data5
+        , Target6
+        , Data6
+        , Target7
+        , Data7
+      ] = {
+        CaseClassMapper.withRawRep(
+            rep1 = shape1.wrapRep(base.rep1)
+          , property1 = base.property1
+          , rep2 = shape2.wrapRep(base.rep2)
+          , property2 = base.property2
+          , rep3 = shape3.wrapRep(base.rep3)
+          , property3 = base.property3
+          , rep4 = shape4.wrapRep(base.rep4)
+          , property4 = base.property4
+          , rep5 = shape5.wrapRep(base.rep5)
+          , property5 = base.property5
+          , rep6 = shape6.wrapRep(base.rep6)
+          , property6 = base.property6
+          , rep7 = shape7.wrapRep(base.rep7)
+          , property7 = base.property7
+        )
+      }
+      override def buildRep(
+          base: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldRep: RepCol
+      ): RepCol = {
+        val rep8 = oldRep
+        val rep7 = shape7.buildRep(base.rep7, rep8)
+        val rep6 = shape6.buildRep(base.rep6, rep7)
+        val rep5 = shape5.buildRep(base.rep5, rep6)
+        val rep4 = shape4.buildRep(base.rep4, rep5)
+        val rep3 = shape3.buildRep(base.rep3, rep4)
+        val rep2 = shape2.buildRep(base.rep2, rep3)
+        val rep1 = shape1.buildRep(base.rep1, rep2)
+        rep1
+      }
+      override def buildData(
+          data: CaseClassDataMapper7[
+            Data1
+          , Data2
+          , Data3
+          , Data4
+          , Data5
+          , Data6
+          , Data7
+        ]
+        , rep: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldData: EncoderDataCol
+      ): EncoderDataCol = {
+        val data8 = oldData
+        val data7 = shape7.buildData(data.data7, rep.rep7, data8)
+        val data6 = shape6.buildData(data.data6, rep.rep6, data7)
+        val data5 = shape5.buildData(data.data5, rep.rep5, data6)
+        val data4 = shape4.buildData(data.data4, rep.rep4, data5)
+        val data3 = shape3.buildData(data.data3, rep.rep3, data4)
+        val data2 = shape2.buildData(data.data2, rep.rep2, data3)
+        val data1 = shape1.buildData(data.data1, rep.rep1, data2)
+        data1
+      }
+      override def takeData(
+          rep: CaseClassRepMapper7[
+            Target1
+          , Data1
+          , Target2
+          , Data2
+          , Target3
+          , Data3
+          , Target4
+          , Data4
+          , Target5
+          , Data5
+          , Target6
+          , Data6
+          , Target7
+          , Data7
+        ]
+        , oldDataCol: DecoderDataCol
+      ): SplitData[CaseClassDataMapper7[
+          Data1
+        , Data2
+        , Data3
+        , Data4
+        , Data5
+        , Data6
+        , Data7
+      ], DecoderDataCol] = {
+        val dataCol0 = oldDataCol
+        val split1   = shape1.takeData(rep.rep1, dataCol0)
+        val split2   = shape2.takeData(rep.rep2, split1.left)
+        val split3   = shape3.takeData(rep.rep3, split2.left)
+        val split4   = shape4.takeData(rep.rep4, split3.left)
+        val split5   = shape5.takeData(rep.rep5, split4.left)
+        val split6   = shape6.takeData(rep.rep6, split5.left)
+        val split7   = shape7.takeData(rep.rep7, split6.left)
+        SplitData(
+            current = new CaseClassDataMapper7(
+              data1 = split1.current
+            , data2 = split2.current
+            , data3 = split3.current
+            , data4 = split4.current
+            , data5 = split5.current
+            , data6 = split6.current
+            , data7 = split7.current
+          )
+          , left = split7.left
         )
       }
     }

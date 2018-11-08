@@ -12,7 +12,7 @@ trait ZipDecoderShapeHelper {
       self =>
       override type Target = (C, F)
       override type Data   = (B, E)
-      override def wrapRep(base: => (A, D)): (C, F) = {
+      override def wrapRep(base: (A, D)): (C, F) = {
         (shape1.wrapRep(base._1), shape2.wrapRep(base._2))
       }
       override def buildRep(base: (C, F), oldRep: RepCol): RepCol = {

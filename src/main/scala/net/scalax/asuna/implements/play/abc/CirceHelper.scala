@@ -10,7 +10,7 @@ import play.api.libs.json._
 trait PlayAsunaEncoder {
   type DataType
   def write: Writes[DataType]
-  val key: String
+  def key: String
 }
 
 trait PlayAsunaEncoderImpl[T] extends PlayAsunaEncoder {
@@ -27,7 +27,7 @@ trait PlayHelper {
 
   object play extends EncoderWrapperHelper[List[PlayAsunaEncoder], List[(String, JsValue)], PlayContent] {
     override def effect[Rep, D, Out](
-      rep: Rep
+        rep: Rep
     )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[PlayAsunaEncoder], List[(String, JsValue)]]): PlayContent[Out, D] = {
       val wrapRep = shape.wrapRep(rep)
       new PlayContent[Out, D] {
@@ -39,14 +39,14 @@ trait PlayHelper {
   }
 
   implicit def implicit1[T](
-    implicit encoder: LazyImplicit[Writes[T]]
+      implicit encoder: LazyImplicit[Writes[T]]
   ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, PlayAsunaEncoderImpl[T], List[PlayAsunaEncoder], List[(String, JsValue)]] = {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder], List[(String, JsValue)]] {
       override type Target = PlayAsunaEncoderImpl[T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[T] = new PlayAsunaEncoderImpl[T] {
+      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[T] = new PlayAsunaEncoderImpl[T] {
         override lazy val write = encoder.value
-        override val key        = base.columnInfo.singleModelSymbol.name
+        override val key   = base.columnInfo.singleModelName
       }
       override def buildRep(base: PlayAsunaEncoderImpl[T], oldRep: List[PlayAsunaEncoder]): List[PlayAsunaEncoder] = base :: oldRep
       override def buildData(data: T, rep: PlayAsunaEncoderImpl[T], oldData: List[(String, JsValue)]): List[(String, JsValue)] =
@@ -59,11 +59,11 @@ trait PlayHelper {
       override type Target = PlayAsunaEncoderImpl[T]
       override type Data   = T
 
-      override def wrapRep(base: => SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
+      override def wrapRep(base: SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
         val base1 = base
         new PlayAsunaEncoderImpl[T] {
           override val write = base1.rep
-          override val key   = base1.columnInfo.singleModelSymbol.name
+          override val key   = base1.columnInfo.singleModelName
         }
       }
 

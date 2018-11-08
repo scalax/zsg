@@ -8,6 +8,7 @@ abstract sealed trait RepColumnContent[+Rep, Data] {
 
   def rep: Rep
   def columnInfo: MacroColumnInfo
+  def defaultValue: Option[Data]
 
 }
 
@@ -15,6 +16,7 @@ trait SingleRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
 
   override def rep: Rep
   override def columnInfo: SingleColumnInfo
+  override def defaultValue: Option[Data]
 
 }
 
@@ -26,7 +28,7 @@ object SingleRepContent {
     new DecoderShape[SingleRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[D, T]): M               = shape1.wrapRep(base.rep)
+      override def wrapRep(base: SingleRepContent[D, T]): M                  = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol                 = shape1.buildRep(base, oldRep)
       override def takeData(rep: M, oldData: DataCol): SplitData[T, DataCol] = shape1.takeData(rep, oldData)
     }
@@ -39,7 +41,7 @@ object SingleRepContent {
     new EncoderShape[SingleRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[D, T]): M           = shape1.wrapRep(base.rep)
+      override def wrapRep(base: SingleRepContent[D, T]): M              = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol             = shape1.buildRep(base, oldRep)
       override def buildData(data: T, rep: M, oldData: DataCol): DataCol = shape1.buildData(data, rep, oldData)
     }
@@ -52,7 +54,7 @@ object SingleRepContent {
     new FormatterShape[SingleRepContent[D, T], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[D, T]): M                             = shape1.wrapRep(base.rep)
+      override def wrapRep(base: SingleRepContent[D, T]): M                                = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol                               = shape1.buildRep(base, oldRep)
       override def buildData(data: T, rep: M, oldData: EncoderDataCol): EncoderDataCol     = shape1.buildData(data, rep, oldData)
       override def takeData(rep: M, oldData: DecoderDataCol): SplitData[T, DecoderDataCol] = shape1.takeData(rep, oldData)
@@ -64,6 +66,7 @@ trait MutiplyRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
 
   override def rep: Rep
   override def columnInfo: MutiplyColumnInfo
+  override def defaultValue: Option[Data]
 
 }
 
@@ -75,7 +78,7 @@ object MutiplyRepContent {
     new DecoderShape[MutiplyRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => MutiplyRepContent[D, T]): M              = shape1.wrapRep(base.rep)
+      override def wrapRep(base: MutiplyRepContent[D, T]): M                 = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol                 = shape1.buildRep(base, oldRep)
       override def takeData(rep: M, oldData: DataCol): SplitData[T, DataCol] = shape1.takeData(rep, oldData)
     }
@@ -88,7 +91,7 @@ object MutiplyRepContent {
     new EncoderShape[MutiplyRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => MutiplyRepContent[D, T]): M          = shape1.wrapRep(base.rep)
+      override def wrapRep(base: MutiplyRepContent[D, T]): M             = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol             = shape1.buildRep(base, oldRep)
       override def buildData(data: T, rep: M, oldData: DataCol): DataCol = shape1.buildData(data, rep, oldData)
     }
@@ -101,7 +104,7 @@ object MutiplyRepContent {
     new FormatterShape[MutiplyRepContent[D, T], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = M
       override type Data   = T
-      override def wrapRep(base: => MutiplyRepContent[D, T]): M                            = shape1.wrapRep(base.rep)
+      override def wrapRep(base: MutiplyRepContent[D, T]): M                               = shape1.wrapRep(base.rep)
       override def buildRep(base: M, oldRep: RepCol): RepCol                               = shape1.buildRep(base, oldRep)
       override def buildData(data: T, rep: M, oldData: EncoderDataCol): EncoderDataCol     = shape1.buildData(data, rep, oldData)
       override def takeData(rep: M, oldData: DecoderDataCol): SplitData[T, DecoderDataCol] = shape1.takeData(rep, oldData)
