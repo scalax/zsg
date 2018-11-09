@@ -17,9 +17,17 @@ object RepGroupColumnWrapper extends RepGroupColumnWrapperImplicit1 {
       rep: => Col
     , columnInfo: ColumnInfoType
     , propertyType: PropertyType[Data]
-    , defaultValue: => Option[Data] = Option.empty
   )(implicit repGroupColumnWrapper: RepGroupColumnWrapper.Aux[Col, Data, ColumnInfoType, Target]): Target = {
-    repGroupColumnWrapper.inputColumn(rep, columnInfo, defaultValue)
+    repGroupColumnWrapper.inputColumn(rep, columnInfo, Option.empty)
+  }
+
+  @inline def apply[Col, Data, ColumnInfoType <: MacroColumnInfo, Target](
+      rep: => Col
+    , columnInfo: ColumnInfoType
+    , propertyType: PropertyType[Data]
+    , defaultValue: => Data
+  )(implicit repGroupColumnWrapper: RepGroupColumnWrapper.Aux[Col, Data, ColumnInfoType, Target]): Target = {
+    repGroupColumnWrapper.inputColumn(rep, columnInfo, Option(defaultValue))
   }
 
 }
