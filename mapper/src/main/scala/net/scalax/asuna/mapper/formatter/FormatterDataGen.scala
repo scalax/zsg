@@ -12,7 +12,13 @@ trait FormatterDataGen[Output] extends DataGenWrap {
   def to(caseModel: Output, tempRep: TempRep): TempData
   def from(caseModel: TempData, tempRep: TempRep): Output
 
-  def debug: FormatterDataGen.Aux[Output, Any, Any] = self.asInstanceOf[FormatterDataGen.Aux[Output, Any, Any]]
+  def debug: FormatterDataGen.Aux[Output, Any, Any] = new FormatterDataGen[Output] {
+    override type TempData = Any
+    override type TempRep  = Any
+    override def rep: Any                                   = self.rep
+    override def to(caseModel: Output, tempRep: Any): Any   = ()
+    override def from(caseModel: Any, tempRep: Any): Output = throw new Exception("Debug instance will not have implement.")
+  }
 
 }
 

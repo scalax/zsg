@@ -177,10 +177,11 @@ trait TableFieldsGen {
     val memberCol = toUpperMembers
       .map(
           s =>
-          fetchTableFieldsImpl(s.member.typeSignatureIn(tableType).resultType, { gen: (Tree => Tree) =>
-            { tree: Tree =>
-              gen(q"""${tree}.${TermName(s.member.name.toString.trim)}""")
-            }
+          fetchTableFieldsImpl(s.member.typeSignatureIn(tableType).resultType, {
+            gen: (Tree => Tree) =>
+              { tree: Tree =>
+                gen(q"""${tree}.${TermName(s.member.name.toString.trim)}""")
+              }
           })
       )
       .flatten

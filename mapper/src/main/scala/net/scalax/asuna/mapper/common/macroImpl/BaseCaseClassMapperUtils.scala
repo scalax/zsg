@@ -388,10 +388,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   /*lazy val propertyType             = weakTypeOf[PropertyType[_]]
   lazy val placeHolder              = weakTypeOf[Placeholder[_]]
   lazy val proCompanion             = getCompanion(propertyType)*/
-  lazy val singleColumnInfo         = weakTypeOf[SingleColumnInfo]
-  lazy val mutiplyColumnInfo        = weakTypeOf[MutiplyColumnInfo]
-  lazy val symbol                   = weakTypeOf[scala.Symbol]
-  lazy val repGroupColumnWrapper    = weakTypeOf[RepGroupColumnWrapper[_, _, _]]
+  lazy val singleColumnInfo      = weakTypeOf[SingleColumnInfo]
+  lazy val mutiplyColumnInfo     = weakTypeOf[MutiplyColumnInfo]
+  lazy val symbol                = weakTypeOf[scala.Symbol]
+  lazy val repGroupColumnWrapper = weakTypeOf[RepGroupColumnWrapper[_, _, _]]
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
     val treeList = fields.map { field =>
@@ -423,7 +423,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         , q"""${TermName("propertyType")} = ${field.propertyType}"""
         , q"""${TermName("columnInfo")} = ${columnInfoTree}"""
       ) //:::
-        //field.defaultValue.map(value => q"""${TermName("defaultValue")} = ${value}""").toList
+      //field.defaultValue.map(value => q"""${TermName("defaultValue")} = ${value}""").toList
 
       (field, q"""${repGroupColumnWrapper.typeSymbol.companion}(..${paramList})""")
     }

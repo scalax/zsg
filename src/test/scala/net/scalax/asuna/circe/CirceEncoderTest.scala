@@ -17,13 +17,70 @@ case class TestModel4(age: Int, today: String, test3: TestModel3)
 case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, est1: TestModel1, test2: List[TestModel2])
 
 object Aa extends CirceHelper {
-  object Bb
+  object Bb {
+    lazy val test3: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Dd).compile).write
+  }
 
-  implicit lazy val test3: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Bb).compile).write
-  implicit lazy val test4: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
-  implicit lazy val test1: Encoder[TestModel1] = circe.effect(circe.singleModel[TestModel1](Bb).compile).write
-  implicit lazy val test2: Encoder[TestModel2] = circe.effect(circe.singleModel[TestModel2](Bb).compile).write
-  implicit lazy val test: Encoder[TestModel]   = circe.effect(circe.singleModel[TestModel](Bb).compile).write
+  object Cc {
+    lazy val test3: Encoder[Option[TestModel3]] = {
+      /*implicit val aa: Encoder[TestModel3] = Bb.test3
+      implicitly*/
+      optionEncoder(circe.singleModel[TestModel3](Dd).compile)
+    }
+  }
+
+  object Dd {
+    lazy val test1: Encoder[TestModel1] = circe.effect(circe.singleModel[TestModel1](Cc).compile).write
+    lazy val test4: Encoder[List[Option[TestModel4]]] = {
+      /*implicit val aa: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
+      implicitly*/
+      implicit val aa = optionEncoder(circe.singleModel[TestModel4](Bb).compile)
+      implicitly
+    }
+
+  }
+
+  object Ff {
+    lazy val est1: Encoder[TestModel1] = Dd.test1
+    lazy val test2: Encoder[List[TestModel2]] = {
+      /*implicit val aa = circe.effect(circe.singleModel[TestModel2](Bb).compile).write
+      implicitly*/
+      listEncoder(circe.singleModel[TestModel2](Bb).compile)
+    }
+  }
+
+  //implicit lazy val test3_01: Encoder[TestModel3] =
+  //implicit lazy val test4: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Bb).compile).write
+  //implicit lazy val test1: Encoder[TestModel1]    = Dd.test1
+  //implicit lazy val test2: Encoder[TestModel2] =
+  lazy val test: Encoder[TestModel] = circe.effect(circe.singleModel[TestModel](Ff).compile).write
+}
+
+object Bb extends CirceHelper{
+  object TestModel2Helper
+
+  object TestModel1Helper {
+    lazy val test3: Encoder[Option[TestModel3]] = optionEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
+  }
+
+  object TestModel3Helper {
+    lazy val test1 = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
+    lazy val test4: Encoder[List[Option[TestModel4]]] = {
+      implicit val test100 = circe.effect(circe.singleModel[TestModel4](TestModel4Helper).compile).write
+      implicitly
+    }
+  }
+
+  object TestModel4Helper {
+    lazy val test3 = commonEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
+  }
+
+  object TestModelHelper {
+    lazy val test2 = listEncoder(circe.singleModel[TestModel2](TestModel2Helper).compile)
+    lazy val est1  = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
+  }
+
+  val test: Encoder[TestModel] = commonEncoder(circe.singleModel[TestModel](TestModelHelper).compile)
 }
 
 class CirceEncoderTest
@@ -87,7 +144,7 @@ class CirceEncoderTest
       encoder(model)
     }
 
-    val asunaJson = Aa.test(model)
+    val asunaJson = Bb.test(model)
 
     //println(asunaJson.noSpaces)
     provideJson should be(asunaJson)
