@@ -1,7 +1,7 @@
 package net.scalax.asuna.mapper.decoder.macroImpl
 
 import net.scalax.asuna.core.decoder.DecoderShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
+import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder._
 
 object DecoderCaseClassMapper {
@@ -10,7 +10,7 @@ object DecoderCaseClassMapper {
     override val printlnTree = false
   }
 
-  class BlackboxDecoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
+  class BlackboxDecoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with GenFileOutputHelper {
     self =>
 
     import c.universe._

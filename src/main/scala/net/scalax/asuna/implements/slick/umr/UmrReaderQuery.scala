@@ -67,7 +67,7 @@ trait UmrHelper {
     new DecoderShape[R, ShapeFunc[(Any, Any)], (Any, Any)] {
       override type Target = ShapeFunc[D]
       override type Data   = D
-      override def wrapRep(base: R): ShapeFunc[D] = {
+      override def wrapRep(base: => R): ShapeFunc[D] = {
         val shape1 = shape
         (new SlickShapeValueWrap[D] {
           override type TargetRep = T
@@ -88,7 +88,7 @@ trait UmrHelper {
     new DecoderShape[ShapeFunc[D], ShapeFunc[(Any, Any)], (Any, Any)] {
       override type Target = ShapeFunc[D]
       override type Data   = D
-      override def wrapRep(base: ShapeFunc[D]): ShapeFunc[D] = base
+      override def wrapRep(base: => ShapeFunc[D]): ShapeFunc[D] = base
       override def buildRep(base: ShapeFunc[D], oldRep: ShapeFunc[(Any, Any)]): ShapeFunc[(Any, Any)] =
         new ShapeFunc[(D, (Any, Any))] {
           override type RepType  = (ShapedValue[Any, base.DataType], ShapedValue[Any, oldRep.DataType])

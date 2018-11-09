@@ -588,7 +588,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -652,7 +652,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -720,7 +720,7 @@ object CaseClassRepMapper1 {
           Data1
       ]
       override def wrapRep(
-          base: CaseClassRepMapper1[
+          base: => CaseClassRepMapper1[
             Rep1
           , Data1
         ]
@@ -941,7 +941,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1029,7 +1029,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1122,7 +1122,7 @@ object CaseClassRepMapper2 {
         , Data2
       ]
       override def wrapRep(
-          base: CaseClassRepMapper2[
+          base: => CaseClassRepMapper2[
             Rep1
           , Data1
           , Rep2
@@ -1422,7 +1422,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1534,7 +1534,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -1652,7 +1652,7 @@ object CaseClassRepMapper3 {
         , Data3
       ]
       override def wrapRep(
-          base: CaseClassRepMapper3[
+          base: => CaseClassRepMapper3[
             Rep1
           , Data1
           , Rep2
@@ -2031,7 +2031,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2167,7 +2167,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2326,7 +2326,7 @@ object CaseClassRepMapper4 {
         , Data4
       ]
       override def wrapRep(
-          base: CaseClassRepMapper4[
+          base: => CaseClassRepMapper4[
             Rep1
           , Data1
           , Rep2
@@ -2802,7 +2802,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -2980,7 +2980,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3167,7 +3167,7 @@ object CaseClassRepMapper5 {
         , Data5
       ]
       override def wrapRep(
-          base: CaseClassRepMapper5[
+          base: => CaseClassRepMapper5[
             Rep1
           , Data1
           , Rep2
@@ -3725,7 +3725,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -3930,7 +3930,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4145,7 +4145,7 @@ object CaseClassRepMapper6 {
         , Data6
       ]
       override def wrapRep(
-          base: CaseClassRepMapper6[
+          base: => CaseClassRepMapper6[
             Rep1
           , Data1
           , Rep2
@@ -4785,7 +4785,7 @@ object CaseClassRepMapper7 {
         , Data7
       ]
       override def wrapRep(
-          base: CaseClassRepMapper7[
+          base: => CaseClassRepMapper7[
             Rep1
           , Data1
           , Rep2
@@ -5017,7 +5017,7 @@ object CaseClassRepMapper7 {
         , Data7
       ]
       override def wrapRep(
-          base: CaseClassRepMapper7[
+          base: => CaseClassRepMapper7[
             Rep1
           , Data1
           , Rep2
@@ -5260,7 +5260,7 @@ object CaseClassRepMapper7 {
         , Data7
       ]
       override def wrapRep(
-          base: CaseClassRepMapper7[
+          base: => CaseClassRepMapper7[
             Rep1
           , Data1
           , Rep2

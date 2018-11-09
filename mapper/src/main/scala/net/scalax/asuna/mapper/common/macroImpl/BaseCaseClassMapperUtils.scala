@@ -385,45 +385,27 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   lazy val columnInfoImpl           = weakTypeOf[MacroColumnInfo]
   lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
   lazy val columnInfoImplCompanion  = getCompanion(columnInfoImpl)
-  /*lazy val propertyType             = weakTypeOf[PropertyType[_]]
-  lazy val placeHolder              = weakTypeOf[Placeholder[_]]
-  lazy val proCompanion             = getCompanion(propertyType)*/
-  lazy val singleColumnInfo      = weakTypeOf[SingleColumnInfo]
-  lazy val mutiplyColumnInfo     = weakTypeOf[MutiplyColumnInfo]
-  lazy val symbol                = weakTypeOf[scala.Symbol]
-  lazy val repGroupColumnWrapper = weakTypeOf[RepGroupColumnWrapper[_, _, _]]
+  lazy val singleColumnInfo         = weakTypeOf[SingleColumnInfo]
+  lazy val mutiplyColumnInfo        = weakTypeOf[MutiplyColumnInfo]
+  lazy val symbol                   = weakTypeOf[scala.Symbol]
+  lazy val symbolCompaion           = symbol.typeSymbol.companion
+  lazy val repGroupColumnWrapper    = weakTypeOf[RepGroupColumnWrapper[_, _, _]]
+  lazy val optionCompaion           = weakTypeOf[Option[_]].typeSymbol.companion
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
     val treeList = fields.map { field =>
-      val columnInfoTree = /*field.names match {
-        case head :: Nil =>
-          q"""new ${singleColumnInfo} {
-            override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
-            override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
-            override lazy val singleModelSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(head))})
-            override lazy val singleModelName = ${Literal(Constant(head))}
-          }: ${singleColumnInfo}"""
-        case list =>
-          q"""new ${mutiplyColumnInfo} {
-            override lazy val tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))})
-            override lazy val tableColumnName = ${Literal(Constant(field.tablePropertyName))}
-            override lazy val mutiplyModelSymbol = List(..${list.map(l => q"""${symbol.typeSymbol.companion}(${Literal(Constant(l))})""")})
-            override lazy val mutiplyModelName = List(..${list.map(l => q"""${Literal(Constant(l))}""")})
-          }: ${mutiplyColumnInfo}"""
-      }*/
-
-      q"""${columnInfoImplCompanion}(
-                  tableColumnSymbol = ${symbol.typeSymbol.companion}(${Literal(Constant(field.tablePropertyName))}),
-                  ..${field.names.map(
-          fieldName => q"""${symbol.typeSymbol.companion}(${Literal(Constant(fieldName))})"""
+      val columnInfoTree = q"""${columnInfoImplCompanion}(
+        tableColumnSymbol = ${symbolCompaion}(${Literal(Constant(field.tablePropertyName))}),
+        ..${field.names.map(
+          fieldName => q"""${symbolCompaion}(${Literal(Constant(fieldName))})"""
       )})"""
 
       val paramList = List(
           q"""${TermName("rep")} = ${field.tableGetter(tableName)}"""
         , q"""${TermName("propertyType")} = ${field.propertyType}"""
         , q"""${TermName("columnInfo")} = ${columnInfoTree}"""
-      ) //:::
-      //field.defaultValue.map(value => q"""${TermName("defaultValue")} = ${value}""").toList
+      ) :::
+        field.defaultValue.map(value => q"""${TermName("defaultValue")} = ${optionCompaion}(${value})""").toList
 
       (field, q"""${repGroupColumnWrapper.typeSymbol.companion}(..${paramList})""")
     }

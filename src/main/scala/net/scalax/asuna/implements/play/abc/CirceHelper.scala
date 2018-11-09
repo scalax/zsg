@@ -24,7 +24,7 @@ trait PlayPoly {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]] {
       override type Target = String
       override type Data   = T
-      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): String = base.columnInfo.singleModelName
+      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): String = base.columnInfo.singleModelName
       override def buildRep(base: String, oldRep: List[PlayAsunaEncoder[PlayPoly]]): List[PlayAsunaEncoder[PlayPoly]] =
         throw new Exception("No use to support.")
       override def buildData(data: T, rep: String, oldData: List[(String, JsValue)]): List[(String, JsValue)] =
@@ -38,7 +38,7 @@ trait PlayPoly {
       override type Target = PlayAsunaEncoderImpl[T, PlayPoly]
       override type Data   = T
 
-      override def wrapRep(base: SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T, PlayPoly] = {
+      override def wrapRep(base: => SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T, PlayPoly] = {
         val base1 = base
         new PlayAsunaEncoderImpl[T, PlayPoly] {
           override val write = base1.rep
@@ -84,7 +84,7 @@ trait PlayHelper {
     new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder], List[(String, JsValue)]] {
       override type Target = String
       override type Data   = T
-      override def wrapRep(base: SingleRepContent[Placeholder[T], T]): String                     = base.columnInfo.singleModelName
+      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): String                     = base.columnInfo.singleModelName
       override def buildRep(base: String, oldRep: List[PlayAsunaEncoder]): List[PlayAsunaEncoder] = oldRep
       override def buildData(data: T, rep: String, oldData: List[(String, JsValue)]): List[(String, JsValue)] =
         ((rep, encoder.value.writes(data))) :: oldData
@@ -96,7 +96,7 @@ trait PlayHelper {
       override type Target = PlayAsunaEncoderImpl[T]
       override type Data   = T
 
-      override def wrapRep(base: SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
+      override def wrapRep(base: => SingleRepContent[Writes[T], T]): PlayAsunaEncoderImpl[T] = {
         val base1 = base
         new PlayAsunaEncoderImpl[T] {
           override val write = base1.rep

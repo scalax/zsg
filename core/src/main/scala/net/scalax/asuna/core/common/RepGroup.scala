@@ -22,7 +22,7 @@ object RepGroup {
     new DecoderShape[RepGroup[B ++:: C], RepCol, DataCol] {
       override type Target = G
       override type Data   = E
-      override def wrapRep(base: RepGroup[B ++:: C]): G = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): G = {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
@@ -37,7 +37,7 @@ object RepGroup {
     new DecoderShape[RepGroup[B ++:: C], RepCol, DataCol] {
       override type Target = J
       override type Data   = F
-      override def wrapRep(base: RepGroup[B ++:: C]): J = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): J = {
         val _ ++:: tail = base.repCol
         val rGroup = new RepGroup[C] {
           override val repCol = tail
@@ -55,7 +55,7 @@ object RepGroup {
     new EncoderShape[RepGroup[B ++:: C], RepCol, DataCol] {
       override type Target = G
       override type Data   = E
-      override def wrapRep(base: RepGroup[B ++:: C]): G = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): G = {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
@@ -70,7 +70,7 @@ object RepGroup {
     new EncoderShape[RepGroup[B ++:: C], RepCol, DataCol] {
       override type Target = J
       override type Data   = F
-      override def wrapRep(base: RepGroup[B ++:: C]): J = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): J = {
         val _ ++:: tail = base.repCol
         val rGroup = new RepGroup[C] {
           override val repCol = tail
@@ -88,7 +88,7 @@ object RepGroup {
     new FormatterShape[RepGroup[B ++:: C], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = G
       override type Data   = E
-      override def wrapRep(base: RepGroup[B ++:: C]): G = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): G = {
         val head ++:: _ = base.repCol
         shape.wrapRep(head)
       }
@@ -104,7 +104,7 @@ object RepGroup {
     new FormatterShape[RepGroup[B ++:: C], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = J
       override type Data   = F
-      override def wrapRep(base: RepGroup[B ++:: C]): J = {
+      override def wrapRep(base: => RepGroup[B ++:: C]): J = {
         val _ ++:: tail = base.repCol
         val rGroup = new RepGroup[C] {
           override val repCol = tail

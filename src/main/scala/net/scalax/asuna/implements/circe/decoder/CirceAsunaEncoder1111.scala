@@ -43,7 +43,7 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
     new DecoderShape[RepColumnContent[Placeholder[B], B], List[CirceAsunaDecoder], Map[String, Any]] {
       override type Target = CirceAsunaDecoderImpl[B]
       override type Data   = B
-      override def wrapRep(base: RepColumnContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
+      override def wrapRep(base: => RepColumnContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
         override val key = base.columnInfo.tableColumnSymbol.name
         override def write(data: Json): Either[Exception, B] = {
           if (data == Json.Null) {

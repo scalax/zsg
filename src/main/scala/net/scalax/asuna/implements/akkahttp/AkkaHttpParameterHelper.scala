@@ -87,7 +87,7 @@ trait AkkaHttpParameterHelper {
     new DecoderShape[RepColumnContent[ParameterWithName[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: RepColumnContent[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: => RepColumnContent[ParameterWithName[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base.rep.withName(base.columnInfo.tableColumnSymbol.name)
       }
       override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
@@ -99,7 +99,7 @@ trait AkkaHttpParameterHelper {
     new DecoderShape[Directive1[D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: Directive1[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: => Directive1[D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = base
       }
       override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
@@ -113,7 +113,7 @@ trait AkkaHttpParameterHelper {
     new DecoderShape[RepColumnContent[Placeholder[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: RepColumnContent[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: => RepColumnContent[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = helper.formFieldAs[D].withName(base.columnInfo.tableColumnSymbol.name)
       }
       override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep
@@ -125,7 +125,7 @@ trait AkkaHttpParameterHelper {
     new DecoderShape[LiteralColumn[D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = LiteralColumn[D]
       override type Data   = D
-      override def wrapRep(base: LiteralColumn[D]): LiteralColumn[D]                                                = base
+      override def wrapRep(base: => LiteralColumn[D]): LiteralColumn[D]                                             = base
       override def buildRep(base: LiteralColumn[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = oldRep
       override def takeData(rep: LiteralColumn[D], oldData: List[Any]): SplitData[D, List[Any]]                     = SplitData(rep.data, oldData)
     }

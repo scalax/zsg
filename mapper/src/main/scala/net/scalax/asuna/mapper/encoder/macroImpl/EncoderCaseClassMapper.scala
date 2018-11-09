@@ -1,7 +1,7 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.EncoderShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
+import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
 
@@ -12,7 +12,7 @@ object EncoderCaseClassMapper {
 
   }
 
-  class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
+  class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with GenFileOutputHelper {
 
     import c.universe._
 
