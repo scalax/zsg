@@ -20,13 +20,13 @@ trait FormatterShape[-E, RepCol, EncoderDataCol, DecoderDataCol]
       override type Data   = self.Data
       override type Target = self.Target
       override def packed: FormatterShape.Aux[self.Target, subSelf.Data, Target, RepCol, EncoderDataCol, DecoderDataCol] = subSelf
-      override def wrapRep(base: self.Target): self.Target                                                               = base
+      override def wrapRep(base: => self.Target): self.Target                                                            = base
       override def buildRep(base: Target, oldRep: RepCol): RepCol                                                        = self.buildRep(base, oldRep)
       override def takeData(rep: Target, oldData: DecoderDataCol): SplitData[self.Data, DecoderDataCol]                  = self.takeData(rep, oldData)
       override def buildData(data: Data, rep: Target, oldData: EncoderDataCol): EncoderDataCol                           = self.buildData(data, rep, oldData)
     }
   }
-  override def wrapRep(base: E): Target
+  override def wrapRep(base: => E): Target
   override def buildRep(base: Target, oldRep: RepCol): RepCol
   override def takeData(rep: Target, oldData: DecoderDataCol): SplitData[Data, DecoderDataCol]
   override def buildData(data: Data, rep: Target, oldData: EncoderDataCol): EncoderDataCol
@@ -35,7 +35,7 @@ trait FormatterShape[-E, RepCol, EncoderDataCol, DecoderDataCol]
       subSelf =>
       override type Target = self.Target
       override type Data   = T
-      override def wrapRep(base: E): Target                       = self.wrapRep(base)
+      override def wrapRep(base: => E): Target                    = self.wrapRep(base)
       override def buildRep(base: Target, oldRep: RepCol): RepCol = self.buildRep(base, oldRep)
       override def takeData(rep: Target, oldData: DecoderDataCol): SplitData[T, DecoderDataCol] = {
         val sd = self.takeData(rep, oldData)

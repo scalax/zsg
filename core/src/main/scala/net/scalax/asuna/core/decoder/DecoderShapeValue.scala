@@ -32,9 +32,9 @@ object DecoderShapeValue {
       self =>
       override type Target = DecoderShapeValue[U, RepCol, DataCol]
       override type Data   = U
-      override def wrapRep(base: DecoderShapeValue[U, RepCol, DataCol]): DecoderShapeValue[U, RepCol, DataCol]   = base
-      override def buildRep(base: DecoderShapeValue[U, RepCol, DataCol], oldRep: RepCol): RepCol                 = base.shape.buildRep(base.shape.wrapRep(base.rep), oldRep)
-      override def takeData(rep: DecoderShapeValue[U, RepCol, DataCol], oldData: DataCol): SplitData[U, DataCol] = rep.shape.takeData(rep.rep, oldData)
+      override def wrapRep(base: => DecoderShapeValue[U, RepCol, DataCol]): DecoderShapeValue[U, RepCol, DataCol] = base
+      override def buildRep(base: DecoderShapeValue[U, RepCol, DataCol], oldRep: RepCol): RepCol                  = base.shape.buildRep(base.shape.wrapRep(base.rep), oldRep)
+      override def takeData(rep: DecoderShapeValue[U, RepCol, DataCol], oldData: DataCol): SplitData[U, DataCol]  = rep.shape.takeData(rep.rep, oldData)
     }
   }
 

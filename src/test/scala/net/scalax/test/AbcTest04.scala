@@ -57,11 +57,11 @@ object AbcTest04 extends PlayHelper with App {
   {
     import _root_.play.api.libs.json.Json
     val data1 = System.currentTimeMillis
-    for (_ <- TestParam.testCollection) {
+    for (_ <- TestParam.toStringCollection) {
       Json.stringify(result1.jsonModel)
     }
     val data2 = System.currentTimeMillis
-    println(s"转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
+    println(s"转化为文本 ${TestParam.toStringTimes} 次消耗了 ${data2 - data1} 毫秒")
   }
 
 }

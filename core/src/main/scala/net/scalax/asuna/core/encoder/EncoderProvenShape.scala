@@ -14,7 +14,7 @@ object EncoderProvenShape {
       self =>
       override type Target = R
       override type Data   = U
-      override def wrapRep(base: R): R = base
+      override def wrapRep(base: => R): R = base
       override def buildRep(base: R, oldRep: RepCol): RepCol =
         base.dataShapeValue.shape.buildRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), oldRep)
       override def buildData(data: U, rep: R, oldData: DataCol): DataCol =

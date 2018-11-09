@@ -54,7 +54,7 @@ trait RmuWriterQuery {
       type Level1          = Level
       override type Target = SlickRmuWrapper
       override type Data   = M
-      override def wrapRep(base: RepColumnContent[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
+      override def wrapRep(base: => RepColumnContent[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
         override type DataType = M
         override val circeEncoder = encoder
         override val slickWrapper = new SlickShapeValueWrap[M] {

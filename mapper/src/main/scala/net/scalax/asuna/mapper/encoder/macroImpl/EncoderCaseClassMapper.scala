@@ -1,7 +1,7 @@
 package net.scalax.asuna.mapper.encoder.macroImpl
 
 import net.scalax.asuna.core.encoder.EncoderShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
+import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
 
@@ -12,7 +12,7 @@ object EncoderCaseClassMapper {
 
   }
 
-  class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
+  class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with GenFileOutputHelper {
 
     import c.universe._
 
@@ -162,18 +162,6 @@ object EncoderCaseClassMapper {
             s.modelGetter(q"""${modelVar}.input""")
           })
       )
-      /*input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
-        case (member, TermName(n)) =>
-          val name = n.trim
-          CaseClassField(
-              name = name
-            , rawField = member
-            , fieldType = q"""${proCompanion}.fromModel[${input}](_.${TermName(name)})"""
-            , modelGetter = { modelVar: Tree =>
-              q"""${modelVar}.input.${TermName(name)}"""
-            }
-          )
-      }*/
 
       val outputFieldNames = getCaseClassFields(output).map(
           s =>
@@ -181,27 +169,8 @@ object EncoderCaseClassMapper {
             s.modelGetter(q"""${modelVar}.model""")
           })
       )
-      /*output.members.toList.reverse
-        .filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal)
-        .map(s => (s, s.name))
-        .collect {
-          case (member, TermName(n)) =>
-            /*val Ident(TermName(aaaa)) = q"""${member.asTerm.name}"""
-            println(aaaa * 100)*/
-            val name = n.trim
-            CaseClassField(
-                name = name
-              , rawField = member
-              , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
-              , modelGetter = { modelVar: Tree =>
-                q"""${modelVar}.model.${TermName(name)}"""
-              }
-            )
-        }
-        .reverse*/
 
       val unusedFieldNames = getCaseClassFields(unused)
-      //unused.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val tableFieldNames = fetchTableFields(table)
 

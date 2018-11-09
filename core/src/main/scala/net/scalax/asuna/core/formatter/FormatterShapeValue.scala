@@ -44,7 +44,7 @@ object FormatterShapeValue {
       override type Target = FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
       override type Data   = U
       override def wrapRep(
-          base: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
+          base: => FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
       ): FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol] = base
       override def buildRep(base: FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol], oldRep: RepCol): RepCol =
         base.shape.buildRep(base.shape.wrapRep(base.rep), oldRep)

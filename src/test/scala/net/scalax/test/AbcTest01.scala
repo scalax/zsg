@@ -41,7 +41,7 @@ object AbcTest01 extends App with CirceHelper {
     object Aa {
       implicit def a1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
       implicit def a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
-       def  a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+      def  a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }
 
     for (_ <- TestParam.preCollection) {
@@ -65,11 +65,11 @@ object AbcTest01 extends App with CirceHelper {
 
   {
     val data1 = System.currentTimeMillis
-    for (_ <- TestParam.testCollection) {
+    for (_ <- TestParam.toStringCollection) {
       result1.jsonModel.noSpaces
     }
     val data2 = System.currentTimeMillis
-    println(s"转化为文本 ${TestParam.testTimes} 次消耗了 ${data2 - data1} 毫秒")
+    println(s"转化为文本 ${TestParam.toStringTimes} 次消耗了 ${data2 - data1} 毫秒")
   }
 
 }

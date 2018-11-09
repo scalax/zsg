@@ -14,7 +14,7 @@ object DecoderProvenShape {
       self =>
       override type Target = R
       override type Data   = U
-      override def wrapRep(base: R): R = base
+      override def wrapRep(base: => R): R = base
       override def buildRep(base: R, baseRep: RepCol): RepCol =
         base.dataShapeValue.shape.buildRep(base.dataShapeValue.shape.wrapRep(base.dataShapeValue.rep), baseRep)
       override def takeData(rep: R, oldData: DataCol): SplitData[U, DataCol] =

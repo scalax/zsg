@@ -1,7 +1,7 @@
 package net.scalax.asuna.helper.data.macroImpl
 
 import net.scalax.asuna.core.formatter.FormatterShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{CopyHelper, RepMapperUtils}
+import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
 import net.scalax.asuna.mapper.encoder.UnusedData
 import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable, FormatterWrapApply}
@@ -12,7 +12,7 @@ object FormatterCaseClassMapper {
     override val printlnTree = false
   }
 
-  class BlackboxFormatterCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with CopyHelper {
+  class BlackboxFormatterCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with GenFileOutputHelper {
 
     import c.universe._
 
@@ -88,18 +88,6 @@ object FormatterCaseClassMapper {
       val unusedData       = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
 
       val outputFieldNames = getCaseClassFields(output)
-      /*output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
-        case (member, TermName(n)) =>
-          val name = n.trim
-          CaseClassField(
-              name = name
-            , rawField = member
-            , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
-            , modelGetter = { modelVar: Tree =>
-              q"""${modelVar}.${TermName(name)}"""
-            }
-          )
-      }*/
 
       val tableFieldNames = fetchTableFields(table)
 

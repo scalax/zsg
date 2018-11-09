@@ -12,7 +12,7 @@ import scala.io.Source
 import scala.reflect.macros.blackbox.Context
 import scala.util.{Failure, Properties, Success, Try}
 
-trait CopyHelper extends RepMapperUtils {
+trait GenFileOutputHelper extends RepMapperUtils {
 
   val c: Context
 
