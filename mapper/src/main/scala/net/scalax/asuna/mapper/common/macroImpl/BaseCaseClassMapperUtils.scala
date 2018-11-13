@@ -204,7 +204,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -469,33 +469,32 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   }
 
   @tailrec
-  final def withDataDescribeFunc(treeList: List[Tree]): List[Tree] = {
-    if (treeList.size == 1) {
-      treeList
-    } else {
-      val newList = treeList.grouped(maxNum).toList.map { subList =>
-        val (setVal, setParameter) = subList.zipWithIndex.map {
-          case (item, index) =>
-            val plusIndex = index + 1
-            val fName     = c.freshName("data" + (index + 1))
-            (
-                q"""val ${TermName(fName)} = ${item}"""
-              , List(q"""${TermName("rep" + plusIndex)} = ${TermName(fName)}""", q"""${TermName("property" + plusIndex)} = ${TermName(fName)}.propertyType""")
-            )
-        }.unzip
+  final def withDataDescribeFunc(treeList: List[Tree]): Tree = {
+    treeList match {
+      case head :: Nil =>
+        head
+      case l =>
+        val newList = l.grouped(maxNum).toList.map { subList =>
+          val (setVal, setParameter) = subList.zipWithIndex.map {
+            case (item, index) =>
+              val plusIndex = index + 1
+              val fName     = c.freshName("data" + (index + 1))
+              (
+                  q"""val ${TermName(fName)} = ${item}"""
+                , List(q"""${TermName("rep" + plusIndex)} = ${TermName(fName)}""", q"""${TermName("property" + plusIndex)} = ${TermName(fName)}.propertyType""")
+              )
+          }.unzip
 
-        q"""
+          q"""
             ..${setVal}
             ${caseClassMapperCompanion}.withRawRep(..${setParameter.flatten})"""
-      }
-      withDataDescribeFunc(newList)
+        }
+        withDataDescribeFunc(newList)
     }
   }
 
   def toRepMapper(fields: List[BaseField], tableName: Tree): Tree = {
-    withDataDescribeFunc(
-        initProperty(fields = fields, tableName)
-    ).head
+    withDataDescribeFunc(initProperty(fields = fields, tableName))
   }
 
 }
