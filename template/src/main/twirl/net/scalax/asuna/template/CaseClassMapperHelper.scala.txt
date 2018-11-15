@@ -1,6 +1,6 @@
 @(count: Int)
 
-@* def withRep[@for(i <- 1 to count) {
+def withRep[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i},
     Target@{i},
@@ -30,4 +30,25 @@
         @if(i < count) { , }
     })
 
-} *@
+}
+
+def mergeRep[@for(i <- 1 to count) {
+                 Rep@{i} <: BaseClassRep
+                 @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    rep@{i}: Rep@{i}
+    @if(i < count) { , }
+}): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Rep@{i}#DataType
+    @if(i < count) { , }
+}] = {
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Rep@{i}#DataType
+        @if(i < count) { , }
+    }](@for(i <- 1 to count) {
+        rep@{i} = rep@{i}
+        @if(i < count) { , }
+    })
+}

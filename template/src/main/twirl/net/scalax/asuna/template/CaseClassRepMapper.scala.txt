@@ -8,7 +8,7 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     val rep@{i}: Rep@{i}
     @if(i < count) { , }
 }
-) {
+) extends BaseClassRep {
 self =>
 
     @for(i <- 1 to count) {
@@ -63,6 +63,11 @@ self =>
         Data@{i}
         @if(i < count) { , }
     }]] = null
+
+    override type DataType = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]
 
     def dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},

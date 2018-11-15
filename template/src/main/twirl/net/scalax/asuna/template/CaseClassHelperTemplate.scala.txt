@@ -23,6 +23,10 @@ import net.scalax.asuna.mapper.formatter.FormatterDebugShape
 
 import scala.language.higherKinds
 
+trait BaseClassRep {
+  type DataType
+}
+
 trait CaseClassMapper
 
 object CaseClassMapper {

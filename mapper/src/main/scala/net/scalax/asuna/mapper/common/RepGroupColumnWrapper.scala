@@ -13,7 +13,7 @@ trait RepGroupColumnWrapper[-Col, Data, ColumnInfoType <: MacroColumnInfo] {
 object RepGroupColumnWrapper extends RepGroupColumnWrapperImplicit1 {
   type Aux[-Col, Data, ColumnInfoType <: MacroColumnInfo, T] = RepGroupColumnWrapper[Col, Data, ColumnInfoType] { type Target = T }
 
-  @inline def apply[Col, Data, ColumnInfoType <: MacroColumnInfo, Target](
+  /*@inline def apply[Col, Data, ColumnInfoType <: MacroColumnInfo, Target](
       rep: => Col
     , columnInfo: ColumnInfoType
     , propertyType: PropertyType[Data]
@@ -28,7 +28,7 @@ object RepGroupColumnWrapper extends RepGroupColumnWrapperImplicit1 {
     , defaultValue: => Data
   )(implicit repGroupColumnWrapper: RepGroupColumnWrapper.Aux[Col, Data, ColumnInfoType, Target]): Target = {
     repGroupColumnWrapper.inputColumn(rep, columnInfo, Option(defaultValue))
-  }
+  }*/
 
 }
 
