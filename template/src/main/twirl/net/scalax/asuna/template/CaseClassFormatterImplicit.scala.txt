@@ -47,11 +47,13 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }] = {
-        CaseClassMapper.withRawRep(@for(i <- 1 to count) {
-            rep@{i} = shape@{i}.wrapRep(base.rep@{i}),
-            property@{i} = null: PropertyType[Data@{i}]
+        CaseClassMapper.inputRep(@for(i <- 1 to count) {
+            rep@{i} = shape@{i}.wrapRep(base.rep@{i})
             @if(i < count) { , }
-        })
+        }).withDataType[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }]
         }
         override def buildRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},

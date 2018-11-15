@@ -11,9 +11,9 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
 ) extends BaseClassRep {
 self =>
 
-    @for(i <- 1 to count) {
+    @* @for(i <- 1 to count) {
         @@inline def property@{i}: PropertyType[Data@{i}] = null
-    }
+    } *@
 
     @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
     "@for(i <- 1 to count) {i@{i}(context)\n}to find the missing column.", "0.0.1")
@@ -59,10 +59,10 @@ self =>
         }
     }
 
-    @@inline def propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+    @* @@inline def propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
-    }]] = null
+    }]] = null *@
 
     override type DataType = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
@@ -88,5 +88,60 @@ self =>
         }]
         override val rep = self
     }
+
+}
+
+trait RepSetter@{count}[@for(i <- 1 to count) {
+    Rep@{i}
+    @if(i < count) { , }
+}] {
+
+def withDataType[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}]: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}]
+
+}
+
+trait RepDataSetter1@{count}[@for(i <- 1 to count) {
+    Rep@{i}, Column@{i} <: MacroColumnInfo
+    @if(i < count) { , }
+}] {
+
+    def withDataType[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }](@for(i <- 1 to count) {
+        defaultValue@{i}: => Option[Data@{i}]
+        @if(i < count) { , }
+    }): RepDataSetter2@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Column@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }]
+
+}
+
+trait RepDataSetter2@{count}[@for(i <- 1 to count) {
+    Rep@{i}, Column@{i} <: MacroColumnInfo, Data@{i}
+    @if(i < count) { , }
+}] {
+
+    def output[@for(i <- 1 to count) {
+        Target@{i}
+        @if(i < count) { , }
+    }](implicit @for(i <- 1 to count) {
+        wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Column@{i}, Target@{i}]
+        @if(i < count) { , }
+    }): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Target@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }]
 
 }

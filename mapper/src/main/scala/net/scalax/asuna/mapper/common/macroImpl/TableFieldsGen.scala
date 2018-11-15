@@ -38,7 +38,7 @@ trait TableFieldsGen {
   }
   case class MutiplyKey(
       private val mutiplyKey: List[String]
-    , properType: Tree
+    , properType: Type
     , modelSetter: List[Tree] => Tree
     , override val tableGetter: Tree => Tree
     , override val tablePropertyName: String
@@ -146,7 +146,7 @@ trait TableFieldsGen {
             MutiplyKey(
                 mutiplyKey = fields.filterNot(s => s == item.key)
               , tablePropertyName = item.key
-              , properType = q"""null: net.scalax.asuna.mapper.common.PropertyType[${annoType}]"""
+              , properType = annoType
               , modelSetter = { setters: List[Tree] =>
                 q"""${annoType.typeSymbol.companion}(..${setters})"""
               }

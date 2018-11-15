@@ -17,7 +17,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     def tablePropertyName: String
     def names: List[String]
     def tableGetter: Tree => Tree
-    def propertyType: Tree
+    def propertyType: Type
     def repIndex: List[Int]
     def appendIndex(index: Int): BaseField
     def defaultValue: Option[Tree]
@@ -112,7 +112,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
-    , override val propertyType: Tree
+    , override val propertyType: Type
     , override val repIndex: List[Int] = List.empty
     , override val defaultValue: Option[Tree]
   ) extends EncoderField
@@ -122,7 +122,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val names: List[String]
     , override val tableGetter: Tree => Tree
     , override val modelSetter: Map[String, Tree => Tree]
-    , override val propertyType: Tree
+    , override val propertyType: Type
     , override val repIndex: List[Int] = List.empty
     , override val defaultValue: Option[Tree]
   ) extends DecoderField
@@ -133,7 +133,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
     , override val tableGetter: Tree => Tree
     , override val modelGetter: Tree => Tree
     , override val modelSetter: Map[String, Tree => Tree]
-    , override val propertyType: Tree
+    , override val propertyType: Type
     , override val repIndex: List[Int] = List.empty
     , override val defaultValue: Option[Tree]
   ) extends FormatterField
@@ -351,7 +351,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   case class CaseClassField(
       name: String
-    , fieldType: Tree
+    , fieldType: Type
     , placeHolder: Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
@@ -370,7 +370,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
         CaseClassField(
             name = paramName
-          , fieldType = q"""null: net.scalax.asuna.mapper.common.PropertyType[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
+          , fieldType = caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType
           , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
@@ -393,8 +393,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   //lazy val optionCompaion           = weakTypeOf[Option[_]].typeSymbol.companion
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
-    val treeList = fields.grouped(maxNum).toList.map { eachField =>
-      val param = eachField.zipWithIndex.map {
+    val treeList = fields.grouped(maxNum).toList.map { eachFields =>
+      val param = eachFields.zipWithIndex.map {
         case (field, index) =>
           val plusIndex = index + 1
           val columnInfoTree = q"""${columnInfoImplCompanion}(
@@ -403,17 +403,19 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
               fieldName => q"""${symbolCompaion}(${Literal(Constant(fieldName))})"""
           )})"""
 
-          List(
-              q"""${TermName("rep" + plusIndex.toString)} = ${field.tableGetter(tableName)}"""
-            , q"""${TermName("property" + plusIndex.toString)} = ${field.propertyType}"""
-            , q"""${TermName("column" + plusIndex.toString)} = ${columnInfoTree}"""
+          (
+              List(
+                q"""${TermName("rep" + plusIndex.toString)} = ${field.tableGetter(tableName)}"""
+              , q"""${TermName("column" + plusIndex.toString)} = ${columnInfoTree}"""
+            )
+            , field.propertyType
             , field.defaultValue
               .map(value => q"""${TermName("defaultValue" + plusIndex.toString)} = Some(${value})""")
               .getOrElse(q"""${TermName("defaultValue" + plusIndex.toString)} = None""")
           )
 
       }
-      q"""${caseClassMapperCompanion}.withRep(..${param.flatten})"""
+      q"""${caseClassMapperCompanion}.inputColumnRep(..${param.flatMap(_._1)}).withDataType[..${param.map(_._2)}](..${param.map(_._3)}).output"""
     }
 
     treeList
