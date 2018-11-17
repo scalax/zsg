@@ -5,9 +5,7 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
         Data@{i},
         Target@{i},
     } RepCol, EncoderDataCol, DecoderDataCol](
-    implicit @for(i <- 1 to count) {
-        shape@{i}: FormatterShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, EncoderDataCol, DecoderDataCol] @if(i < count) { , }
-    })
+    implicit @for(i <- 1 to count) { shape@{i}: FormatterShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, EncoderDataCol, DecoderDataCol] @if(i < count) { , } })
     : FormatterShape.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
@@ -32,11 +30,11 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
-        }]
+        }];
         override type Data = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
-        }]
+        }];
         override def wrapRep(base: => CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Rep@{i},
             Data@{i}
@@ -47,25 +45,27 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }] = {
-        CaseClassMapper.inputRep(@for(i <- 1 to count) {
-            rep@{i} = shape@{i}.wrapRep(base.rep@{i})
-            @if(i < count) { , }
-        }).withDataType[@for(i <- 1 to count) {
-            Data@{i}
-            @if(i < count) { , }
-        }]
-        }
+            new CaseClassRepMapper@{count}[
+                @for(i <- 1 to count) {
+                Target@{i},
+                Data@{i}
+                @if(i < count) { , }
+            }](@for(i <- 1 to count) {
+                rep@{i} = shape@{i}.wrapRep(base.rep@{i})
+                @if(i < count) { , }
+            });
+        };
         override def buildRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
             Target@{i},
             Data@{i}
             @if(i < count) { , }
         }], oldRep: RepCol): RepCol = {
-            val rep@{count + 1} = oldRep
+            val rep@{count + 1} = oldRep;
             @for(i <- (count to 1 by - 1)) {
-                val rep@{i} = shape@{i}.buildRep(base.rep@{i}, rep@{i + 1})
+                val rep@{i} = shape@{i}.buildRep(base.rep@{i}, rep@{i + 1});
             }
-            rep1
-        }
+            rep1;
+        };
         override def buildData(data: CaseClassDataMapper@{count}[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
@@ -74,12 +74,12 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             Data@{i}
             @if(i < count) { , }
         }], oldData: EncoderDataCol): EncoderDataCol = {
-            val data@{count + 1} = oldData
+            val data@{count + 1} = oldData;
             @for(i <- (count to 1 by - 1)) {
-                val data@{i} = shape@{i}.buildData(data.data@{i}, rep.rep@{i}, data@{i + 1})
+                val data@{i} = shape@{i}.buildData(data.data@{i}, rep.rep@{i}, data@{i + 1});
             }
-            data1
-        }
+            data1;
+        };
        override def takeData(rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
            Target@{i},
            Data@{i}
@@ -88,16 +88,16 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
            Data@{i}
            @if(i < count) { , }
        }], DecoderDataCol] = {
-           val dataCol0 = oldDataCol
-           val split1 = shape1.takeData(rep.rep1, dataCol0)
+           val dataCol0 = oldDataCol;
+           val split1 = shape1.takeData(rep.rep1, dataCol0);
            @for(i <- 2 to count) {
-               val split@{i} = shape@{i}.takeData(rep.rep@{i}, split@{i - 1}.left)
+               val split@{i} = shape@{i}.takeData(rep.rep@{i}, split@{i - 1}.left);
            }
            SplitData(current = new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
                data@{i} = split@{i}.current
                @if(i < count) { , }
            }),
            left = split@{count}.left)
-       }
+       };
     }
-}
+};

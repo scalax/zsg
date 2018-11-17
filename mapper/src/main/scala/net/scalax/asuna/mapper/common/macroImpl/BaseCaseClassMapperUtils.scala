@@ -44,9 +44,6 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       modelSetter.map {
         case (key, value) =>
           val initTree = Ident(TermName(tempDataVar))
-          /*val setterTree = value.foldLeft(initTree) { (tree, name) =>
-            q"""${tree}.${TermName(name)}"""
-          }*/
           (key, value(initTree))
       }
     }
@@ -204,7 +201,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -393,7 +390,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   //lazy val optionCompaion           = weakTypeOf[Option[_]].typeSymbol.companion
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
-    val treeList = fields.grouped(maxNum).toList.map { eachFields =>
+    fields.grouped(maxNum).toList.map { eachFields =>
       val param = eachFields.zipWithIndex.map {
         case (field, index) =>
           val plusIndex = index + 1
@@ -403,22 +400,17 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
               fieldName => q"""${symbolCompaion}(${Literal(Constant(fieldName))})"""
           )})"""
 
-          (
-              List(
-                q"""${TermName("rep" + plusIndex.toString)} = ${field.tableGetter(tableName)}"""
-              , q"""${TermName("column" + plusIndex.toString)} = ${columnInfoTree}"""
-            )
-            , field.propertyType
+          List(
+              q"""${TermName("rep" + plusIndex.toString)} = ${field.tableGetter(tableName)}"""
+            , q"""${TermName("column" + plusIndex.toString)} = ${columnInfoTree}"""
             , field.defaultValue
-              .map(value => q"""${TermName("defaultValue" + plusIndex.toString)} = Some(${value})""")
-              .getOrElse(q"""${TermName("defaultValue" + plusIndex.toString)} = None""")
+              .map(value => q"""${TermName("defaultValue" + plusIndex.toString)} = (Some(${value}): Option[${field.propertyType}])""")
+              .getOrElse(q"""${TermName("defaultValue" + plusIndex.toString)} = (None: Option[${field.propertyType}])""")
           )
 
       }
-      q"""${caseClassMapperCompanion}.inputColumnRep(..${param.flatMap(_._1)}).withDataType[..${param.map(_._2)}](..${param.map(_._3)}).output"""
+      q"""${caseClassMapperCompanion}.withRep(..${param.flatten})"""
     }
-
-    treeList
     /*.grouped(maxNum)
       .map { subList =>
         val q = q"""

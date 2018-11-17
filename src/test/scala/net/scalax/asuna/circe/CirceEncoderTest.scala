@@ -3,7 +3,7 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import io.circe.Encoder
+import io.circe.{Decoder, DecodingFailure, Encoder}
 import net.scalax.asuna.circe.CirceAsunaDecoderHelper
 import net.scalax.asuna.implements.circe.abc.CirceHelper
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
@@ -47,6 +47,72 @@ class CirceEncoderTest
 
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
+
+  case class InputTest[T](id: T) {
+    type MType = Model[T]
+  }
+  case class Model[T](id: T, name: String, age: Int)
+  trait Wrap {
+    type IdType
+    def model(f: InputTest[IdType]): f.MType
+  }
+
+  trait Wrap1111 {
+    def model[IdType](f: InputTest[IdType]): Model[IdType]
+  }
+
+  trait Abc {
+    type IdType1 <: Def#IdType2
+  }
+
+  trait Def {
+    type IdType2
+  }
+
+  object AA
+
+  val aa: Decoder[InputTest[Wrap#IdType] => Model[Wrap#IdType]] =
+    asunaCirceDecoder.effect(asunaCirceDecoder.lazyModel[InputTest[Wrap#IdType], InputTest[Wrap#IdType]#MType, EmptyLazyModel](AA).compile).decoder.map(s => s)
+
+  val jyukuil: Decoder[Wrap1111] = {
+    val ngkrtnohntohjnty: Decoder[InputTest[Abc#IdType1] => Model[Def#IdType2]] = asunaCirceDecoder
+      .effect(asunaCirceDecoder.lazyModel[InputTest[Abc#IdType1], InputTest[Def#IdType2]#MType, EmptyLazyModel](AA).compile)
+      .decoder
+      .map(s => s)
+
+    Decoder.decodeJson.emap { j =>
+      val tjyhmhjkm: InputTest[Abc#IdType1] => Model[Def#IdType2] = j.as(ngkrtnohntohjnty).right.get
+
+      Right(new Wrap1111 {
+        override def model[IdType](r: InputTest[IdType]): Model[IdType] = {
+          //j.as(asunaCirceDecoder.effect(asunaCirceDecoder.debugLazyModel[r.type, r.MType, EmptyLazyModel](AA).compile).decoder.map(s => s)).right.get.apply(r)
+          ???
+        }
+      })
+    }
+  }
+
+  implicit def mrekjiotjo[T](implicit mtonortn: Decoder[T]): Decoder[Model[T]] = {
+    trait mojoijno extends Wrap {
+      override type IdType = T
+    }
+
+    Decoder.decodeJson.emap { j =>
+      val bb: InputTest[Wrap#IdType] => InputTest[Wrap#IdType]#MType = j.as(aa).right.get
+      val cc: mojoijno#IdType                                        = j.as(mtonortn).right.get
+      def dd[R <: Wrap](sdfgerg: R#IdType)                           = bb(InputTest(sdfgerg))
+
+      dd[mojoijno](cc)
+
+      Right(new Wrap {
+        override type IdType = T
+        override def model(r: InputTest[IdType]): Model[IdType] = {
+          bb(InputTest(r.id: Wrap#IdType))
+          ???
+        }
+      }.model(InputTest(cc)))
+    }
+  }
 
   /*object TestModel2Helper
 

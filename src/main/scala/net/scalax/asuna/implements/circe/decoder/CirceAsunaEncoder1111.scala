@@ -1,14 +1,15 @@
 package net.scalax.asuna.circe
 
-import io.circe.{Decoder, Json}
+import io.circe.{Decoder, DecodingFailure, Json}
 import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
 import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.mapper.common.RepColumnContent
+import net.scalax.asuna.mapper.common.SingleRepContent
 import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
-  def read(data: Json): Either[Exception, DataType]
+  def read(data: Json): Either[DecodingFailure, DataType]
+  def decoder: Decoder[DataType] = Decoder.decodeJson.emap(r => read(r).left.map(s => s.getMessage))
 }
 
 object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder], Map[String, Any], ACirceDecoderWrapper] {
@@ -21,10 +22,10 @@ object asunaCirceDecoderImpl extends DecoderWrapperHelper[List[CirceAsunaDecoder
     val wrapRep = shape1.wrapRep(rep1)
     val lawRep  = shape1.buildRep(wrapRep, List.empty).map(s => (s.key, s)).toMap
     new ACirceDecoderWrapper[Out, D] {
-      override def read(data: Json): Either[Exception, D] = {
+      override def read(data: Json): Either[DecodingFailure, D] = {
         val jsonObject = data.as[Map[String, Json]].right.get
         val dataMap    = lawRep.map { case (key, value) => (key, value.write(jsonObject.get(key).get)) }
-        val value = dataMap.foldLeft(Right(Map.empty[String, Any]): Either[Exception, Map[String, Any]]) {
+        val value = dataMap.foldLeft(Right(Map.empty[String, Any]): Either[DecodingFailure, Map[String, Any]]) {
           case (map, (key, Right(value))) => map.right.map(m => m + ((key, value)))
           case (_, (_, Left(e)))          => Left(e)
         }
@@ -39,13 +40,13 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
 
   implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](
       implicit someshape: Decoder[B]
-  ): DecoderShape.Aux[RepColumnContent[Placeholder[B], B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
-    new DecoderShape[RepColumnContent[Placeholder[B], B], List[CirceAsunaDecoder], Map[String, Any]] {
+  ): DecoderShape.Aux[SingleRepContent[Placeholder[B], B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
+    new DecoderShape[SingleRepContent[Placeholder[B], B], List[CirceAsunaDecoder], Map[String, Any]] {
       override type Target = CirceAsunaDecoderImpl[B]
       override type Data   = B
-      override def wrapRep(base: => RepColumnContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
+      override def wrapRep(base: => SingleRepContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
         override val key = base.columnInfo.tableColumnSymbol.name
-        override def write(data: Json): Either[Exception, B] = {
+        override def write(data: Json): Either[DecodingFailure, B] = {
           if (data == Json.Null) {
             Right(null.asInstanceOf[B])
           } else {

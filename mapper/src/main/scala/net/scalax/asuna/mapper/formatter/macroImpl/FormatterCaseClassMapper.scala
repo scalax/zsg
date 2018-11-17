@@ -103,7 +103,7 @@ object FormatterCaseClassMapper {
         .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       } { (tempData, rep) =>
-        ${output.typeSymbol.companion}(
+        new ${output}(
         ..${tempFieldSetter}
         ) }"""
 

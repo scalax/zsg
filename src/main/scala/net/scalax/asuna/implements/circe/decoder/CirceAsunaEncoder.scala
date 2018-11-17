@@ -1,6 +1,6 @@
 package net.scalax.asuna.circe.aaaa
 
-import io.circe.Json
+import io.circe.{DecodingFailure, Json}
 
 trait CirceAsunaDecoder {
 
@@ -8,7 +8,7 @@ trait CirceAsunaDecoder {
 
   val key: String
 
-  def write(json: Json): Either[Exception, DataType]
+  def write(json: Json): Either[DecodingFailure, DataType]
 
 }
 

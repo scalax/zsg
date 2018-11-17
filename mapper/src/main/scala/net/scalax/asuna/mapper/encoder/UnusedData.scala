@@ -13,20 +13,19 @@ trait UnusedData[Input, Model, Unused] {
 
 object UnusedData {
 
-  implicit def tupe2DataToUnusedData[Input, Model, Unused](
-      tupleData: (Input, Model)
-  )(implicit cv: UnusedDataMacro.UnusedDataTran[Model, Unused]): UnusedData[Input, Model, Unused] = {
+  implicit def tupe2DataToUnusedData[Input, Model, Unused](tupleData: (Input, Model))(
+    implicit cv: UnusedDataMacro.UnusedDataTran[Model, Unused]): UnusedData[Input, Model, Unused] = {
     new UnusedData[Input, Model, Unused] {
-      override val input: Input        = tupleData._1
-      override val model: Model        = tupleData._2
-      override lazy val unused: Unused = cv(tupleData._2)
+      override val input  = tupleData._1
+      override val model  = tupleData._2
+      override def unused = cv(tupleData._2)
     }
   }
 
   def simple[D](data: D): UnusedData[EmptyLazyModel, D, EmptyLazyModel] = new UnusedData[EmptyLazyModel, D, EmptyLazyModel] {
-    override val input: EmptyLazyModel       = EmptyLazyModel.value
-    override val model: D                    = data
-    override lazy val unused: EmptyLazyModel = EmptyLazyModel.value
+    override val input  = EmptyLazyModel.value
+    override val model  = data
+    override def unused = EmptyLazyModel.value
   }
 
 }
