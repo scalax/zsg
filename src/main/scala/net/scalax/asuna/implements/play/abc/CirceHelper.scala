@@ -108,10 +108,10 @@ trait PlayHelper {
 
   }
 
-  object play extends EncoderWrapperHelper[List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)], PlayContent] {
+  object play extends EncoderWrapperHelper[List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)], PlayContent] {
     override def effect[Rep, D, Out](
         rep: Rep
-    )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)]]): PlayContent[Out, D] = {
+    )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]]): PlayContent[Out, D] = {
       val wrapRep = shape.wrapRep(rep)
       new PlayContent[Out, D] {
         override def write: Writes[D] = Writes { data: D =>

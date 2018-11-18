@@ -7,7 +7,7 @@ import scala.reflect.macros.blackbox.Context
 
 trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
-  val maxNum = 17
+  val maxNum = 13
 
   override val c: Context
 
@@ -201,7 +201,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                          }
+                            }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {

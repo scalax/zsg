@@ -14,7 +14,7 @@ trait UnusedData[Input, Model, Unused] {
 object UnusedData {
 
   implicit def tupe2DataToUnusedData[Input, Model, Unused](
-    tupleData: (Input, Model)
+      tupleData: (Input, Model)
   )(implicit cv: UnusedDataMacro.UnusedDataTran[Model, Unused]): UnusedData[Input, Model, Unused] = {
     new UnusedData[Input, Model, Unused] {
       override val input  = tupleData._1
