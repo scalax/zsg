@@ -45,7 +45,7 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
       override type Target = CirceAsunaDecoderImpl[B]
       override type Data   = B
       override def wrapRep(base: => SingleRepContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
-        override val key = base.columnInfo.tableColumnSymbol.name
+        override val key = base.singleModelName
         override def write(data: Json): Either[DecodingFailure, B] = {
           if (data == Json.Null) {
             Right(null.asInstanceOf[B])

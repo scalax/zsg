@@ -80,24 +80,24 @@ implicit def caseClassHelper@{count}FormatterGen[@for(i <- 1 to count) {
             }
             data1;
         };
-       override def takeData(rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-           Target@{i},
-           Data@{i}
-           @if(i < count) { , }
-       }], oldDataCol: DecoderDataCol): SplitData[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-           Data@{i}
-           @if(i < count) { , }
-       }], DecoderDataCol] = {
-           val dataCol0 = oldDataCol;
-           val split1 = shape1.takeData(rep.rep1, dataCol0);
-           @for(i <- 2 to count) {
-               val split@{i} = shape@{i}.takeData(rep.rep@{i}, split@{i - 1}.left);
-           }
-           SplitData(current = new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
-               data@{i} = split@{i}.current
-               @if(i < count) { , }
-           }),
-           left = split@{count}.left)
-       };
+        override def takeData(rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }], oldDataCol: DecoderDataCol): SplitData[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }], DecoderDataCol] = {
+            val dataCol0 = oldDataCol;
+            val split1 = shape1.takeData(rep.rep1, dataCol0);
+            @for(i <- 2 to count) {
+                val split@{i} = shape@{i}.takeData(rep.rep@{i}, split@{i - 1}.left);
+            }
+            SplitData(current = new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
+                data@{i} = split@{i}.current
+                @if(i < count) { , }
+            }),
+            left = split@{count}.left)
+        };
     }
 };

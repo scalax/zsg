@@ -7,16 +7,14 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
 }](@for(i <- 1 to count) {
     val rep@{i}: Rep@{i}
     @if(i < count) { , }
-}
-) extends BaseClassRep {
-self =>;
+}) extends DataGenWrap {
 
     @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
     "@for(i <- 1 to count) {i@{i}(context)\n}to find the missing column.", "0.0.1") def selfInfo: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }] = self;
+    }] = this;
 
     @for(i <- 1 to count) {
         def i@{i}[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target]
@@ -54,29 +52,15 @@ self =>;
         };
     };
 
-    override type DataType = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+    override type TempData = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
     }];
-
-    def dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    override type TempRep = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }], CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-        Data@{i}
-        @if(i < count) { , }
-    }]] = new DataGenWrap {
-        override type TempRep = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-            Rep@{i},
-            Data@{i}
-            @if(i < count) { , }
-        }];
-        override type TempData = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-            Data@{i}
-            @if(i < count) { , }
-        }];
-        override val rep = self
-    };
+    }];
+    override def rep: TempRep = this;
 
 };

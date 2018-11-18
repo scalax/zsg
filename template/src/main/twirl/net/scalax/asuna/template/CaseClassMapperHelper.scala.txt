@@ -4,10 +4,10 @@ def withRep[@for(i <- 1 to count) {
     Rep@{i},
     Data@{i},
     Target@{i},
-    Column@{i} <: MacroColumnInfo
+    Column@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: Rep@{i},
+    rep@{i}: => Rep@{i},
     defaultValue@{i}: => Option[Data@{i}],
     column@{i}: Column@{i}
     @if(i < count) { , }
@@ -29,19 +29,19 @@ def withRep[@for(i <- 1 to count) {
 };
 
 def mergeRep[@for(i <- 1 to count) {
-                 Rep@{i} <: BaseClassRep
+                 Rep@{i} <: DataGenWrap
                  @if(i < count) { , }
 }](@for(i <- 1 to count) {
     rep@{i}: Rep@{i}
     @if(i < count) { , }
 }): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
     Rep@{i},
-    Rep@{i}#DataType
+    Rep@{i}#TempData
     @if(i < count) { , }
 }] = {
     new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
-        Rep@{i}#DataType
+        Rep@{i}#TempData
         @if(i < count) { , }
     }](@for(i <- 1 to count) {
         rep@{i} = rep@{i}

@@ -179,7 +179,7 @@ object EncoderCaseClassMapper {
       val fields = getEncoderMembers(notInputOutputFieldNames, tableFieldNames)
 
       val content = q"""${getCompanion(encoderDataGen)}
-        .fromDataGenWrap[$input, $output, $unused](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (caseClass, rep) =>
+        .fromDataGenWrap[$input, $output, $unused](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       }"""
 

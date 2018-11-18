@@ -201,7 +201,7 @@ object DecoderCaseClassMapper {
         else q"""new ${sub}(..${subFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")})"""
 
       val content = q"""${getCompanion(decoderDataGen)}
-        .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (tempData, rep) =>
+        .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = Ident(TermName(tableName)))}) { (tempData, rep) =>
           ${getCompanion(lazyModel)}.init(gen = {s: ${input} => new ${output}(
             ..${List(
           tempFieldSetter
