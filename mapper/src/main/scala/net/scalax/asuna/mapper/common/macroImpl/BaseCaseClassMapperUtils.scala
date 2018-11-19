@@ -201,7 +201,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -415,19 +415,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         head
       case l =>
         val newList = l.grouped(maxNum).toList.map { subList =>
-          val (setVal, setParameter) = subList.zipWithIndex.map {
+          val setParameter = subList.zipWithIndex.map {
             case (item, index) =>
               val plusIndex = index + 1
-              val fName     = c.freshName("data" + (index + 1))
-              (
-                  q"""val ${TermName(fName)} = ${item}"""
-                , q"""${TermName("rep" + plusIndex)} = ${TermName(fName)}"""
-              )
-          }.unzip
-
-          q"""
-            ..${setVal}
-            ${caseClassMapperCompanion}.mergeRep(..${setParameter})"""
+              //val fName     = c.freshName("data" + (index + 1))
+              q"""${TermName("rep" + plusIndex)} = ${item}"""
+          }
+          q"""${caseClassMapperCompanion}.mergeRep(..${setParameter})"""
         }
         withDataDescribeFunc(newList)
     }

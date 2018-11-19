@@ -3,7 +3,7 @@ package aa.bb.cc
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import io.circe.{Decoder, DecodingFailure, Encoder}
+import io.circe.{Decoder, Encoder}
 import net.scalax.asuna.circe.CirceAsunaDecoderHelper
 import net.scalax.asuna.implements.circe.abc.CirceHelper
 import net.scalax.asuna.mapper.decoder.EmptyLazyModel
