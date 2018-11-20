@@ -17,11 +17,11 @@ trait DecoderCaseClassShapeMacroHelper[RepCol, DataCol] {
   def singleModel[Case]: DecoderWrapApply[RepCol, DataCol]#TableWrap[Case]               = wrapApply.withSingleModel[Case]
   def debugSingleModel[Output]: DecoderWrapApply[RepCol, DataCol]#DebugTableWrap[Output] = wrapApply.debugWithSingleModel[Output]
   def fillSingleModel[Case]: DecoderShapeValue[Case, RepCol, DataCol]                    = ???
-  def lazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#LazyModelWrap[Input, Output, Sub] =
-    wrapApply.withLazyModel[Input, Output, Sub]
-  def debugLazyModel[Input, Output, Sub]: DecoderWrapApply[RepCol, DataCol]#DebugLazyModelWrap[Input, Output, Sub] =
-    wrapApply.debugWithLazyModel[Input, Output, Sub]
-  def fillLazyeModel[Input, Output, Sub]: DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol] = ???
+  def lazyModel[L]: DecoderWrapApply[RepCol, DataCol]#LazyModelWrap[L] =
+    wrapApply.withLazyModel[L]
+  def debugLazyModel[L]: DecoderWrapApply[RepCol, DataCol]#DebugLazyModelWrap[L] =
+    wrapApply.debugWithLazyModel[L]
+  def fillLazyeModel[L]: DecoderShapeValue[L, RepCol, DataCol] = ???
 
 }
 

@@ -4,6 +4,8 @@ import net.scalax.asuna.core.decoder.DecoderShapeValue
 import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder._
 
+import scala.reflect.internal.Symbols
+
 object DecoderCaseClassMapper {
 
   class DecoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxDecoderCaseClassMapperImpl(c) {
@@ -22,7 +24,7 @@ object DecoderCaseClassMapper {
       , RepCol: c.WeakTypeTag
       , DataCol: c.WeakTypeTag
     ](tableParam: c.Expr[Table]): c.Expr[DecoderShapeValue[Output, RepCol, DataCol]] = {
-      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel]]
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Output]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
       val output            = weakTypeOf[Output]
@@ -32,7 +34,7 @@ object DecoderCaseClassMapper {
 
       val tableName = c.freshName("table")
 
-      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel, Any, Any](tableName)
+      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, Output, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
@@ -60,32 +62,28 @@ object DecoderCaseClassMapper {
     def debugCaseClassLazyModelDecoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Sub: c.WeakTypeTag
+      , LazyModel: c.WeakTypeTag
       , RepCol: c.WeakTypeTag
       , DataCol: c.WeakTypeTag
-    ](tableParam: c.Expr[Table]): c.Expr[DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol]] = {
-      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Input, Output, Sub]]
+    ](tableParam: c.Expr[Table]): c.Expr[DecoderShapeValue[LazyModel, RepCol, DataCol]] = {
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, LazyModel]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
-      val input             = weakTypeOf[Input]
-      val output            = weakTypeOf[Output]
-      val sub               = weakTypeOf[Sub]
       val repCol            = weakTypeOf[RepCol]
       val dataCol           = weakTypeOf[DataCol]
       val decoderWrapApply  = weakTypeOf[DecoderWrapApply[RepCol, DataCol]]
+      val lazyModel         = weakTypeOf[LazyModel]
 
       val tableName = c.freshName("table")
 
-      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Any, Any](tableName)
+      val (content, decoderFields) = baseCaseClassDecoderGeneric[Poly, Table, LazyModel, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
       }"""
 
       val completeTree = q"""
-        ${getCompanion(decoderWrapApply)}.decoderInstance[${repCol}, ${dataCol}].withLazyModel[${input}, ${output}, ${sub}](${tableParam}) {
+        ${getCompanion(decoderWrapApply)}.decoderInstance[${repCol}, ${dataCol}].withLazyModel[${lazyModel}](${tableParam}) {
           ${getCompanion(decoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
             ${content}
           }
@@ -94,7 +92,7 @@ object DecoderCaseClassMapper {
 
       copySourceToTarget(completeTree.toString, decoderFields)
 
-      c.Expr[DecoderShapeValue[LazyModel[Input, Output, Sub], RepCol, DataCol]] {
+      c.Expr[DecoderShapeValue[LazyModel, RepCol, DataCol]] {
         q"""
           ${q}
           ???
@@ -106,61 +104,67 @@ object DecoderCaseClassMapper {
     def caseClassDecoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Sub: c.WeakTypeTag
+      , LazyModel: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ]: c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]] = {
-      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Input, Output, Sub, Output]]
+    ]: c.Expr[DecoderInputTable.Aux[Poly, Table, LazyModel, Rep, TempData]] = {
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, LazyModel]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
 
       val tableName = c.freshName("table")
 
-      val (content, _) = baseCaseClassDecoderGeneric[Poly, Table, Input, Output, Sub, Rep, TempData](tableName)
+      val (content, _) = baseCaseClassDecoderGeneric[Poly, Table, LazyModel, Rep, TempData](tableName)
 
       val q = q"""${getCompanion(decoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
           ${content}
         }"""
 
-      c.Expr[DecoderInputTable.Aux[Poly, Table, Input, Output, Sub, Rep, TempData]](q)
+
+      c.Expr[DecoderInputTable.Aux[Poly, Table, LazyModel, Rep, TempData]](q)
     }
 
     def baseCaseClassDecoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Sub: c.WeakTypeTag
+      , LazyModel: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
     ](tableName: String): (Tree, List[DecoderField]) = {
       val rep               = weakTypeOf[Rep]
       val tempData          = weakTypeOf[TempData]
       val poly              = weakTypeOf[Poly]
-      val input             = weakTypeOf[Input]
-      val output            = weakTypeOf[Output]
-      val sub               = weakTypeOf[Sub]
       val table             = weakTypeOf[Table]
-      val lazyModel         = weakTypeOf[LazyModel[Input, Output, Sub]]
-      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, Input, Output, Sub]]
-      val decoderDataGen    = weakTypeOf[DecoderDataGen[Input, Output, Sub]]
+      val lazyModel         = weakTypeOf[LazyModel]
+      val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, LazyModel]]
+      val decoderDataGen    = weakTypeOf[DecoderDataGen[LazyModel]]
+
+      val (input, output, paramName, methodName, typeParams: List[TypeDef]) = lazyModel.decls.collect {
+        case m: MethodSymbol if { val TermName(name) = m.name; name.trim == "apply" } =>
+          //m.paramLists.head.head.asTerm.typeSignatureIn(lazyModel)
+          m.typeSignatureIn(lazyModel) match {
+            case MethodType(paramList, returnType) =>
+              val headParam            = paramList.head
+              val TermName(name)       = headParam.name
+              val TermName(methodName) = m.name
+
+              val inputType = headParam.typeSignatureIn(lazyModel)
+
+              (inputType, returnType, TermName(name), TermName(methodName), List.empty)
+            case PolyType(typeParams, MethodType(paramList, returnType)) =>
+              val headParam            = paramList.head
+              val TermName(name)       = headParam.name
+              val TermName(methodName) = m.name
+
+              val inputType  = headParam.typeSignatureIn(lazyModel)
+              val outputType = returnType
+
+              (inputType, outputType, TermName(name), TermName(methodName), typeParams.map(r => internal.typeDef(r)))
+          }
+      }.head
 
       //Model to input's fields
       val inputFieldNames = getCaseClassFields(input)
-      /*input.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
-        case (member, TermName(n)) =>
-          val name = n.trim
-          CaseClassField(
-              name = name
-            , rawField = member
-            , fieldType = q"""${proCompanion}.fromModel[${input}](_.${TermName(name)})"""
-            , modelGetter = { modelVar: Tree =>
-              q"""${modelVar}.${TermName(name)}"""
-            }
-          )
-      }*/
 
       //Model to output's fields
       //Some not confirm to inputFieldNames is use to map to the table
@@ -178,6 +182,7 @@ object DecoderCaseClassMapper {
           )
       }*/
 
+      val sub = lazyModel.member(TermName("sub")).asTerm.typeSignatureIn(lazyModel).resultType
       //.reverse
       //Model to sub's fields
       val subFieldNames = getCaseClassFields(sub)
@@ -196,13 +201,8 @@ object DecoderCaseClassMapper {
         case (name, tree) => q"""${TermName(name)} = ${tree}"""
       }
 
-      val subSetter =
-        if (sub.<:<(weakTypeOf[EmptyLazyModel])) q"""${getCompanion(weakTypeOf[EmptyLazyModel])}.value"""
-        else q"""new ${sub}(..${subFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")})"""
-
-      val content = q"""${getCompanion(decoderDataGen)}
-        .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = Ident(TermName(tableName)))}) { (tempData, rep) =>
-          ${getCompanion(lazyModel)}.init(gen = {s: ${input} => new ${output}(
+      /*
+      ${getCompanion(lazyModel)}.init(gen = {s: ${input} => new ${output}(
             ..${List(
           tempFieldSetter
         , inputFieldNames.map { field =>
@@ -212,6 +212,23 @@ object DecoderCaseClassMapper {
       ).flatten}
 
             ) }, sub = ${subSetter})
+       */
+
+      val subSetter =
+        if (sub.<:<(weakTypeOf[EmptyLazyModel])) q"""${getCompanion(weakTypeOf[EmptyLazyModel])}.value"""
+        else q"""new ${sub}(..${subFieldNames.map(s => q"""${TermName(s.name)} = ${fieldValue(s.name)}""")})"""
+
+      val content = q"""${getCompanion(decoderDataGen)}
+        .fromDataGenWrap(${toRepMapper(fields = decoderFields, tableName = Ident(TermName(tableName)))}) { (tempData, rep) =>
+          new ${lazyModel} {
+             override def ${methodName}[..${typeParams}](${paramName}: ${input}): ${output} = { new ${output}(..${List(tempFieldSetter, inputFieldNames.map {
+        field =>
+          val setterValue = field.modelGetter(Ident(paramName))
+          q"""${TermName(field.name)} = ${setterValue}"""
+      }).flatten})
+            }
+            override val sub: ${sub} = ${subSetter}
+          }: ${lazyModel}
         }"""
 
       (content, decoderFields)

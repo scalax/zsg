@@ -48,96 +48,17 @@ class CirceEncoderTest
   lazy val local = new Locale("zh", "CN")
   lazy val faker = new Faker(local)
 
-  case class InputTest[T](id: T) {
-    type MType = Model[T]
-  }
-  case class Model[T](id: T, name: String, age: Int)
-  trait Wrap {
-    type IdType
-    def model(f: InputTest[IdType]): f.MType
-  }
-
-  trait Wrap1111 {
-    def model[IdType](f: InputTest[IdType]): Model[IdType]
-  }
-
-  trait Abc {
-    type IdType1 <: Def#IdType2
-  }
-
-  trait Def {
-    type IdType2
-  }
-
   object AA
 
-  val aa: Decoder[InputTest[Wrap#IdType] => Model[Wrap#IdType]] =
-    asunaCirceDecoder.effect(asunaCirceDecoder.lazyModel[InputTest[Wrap#IdType], InputTest[Wrap#IdType]#MType, EmptyLazyModel](AA).compile).decoder.map(s => s)
-
-  val jyukuil: Decoder[Wrap1111] = {
-    val ngkrtnohntohjnty: Decoder[InputTest[Abc#IdType1] => Model[Def#IdType2]] = asunaCirceDecoder
-      .effect(asunaCirceDecoder.lazyModel[InputTest[Abc#IdType1], InputTest[Def#IdType2]#MType, EmptyLazyModel](AA).compile)
-      .decoder
-      .map(s => s)
-
-    Decoder.decodeJson.emap { j =>
-      val tjyhmhjkm: InputTest[Abc#IdType1] => Model[Def#IdType2] = j.as(ngkrtnohntohjnty).right.get
-
-      Right(new Wrap1111 {
-        override def model[IdType](r: InputTest[IdType]): Model[IdType] = {
-          //j.as(asunaCirceDecoder.effect(asunaCirceDecoder.debugLazyModel[r.type, r.MType, EmptyLazyModel](AA).compile).decoder.map(s => s)).right.get.apply(r)
-          ???
-        }
-      })
-    }
+  case class InputTest1111[R](id: R)
+  case class Model1111[R](id: R, name: String, age: Int)
+  trait LazyInput1111 {
+    def apply[R](preModel: InputTest1111[R]): Model1111[R]
+    val sub: EmptyLazyModel
   }
 
-  implicit def mrekjiotjo[T](implicit mtonortn: Decoder[T]): Decoder[Model[T]] = {
-    trait mojoijno extends Wrap {
-      override type IdType = T
-    }
-
-    Decoder.decodeJson.emap { j =>
-      val bb: InputTest[Wrap#IdType] => InputTest[Wrap#IdType]#MType = j.as(aa).right.get
-      val cc: mojoijno#IdType                                        = j.as(mtonortn).right.get
-      def dd[R <: Wrap](sdfgerg: R#IdType)                           = bb(InputTest(sdfgerg))
-
-      dd[mojoijno](cc)
-
-      Right(new Wrap {
-        override type IdType = T
-        override def model(r: InputTest[IdType]): Model[IdType] = {
-          bb(InputTest(r.id: Wrap#IdType))
-          ???
-        }
-      }.model(InputTest(cc)))
-    }
-  }
-
-  /*object TestModel2Helper
-
-  object TestModel1Helper {
-    lazy val test3: Encoder[Option[TestModel3]] = optionEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
-  }
-
-  object TestModel3Helper {
-    lazy val test1 = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
-    lazy val test4: Encoder[List[Option[TestModel4]]] = {
-      implicit val test100 = circe.effect(circe.singleModel[TestModel4](TestModel4Helper).compile).write
-      implicitly
-    }
-  }
-
-  object TestModel4Helper {
-    lazy val test3 = commonEncoder(circe.singleModel[TestModel3](TestModel3Helper).compile)
-  }
-
-  object TestModelHelper {
-    lazy val test2 = listEncoder(circe.singleModel[TestModel2](TestModel2Helper).compile)
-    lazy val est1  = commonEncoder(circe.singleModel[TestModel1](TestModel1Helper).compile)
-  }
-
-  val asunaEncoder: Encoder[TestModel] = commonEncoder(circe.singleModel[TestModel](TestModelHelper).compile)*/
+  val aa: Decoder[LazyInput1111] =
+    asunaCirceDecoder.effect(asunaCirceDecoder.lazyModel[LazyInput1111](AA).compile).decoder
 
   val test3 = TestModel3(
       faker.address.fullAddress
@@ -177,8 +98,8 @@ class CirceEncoderTest
       encoder(test2)
     }
 
-    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyLazyModel.value).compile)
-    circeDecoder.read(provideJson) should be(Right(test2))
+    /*val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyLazyModel.value).compile)
+    circeDecoder.read(provideJson) should be(Right(test2))*/
   }
 
 }

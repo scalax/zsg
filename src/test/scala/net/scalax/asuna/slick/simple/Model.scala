@@ -2,6 +2,7 @@ package net.scalax.asuna.slick.simple
 
 import io.circe.JsonObject
 import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
+import net.scalax.asuna.mapper.decoder.LazyModel
 import net.scalax.asuna.slick.umr.UmrHelper
 import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
@@ -74,7 +75,7 @@ class FriendTable2Model(friend: FriendTable2) extends UmrHelper {
   val nick = rep(friend.nick)
   val age  = rep(friend.age)
 
-  lazy val reader = umr.effect(umr.lazyModel[InnerFriendInput, InnerFriends2, InnerFriendOutput](self).compile).toSv
+  lazy val reader = umr.effect(umr.lazyModel[LazyModel[InnerFriendInput, InnerFriends2, InnerFriendOutput]](self).compile).toSv
 
 }
 
