@@ -20,6 +20,17 @@ trait DecoderDataGen[Input, Output, Sub] extends DataGenWrap {
 
 }
 
+package impl {
+  class DecoderDataGenImpl[TRep, TData, Input, Output, Sub](f: (TData, TRep) => LazyModel[Input, Output, Sub], wrap: DataGenWrap.Aux[TRep, TData])
+      extends DecoderDataGen[Input, Output, Sub] {
+    override type TempData = TData
+    override type TempRep  = TRep
+
+    override val rep: TempRep                                          = wrap.rep
+    override def from(caseModel: TData): LazyModel[Input, Output, Sub] = f(caseModel, wrap.rep)
+  }
+}
+
 object DecoderDataGen {
 
   type Aux[Input, Output, Sub, Rep, Temp] = DecoderDataGen[Input, Output, Sub] { type TempRep = Rep; type TempData = Temp }
@@ -27,10 +38,11 @@ object DecoderDataGen {
   def fromDataGenWrap[TempRep, TempData, Input, Output, Sub](
       wrap: DataGenWrap.Aux[TempRep, TempData]
   )(f: (TempData, TempRep) => LazyModel[Input, Output, Sub]): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData] =
-    new DecoderDataGen[Input, Output, Sub] {
+    new impl.DecoderDataGenImpl(f = f, wrap = wrap)
+  /*new DecoderDataGen[Input, Output, Sub] {
       override type TempData = wrap.TempData
       override type TempRep  = wrap.TempRep
       override def from(caseModel: TempData): LazyModel[Input, Output, Sub] = f(caseModel, wrap.rep)
       override val rep                                                      = wrap.rep
-    }
+    }*/
 }

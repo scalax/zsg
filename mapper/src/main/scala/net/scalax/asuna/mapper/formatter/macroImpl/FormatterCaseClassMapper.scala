@@ -100,10 +100,10 @@ object FormatterCaseClassMapper {
       }
 
       val content = q"""${getCompanion(formatterDataGen)}
-        .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}.dataGenWrap) { (caseClass, rep) =>
+        .fromDataGenWrap[$output](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       } { (tempData, rep) =>
-        ${output.typeSymbol.companion}(
+        new ${output}(
         ..${tempFieldSetter}
         ) }"""
 

@@ -8,4 +8,4 @@ class CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         val data@{i}: Data@{i}
         @if(i < count) { , }
     }
-)
+);

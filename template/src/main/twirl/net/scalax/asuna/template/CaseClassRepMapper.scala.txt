@@ -7,81 +7,60 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
 }](@for(i <- 1 to count) {
     val rep@{i}: Rep@{i}
     @if(i < count) { , }
-}
-) {
-self =>
-
-    @for(i <- 1 to count) {
-        @@inline def property@{i}: PropertyType[Data@{i}] = null
-    }
+}) extends DataGenWrap {
 
     @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
-    "@for(i <- 1 to count) {i@{i}(context)\n}to find the missing column.", "0.0.1")
-    def selfInfo: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    "@for(i <- 1 to count) {i@{i}(context)\n}to find the missing column.", "0.0.1") def selfInfo: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }] = self
+    }] = this;
 
     @for(i <- 1 to count) {
         def i@{i}[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target]
         (context: EncoderWrapperHelper[RepCol, DataCol, Wrapper])
         (implicit debugShape: EncoderDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, DataCol]): EncoderShapeValue[Data@{i}, RepCol, DataCol] = {
-            val target1 = debugShape.shape.wrapRep(rep@{i})
-            val shape1 = debugShape.shape.packed
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
             new EncoderShapeValue[Data@{i}, RepCol, DataCol] {
-                override type RepType = Target
-                override val rep = target1
-                override val shape = shape1
+                override type RepType = Target;
+                override val rep = target1;
+                override val shape = shape1;
             }
-        }
+        };
         def i@{i}[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target]
         (context: DecoderWrapperHelper[RepCol, DataCol, Wrapper])
         (implicit debugShape: DecoderDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, DataCol]): DecoderShapeValue[Data@{i}, RepCol, DataCol] = {
-            val target1 = debugShape.shape.wrapRep(rep@{i})
-            val shape1 = debugShape.shape.packed
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
             new DecoderShapeValue[Data@{i}, RepCol, DataCol] {
-                override type RepType = Target
-                override val rep = target1
-                override val shape = shape1
+                override type RepType = Target;
+                override val rep = target1;
+                override val shape = shape1;
             }
-        }
+        };
         def i@{i}[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target]
         (context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper])
         (implicit debugShape: FormatterDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, EncoderDataCol, DecoderDataCol]): FormatterShapeValue[Data@{i}, RepCol, EncoderDataCol, DecoderDataCol] = {
-            val target1 = debugShape.shape.wrapRep(rep@{i})
-            val shape1 = debugShape.shape.packed
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
             new FormatterShapeValue[Data@{i}, RepCol, EncoderDataCol, DecoderDataCol] {
-                override type RepType = Target
-                override val rep = target1
-                override val shape = shape1
+                override type RepType = Target;
+                override val rep = target1;
+                override val shape = shape1;
             }
-        }
-    }
+        };
+    };
 
-    @@inline def propertyType: PropertyType[CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+    override type TempData = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
         Data@{i}
         @if(i < count) { , }
-    }]] = null
-
-    def dataGenWrap: DataGenWrap.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    }];
+    override type TempRep = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }], CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-        Data@{i}
-        @if(i < count) { , }
-    }]] = new DataGenWrap {
-        override type TempRep = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-            Rep@{i},
-            Data@{i}
-            @if(i < count) { , }
-        }]
-        override type TempData = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
-            Data@{i}
-            @if(i < count) { , }
-        }]
-        override val rep = self
-    }
+    }];
+    override def rep: TempRep = this;
 
-}
+};

@@ -1,7 +1,7 @@
 package net.scalax.asuna.slick.sortBy
 
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.{MacroColumnInfo, RepColumnContent}
+import net.scalax.asuna.mapper.common.SingleRepContent
 import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 
 object SlickSortBy {
@@ -11,7 +11,7 @@ object SlickSortBy {
     type Rep
     val rep: Rep
     val orderByGen: Rep => slick.lifted.Ordered
-    val columnInfo: MacroColumnInfo
+    val columnInfo: String
   }
 
   val DESC    = "desc"
@@ -20,7 +20,7 @@ object SlickSortBy {
 
   def extractOrder(orderWraps: List[OrderColumn], names: List[(String, String)]): slick.lifted.Ordered = {
     val ords = names
-      .map(name => (orderWraps.find(r => name._1 == r.columnInfo.tableColumnSymbol.name), name._2))
+      .map(name => (orderWraps.find(r => name._1 == r.columnInfo), name._2))
       .map {
         case (wrapOpt, orderWray) =>
           wrapOpt.flatMap { wrap =>
@@ -54,15 +54,15 @@ trait SlickSortByHelper {
 
   implicit def sortByImplicitWithColumnInfo[T, M](
       implicit cv1: T => slick.lifted.Ordered
-  ): EncoderShape.Aux[RepColumnContent[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
-    new EncoderShape[RepColumnContent[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
+  ): EncoderShape.Aux[SingleRepContent[T, M], M, SlickSortBy.OrderColumn, List[SlickSortBy.OrderColumn], List[Any]] = {
+    new EncoderShape[SingleRepContent[T, M], List[SlickSortBy.OrderColumn], List[Any]] {
       override type Target = SlickSortBy.OrderColumn
       override type Data   = M
-      override def wrapRep(base: => RepColumnContent[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
+      override def wrapRep(base: => SingleRepContent[T, M]): SlickSortBy.OrderColumn = new SlickSortBy.OrderColumn {
         override type Rep = T
         override val rep        = base.rep
         override val orderByGen = cv1
-        override val columnInfo = base.columnInfo
+        override val columnInfo = base.singleModelName
       }
       override def buildRep(base: SlickSortBy.OrderColumn, oldRep: List[SlickSortBy.OrderColumn]): List[SlickSortBy.OrderColumn] = base :: oldRep
       override def buildData(data: M, rep: SlickSortBy.OrderColumn, oldData: List[Any]): List[Any]                               = data :: oldData

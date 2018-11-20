@@ -5,19 +5,30 @@ import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.formatter.FormatterShape
 
 abstract sealed trait RepColumnContent[+Rep, Data] {
-
   def rep: Rep
-  def columnInfo: MacroColumnInfo
   def defaultValue: Option[Data]
+}
 
+package impl {
+  class SingleRepContentImpl[+Rep, Data](repCol: => Rep, override val singleModelName: String, default: => Option[Data]) extends SingleRepContent[Rep, Data] {
+    override def rep: Rep                   = repCol
+    override def defaultValue: Option[Data] = default
+  }
+
+  class MutiplyRepContentImpl[+Rep, Data](
+      repCol: => Rep
+    , override val mutiplyModelName: List[String]
+    , default: => Option[Data]
+  ) extends MutiplyRepContent[Rep, Data] {
+    override def rep: Rep                   = repCol
+    override def defaultValue: Option[Data] = default
+  }
 }
 
 trait SingleRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
-
   override def rep: Rep
-  override def columnInfo: SingleColumnInfo
+  def singleModelName: String
   override def defaultValue: Option[Data]
-
 }
 
 object SingleRepContent {
@@ -63,11 +74,9 @@ object SingleRepContent {
 }
 
 trait MutiplyRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
-
   override def rep: Rep
-  override def columnInfo: MutiplyColumnInfo
+  def mutiplyModelName: List[String]
   override def defaultValue: Option[Data]
-
 }
 
 object MutiplyRepContent {

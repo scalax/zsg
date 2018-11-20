@@ -4,7 +4,7 @@ import io.circe.{Encoder, JsonObject}
 import io.circe.syntax._
 import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.RepColumnContent
+import net.scalax.asuna.mapper.common.SingleRepContent
 import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 import net.scalax.asuna.slick.umr.{umrImpl, ShapeFunc, SlickShapeValueWrap, UmrHelper}
 import slick.lifted.{FlatShapeLevel, Shape}
@@ -48,13 +48,13 @@ trait RmuWriterQuery {
   implicit def rmuImplicit[R, M, U, Level <: FlatShapeLevel](
       implicit shape: Shape[Level, R, M, U]
     , encoder: Encoder[M]
-  ): EncoderShape.Aux[RepColumnContent[R, M], M, SlickRmuWrapper, List[SlickRmuWrapper], List[String]] = {
+  ): EncoderShape.Aux[SingleRepContent[R, M], M, SlickRmuWrapper, List[SlickRmuWrapper], List[String]] = {
     val shape1 = shape
-    new EncoderShape[RepColumnContent[R, M], List[SlickRmuWrapper], List[String]] {
+    new EncoderShape[SingleRepContent[R, M], List[SlickRmuWrapper], List[String]] {
       type Level1          = Level
       override type Target = SlickRmuWrapper
       override type Data   = M
-      override def wrapRep(base: => RepColumnContent[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
+      override def wrapRep(base: => SingleRepContent[R, M]): SlickRmuWrapper = new SlickRmuWrapper {
         override type DataType = M
         override val circeEncoder = encoder
         override val slickWrapper = new SlickShapeValueWrap[M] {
@@ -66,7 +66,7 @@ trait RmuWriterQuery {
           override val shape                      = shape1
           override val dataToList: Data => OutPut = identity[Data]
         }
-        override val key = base.columnInfo.tableColumnSymbol.name
+        override val key = base.singleModelName
       }
       override def buildRep(base: SlickRmuWrapper, oldRep: List[SlickRmuWrapper]): List[SlickRmuWrapper] = base :: oldRep
       override def buildData(data: M, rep: SlickRmuWrapper, oldData: List[String]): List[String]         = rep.key :: oldData

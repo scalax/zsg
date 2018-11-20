@@ -21,22 +21,35 @@ trait EncoderDataGen[Input, Output, Unused] extends DataGenWrap {
 
 }
 
-object EncoderDataGen {
+package impl {
+  class EncoderDataGenImpl[Input, Output, Unused, Rep, Temp](wrap: DataGenWrap.Aux[Rep, Temp], f: (UnusedData[Input, Output, Unused], Rep) => Temp)
+      extends EncoderDataGen[Input, Output, Unused] {
+    override type TempData = Temp
+    override type TempRep  = Rep
 
-  type Aux[Input, Output, Unused, Rep, Temp] = EncoderDataGen[Input, Output, Unused] { type TempRep = Rep; type TempData = Temp }
-
+    override val rep: TempRep                                               = wrap.rep
+    override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
+  }
   trait DataGenWrap[Input, Output, Unused] {
     def apply[TempRep, TempData](
         wrap: DataGenWrap.Aux[TempRep, TempData]
     )(f: (UnusedData[Input, Output, Unused], TempRep) => TempData): EncoderDataGen.Aux[Input, Output, Unused, TempRep, TempData] =
-      new EncoderDataGen[Input, Output, Unused] {
-        override type TempData = wrap.TempData
-        override type TempRep  = wrap.TempRep
-        override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
-        override val rep                                                        = wrap.rep
-      }
+      /*new EncoderDataGen[Input, Output, Unused] {
+      override type TempData = wrap.TempData
+      override type TempRep  = wrap.TempRep
+      override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
+      override val rep                                                        = wrap.rep
+    }*/
+      new impl.EncoderDataGenImpl(wrap = wrap, f = f)
   }
 
-  def fromDataGenWrap[Input, Output, Unused]: DataGenWrap[Input, Output, Unused] = new DataGenWrap[Input, Output, Unused] {}
+  class DataGenWrapImpl[Input, Output, Unused] extends DataGenWrap[Input, Output, Unused]
+}
+
+object EncoderDataGen {
+
+  type Aux[Input, Output, Unused, Rep, Temp] = EncoderDataGen[Input, Output, Unused] { type TempRep = Rep; type TempData = Temp }
+
+  def fromDataGenWrap[Input, Output, Unused]: impl.DataGenWrap[Input, Output, Unused] = new impl.DataGenWrapImpl[Input, Output, Unused]
 
 }
