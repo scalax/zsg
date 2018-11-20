@@ -4,8 +4,6 @@ import net.scalax.asuna.core.decoder.DecoderShapeValue
 import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
 import net.scalax.asuna.mapper.decoder._
 
-import scala.reflect.internal.Symbols
-
 object DecoderCaseClassMapper {
 
   class DecoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxDecoderCaseClassMapperImpl(c) {
@@ -120,7 +118,6 @@ object DecoderCaseClassMapper {
           ${content}
         }"""
 
-
       c.Expr[DecoderInputTable.Aux[Poly, Table, LazyModel, Rep, TempData]](q)
     }
 
@@ -139,27 +136,23 @@ object DecoderCaseClassMapper {
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, LazyModel]]
       val decoderDataGen    = weakTypeOf[DecoderDataGen[LazyModel]]
 
-      val (input, output, paramName, methodName, typeParams: List[TypeDef]) = lazyModel.decls.collect {
-        case m: MethodSymbol if { val TermName(name) = m.name; name.trim == "apply" } =>
-          //m.paramLists.head.head.asTerm.typeSignatureIn(lazyModel)
+      val (input, output, paramName: TermName, methodName: TermName, typeParams: List[TypeDef]) = lazyModel.decls.collect {
+        case m: MethodSymbol if {
+              val TermName(name) = m.name
+              name == "apply"
+            } =>
           m.typeSignatureIn(lazyModel) match {
             case MethodType(paramList, returnType) =>
-              val headParam            = paramList.head
-              val TermName(name)       = headParam.name
-              val TermName(methodName) = m.name
-
+              val headParam = paramList.head
               val inputType = headParam.typeSignatureIn(lazyModel)
 
-              (inputType, returnType, TermName(name), TermName(methodName), List.empty)
+              (inputType, returnType, headParam.name, m.name, List.empty)
             case PolyType(typeParams, MethodType(paramList, returnType)) =>
-              val headParam            = paramList.head
-              val TermName(name)       = headParam.name
-              val TermName(methodName) = m.name
-
+              val headParam  = paramList.head
               val inputType  = headParam.typeSignatureIn(lazyModel)
               val outputType = returnType
 
-              (inputType, outputType, TermName(name), TermName(methodName), typeParams.map(r => internal.typeDef(r)))
+              (inputType, outputType, headParam.name, m.name, typeParams.map(r => internal.typeDef(r)))
           }
       }.head
 
@@ -200,19 +193,6 @@ object DecoderCaseClassMapper {
       val tempFieldSetter = notInputOutputFieldNames.map(s => (s.name, fieldValue.get(s.name))).collect { case (name, Some(s)) => (name, s) }.map {
         case (name, tree) => q"""${TermName(name)} = ${tree}"""
       }
-
-      /*
-      ${getCompanion(lazyModel)}.init(gen = {s: ${input} => new ${output}(
-            ..${List(
-          tempFieldSetter
-        , inputFieldNames.map { field =>
-          val setterValue = field.modelGetter(Ident(TermName("s")))
-          q"""${TermName(field.name)} = ${setterValue}"""
-        }
-      ).flatten}
-
-            ) }, sub = ${subSetter})
-       */
 
       val subSetter =
         if (sub.<:<(weakTypeOf[EmptyLazyModel])) q"""${getCompanion(weakTypeOf[EmptyLazyModel])}.value"""

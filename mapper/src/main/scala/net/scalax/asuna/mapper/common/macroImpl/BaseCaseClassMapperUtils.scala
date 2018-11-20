@@ -355,28 +355,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   )
 
   def getCaseClassFields(caseClass: Type): List[CaseClassField] = {
-    /*caseClass.companion.member(TermName("apply")).asTerm.alternatives.find(_.isSynthetic).get.asMethod.paramLists.head.map(_.asTerm).zipWithIndex.map {
-      case (field, i) =>
-        val TermName(paramName) = field.name
 
-        val method = TermName(s"apply$$default$$${i + 1}")
-        val defaultValueTree = caseClass.companion.member(method) match {
-          case NoSymbol => None
-          case _        => Some(q"${caseClass.typeSymbol.companion}.$method")
-        }
-
-        CaseClassField(
-            name = paramName
-          , fieldType = caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType
-          , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
-          , modelGetter = { modelVar: Tree =>
-            q"""${modelVar}.${field.name}"""
-          }
-          , defaultValueTree = defaultValueTree
-        )
-    }*/
-
-    val constructor = caseClass.decls.collect { case m if m.isMethod && m.isConstructor => m.asMethod }.head
+    val constructor = caseClass.decls.collect { case m: MethodSymbol if m.isConstructor => m }.head
     constructor.paramLists.head.map(param => param.asTerm).zipWithIndex.map {
       case (field, i) =>
         val TermName(paramName) = field.name
