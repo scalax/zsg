@@ -355,7 +355,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   )
 
   def getCaseClassFields(caseClass: Type): List[CaseClassField] = {
-    caseClass.companion.member(TermName("apply")).asTerm.alternatives.find(_.isSynthetic).get.asMethod.paramLists.head.map(_.asTerm).zipWithIndex.map {
+
+    val constructor = caseClass.decls.collect { case m: MethodSymbol if m.isConstructor => m }.head
+    constructor.paramLists.head.map(param => param.asTerm).zipWithIndex.map {
       case (field, i) =>
         val TermName(paramName) = field.name
 
@@ -378,10 +380,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   }
 
-  lazy val caseClassMapper          = weakTypeOf[CaseClassMapper]
-  lazy val caseClassMapperCompanion = getCompanion(caseClassMapper)
-  lazy val symbol                   = weakTypeOf[scala.Symbol]
-  lazy val symbolCompaion           = symbol.typeSymbol.companion
+  val caseClassMapper          = weakTypeOf[CaseClassMapper]
+  val caseClassMapperCompanion = getCompanion(caseClassMapper)
+  val symbol                   = weakTypeOf[scala.Symbol]
+  val symbolCompaion           = symbol.typeSymbol.companion
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
     fields.grouped(maxNum).toList.map { eachFields =>

@@ -4,44 +4,42 @@ import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
 
 import scala.language.experimental.macros
 
-trait DecoderInputTable[Poly, Table, Input, Output, Sub] {
+trait DecoderInputTable[Poly, Table, LazyModel] {
 
   type TempRep
   type TempData
 
-  def inputTable(table: Table): DecoderDataGen.Aux[Input, Output, Sub, TempRep, TempData]
+  def inputTable(table: Table): DecoderDataGen.Aux[LazyModel, TempRep, TempData]
 
 }
 
 object DecoderInputTable {
 
-  type Aux[Poly, Table, Input, Output, Sub, Rep, Temp] = DecoderInputTable[Poly, Table, Input, Output, Sub] { type TempRep = Rep; type TempData = Temp }
+  type Aux[Poly, Table, LazyModel, Rep, Temp] = DecoderInputTable[Poly, Table, LazyModel] { type TempRep = Rep; type TempData = Temp }
 
   def apply[Poly] = new DecoderInputTableApply[Poly] {}
 
   trait DecoderInputTableApply[Poly] {
-    def apply[T, Input, Output, Sub, Rep, Data](
-        f: T => DecoderDataGen.Aux[Input, Output, Sub, Rep, Data]
-    ): DecoderInputTable.Aux[Poly, T, Input, Output, Sub, Rep, Data] = new DecoderInputTable[Poly, T, Input, Output, Sub] {
+    def apply[T, LazyModel, Rep, Data](
+        f: T => DecoderDataGen.Aux[LazyModel, Rep, Data]
+    ): DecoderInputTable.Aux[Poly, T, LazyModel, Rep, Data] = new DecoderInputTable[Poly, T, LazyModel] {
       override type TempRep  = Rep
       override type TempData = Data
-      override def inputTable(table: T): DecoderDataGen.Aux[Input, Output, Sub, Rep, Data] = f(table)
+      override def inputTable(table: T): DecoderDataGen.Aux[LazyModel, Rep, Data] = f(table)
     }
   }
 
 }
 
 trait FirstDecoderInputTableImplicit {
-  implicit def decoderDataGenImplicit[Table, Input, Output, Sub, Rep, Temp]: DecoderInputTable.Aux[
+  implicit def decoderDataGenImplicit[Table, LazyModel, Rep, Temp]: DecoderInputTable.Aux[
       FirstDecoderInputTableImplicit
     , Table
-    , Input
-    , Output
-    , Sub
+    , LazyModel
     , Rep
     , Temp
   ] =
-    macro DecoderCaseClassMapper.DecoderCaseClassMapperImpl.caseClassDecoderGeneric[FirstDecoderInputTableImplicit, Table, Input, Output, Sub, Rep, Temp]
+    macro DecoderCaseClassMapper.DecoderCaseClassMapperImpl.caseClassDecoderGeneric[FirstDecoderInputTableImplicit, Table, LazyModel, Rep, Temp]
 }
 
 object FirstDecoderInputTableImplicit extends FirstDecoderInputTableImplicit
