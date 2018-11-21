@@ -2,50 +2,48 @@ package net.scalax.asuna.mapper.formatter
 
 import net.scalax.asuna.mapper.common.DataGenWrap
 
-trait FormatterDataGen[Output] extends DataGenWrap {
+trait FormatterDataGen[Output, +TempRep] extends DataGenWrap[TempRep] {
   self =>
 
   override type TempData
-  override type TempRep
   override def rep: TempRep
 
-  def to(caseModel: Output, tempRep: TempRep): TempData
-  def from(caseModel: TempData, tempRep: TempRep): Output
+  def to(caseModel: Output): TempData
+  def from(caseModel: TempData): Output
 
-  def debug: FormatterDataGen.Aux[Output, Any, Any] = new FormatterDataGen[Output] {
+  def debug: FormatterDataGen[Output, Any] = new FormatterDataGen[Output, Any] {
     override type TempData = Any
-    override type TempRep  = Any
-    override def rep: Any                                   = self.rep
-    override def to(caseModel: Output, tempRep: Any): Any   = ()
-    override def from(caseModel: Any, tempRep: Any): Output = throw new Exception("Debug instance will not have implement.")
+    override def rep: Any                     = self.rep
+    override def to(caseModel: Output): Any   = ()
+    override def from(caseModel: Any): Output = throw new Exception("Debug instance will not have implement.")
   }
 
 }
 
 package impl {
   class FormatterDataGenImpl[Output, Rep, Temp](wrap: DataGenWrap.Aux[Rep, Temp], f: (Output, Rep) => Temp, g: (Temp, Rep) => Output)
-      extends FormatterDataGen[Output] {
+      extends FormatterDataGen[Output, Rep] {
+    self =>
     override type TempData = Temp
-    override type TempRep  = Rep
-    override val rep: Rep                                    = wrap.rep
-    override def to(caseModel: Output, tempRep: Rep): Temp   = f(caseModel, tempRep)
-    override def from(caseModel: Temp, tempRep: Rep): Output = g(caseModel, tempRep)
+    override val rep: Rep                      = wrap.rep
+    override def to(caseModel: Output): Temp   = f(caseModel, self.rep)
+    override def from(caseModel: Temp): Output = g(caseModel, self.rep)
   }
 
-  trait DataGenWrap[Output] {
+  trait FormatterDataGenWrap[Output] {
     def apply[TempRep, TempData](
         wrap: DataGenWrap.Aux[TempRep, TempData]
     )(f: (Output, TempRep) => TempData)(g: (TempData, TempRep) => Output): FormatterDataGen.Aux[Output, TempRep, TempData] =
       new FormatterDataGenImpl(wrap = wrap, f = f, g = g)
   }
 
-  class DataGenWrapImpl[Output] extends DataGenWrap[Output]
+  class DataGenWrapImpl[Output] extends FormatterDataGenWrap[Output]
 }
 
 object FormatterDataGen {
 
-  type Aux[Output, Rep, Temp] = FormatterDataGen[Output] { type TempRep = Rep; type TempData = Temp }
+  type Aux[Output, +TempRep, TData] = FormatterDataGen[Output, TempRep] { type TempData = TData }
 
-  def fromDataGenWrap[Output]: impl.DataGenWrap[Output] = new impl.DataGenWrapImpl[Output]
+  def fromDataGenWrap[Output]: impl.DataGenWrapImpl[Output] = new impl.DataGenWrapImpl[Output]
 
 }

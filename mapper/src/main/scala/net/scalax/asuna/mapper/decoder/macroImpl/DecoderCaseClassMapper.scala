@@ -134,7 +134,7 @@ object DecoderCaseClassMapper {
       val table             = weakTypeOf[Table]
       val lazyModel         = weakTypeOf[LazyModel]
       val decoderInputTable = weakTypeOf[DecoderInputTable[Poly, Table, LazyModel]]
-      val decoderDataGen    = weakTypeOf[DecoderDataGen[LazyModel]]
+      val decoderDataGen    = weakTypeOf[DecoderDataGen[LazyModel, Rep]]
 
       val (input, output, paramName: TermName, methodName: TermName, typeParams: List[TypeDef]) = lazyModel.decls.collect {
         case m: MethodSymbol if {

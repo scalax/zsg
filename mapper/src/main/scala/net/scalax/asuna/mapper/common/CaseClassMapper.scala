@@ -38,7 +38,7 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
+      Rep1 <: DataGenDataTag
   ](
       rep1: Rep1
   ): CaseClassRepMapper1[
@@ -88,8 +88,8 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -158,9 +158,9 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -248,10 +248,10 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -358,11 +358,11 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -488,12 +488,12 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -638,13 +638,13 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -808,14 +808,14 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -998,15 +998,15 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
+    , Rep9 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1208,16 +1208,16 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
+    , Rep9 <: DataGenDataTag
+    , Rep10 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1438,17 +1438,17 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
+    , Rep9 <: DataGenDataTag
+    , Rep10 <: DataGenDataTag
+    , Rep11 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1688,18 +1688,18 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
-    , Rep12 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
+    , Rep9 <: DataGenDataTag
+    , Rep10 <: DataGenDataTag
+    , Rep11 <: DataGenDataTag
+    , Rep12 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1958,19 +1958,19 @@ object CaseClassMapper {
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
-    , Rep12 <: DataGenWrap
-    , Rep13 <: DataGenWrap
+      Rep1 <: DataGenDataTag
+    , Rep2 <: DataGenDataTag
+    , Rep3 <: DataGenDataTag
+    , Rep4 <: DataGenDataTag
+    , Rep5 <: DataGenDataTag
+    , Rep6 <: DataGenDataTag
+    , Rep7 <: DataGenDataTag
+    , Rep8 <: DataGenDataTag
+    , Rep9 <: DataGenDataTag
+    , Rep10 <: DataGenDataTag
+    , Rep11 <: DataGenDataTag
+    , Rep12 <: DataGenDataTag
+    , Rep13 <: DataGenDataTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -2517,7 +2517,12 @@ class CaseClassRepMapper1[
   , Data1
 ](
     val rep1: Rep1
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper1[
+          Rep1
+        , Data1
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper1. You can replace selfInfo with\n" +
       "i1(context)\nto find the missing column.",
@@ -2564,11 +2569,10 @@ class CaseClassRepMapper1[
   override type TempData = CaseClassDataMapper1[
       Data1
   ];
-  override type TempRep = CaseClassRepMapper1[
+  override def rep: CaseClassRepMapper1[
       Rep1
     , Data1
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper1[
     Data1
@@ -2802,7 +2806,14 @@ class CaseClassRepMapper2[
 ](
     val rep1: Rep1
   , val rep2: Rep2
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper2[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper2. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\nto find the missing column.",
@@ -2887,13 +2898,12 @@ class CaseClassRepMapper2[
       Data1
     , Data2
   ];
-  override type TempRep = CaseClassRepMapper2[
+  override def rep: CaseClassRepMapper2[
       Rep1
     , Data1
     , Rep2
     , Data2
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper2[
     Data1
@@ -3213,7 +3223,16 @@ class CaseClassRepMapper3[
     val rep1: Rep1
   , val rep2: Rep2
   , val rep3: Rep3
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper3[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper3. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\nto find the missing column.",
@@ -3336,15 +3355,14 @@ class CaseClassRepMapper3[
     , Data2
     , Data3
   ];
-  override type TempRep = CaseClassRepMapper3[
+  override def rep: CaseClassRepMapper3[
       Rep1
     , Data1
     , Rep2
     , Data2
     , Rep3
     , Data3
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper3[
     Data1
@@ -3750,7 +3768,18 @@ class CaseClassRepMapper4[
   , val rep2: Rep2
   , val rep3: Rep3
   , val rep4: Rep4
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper4[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper4. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\nto find the missing column.",
@@ -3911,7 +3940,7 @@ class CaseClassRepMapper4[
     , Data3
     , Data4
   ];
-  override type TempRep = CaseClassRepMapper4[
+  override def rep: CaseClassRepMapper4[
       Rep1
     , Data1
     , Rep2
@@ -3920,8 +3949,7 @@ class CaseClassRepMapper4[
     , Data3
     , Rep4
     , Data4
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper4[
     Data1
@@ -4429,7 +4457,20 @@ class CaseClassRepMapper5[
   , val rep3: Rep3
   , val rep4: Rep4
   , val rep5: Rep5
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper5[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper5. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\nto find the missing column.",
@@ -4628,7 +4669,7 @@ class CaseClassRepMapper5[
     , Data4
     , Data5
   ];
-  override type TempRep = CaseClassRepMapper5[
+  override def rep: CaseClassRepMapper5[
       Rep1
     , Data1
     , Rep2
@@ -4639,8 +4680,7 @@ class CaseClassRepMapper5[
     , Data4
     , Rep5
     , Data5
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper5[
     Data1
@@ -5273,7 +5313,22 @@ class CaseClassRepMapper6[
   , val rep4: Rep4
   , val rep5: Rep5
   , val rep6: Rep6
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper6[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper6. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\nto find the missing column.",
@@ -5510,7 +5565,7 @@ class CaseClassRepMapper6[
     , Data5
     , Data6
   ];
-  override type TempRep = CaseClassRepMapper6[
+  override def rep: CaseClassRepMapper6[
       Rep1
     , Data1
     , Rep2
@@ -5523,8 +5578,7 @@ class CaseClassRepMapper6[
     , Data5
     , Rep6
     , Data6
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper6[
     Data1
@@ -6252,7 +6306,24 @@ class CaseClassRepMapper7[
   , val rep5: Rep5
   , val rep6: Rep6
   , val rep7: Rep7
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper7[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper7. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\nto find the missing column.",
@@ -6527,7 +6598,7 @@ class CaseClassRepMapper7[
     , Data6
     , Data7
   ];
-  override type TempRep = CaseClassRepMapper7[
+  override def rep: CaseClassRepMapper7[
       Rep1
     , Data1
     , Rep2
@@ -6542,8 +6613,7 @@ class CaseClassRepMapper7[
     , Data6
     , Rep7
     , Data7
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper7[
     Data1
@@ -7366,7 +7436,26 @@ class CaseClassRepMapper8[
   , val rep6: Rep6
   , val rep7: Rep7
   , val rep8: Rep8
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper8[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper8. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\nto find the missing column.",
@@ -7679,7 +7768,7 @@ class CaseClassRepMapper8[
     , Data7
     , Data8
   ];
-  override type TempRep = CaseClassRepMapper8[
+  override def rep: CaseClassRepMapper8[
       Rep1
     , Data1
     , Rep2
@@ -7696,8 +7785,7 @@ class CaseClassRepMapper8[
     , Data7
     , Rep8
     , Data8
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper8[
     Data1
@@ -8615,7 +8703,28 @@ class CaseClassRepMapper9[
   , val rep7: Rep7
   , val rep8: Rep8
   , val rep9: Rep9
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper9[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+        , Rep9
+        , Data9
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper9. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\nto find the missing column.",
@@ -8966,7 +9075,7 @@ class CaseClassRepMapper9[
     , Data8
     , Data9
   ];
-  override type TempRep = CaseClassRepMapper9[
+  override def rep: CaseClassRepMapper9[
       Rep1
     , Data1
     , Rep2
@@ -8985,8 +9094,7 @@ class CaseClassRepMapper9[
     , Data8
     , Rep9
     , Data9
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper9[
     Data1
@@ -9999,7 +10107,30 @@ class CaseClassRepMapper10[
   , val rep8: Rep8
   , val rep9: Rep9
   , val rep10: Rep10
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper10[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+        , Rep9
+        , Data9
+        , Rep10
+        , Data10
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper10. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\nto find the missing column.",
@@ -10388,7 +10519,7 @@ class CaseClassRepMapper10[
     , Data9
     , Data10
   ];
-  override type TempRep = CaseClassRepMapper10[
+  override def rep: CaseClassRepMapper10[
       Rep1
     , Data1
     , Rep2
@@ -10409,8 +10540,7 @@ class CaseClassRepMapper10[
     , Data9
     , Rep10
     , Data10
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper10[
     Data1
@@ -11518,7 +11648,32 @@ class CaseClassRepMapper11[
   , val rep9: Rep9
   , val rep10: Rep10
   , val rep11: Rep11
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper11[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+        , Rep9
+        , Data9
+        , Rep10
+        , Data10
+        , Rep11
+        , Data11
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper11. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\nto find the missing column.",
@@ -11945,7 +12100,7 @@ class CaseClassRepMapper11[
     , Data10
     , Data11
   ];
-  override type TempRep = CaseClassRepMapper11[
+  override def rep: CaseClassRepMapper11[
       Rep1
     , Data1
     , Rep2
@@ -11968,8 +12123,7 @@ class CaseClassRepMapper11[
     , Data10
     , Rep11
     , Data11
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper11[
     Data1
@@ -13172,7 +13326,34 @@ class CaseClassRepMapper12[
   , val rep10: Rep10
   , val rep11: Rep11
   , val rep12: Rep12
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper12[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+        , Rep9
+        , Data9
+        , Rep10
+        , Data10
+        , Rep11
+        , Data11
+        , Rep12
+        , Data12
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper12. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\nto find the missing column.",
@@ -13637,7 +13818,7 @@ class CaseClassRepMapper12[
     , Data11
     , Data12
   ];
-  override type TempRep = CaseClassRepMapper12[
+  override def rep: CaseClassRepMapper12[
       Rep1
     , Data1
     , Rep2
@@ -13662,8 +13843,7 @@ class CaseClassRepMapper12[
     , Data11
     , Rep12
     , Data12
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper12[
     Data1
@@ -14961,7 +15141,36 @@ class CaseClassRepMapper13[
   , val rep11: Rep11
   , val rep12: Rep12
   , val rep13: Rep13
-) extends DataGenWrap {
+) extends DataGenWrap[
+        CaseClassRepMapper13[
+          Rep1
+        , Data1
+        , Rep2
+        , Data2
+        , Rep3
+        , Data3
+        , Rep4
+        , Data4
+        , Rep5
+        , Data5
+        , Rep6
+        , Data6
+        , Rep7
+        , Data7
+        , Rep8
+        , Data8
+        , Rep9
+        , Data9
+        , Rep10
+        , Data10
+        , Rep11
+        , Data11
+        , Rep12
+        , Data12
+        , Rep13
+        , Data13
+      ]
+    ] {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper13. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\ni13(context)\nto find the missing column.",
@@ -15464,7 +15673,7 @@ class CaseClassRepMapper13[
     , Data12
     , Data13
   ];
-  override type TempRep = CaseClassRepMapper13[
+  override def rep: CaseClassRepMapper13[
       Rep1
     , Data1
     , Rep2
@@ -15491,8 +15700,7 @@ class CaseClassRepMapper13[
     , Data12
     , Rep13
     , Data13
-  ];
-  override def rep: TempRep = this;
+  ] = this;
 };
 class CaseClassDataMapper13[
     Data1

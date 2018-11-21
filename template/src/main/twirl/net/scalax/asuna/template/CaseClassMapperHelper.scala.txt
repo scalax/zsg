@@ -29,8 +29,8 @@ def withRep[@for(i <- 1 to count) {
 };
 
 def mergeRep[@for(i <- 1 to count) {
-                 Rep@{i} <: DataGenWrap
-                 @if(i < count) { , }
+    Rep@{i} <: DataGenDataTag
+    @if(i < count) { , }
 }](@for(i <- 1 to count) {
     rep@{i}: Rep@{i}
     @if(i < count) { , }

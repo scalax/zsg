@@ -1,13 +1,14 @@
 package net.scalax.asuna.mapper.common
 
-trait DataGenWrap {
-
+trait DataGenDataTag {
   type TempData
-  type TempRep
-  def rep: TempRep
+}
 
+trait DataGenWrap[+TempRep] extends DataGenDataTag {
+  override type TempData
+  def rep: TempRep
 }
 
 object DataGenWrap {
-  type Aux[Rep, Temp] = DataGenWrap { type TempRep = Rep; type TempData = Temp }
+  type Aux[+TempRep, TData] = DataGenWrap[TempRep] { type TempData = TData }
 }

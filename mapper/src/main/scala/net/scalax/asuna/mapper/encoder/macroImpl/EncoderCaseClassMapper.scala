@@ -9,7 +9,6 @@ object EncoderCaseClassMapper {
 
   class EncoderCaseClassMapperImpl(override val c: scala.reflect.macros.whitebox.Context) extends BlackboxEncoderCaseClassMapperImpl(c) {
     override val printlnTree = false
-
   }
 
   class BlackboxEncoderCaseClassMapperImpl(override val c: scala.reflect.macros.blackbox.Context) extends RepMapperUtils with GenFileOutputHelper {
@@ -154,7 +153,7 @@ object EncoderCaseClassMapper {
       val output         = weakTypeOf[Output]
       val unused         = weakTypeOf[Unused]
       val table          = weakTypeOf[Table]
-      val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
+      val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused, Rep]]
 
       val inputFieldNames = getCaseClassFields(input).map(
           s =>
