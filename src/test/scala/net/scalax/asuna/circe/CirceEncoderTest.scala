@@ -98,8 +98,8 @@ class CirceEncoderTest
       encoder(test2)
     }
 
-    /*val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyLazyModel.value).compile)
-    circeDecoder.read(provideJson) should be(Right(test2))*/
+    val circeDecoder = asunaCirceDecoder.effect(asunaCirceDecoder.singleModel[TestModel2](EmptyLazyModel.value).compile)
+    circeDecoder.read(provideJson) should be(Right(test2))
   }
 
 }

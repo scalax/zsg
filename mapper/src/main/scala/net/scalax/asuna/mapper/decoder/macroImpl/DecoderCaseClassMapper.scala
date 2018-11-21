@@ -145,13 +145,12 @@ object DecoderCaseClassMapper {
             case MethodType(paramList, returnType) =>
               val headParam = paramList.head
               val inputType = headParam.typeSignatureIn(lazyModel)
-
               (inputType, returnType, headParam.name, m.name, List.empty)
+
             case PolyType(typeParams, MethodType(paramList, returnType)) =>
               val headParam  = paramList.head
               val inputType  = headParam.typeSignatureIn(lazyModel)
               val outputType = returnType
-
               (inputType, outputType, headParam.name, m.name, typeParams.map(r => internal.typeDef(r)))
           }
       }.head
@@ -162,18 +161,6 @@ object DecoderCaseClassMapper {
       //Model to output's fields
       //Some not confirm to inputFieldNames is use to map to the table
       val outputFieldNames = getCaseClassFields(output)
-      /*output.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(s => (s, s.name)).collect {
-        case (member, TermName(n)) =>
-          val name = n.trim
-          CaseClassField(
-              name = name
-            , rawField = member
-            , fieldType = q"""${proCompanion}.fromModel[${output}](_.${TermName(name)})"""
-            , modelGetter = { modelVar: Tree =>
-              q"""${modelVar}.${TermName(name)}"""
-            }
-          )
-      }*/
 
       val sub = lazyModel.member(TermName("sub")).asTerm.typeSignatureIn(lazyModel).resultType
       //.reverse
