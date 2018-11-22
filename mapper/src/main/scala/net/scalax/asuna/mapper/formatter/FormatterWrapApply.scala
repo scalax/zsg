@@ -27,9 +27,9 @@ trait FormatterWrapApply[RepCol, EncoderDataCol, DecoderDataCol] {
             override val shape = shape1.packed
           }
           sv.fmap { (r: TempData) =>
-            wrap.from(r, wrap.rep)
+            wrap.from(r)
           } { content =>
-            wrap.to(content, wrap.rep)
+            wrap.to(content)
           }
         }
 

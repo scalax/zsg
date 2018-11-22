@@ -19,26 +19,19 @@ trait CaseClassMapper;
 object CaseClassMapper {
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-  )(implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1]): CaseClassRepMapper1[
-      Target1
-    , Data1
+      rep1: Rep1
+  ): Setter1[
+      Rep1
   ] = {
-    new CaseClassRepMapper1[
-        Target1
-      , Data1
+    new Setter1[
+        Rep1
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
+        rep1 = rep1
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
+      Rep1 <: DataGenTag
   ](
       rep1: Rep1
   ): CaseClassRepMapper1[
@@ -54,42 +47,25 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2]
-  ): CaseClassRepMapper2[
-      Target1
-    , Data1
-    , Target2
-    , Data2
+      rep1: Rep1
+    , rep2: Rep2
+  ): Setter2[
+      Rep1
+    , Rep2
   ] = {
-    new CaseClassRepMapper2[
-        Target1
-      , Data1
-      , Target2
-      , Data2
+    new Setter2[
+        Rep1
+      , Rep2
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
+        rep1 = rep1
+      , rep2 = rep2
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -111,56 +87,31 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3]
-  ): CaseClassRepMapper3[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+  ): Setter3[
+      Rep1
+    , Rep2
+    , Rep3
   ] = {
-    new CaseClassRepMapper3[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
+    new Setter3[
+        Rep1
+      , Rep2
+      , Rep3
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -188,70 +139,37 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4]
-  ): CaseClassRepMapper4[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+  ): Setter4[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
   ] = {
-    new CaseClassRepMapper4[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
+    new Setter4[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -285,84 +203,43 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5]
-  ): CaseClassRepMapper5[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+  ): Setter5[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
   ] = {
-    new CaseClassRepMapper5[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
+    new Setter5[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -402,98 +279,49 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6]
-  ): CaseClassRepMapper6[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+  ): Setter6[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
   ] = {
-    new CaseClassRepMapper6[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
+    new Setter6[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -539,112 +367,55 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7]
-  ): CaseClassRepMapper7[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+  ): Setter7[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
   ] = {
-    new CaseClassRepMapper7[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
+    new Setter7[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -696,126 +467,61 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8]
-  ): CaseClassRepMapper8[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+  ): Setter8[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
   ] = {
-    new CaseClassRepMapper8[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
+    new Setter8[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -873,140 +579,67 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
     , Rep9
-    , Data9
-    , Target9
-    , Column9
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-    , rep9: => Rep9
-    , defaultValue9: => Option[Data9]
-    , column9: Column9
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8],
-    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Column9, Target9]
-  ): CaseClassRepMapper9[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
-    , Target9
-    , Data9
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+    , rep9: Rep9
+  ): Setter9[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
+    , Rep9
   ] = {
-    new CaseClassRepMapper9[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
-      , Target9
-      , Data9
+    new Setter9[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
+      , Rep9
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
-      , rep9 = wrap9.inputColumn(rep = rep9, columnInfo = column9, defaultValue = defaultValue9)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
+    , Rep9 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1070,154 +703,73 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
     , Rep9
-    , Data9
-    , Target9
-    , Column9
     , Rep10
-    , Data10
-    , Target10
-    , Column10
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-    , rep9: => Rep9
-    , defaultValue9: => Option[Data9]
-    , column9: Column9
-    , rep10: => Rep10
-    , defaultValue10: => Option[Data10]
-    , column10: Column10
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8],
-    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Column9, Target9],
-    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Column10, Target10]
-  ): CaseClassRepMapper10[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
-    , Target9
-    , Data9
-    , Target10
-    , Data10
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+    , rep9: Rep9
+    , rep10: Rep10
+  ): Setter10[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
+    , Rep9
+    , Rep10
   ] = {
-    new CaseClassRepMapper10[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
-      , Target9
-      , Data9
-      , Target10
-      , Data10
+    new Setter10[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
+      , Rep9
+      , Rep10
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
-      , rep9 = wrap9.inputColumn(rep = rep9, columnInfo = column9, defaultValue = defaultValue9)
-      , rep10 = wrap10.inputColumn(rep = rep10, columnInfo = column10, defaultValue = defaultValue10)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
+    , Rep9 <: DataGenTag
+    , Rep10 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1287,168 +839,79 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
     , Rep9
-    , Data9
-    , Target9
-    , Column9
     , Rep10
-    , Data10
-    , Target10
-    , Column10
     , Rep11
-    , Data11
-    , Target11
-    , Column11
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-    , rep9: => Rep9
-    , defaultValue9: => Option[Data9]
-    , column9: Column9
-    , rep10: => Rep10
-    , defaultValue10: => Option[Data10]
-    , column10: Column10
-    , rep11: => Rep11
-    , defaultValue11: => Option[Data11]
-    , column11: Column11
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8],
-    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Column9, Target9],
-    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Column10, Target10],
-    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Column11, Target11]
-  ): CaseClassRepMapper11[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
-    , Target9
-    , Data9
-    , Target10
-    , Data10
-    , Target11
-    , Data11
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+    , rep9: Rep9
+    , rep10: Rep10
+    , rep11: Rep11
+  ): Setter11[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
+    , Rep9
+    , Rep10
+    , Rep11
   ] = {
-    new CaseClassRepMapper11[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
-      , Target9
-      , Data9
-      , Target10
-      , Data10
-      , Target11
-      , Data11
+    new Setter11[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
+      , Rep9
+      , Rep10
+      , Rep11
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
-      , rep9 = wrap9.inputColumn(rep = rep9, columnInfo = column9, defaultValue = defaultValue9)
-      , rep10 = wrap10.inputColumn(rep = rep10, columnInfo = column10, defaultValue = defaultValue10)
-      , rep11 = wrap11.inputColumn(rep = rep11, columnInfo = column11, defaultValue = defaultValue11)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
+    , Rep9 <: DataGenTag
+    , Rep10 <: DataGenTag
+    , Rep11 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1524,182 +987,85 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
     , Rep9
-    , Data9
-    , Target9
-    , Column9
     , Rep10
-    , Data10
-    , Target10
-    , Column10
     , Rep11
-    , Data11
-    , Target11
-    , Column11
     , Rep12
-    , Data12
-    , Target12
-    , Column12
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-    , rep9: => Rep9
-    , defaultValue9: => Option[Data9]
-    , column9: Column9
-    , rep10: => Rep10
-    , defaultValue10: => Option[Data10]
-    , column10: Column10
-    , rep11: => Rep11
-    , defaultValue11: => Option[Data11]
-    , column11: Column11
-    , rep12: => Rep12
-    , defaultValue12: => Option[Data12]
-    , column12: Column12
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8],
-    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Column9, Target9],
-    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Column10, Target10],
-    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Column11, Target11],
-    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Column12, Target12]
-  ): CaseClassRepMapper12[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
-    , Target9
-    , Data9
-    , Target10
-    , Data10
-    , Target11
-    , Data11
-    , Target12
-    , Data12
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+    , rep9: Rep9
+    , rep10: Rep10
+    , rep11: Rep11
+    , rep12: Rep12
+  ): Setter12[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
+    , Rep9
+    , Rep10
+    , Rep11
+    , Rep12
   ] = {
-    new CaseClassRepMapper12[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
-      , Target9
-      , Data9
-      , Target10
-      , Data10
-      , Target11
-      , Data11
-      , Target12
-      , Data12
+    new Setter12[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
+      , Rep9
+      , Rep10
+      , Rep11
+      , Rep12
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
-      , rep9 = wrap9.inputColumn(rep = rep9, columnInfo = column9, defaultValue = defaultValue9)
-      , rep10 = wrap10.inputColumn(rep = rep10, columnInfo = column10, defaultValue = defaultValue10)
-      , rep11 = wrap11.inputColumn(rep = rep11, columnInfo = column11, defaultValue = defaultValue11)
-      , rep12 = wrap12.inputColumn(rep = rep12, columnInfo = column12, defaultValue = defaultValue12)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
+      , rep12 = rep12
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
-    , Rep12 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
+    , Rep9 <: DataGenTag
+    , Rep10 <: DataGenTag
+    , Rep11 <: DataGenTag
+    , Rep12 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1781,196 +1147,91 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
-    , Data1
-    , Target1
-    , Column1
     , Rep2
-    , Data2
-    , Target2
-    , Column2
     , Rep3
-    , Data3
-    , Target3
-    , Column3
     , Rep4
-    , Data4
-    , Target4
-    , Column4
     , Rep5
-    , Data5
-    , Target5
-    , Column5
     , Rep6
-    , Data6
-    , Target6
-    , Column6
     , Rep7
-    , Data7
-    , Target7
-    , Column7
     , Rep8
-    , Data8
-    , Target8
-    , Column8
     , Rep9
-    , Data9
-    , Target9
-    , Column9
     , Rep10
-    , Data10
-    , Target10
-    , Column10
     , Rep11
-    , Data11
-    , Target11
-    , Column11
     , Rep12
-    , Data12
-    , Target12
-    , Column12
     , Rep13
-    , Data13
-    , Target13
-    , Column13
   ](
-      rep1: => Rep1
-    , defaultValue1: => Option[Data1]
-    , column1: Column1
-    , rep2: => Rep2
-    , defaultValue2: => Option[Data2]
-    , column2: Column2
-    , rep3: => Rep3
-    , defaultValue3: => Option[Data3]
-    , column3: Column3
-    , rep4: => Rep4
-    , defaultValue4: => Option[Data4]
-    , column4: Column4
-    , rep5: => Rep5
-    , defaultValue5: => Option[Data5]
-    , column5: Column5
-    , rep6: => Rep6
-    , defaultValue6: => Option[Data6]
-    , column6: Column6
-    , rep7: => Rep7
-    , defaultValue7: => Option[Data7]
-    , column7: Column7
-    , rep8: => Rep8
-    , defaultValue8: => Option[Data8]
-    , column8: Column8
-    , rep9: => Rep9
-    , defaultValue9: => Option[Data9]
-    , column9: Column9
-    , rep10: => Rep10
-    , defaultValue10: => Option[Data10]
-    , column10: Column10
-    , rep11: => Rep11
-    , defaultValue11: => Option[Data11]
-    , column11: Column11
-    , rep12: => Rep12
-    , defaultValue12: => Option[Data12]
-    , column12: Column12
-    , rep13: => Rep13
-    , defaultValue13: => Option[Data13]
-    , column13: Column13
-  )(
-    implicit wrap1: RepGroupColumnWrapper.Aux[Rep1, Data1, Column1, Target1],
-    wrap2: RepGroupColumnWrapper.Aux[Rep2, Data2, Column2, Target2],
-    wrap3: RepGroupColumnWrapper.Aux[Rep3, Data3, Column3, Target3],
-    wrap4: RepGroupColumnWrapper.Aux[Rep4, Data4, Column4, Target4],
-    wrap5: RepGroupColumnWrapper.Aux[Rep5, Data5, Column5, Target5],
-    wrap6: RepGroupColumnWrapper.Aux[Rep6, Data6, Column6, Target6],
-    wrap7: RepGroupColumnWrapper.Aux[Rep7, Data7, Column7, Target7],
-    wrap8: RepGroupColumnWrapper.Aux[Rep8, Data8, Column8, Target8],
-    wrap9: RepGroupColumnWrapper.Aux[Rep9, Data9, Column9, Target9],
-    wrap10: RepGroupColumnWrapper.Aux[Rep10, Data10, Column10, Target10],
-    wrap11: RepGroupColumnWrapper.Aux[Rep11, Data11, Column11, Target11],
-    wrap12: RepGroupColumnWrapper.Aux[Rep12, Data12, Column12, Target12],
-    wrap13: RepGroupColumnWrapper.Aux[Rep13, Data13, Column13, Target13]
-  ): CaseClassRepMapper13[
-      Target1
-    , Data1
-    , Target2
-    , Data2
-    , Target3
-    , Data3
-    , Target4
-    , Data4
-    , Target5
-    , Data5
-    , Target6
-    , Data6
-    , Target7
-    , Data7
-    , Target8
-    , Data8
-    , Target9
-    , Data9
-    , Target10
-    , Data10
-    , Target11
-    , Data11
-    , Target12
-    , Data12
-    , Target13
-    , Data13
+      rep1: Rep1
+    , rep2: Rep2
+    , rep3: Rep3
+    , rep4: Rep4
+    , rep5: Rep5
+    , rep6: Rep6
+    , rep7: Rep7
+    , rep8: Rep8
+    , rep9: Rep9
+    , rep10: Rep10
+    , rep11: Rep11
+    , rep12: Rep12
+    , rep13: Rep13
+  ): Setter13[
+      Rep1
+    , Rep2
+    , Rep3
+    , Rep4
+    , Rep5
+    , Rep6
+    , Rep7
+    , Rep8
+    , Rep9
+    , Rep10
+    , Rep11
+    , Rep12
+    , Rep13
   ] = {
-    new CaseClassRepMapper13[
-        Target1
-      , Data1
-      , Target2
-      , Data2
-      , Target3
-      , Data3
-      , Target4
-      , Data4
-      , Target5
-      , Data5
-      , Target6
-      , Data6
-      , Target7
-      , Data7
-      , Target8
-      , Data8
-      , Target9
-      , Data9
-      , Target10
-      , Data10
-      , Target11
-      , Data11
-      , Target12
-      , Data12
-      , Target13
-      , Data13
+    new Setter13[
+        Rep1
+      , Rep2
+      , Rep3
+      , Rep4
+      , Rep5
+      , Rep6
+      , Rep7
+      , Rep8
+      , Rep9
+      , Rep10
+      , Rep11
+      , Rep12
+      , Rep13
     ](
-        rep1 = wrap1.inputColumn(rep = rep1, columnInfo = column1, defaultValue = defaultValue1)
-      , rep2 = wrap2.inputColumn(rep = rep2, columnInfo = column2, defaultValue = defaultValue2)
-      , rep3 = wrap3.inputColumn(rep = rep3, columnInfo = column3, defaultValue = defaultValue3)
-      , rep4 = wrap4.inputColumn(rep = rep4, columnInfo = column4, defaultValue = defaultValue4)
-      , rep5 = wrap5.inputColumn(rep = rep5, columnInfo = column5, defaultValue = defaultValue5)
-      , rep6 = wrap6.inputColumn(rep = rep6, columnInfo = column6, defaultValue = defaultValue6)
-      , rep7 = wrap7.inputColumn(rep = rep7, columnInfo = column7, defaultValue = defaultValue7)
-      , rep8 = wrap8.inputColumn(rep = rep8, columnInfo = column8, defaultValue = defaultValue8)
-      , rep9 = wrap9.inputColumn(rep = rep9, columnInfo = column9, defaultValue = defaultValue9)
-      , rep10 = wrap10.inputColumn(rep = rep10, columnInfo = column10, defaultValue = defaultValue10)
-      , rep11 = wrap11.inputColumn(rep = rep11, columnInfo = column11, defaultValue = defaultValue11)
-      , rep12 = wrap12.inputColumn(rep = rep12, columnInfo = column12, defaultValue = defaultValue12)
-      , rep13 = wrap13.inputColumn(rep = rep13, columnInfo = column13, defaultValue = defaultValue13)
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
+      , rep12 = rep12
+      , rep13 = rep13
     )
   };
   def mergeRep[
-      Rep1 <: DataGenWrap
-    , Rep2 <: DataGenWrap
-    , Rep3 <: DataGenWrap
-    , Rep4 <: DataGenWrap
-    , Rep5 <: DataGenWrap
-    , Rep6 <: DataGenWrap
-    , Rep7 <: DataGenWrap
-    , Rep8 <: DataGenWrap
-    , Rep9 <: DataGenWrap
-    , Rep10 <: DataGenWrap
-    , Rep11 <: DataGenWrap
-    , Rep12 <: DataGenWrap
-    , Rep13 <: DataGenWrap
+      Rep1 <: DataGenTag
+    , Rep2 <: DataGenTag
+    , Rep3 <: DataGenTag
+    , Rep4 <: DataGenTag
+    , Rep5 <: DataGenTag
+    , Rep6 <: DataGenTag
+    , Rep7 <: DataGenTag
+    , Rep8 <: DataGenTag
+    , Rep9 <: DataGenTag
+    , Rep10 <: DataGenTag
+    , Rep11 <: DataGenTag
+    , Rep12 <: DataGenTag
+    , Rep13 <: DataGenTag
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -2517,7 +1778,7 @@ class CaseClassRepMapper1[
   , Data1
 ](
     val rep1: Rep1
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper1. You can replace selfInfo with\n" +
       "i1(context)\nto find the missing column.",
@@ -2564,12 +1825,26 @@ class CaseClassRepMapper1[
   override type TempData = CaseClassDataMapper1[
       Data1
   ];
-  override type TempRep = CaseClassRepMapper1[
+};
+class Setter1[
+    Rep1
+](
+    val rep1: Rep1
+) {
+  def output[
+      Data1
+  ]: CaseClassRepMapper1[
       Rep1
     , Data1
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper1[
+        Rep1
+      , Data1
+    ](
+        rep1 = rep1
+    )
+  }
+}
 class CaseClassDataMapper1[
     Data1
 ](
@@ -2802,7 +2077,7 @@ class CaseClassRepMapper2[
 ](
     val rep1: Rep1
   , val rep2: Rep2
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper2. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\nto find the missing column.",
@@ -2887,14 +2162,34 @@ class CaseClassRepMapper2[
       Data1
     , Data2
   ];
-  override type TempRep = CaseClassRepMapper2[
+};
+class Setter2[
+    Rep1
+  , Rep2
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+) {
+  def output[
+      Data1
+    , Data2
+  ]: CaseClassRepMapper2[
       Rep1
     , Data1
     , Rep2
     , Data2
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper2[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+    )
+  }
+}
 class CaseClassDataMapper2[
     Data1
   , Data2
@@ -3213,7 +2508,7 @@ class CaseClassRepMapper3[
     val rep1: Rep1
   , val rep2: Rep2
   , val rep3: Rep3
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper3. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\nto find the missing column.",
@@ -3336,16 +2631,42 @@ class CaseClassRepMapper3[
     , Data2
     , Data3
   ];
-  override type TempRep = CaseClassRepMapper3[
+};
+class Setter3[
+    Rep1
+  , Rep2
+  , Rep3
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+  ]: CaseClassRepMapper3[
       Rep1
     , Data1
     , Rep2
     , Data2
     , Rep3
     , Data3
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper3[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+    )
+  }
+}
 class CaseClassDataMapper3[
     Data1
   , Data2
@@ -3750,7 +3071,7 @@ class CaseClassRepMapper4[
   , val rep2: Rep2
   , val rep3: Rep3
   , val rep4: Rep4
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper4. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\nto find the missing column.",
@@ -3911,7 +3232,24 @@ class CaseClassRepMapper4[
     , Data3
     , Data4
   ];
-  override type TempRep = CaseClassRepMapper4[
+};
+class Setter4[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+  ]: CaseClassRepMapper4[
       Rep1
     , Data1
     , Rep2
@@ -3920,9 +3258,24 @@ class CaseClassRepMapper4[
     , Data3
     , Rep4
     , Data4
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper4[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+    )
+  }
+}
 class CaseClassDataMapper4[
     Data1
   , Data2
@@ -4429,7 +3782,7 @@ class CaseClassRepMapper5[
   , val rep3: Rep3
   , val rep4: Rep4
   , val rep5: Rep5
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper5. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\nto find the missing column.",
@@ -4628,7 +3981,27 @@ class CaseClassRepMapper5[
     , Data4
     , Data5
   ];
-  override type TempRep = CaseClassRepMapper5[
+};
+class Setter5[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+  ]: CaseClassRepMapper5[
       Rep1
     , Data1
     , Rep2
@@ -4639,9 +4012,27 @@ class CaseClassRepMapper5[
     , Data4
     , Rep5
     , Data5
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper5[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+    )
+  }
+}
 class CaseClassDataMapper5[
     Data1
   , Data2
@@ -5273,7 +4664,7 @@ class CaseClassRepMapper6[
   , val rep4: Rep4
   , val rep5: Rep5
   , val rep6: Rep6
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper6. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\nto find the missing column.",
@@ -5510,7 +4901,30 @@ class CaseClassRepMapper6[
     , Data5
     , Data6
   ];
-  override type TempRep = CaseClassRepMapper6[
+};
+class Setter6[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+  ]: CaseClassRepMapper6[
       Rep1
     , Data1
     , Rep2
@@ -5523,9 +4937,30 @@ class CaseClassRepMapper6[
     , Data5
     , Rep6
     , Data6
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper6[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+    )
+  }
+}
 class CaseClassDataMapper6[
     Data1
   , Data2
@@ -6252,7 +5687,7 @@ class CaseClassRepMapper7[
   , val rep5: Rep5
   , val rep6: Rep6
   , val rep7: Rep7
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper7. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\nto find the missing column.",
@@ -6527,7 +5962,33 @@ class CaseClassRepMapper7[
     , Data6
     , Data7
   ];
-  override type TempRep = CaseClassRepMapper7[
+};
+class Setter7[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ]: CaseClassRepMapper7[
       Rep1
     , Data1
     , Rep2
@@ -6542,9 +6003,33 @@ class CaseClassRepMapper7[
     , Data6
     , Rep7
     , Data7
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper7[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+    )
+  }
+}
 class CaseClassDataMapper7[
     Data1
   , Data2
@@ -7366,7 +6851,7 @@ class CaseClassRepMapper8[
   , val rep6: Rep6
   , val rep7: Rep7
   , val rep8: Rep8
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper8. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\nto find the missing column.",
@@ -7679,7 +7164,36 @@ class CaseClassRepMapper8[
     , Data7
     , Data8
   ];
-  override type TempRep = CaseClassRepMapper8[
+};
+class Setter8[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+  ]: CaseClassRepMapper8[
       Rep1
     , Data1
     , Rep2
@@ -7696,9 +7210,36 @@ class CaseClassRepMapper8[
     , Data7
     , Rep8
     , Data8
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper8[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+    )
+  }
+}
 class CaseClassDataMapper8[
     Data1
   , Data2
@@ -8615,7 +8156,7 @@ class CaseClassRepMapper9[
   , val rep7: Rep7
   , val rep8: Rep8
   , val rep9: Rep9
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper9. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\nto find the missing column.",
@@ -8966,7 +8507,39 @@ class CaseClassRepMapper9[
     , Data8
     , Data9
   ];
-  override type TempRep = CaseClassRepMapper9[
+};
+class Setter9[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+  , Rep9
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+  , val rep9: Rep9
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+  ]: CaseClassRepMapper9[
       Rep1
     , Data1
     , Rep2
@@ -8985,9 +8558,39 @@ class CaseClassRepMapper9[
     , Data8
     , Rep9
     , Data9
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper9[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+      , Rep9
+      , Data9
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+    )
+  }
+}
 class CaseClassDataMapper9[
     Data1
   , Data2
@@ -9999,7 +9602,7 @@ class CaseClassRepMapper10[
   , val rep8: Rep8
   , val rep9: Rep9
   , val rep10: Rep10
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper10. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\nto find the missing column.",
@@ -10388,7 +9991,42 @@ class CaseClassRepMapper10[
     , Data9
     , Data10
   ];
-  override type TempRep = CaseClassRepMapper10[
+};
+class Setter10[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+  , Rep9
+  , Rep10
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+  , val rep9: Rep9
+  , val rep10: Rep10
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+  ]: CaseClassRepMapper10[
       Rep1
     , Data1
     , Rep2
@@ -10409,9 +10047,42 @@ class CaseClassRepMapper10[
     , Data9
     , Rep10
     , Data10
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper10[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+      , Rep9
+      , Data9
+      , Rep10
+      , Data10
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+    )
+  }
+}
 class CaseClassDataMapper10[
     Data1
   , Data2
@@ -11518,7 +11189,7 @@ class CaseClassRepMapper11[
   , val rep9: Rep9
   , val rep10: Rep10
   , val rep11: Rep11
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper11. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\nto find the missing column.",
@@ -11945,7 +11616,45 @@ class CaseClassRepMapper11[
     , Data10
     , Data11
   ];
-  override type TempRep = CaseClassRepMapper11[
+};
+class Setter11[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+  , Rep9
+  , Rep10
+  , Rep11
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+  , val rep9: Rep9
+  , val rep10: Rep10
+  , val rep11: Rep11
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+  ]: CaseClassRepMapper11[
       Rep1
     , Data1
     , Rep2
@@ -11968,9 +11677,45 @@ class CaseClassRepMapper11[
     , Data10
     , Rep11
     , Data11
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper11[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+      , Rep9
+      , Data9
+      , Rep10
+      , Data10
+      , Rep11
+      , Data11
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
+    )
+  }
+}
 class CaseClassDataMapper11[
     Data1
   , Data2
@@ -13172,7 +12917,7 @@ class CaseClassRepMapper12[
   , val rep10: Rep10
   , val rep11: Rep11
   , val rep12: Rep12
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper12. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\nto find the missing column.",
@@ -13637,7 +13382,48 @@ class CaseClassRepMapper12[
     , Data11
     , Data12
   ];
-  override type TempRep = CaseClassRepMapper12[
+};
+class Setter12[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+  , Rep9
+  , Rep10
+  , Rep11
+  , Rep12
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+  , val rep9: Rep9
+  , val rep10: Rep10
+  , val rep11: Rep11
+  , val rep12: Rep12
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+  ]: CaseClassRepMapper12[
       Rep1
     , Data1
     , Rep2
@@ -13662,9 +13448,48 @@ class CaseClassRepMapper12[
     , Data11
     , Rep12
     , Data12
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper12[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+      , Rep9
+      , Data9
+      , Rep10
+      , Data10
+      , Rep11
+      , Data11
+      , Rep12
+      , Data12
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
+      , rep12 = rep12
+    )
+  }
+}
 class CaseClassDataMapper12[
     Data1
   , Data2
@@ -14961,7 +14786,7 @@ class CaseClassRepMapper13[
   , val rep11: Rep11
   , val rep12: Rep12
   , val rep13: Rep13
-) extends DataGenWrap {
+) extends DataGenTag {
   @deprecated(
     "Your are debugging case class mapping rule. This is CaseClassRepMapper13. You can replace selfInfo with\n" +
       "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\ni13(context)\nto find the missing column.",
@@ -15464,7 +15289,51 @@ class CaseClassRepMapper13[
     , Data12
     , Data13
   ];
-  override type TempRep = CaseClassRepMapper13[
+};
+class Setter13[
+    Rep1
+  , Rep2
+  , Rep3
+  , Rep4
+  , Rep5
+  , Rep6
+  , Rep7
+  , Rep8
+  , Rep9
+  , Rep10
+  , Rep11
+  , Rep12
+  , Rep13
+](
+    val rep1: Rep1
+  , val rep2: Rep2
+  , val rep3: Rep3
+  , val rep4: Rep4
+  , val rep5: Rep5
+  , val rep6: Rep6
+  , val rep7: Rep7
+  , val rep8: Rep8
+  , val rep9: Rep9
+  , val rep10: Rep10
+  , val rep11: Rep11
+  , val rep12: Rep12
+  , val rep13: Rep13
+) {
+  def output[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+    , Data13
+  ]: CaseClassRepMapper13[
       Rep1
     , Data1
     , Rep2
@@ -15491,9 +15360,51 @@ class CaseClassRepMapper13[
     , Data12
     , Rep13
     , Data13
-  ];
-  override def rep: TempRep = this;
-};
+  ] = {
+    new CaseClassRepMapper13[
+        Rep1
+      , Data1
+      , Rep2
+      , Data2
+      , Rep3
+      , Data3
+      , Rep4
+      , Data4
+      , Rep5
+      , Data5
+      , Rep6
+      , Data6
+      , Rep7
+      , Data7
+      , Rep8
+      , Data8
+      , Rep9
+      , Data9
+      , Rep10
+      , Data10
+      , Rep11
+      , Data11
+      , Rep12
+      , Data12
+      , Rep13
+      , Data13
+    ](
+        rep1 = rep1
+      , rep2 = rep2
+      , rep3 = rep3
+      , rep4 = rep4
+      , rep5 = rep5
+      , rep6 = rep6
+      , rep7 = rep7
+      , rep8 = rep8
+      , rep9 = rep9
+      , rep10 = rep10
+      , rep11 = rep11
+      , rep12 = rep12
+      , rep13 = rep13
+    )
+  }
+}
 class CaseClassDataMapper13[
     Data1
   , Data2

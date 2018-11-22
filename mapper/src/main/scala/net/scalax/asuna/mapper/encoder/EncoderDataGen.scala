@@ -16,34 +16,31 @@ trait EncoderDataGen[Input, Output, Unused] extends DataGenWrap {
     override type TempRep  = Any
     override def rep: Any                                              = self.rep
     override def to(caseModel: UnusedData[Input, Output, Unused]): Any = self.to(caseModel)
-
   }
 
 }
 
 package impl {
-  class EncoderDataGenImpl[Input, Output, Unused, Rep, Temp](wrap: DataGenWrap.Aux[Rep, Temp], f: (UnusedData[Input, Output, Unused], Rep) => Temp)
-      extends EncoderDataGen[Input, Output, Unused] {
-    override type TempData = Temp
-    override type TempRep  = Rep
 
-    override val rep: TempRep                                               = wrap.rep
-    override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
-  }
+  import net.scalax.asuna.mapper.common.DataGenTag
+
   trait DataGenWrap[Input, Output, Unused] {
-    def apply[TempRep, TempData](
-        wrap: DataGenWrap.Aux[TempRep, TempData]
-    )(f: (UnusedData[Input, Output, Unused], TempRep) => TempData): EncoderDataGen.Aux[Input, Output, Unused, TempRep, TempData] =
-      /*new EncoderDataGen[Input, Output, Unused] {
-      override type TempData = wrap.TempData
-      override type TempRep  = wrap.TempRep
-      override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, wrap.rep)
-      override val rep                                                        = wrap.rep
-    }*/
-      new impl.EncoderDataGenImpl(wrap = wrap, f = f)
+    def apply[TempRep1 <: DataGenTag](
+        wrap: TempRep1
+    )(f: (UnusedData[Input, Output, Unused], TempRep1) => TempRep1#TempData): EncoderDataGen.Aux[Input, Output, Unused, TempRep1, TempRep1#TempData] = {
+      new EncoderDataGen[Input, Output, Unused] {
+        self =>
+        override type TempData = TempRep1#TempData
+        override type TempRep  = TempRep1
+        override val rep: TempRep1                                              = wrap
+        override def to(caseModel: UnusedData[Input, Output, Unused]): TempData = f(caseModel, self.rep)
+      }
+    }
+
   }
 
   class DataGenWrapImpl[Input, Output, Unused] extends DataGenWrap[Input, Output, Unused]
+
 }
 
 object EncoderDataGen {

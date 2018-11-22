@@ -1,11 +1,13 @@
 package net.scalax.asuna.mapper.common
 
-trait DataGenWrap {
+trait DataGenTag {
+  type TempData
+}
 
+trait DataGenWrap extends DataGenTag {
   type TempData
   type TempRep
   def rep: TempRep
-
 }
 
 object DataGenWrap {

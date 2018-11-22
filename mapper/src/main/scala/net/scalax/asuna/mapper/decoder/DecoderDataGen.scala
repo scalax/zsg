@@ -1,6 +1,6 @@
 package net.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.mapper.common.DataGenWrap
+import net.scalax.asuna.mapper.common.{DataGenTag, DataGenWrap}
 
 trait DecoderDataGen[LazyModel] extends DataGenWrap {
   self =>
@@ -21,12 +21,17 @@ trait DecoderDataGen[LazyModel] extends DataGenWrap {
 }
 
 package impl {
-  class DecoderDataGenImpl[TRep, TData, LazyModel](f: (TData, TRep) => LazyModel, wrap: DataGenWrap.Aux[TRep, TData]) extends DecoderDataGen[LazyModel] {
-    override type TempData = TData
-    override type TempRep  = TRep
 
-    override val rep: TempRep                      = wrap.rep
-    override def from(caseModel: TData): LazyModel = f(caseModel, wrap.rep)
+  import net.scalax.asuna.mapper.common.DataGenTag
+
+  class DecoderDataGenImpl[TRep <: DataGenTag, LazyModel](f: (TRep#TempData, TRep) => LazyModel, wrap: TRep) extends DecoderDataGen[LazyModel] {
+    self =>
+
+    override type TempData = TRep#TempData
+    override type TempRep  = TRep
+    override val rep: TempRep                              = wrap
+    override def from(caseModel: TRep#TempData): LazyModel = f(caseModel, self.rep)
+
   }
 }
 
@@ -34,9 +39,9 @@ object DecoderDataGen {
 
   type Aux[LazyModel, Rep, Temp] = DecoderDataGen[LazyModel] { type TempRep = Rep; type TempData = Temp }
 
-  def fromDataGenWrap[TempRep, TempData, LazyModel](
-      wrap: DataGenWrap.Aux[TempRep, TempData]
-  )(f: (TempData, TempRep) => LazyModel): DecoderDataGen.Aux[LazyModel, TempRep, TempData] =
+  def fromDataGenWrap[TempRep <: DataGenTag, LazyModel](
+      wrap: TempRep
+  )(f: (TempRep#TempData, TempRep) => LazyModel): DecoderDataGen.Aux[LazyModel, TempRep, TempRep#TempData] =
     new impl.DecoderDataGenImpl(f = f, wrap = wrap)
 
 }

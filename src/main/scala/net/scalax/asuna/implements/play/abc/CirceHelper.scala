@@ -96,9 +96,7 @@ object PlayPoly1 extends PlayPoly1
 trait PlayHelper {
 
   trait PlayContent[Out, Data] extends EncoderContent[Out, Data] {
-
     def write: Writes[Data]
-
   }
 
   object play extends EncoderWrapperHelper[List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)], PlayContent] {
