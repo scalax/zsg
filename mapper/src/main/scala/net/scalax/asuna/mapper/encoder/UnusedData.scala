@@ -5,7 +5,7 @@ import net.scalax.asuna.mapper.encoder.macroImpl.UnusedDataMacro
 
 import scala.language.implicitConversions
 
-trait UnusedData[Input, Model, Unused] {
+trait UnusedData[Input, Model, Unused] extends Any {
   def input: Input
   def model: Model
   def unused: Unused
@@ -23,10 +23,11 @@ object UnusedData {
     }
   }
 
-  def simple[D](data: D): UnusedData[EmptyLazyModel, D, EmptyLazyModel] = new UnusedData[EmptyLazyModel, D, EmptyLazyModel] {
-    override val input  = EmptyLazyModel.value
-    override val model  = data
-    override def unused = EmptyLazyModel.value
+  class SimpleUnusedData[Model](override val model: Model) extends AnyVal with UnusedData[EmptyLazyModel, Model, EmptyLazyModel] {
+    def input: EmptyLazyModel  = EmptyLazyModel.value
+    def unused: EmptyLazyModel = EmptyLazyModel.value
   }
+
+  def simple[D](data: D): UnusedData[EmptyLazyModel, D, EmptyLazyModel] = new SimpleUnusedData[D](data)
 
 }

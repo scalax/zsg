@@ -130,7 +130,6 @@ object RNil {
 
 final case class ++::[Head, Tail <: RepGroupContent](head: Head, tail: Tail) extends RepGroupContent {
   self =>
-
   def ++::[NewHead](newHead: NewHead): NewHead ++:: Head ++:: Tail = HideAppender.Appender.apply(newHead, self)
 }
 

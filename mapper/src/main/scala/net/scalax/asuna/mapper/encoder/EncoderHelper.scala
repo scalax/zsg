@@ -4,7 +4,7 @@ import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 
 import scala.language.higherKinds
 
-trait EncoderContent[RepOut, DataType]
+trait EncoderContent[RepOut, DataType] extends Any
 
 trait EncoderWrapperHelper[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _]]
     extends EncoderDataShapeValueHelper[RepCol, DataCol]

@@ -4,38 +4,61 @@ import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import net.scalax.asuna.core.encoder.EncoderShape
 import net.scalax.asuna.core.formatter.FormatterShape
 
+import scala.language.implicitConversions
+
 abstract sealed trait RepColumnContent[+Rep, Data] {
   def rep: Rep
-  def defaultValue: Option[Data]
 }
 
 package impl {
-  class SingleRepContentImpl[+Rep, Data](repCol: => Rep, override val singleModelName: String, default: => Option[Data]) extends SingleRepContent[Rep, Data] {
-    override def rep: Rep                   = repCol
-    override def defaultValue: Option[Data] = default
+  class SingleRepContentWithNonDefaultImpl[+Rep, Data](repCol: => Rep, override val singleModelName: String) extends SingleRepContentWithNonDefault[Rep, Data] {
+    override def rep: Rep = repCol
   }
 
-  class MutiplyRepContentImpl[+Rep, Data](
+  class SingleRepContentWithDefaultImpl[+Rep, Data](repCol: => Rep, override val singleModelName: String, default: => Data)
+      extends SingleRepContentWithDefault[Rep, Data] {
+    override def rep: Rep           = repCol
+    override def defaultValue: Data = default
+  }
+
+  class MutiplyRepContentWithNonDefaultImpl[+Rep, Data](
       repCol: => Rep
     , override val mutiplyModelName: List[String]
-    , default: => Option[Data]
-  ) extends MutiplyRepContent[Rep, Data] {
-    override def rep: Rep                   = repCol
-    override def defaultValue: Option[Data] = default
+  ) extends MutiplyRepContentWithNonDefault[Rep, Data] {
+    override def rep: Rep = repCol
+  }
+
+  class MutiplyRepContentWithDefaultImpl[+Rep, Data](
+      repCol: => Rep
+    , override val mutiplyModelName: List[String]
+    , default: => Data
+  ) extends MutiplyRepContentWithDefault[Rep, Data] {
+    override def rep: Rep           = repCol
+    override def defaultValue: Data = default
   }
 }
 
 trait SingleRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
   override def rep: Rep
   def singleModelName: String
-  override def defaultValue: Option[Data]
+}
+
+trait SingleRepContentWithNonDefault[+Rep, Data] extends SingleRepContent[Rep, Data] {
+  override def rep: Rep
+  def singleModelName: String
+}
+
+trait SingleRepContentWithDefault[+Rep, Data] extends SingleRepContent[Rep, Data] {
+  override def rep: Rep
+  def singleModelName: String
+  def defaultValue: Data
 }
 
 object SingleRepContent {
   implicit def shapeFuncImplicit1111[D, T, M, RepCol, DataCol](
       implicit shape: DecoderShape.Aux[D, T, M, RepCol, DataCol]
   ): DecoderShape.Aux[SingleRepContent[D, T], T, M, RepCol, DataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new DecoderShape[SingleRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
@@ -48,7 +71,7 @@ object SingleRepContent {
   implicit def shapeFuncImplicit2222[D, T, M, RepCol, DataCol](
       implicit shape: EncoderShape.Aux[D, T, M, RepCol, DataCol]
   ): EncoderShape.Aux[SingleRepContent[D, T], T, M, RepCol, DataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new EncoderShape[SingleRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
@@ -59,9 +82,9 @@ object SingleRepContent {
   }
 
   implicit def shapeFuncImplicit3333[D, T, M, RepCol, EncoderDataCol, DecoderDataCol](
-      implicit shape: FormatterShape.Aux[D, T, M, RepCol, EncoderDataCol, DecoderDataCol]
+      shape: FormatterShape.Aux[D, T, M, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShape.Aux[SingleRepContent[D, T], T, M, RepCol, EncoderDataCol, DecoderDataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new FormatterShape[SingleRepContent[D, T], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = M
       override type Data   = T
@@ -76,14 +99,24 @@ object SingleRepContent {
 trait MutiplyRepContent[+Rep, Data] extends RepColumnContent[Rep, Data] {
   override def rep: Rep
   def mutiplyModelName: List[String]
-  override def defaultValue: Option[Data]
+}
+
+trait MutiplyRepContentWithNonDefault[+Rep, Data] extends MutiplyRepContent[Rep, Data] {
+  override def rep: Rep
+  def mutiplyModelName: List[String]
+}
+
+trait MutiplyRepContentWithDefault[+Rep, Data] extends MutiplyRepContent[Rep, Data] {
+  override def rep: Rep
+  def mutiplyModelName: List[String]
+  def defaultValue: Data
 }
 
 object MutiplyRepContent {
   implicit def shapeFuncImplicit1111[D, T, M, RepCol, DataCol](
       implicit shape: DecoderShape.Aux[D, T, M, RepCol, DataCol]
   ): DecoderShape.Aux[MutiplyRepContent[D, T], T, M, RepCol, DataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new DecoderShape[MutiplyRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
@@ -96,7 +129,7 @@ object MutiplyRepContent {
   implicit def shapeFuncImplicit2222[D, T, M, RepCol, DataCol](
       implicit shape: EncoderShape.Aux[D, T, M, RepCol, DataCol]
   ): EncoderShape.Aux[MutiplyRepContent[D, T], T, M, RepCol, DataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new EncoderShape[MutiplyRepContent[D, T], RepCol, DataCol] {
       override type Target = M
       override type Data   = T
@@ -109,7 +142,7 @@ object MutiplyRepContent {
   implicit def shapeFuncImplicit3333[D, T, M, RepCol, EncoderDataCol, DecoderDataCol](
       implicit shape: FormatterShape.Aux[D, T, M, RepCol, EncoderDataCol, DecoderDataCol]
   ): FormatterShape.Aux[MutiplyRepContent[D, T], T, M, RepCol, EncoderDataCol, DecoderDataCol] = {
-    implicit val shape1 = shape
+    val shape1 = shape
     new FormatterShape[MutiplyRepContent[D, T], RepCol, EncoderDataCol, DecoderDataCol] {
       override type Target = M
       override type Data   = T

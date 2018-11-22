@@ -1,35 +1,26 @@
 @(count: Int)
 
 def withRep[@for(i <- 1 to count) {
-    Rep@{i},
-    Data@{i},
-    Target@{i},
-    Column@{i}
+    Rep@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: => Rep@{i},
-    defaultValue@{i}: => Option[Data@{i}],
-    column@{i}: Column@{i}
+    rep@{i}: Rep@{i}
     @if(i < count) { , }
-})(implicit @for(i <- 1 to count) { wrap@{i}: RepGroupColumnWrapper.Aux[Rep@{i}, Data@{i}, Column@{i}, Target@{i}] @if(i < count) { , } }): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-    Target@{i},
-    Data@{i}
+}): Setter@{count}[@for(i <- 1 to count) {
+    Rep@{i}
     @if(i < count) { , }
 }] = {
-
-    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-        Target@{i},
-        Data@{i}
+    new Setter@{count}[@for(i <- 1 to count) {
+        Rep@{i}
         @if(i < count) { , }
     }](@for(i <- 1 to count) {
-        rep@{i} = wrap@{i}.inputColumn(rep = rep@{i}, columnInfo = column@{i}, defaultValue = defaultValue@{i})
+        rep@{i} = rep@{i}
         @if(i < count) { , }
     })
-
 };
 
 def mergeRep[@for(i <- 1 to count) {
-    Rep@{i} <: DataGenDataTag
+    Rep@{i} <: DataGenTag
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
     rep@{i}: Rep@{i}

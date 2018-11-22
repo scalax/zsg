@@ -64,9 +64,10 @@ trait DecoderWrapApply[RepCol, DataCol] {
   }
 
   trait DebugTableWrap[Case] {
-    def apply[Table](tableParam: Table): DecoderShapeValue[Case, RepCol, DataCol] =
-      macro DecoderCaseClassMapper.BlackboxDecoderCaseClassMapperImpl
-        .debugCaseClassSingleModelDecoderGeneric[FirstDecoderInputTableImplicit, Table, LazyModel[EmptyLazyModel, Case, EmptyLazyModel], RepCol, DataCol]
+    def apply[Table](tableParam: Table)(
+        implicit l: DecoderInputTable.Aux[DebugSingleModelDecoder, Table, LazyModel[EmptyLazyModel, Case, EmptyLazyModel], Any, Any]
+    ): DecoderShapeValue[Case, RepCol, DataCol] =
+      ???
   }
 
   trait DebugLazyModelWrap[LazyModel] {
@@ -80,3 +81,11 @@ trait DecoderWrapApply[RepCol, DataCol] {
 object DecoderWrapApply {
   def decoderInstance[RepCol, DataCol]: DecoderWrapApply[RepCol, DataCol] = new DecoderWrapApply[RepCol, DataCol] {}
 }
+
+trait DebugSingleModelDecoder {
+  implicit def implicit1[Table, LazyModel, RepCol, DataCol]: DecoderInputTable.Aux[DebugSingleModelDecoder, Table, LazyModel, Any, Any] =
+    macro DecoderCaseClassMapper.BlackboxDecoderCaseClassMapperImpl
+      .debugCaseClassSingleModelDecoderGeneric[DebugSingleModelDecoder, Table, LazyModel, RepCol, DataCol]
+}
+
+object DebugSingleModelDecoder extends DebugSingleModelDecoder

@@ -84,7 +84,7 @@ object FormatterCaseClassMapper {
       val tempData         = weakTypeOf[TempData]
       val output           = weakTypeOf[Output]
       val table            = weakTypeOf[Table]
-      val formatterDataGen = weakTypeOf[FormatterDataGen[Output, Rep]]
+      val formatterDataGen = weakTypeOf[FormatterDataGen[Output]]
       val unusedData       = weakTypeOf[UnusedData[EmptyLazyModel, Output, EmptyLazyModel]]
 
       val outputFieldNames = getCaseClassFields(output)

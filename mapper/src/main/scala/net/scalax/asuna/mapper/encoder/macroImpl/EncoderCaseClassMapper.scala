@@ -153,7 +153,7 @@ object EncoderCaseClassMapper {
       val output         = weakTypeOf[Output]
       val unused         = weakTypeOf[Unused]
       val table          = weakTypeOf[Table]
-      val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused, Rep]]
+      val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
 
       val inputFieldNames = getCaseClassFields(input).map(
           s =>

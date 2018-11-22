@@ -7,13 +7,7 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
 }](@for(i <- 1 to count) {
     val rep@{i}: Rep@{i}
     @if(i < count) { , }
-}) extends DataGenWrap[
-    CaseClassRepMapper@{count}[@for(i <- 1 to count) {
-        Rep@{i},
-        Data@{i}
-        @if(i < count) { , }
-    }]
-] {
+}) extends DataGenTag {
 
     @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
     "@for(i <- 1 to count) {i@{i}(context)\n}to find the missing column.", "0.0.1") def selfInfo: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
@@ -63,10 +57,30 @@ class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         @if(i < count) { , }
     }];
 
-    override def rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+};
+
+class Setter@{count}[@for(i <- 1 to count) {
+    Rep@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    val rep@{i}: Rep@{i}
+    @if(i < count) { , }
+}) {
+    def output[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
         Rep@{i},
         Data@{i}
         @if(i < count) { , }
-    }] = this;
-
-};
+    }] = {
+        new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Rep@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }](@for(i <- 1 to count) {
+            rep@{i} = rep@{i}
+            @if(i < count) { , }
+        })
+    }
+}
