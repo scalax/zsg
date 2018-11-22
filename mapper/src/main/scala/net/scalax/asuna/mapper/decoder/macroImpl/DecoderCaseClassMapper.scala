@@ -156,7 +156,6 @@ object DecoderCaseClassMapper {
       }.head
 
       //Model to input's fields
-      println("11" * 100 + input)
       val inputFieldNames = getCaseClassFields(input)
 
       //Model to output's fields
