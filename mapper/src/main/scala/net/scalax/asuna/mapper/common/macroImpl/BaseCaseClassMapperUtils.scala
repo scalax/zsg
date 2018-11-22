@@ -418,7 +418,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   }
 
   @tailrec
-  final def withDataDescribeFunc(treeList: List[Tree])(deep: Int): Tree = {
+  final def withDataDescribeFunc(treeList: List[Tree]): Tree = {
     treeList match {
       case head :: Nil =>
         head
@@ -432,12 +432,12 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           }
           q"""${caseClassMapperCompanion}.mergeRep(..${setParameter})"""
         }
-        withDataDescribeFunc(newList)(deep + 1)
+        withDataDescribeFunc(newList)
     }
   }
 
   def toRepMapper(fields: List[BaseField], tableName: Tree): Tree = {
-    withDataDescribeFunc(initProperty(fields = fields, tableName))(1)
+    withDataDescribeFunc(initProperty(fields = fields, tableName))
   }
 
 }
