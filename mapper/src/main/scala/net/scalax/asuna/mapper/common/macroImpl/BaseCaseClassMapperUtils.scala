@@ -399,7 +399,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val param =
           q"""${TermName("rep")} = ${field.tableGetter(tableName)}""" ::
             field.defaultValue.map { value =>
-              println(value); q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
+               q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
             }.toList
 
         (q"""${repGroupColumnWrapperCompanion}.input[${field.propertyType}](${columnInfoTree}).withDefault(..${param})""", field.propertyType)
