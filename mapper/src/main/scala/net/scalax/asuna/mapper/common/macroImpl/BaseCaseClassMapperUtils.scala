@@ -201,7 +201,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -355,16 +355,16 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   )
 
   def getCaseClassFields(caseClass: Type): List[CaseClassField] = {
-
+    caseClass.companion.members // 这一行不可以删除...
     val constructor = caseClass.decls.collect { case m: MethodSymbol if m.isConstructor => m }.head
     constructor.paramLists.head.map(param => param.asTerm).zipWithIndex.map {
       case (field, i) =>
         val TermName(paramName) = field.name
 
-        val method = TermName(s"apply$$default$$${i + 1}")
-        val defaultValueTree = caseClass.companion.member(method) match {
+        val method1 = TermName(s"apply$$default$$${i + 1}")
+        val defaultValueTree = caseClass.companion.member(method1) match {
           case NoSymbol => None
-          case _        => Some(q"${caseClass.typeSymbol.companion}.$method")
+          case _        => Some(q"${caseClass.typeSymbol.companion}.$method1")
         }
 
         CaseClassField(
@@ -396,11 +396,14 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           case head :: Nil => Literal(Constant(head))
           case l           => q"""List(..${l.map(name => q"""${Literal(Constant(name))}""")})"""
         }
+
+        println(field.defaultValue)
+
         val param =
           q"""${TermName("rep")} = ${field.tableGetter(tableName)}""" ::
             field.defaultValue.map { value =>
-               q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
-            }.toList
+            q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
+          }.toList
 
         (q"""${repGroupColumnWrapperCompanion}.input[${field.propertyType}](${columnInfoTree}).withDefault(..${param})""", field.propertyType)
     }
