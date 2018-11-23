@@ -162,11 +162,11 @@ object DecoderCaseClassMapper {
       //Some not confirm to inputFieldNames is use to map to the table
       val outputFieldNames = getCaseClassFields(output)
 
+      lazyModel.members.toList // 这一行不可以删除...
       val sub = lazyModel.member(TermName("sub")).asTerm.typeSignatureIn(lazyModel).resultType
       //.reverse
       //Model to sub's fields
       val subFieldNames = getCaseClassFields(sub)
-      //sub.members.toList.reverse.filter(s => s.isTerm && s.asTerm.isCaseAccessor && s.asTerm.isVal).map(_.name).collect { case TermName(n) => n.trim }
 
       val notInputOutputFieldNames = outputFieldNames.filterNot(s => inputFieldNames.map(_.name).contains(s.name))
 

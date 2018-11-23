@@ -42,7 +42,7 @@ case class LargeModel(
   , i39: String = "init jehngoehntoh"
   , i40: String = "init jehngoehntoh"
   , i41: String = "init jehngoehntoh"
-  , i42: Int=27
+  , i42: Int = 27
   , i43: String = "init jehngoehntoh"
   , i44: String = "init jehngoehntoh"
   , i45: String = "init jehngoehntoh"
@@ -56,7 +56,7 @@ case class LargeModel(
   , i53: String = "init jehngoehntoh"
   , i54: String = "init jehngoehntoh"
   , i55: String = "init jehngoehntoh"
-  , i56: Int=3812
+  , i56: Int = 3812
   , i57: String = "init jehngoehntoh"
   , i58: String = "init jehngoehntoh"
   , i59: String = "init jehngoehntoh"
@@ -94,7 +94,7 @@ case class LargeModel(
   , i91: String = "init jehngoehntoh"
   , i92: String = "init jehngoehntoh"
   , i93: String = "init jehngoehntoh"
-  , i94: Int=782
+  , i94: Int = 782
   , i95: String = "init jehngoehntoh"
   , i96: String = "init jehngoehntoh"
   , i97: String = "init jehngoehntoh"
