@@ -110,8 +110,8 @@ trait RepGroupColumnNonDefaultWrapperImplicit2 extends RepGroupColumnNonDefaultW
     new RepGroupColumnNonDefaultWrapper[MutiplyRepContentWithNonDefault[Col, Data], Data, List[String]] {
       override type Target = MutiplyRepContentWithNonDefault[Col, Data]
       @inline override def inputColumn(
-        rep: => MutiplyRepContentWithNonDefault[Col, Data],
-        columnInfo: List[String]
+          rep: => MutiplyRepContentWithNonDefault[Col, Data]
+        , columnInfo: List[String]
       ): MutiplyRepContentWithNonDefault[Col, Data] = rep
     }
 
