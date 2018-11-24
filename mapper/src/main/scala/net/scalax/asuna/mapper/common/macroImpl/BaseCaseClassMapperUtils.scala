@@ -201,7 +201,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                            }
+                          }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -371,8 +371,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         CaseClassField(
             name = paramName
           , fieldType = caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType
-          , placeHolder =
-            q"""null.asInstanceOf[net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]]"""
+          , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -399,13 +398,11 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           case l           => q"""List(..${l.map(name => q"""${Literal(Constant(name))}""")})"""
         }
 
-        println(field.defaultValue)
-
         val param =
           q"""${TermName("rep")} = ${field.tableGetter(tableName)}""" ::
             field.defaultValue.map { value =>
-              q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
-            }.toList
+            q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
+          }.toList
 
         (q"""${repGroupColumnWrapperCompanion}.input[${field.propertyType}](${columnInfoTree}).withDefault(..${param})""", field.propertyType)
     }
