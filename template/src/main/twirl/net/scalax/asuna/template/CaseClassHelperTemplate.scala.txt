@@ -3,23 +3,24 @@
 package net.scalax.asuna.mapper.common;
 
 import net.scalax.asuna.core.encoder.EncoderShape;
-import net.scalax.asuna.core.encoder.EncoderShapeValue;
+//import net.scalax.asuna.core.encoder.EncoderShapeValue;
 import net.scalax.asuna.mapper.encoder.EncoderWrapperHelper;
 import net.scalax.asuna.mapper.encoder.EncoderContent;
-import net.scalax.asuna.mapper.encoder.EncoderDebugShape;
+//import net.scalax.asuna.mapper.encoder.EncoderDebugShape;
 
 import net.scalax.asuna.core.decoder.{ DecoderShape, SplitData };
-import net.scalax.asuna.core.decoder.DecoderShapeValue;
+//import net.scalax.asuna.core.decoder.DecoderShapeValue;
 import net.scalax.asuna.mapper.decoder.DecoderWrapperHelper;
 import net.scalax.asuna.mapper.decoder.DecoderContent;
-import net.scalax.asuna.mapper.decoder.DecoderDebugShape;
+//import net.scalax.asuna.mapper.decoder.DecoderDebugShape;
 
 import net.scalax.asuna.core.formatter.FormatterShape;
-import net.scalax.asuna.core.formatter.FormatterShapeValue;
+//import net.scalax.asuna.core.formatter.FormatterShapeValue;
 import net.scalax.asuna.mapper.formatter.FormatterWrapperHelper;
 import net.scalax.asuna.mapper.formatter.FormatterContent;
-import net.scalax.asuna.mapper.formatter.FormatterDebugShape;
+//import net.scalax.asuna.mapper.formatter.FormatterDebugShape;
 
+import scala.annotation.implicitNotFound;
 import scala.language.higherKinds;
 
 trait CaseClassMapper;

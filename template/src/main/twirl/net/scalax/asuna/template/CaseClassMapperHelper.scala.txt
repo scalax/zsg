@@ -1,22 +1,44 @@
 @(count: Int)
 
 def withRep[@for(i <- 1 to count) {
-    Rep@{i}
+    Rep@{i},
+    Data@{i}
     @if(i < count) { , }
 }](@for(i <- 1 to count) {
-    rep@{i}: Rep@{i}
+    rep@{i}: Rep@{i},
+} setter: => PropertyDataType@{count}[@for(i <- 1 to count) {
+    Data@{i}
     @if(i < count) { , }
-}): Setter@{count}[@for(i <- 1 to count) {
-    Rep@{i}
+}]): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
     @if(i < count) { , }
 }] = {
-    new Setter@{count}[@for(i <- 1 to count) {
-        Rep@{i}
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
         @if(i < count) { , }
     }](@for(i <- 1 to count) {
         rep@{i} = rep@{i}
         @if(i < count) { , }
     })
+};
+
+def defineDataType[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    property@{i}: PropertyType[Data@{i}]
+    @if(i < count) { , }
+}): PropertyDataType@{count}[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new PropertyDataType@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]
+    ???
 };
 
 def mergeRep[@for(i <- 1 to count) {

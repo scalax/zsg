@@ -2,8 +2,8 @@ package net.scalax.asuna.implements.circe.abc
 
 import io.circe.{Encoder, Json, JsonObject}
 import net.scalax.asuna.LazyImplicit
-import net.scalax.asuna.core.common.Placeholder
 import net.scalax.asuna.core.encoder.EncoderShape
+import net.scalax.asuna.mapper.Placeholder
 import net.scalax.asuna.mapper.common.SingleRepContent
 import net.scalax.asuna.mapper.encoder._
 
@@ -20,11 +20,11 @@ trait CirceAsunaEncoderImpl[T, Poly] extends CirceAsunaEncoder[Poly] {
 trait CircePoly {
   implicit def implicit1[T](
       implicit encoder: LazyImplicit[Encoder[T]]
-  ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, String, List[CirceAsunaEncoder[CircePoly]], List[(String, Json)]] = {
-    new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder[CircePoly]], List[(String, Json)]] {
+  ): EncoderShape.Aux[SingleRepContent[Placeholder, T], T, String, List[CirceAsunaEncoder[CircePoly]], List[(String, Json)]] = {
+    new EncoderShape[SingleRepContent[Placeholder, T], List[CirceAsunaEncoder[CircePoly]], List[(String, Json)]] {
       override type Target = String
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): String = base.singleModelName
+      override def wrapRep(base: => SingleRepContent[Placeholder, T]): String = base.singleModelName
       override def buildRep(base: String, oldRep: List[CirceAsunaEncoder[CircePoly]]): List[CirceAsunaEncoder[CircePoly]] =
         throw new Exception("No use to support.")
       override def buildData(data: T, rep: String, oldData: List[(String, Json)]): List[(String, Json)] =
@@ -60,13 +60,13 @@ object CircePoly extends CircePoly
 trait CircePoly1 {
   implicit def implicit1[T](
       implicit encoder: LazyImplicit[Encoder[T]]
-  ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, CirceAsunaEncoderImpl[T, CircePoly1], List[CirceAsunaEncoder[CircePoly1]], List[
+  ): EncoderShape.Aux[SingleRepContent[Placeholder, T], T, CirceAsunaEncoderImpl[T, CircePoly1], List[CirceAsunaEncoder[CircePoly1]], List[
       (String, Json)
   ]] = {
-    new EncoderShape[SingleRepContent[Placeholder[T], T], List[CirceAsunaEncoder[CircePoly1]], List[(String, Json)]] {
+    new EncoderShape[SingleRepContent[Placeholder, T], List[CirceAsunaEncoder[CircePoly1]], List[(String, Json)]] {
       override type Target = CirceAsunaEncoderImpl[T, CircePoly1]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): CirceAsunaEncoderImpl[T, CircePoly1] = new CirceAsunaEncoderImpl[T, CircePoly1] {
+      override def wrapRep(base: => SingleRepContent[Placeholder, T]): CirceAsunaEncoderImpl[T, CircePoly1] = new CirceAsunaEncoderImpl[T, CircePoly1] {
         override lazy val write = encoder.value
         override val key        = base.singleModelName
       }

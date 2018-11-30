@@ -1,5 +1,6 @@
 package net.scalax.asuna.mapper.common.macroImpl
 
+import net.scalax.asuna.mapper.Placeholder
 import net.scalax.asuna.mapper.common._
 
 import scala.annotation.tailrec
@@ -183,7 +184,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
           val fieldOpt = tableFields.map(r => (r, r.containFields.contains(s.name))).find { case (_, contains) => contains }
 
           val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s, tableGetter = { tableVar: Tree =>
-            s.placeHolder
+            q"""${placeholderCompanion}.value"""
           }, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo, List(s.name))) {
             case (r, _) =>
               (r match {
@@ -201,7 +202,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
                             r =>
                             caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
                               case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                          }
+                            }
                         )
                         .collect { case Some(r) => r }
                       if (key.containFields.size == values.size) {
@@ -349,7 +350,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class CaseClassField(
       name: String
     , fieldType: Type
-    , placeHolder: Tree
+    //, placeHolder: Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
   )
@@ -371,7 +372,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         CaseClassField(
             name = paramName
           , fieldType = caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType
-          , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
+          //, placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -387,6 +388,12 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   val caseClassMapperCompanion       = getCompanion(caseClassMapper)
   val symbol                         = weakTypeOf[scala.Symbol]
   val symbolCompaion                 = symbol.typeSymbol.companion
+  val modelGen                       = weakTypeOf[ModelGen[_]]
+  val modelGenCompanion              = getCompanion(modelGen)
+  val propertyType                   = weakTypeOf[PropertyType[_]]
+  val propertyTypeCompanion          = getCompanion(propertyType)
+  val placeholder                    = weakTypeOf[Placeholder]
+  val placeholderCompanion           = getCompanion(placeholder)
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
 
@@ -401,8 +408,8 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         val param =
           q"""${TermName("rep")} = ${field.tableGetter(tableName)}""" ::
             field.defaultValue.map { value =>
-            q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
-          }.toList
+              q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
+            }.toList
 
         (q"""${repGroupColumnWrapperCompanion}.input[${field.propertyType}](${columnInfoTree}).withDefault(..${param})""", field.propertyType)
     }
@@ -411,10 +418,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       val setParameter = subList.zipWithIndex.map {
         case ((item, _), index) =>
           val plusIndex = index + 1
-          //val fName     = c.freshName("data" + (index + 1))
           q"""${TermName("rep" + plusIndex)} = ${item}"""
       }
-      q"""${caseClassMapperCompanion}.withRep(..${setParameter}).output[..${subList.map(_._2)}]"""
+      q"""${caseClassMapperCompanion}.withRep(..${setParameter}, setter = ${caseClassMapperCompanion}.defineDataType(..${subList
+        .map(s => q"""${propertyTypeCompanion}.value[${s._2}]""")}))"""
     }
 
   }
