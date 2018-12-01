@@ -1,6 +1,7 @@
 package net.scalax.asuna.mapper.common
 
 import net.scalax.asuna.core.common.{++::, RNil, RepGroup, RepGroupContent}
+import net.scalax.asuna.mapper.Placeholder
 
 trait RepGroupColumnNonDefaultWrapper[-Col, Data, ColumnInfoType] {
   type Target
@@ -99,13 +100,25 @@ trait RepGroupColumnNonDefaultWrapperImplicit2 extends RepGroupColumnNonDefaultW
     }
 
   implicit def repGroupRepGroupColumnImplicit3[Col, Data, Rep]
+    : RepGroupColumnNonDefaultWrapper.Aux[SingleName, Data, String, SingleRepContentWithNonDefault[Placeholder, Data]] =
+    new RepGroupColumnNonDefaultWrapper[SingleName, Data, String] {
+      override type Target = SingleRepContentWithNonDefault[Placeholder, Data]
+      @inline override def inputColumn(rep1: => SingleName, columnInfo: String): SingleRepContentWithNonDefault[Placeholder, Data] = {
+        new SingleRepContentWithNonDefault[Placeholder, Data] {
+          override def rep             = Placeholder.value
+          override val singleModelName = rep1.singleName
+        }
+      }
+    }
+
+  implicit def repGroupRepGroupColumnImplicit4[Col, Data, Rep]
     : RepGroupColumnNonDefaultWrapper.Aux[MutiplyRepContentWithDefault[Col, Data], Data, List[String], MutiplyRepContentWithDefault[Col, Data]] =
     new RepGroupColumnNonDefaultWrapper[MutiplyRepContentWithDefault[Col, Data], Data, List[String]] {
       override type Target = MutiplyRepContentWithDefault[Col, Data]
       @inline override def inputColumn(rep: => MutiplyRepContentWithDefault[Col, Data], columnInfo: List[String]): MutiplyRepContentWithDefault[Col, Data] = rep
     }
 
-  implicit def repGroupRepGroupColumnImplicit4[Col, Data, Rep]
+  implicit def repGroupRepGroupColumnImplicit5[Col, Data, Rep]
     : RepGroupColumnNonDefaultWrapper.Aux[MutiplyRepContentWithNonDefault[Col, Data], Data, List[String], MutiplyRepContentWithNonDefault[Col, Data]] =
     new RepGroupColumnNonDefaultWrapper[MutiplyRepContentWithNonDefault[Col, Data], Data, List[String]] {
       override type Target = MutiplyRepContentWithNonDefault[Col, Data]
@@ -113,6 +126,19 @@ trait RepGroupColumnNonDefaultWrapperImplicit2 extends RepGroupColumnNonDefaultW
           rep: => MutiplyRepContentWithNonDefault[Col, Data]
         , columnInfo: List[String]
       ): MutiplyRepContentWithNonDefault[Col, Data] = rep
+    }
+
+  implicit def repGroupRepGroupColumnImplicit6[Col, Data, Rep]
+    : RepGroupColumnNonDefaultWrapper.Aux[MultiplyName, Data, List[String], MutiplyRepContentWithNonDefault[Placeholder, Data]] =
+    new RepGroupColumnNonDefaultWrapper[MultiplyName, Data, List[String]] {
+      override type Target = MutiplyRepContentWithNonDefault[Placeholder, Data]
+      @inline override def inputColumn(
+          rep1: => MultiplyName
+        , columnInfo: List[String]
+      ): MutiplyRepContentWithNonDefault[Placeholder, Data] = new MutiplyRepContentWithNonDefault[Placeholder, Data] {
+        override def rep = Placeholder.value
+        override val mutiplyModelName = rep1.multiplyName
+      }
     }
 
 }
