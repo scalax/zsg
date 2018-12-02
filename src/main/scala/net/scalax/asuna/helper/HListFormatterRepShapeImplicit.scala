@@ -1,7 +1,7 @@
-package net.scalax.asuna.helper
+package org.scalax.asuna.helper
 
-import net.scalax.asuna.core.decoder.SplitData
-import net.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.core.decoder.SplitData
+import org.scalax.asuna.core.formatter.FormatterShape
 import shapeless._
 
 trait HListFormatterRepShapeImplicit {

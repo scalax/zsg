@@ -1,9 +1,9 @@
-package net.scalax.asuna.core.formatter
+package org.scalax.asuna.core.formatter
 
-import net.scalax.asuna.core.common.CommonShape
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.core.formatter.impl.ListFormatterShapeImplicit
+import org.scalax.asuna.core.common.CommonShape
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.formatter.impl.ListFormatterShapeImplicit
 
 trait FormatterShape[-E, RepCol, EncoderDataCol, DecoderDataCol]
     extends EncoderShape[E, RepCol, EncoderDataCol]

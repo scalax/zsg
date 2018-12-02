@@ -1,9 +1,9 @@
-package net.scalax.asuna.mapper.encoder.macroImpl
+package org.scalax.asuna.mapper.encoder.macroImpl
 
-import net.scalax.asuna.core.encoder.EncoderShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
+import org.scalax.asuna.core.encoder.EncoderShapeValue
+import org.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
 
 object EncoderCaseClassMapper {
 

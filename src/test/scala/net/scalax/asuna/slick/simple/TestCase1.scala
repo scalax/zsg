@@ -1,9 +1,9 @@
-package net.scalax.asuna.slick.simple
+package org.scalax.asuna.slick.simple
 
 import java.util.Locale
 
 import com.github.javafaker.Faker
-import net.scalax.asuna.mapper.decoder.LazyModel
+import org.scalax.asuna.mapper.decoder.LazyModel
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures

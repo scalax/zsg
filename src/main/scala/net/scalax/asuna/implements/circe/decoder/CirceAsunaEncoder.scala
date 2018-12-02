@@ -1,4 +1,4 @@
-package net.scalax.asuna.circe.aaaa
+package org.scalax.asuna.circe.aaaa
 
 import io.circe.{DecodingFailure, Json}
 

@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.encoder
+package org.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.mapper.common.DataGenWrap
+import org.scalax.asuna.mapper.common.DataGenWrap
 
 trait EncoderDataGen[Input, Output, Unused] extends DataGenWrap {
   self =>
@@ -22,7 +22,7 @@ trait EncoderDataGen[Input, Output, Unused] extends DataGenWrap {
 
 package impl {
 
-  import net.scalax.asuna.mapper.common.DataGenTag
+  import org.scalax.asuna.mapper.common.DataGenTag
 
   trait DataGenWrap[Input, Output, Unused] {
     def apply[TempRep1 <: DataGenTag](

@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper
+package org.scalax.asuna.mapper
 
 trait Placeholder
 

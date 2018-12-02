@@ -1,8 +1,8 @@
-package net.scalax.asuna.mapper.encoder
+package org.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
+import org.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
 
 import scala.language.experimental.macros
 

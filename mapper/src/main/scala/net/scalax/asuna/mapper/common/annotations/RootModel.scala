@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.common.annotations
+package org.scalax.asuna.mapper.common.annotations
 
 import scala.annotation.StaticAnnotation
 

@@ -1,4 +1,4 @@
-package net.scalax.asuna.core.common
+package org.scalax.asuna.core.common
 
 trait CommonShapeValue[U, RepCol] {
   self =>

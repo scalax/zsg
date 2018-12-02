@@ -1,10 +1,10 @@
-package net.scalax.asuna.helper.data.macroImpl
+package org.scalax.asuna.helper.data.macroImpl
 
-import net.scalax.asuna.core.formatter.FormatterShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.UnusedData
-import net.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable, FormatterWrapApply}
+import org.scalax.asuna.core.formatter.FormatterShapeValue
+import org.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.mapper.encoder.UnusedData
+import org.scalax.asuna.mapper.formatter.{FormatterDataGen, FormatterInputTable, FormatterWrapApply}
 
 object FormatterCaseClassMapper {
 

@@ -1,6 +1,6 @@
-package net.scalax.asuna.helper
+package org.scalax.asuna.helper
 
-import net.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.encoder.EncoderShape
 import shapeless._
 
 trait HListEncoderRepShapeImplicit {

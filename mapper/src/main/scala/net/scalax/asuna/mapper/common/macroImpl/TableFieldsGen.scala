@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.common.macroImpl
+package org.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
+import org.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
 
 import scala.reflect.macros.blackbox.Context
 

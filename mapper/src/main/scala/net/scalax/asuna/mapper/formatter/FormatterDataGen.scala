@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.formatter
+package org.scalax.asuna.mapper.formatter
 
-import net.scalax.asuna.mapper.common.DataGenWrap
+import org.scalax.asuna.mapper.common.DataGenWrap
 
 trait FormatterDataGen[Output] extends DataGenWrap {
   self =>
@@ -24,7 +24,7 @@ trait FormatterDataGen[Output] extends DataGenWrap {
 
 package impl {
 
-  import net.scalax.asuna.mapper.common.DataGenTag
+  import org.scalax.asuna.mapper.common.DataGenTag
 
   class FormatterDataGenImpl[Output, Rep <: DataGenTag](wrap: Rep, f: (Output, Rep) => Rep#TempData, g: (Rep#TempData, Rep) => Output)
       extends FormatterDataGen[Output] {

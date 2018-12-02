@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.formatter
+package org.scalax.asuna.mapper.formatter
 
-import net.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
+import org.scalax.asuna.helper.data.macroImpl.FormatterCaseClassMapper
 
 import scala.language.experimental.macros
 

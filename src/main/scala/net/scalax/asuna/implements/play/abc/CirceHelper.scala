@@ -1,10 +1,10 @@
-package net.scalax.asuna.implements.play.abc
+package org.scalax.asuna.implements.play.abc
 
-import net.scalax.asuna.LazyImplicit
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.Placeholder
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.encoder._
+import org.scalax.asuna.LazyImplicit
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.encoder._
 import play.api.libs.json._
 
 trait PlayAsunaEncoder[Poly] {

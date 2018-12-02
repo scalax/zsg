@@ -1,6 +1,6 @@
-package net.scalax.asuna.core.encoder.impl
+package org.scalax.asuna.core.encoder.impl
 
-import net.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.encoder.EncoderShape
 
 trait ListEncoderShapeImplicit {
 

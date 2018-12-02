@@ -1,5 +1,5 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
-trait RepContentWithNonDefault[+Rep, Data] extends RepContent[Rep, Data] {
+trait RepContentWithNonDefault[+Rep, Data] extends Any with RepContent[Rep, Data] {
   override def rep: Rep
 }

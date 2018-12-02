@@ -1,6 +1,6 @@
-package net.scalax.asuna.core.decoder.impl
+package org.scalax.asuna.core.decoder.impl
 
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 
 trait ListDecoderShapeImplicit {
 

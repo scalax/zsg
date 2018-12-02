@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.formatter
+package org.scalax.asuna.mapper.formatter
 
-import net.scalax.asuna.core.formatter.{FormatterShape, FormatterShapeValue}
+import org.scalax.asuna.core.formatter.{FormatterShape, FormatterShapeValue}
 
 import scala.language.higherKinds
 

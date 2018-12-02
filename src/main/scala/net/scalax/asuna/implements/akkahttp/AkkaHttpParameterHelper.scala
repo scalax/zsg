@@ -1,13 +1,13 @@
-package net.scalax.asuna.akkahttp
+package org.scalax.asuna.akkahttp
 
 import akka.http.scaladsl.server.directives.FormFieldDirectives.FieldMagnet
 import akka.http.scaladsl.server.directives.{FormFieldDirectives, ParameterDirectives}
 import akka.http.scaladsl.server.directives.ParameterDirectives.ParamMagnet
 import akka.http.scaladsl.server.{Directive, Directive1, Route}
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.mapper.Placeholder
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait AkkaFormFieldWrapAbs {
 

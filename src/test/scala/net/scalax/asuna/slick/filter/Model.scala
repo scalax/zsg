@@ -1,4 +1,4 @@
-package net.scalax.asuna.slick.filter
+package org.scalax.asuna.slick.filter
 
 import io.circe.JsonObject
 import slick.jdbc.H2Profile.api._

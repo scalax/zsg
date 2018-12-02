@@ -1,4 +1,4 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
 object TestParam {
 

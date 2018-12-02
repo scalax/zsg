@@ -6,7 +6,7 @@ import akka.util.ByteString
 import cats.Traverse
 import io.circe._
 import io.circe.syntax._
-import net.scalax.asuna.core.{CirceReaderQuery, ValidateModel}
+import org.scalax.asuna.core.{CirceReaderQuery, ValidateModel}
 import play.api.http._
 import play.api.libs.streams.Execution.Implicits.trampoline
 import play.api.libs.streams.Accumulator

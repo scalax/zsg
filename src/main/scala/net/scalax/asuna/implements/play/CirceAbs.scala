@@ -1,11 +1,11 @@
-package net.scalax.asuna.core
+package org.scalax.asuna.core
 
 import cats.Traverse
 import io.circe.{Decoder, Encoder}
 import cats.data._
 import cats.implicits._
-import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue, SplitData}
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue, SplitData}
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -1,4 +1,4 @@
-package net.scalax.asuna.core
+package org.scalax.asuna.core
 
 import io.circe.JsonObject
 import org.scalatest._

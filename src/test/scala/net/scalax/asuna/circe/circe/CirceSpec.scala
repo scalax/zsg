@@ -1,10 +1,10 @@
-package net.scalax.asuna.core.circe.circe
+package org.scalax.asuna.core.circe.circe
 
 import java.nio.charset.StandardCharsets
 
 import io.circe.generic.auto._
 import io.circe.syntax._
-import net.scalax.asuna.core.{CirceModels, ValidateField, ValidateModel}
+import org.scalax.asuna.core.{CirceModels, ValidateField, ValidateModel}
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
 import play.api._

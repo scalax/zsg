@@ -1,111 +1,111 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
 case class LargeModel(
-    i1: String = "123"
-  , i2: String = "init jehngoehntoh"
-  , i3: String = "init jehngoehntoh"
-  , i4: String = "init jehngoehntoh"
-  , i5: String = "init jehngoehntoh"
-  , i6: String = "init jehngoehntoh"
-  , i7: String = "init jehngoehntoh"
-  , i8: String = "init jehngoehntoh"
-  , i9: String = "init jehngoehntoh"
-  , i10: String = "init jehngoehntoh"
-  , i11: String = "init jehngoehntoh"
-  , i12: String = "init jehngoehntoh"
-  , i13: String = "init jehngoehntoh"
-  , i14: String = "init jehngoehntoh"
-  , i15: String = "init jehngoehntoh"
-  , i16: String = "init jehngoehntoh"
-  , i17: String = "init jehngoehntoh"
-  , i18: String = "init jehngoehntoh"
-  , i19: String = "init jehngoehntoh"
-  , i20: String = "init jehngoehntoh"
-  , i21: String = "init jehngoehntoh"
-  , i22: String = "init jehngoehntoh"
-  , i23: String = "init jehngoehntoh"
-  , i24: String = "init jehngoehntoh"
-  , i25: String = "init jehngoehntoh"
-  , i26: String = "init jehngoehntoh"
-  , i27: String = "init jehngoehntoh"
-  , i28: String = "init jehngoehntoh"
-  , i29: String = "init jehngoehntoh"
-  , i30: String = "init jehngoehntoh"
-  , i31: String = "init jehngoehntoh"
-  , i32: String = "init jehngoehntoh"
-  , i33: String = "init jehngoehntoh"
-  , i34: String = "init jehngoehntoh"
-  , i35: String = "init jehngoehntoh"
-  , i36: String = "init jehngoehntoh"
-  , i37: String = "init jehngoehntoh"
-  , i38: String = "init jehngoehntoh"
-  , i39: String = "init jehngoehntoh"
-  , i40: String = "init jehngoehntoh"
-  , i41: String = "init jehngoehntoh"
+    i1: Int = 123
+  , i2: String
+  , i3: String
+  , i4: String
+  , i5: String
+  , i6: String
+  , i7: String
+  , i8: String
+  , i9: String
+  , i10: String
+  , i11: String
+  , i12: String
+  , i13: String
+  , i14: String
+  , i15: String
+  , i16: String
+  , i17: String
+  , i18: String
+  , i19: String
+  , i20: String
+  , i21: String
+  , i22: String
+  , i23: String
+  , i24: String
+  , i25: String
+  , i26: String
+  , i27: String
+  , i28: String
+  , i29: String
+  , i30: String
+  , i31: String
+  , i32: String
+  , i33: String
+  , i34: String
+  , i35: String
+  , i36: String
+  , i37: String
+  , i38: String
+  , i39: String
+  , i40: String
+  , i41: String
   , i42: Int = 27
-  , i43: String = "init jehngoehntoh"
-  , i44: String = "init jehngoehntoh"
-  , i45: String = "init jehngoehntoh"
-  , i46: String = "init jehngoehntoh"
-  , i47: String = "init jehngoehntoh"
-  , i48: String = "init jehngoehntoh"
-  , i49: String = "init jehngoehntoh"
-  , i50: String = "init jehngoehntoh"
-  , i51: String = "init jehngoehntoh"
-  , i52: String = "init jehngoehntoh"
-  , i53: String = "init jehngoehntoh"
-  , i54: String = "init jehngoehntoh"
-  , i55: String = "init jehngoehntoh"
+  , i43: String
+  , i44: String
+  , i45: String
+  , i46: String
+  , i47: String
+  , i48: String
+  , i49: String
+  , i50: String
+  , i51: String
+  , i52: String
+  , i53: String
+  , i54: String
+  , i55: String
   , i56: Int = 3812
-  , i57: String = "init jehngoehntoh"
-  , i58: String = "init jehngoehntoh"
-  , i59: String = "init jehngoehntoh"
-  , i60: String = "init jehngoehntoh"
-  , i61: String = "init jehngoehntoh"
-  , i62: String = "init jehngoehntoh"
-  , i63: String = "init jehngoehntoh"
-  , i64: String = "init jehngoehntoh"
-  , i65: String = "init jehngoehntoh"
-  , i66: String = "init jehngoehntoh"
-  , i67: String = "init jehngoehntoh"
-  , i68: String = "init jehngoehntoh"
-  , i69: String = "init jehngoehntoh"
-  , i70: String = "init jehngoehntoh"
-  , i71: String = "init jehngoehntoh"
-  , i72: String = "init jehngoehntoh"
-  , i73: String = "init jehngoehntoh"
-  , i74: String = "init jehngoehntoh"
-  , i75: String = "init jehngoehntoh"
-  , i76: String = "init jehngoehntoh"
-  , i77: String = "init jehngoehntoh"
-  , i78: String = "init jehngoehntoh"
-  , i79: String = "init jehngoehntoh"
-  , i80: String = "init jehngoehntoh"
-  , i81: String = "init jehngoehntoh"
-  , i82: String = "init jehngoehntoh"
-  , i83: String = "init jehngoehntoh"
-  , i84: String = "init jehngoehntoh"
-  , i85: String = "init jehngoehntoh"
-  , i86: String = "init jehngoehntoh"
-  , i87: String = "init jehngoehntoh"
-  , i88: String = "init jehngoehntoh"
-  , i89: String = "init jehngoehntoh"
-  , i90: String = "init jehngoehntoh"
-  , i91: String = "init jehngoehntoh"
-  , i92: String = "init jehngoehntoh"
-  , i93: String = "init jehngoehntoh"
+  , i57: String
+  , i58: String
+  , i59: String
+  , i60: String
+  , i61: String
+  , i62: String
+  , i63: String
+  , i64: String
+  , i65: String
+  , i66: String
+  , i67: String
+  , i68: String
+  , i69: String
+  , i70: String
+  , i71: String
+  , i72: String
+  , i73: String
+  , i74: String
+  , i75: String
+  , i76: String
+  , i77: String
+  , i78: String
+  , i79: String
+  , i80: String
+  , i81: String
+  , i82: String
+  , i83: String
+  , i84: String
+  , i85: String
+  , i86: String
+  , i87: String
+  , i88: String
+  , i89: String
+  , i90: String
+  , i91: String
+  , i92: String
+  , i93: String
   , i94: Int = 782
-  , i95: String = "init jehngoehntoh"
-  , i96: String = "init jehngoehntoh"
-  , i97: String = "init jehngoehntoh"
-  , i98: String = "init jehngoehntoh"
-  , i99: String = "init jehngoehntoh"
-  , i100: String = "init jehngoehntoh"
+  , i95: String
+  , i96: String
+  , i97: String
+  , i98: String
+  , i99: String
+  , i100: String
 )
 
-/*object Abcc {
+object Abcc {
   val dd = LargeModel(
-      i1 = "init string"
+      i1 = 404
     , i2 = "init string"
     , i3 = "init string"
     , i4 = "init string"
@@ -206,17 +206,21 @@ case class LargeModel(
     , i99 = "init string"
     , i100 = "init string"
   )
-}*/
+
+  val ff = Hahahah(i1 = dd, i2 = dd, i3 = dd, i4 = dd)
+  val gg = Hahahah2(i1 = Abcc.dd)
+  val hh = MiaoMiao2(i1 = gg)
+}
 
 case class Hahahah(
-    i1: LargeModel = LargeModel(i26 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-  , i2: LargeModel = LargeModel(i36 = "bbbbbbbbbbbbbb")
-  , i3: LargeModel = LargeModel(i41 = "cccccccccccc")
-  , i4: LargeModel = LargeModel(i42 = 8867)
+    i1: LargeModel
+  , i2: LargeModel
+  , i3: LargeModel
+  , i4: LargeModel
 )
 
-case class MiaoMiao(i1: Hahahah = Hahahah())
+case class MiaoMiao(i1: Hahahah)
 
-case class Hahahah2(i1: LargeModel = LargeModel(i33 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"))
+case class Hahahah2(i1: LargeModel)
 
-case class MiaoMiao2(i1: Hahahah2 = Hahahah2())
+case class MiaoMiao2(i1: Hahahah2)

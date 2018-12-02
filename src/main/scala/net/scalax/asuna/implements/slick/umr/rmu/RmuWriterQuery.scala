@@ -1,12 +1,12 @@
-package net.scalax.asuna.slick.umr.rmu
+package org.scalax.asuna.slick.umr.rmu
 
 import io.circe.{Encoder, JsonObject}
 import io.circe.syntax._
-import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
-import net.scalax.asuna.slick.umr.{umrImpl, ShapeFunc, SlickShapeValueWrap, UmrHelper}
+import org.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
+import org.scalax.asuna.slick.umr.{umrImpl, ShapeFunc, SlickShapeValueWrap, UmrHelper}
 import slick.lifted.{FlatShapeLevel, Shape}
 
 trait SlickRmuWrapper {

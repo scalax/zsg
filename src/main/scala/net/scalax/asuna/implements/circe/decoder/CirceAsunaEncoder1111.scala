@@ -1,11 +1,11 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
 import io.circe.{Decoder, DecodingFailure, Json}
-import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.mapper.Placeholder
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
   def read(data: Json): Either[DecodingFailure, DataType]

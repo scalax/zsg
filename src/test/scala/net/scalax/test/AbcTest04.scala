@@ -1,10 +1,10 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
-import net.scalax.asuna.implements.play.abc.PlayHelper
+import org.scalax.asuna.implements.play.abc.PlayHelper
 
 object AbcTest04 extends PlayHelper with App {
 
-  val model: MiaoMiao2 = MiaoMiao2()
+  val model: MiaoMiao2 = Abcc.hh
 
   val result1 = {
     import ai.x.play.json.Jsonx

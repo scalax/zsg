@@ -1,11 +1,11 @@
-package net.scalax.asuna.core
+package org.scalax.asuna.core
 
 import cats.Traverse
 import io.circe.{Json, JsonObject}
 import cats.kernel.CommutativeSemigroup
 import cats.data._
 import cats.implicits._
-import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
+import org.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

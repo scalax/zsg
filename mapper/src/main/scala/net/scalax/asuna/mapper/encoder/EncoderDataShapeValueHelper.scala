@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.encoder
+package org.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
+import org.scalax.asuna.core.encoder.{EncoderShape, EncoderShapeValue}
 
 trait EncoderDataShapeValueHelper[RepCol, DataCol] {
 

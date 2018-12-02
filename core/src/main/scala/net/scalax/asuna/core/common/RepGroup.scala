@@ -1,8 +1,8 @@
-package net.scalax.asuna.core.common
+package org.scalax.asuna.core.common
 
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.formatter.FormatterShape
 
 trait RepGroup[Rep <: RepGroupContent] {
   self =>

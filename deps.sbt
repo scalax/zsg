@@ -51,3 +51,5 @@ libraryDependencies += "org.json4s" %% "json4s-jackson" % "3.6.0"
 libraryDependencies += "com.github.fommil" %% "spray-json-shapeless" % "1.4.0"
 
 libraryDependencies += "ai.x" %% "play-json-extensions" % "0.10.0"
+
+libraryDependencies += "com.lihaoyi" %% "upickle" % "0.7.1"

@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.decoder
+package org.scalax.asuna.mapper.decoder
 
 case class EmptyLazyModel()
 

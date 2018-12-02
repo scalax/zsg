@@ -1,7 +1,7 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
-import net.scalax.asuna.core.common.{++::, RNil, RepGroup, RepGroupContent}
-import net.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.core.common.{++::, RNil, RepGroup, RepGroupContent}
+import org.scalax.asuna.mapper.Placeholder
 
 trait RepGroupColumnNonDefaultWrapper[-Col, Data, ColumnInfoType] {
   type Target
@@ -136,7 +136,7 @@ trait RepGroupColumnNonDefaultWrapperImplicit2 extends RepGroupColumnNonDefaultW
           rep1: => MultiplyName
         , columnInfo: List[String]
       ): MutiplyRepContentWithNonDefault[Placeholder, Data] = new MutiplyRepContentWithNonDefault[Placeholder, Data] {
-        override def rep = Placeholder.value
+        override def rep              = Placeholder.value
         override val mutiplyModelName = rep1.multiplyName
       }
     }

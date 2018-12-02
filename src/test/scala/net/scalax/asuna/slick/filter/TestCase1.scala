@@ -1,4 +1,4 @@
-package net.scalax.asuna.slick.filter
+package org.scalax.asuna.slick.filter
 
 import java.util.Locale
 

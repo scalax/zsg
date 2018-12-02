@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.decoder
+package org.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
+import org.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
 
 import scala.language.higherKinds
 

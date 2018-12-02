@@ -1,8 +1,8 @@
-package net.scalax.slick.dynamic
+package org.scalax.slick.dynamic
 
 import io.circe.Json
 import io.circe.generic.auto._
-import net.scalax.asuna.sangria.{SlickSangriaHelper, SlickValueGen}
+import org.scalax.asuna.sangria.{SlickSangriaHelper, SlickValueGen}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 import sangria.parser.QueryParser

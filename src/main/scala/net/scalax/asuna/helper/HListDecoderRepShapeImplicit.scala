@@ -1,6 +1,6 @@
-package net.scalax.asuna.helper
+package org.scalax.asuna.helper
 
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
 import shapeless.{::, HList, HNil, Lazy}
 
 trait HListDecoderRepShapeImplicit {

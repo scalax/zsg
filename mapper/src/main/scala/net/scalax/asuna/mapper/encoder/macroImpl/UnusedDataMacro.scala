@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.encoder.macroImpl
+package org.scalax.asuna.mapper.encoder.macroImpl
 
 import scala.language.experimental.macros
 

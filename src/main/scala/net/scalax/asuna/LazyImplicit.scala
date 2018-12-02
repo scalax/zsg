@@ -1,4 +1,4 @@
-package net.scalax.asuna
+package org.scalax.asuna
 
 import scala.reflect.macros.blackbox
 

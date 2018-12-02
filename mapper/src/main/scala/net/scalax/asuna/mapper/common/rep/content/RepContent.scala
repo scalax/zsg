@@ -1,5 +1,5 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
-abstract trait RepContent[+Rep, Data] {
+abstract trait RepContent[+Rep, Data] extends Any {
   def rep: Rep
 }

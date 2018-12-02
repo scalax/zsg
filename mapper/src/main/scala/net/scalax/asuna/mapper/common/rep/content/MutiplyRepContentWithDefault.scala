@@ -1,10 +1,10 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.formatter.FormatterShape
 
-trait MutiplyRepContentWithDefault[+Rep, Data] extends MutiplyRepContent[Rep, Data] with RepContentWithDefault[Rep, Data] {
+trait MutiplyRepContentWithDefault[+Rep, Data] extends Any with MutiplyRepContent[Rep, Data] with RepContentWithDefault[Rep, Data] {
   override def rep: Rep
   override def mutiplyModelName: List[String]
   override def defaultValue: Data

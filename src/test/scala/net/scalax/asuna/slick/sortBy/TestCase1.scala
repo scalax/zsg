@@ -1,4 +1,4 @@
-package net.scalax.asuna.slick.sortBy
+package org.scalax.asuna.slick.sortBy
 
 import java.util.Locale
 

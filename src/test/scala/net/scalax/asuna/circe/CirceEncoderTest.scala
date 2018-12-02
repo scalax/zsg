@@ -4,9 +4,9 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.{Decoder, Encoder}
-import net.scalax.asuna.circe.CirceAsunaDecoderHelper
-import net.scalax.asuna.implements.circe.abc.CirceHelper
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.circe.CirceAsunaDecoderHelper
+import org.scalax.asuna.implements.circe.abc.CirceHelper
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
