@@ -1,6 +1,6 @@
 package org.scalax.asuna.circe
 
-case class LargeModel(
+case class LargeModel[R](
     i1: Int = 123
   , i2: String
   , i3: String
@@ -18,7 +18,7 @@ case class LargeModel(
   , i15: String
   , i16: String
   , i17: String
-  , i18: String
+  , i18: R
   , i19: String
   , i20: String
   , i21: String
@@ -104,7 +104,7 @@ case class LargeModel(
 )
 
 object Abcc {
-  val dd = LargeModel(
+  val dd = LargeModel[String](
       i1 = 404
     , i2 = "init string"
     , i3 = "init string"
@@ -208,19 +208,19 @@ object Abcc {
   )
 
   val ff = Hahahah(i1 = dd, i2 = dd, i3 = dd, i4 = dd)
-  val gg = Hahahah2(i1 = Abcc.dd)
+  val gg = Hahahah2(i1 = dd)
   val hh = MiaoMiao2(i1 = gg)
 }
 
 case class Hahahah(
-    i1: LargeModel
-  , i2: LargeModel
-  , i3: LargeModel
-  , i4: LargeModel
+    i1: LargeModel[String]
+  , i2: LargeModel[String]
+  , i3: LargeModel[String]
+  , i4: LargeModel[String]
 )
 
 case class MiaoMiao(i1: Hahahah)
 
-case class Hahahah2(i1: LargeModel)
+case class Hahahah2(i1: LargeModel[String])
 
 case class MiaoMiao2(i1: Hahahah2)

@@ -184,9 +184,9 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
           val fieldEither =
             fieldOpt.fold(
-              (
-                PlaceHolderFieldInfo(s, tableGetter = Option.empty, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo,
-                List(s.name)
+                (
+                  PlaceHolderFieldInfo(s, tableGetter = Option.empty, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo
+                , List(s.name)
               )
             ) {
               case (r, _) =>

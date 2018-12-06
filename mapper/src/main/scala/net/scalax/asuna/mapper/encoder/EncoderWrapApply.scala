@@ -7,21 +7,21 @@ import org.scalax.asuna.mapper.encoder.macroImpl.EncoderCaseClassMapper
 import scala.language.experimental.macros
 
 trait EncoderWrapApply[RepCol, DataCol] {
-  def withUnusedModel[Input, Output, Sub]: UnusedModelWrap[Input, Output, Sub]           = new UnusedModelWrap[Input, Output, Sub]      {}
-  def withSingleModel[Case]: TableWrap[Case]                                             = new TableWrap[Case]                          {}
-  def debugWithUnusedModel[Input, Output, Sub]: DebugUnusedModelWrap[Input, Output, Sub] = new DebugUnusedModelWrap[Input, Output, Sub] {}
-  def debugWithSingleModel[Case]: DebugTableWrap[Case]                                   = new DebugTableWrap[Case]                     {}
+  def withUnusedModel[Model]: UnusedModelWrap[Model]           = new UnusedModelWrap[Model]      {}
+  def withSingleModel[Case]: TableWrap[Case]                   = new TableWrap[Case]             {}
+  def debugWithUnusedModel[Model]: DebugUnusedModelWrap[Model] = new DebugUnusedModelWrap[Model] {}
+  def debugWithSingleModel[Case]: DebugTableWrap[Case]         = new DebugTableWrap[Case]        {}
 
-  trait UnusedModelWrap[Input, Output, Sub] {
+  trait UnusedModelWrap[Model] {
 
     def apply[Table, Rep, TempData](table: Table)(
         implicit
-      repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, Input, Output, Sub, Rep, TempData]
-    ): EncoderCompiler[Rep, TempData, RepCol, DataCol, UnusedData[Input, Output, Sub]] =
-      new EncoderCompiler[Rep, TempData, RepCol, DataCol, UnusedData[Input, Output, Sub]] {
+      repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, Model, Rep, TempData]
+    ): EncoderCompiler[Rep, TempData, RepCol, DataCol, Model] =
+      new EncoderCompiler[Rep, TempData, RepCol, DataCol, Model] {
         override def compile[Target1](
             implicit shape: EncoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]
-        ): EncoderShapeValue[UnusedData[Input, Output, Sub], RepCol, DataCol] = {
+        ): EncoderShapeValue[Model, RepCol, DataCol] = {
           val shape1     = shape
           val wrap       = repWrap.inputTable(table)
           val wrappedRep = shape1.wrapRep(wrap.rep)
@@ -30,7 +30,7 @@ trait EncoderWrapApply[RepCol, DataCol] {
             override val rep   = wrappedRep
             override val shape = shape1.packed
           }
-          sv.emap { (content: UnusedData[Input, Output, Sub]) =>
+          sv.emap { (content: Model) =>
             wrap.to(content)
           }
         }
@@ -42,7 +42,7 @@ trait EncoderWrapApply[RepCol, DataCol] {
 
   trait TableWrap[Case] {
     def apply[Table, Rep, TempData](table: Table)(
-        implicit repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, EmptyLazyModel, Case, EmptyLazyModel, Rep, TempData]
+        implicit repWrap: EncoderInputTable.Aux[FirstEncoderInputTableImplicit, Table, UnusedData[EmptyLazyModel, Case, EmptyLazyModel], Rep, TempData]
     ): EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] =
       new EncoderCompiler[Rep, TempData, RepCol, DataCol, Case] {
         override def compile[Target1](implicit shape: EncoderShape.Aux[Rep, TempData, Target1, RepCol, DataCol]): EncoderShapeValue[Case, RepCol, DataCol] = {
@@ -64,15 +64,15 @@ trait EncoderWrapApply[RepCol, DataCol] {
   }
 
   trait DebugTableWrap[Case] {
-    def apply[Table](tableParam: Table): EncoderShapeValue[Case, RepCol, DataCol] =
-      macro EncoderCaseClassMapper.BlackboxEncoderCaseClassMapperImpl
-        .debugCaseClassSingleModelEncoderGeneric[FirstEncoderInputTableImplicit, Table, Case, RepCol, DataCol]
+    def apply[Table](tableParam: Table)(
+        implicit l: EncoderInputTable.Aux[DebugSingleModelEncoder, Table, UnusedData[EmptyLazyModel, Case, EmptyLazyModel], Any, Any]
+    ): EncoderShapeValue[Case, RepCol, DataCol] = ???
   }
 
-  trait DebugUnusedModelWrap[Input, Output, Sub] {
-    def apply[Table](tableParam: Table): EncoderShapeValue[UnusedData[Input, Output, Sub], RepCol, DataCol] =
+  trait DebugUnusedModelWrap[Model] {
+    def apply[Table](tableParam: Table): EncoderShapeValue[Model, RepCol, DataCol] =
       macro EncoderCaseClassMapper.BlackboxEncoderCaseClassMapperImpl
-        .debugCaseClassLazyModelEncoderGeneric[FirstEncoderInputTableImplicit, Table, Input, Output, Sub, RepCol, DataCol]
+        .debugCaseClassLazyModelEncoderGeneric[FirstEncoderInputTableImplicit, Table, Model, RepCol, DataCol]
   }
 
 }
@@ -80,3 +80,11 @@ trait EncoderWrapApply[RepCol, DataCol] {
 object EncoderWrapApply {
   def encoderInstance[RepCol, DataCol]: EncoderWrapApply[RepCol, DataCol] = new EncoderWrapApply[RepCol, DataCol] {}
 }
+
+trait DebugSingleModelEncoder {
+  implicit def implicit1[Table, UnusedModel, RepCol, DataCol]: EncoderInputTable.Aux[DebugSingleModelEncoder, Table, UnusedModel, Any, Any] =
+    macro EncoderCaseClassMapper.BlackboxEncoderCaseClassMapperImpl
+      .debugCaseClassSingleModelEncoderGeneric[DebugSingleModelEncoder, Table, UnusedModel, RepCol, DataCol]
+}
+
+object DebugSingleModelEncoder extends DebugSingleModelEncoder

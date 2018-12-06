@@ -2,8 +2,7 @@ package org.scalax.asuna.mapper.encoder.macroImpl
 
 import org.scalax.asuna.core.encoder.EncoderShapeValue
 import org.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
-import org.scalax.asuna.mapper.decoder.EmptyLazyModel
-import org.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply, UnusedData}
+import org.scalax.asuna.mapper.encoder.{EncoderDataGen, EncoderInputTable, EncoderWrapApply}
 
 object EncoderCaseClassMapper {
 
@@ -21,8 +20,8 @@ object EncoderCaseClassMapper {
       , Output: c.WeakTypeTag
       , RepCol: c.WeakTypeTag
       , DataCol: c.WeakTypeTag
-    ](tableParam: c.Expr[Table]): c.Expr[EncoderShapeValue[Output, RepCol, DataCol]] = {
-      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel]]
+    ]: c.Expr[EncoderInputTable.Aux[Poly, Table, Output, Any, Any]] = {
+      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Output]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
       val output            = weakTypeOf[Output]
@@ -32,19 +31,19 @@ object EncoderCaseClassMapper {
 
       val tableName = c.freshName("table")
 
-      val (content, encoderFields) = baseCaseClassEncoderGeneric[Poly, Table, EmptyLazyModel, Output, EmptyLazyModel, Any, Any](tableName)
+      val (content, encoderFields) = baseCaseClassEncoderGeneric[Poly, Table, Output, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
       }"""
 
-      val completeTree = q"""
-        ${getCompanion(encoderWrapApply)}.encoderInstance[${repCol}, ${dataCol}].withSingleModel[${output}](${tableParam}) {
+      val completeTree = q"""{ (${TermName(tableName)} :${table}) =>
+        ${getCompanion(encoderWrapApply)}.encoderInstance[${repCol}, ${dataCol}].withSingleModel[${output}](${tableName}) {
           ${getCompanion(encoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
             ${content}
           }
         }.compile
-      """
+      }"""
 
       copySourceToTarget(
           showCode(
@@ -58,7 +57,7 @@ object EncoderCaseClassMapper {
         , encoderFields
       )
 
-      c.Expr[EncoderShapeValue[Output, RepCol, DataCol]] {
+      c.Expr[EncoderInputTable.Aux[Poly, Table, Output, Any, Any]] {
         q"""
           ${q}
           ???
@@ -70,32 +69,28 @@ object EncoderCaseClassMapper {
     def debugCaseClassLazyModelEncoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Unused: c.WeakTypeTag
+      , Model: c.WeakTypeTag
       , RepCol: c.WeakTypeTag
       , DataCol: c.WeakTypeTag
-    ](tableParam: c.Expr[Table]): c.Expr[EncoderShapeValue[UnusedData[Input, Output, Unused], RepCol, DataCol]] = {
-      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Input, Output, Unused]]
+    ](tableParam: c.Expr[Table]): c.Expr[EncoderShapeValue[Model, RepCol, DataCol]] = {
+      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Model]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
-      val input             = weakTypeOf[Input]
-      val output            = weakTypeOf[Output]
-      val unused            = weakTypeOf[Unused]
+      val unusedModel       = weakTypeOf[Model]
       val repCol            = weakTypeOf[RepCol]
       val dataCol           = weakTypeOf[DataCol]
       val encoderWrapApply  = weakTypeOf[EncoderWrapApply[RepCol, DataCol]]
 
       val tableName = c.freshName("table")
 
-      val (content, encoderFields) = baseCaseClassEncoderGeneric[Poly, Table, Input, Output, Unused, Any, Any](tableName)
+      val (content, encoderFields) = baseCaseClassEncoderGeneric[Poly, Table, Model, Any, Any](tableName)
 
       val q = q"""def aa(${TermName(tableName)}: ${table}) = {
         ${content}.debug
       }"""
 
       val completeTree = q"""
-        ${getCompanion(encoderWrapApply)}.encoderInstance[${repCol}, ${dataCol}].withUnusedModel[${input}, ${output}, ${unused}](${tableParam}) {
+        ${getCompanion(encoderWrapApply)}.encoderInstance[${repCol}, ${dataCol}].withUnusedModel[${unusedModel}](${tableParam}) {
           ${getCompanion(encoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
             ${content}
           }
@@ -104,7 +99,7 @@ object EncoderCaseClassMapper {
 
       copySourceToTarget(completeTree.toString, encoderFields)
 
-      c.Expr[EncoderShapeValue[UnusedData[Input, Output, Unused], RepCol, DataCol]] {
+      c.Expr[EncoderShapeValue[Model, RepCol, DataCol]] {
         q"""
           ${q}
           ???
@@ -116,44 +111,42 @@ object EncoderCaseClassMapper {
     def caseClassEncoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Unused: c.WeakTypeTag
+      , Model: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
-    ]: c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]] = {
-      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Input, Output, Unused, Output]]
+    ]: c.Expr[EncoderInputTable.Aux[Poly, Table, Model, Rep, TempData]] = {
+      val encoderInputTable = weakTypeOf[EncoderInputTable[Poly, Table, Model]]
       val poly              = weakTypeOf[Poly]
       val table             = weakTypeOf[Table]
 
       val tableName = c.freshName("table")
 
-      val (content, _) = baseCaseClassEncoderGeneric[Poly, Table, Input, Output, Unused, Rep, TempData](tableName)
+      val (content, _) = baseCaseClassEncoderGeneric[Poly, Table, Model, Rep, TempData](tableName)
 
       val q = q"""${getCompanion(encoderInputTable)}[${poly}] { ${TermName(tableName)}: ${table} =>
           ${content}
         }"""
 
-      c.Expr[EncoderInputTable.Aux[Poly, Table, Input, Output, Unused, Rep, TempData]](q)
+      c.Expr[EncoderInputTable.Aux[Poly, Table, Model, Rep, TempData]](q)
     }
 
     def baseCaseClassEncoderGeneric[
         Poly: c.WeakTypeTag
       , Table: c.WeakTypeTag
-      , Input: c.WeakTypeTag
-      , Output: c.WeakTypeTag
-      , Unused: c.WeakTypeTag
+      , Model: c.WeakTypeTag
       , Rep: c.WeakTypeTag
       , TempData: c.WeakTypeTag
     ](tableName: String): (Tree, List[EncoderField]) = {
       val poly           = weakTypeOf[Poly]
       val rep            = weakTypeOf[Rep]
       val tempData       = weakTypeOf[TempData]
-      val input          = weakTypeOf[Input]
-      val output         = weakTypeOf[Output]
-      val unused         = weakTypeOf[Unused]
+      val unusedModel    = weakTypeOf[Model]
       val table          = weakTypeOf[Table]
-      val encoderDataGen = weakTypeOf[EncoderDataGen[Input, Output, Unused]]
+      val encoderDataGen = weakTypeOf[EncoderDataGen[Model]]
+
+      val input  = unusedModel.member(TermName("input")).asTerm.typeSignatureIn(unusedModel).resultType
+      val output = unusedModel.member(TermName("model")).asTerm.typeSignatureIn(unusedModel).resultType
+      val unused = unusedModel.member(TermName("unused")).asTerm.typeSignatureIn(unusedModel).resultType
 
       val inputFieldNames = getCaseClassFields(input).map(
           s =>
@@ -178,7 +171,7 @@ object EncoderCaseClassMapper {
       val fields = getEncoderMembers(notInputOutputFieldNames, tableFieldNames)
 
       val content = q"""${getCompanion(encoderDataGen)}
-        .fromDataGenWrap[$input, $output, $unused](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}) { (caseClass, rep) =>
+        .fromDataGenWrap[$unusedModel](${toRepMapper(fields = fields, tableName = Ident(TermName(tableName)))}) { (caseClass, rep) =>
         ${fullSetCaseClass(fields = fields, caseClassVarName = "caseClass")}
       }"""
 

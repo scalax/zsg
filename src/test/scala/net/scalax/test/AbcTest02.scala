@@ -10,9 +10,9 @@ object AbcTest02 extends App with CirceHelper {
     import upickle.default._
     import upickle.default.{ReadWriter => RW, macroRW}
 
-    implicit lazy val rw1: RW[LargeModel] = macroRW
-    implicit lazy val rw2: RW[Hahahah2]   = macroRW
-    implicit lazy val rw3: RW[MiaoMiao2]  = macroRW
+    implicit lazy val rw1: RW[LargeModel[String]] = macroRW
+    implicit lazy val rw2: RW[Hahahah2]           = macroRW
+    implicit lazy val rw3: RW[MiaoMiao2]          = macroRW
 
     for (_ <- TestParam.preCollection) {
       write[MiaoMiao2](model)
@@ -41,7 +41,7 @@ object AbcTest02 extends App with CirceHelper {
 
   val result2 = {
 
-    implicit val a1 = circe.effect(circe.singleModel[LargeModel](Ghi).compile).write
+    implicit val a1 = circe.effect(circe.singleModel[LargeModel[String]](Ghi).compile).write
     implicit val a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
     val a3          = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
 

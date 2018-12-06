@@ -105,19 +105,39 @@ object CircePoly1 extends CircePoly1
 trait CirceHelper {
 
   trait CirceContent[Out, Data] extends EncoderContent[Out, Data] {
-
-    def write: Encoder[Data]
-
+    self =>
+    def zip[O1, D1](other: CirceContent[O1, D1]): CirceContent[(Out, O1), (Data, D1)] = new CirceContent[(Out, O1), (Data, D1)] {
+      override def append(data: (Data, D1), json: List[(String, Json)]): List[(String, Json)] = self.append(data._1, other.append(data._2, json))
+    }
+    def write: Encoder[Data] = {
+      Encoder.instance { data: Data =>
+        Json.fromJsonObject(JsonObject.fromIterable(append(data, List.empty)))
+      }
+    }
+    def append(data: Data, json: List[(String, Json)]): List[(String, Json)]
   }
 
   object circe extends EncoderWrapperHelper[List[CirceAsunaEncoder[CircePoly1]], List[(String, Json)], CirceContent] {
     override def effect[Rep, D, Out](
-        rep: Rep
+      rep: Rep
     )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder[CircePoly1]], List[(String, Json)]]): CirceContent[Out, D] = {
       val wrapRep = shape.wrapRep(rep)
       new CirceContent[Out, D] {
-        override def write: Encoder[D] = Encoder.instance { data: D =>
-          Json.fromJsonObject(JsonObject.fromIterable(shape.buildData(data, wrapRep, List.empty)))
+        override def append(data: D, json: List[(String, Json)]): List[(String, Json)] = {
+          shape.buildData(data, wrapRep, json)
+        }
+      }
+    }
+  }
+
+  object circeDef extends EncoderWrapperHelper[List[CirceAsunaEncoder[CircePoly]], List[(String, Json)], CirceContent] {
+    override def effect[Rep, D, Out](
+      rep: Rep
+    )(implicit shape: EncoderShape.Aux[Rep, D, Out, List[CirceAsunaEncoder[CircePoly]], List[(String, Json)]]): CirceContent[Out, D] = {
+      val wrapRep = shape.wrapRep(rep)
+      new CirceContent[Out, D] {
+        override def append(data: D, json: List[(String, Json)]): List[(String, Json)] = {
+          shape.buildData(data, wrapRep, json)
         }
       }
     }
