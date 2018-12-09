@@ -19,11 +19,11 @@ case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, es
 object Aa extends CirceHelper {
   object Gg
 
-  implicit val test4: Encoder[TestModel4]              = circe.effect(circe.singleModel[TestModel4](Gg).compile).write
-  implicit lazy val test3Implicit: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Gg).compile).write
-  implicit lazy val est1: Encoder[TestModel1]          = circe.effect(circe.singleModel[TestModel1](Gg).compile).write
-  implicit val test2                                   = circe.effect(circe.singleModel[TestModel2](Gg).compile).write
-  lazy val test: Encoder[TestModel]                    = circe.effect(circe.singleModel[TestModel](Gg).compile).write
+  implicit val test4: Encoder[TestModel4]              = circeVal.effect(circeVal.singleModel[TestModel4](Gg).compile).write
+  implicit lazy val test3Implicit: Encoder[TestModel3] = circeVal.effect(circeVal.singleModel[TestModel3](Gg).compile).write
+  implicit lazy val est1: Encoder[TestModel1]          = circeVal.effect(circeVal.singleModel[TestModel1](Gg).compile).write
+  implicit val test2                                   = circeVal.effect(circeVal.singleModel[TestModel2](Gg).compile).write
+  lazy val test: Encoder[TestModel]                    = circeVal.effect(circeVal.singleModel[TestModel](Gg).compile).write
 }
 
 class CirceEncoderTest

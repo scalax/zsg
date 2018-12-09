@@ -7,11 +7,11 @@ import org.scalax.asuna.mapper.decoder.EmptyLazyModel
 
 object AbcTest01 extends App with CirceHelper {
 
-  val model: LargeModel[String] = Abcc.dd
+  val model: LargeModel11 = Abcc.jj
 
   val result1 = {
     import io.circe.generic.semiauto._
-    implicit def encoder[R](implicit enc: Encoder[R]): Encoder[LargeModel[R]] = deriveEncoder
+    implicit val encoder: Encoder[LargeModel11] = deriveEncoder
 
     for (_ <- TestParam.preCollection) {
       model.asJson
@@ -40,7 +40,7 @@ object AbcTest01 extends App with CirceHelper {
 
   case class Input[T](i18: T)
 
-  trait TypeP {
+  /*trait TypeP {
 
     def unused: Input[R] = Input(i18 = model.i18)
     val model: LargeModel[R]
@@ -54,11 +54,11 @@ object AbcTest01 extends App with CirceHelper {
   def inputModel[T](m: LargeModel[T]): AAux[T] = new TypeP {
     override val model: LargeModel[T] = m
     override type R = T
-  }
+  }*/
 
   val result2 = {
 
-    implicit val a1 = circe.effect(circe.unusedModel[TypeP](Ghi).compile)
+    /*implicit val a1 = circe.effect(circe.unusedModel[TypeP](Ghi).compile)
     implicit def k[T](implicit kr: Encoder[T]): Encoder[LargeModel[T]] = {
       val u1 = circeDef.effect(circeDef.singleModel[Input[T]](Ghi).compile)
       a1.zip(u1).write.contramap[LargeModel[T]] { r =>
@@ -78,7 +78,9 @@ object AbcTest01 extends App with CirceHelper {
       }
       implicit val a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
       lazy val a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
-    }
+    }*/
+
+    implicit val a1 = circeVal.effect(circeVal.singleModel[LargeModel11](Ghi).compile).write
 
     for (_ <- TestParam.preCollection) {
       model.asJson

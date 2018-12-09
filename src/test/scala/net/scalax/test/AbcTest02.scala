@@ -1,5 +1,6 @@
 package org.scalax.asuna.circe
 
+import io.circe.ObjectEncoder
 import org.scalax.asuna.implements.circe.abc.CirceHelper
 
 object AbcTest02 extends App with CirceHelper {
@@ -41,27 +42,29 @@ object AbcTest02 extends App with CirceHelper {
 
   val result2 = {
 
-    implicit val a1 = circe.effect(circe.singleModel[LargeModel[String]](Ghi).compile).write
-    implicit val a2 = circe.effect(circe.singleModel[Hahahah2](Ghi).compile).write
-    val a3          = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
+    import io.circe.syntax._
+
+    implicit lazy val a1: ObjectEncoder[LargeModel[String]] = circeVal.effect(circeVal.singleModel[LargeModel[String]](Ghi).compile).write
+    implicit lazy val a2: ObjectEncoder[Hahahah2]           = circeVal.effect(circeVal.singleModel[Hahahah2](Ghi).compile).write
+    implicit lazy val a3: ObjectEncoder[MiaoMiao2]          = circeVal.effect(circeVal.singleModel[MiaoMiao2](Abc).compile).write
 
     for (_ <- TestParam.preCollection) {
-      a3(model).noSpaces
+      model.asJson.noSpaces
     }
 
     val data1 = System.currentTimeMillis
 
     for (_ <- TestParam.testCollection) {
-      a3(model).noSpaces
+      model.asJson.noSpaces
     }
 
     val data2 = System.currentTimeMillis
-    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = a3(model).noSpaces)
+    TestResult(times = TestParam.testTimes, millions = (data2 - data1), jsonModel = model.asJson.noSpaces)
   }
 
   println(s"upickle 标准库序列化 ${result1.times} 次消耗了 ${result1.millions} 毫秒")
   println(s"circe-asuna 序列化 ${result2.times} 次消耗了 ${result2.millions} 毫秒")
-  println(s"结果是否相等：${result1.jsonModel == result2.jsonModel}")
+  println(s"结果是否相等：${io.circe.parser.parse(result1.jsonModel) == io.circe.parser.parse(result2.jsonModel)}")
   println(result1.jsonModel)
   println(result2.jsonModel)
 
