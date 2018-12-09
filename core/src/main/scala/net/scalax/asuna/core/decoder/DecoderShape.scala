@@ -1,7 +1,7 @@
-package net.scalax.asuna.core.decoder
+package org.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.CommonShape
-import net.scalax.asuna.core.decoder.impl.ListDecoderShapeImplicit
+import org.scalax.asuna.core.common.CommonShape
+import org.scalax.asuna.core.decoder.impl.ListDecoderShapeImplicit
 
 trait DecoderShape[-E, RepCol, DataCol] extends CommonShape[E, RepCol] {
   self =>

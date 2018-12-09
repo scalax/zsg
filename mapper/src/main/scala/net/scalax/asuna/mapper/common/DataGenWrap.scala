@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
 trait DataGenTag {
   type TempData

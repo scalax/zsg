@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.common.macroImpl
+package org.scalax.asuna.mapper.common.macroImpl
 
-import net.scalax.asuna.mapper.common._
+import org.scalax.asuna.mapper.common._
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -16,7 +16,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   trait BaseField {
     def tablePropertyName: String
     def names: List[String]
-    def tableGetter: Tree => Tree
+    def tableGetter: Option[Tree => Tree]
     def propertyType: Type
     def repIndex: List[Int]
     def appendIndex(index: Int): BaseField
@@ -107,7 +107,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class EncoderFieldImpl(
       override val tablePropertyName: String
     , override val names: List[String]
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val modelGetter: Tree => Tree
     , override val propertyType: Type
     , override val repIndex: List[Int] = List.empty
@@ -117,7 +117,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class DecoderFieldImpl(
       override val tablePropertyName: String
     , override val names: List[String]
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val modelSetter: Map[String, Tree => Tree]
     , override val propertyType: Type
     , override val repIndex: List[Int] = List.empty
@@ -127,7 +127,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class FormatterFieldImpl(
       override val tablePropertyName: String
     , override val names: List[String]
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val modelGetter: Tree => Tree
     , override val modelSetter: Map[String, Tree => Tree]
     , override val propertyType: Type
@@ -137,13 +137,13 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
 
   sealed trait FieldToWrapInfo {
     val tablePropertyName: String
-    def tableGetter: Tree => Tree
+    def tableGetter: Option[Tree => Tree]
     def defaultValue: Option[Tree]
   }
 
   case class PlaceHolderFieldInfo(
       field: CaseClassField
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val tablePropertyName: String
     , override val defaultValue: Option[Tree]
   ) extends FieldToWrapInfo
@@ -155,7 +155,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class SingleFieldInfo(
       key: SingleKey
     , caseField: CaseClassField
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val tablePropertyName: String
     , override val defaultValue: Option[Tree]
   ) extends FieldWithKeyInfo {
@@ -165,7 +165,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class MutiplyFieldInfo(
       key: MutiplyKey
     , caseFields: List[CaseClassField]
-    , override val tableGetter: Tree => Tree
+    , override val tableGetter: Option[Tree => Tree]
     , override val tablePropertyName: String
     , override val defaultValue: Option[Tree]
   ) extends FieldWithKeyInfo {
@@ -182,35 +182,39 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         } else {
           val fieldOpt = tableFields.map(r => (r, r.containFields.contains(s.name))).find { case (_, contains) => contains }
 
-          val fieldEither = fieldOpt.fold((PlaceHolderFieldInfo(s, tableGetter = { tableVar: Tree =>
-            s.placeHolder
-          }, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo, List(s.name))) {
-            case (r, _) =>
-              (r match {
-                case key: SingleKey =>
-                  SingleFieldInfo(key, s, r.tableGetter, tablePropertyName = key.tablePropertyName, defaultValue = s.defaultValueTree)
-                case key: MutiplyKey =>
-                  MutiplyFieldInfo(
-                      key
-                    , caseFields.filter(s => key.containFields.contains(s.name))
-                    , r.tableGetter
-                    , tablePropertyName = key.tablePropertyName
-                    , defaultValue = {
-                      val values = key.containFields
-                        .map(
-                            r =>
-                            caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
-                              case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
-                          }
-                        )
-                        .collect { case Some(r) => r }
-                      if (key.containFields.size == values.size) {
-                        Option(key.modelSetter(values))
-                      } else Option.empty
-                    }
-                  )
-              }, r.containFields)
-          }
+          val fieldEither =
+            fieldOpt.fold(
+                (
+                  PlaceHolderFieldInfo(s, tableGetter = Option.empty, tablePropertyName = s.name, defaultValue = s.defaultValueTree): FieldToWrapInfo
+                , List(s.name)
+              )
+            ) {
+              case (r, _) =>
+                (r match {
+                  case key: SingleKey =>
+                    SingleFieldInfo(key, s, Option(r.tableGetter), tablePropertyName = key.tablePropertyName, defaultValue = s.defaultValueTree)
+                  case key: MutiplyKey =>
+                    MutiplyFieldInfo(
+                        key
+                      , caseFields.filter(s => key.containFields.contains(s.name))
+                      , Option(r.tableGetter)
+                      , tablePropertyName = key.tablePropertyName
+                      , defaultValue = {
+                        val values = key.containFields
+                          .map(
+                              r =>
+                              caseFields.find(f => f.name == r).map(fi => (fi, fi.defaultValueTree)).collect {
+                                case (field, Some(t)) => q"""${TermName(field.name)} = ${t}"""
+                              }
+                          )
+                          .collect { case Some(r) => r }
+                        if (key.containFields.size == values.size) {
+                          Option(key.modelSetter(values))
+                        } else Option.empty
+                      }
+                    )
+                }, r.containFields)
+            }
 
           (list ::: fieldEither._1 :: Nil, names ::: fieldEither._2)
         }
@@ -349,7 +353,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   case class CaseClassField(
       name: String
     , fieldType: Type
-    , placeHolder: Tree
+    //, placeHolder: Tree
     , modelGetter: Tree => Tree
     , defaultValueTree: Option[Tree]
   )
@@ -371,7 +375,7 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         CaseClassField(
             name = paramName
           , fieldType = caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType
-          , placeHolder = q"""null: net.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
+          //, placeHolder = q"""null: org.scalax.asuna.core.common.Placeholder[${caseClass.member(TermName(paramName)).typeSignatureIn(caseClass).resultType}]"""
           , modelGetter = { modelVar: Tree =>
             q"""${modelVar}.${field.name}"""
           }
@@ -387,6 +391,12 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
   val caseClassMapperCompanion       = getCompanion(caseClassMapper)
   val symbol                         = weakTypeOf[scala.Symbol]
   val symbolCompaion                 = symbol.typeSymbol.companion
+  val modelGen                       = weakTypeOf[ModelGen[_]]
+  val modelGenCompanion              = getCompanion(modelGen)
+  val propertyType                   = weakTypeOf[PropertyType[_]]
+  val propertyTypeCompanion          = getCompanion(propertyType)
+  //val placeholder                    = weakTypeOf[Placeholder]
+  //val placeholderCompanion           = getCompanion(placeholder)
 
   def initProperty(fields: List[BaseField], tableName: Tree): List[Tree] = {
 
@@ -399,10 +409,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
         }
 
         val param =
-          q"""${TermName("rep")} = ${field.tableGetter(tableName)}""" ::
+          field.tableGetter.map(g => q"""${TermName("rep")} = ${g(tableName)}""").toList :::
             field.defaultValue.map { value =>
-            q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
-          }.toList
+              q"""${TermName("defaultValue")} = (${value}: ${field.propertyType})"""
+            }.toList
 
         (q"""${repGroupColumnWrapperCompanion}.input[${field.propertyType}](${columnInfoTree}).withDefault(..${param})""", field.propertyType)
     }
@@ -411,10 +421,10 @@ trait BaseCaseClassMapperUtils extends TableFieldsGen {
       val setParameter = subList.zipWithIndex.map {
         case ((item, _), index) =>
           val plusIndex = index + 1
-          //val fName     = c.freshName("data" + (index + 1))
           q"""${TermName("rep" + plusIndex)} = ${item}"""
       }
-      q"""${caseClassMapperCompanion}.withRep(..${setParameter}).output[..${subList.map(_._2)}]"""
+      q"""${caseClassMapperCompanion}.withRep(..${setParameter}, setter = ${caseClassMapperCompanion}.defineDataType(..${subList
+        .map(s => q"""${propertyTypeCompanion}.value[${s._2}]""")}))"""
     }
 
   }

@@ -1,6 +1,6 @@
-package net.scalax.asuna.sangria
+package org.scalax.asuna.sangria
 
-import net.scalax.asuna.slick.umr.SlickShapeValueWrap
+import org.scalax.asuna.slick.umr.SlickShapeValueWrap
 
 sealed abstract trait SlickRepAbs[Rep] {
   self =>

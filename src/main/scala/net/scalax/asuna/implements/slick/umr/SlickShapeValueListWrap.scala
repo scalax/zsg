@@ -1,4 +1,4 @@
-package net.scalax.asuna.slick.umr
+package org.scalax.asuna.slick.umr
 
 import slick.lifted.{FlatShapeLevel, MappedProjection, Shape, ShapedValue}
 

@@ -1,12 +1,12 @@
-package net.scalax.asuna.circe.aaaa
+package org.scalax.asuna.circe.aaaa
 
 import io.circe.{Encoder, Json, JsonObject}
-import net.scalax.asuna.circe.EmptyCirceTable
-import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.RepColumnContent
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.{EncoderInputTable, FirstEncoderInputTableImplicit, UnusedData}
+import org.scalax.asuna.circe.EmptyCirceTable
+import org.scalax.asuna.core.common.Placeholder
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.common.RepColumnContent
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.mapper.encoder.{EncoderInputTable, FirstEncoderInputTableImplicit, UnusedData}
 import shapeless.Lazy
 
 trait CirceAsunaEncoder[PolyTrait] {

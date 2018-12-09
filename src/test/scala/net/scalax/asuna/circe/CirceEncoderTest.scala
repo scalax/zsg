@@ -4,9 +4,9 @@ import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.{Decoder, Encoder}
-import net.scalax.asuna.circe.CirceAsunaDecoderHelper
-import net.scalax.asuna.implements.circe.abc.CirceHelper
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.circe.CirceAsunaDecoderHelper
+import org.scalax.asuna.implements.circe.abc.CirceHelper
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
 
@@ -19,21 +19,11 @@ case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, es
 object Aa extends CirceHelper {
   object Gg
 
-  object Cc {
-    lazy val test3: Encoder[Option[TestModel3]] = implicitly
-  }
-
-  object Dd {
-    lazy val test4: Encoder[List[Option[TestModel4]]] = {
-      implicit val aa: Encoder[TestModel4] = circe.effect(circe.singleModel[TestModel4](Gg).compile).write
-      implicitly
-    }
-  }
-
-  implicit lazy val test3Implicit: Encoder[TestModel3] = circe.effect(circe.singleModel[TestModel3](Dd).compile).write
-  implicit lazy val est1: Encoder[TestModel1]          = circe.effect(circe.singleModel[TestModel1](Cc).compile).write
-  implicit val test2                                   = circe.effect(circe.singleModel[TestModel2](Gg).compile).write
-  lazy val test: Encoder[TestModel]                    = circe.effect(circe.singleModel[TestModel](Gg).compile).write
+  implicit val test4: Encoder[TestModel4]              = circeVal.effect(circeVal.singleModel[TestModel4](Gg).compile).write
+  implicit lazy val test3Implicit: Encoder[TestModel3] = circeVal.effect(circeVal.singleModel[TestModel3](Gg).compile).write
+  implicit lazy val est1: Encoder[TestModel1]          = circeVal.effect(circeVal.singleModel[TestModel1](Gg).compile).write
+  implicit val test2                                   = circeVal.effect(circeVal.singleModel[TestModel2](Gg).compile).write
+  lazy val test: Encoder[TestModel]                    = circeVal.effect(circeVal.singleModel[TestModel](Gg).compile).write
 }
 
 class CirceEncoderTest

@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.utils
+package org.scalax.asuna.mapper.utils
 
 import java.io.{File, InputStream}
 import java.net.{JarURLConnection, URL}

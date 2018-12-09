@@ -1,17 +1,25 @@
-package net.scalax.asuna.mapper.common
+package org.scalax.asuna.mapper.common
 
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.mapper.Placeholder
 
 import scala.language.implicitConversions
 
-trait SingleRepContentWithNonDefault[+Rep, Data] extends SingleRepContent[Rep, Data] with RepContentWithNonDefault[Rep, Data] {
+trait SingleRepContentWithNonDefault[+Rep, Data] extends Any with SingleRepContent[Rep, Data] with RepContentWithNonDefault[Rep, Data] {
   override def rep: Rep
   override def singleModelName: String
 }
 
 object SingleRepContentWithNonDefault {
+
+  class PlaceholderSingleRepContentWithNonDefault[Data](override val singleModelName: String)
+      extends AnyVal
+      with SingleRepContentWithNonDefault[Placeholder, Data] {
+    override def rep: Placeholder = Placeholder.value
+  }
+
   implicit def shapeFuncImplicit1111[D, T, M, RepCol, DataCol](
       implicit shape: DecoderShape.Aux[D, T, M, RepCol, DataCol]
   ): DecoderShape.Aux[SingleRepContentWithNonDefault[D, T], T, M, RepCol, DataCol] = {

@@ -1,10 +1,10 @@
-package net.scalax.asuna.slick.simple
+package org.scalax.asuna.slick.simple
 
 import io.circe.JsonObject
-import net.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
-import net.scalax.asuna.mapper.decoder.LazyModel
-import net.scalax.asuna.slick.umr.UmrHelper
-import net.scalax.asuna.slick.umr.rmu.RmuWriterQuery
+import org.scalax.asuna.mapper.common.annotations.{OverrideProperty, RootModel, RootTable}
+import org.scalax.asuna.mapper.decoder.LazyModel
+import org.scalax.asuna.slick.umr.UmrHelper
+import org.scalax.asuna.slick.umr.rmu.RmuWriterQuery
 import slick.jdbc.H2Profile.api._
 
 import scala.annotation.meta.field

@@ -1,7 +1,7 @@
-package net.scalax.asuna.core.decoder
+package org.scalax.asuna.core.decoder
 
-import net.scalax.asuna.core.common.CommonShapeValue
-import net.scalax.asuna.core.decoder.impl.ZipDecoderShapeHelper
+import org.scalax.asuna.core.common.CommonShapeValue
+import org.scalax.asuna.core.decoder.impl.ZipDecoderShapeHelper
 
 trait DecoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] {
   self =>

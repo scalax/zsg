@@ -1,6 +1,6 @@
-package net.scalax.asuna.sangria
+package org.scalax.asuna.sangria
 
-import net.scalax.asuna.sangria.macroImpls.CompletedIdMacro
+import org.scalax.asuna.sangria.macroImpls.CompletedIdMacro
 
 import scala.language.experimental.macros
 

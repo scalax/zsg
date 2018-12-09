@@ -1,8 +1,8 @@
-package net.scalax.asuna.sangria
+package org.scalax.asuna.sangria
 
-import net.scalax.asuna.core.decoder._
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
-import net.scalax.asuna.slick.umr.{SlickShapeValueListWrap, SlickShapeValueWrap}
+import org.scalax.asuna.core.decoder._
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.slick.umr.{SlickShapeValueListWrap, SlickShapeValueWrap}
 import slick.lifted.{FlatShapeLevel, Shape, ShapedValue}
 
 import scala.reflect.ClassTag

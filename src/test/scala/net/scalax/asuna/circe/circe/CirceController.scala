@@ -1,11 +1,11 @@
-package net.scalax.asuna.core.circe.circe
+package org.scalax.asuna.core.circe.circe
 
 import akka.actor._
 import akka.stream._
 import io.circe.Printer
 import io.circe.generic.auto._
 import io.circe.syntax._
-import net.scalax.asuna.core.CirceModels
+import org.scalax.asuna.core.CirceModels
 import play.api.libs.circe.PlayCirceValidate
 import play.api.mvc._
 

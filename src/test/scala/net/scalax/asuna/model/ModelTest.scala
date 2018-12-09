@@ -1,6 +1,6 @@
-package net.scalax.asuna.model
+package org.scalax.asuna.model
 
-import net.scalax.asuna.mapper.encoder.UnusedData
+import org.scalax.asuna.mapper.encoder.UnusedData
 import org.scalatest._
 
 class ModelTest extends FlatSpec with Matchers {

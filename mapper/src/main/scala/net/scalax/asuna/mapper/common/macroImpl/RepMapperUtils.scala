@@ -1,4 +1,4 @@
-package net.scalax.asuna.mapper.common.macroImpl
+package org.scalax.asuna.mapper.common.macroImpl
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context

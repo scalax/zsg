@@ -1,4 +1,4 @@
-package net.scalax.asuna.core.encoder
+package org.scalax.asuna.core.encoder
 
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
@@ -26,7 +26,7 @@ object CaseClassHelperGen extends App {
 
   val writer = new PrintWriter(path.toFile)
   val content1 =
-    Source.fromString(net.scalax.asuna.template.txt.CaseClassHelperTemplate(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template.txt.CaseClassHelperTemplate(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content2 = content1.mkString(System.lineSeparator)
   writer.println(content2)
   writer.close()

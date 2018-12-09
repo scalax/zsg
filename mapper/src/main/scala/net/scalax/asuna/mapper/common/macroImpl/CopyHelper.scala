@@ -1,11 +1,11 @@
-package net.scalax.asuna.mapper.common.macroImpl
+package org.scalax.asuna.mapper.common.macroImpl
 
 import java.io.PrintWriter
 import java.nio.file.Paths
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-import net.scalax.asuna.mapper.utils.CopyHelper
+import org.scalax.asuna.mapper.utils.CopyHelper
 import org.slf4j.LoggerFactory
 
 import scala.io.Source

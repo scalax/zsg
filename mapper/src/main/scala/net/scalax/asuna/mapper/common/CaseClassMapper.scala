@@ -1,34 +1,53 @@
-package net.scalax.asuna.mapper.common;
-import net.scalax.asuna.core.encoder.EncoderShape;
-import net.scalax.asuna.core.encoder.EncoderShapeValue;
-import net.scalax.asuna.mapper.encoder.EncoderWrapperHelper;
-import net.scalax.asuna.mapper.encoder.EncoderContent;
-import net.scalax.asuna.mapper.encoder.EncoderDebugShape;
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData};
-import net.scalax.asuna.core.decoder.DecoderShapeValue;
-import net.scalax.asuna.mapper.decoder.DecoderWrapperHelper;
-import net.scalax.asuna.mapper.decoder.DecoderContent;
-import net.scalax.asuna.mapper.decoder.DecoderDebugShape;
-import net.scalax.asuna.core.formatter.FormatterShape;
-import net.scalax.asuna.core.formatter.FormatterShapeValue;
-import net.scalax.asuna.mapper.formatter.FormatterWrapperHelper;
-import net.scalax.asuna.mapper.formatter.FormatterContent;
-import net.scalax.asuna.mapper.formatter.FormatterDebugShape;
+package org.scalax.asuna.mapper.common;
+import org.scalax.asuna.core.encoder.EncoderShape;
+import org.scalax.asuna.core.encoder.EncoderShapeValue;
+import org.scalax.asuna.mapper.encoder.EncoderWrapperHelper;
+import org.scalax.asuna.mapper.encoder.EncoderContent;
+import org.scalax.asuna.mapper.encoder.EncoderDebugShape;
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData};
+import org.scalax.asuna.core.decoder.DecoderShapeValue;
+import org.scalax.asuna.mapper.decoder.DecoderWrapperHelper;
+import org.scalax.asuna.mapper.decoder.DecoderContent;
+import org.scalax.asuna.mapper.decoder.DecoderDebugShape;
+import org.scalax.asuna.core.formatter.FormatterShape;
+import org.scalax.asuna.core.formatter.FormatterShapeValue;
+import org.scalax.asuna.mapper.formatter.FormatterWrapperHelper;
+import org.scalax.asuna.mapper.formatter.FormatterContent;
+import org.scalax.asuna.mapper.formatter.FormatterDebugShape;
+//import scala.annotation.implicitNotFound;
 import scala.language.higherKinds;
 trait CaseClassMapper;
 object CaseClassMapper {
   def withRep[
       Rep1
+    , Data1
   ](
       rep1: Rep1
-  ): Setter1[
+    , setter: => PropertyDataType1[
+        Data1
+    ]
+  ): CaseClassRepMapper1[
       Rep1
+    , Data1
   ] = {
-    new Setter1[
+    new CaseClassRepMapper1[
         Rep1
+      , Data1
     ](
         rep1 = rep1
     )
+  };
+  def defineDataType[
+      Data1
+  ](
+      property1: PropertyType[Data1]
+  ): PropertyDataType1[
+      Data1
+  ] = {
+    new PropertyDataType1[
+        Data1
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -47,21 +66,47 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
   ](
       rep1: Rep1
     , rep2: Rep2
-  ): Setter2[
+    , setter: => PropertyDataType2[
+        Data1
+      , Data2
+    ]
+  ): CaseClassRepMapper2[
       Rep1
+    , Data1
     , Rep2
+    , Data2
   ] = {
-    new Setter2[
+    new CaseClassRepMapper2[
         Rep1
+      , Data1
       , Rep2
+      , Data2
     ](
         rep1 = rep1
       , rep2 = rep2
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+  ): PropertyDataType2[
+      Data1
+    , Data2
+  ] = {
+    new PropertyDataType2[
+        Data1
+      , Data2
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -87,26 +132,60 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
   ](
       rep1: Rep1
     , rep2: Rep2
     , rep3: Rep3
-  ): Setter3[
+    , setter: => PropertyDataType3[
+        Data1
+      , Data2
+      , Data3
+    ]
+  ): CaseClassRepMapper3[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
   ] = {
-    new Setter3[
+    new CaseClassRepMapper3[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
     ](
         rep1 = rep1
       , rep2 = rep2
       , rep3 = rep3
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+  ): PropertyDataType3[
+      Data1
+    , Data2
+    , Data3
+  ] = {
+    new PropertyDataType3[
+        Data1
+      , Data2
+      , Data3
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -139,31 +218,73 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
   ](
       rep1: Rep1
     , rep2: Rep2
     , rep3: Rep3
     , rep4: Rep4
-  ): Setter4[
+    , setter: => PropertyDataType4[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+    ]
+  ): CaseClassRepMapper4[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
   ] = {
-    new Setter4[
+    new CaseClassRepMapper4[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
     ](
         rep1 = rep1
       , rep2 = rep2
       , rep3 = rep3
       , rep4 = rep4
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+  ): PropertyDataType4[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+  ] = {
+    new PropertyDataType4[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -203,29 +324,51 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
   ](
       rep1: Rep1
     , rep2: Rep2
     , rep3: Rep3
     , rep4: Rep4
     , rep5: Rep5
-  ): Setter5[
+    , setter: => PropertyDataType5[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+    ]
+  ): CaseClassRepMapper5[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
   ] = {
-    new Setter5[
+    new CaseClassRepMapper5[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -233,6 +376,34 @@ object CaseClassMapper {
       , rep4 = rep4
       , rep5 = rep5
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+  ): PropertyDataType5[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+  ] = {
+    new PropertyDataType5[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -279,11 +450,17 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -291,21 +468,41 @@ object CaseClassMapper {
     , rep4: Rep4
     , rep5: Rep5
     , rep6: Rep6
-  ): Setter6[
+    , setter: => PropertyDataType6[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+    ]
+  ): CaseClassRepMapper6[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
   ] = {
-    new Setter6[
+    new CaseClassRepMapper6[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -314,6 +511,38 @@ object CaseClassMapper {
       , rep5 = rep5
       , rep6 = rep6
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+  ): PropertyDataType6[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+  ] = {
+    new PropertyDataType6[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -367,12 +596,19 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -381,23 +617,46 @@ object CaseClassMapper {
     , rep5: Rep5
     , rep6: Rep6
     , rep7: Rep7
-  ): Setter7[
+    , setter: => PropertyDataType7[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+    ]
+  ): CaseClassRepMapper7[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
   ] = {
-    new Setter7[
+    new CaseClassRepMapper7[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -407,6 +666,42 @@ object CaseClassMapper {
       , rep6 = rep6
       , rep7 = rep7
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+  ): PropertyDataType7[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+  ] = {
+    new PropertyDataType7[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -467,13 +762,21 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -483,25 +786,51 @@ object CaseClassMapper {
     , rep6: Rep6
     , rep7: Rep7
     , rep8: Rep8
-  ): Setter8[
+    , setter: => PropertyDataType8[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+    ]
+  ): CaseClassRepMapper8[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
   ] = {
-    new Setter8[
+    new CaseClassRepMapper8[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -512,6 +841,46 @@ object CaseClassMapper {
       , rep7 = rep7
       , rep8 = rep8
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+  ): PropertyDataType8[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+  ] = {
+    new PropertyDataType8[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -579,14 +948,23 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -597,27 +975,56 @@ object CaseClassMapper {
     , rep7: Rep7
     , rep8: Rep8
     , rep9: Rep9
-  ): Setter9[
+    , setter: => PropertyDataType9[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+    ]
+  ): CaseClassRepMapper9[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
   ] = {
-    new Setter9[
+    new CaseClassRepMapper9[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
       , Rep9
+      , Data9
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -629,6 +1036,50 @@ object CaseClassMapper {
       , rep8 = rep8
       , rep9 = rep9
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+    , property9: PropertyType[Data9]
+  ): PropertyDataType9[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+  ] = {
+    new PropertyDataType9[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -703,15 +1154,25 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -723,29 +1184,61 @@ object CaseClassMapper {
     , rep8: Rep8
     , rep9: Rep9
     , rep10: Rep10
-  ): Setter10[
+    , setter: => PropertyDataType10[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+    ]
+  ): CaseClassRepMapper10[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
   ] = {
-    new Setter10[
+    new CaseClassRepMapper10[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
       , Rep9
+      , Data9
       , Rep10
+      , Data10
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -758,6 +1251,54 @@ object CaseClassMapper {
       , rep9 = rep9
       , rep10 = rep10
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+    , property9: PropertyType[Data9]
+    , property10: PropertyType[Data10]
+  ): PropertyDataType10[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+  ] = {
+    new PropertyDataType10[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -839,16 +1380,27 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -861,31 +1413,66 @@ object CaseClassMapper {
     , rep9: Rep9
     , rep10: Rep10
     , rep11: Rep11
-  ): Setter11[
+    , setter: => PropertyDataType11[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+    ]
+  ): CaseClassRepMapper11[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
   ] = {
-    new Setter11[
+    new CaseClassRepMapper11[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
       , Rep9
+      , Data9
       , Rep10
+      , Data10
       , Rep11
+      , Data11
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -899,6 +1486,58 @@ object CaseClassMapper {
       , rep10 = rep10
       , rep11 = rep11
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+    , property9: PropertyType[Data9]
+    , property10: PropertyType[Data10]
+    , property11: PropertyType[Data11]
+  ): PropertyDataType11[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+  ] = {
+    new PropertyDataType11[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -987,17 +1626,29 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
     , Rep12
+    , Data12
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1011,33 +1662,71 @@ object CaseClassMapper {
     , rep10: Rep10
     , rep11: Rep11
     , rep12: Rep12
-  ): Setter12[
+    , setter: => PropertyDataType12[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+      , Data12
+    ]
+  ): CaseClassRepMapper12[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
     , Rep12
+    , Data12
   ] = {
-    new Setter12[
+    new CaseClassRepMapper12[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
       , Rep9
+      , Data9
       , Rep10
+      , Data10
       , Rep11
+      , Data11
       , Rep12
+      , Data12
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -1052,6 +1741,62 @@ object CaseClassMapper {
       , rep11 = rep11
       , rep12 = rep12
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+    , property9: PropertyType[Data9]
+    , property10: PropertyType[Data10]
+    , property11: PropertyType[Data11]
+    , property12: PropertyType[Data12]
+  ): PropertyDataType12[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+  ] = {
+    new PropertyDataType12[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+      , Data12
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -1147,18 +1892,31 @@ object CaseClassMapper {
   };
   def withRep[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
     , Rep12
+    , Data12
     , Rep13
+    , Data13
   ](
       rep1: Rep1
     , rep2: Rep2
@@ -1173,35 +1931,76 @@ object CaseClassMapper {
     , rep11: Rep11
     , rep12: Rep12
     , rep13: Rep13
-  ): Setter13[
+    , setter: => PropertyDataType13[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+      , Data12
+      , Data13
+    ]
+  ): CaseClassRepMapper13[
       Rep1
+    , Data1
     , Rep2
+    , Data2
     , Rep3
+    , Data3
     , Rep4
+    , Data4
     , Rep5
+    , Data5
     , Rep6
+    , Data6
     , Rep7
+    , Data7
     , Rep8
+    , Data8
     , Rep9
+    , Data9
     , Rep10
+    , Data10
     , Rep11
+    , Data11
     , Rep12
+    , Data12
     , Rep13
+    , Data13
   ] = {
-    new Setter13[
+    new CaseClassRepMapper13[
         Rep1
+      , Data1
       , Rep2
+      , Data2
       , Rep3
+      , Data3
       , Rep4
+      , Data4
       , Rep5
+      , Data5
       , Rep6
+      , Data6
       , Rep7
+      , Data7
       , Rep8
+      , Data8
       , Rep9
+      , Data9
       , Rep10
+      , Data10
       , Rep11
+      , Data11
       , Rep12
+      , Data12
       , Rep13
+      , Data13
     ](
         rep1 = rep1
       , rep2 = rep2
@@ -1217,6 +2016,66 @@ object CaseClassMapper {
       , rep12 = rep12
       , rep13 = rep13
     )
+  };
+  def defineDataType[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+    , Data13
+  ](
+      property1: PropertyType[Data1]
+    , property2: PropertyType[Data2]
+    , property3: PropertyType[Data3]
+    , property4: PropertyType[Data4]
+    , property5: PropertyType[Data5]
+    , property6: PropertyType[Data6]
+    , property7: PropertyType[Data7]
+    , property8: PropertyType[Data8]
+    , property9: PropertyType[Data9]
+    , property10: PropertyType[Data10]
+    , property11: PropertyType[Data11]
+    , property12: PropertyType[Data12]
+    , property13: PropertyType[Data13]
+  ): PropertyDataType13[
+      Data1
+    , Data2
+    , Data3
+    , Data4
+    , Data5
+    , Data6
+    , Data7
+    , Data8
+    , Data9
+    , Data10
+    , Data11
+    , Data12
+    , Data13
+  ] = {
+    new PropertyDataType13[
+        Data1
+      , Data2
+      , Data3
+      , Data4
+      , Data5
+      , Data6
+      , Data7
+      , Data8
+      , Data9
+      , Data10
+      , Data11
+      , Data12
+      , Data13
+    ]
+    ???
   };
   def mergeRep[
       Rep1 <: DataGenTag
@@ -1781,15 +2640,69 @@ class CaseClassRepMapper1[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper1. You can replace selfInfo with\n" +
-      "i1(context)\nto find the missing column."
+      "debug1(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper1[
+  ) def info: CaseClassRepMapper1[
       Rep1
     , Data1
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug1(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -1798,9 +2711,11 @@ class CaseClassRepMapper1[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -1809,10 +2724,21 @@ class CaseClassRepMapper1[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -1821,30 +2747,14 @@ class CaseClassRepMapper1[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper1[
       Data1
   ];
 };
-class Setter1[
-    Rep1
-](
-    val rep1: Rep1
-) {
-  def output[
-      Data1
-  ]: CaseClassRepMapper1[
-      Rep1
-    , Data1
-  ] = {
-    new CaseClassRepMapper1[
-        Rep1
-      , Data1
-    ](
-        rep1 = rep1
-    )
-  }
-}
+class PropertyDataType1[
+    Data1
+]
 class CaseClassDataMapper1[
     Data1
 ](
@@ -2080,17 +2990,105 @@ class CaseClassRepMapper2[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper2. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper2[
+  ) def info: CaseClassRepMapper2[
       Rep1
     , Data1
     , Rep2
     , Data2
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug2(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -2099,9 +3097,11 @@ class CaseClassRepMapper2[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -2110,10 +3110,21 @@ class CaseClassRepMapper2[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -2123,9 +3134,11 @@ class CaseClassRepMapper2[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -2134,9 +3147,11 @@ class CaseClassRepMapper2[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -2145,10 +3160,21 @@ class CaseClassRepMapper2[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -2157,39 +3183,16 @@ class CaseClassRepMapper2[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper2[
       Data1
     , Data2
   ];
 };
-class Setter2[
-    Rep1
-  , Rep2
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-) {
-  def output[
-      Data1
-    , Data2
-  ]: CaseClassRepMapper2[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-  ] = {
-    new CaseClassRepMapper2[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-    )
-  }
-}
+class PropertyDataType2[
+    Data1
+  , Data2
+]
 class CaseClassDataMapper2[
     Data1
   , Data2
@@ -2511,9 +3514,9 @@ class CaseClassRepMapper3[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper3. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper3[
+  ) def info: CaseClassRepMapper3[
       Rep1
     , Data1
     , Rep2
@@ -2521,9 +3524,131 @@ class CaseClassRepMapper3[
     , Rep3
     , Data3
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug3(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -2532,9 +3657,11 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -2543,10 +3670,21 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -2556,9 +3694,11 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -2567,9 +3707,11 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -2578,10 +3720,21 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -2591,9 +3744,11 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -2602,9 +3757,11 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -2613,10 +3770,21 @@ class CaseClassRepMapper3[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -2625,48 +3793,18 @@ class CaseClassRepMapper3[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper3[
       Data1
     , Data2
     , Data3
   ];
 };
-class Setter3[
-    Rep1
-  , Rep2
-  , Rep3
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-  ]: CaseClassRepMapper3[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-  ] = {
-    new CaseClassRepMapper3[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-    )
-  }
-}
+class PropertyDataType3[
+    Data1
+  , Data2
+  , Data3
+]
 class CaseClassDataMapper3[
     Data1
   , Data2
@@ -3074,9 +4212,9 @@ class CaseClassRepMapper4[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper4. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper4[
+  ) def info: CaseClassRepMapper4[
       Rep1
     , Data1
     , Rep2
@@ -3086,9 +4224,165 @@ class CaseClassRepMapper4[
     , Rep4
     , Data4
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug4(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -3097,9 +4391,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -3108,10 +4404,21 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -3121,9 +4428,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -3132,9 +4441,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -3143,10 +4454,21 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -3156,9 +4478,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -3167,9 +4491,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -3178,10 +4504,21 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -3191,9 +4528,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -3202,9 +4541,11 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -3213,10 +4554,21 @@ class CaseClassRepMapper4[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -3225,7 +4577,7 @@ class CaseClassRepMapper4[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper4[
       Data1
     , Data2
@@ -3233,49 +4585,12 @@ class CaseClassRepMapper4[
     , Data4
   ];
 };
-class Setter4[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-  ]: CaseClassRepMapper4[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-  ] = {
-    new CaseClassRepMapper4[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-    )
-  }
-}
+class PropertyDataType4[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+]
 class CaseClassDataMapper4[
     Data1
   , Data2
@@ -3785,9 +5100,9 @@ class CaseClassRepMapper5[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper5. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper5[
+  ) def info: CaseClassRepMapper5[
       Rep1
     , Data1
     , Rep2
@@ -3799,9 +5114,199 @@ class CaseClassRepMapper5[
     , Rep5
     , Data5
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug5(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -3810,9 +5315,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -3821,10 +5328,21 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -3834,9 +5352,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -3845,9 +5365,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -3856,10 +5378,21 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -3869,9 +5402,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -3880,9 +5415,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -3891,10 +5428,21 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -3904,9 +5452,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -3915,9 +5465,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -3926,10 +5478,21 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -3939,9 +5502,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -3950,9 +5515,11 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -3961,10 +5528,21 @@ class CaseClassRepMapper5[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -3973,7 +5551,7 @@ class CaseClassRepMapper5[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper5[
       Data1
     , Data2
@@ -3982,57 +5560,13 @@ class CaseClassRepMapper5[
     , Data5
   ];
 };
-class Setter5[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-  ]: CaseClassRepMapper5[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-  ] = {
-    new CaseClassRepMapper5[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-    )
-  }
-}
+class PropertyDataType5[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+]
 class CaseClassDataMapper5[
     Data1
   , Data2
@@ -4667,9 +6201,9 @@ class CaseClassRepMapper6[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper6. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper6[
+  ) def info: CaseClassRepMapper6[
       Rep1
     , Data1
     , Rep2
@@ -4683,9 +6217,233 @@ class CaseClassRepMapper6[
     , Rep6
     , Data6
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug6(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -4694,9 +6452,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -4705,10 +6465,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -4718,9 +6489,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -4729,9 +6502,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -4740,10 +6515,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -4753,9 +6539,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -4764,9 +6552,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -4775,10 +6565,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -4788,9 +6589,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -4799,9 +6602,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -4810,10 +6615,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -4823,9 +6639,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -4834,9 +6652,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -4845,10 +6665,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -4858,9 +6689,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -4869,9 +6702,11 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -4880,10 +6715,21 @@ class CaseClassRepMapper6[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -4892,7 +6738,7 @@ class CaseClassRepMapper6[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper6[
       Data1
     , Data2
@@ -4902,65 +6748,14 @@ class CaseClassRepMapper6[
     , Data6
   ];
 };
-class Setter6[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-  ]: CaseClassRepMapper6[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-  ] = {
-    new CaseClassRepMapper6[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-    )
-  }
-}
+class PropertyDataType6[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+]
 class CaseClassDataMapper6[
     Data1
   , Data2
@@ -5690,9 +7485,9 @@ class CaseClassRepMapper7[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper7. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper7[
+  ) def info: CaseClassRepMapper7[
       Rep1
     , Data1
     , Rep2
@@ -5708,9 +7503,267 @@ class CaseClassRepMapper7[
     , Rep7
     , Data7
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug7(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -5719,9 +7772,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -5730,10 +7785,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -5743,9 +7809,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -5754,9 +7822,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -5765,10 +7835,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -5778,9 +7859,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -5789,9 +7872,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -5800,10 +7885,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -5813,9 +7909,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -5824,9 +7922,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -5835,10 +7935,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -5848,9 +7959,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -5859,9 +7972,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -5870,10 +7985,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -5883,9 +8009,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -5894,9 +8022,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -5905,10 +8035,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -5918,9 +8059,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -5929,9 +8072,11 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -5940,10 +8085,21 @@ class CaseClassRepMapper7[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -5952,7 +8108,7 @@ class CaseClassRepMapper7[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper7[
       Data1
     , Data2
@@ -5963,73 +8119,15 @@ class CaseClassRepMapper7[
     , Data7
   ];
 };
-class Setter7[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-  ]: CaseClassRepMapper7[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-  ] = {
-    new CaseClassRepMapper7[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-    )
-  }
-}
+class PropertyDataType7[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+]
 class CaseClassDataMapper7[
     Data1
   , Data2
@@ -6854,9 +8952,9 @@ class CaseClassRepMapper8[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper8. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper8[
+  ) def info: CaseClassRepMapper8[
       Rep1
     , Data1
     , Rep2
@@ -6874,9 +8972,301 @@ class CaseClassRepMapper8[
     , Rep8
     , Data8
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug8(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -6885,9 +9275,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -6896,10 +9288,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -6909,9 +9312,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -6920,9 +9325,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -6931,10 +9338,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -6944,9 +9362,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -6955,9 +9375,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -6966,10 +9388,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -6979,9 +9412,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -6990,9 +9425,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -7001,10 +9438,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -7014,9 +9462,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -7025,9 +9475,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -7036,10 +9488,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -7049,9 +9512,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -7060,9 +9525,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -7071,10 +9538,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -7084,9 +9562,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -7095,9 +9575,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -7106,10 +9588,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -7119,9 +9612,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -7130,9 +9625,11 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -7141,10 +9638,21 @@ class CaseClassRepMapper8[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -7153,7 +9661,7 @@ class CaseClassRepMapper8[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper8[
       Data1
     , Data2
@@ -7165,81 +9673,16 @@ class CaseClassRepMapper8[
     , Data8
   ];
 };
-class Setter8[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-  ]: CaseClassRepMapper8[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-  ] = {
-    new CaseClassRepMapper8[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-    )
-  }
-}
+class PropertyDataType8[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+]
 class CaseClassDataMapper8[
     Data1
   , Data2
@@ -8159,9 +10602,9 @@ class CaseClassRepMapper9[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper9. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\ndebug9(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper9[
+  ) def info: CaseClassRepMapper9[
       Rep1
     , Data1
     , Rep2
@@ -8181,9 +10624,335 @@ class CaseClassRepMapper9[
     , Rep9
     , Data9
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: EncoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: DecoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug9(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -8192,9 +10961,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -8203,10 +10974,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -8216,9 +10998,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -8227,9 +11011,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -8238,10 +11024,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -8251,9 +11048,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -8262,9 +11061,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -8273,10 +11074,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -8286,9 +11098,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -8297,9 +11111,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -8308,10 +11124,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -8321,9 +11148,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -8332,9 +11161,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -8343,10 +11174,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -8356,9 +11198,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -8367,9 +11211,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -8378,10 +11224,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -8391,9 +11248,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -8402,9 +11261,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -8413,10 +11274,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -8426,9 +11298,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -8437,9 +11311,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -8448,10 +11324,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -8461,9 +11348,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): EncoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data9, RepCol, DataCol] {
@@ -8472,9 +11361,11 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): DecoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data9, RepCol, DataCol] {
@@ -8483,10 +11374,21 @@ class CaseClassRepMapper9[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep9, Data9, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug9(context)`
+      , `rep9.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data9, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
@@ -8495,7 +11397,7 @@ class CaseClassRepMapper9[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper9[
       Data1
     , Data2
@@ -8508,89 +11410,17 @@ class CaseClassRepMapper9[
     , Data9
   ];
 };
-class Setter9[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-  , Rep9
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-  , val rep9: Rep9
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-    , Data9
-  ]: CaseClassRepMapper9[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-    , Rep9
-    , Data9
-  ] = {
-    new CaseClassRepMapper9[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-      , Rep9
-      , Data9
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-      , rep9 = rep9
-    )
-  }
-}
+class PropertyDataType9[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+  , Data9
+]
 class CaseClassDataMapper9[
     Data1
   , Data2
@@ -9605,9 +12435,9 @@ class CaseClassRepMapper10[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper10. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\ndebug9(context)\ndebug10(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper10[
+  ) def info: CaseClassRepMapper10[
       Rep1
     , Data1
     , Rep2
@@ -9629,9 +12459,369 @@ class CaseClassRepMapper10[
     , Rep10
     , Data10
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: EncoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: EncoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: DecoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: DecoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug10(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -9640,9 +12830,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -9651,10 +12843,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -9664,9 +12867,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -9675,9 +12880,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -9686,10 +12893,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -9699,9 +12917,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -9710,9 +12930,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -9721,10 +12943,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -9734,9 +12967,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -9745,9 +12980,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -9756,10 +12993,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -9769,9 +13017,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -9780,9 +13030,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -9791,10 +13043,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -9804,9 +13067,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -9815,9 +13080,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -9826,10 +13093,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -9839,9 +13117,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -9850,9 +13130,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -9861,10 +13143,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -9874,9 +13167,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -9885,9 +13180,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -9896,10 +13193,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -9909,9 +13217,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): EncoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data9, RepCol, DataCol] {
@@ -9920,9 +13230,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): DecoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data9, RepCol, DataCol] {
@@ -9931,10 +13243,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep9, Data9, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug9(context)`
+      , `rep9.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data9, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
@@ -9944,9 +13267,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): EncoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data10, RepCol, DataCol] {
@@ -9955,9 +13280,11 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): DecoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data10, RepCol, DataCol] {
@@ -9966,10 +13293,21 @@ class CaseClassRepMapper10[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep10, Data10, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug10(context)`
+      , `rep10.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data10, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
@@ -9978,7 +13316,7 @@ class CaseClassRepMapper10[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper10[
       Data1
     , Data2
@@ -9992,97 +13330,18 @@ class CaseClassRepMapper10[
     , Data10
   ];
 };
-class Setter10[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-  , Rep9
-  , Rep10
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-  , val rep9: Rep9
-  , val rep10: Rep10
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-    , Data9
-    , Data10
-  ]: CaseClassRepMapper10[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-    , Rep9
-    , Data9
-    , Rep10
-    , Data10
-  ] = {
-    new CaseClassRepMapper10[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-      , Rep9
-      , Data9
-      , Rep10
-      , Data10
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-      , rep9 = rep9
-      , rep10 = rep10
-    )
-  }
-}
+class PropertyDataType10[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+  , Data9
+  , Data10
+]
 class CaseClassDataMapper10[
     Data1
   , Data2
@@ -11192,9 +14451,9 @@ class CaseClassRepMapper11[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper11. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\ndebug9(context)\ndebug10(context)\ndebug11(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper11[
+  ) def info: CaseClassRepMapper11[
       Rep1
     , Data1
     , Rep2
@@ -11218,9 +14477,403 @@ class CaseClassRepMapper11[
     , Rep11
     , Data11
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: EncoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: EncoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: EncoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: DecoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: DecoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: DecoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug11(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -11229,9 +14882,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -11240,10 +14895,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -11253,9 +14919,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -11264,9 +14932,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -11275,10 +14945,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -11288,9 +14969,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -11299,9 +14982,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -11310,10 +14995,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -11323,9 +15019,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -11334,9 +15032,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -11345,10 +15045,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -11358,9 +15069,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -11369,9 +15082,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -11380,10 +15095,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -11393,9 +15119,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -11404,9 +15132,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -11415,10 +15145,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -11428,9 +15169,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -11439,9 +15182,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -11450,10 +15195,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -11463,9 +15219,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -11474,9 +15232,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -11485,10 +15245,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -11498,9 +15269,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): EncoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data9, RepCol, DataCol] {
@@ -11509,9 +15282,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): DecoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data9, RepCol, DataCol] {
@@ -11520,10 +15295,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep9, Data9, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug9(context)`
+      , `rep9.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data9, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
@@ -11533,9 +15319,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): EncoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data10, RepCol, DataCol] {
@@ -11544,9 +15332,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): DecoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data10, RepCol, DataCol] {
@@ -11555,10 +15345,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep10, Data10, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug10(context)`
+      , `rep10.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data10, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
@@ -11568,9 +15369,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): EncoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data11, RepCol, DataCol] {
@@ -11579,9 +15382,11 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): DecoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data11, RepCol, DataCol] {
@@ -11590,10 +15395,21 @@ class CaseClassRepMapper11[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep11, Data11, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug11(context)`
+      , `rep11.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data11, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
@@ -11602,7 +15418,7 @@ class CaseClassRepMapper11[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper11[
       Data1
     , Data2
@@ -11617,105 +15433,19 @@ class CaseClassRepMapper11[
     , Data11
   ];
 };
-class Setter11[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-  , Rep9
-  , Rep10
-  , Rep11
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-  , val rep9: Rep9
-  , val rep10: Rep10
-  , val rep11: Rep11
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-    , Data9
-    , Data10
-    , Data11
-  ]: CaseClassRepMapper11[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-    , Rep9
-    , Data9
-    , Rep10
-    , Data10
-    , Rep11
-    , Data11
-  ] = {
-    new CaseClassRepMapper11[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-      , Rep9
-      , Data9
-      , Rep10
-      , Data10
-      , Rep11
-      , Data11
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-      , rep9 = rep9
-      , rep10 = rep10
-      , rep11 = rep11
-    )
-  }
-}
+class PropertyDataType11[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+  , Data9
+  , Data10
+  , Data11
+]
 class CaseClassDataMapper11[
     Data1
   , Data2
@@ -12920,9 +16650,9 @@ class CaseClassRepMapper12[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper12. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\ndebug9(context)\ndebug10(context)\ndebug11(context)\ndebug12(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper12[
+  ) def info: CaseClassRepMapper12[
       Rep1
     , Data1
     , Rep2
@@ -12948,9 +16678,437 @@ class CaseClassRepMapper12[
     , Rep12
     , Data12
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: EncoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: EncoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: EncoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: EncoderDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , DataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: DecoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: DecoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: DecoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: DecoderDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , DataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: FormatterDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug12(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -12959,9 +17117,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -12970,10 +17130,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -12983,9 +17154,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -12994,9 +17167,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -13005,10 +17180,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -13018,9 +17204,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -13029,9 +17217,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -13040,10 +17230,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -13053,9 +17254,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -13064,9 +17267,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -13075,10 +17280,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -13088,9 +17304,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -13099,9 +17317,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -13110,10 +17330,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -13123,9 +17354,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -13134,9 +17367,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -13145,10 +17380,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -13158,9 +17404,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -13169,9 +17417,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -13180,10 +17430,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -13193,9 +17454,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -13204,9 +17467,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -13215,10 +17480,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -13228,9 +17504,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): EncoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data9, RepCol, DataCol] {
@@ -13239,9 +17517,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): DecoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data9, RepCol, DataCol] {
@@ -13250,10 +17530,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep9, Data9, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug9(context)`
+      , `rep9.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data9, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
@@ -13263,9 +17554,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): EncoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data10, RepCol, DataCol] {
@@ -13274,9 +17567,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): DecoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data10, RepCol, DataCol] {
@@ -13285,10 +17580,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep10, Data10, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug10(context)`
+      , `rep10.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data10, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
@@ -13298,9 +17604,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): EncoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data11, RepCol, DataCol] {
@@ -13309,9 +17617,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): DecoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data11, RepCol, DataCol] {
@@ -13320,10 +17630,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep11, Data11, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug11(context)`
+      , `rep11.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data11, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
@@ -13333,9 +17654,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug12[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol]): EncoderShapeValue[Data12, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data12, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data12, RepCol, DataCol] {
@@ -13344,9 +17667,11 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug12[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol]): DecoderShapeValue[Data12, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data12, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data12, RepCol, DataCol] {
@@ -13355,10 +17680,21 @@ class CaseClassRepMapper12[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug12[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep12, Data12, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `12`
+      , `debug12(context)`
+      , `rep12.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data12, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
@@ -13367,7 +17703,7 @@ class CaseClassRepMapper12[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper12[
       Data1
     , Data2
@@ -13383,113 +17719,20 @@ class CaseClassRepMapper12[
     , Data12
   ];
 };
-class Setter12[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-  , Rep9
-  , Rep10
-  , Rep11
-  , Rep12
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-  , val rep9: Rep9
-  , val rep10: Rep10
-  , val rep11: Rep11
-  , val rep12: Rep12
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-    , Data9
-    , Data10
-    , Data11
-    , Data12
-  ]: CaseClassRepMapper12[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-    , Rep9
-    , Data9
-    , Rep10
-    , Data10
-    , Rep11
-    , Data11
-    , Rep12
-    , Data12
-  ] = {
-    new CaseClassRepMapper12[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-      , Rep9
-      , Data9
-      , Rep10
-      , Data10
-      , Rep11
-      , Data11
-      , Rep12
-      , Data12
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-      , rep9 = rep9
-      , rep10 = rep10
-      , rep11 = rep11
-      , rep12 = rep12
-    )
-  }
-}
+class PropertyDataType12[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+  , Data9
+  , Data10
+  , Data11
+  , Data12
+]
 class CaseClassDataMapper12[
     Data1
   , Data2
@@ -14789,9 +19032,9 @@ class CaseClassRepMapper13[
 ) extends DataGenTag {
   @deprecated(
       "Your are debugging case class mapping rule. This is CaseClassRepMapper13. You can replace selfInfo with\n" +
-      "i1(context)\ni2(context)\ni3(context)\ni4(context)\ni5(context)\ni6(context)\ni7(context)\ni8(context)\ni9(context)\ni10(context)\ni11(context)\ni12(context)\ni13(context)\nto find the missing column."
+      "debug1(context)\ndebug2(context)\ndebug3(context)\ndebug4(context)\ndebug5(context)\ndebug6(context)\ndebug7(context)\ndebug8(context)\ndebug9(context)\ndebug10(context)\ndebug11(context)\ndebug12(context)\ndebug13(context)\nto find the missing column."
     , "0.0.1"
-  ) def selfInfo: CaseClassRepMapper13[
+  ) def info: CaseClassRepMapper13[
       Rep1
     , Data1
     , Rep2
@@ -14819,9 +19062,471 @@ class CaseClassRepMapper13[
     , Rep13
     , Data13
   ] = this;
-  def i1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`, `13`, Target13, `rep13.debug(context)`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): EncoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape1: EncoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: EncoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: EncoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: EncoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: EncoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: EncoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: EncoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: EncoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: EncoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: EncoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: EncoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: EncoderDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , DataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape13: EncoderDebugShape.Aux[
+        Rep13
+      , Data13
+      , Target13
+      , RepCol
+      , DataCol
+      , `13`
+      , `debug(context)`
+      , `rep13.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+  ): EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`, `13`, Target13, `rep13.debug(context)`](
+      context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape1: DecoderDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , DataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: DecoderDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , DataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: DecoderDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , DataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: DecoderDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , DataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: DecoderDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , DataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: DecoderDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , DataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: DecoderDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , DataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: DecoderDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , DataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: DecoderDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , DataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: DecoderDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , DataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: DecoderDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , DataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: DecoderDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , DataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape13: DecoderDebugShape.Aux[
+        Rep13
+      , Data13
+      , Target13
+      , RepCol
+      , DataCol
+      , `13`
+      , `debug(context)`
+      , `rep13.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+  ): DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+    context
+  };
+  def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`, `1`, Target1, `rep1.debug(context)`, `2`, Target2, `rep2.debug(context)`, `3`, Target3, `rep3.debug(context)`, `4`, Target4, `rep4.debug(context)`, `5`, Target5, `rep5.debug(context)`, `6`, Target6, `rep6.debug(context)`, `7`, Target7, `rep7.debug(context)`, `8`, Target8, `rep8.debug(context)`, `9`, Target9, `rep9.debug(context)`, `10`, Target10, `rep10.debug(context)`, `11`, Target11, `rep11.debug(context)`, `12`, Target12, `rep12.debug(context)`, `13`, Target13, `rep13.debug(context)`](
+      context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
+  )(
+      implicit debugShape1: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target1
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug(context)`
+      , `rep1.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape2: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target2
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug(context)`
+      , `rep2.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape3: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target3
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug(context)`
+      , `rep3.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape4: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target4
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug(context)`
+      , `rep4.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape5: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target5
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug(context)`
+      , `rep5.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape6: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target6
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug(context)`
+      , `rep6.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape7: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target7
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug(context)`
+      , `rep7.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape8: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target8
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug(context)`
+      , `rep8.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape9: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target9
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug(context)`
+      , `rep9.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape10: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target10
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug(context)`
+      , `rep10.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape11: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target11
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug(context)`
+      , `rep11.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape12: FormatterDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target12
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `12`
+      , `debug(context)`
+      , `rep12.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+    , debugShape13: FormatterDebugShape.Aux[
+        Rep13
+      , Data13
+      , Target13
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `13`
+      , `debug(context)`
+      , `rep13.debug(context)`
+      , `.\nOr you can change debug(context) to debug1(context) - debug13(context) to debug other fields.\n\n`
+    ]
+  ): FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+    context
+  };
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
+      context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data1, RepCol, DataCol] {
@@ -14830,9 +19535,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug1[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol]): DecoderShapeValue[Data1, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep1, Data1, Target, RepCol, DataCol, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data1, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data1, RepCol, DataCol] {
@@ -14841,10 +19548,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug1[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `1`, `debug1(context)`, `rep1.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep1, Data1, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep1
+      , Data1
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `1`
+      , `debug1(context)`
+      , `rep1.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data1, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep1);
     val shape1  = debugShape.shape.packed;
@@ -14854,9 +19572,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): EncoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data2, RepCol, DataCol] {
@@ -14865,9 +19585,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug2[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol]): DecoderShapeValue[Data2, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep2, Data2, Target, RepCol, DataCol, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data2, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data2, RepCol, DataCol] {
@@ -14876,10 +19598,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug2[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `2`, `debug2(context)`, `rep2.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep2, Data2, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep2
+      , Data2
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `2`
+      , `debug2(context)`
+      , `rep2.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data2, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep2);
     val shape1  = debugShape.shape.packed;
@@ -14889,9 +19622,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): EncoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data3, RepCol, DataCol] {
@@ -14900,9 +19635,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug3[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol]): DecoderShapeValue[Data3, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep3, Data3, Target, RepCol, DataCol, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data3, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data3, RepCol, DataCol] {
@@ -14911,10 +19648,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug3[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `3`, `debug3(context)`, `rep3.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep3, Data3, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep3
+      , Data3
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `3`
+      , `debug3(context)`
+      , `rep3.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data3, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep3);
     val shape1  = debugShape.shape.packed;
@@ -14924,9 +19672,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): EncoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data4, RepCol, DataCol] {
@@ -14935,9 +19685,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug4[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol]): DecoderShapeValue[Data4, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep4, Data4, Target, RepCol, DataCol, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data4, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data4, RepCol, DataCol] {
@@ -14946,10 +19698,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug4[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `4`, `debug4(context)`, `rep4.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep4, Data4, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep4
+      , Data4
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `4`
+      , `debug4(context)`
+      , `rep4.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data4, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep4);
     val shape1  = debugShape.shape.packed;
@@ -14959,9 +19722,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): EncoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data5, RepCol, DataCol] {
@@ -14970,9 +19735,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug5[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol]): DecoderShapeValue[Data5, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep5, Data5, Target, RepCol, DataCol, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data5, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data5, RepCol, DataCol] {
@@ -14981,10 +19748,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug5[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `5`, `debug5(context)`, `rep5.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep5, Data5, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep5
+      , Data5
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `5`
+      , `debug5(context)`
+      , `rep5.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data5, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep5);
     val shape1  = debugShape.shape.packed;
@@ -14994,9 +19772,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): EncoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data6, RepCol, DataCol] {
@@ -15005,9 +19785,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug6[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol]): DecoderShapeValue[Data6, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep6, Data6, Target, RepCol, DataCol, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data6, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data6, RepCol, DataCol] {
@@ -15016,10 +19798,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug6[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `6`, `debug6(context)`, `rep6.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep6, Data6, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep6
+      , Data6
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `6`
+      , `debug6(context)`
+      , `rep6.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data6, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep6);
     val shape1  = debugShape.shape.packed;
@@ -15029,9 +19822,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): EncoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data7, RepCol, DataCol] {
@@ -15040,9 +19835,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug7[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol]): DecoderShapeValue[Data7, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep7, Data7, Target, RepCol, DataCol, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data7, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data7, RepCol, DataCol] {
@@ -15051,10 +19848,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug7[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `7`, `debug7(context)`, `rep7.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep7, Data7, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep7
+      , Data7
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `7`
+      , `debug7(context)`
+      , `rep7.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data7, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep7);
     val shape1  = debugShape.shape.packed;
@@ -15064,9 +19872,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): EncoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data8, RepCol, DataCol] {
@@ -15075,9 +19885,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug8[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol]): DecoderShapeValue[Data8, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep8, Data8, Target, RepCol, DataCol, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data8, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data8, RepCol, DataCol] {
@@ -15086,10 +19898,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug8[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `8`, `debug8(context)`, `rep8.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep8, Data8, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep8
+      , Data8
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `8`
+      , `debug8(context)`
+      , `rep8.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data8, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep8);
     val shape1  = debugShape.shape.packed;
@@ -15099,9 +19922,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): EncoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data9, RepCol, DataCol] {
@@ -15110,9 +19935,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug9[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol]): DecoderShapeValue[Data9, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep9, Data9, Target, RepCol, DataCol, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data9, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data9, RepCol, DataCol] {
@@ -15121,10 +19948,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug9[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `9`, `debug9(context)`, `rep9.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep9, Data9, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep9
+      , Data9
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `9`
+      , `debug9(context)`
+      , `rep9.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data9, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep9);
     val shape1  = debugShape.shape.packed;
@@ -15134,9 +19972,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): EncoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data10, RepCol, DataCol] {
@@ -15145,9 +19985,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug10[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol]): DecoderShapeValue[Data10, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep10, Data10, Target, RepCol, DataCol, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data10, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data10, RepCol, DataCol] {
@@ -15156,10 +19998,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug10[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `10`, `debug10(context)`, `rep10.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep10, Data10, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep10
+      , Data10
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `10`
+      , `debug10(context)`
+      , `rep10.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data10, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep10);
     val shape1  = debugShape.shape.packed;
@@ -15169,9 +20022,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): EncoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data11, RepCol, DataCol] {
@@ -15180,9 +20035,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug11[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol]): DecoderShapeValue[Data11, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep11, Data11, Target, RepCol, DataCol, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data11, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data11, RepCol, DataCol] {
@@ -15191,10 +20048,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug11[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `11`, `debug11(context)`, `rep11.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep11, Data11, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep11
+      , Data11
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `11`
+      , `debug11(context)`
+      , `rep11.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data11, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep11);
     val shape1  = debugShape.shape.packed;
@@ -15204,9 +20072,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug12[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol]): EncoderShapeValue[Data12, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data12, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data12, RepCol, DataCol] {
@@ -15215,9 +20085,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug12[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol]): DecoderShapeValue[Data12, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep12, Data12, Target, RepCol, DataCol, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data12, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data12, RepCol, DataCol] {
@@ -15226,10 +20098,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i12[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug12[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `12`, `debug12(context)`, `rep12.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep12, Data12, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep12
+      , Data12
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `12`
+      , `debug12(context)`
+      , `rep12.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data12, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep12);
     val shape1  = debugShape.shape.packed;
@@ -15239,9 +20122,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i13[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target](
+  def debug13[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `13`, `debug13(context)`, `rep13.debug(context)`, `.\n\n`](
       context: EncoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: EncoderDebugShape.Aux[Rep13, Data13, Target, RepCol, DataCol]): EncoderShapeValue[Data13, RepCol, DataCol] = {
+  )(
+      implicit debugShape: EncoderDebugShape.Aux[Rep13, Data13, Target, RepCol, DataCol, `13`, `debug13(context)`, `rep13.debug(context)`, `.\n\n`]
+  ): EncoderShapeValue[Data13, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep13);
     val shape1  = debugShape.shape.packed;
     new EncoderShapeValue[Data13, RepCol, DataCol] {
@@ -15250,9 +20135,11 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i13[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target](
+  def debug13[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `13`, `debug13(context)`, `rep13.debug(context)`, `.\n\n`](
       context: DecoderWrapperHelper[RepCol, DataCol, Wrapper]
-  )(implicit debugShape: DecoderDebugShape.Aux[Rep13, Data13, Target, RepCol, DataCol]): DecoderShapeValue[Data13, RepCol, DataCol] = {
+  )(
+      implicit debugShape: DecoderDebugShape.Aux[Rep13, Data13, Target, RepCol, DataCol, `13`, `debug13(context)`, `rep13.debug(context)`, `.\n\n`]
+  ): DecoderShapeValue[Data13, RepCol, DataCol] = {
     val target1 = debugShape.shape.wrapRep(rep13);
     val shape1  = debugShape.shape.packed;
     new DecoderShapeValue[Data13, RepCol, DataCol] {
@@ -15261,10 +20148,21 @@ class CaseClassRepMapper13[
       override val shape = shape1;
     }
   };
-  def i13[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target](
+  def debug13[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `13`, `debug13(context)`, `rep13.debug(context)`, `.\n\n`](
       context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper]
   )(
-      implicit debugShape: FormatterDebugShape.Aux[Rep13, Data13, Target, RepCol, EncoderDataCol, DecoderDataCol]
+      implicit debugShape: FormatterDebugShape.Aux[
+        Rep13
+      , Data13
+      , Target
+      , RepCol
+      , EncoderDataCol
+      , DecoderDataCol
+      , `13`
+      , `debug13(context)`
+      , `rep13.debug(context)`
+      , `.\n\n`
+    ]
   ): FormatterShapeValue[Data13, RepCol, EncoderDataCol, DecoderDataCol] = {
     val target1 = debugShape.shape.wrapRep(rep13);
     val shape1  = debugShape.shape.packed;
@@ -15273,7 +20171,7 @@ class CaseClassRepMapper13[
       override val rep   = target1;
       override val shape = shape1;
     }
-  };;
+  };
   override type TempData = CaseClassDataMapper13[
       Data1
     , Data2
@@ -15290,121 +20188,21 @@ class CaseClassRepMapper13[
     , Data13
   ];
 };
-class Setter13[
-    Rep1
-  , Rep2
-  , Rep3
-  , Rep4
-  , Rep5
-  , Rep6
-  , Rep7
-  , Rep8
-  , Rep9
-  , Rep10
-  , Rep11
-  , Rep12
-  , Rep13
-](
-    val rep1: Rep1
-  , val rep2: Rep2
-  , val rep3: Rep3
-  , val rep4: Rep4
-  , val rep5: Rep5
-  , val rep6: Rep6
-  , val rep7: Rep7
-  , val rep8: Rep8
-  , val rep9: Rep9
-  , val rep10: Rep10
-  , val rep11: Rep11
-  , val rep12: Rep12
-  , val rep13: Rep13
-) {
-  def output[
-      Data1
-    , Data2
-    , Data3
-    , Data4
-    , Data5
-    , Data6
-    , Data7
-    , Data8
-    , Data9
-    , Data10
-    , Data11
-    , Data12
-    , Data13
-  ]: CaseClassRepMapper13[
-      Rep1
-    , Data1
-    , Rep2
-    , Data2
-    , Rep3
-    , Data3
-    , Rep4
-    , Data4
-    , Rep5
-    , Data5
-    , Rep6
-    , Data6
-    , Rep7
-    , Data7
-    , Rep8
-    , Data8
-    , Rep9
-    , Data9
-    , Rep10
-    , Data10
-    , Rep11
-    , Data11
-    , Rep12
-    , Data12
-    , Rep13
-    , Data13
-  ] = {
-    new CaseClassRepMapper13[
-        Rep1
-      , Data1
-      , Rep2
-      , Data2
-      , Rep3
-      , Data3
-      , Rep4
-      , Data4
-      , Rep5
-      , Data5
-      , Rep6
-      , Data6
-      , Rep7
-      , Data7
-      , Rep8
-      , Data8
-      , Rep9
-      , Data9
-      , Rep10
-      , Data10
-      , Rep11
-      , Data11
-      , Rep12
-      , Data12
-      , Rep13
-      , Data13
-    ](
-        rep1 = rep1
-      , rep2 = rep2
-      , rep3 = rep3
-      , rep4 = rep4
-      , rep5 = rep5
-      , rep6 = rep6
-      , rep7 = rep7
-      , rep8 = rep8
-      , rep9 = rep9
-      , rep10 = rep10
-      , rep11 = rep11
-      , rep12 = rep12
-      , rep13 = rep13
-    )
-  }
-}
+class PropertyDataType13[
+    Data1
+  , Data2
+  , Data3
+  , Data4
+  , Data5
+  , Data6
+  , Data7
+  , Data8
+  , Data9
+  , Data10
+  , Data11
+  , Data12
+  , Data13
+]
 class CaseClassDataMapper13[
     Data1
   , Data2

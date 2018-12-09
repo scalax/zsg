@@ -1,9 +1,9 @@
-package net.scalax.asuna.slick.filter
+package org.scalax.asuna.slick.filter
 
 import cats.Contravariant
 import io.circe.{Decoder, Json, JsonObject}
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 import slick.ast.BaseTypedType
 
 trait SFilterColHelper[D] {

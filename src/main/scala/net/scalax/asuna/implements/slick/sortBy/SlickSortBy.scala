@@ -1,8 +1,8 @@
-package net.scalax.asuna.slick.sortBy
+package org.scalax.asuna.slick.sortBy
 
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.encoder.{EncoderContent, EncoderWrapperHelper}
 
 object SlickSortBy {
 

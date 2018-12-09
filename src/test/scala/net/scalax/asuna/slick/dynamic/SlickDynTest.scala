@@ -1,11 +1,11 @@
-package net.scalax.slick.dynamic
+package org.scalax.slick.dynamic
 
 import io.circe.Json
-import net.scalax.asuna.helper.{HListDecoderRepShapeImplicit, HListEncoderRepShapeImplicit}
-import net.scalax.asuna.mapper.common.ShapeHelper
-import net.scalax.asuna.slick.filter.SlickFilterColHelper
-import net.scalax.slick.async.FriendTable2
-import net.scalax.asuna.slick.umr.UmrHelper
+import org.scalax.asuna.helper.{HListDecoderRepShapeImplicit, HListEncoderRepShapeImplicit}
+import org.scalax.asuna.mapper.common.ShapeHelper
+import org.scalax.asuna.slick.filter.SlickFilterColHelper
+import org.scalax.slick.async.FriendTable2
+import org.scalax.asuna.slick.umr.UmrHelper
 import shapeless._
 import slick.jdbc.H2Profile.api._
 

@@ -1,7 +1,7 @@
-package net.scalax.asuna.mapper.encoder
+package org.scalax.asuna.mapper.encoder
 
-import net.scalax.asuna.mapper.decoder.EmptyLazyModel
-import net.scalax.asuna.mapper.encoder.macroImpl.UnusedDataMacro
+import org.scalax.asuna.mapper.decoder.EmptyLazyModel
+import org.scalax.asuna.mapper.encoder.macroImpl.UnusedDataMacro
 
 import scala.language.implicitConversions
 

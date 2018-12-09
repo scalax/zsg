@@ -1,11 +1,11 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
 import io.circe.{Decoder, DecodingFailure, Json}
-import net.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
-import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.circe.aaaa.{CirceAsunaDecoder, CirceAsunaDecoderImpl}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait ACirceDecoderWrapper[RepOut, DataType] extends DecoderContent[RepOut, DataType] {
   def read(data: Json): Either[DecodingFailure, DataType]
@@ -40,11 +40,11 @@ trait CirceAsunaDecoderHelper extends DecoderHelper[List[CirceAsunaDecoder], Map
 
   implicit def sdohgfoisdhgiosedhtuioserhtuiegtweui[B, RepCol, DataCol](
       implicit someshape: Decoder[B]
-  ): DecoderShape.Aux[SingleRepContent[Placeholder[B], B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
-    new DecoderShape[SingleRepContent[Placeholder[B], B], List[CirceAsunaDecoder], Map[String, Any]] {
+  ): DecoderShape.Aux[SingleRepContent[Placeholder, B], B, CirceAsunaDecoderImpl[B], List[CirceAsunaDecoder], Map[String, Any]] = {
+    new DecoderShape[SingleRepContent[Placeholder, B], List[CirceAsunaDecoder], Map[String, Any]] {
       override type Target = CirceAsunaDecoderImpl[B]
       override type Data   = B
-      override def wrapRep(base: => SingleRepContent[Placeholder[B], B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
+      override def wrapRep(base: => SingleRepContent[Placeholder, B]): CirceAsunaDecoderImpl[B] = new CirceAsunaDecoderImpl[B] {
         override val key = base.singleModelName
         override def write(data: Json): Either[DecodingFailure, B] = {
           if (data == Json.Null) {

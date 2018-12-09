@@ -1,7 +1,7 @@
-package net.scalax.asuna.core.encoder
+package org.scalax.asuna.core.encoder
 
-import net.scalax.asuna.core.common.CommonShapeValue
-import net.scalax.asuna.core.encoder.impl.ZipEncoderShapeHelper
+import org.scalax.asuna.core.common.CommonShapeValue
+import org.scalax.asuna.core.encoder.impl.ZipEncoderShapeHelper
 
 trait EncoderShapeValue[U, RepCol, DataCol] extends CommonShapeValue[U, RepCol] {
   self =>

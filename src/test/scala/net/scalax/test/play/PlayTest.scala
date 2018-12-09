@@ -1,6 +1,6 @@
-package net.scalax.asuna.circe
+package org.scalax.asuna.circe
 
-import net.scalax.asuna.implements.play.abc.PlayHelper
+import org.scalax.asuna.implements.play.abc.PlayHelper
 import play.api.libs.json.{Format, Json, Writes}
 
 object PlayTest extends App with PlayHelper {

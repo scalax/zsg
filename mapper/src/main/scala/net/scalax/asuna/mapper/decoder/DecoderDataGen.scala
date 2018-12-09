@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.decoder
+package org.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.mapper.common.{DataGenTag, DataGenWrap}
+import org.scalax.asuna.mapper.common.{DataGenTag, DataGenWrap}
 
 trait DecoderDataGen[LazyModel] extends DataGenWrap {
   self =>
@@ -22,7 +22,7 @@ trait DecoderDataGen[LazyModel] extends DataGenWrap {
 
 package impl {
 
-  import net.scalax.asuna.mapper.common.DataGenTag
+  import org.scalax.asuna.mapper.common.DataGenTag
 
   class DecoderDataGenImpl[TRep <: DataGenTag, LazyModel](f: (TRep#TempData, TRep) => LazyModel, wrap: TRep) extends DecoderDataGen[LazyModel] {
     self =>

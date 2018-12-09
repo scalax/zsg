@@ -1,13 +1,13 @@
-package net.scalax.asuna.akkahttp
+package org.scalax.asuna.akkahttp
 
 import akka.http.scaladsl.server.directives.FormFieldDirectives.FieldMagnet
 import akka.http.scaladsl.server.directives.{FormFieldDirectives, ParameterDirectives}
 import akka.http.scaladsl.server.directives.ParameterDirectives.ParamMagnet
 import akka.http.scaladsl.server.{Directive, Directive1, Route}
-import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.core.decoder.{DecoderShape, SplitData}
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
+import org.scalax.asuna.core.decoder.{DecoderShape, SplitData}
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.decoder.{DecoderContent, DecoderHelper, DecoderWrapperHelper}
 
 trait AkkaFormFieldWrapAbs {
 
@@ -109,11 +109,11 @@ trait AkkaHttpParameterHelper {
 
   implicit def akkahttpPlaceholderImplicit[D](
       implicit fsu: akka.http.scaladsl.unmarshalling.FromStrictFormFieldUnmarshaller[D]
-  ): DecoderShape.Aux[SingleRepContent[Placeholder[D], D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
-    new DecoderShape[SingleRepContent[Placeholder[D], D], List[AkkaFormFieldWrapAbs], List[Any]] {
+  ): DecoderShape.Aux[SingleRepContent[Placeholder, D], D, AkkaFormFieldWrap[D], List[AkkaFormFieldWrapAbs], List[Any]] = {
+    new DecoderShape[SingleRepContent[Placeholder, D], List[AkkaFormFieldWrapAbs], List[Any]] {
       override type Target = AkkaFormFieldWrap[D]
       override type Data   = D
-      override def wrapRep(base: => SingleRepContent[Placeholder[D], D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
+      override def wrapRep(base: => SingleRepContent[Placeholder, D]): AkkaFormFieldWrap[D] = new AkkaFormFieldWrap[D] {
         override val directive: Directive1[D] = helper.formFieldAs[D].withName(base.singleModelName)
       }
       override def buildRep(base: AkkaFormFieldWrap[D], oldRep: List[AkkaFormFieldWrapAbs]): List[AkkaFormFieldWrapAbs] = base :: oldRep

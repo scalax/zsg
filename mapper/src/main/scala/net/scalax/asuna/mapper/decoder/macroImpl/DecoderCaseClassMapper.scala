@@ -1,8 +1,8 @@
-package net.scalax.asuna.mapper.decoder.macroImpl
+package org.scalax.asuna.mapper.decoder.macroImpl
 
-import net.scalax.asuna.core.decoder.DecoderShapeValue
-import net.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
-import net.scalax.asuna.mapper.decoder._
+import org.scalax.asuna.core.decoder.DecoderShapeValue
+import org.scalax.asuna.mapper.common.macroImpl.{GenFileOutputHelper, RepMapperUtils}
+import org.scalax.asuna.mapper.decoder._
 
 object DecoderCaseClassMapper {
 

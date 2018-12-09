@@ -1,7 +1,7 @@
-package net.scalax.asuna.mapper.decoder
+package org.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
-import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
+import org.scalax.asuna.core.decoder.{DecoderShape, DecoderShapeValue}
+import org.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
 
 import scala.language.experimental.macros
 

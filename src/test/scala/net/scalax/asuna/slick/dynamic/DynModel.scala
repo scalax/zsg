@@ -1,11 +1,11 @@
-package net.scalax.slick.async
+package org.scalax.slick.async
 
 import java.util.Locale
 
 import com.github.javafaker.Faker
 import io.circe.Json
 import io.circe.syntax._
-import net.scalax.slick.dynamic.{FilterParam3, FilterParam4, FriendTable2Model, FriendTable2Model2}
+import org.scalax.slick.dynamic.{FilterParam3, FilterParam4, FriendTable2Model, FriendTable2Model2}
 import slick.jdbc.H2Profile.api._
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures

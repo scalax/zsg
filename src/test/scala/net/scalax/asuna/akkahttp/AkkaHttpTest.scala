@@ -1,8 +1,8 @@
-package net.scalax.test01
+package org.scalax.test01
 
 import akka.http.scaladsl.model.headers.Cookie
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import net.scalax.asuna.akkahttp.AkkaHttpParameterHelper
+import org.scalax.asuna.akkahttp.AkkaHttpParameterHelper
 import org.scalatest._
 
 import scala.concurrent.{duration, Await, Future}

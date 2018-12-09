@@ -1,10 +1,10 @@
-package net.scalax.asuna.implements.play.abc
+package org.scalax.asuna.implements.play.abc
 
-import net.scalax.asuna.LazyImplicit
-import net.scalax.asuna.core.common.Placeholder
-import net.scalax.asuna.core.encoder.EncoderShape
-import net.scalax.asuna.mapper.common.SingleRepContent
-import net.scalax.asuna.mapper.encoder._
+import org.scalax.asuna.LazyImplicit
+import org.scalax.asuna.core.encoder.EncoderShape
+import org.scalax.asuna.mapper.Placeholder
+import org.scalax.asuna.mapper.common.SingleRepContent
+import org.scalax.asuna.mapper.encoder._
 import play.api.libs.json._
 
 trait PlayAsunaEncoder[Poly] {
@@ -21,11 +21,11 @@ class PlayAsunaEncoderImpl[Poly, T](writeable: => Writes[T], override val key: S
 trait PlayPoly {
   implicit def implicit1[T](
       implicit encoder: LazyImplicit[Writes[T]]
-  ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, String, List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]] = {
-    new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]] {
+  ): EncoderShape.Aux[SingleRepContent[Placeholder, T], T, String, List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]] = {
+    new EncoderShape[SingleRepContent[Placeholder, T], List[PlayAsunaEncoder[PlayPoly]], List[(String, JsValue)]] {
       override type Target = String
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): String = base.singleModelName
+      override def wrapRep(base: => SingleRepContent[Placeholder, T]): String = base.singleModelName
       override def buildRep(base: String, oldRep: List[PlayAsunaEncoder[PlayPoly]]): List[PlayAsunaEncoder[PlayPoly]] =
         throw new Exception("No use to support.")
       override def buildData(data: T, rep: String, oldData: List[(String, JsValue)]): List[(String, JsValue)] =
@@ -58,11 +58,11 @@ object PlayPoly extends PlayPoly
 trait PlayPoly1 {
   implicit def implicit1[T](
       implicit encoder: LazyImplicit[Writes[T]]
-  ): EncoderShape.Aux[SingleRepContent[Placeholder[T], T], T, PlayAsunaEncoderImpl[PlayPoly1, T], List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)]] = {
-    new EncoderShape[SingleRepContent[Placeholder[T], T], List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)]] {
+  ): EncoderShape.Aux[SingleRepContent[Placeholder, T], T, PlayAsunaEncoderImpl[PlayPoly1, T], List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)]] = {
+    new EncoderShape[SingleRepContent[Placeholder, T], List[PlayAsunaEncoder[PlayPoly1]], List[(String, JsValue)]] {
       override type Target = PlayAsunaEncoderImpl[PlayPoly1, T]
       override type Data   = T
-      override def wrapRep(base: => SingleRepContent[Placeholder[T], T]): PlayAsunaEncoderImpl[PlayPoly1, T] =
+      override def wrapRep(base: => SingleRepContent[Placeholder, T]): PlayAsunaEncoderImpl[PlayPoly1, T] =
         new PlayAsunaEncoderImpl[PlayPoly1, T](writeable = encoder.value, key = base.singleModelName)
       override def buildRep(base: PlayAsunaEncoderImpl[PlayPoly1, T], oldRep: List[PlayAsunaEncoder[PlayPoly1]]): List[PlayAsunaEncoder[PlayPoly1]] =
         throw new Exception("No use to support.")

@@ -1,9 +1,9 @@
-package net.scalax.asuna.core.formatter
+package org.scalax.asuna.core.formatter
 
-import net.scalax.asuna.core.common.CommonShapeValue
-import net.scalax.asuna.core.decoder.{DecoderShapeValue, SplitData}
-import net.scalax.asuna.core.encoder.EncoderShapeValue
-import net.scalax.asuna.core.encoder.impl.ZipFormatterShapeHelper
+import org.scalax.asuna.core.common.CommonShapeValue
+import org.scalax.asuna.core.decoder.{DecoderShapeValue, SplitData}
+import org.scalax.asuna.core.encoder.EncoderShapeValue
+import org.scalax.asuna.core.encoder.impl.ZipFormatterShapeHelper
 
 trait FormatterShapeValue[U, RepCol, EncoderDataCol, DecoderDataCol]
     extends EncoderShapeValue[U, RepCol, EncoderDataCol]

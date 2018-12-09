@@ -1,6 +1,6 @@
-package net.scalax.asuna.mapper.decoder
+package org.scalax.asuna.mapper.decoder
 
-import net.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
+import org.scalax.asuna.mapper.decoder.macroImpl.DecoderCaseClassMapper
 
 import scala.language.experimental.macros
 

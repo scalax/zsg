@@ -1,7 +1,7 @@
-package net.scalax.asuna.core.formatter.impl
+package org.scalax.asuna.core.formatter.impl
 
-import net.scalax.asuna.core.decoder.SplitData
-import net.scalax.asuna.core.formatter.FormatterShape
+import org.scalax.asuna.core.decoder.SplitData
+import org.scalax.asuna.core.formatter.FormatterShape
 
 trait ListFormatterShapeImplicit {
 
