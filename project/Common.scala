@@ -4,7 +4,7 @@ import bintray.BintrayKeys._
 
 object Common {
 
-  val versionSetting = version := "0.0.2-SNAP20181103.1"
+  val versionSetting = version := "0.0.2-SNAP20181211.1"
   val scalaSettings = Seq(
       scalaVersion := "2.12.7"
     , crossScalaVersions := Seq("2.11.12", "2.12.7")

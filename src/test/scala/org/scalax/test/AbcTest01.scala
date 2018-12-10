@@ -2,7 +2,7 @@ package org.scalax.asuna.circe
 
 import io.circe.Encoder
 import io.circe.syntax._
-import org.scalax.asuna.implements.circe.abc.CirceHelper
+import org.scalax.asuna.implements.circe.encoder.CirceHelper
 import org.scalax.asuna.mapper.decoder.EmptyLazyModel
 
 object AbcTest01 extends App with CirceHelper {
@@ -80,7 +80,7 @@ object AbcTest01 extends App with CirceHelper {
       lazy val a3     = circe.effect(circe.singleModel[MiaoMiao2](Abc).compile).write
     }*/
 
-    implicit val a1 = circeVal.effect(circeVal.singleModel[LargeModel11](Ghi).compile).write
+    implicit val a1 = valEncoder.effect(valEncoder.singleModel[LargeModel11](Ghi).compile).encoder
 
     for (_ <- TestParam.preCollection) {
       model.asJson

@@ -1,6 +1,6 @@
 package org.scalax.asuna.implements.play.abc
 
-import org.scalax.asuna.LazyImplicit
+import org.scalax.asuna.implements.LazyImplicit
 import org.scalax.asuna.core.encoder.EncoderShape
 import org.scalax.asuna.mapper.Placeholder
 import org.scalax.asuna.mapper.common.SingleRepContent

@@ -5,7 +5,7 @@ import java.util.Locale
 import com.github.javafaker.Faker
 import io.circe.{Decoder, Encoder}
 import org.scalax.asuna.circe.CirceAsunaDecoderHelper
-import org.scalax.asuna.implements.circe.abc.CirceHelper
+import org.scalax.asuna.implements.circe.encoder.CirceHelper
 import org.scalax.asuna.mapper.decoder.EmptyLazyModel
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest._
@@ -19,11 +19,11 @@ case class TestModel(name4: String, key5: String, TagTagTag: Int, olim: Long, es
 object Aa extends CirceHelper {
   object Gg
 
-  implicit val test4: Encoder[TestModel4]              = circeVal.effect(circeVal.singleModel[TestModel4](Gg).compile).write
-  implicit lazy val test3Implicit: Encoder[TestModel3] = circeVal.effect(circeVal.singleModel[TestModel3](Gg).compile).write
-  implicit lazy val est1: Encoder[TestModel1]          = circeVal.effect(circeVal.singleModel[TestModel1](Gg).compile).write
-  implicit val test2                                   = circeVal.effect(circeVal.singleModel[TestModel2](Gg).compile).write
-  lazy val test: Encoder[TestModel]                    = circeVal.effect(circeVal.singleModel[TestModel](Gg).compile).write
+  implicit val test4: Encoder[TestModel4]              = valEncoder.effect(valEncoder.singleModel[TestModel4](Gg).compile).encoder
+  implicit lazy val test3Implicit: Encoder[TestModel3] = valEncoder.effect(valEncoder.singleModel[TestModel3](Gg).compile).encoder
+  implicit lazy val est1: Encoder[TestModel1]          = valEncoder.effect(valEncoder.singleModel[TestModel1](Gg).compile).encoder
+  implicit val test2                                   = valEncoder.effect(valEncoder.singleModel[TestModel2](Gg).compile).encoder
+  lazy val test: Encoder[TestModel]                    = valEncoder.effect(valEncoder.singleModel[TestModel](Gg).compile).encoder
 }
 
 class CirceEncoderTest
