@@ -15,7 +15,7 @@ object CaseClassHelperGen extends App {
     .resolve("src")
     .resolve("main")
     .resolve("scala")
-    .resolve("net")
+    .resolve("org")
     .resolve("scalax")
     .resolve("asuna")
     .resolve("mapper")

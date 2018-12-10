@@ -1,4 +1,4 @@
-organization := "net.scalax"
+organization := "org.scalax"
 
 name := "asuna-core"
 

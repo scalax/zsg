@@ -1,7 +1,7 @@
 package org.scalax.asuna.circe
 
 import io.circe.ObjectEncoder
-import org.scalax.asuna.implements.circe.abc.CirceHelper
+import org.scalax.asuna.implements.circe.encoder.CirceHelper
 
 object AbcTest02 extends App with CirceHelper {
 
@@ -44,9 +44,9 @@ object AbcTest02 extends App with CirceHelper {
 
     import io.circe.syntax._
 
-    implicit lazy val a1: ObjectEncoder[LargeModel[String]] = circeVal.effect(circeVal.singleModel[LargeModel[String]](Ghi).compile).write
-    implicit lazy val a2: ObjectEncoder[Hahahah2]           = circeVal.effect(circeVal.singleModel[Hahahah2](Ghi).compile).write
-    implicit lazy val a3: ObjectEncoder[MiaoMiao2]          = circeVal.effect(circeVal.singleModel[MiaoMiao2](Abc).compile).write
+    implicit lazy val a1: ObjectEncoder[LargeModel[String]] = valEncoder.effect(valEncoder.singleModel[LargeModel[String]](Ghi).compile).encoder
+    implicit lazy val a2: ObjectEncoder[Hahahah2]           = valEncoder.effect(valEncoder.singleModel[Hahahah2](Ghi).compile).encoder
+    implicit lazy val a3: ObjectEncoder[MiaoMiao2]          = valEncoder.effect(valEncoder.singleModel[MiaoMiao2](Abc).compile).encoder
 
     for (_ <- TestParam.preCollection) {
       model.asJson.noSpaces
