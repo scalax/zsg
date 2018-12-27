@@ -29,7 +29,7 @@ trait CirceDefEncoderPoly {
   }
 
   implicit def implicit2[T]: EncoderShape.Aux[SingleRepContent[Encoder[T], T], T, SingleRepContent[Encoder[T], T], List[
-    CirceEncoderTagger[CirceDefEncoderPoly]
+      CirceEncoderTagger[CirceDefEncoderPoly]
   ], LinkedHashMap[String, Json]] = {
     new EncoderShape[SingleRepContent[Encoder[T], T], List[CirceEncoderTagger[CirceDefEncoderPoly]], LinkedHashMap[String, Json]] {
       override type Target = SingleRepContent[Encoder[T], T]
@@ -37,8 +37,8 @@ trait CirceDefEncoderPoly {
       override def wrapRep(base: => SingleRepContent[Encoder[T], T]): SingleRepContent[Encoder[T], T] = base
 
       override def buildRep(
-        base: SingleRepContent[Encoder[T], T],
-        oldRep: List[CirceEncoderTagger[CirceDefEncoderPoly]]
+          base: SingleRepContent[Encoder[T], T]
+        , oldRep: List[CirceEncoderTagger[CirceDefEncoderPoly]]
       ): List[CirceEncoderTagger[CirceDefEncoderPoly]] =
         throw new Exception("No use to support.")
 
@@ -56,8 +56,8 @@ trait CirceValEncoderPoly {
   implicit def implicit1[T](
       implicit encoder: LazyImplicit[Encoder[T]]
   ): EncoderShape.Aux[SingleRepContent[Placeholder, T], T, SingleRepContent[Encoder[T], T], List[CirceEncoderTagger[CirceValEncoderPoly]], LinkedHashMap[
-    String,
-    Json
+      String
+    , Json
   ]] = {
     new EncoderShape[SingleRepContent[Placeholder, T], List[CirceEncoderTagger[CirceValEncoderPoly]], LinkedHashMap[String, Json]] {
       override type Target = SingleRepContent[Encoder[T], T]
@@ -67,8 +67,8 @@ trait CirceValEncoderPoly {
         override val singleModelName = base.singleModelName
       }
       override def buildRep(
-        base: SingleRepContent[Encoder[T], T],
-        oldRep: List[CirceEncoderTagger[CirceValEncoderPoly]]
+          base: SingleRepContent[Encoder[T], T]
+        , oldRep: List[CirceEncoderTagger[CirceValEncoderPoly]]
       ): List[CirceEncoderTagger[CirceValEncoderPoly]] =
         throw new Exception("No use to support.")
       override def buildData(data: T, rep: SingleRepContent[Encoder[T], T], oldData: LinkedHashMap[String, Json]): LinkedHashMap[String, Json] = {
@@ -79,7 +79,7 @@ trait CirceValEncoderPoly {
   }
 
   implicit def implicit2[T]: EncoderShape.Aux[SingleRepContent[Encoder[T], T], T, SingleRepContent[Encoder[T], T], List[
-    CirceEncoderTagger[CirceValEncoderPoly]
+      CirceEncoderTagger[CirceValEncoderPoly]
   ], LinkedHashMap[String, Json]] = {
     new EncoderShape[SingleRepContent[Encoder[T], T], List[CirceEncoderTagger[CirceValEncoderPoly]], LinkedHashMap[String, Json]] {
       override type Target = SingleRepContent[Encoder[T], T]
@@ -92,8 +92,8 @@ trait CirceValEncoderPoly {
         }
       }
       override def buildRep(
-        base: SingleRepContent[Encoder[T], T],
-        oldRep: List[CirceEncoderTagger[CirceValEncoderPoly]]
+          base: SingleRepContent[Encoder[T], T]
+        , oldRep: List[CirceEncoderTagger[CirceValEncoderPoly]]
       ): List[CirceEncoderTagger[CirceValEncoderPoly]] =
         throw new Exception("No use to support.")
       override def buildData(data: T, rep: SingleRepContent[Encoder[T], T], oldData: LinkedHashMap[String, Json]): LinkedHashMap[String, Json] = {
