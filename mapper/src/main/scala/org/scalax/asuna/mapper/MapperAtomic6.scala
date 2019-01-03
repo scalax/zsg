@@ -41,7 +41,8 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
   override def tail: Shangyige
 
   override def eat[T](
-    xyy: T): Bingfeng[Zuiqian, T, Gewei#M[MiaoMiao1[T]]#I, Shiwei#M[Gewei#M[MiaoMiao1[T]]#J], Jinyi[Zuiqian, Zuihou, Gewei, Shiwei, Shangyige]] = {
+    xyy: T
+  ): Bingfeng[Zuiqian, T, Gewei#M[MiaoMiao1[T]]#I, Shiwei#M[Gewei#M[MiaoMiao1[T]]#J], Jinyi[Zuiqian, Zuihou, Gewei, Shiwei, Shangyige]] = {
     val g = head.plus(MiaoMiao1(xyy))
     val h = higher.plus(g.higher: Gewei#M[MiaoMiao1[T]]#J)
     new Bingfeng[Zuiqian, T, Gewei#M[MiaoMiao1[T]]#I, Shiwei#M[Gewei#M[MiaoMiao1[T]]#J], Jinyi[Zuiqian, Zuihou, Gewei, Shiwei, Shangyige]](h, g.head) {
@@ -52,7 +53,8 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
   }
 
   override def put[T](
-    xyy: T): Bingfeng[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Bingfeng[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#P#R[T]]] = {
+    xyy: T
+  ): Bingfeng[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Bingfeng[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#P#R[T]]] = {
     val g = head.put(xyy)
     val h = g.higher.plus(higher)
     new Bingfeng[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Bingfeng[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#P#R[T]]](h, g.head) {
@@ -70,26 +72,6 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
       }
     }
   }
-
-  /*override def put[T](
-    xyy: T): Jinyi[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Jinyi[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#R[T]]] = {
-    val g = head.put(xyy)
-    val h = g.higher.plus(higher)
-    new Bingfeng[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Jinyi[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#R[T]]](h, g.head) {
-      bingSelf =>
-      override def zuiqian = xyy
-      override def zuihou  = self.zuihou
-      override def tail = {
-        val subTail = self.tail.put(xyy)
-        new Bingfeng[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#R[T]](subTail.higher, subTail.head) {
-          subSelf =>
-          override def zuiqian: T           = xyy
-          override def zuihou: Shangyige#L  = self.tail.zuihou
-          override def tail: Shangyige#R[T] = ???
-        }
-      }
-    }
-  }*/
 
   override def plus[T <: Hunhe](t: T): Jinyi[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]] = {
     val g = head.plus(t.head: T#I)
@@ -412,8 +394,10 @@ case class MiaoMiao9[T1, T2, T3, T4, T5, T6, T7, T8, T9](override val higher: Mi
   override def tail: MiaoMiao8[T1, T2, T3, T4, T5, T6, T7, T8]                   = MiaoMiao8(higher, MiaoMiao1(head.i1))
   override def eat[T](xyy: T): MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T] = MiaoMiao10(higher, MiaoMiao3(head.i1, head.i2, xyy))
   override def put[T](xyy: T): MiaoMiao10[T, T1, T2, T3, T4, T5, T6, T7, T8, T9] = {
-    MiaoMiao10(MiaoMiao1(Jin(xyy, higher.i1.i1, higher.i1.i2, higher.i1.i3, higher.i1.i4, higher.i1.i5, higher.i1.i6)),
-               MiaoMiao3(higher.i1.i7, head.i1, head.i2))
+    MiaoMiao10(
+      MiaoMiao1(Jin(xyy, higher.i1.i1, higher.i1.i2, higher.i1.i3, higher.i1.i4, higher.i1.i5, higher.i1.i6)),
+      MiaoMiao3(higher.i1.i7, head.i1, head.i2)
+    )
   }
   override def plus[T <: Natural](t: T): T#R[T9]#R[T8]#R[T7]#R[T6]#R[T5]#R[T4]#R[T3]#R[T2]#R[T1] =
     t.put(head.i2).put(head.i1).put(higher.i1.i7).put(higher.i1.i6).put(higher.i1.i5).put(higher.i1.i4).put(higher.i1.i3).put(higher.i1.i2).put(higher.i1.i1)
@@ -426,9 +410,10 @@ case class MiaoMiao9[T1, T2, T3, T4, T5, T6, T7, T8, T9](override val higher: Mi
 
 }
 
-case class MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                                               override val head: MiaoMiao3[T8, T9, T10])
-    extends Jinyi[T1, T10, MiaoMiao3[T8, T9, T10], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao9[T1, T2, T3, T4, T5, T6, T7, T8, T9]]
+case class MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
+  override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
+  override val head: MiaoMiao3[T8, T9, T10]
+) extends Jinyi[T1, T10, MiaoMiao3[T8, T9, T10], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao9[T1, T2, T3, T4, T5, T6, T7, T8, T9]]
     with Natural { self =>
 
   override type I = MiaoMiao3[T8, T9, T10]
@@ -442,8 +427,10 @@ case class MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](override val high
   override def tail: MiaoMiao9[T1, T2, T3, T4, T5, T6, T7, T8, T9]                    = MiaoMiao9(higher, MiaoMiao2(head.i1, head.i2))
   override def eat[T](xyy: T): MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T] = MiaoMiao11(higher, MiaoMiao4(head.i1, head.i2, head.i3, xyy))
   override def put[T](xyy: T): MiaoMiao11[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = {
-    MiaoMiao11(MiaoMiao1(Jin(xyy, higher.i1.i1, higher.i1.i2, higher.i1.i3, higher.i1.i4, higher.i1.i5, higher.i1.i6)),
-               MiaoMiao4(higher.i1.i7, head.i1, head.i2, head.i3))
+    MiaoMiao11(
+      MiaoMiao1(Jin(xyy, higher.i1.i1, higher.i1.i2, higher.i1.i3, higher.i1.i4, higher.i1.i5, higher.i1.i6)),
+      MiaoMiao4(higher.i1.i7, head.i1, head.i2, head.i3)
+    )
 
   }
   override def plus[T <: Natural](t: T): T#R[T10]#R[T9]#R[T8]#R[T7]#R[T6]#R[T5]#R[T4]#R[T3]#R[T2]#R[T1] =
@@ -466,9 +453,10 @@ case class MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](override val high
 
 }
 
-case class MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                                                    override val head: MiaoMiao4[T8, T9, T10, T11])
-    extends Jinyi[T1, T11, MiaoMiao4[T8, T9, T10, T11], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]]
+case class MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
+  override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
+  override val head: MiaoMiao4[T8, T9, T10, T11]
+) extends Jinyi[T1, T11, MiaoMiao4[T8, T9, T10, T11], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]]
     with Natural { self =>
 
   override type I = MiaoMiao4[T8, T9, T10, T11]
@@ -510,58 +498,121 @@ case class MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](override val
 
 }
 
-case class MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                                                         override val head: MiaoMiao5[T8, T9, T10, T11, T12])
-    extends Jinyi[T1,
-                  T12,
-                  MiaoMiao5[T8, T9, T10, T11, T12],
-                  MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                  MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]]
+case class MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
+  override val higher: MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
+  override val head: MiaoMiao5[T8, T9, T10, T11, T12]
+) extends Jinyi[T1, T12, MiaoMiao5[T8, T9, T10, T11, T12], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao11[
+      T1,
+      T2,
+      T3,
+      T4,
+      T5,
+      T6,
+      T7,
+      T8,
+      T9,
+      T10,
+      T11
+    ]]
     with Natural { self =>
 
   override type I = MiaoMiao5[T8, T9, T10, T11, T12]
   override type J = MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]]
 
   override type P = MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
-  override type N[T] = Bingfeng[T1,
-                                T,
-                                MiaoMiao6[T8, T9, T10, T11, T12, T],
-                                MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]]
-  override type R[T] = Bingfeng[T,
-                                T12,
-                                MiaoMiao6[T7, T8, T9, T10, T11, T12],
-                                MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]],
-                                MiaoMiao12[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]]
+  override type N[T] = Bingfeng[T1, T, MiaoMiao6[T8, T9, T10, T11, T12, T], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao12[
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11,
+    T12
+  ]]
+  override type R[T] = Bingfeng[T, T12, MiaoMiao6[T7, T8, T9, T10, T11, T12], MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]], MiaoMiao12[
+    T,
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11
+  ]]
   override type M[T <: Hunhe] = T#R[T12]#R[T11]#R[T10]#R[T9]#R[T8]#R[T7]#R[T6]#R[T5]#R[T4]#R[T3]#R[T2]#R[T1]
 
   override def tail: MiaoMiao11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] = MiaoMiao11(higher, MiaoMiao4(head.i1, head.i2, head.i3, head.i4))
-  override def eat[T](xyy: T): Bingfeng[T1,
-                                        T,
-                                        MiaoMiao6[T8, T9, T10, T11, T12, T],
-                                        MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                        MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
-    new Bingfeng[T1,
-                 T,
-                 MiaoMiao6[T8, T9, T10, T11, T12, T],
-                 MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                 MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]](higher, MiaoMiao6(head.i1, head.i2, head.i3, head.i4, head.i5, xyy)) {
+  override def eat[T](xyy: T): Bingfeng[T1, T, MiaoMiao6[T8, T9, T10, T11, T12, T], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao12[
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11,
+    T12
+  ]] = {
+    new Bingfeng[T1, T, MiaoMiao6[T8, T9, T10, T11, T12, T], MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]], MiaoMiao12[
+      T1,
+      T2,
+      T3,
+      T4,
+      T5,
+      T6,
+      T7,
+      T8,
+      T9,
+      T10,
+      T11,
+      T12
+    ]](higher, MiaoMiao6(head.i1, head.i2, head.i3, head.i4, head.i5, xyy)) {
       override def zuiqian = higher.i1.i1
       override def zuihou  = xyy
       override def tail    = self
     }
   }
 
-  override def put[T](xyy: T): Bingfeng[T,
-                                        T12,
-                                        MiaoMiao6[T7, T8, T9, T10, T11, T12],
-                                        MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]],
-                                        MiaoMiao12[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
-    new Bingfeng[T,
-                 T12,
-                 MiaoMiao6[T7, T8, T9, T10, T11, T12],
-                 MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]],
-                 MiaoMiao12[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]](
+  override def put[T](xyy: T): Bingfeng[T, T12, MiaoMiao6[T7, T8, T9, T10, T11, T12], MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]], MiaoMiao12[
+    T,
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11
+  ]] = {
+    new Bingfeng[T, T12, MiaoMiao6[T7, T8, T9, T10, T11, T12], MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]], MiaoMiao12[
+      T,
+      T1,
+      T2,
+      T3,
+      T4,
+      T5,
+      T6,
+      T7,
+      T8,
+      T9,
+      T10,
+      T11
+    ]](
         MiaoMiao1(Jin(xyy, higher.i1.i1, higher.i1.i2, higher.i1.i3, higher.i1.i4, higher.i1.i5, higher.i1.i6))
       , MiaoMiao6(higher.i1.i7, head.i1, head.i2, head.i3, head.i4, head.i5)
     ) {
