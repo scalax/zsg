@@ -33,12 +33,41 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
   self =>
 
   type N[T]          = Bingfeng[H, T, I#M[MiaoMiao1[T]]#I, J#M[I#M[MiaoMiao1[T]]#J], Jinyi[H, L, I, J, P]]
-  type R[T]          = Bingfeng[T, L, MiaoMiao1[T]#M[I]#I, MiaoMiao1[T]#M[I]#J#M[J], Bingfeng[T, P#L, MiaoMiao1[T]#M[P]#I, MiaoMiao1[T]#M[P]#J, MiaoMiao1[T]#M[P#P]]]
-  type M[T <: Hunhe] = Jinyi[H, T#L, I#M[T#I]#I, J#M[I#M[T#I]#J], P#M[MiaoMiao1[L]]#M[T#P]]
+  type R[T]          = Bingfeng[T, L, J#R[T]#I#M[I]#I, J#R[T]#J#M[J#R[T]#I#M[I]#J], P#R[T]] //Bingfeng[T, L, MiaoMiao1[T]#M[I]#I, MiaoMiao1[T]#M[I]#J#M[J], Bingfeng[T, P#L, MiaoMiao1[T]#M[P]#I, MiaoMiao1[T]#M[P]#J, MiaoMiao1[T]#M[P#P]]]
+  type M[T <: Hunhe] = J#M[I#M[T]] //Jinyi[H, T#L, I#M[T#I]#I, J#M[T#J]#M[I#M[T#I]#J], P#M[MiaoMiao1[L]]#M[T#P]]
 
   override def zuiqian: Zuiqian
   override def zuihou: Zuihou
   override def tail: Shangyige
+
+  /*override def put[T](xyy: T): Bingfeng[T, Zuihou, Shiwei#R[T]#M[Gewei]#I, Shiwei#R[T]#M[Gewei]#J, Shiwei#R[T]#M[Gewei]#P] = {
+    val m = MiaoMiao1(xyy).plus(higher).plus(head)
+    new Bingfeng[T, Zuihou, Shiwei#R[T]#M[Gewei]#I, Shiwei#R[T]#M[Gewei]#J, Shiwei#R[T]#M[Gewei]#P](m.higher, m.head) {
+      override def zuiqian = xyy
+      override def zuihou  = self.zuihou
+      override def tail    = m.tail
+    }
+  }*/
+
+  /*override def put[T](xyy: T): Bingfeng[T, Zuihou, Shiwei#R[T]#M[Gewei]#I, Shiwei#R[T]#M[Gewei]#J, Shiwei#R[T]#M[Gewei]#P] = {
+    val m = (higher.put(xyy): Shiwei#R[T]).plus(head)
+    new Bingfeng[T, Zuihou, Shiwei#R[T]#M[Gewei]#I, Shiwei#R[T]#M[Gewei]#J, Shiwei#R[T]#M[Gewei]#P](m.higher, m.head) {
+      override def zuiqian = xyy
+      override def zuihou  = self.zuihou
+      override def tail    = m.tail
+    }
+  }*/
+
+  override def put[T](xyy: T): Bingfeng[T, Zuihou, Shiwei#R[T]#I#M[Gewei]#I, Shiwei#R[T]#J#M[Shiwei#R[T]#I#M[Gewei]#J], Shangyige#R[T]] = {
+    val g: Shiwei#R[T]                               = higher.put(xyy)
+    val g1: Shiwei#R[T]#I#M[Gewei]                   = g.head.plus(head)
+    val h: Shiwei#R[T]#J#M[Shiwei#R[T]#I#M[Gewei]#J] = (g.higher: Shiwei#R[T]#J).plus(g1.higher: Shiwei#R[T]#I#M[Gewei]#J)
+    new Bingfeng[T, Zuihou, Shiwei#R[T]#I#M[Gewei]#I, Shiwei#R[T]#J#M[Shiwei#R[T]#I#M[Gewei]#J], Shangyige#R[T]](h, g1.head) {
+      override def zuiqian = xyy
+      override def zuihou  = self.zuihou
+      override def tail    = self.tail.put(xyy)
+    }
+  }
 
   override def eat[T](
       xyy: T
@@ -52,7 +81,7 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
     }
   }
 
-  override def put[T](
+  /*override def put[T](
       xyy: T
   ): Bingfeng[T, Zuihou, Gewei#R[T]#I, Gewei#R[T]#J#M[Shiwei], Bingfeng[T, Shangyige#L, Shangyige#R[T]#I, Shangyige#R[T]#J, Shangyige#P#R[T]]] = {
     val g = head.put(xyy)
@@ -71,9 +100,9 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
         }
       }
     }
-  }
+  }*/
 
-  override def plus[T <: Hunhe](t: T): Jinyi[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]] = {
+  /*override def plus[T <: Hunhe](t: T): Jinyi[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]] = {
     val g = head.plus(t.head: T#I)
     val h = higher.plus(g.higher: Gewei#M[T#I]#J)
     new Bingfeng[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]](h, g.head) {
@@ -81,6 +110,20 @@ abstract class Bingfeng[Zuiqian, Zuihou, Gewei <: Hunhe, Shiwei <: Hunhe, Shangy
       override def zuihou  = t.zuihou
       override def tail    = self.tail.plus(MiaoMiao1(self.zuihou)).plus(t.tail)
     }
+  }*/
+
+  /*override def plus[T <: Hunhe](t: T): Jinyi[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[T#J]#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]] = {
+    val g = head.plus(t.head: T#I)
+    val h = higher.plus(t.higher: T#J).plus(g.higher: Gewei#M[T#I]#J)
+    new Bingfeng[Zuiqian, T#L, Gewei#M[T#I]#I, Shiwei#M[T#J]#M[Gewei#M[T#I]#J], Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P]](h, g.head) {
+      override def zuiqian                                     = self.zuiqian
+      override def zuihou                                      = t.zuihou
+      override def tail: Shangyige#M[MiaoMiao1[Zuihou]]#M[T#P] = self.tail.plus(MiaoMiao1(self.zuihou)).plus(t.tail)
+    }
+  }*/
+
+  override def plus[T <: Hunhe](t: T): Shiwei#M[Gewei#M[T]] = {
+    higher.plus(head.plus(t))
   }
 
   override def toString: String = {
@@ -232,9 +275,41 @@ object Abc extends App {
 
   val z = new MiaoMiao0
 
-  println(z.eat(i1).eat(i2).eat(i3).eat(i4))
-  println(z.eat(i1).plus(z).eat(i2).plus(z).plus(z.eat(i3).plus(z.eat(i4))))
-  println(z.eat(i1).eat(i2).plus(z.eat(i3).eat(i4)))
+  println(
+    z.eat(i1)
+      .eat(i2)
+      .eat(i3)
+      .eat(i4)
+      .eat(5)
+      .eat(6)
+      .eat(7)
+      .eat(8)
+      .eat(9)
+      .eat(10)
+      .eat(11)
+      .eat(12)
+      .eat(13)
+      .eat(14)
+      .eat(15)
+      .eat(16)
+      .eat(17)
+      .eat(18)
+      .eat(19)
+      .eat(20)
+      .eat(21)
+      .eat(22)
+      .eat(23))
+  println(
+    z.put(i1).put(i2).put(i3).put(i4).put(5).put(6).put(7).put(8).put(9).put(10).put(11).put(12).put(13).put(14)
+    /*.put(15)
+    .put(16)
+    .put(17)
+    .put(18)
+    .put(19)
+    .put(20)
+    .put(21)
+    .put(22)
+    .put(23)*/ )
 
   val bb = z.eat(i1).plus(z).eat(i2).plus(z).plus(z.eat(i3).plus(z.eat(i4)))
 
