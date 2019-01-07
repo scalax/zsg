@@ -670,51 +670,31 @@ case class MiaoMiao13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
 
   override type P = MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
 
-  override type N[U]            = Bingfeng[T1, U, MiaoMiao0, MiaoMiao2[Jin[T1, T2, T3, T4, T5, T6, T7], Jin[T8, T9, T10, T11, T12, T13, U]]]
-  override type R[U]            = Bingfeng[U, T12, Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#I#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]]#I, Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#J, Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#M[I]#Ten, Ten#R[U]#M[I#P]]
+  override type N[U] = Bingfeng[T1, U, MiaoMiao0, MiaoMiao2[Jin[T1, T2, T3, T4, T5, T6, T7], Jin[T8, T9, T10, T11, T12, T13, U]]]
+
+  override type R[U] = Bingfeng[U,
+                                T12,
+                                Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#I#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]]#I,
+                                Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#J,
+                                Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]]#Ten,
+                                Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#M[MiaoMiao5[T8, T9, T10, T11, T12]]]
+
   override type M[U <: Natural] = Jin[T1, T2, T3, T4, T5, T6, T7]#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]#M[U]]
 
   override def tail: MiaoMiao12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] = MiaoMiao12(higher, MiaoMiao5(head.i1, head.i2, head.i3, head.i4, head.i5))
 
-  override def eat[T](xyy: T): Bingfeng[T1,
-                                        T,
-                                        MiaoMiao6[T8, T9, T10, T11, T12, T],
-                                        MiaoMiao1[Jin[T1, T2, T3, T4, T5, T6, T7]],
-                                        Jin[T1, T2, T3, T4, T5, T6, T7],
-                                        MiaoMiao12[
-                                            T1
-                                          , T2
-                                          , T3
-                                          , T4
-                                          , T5
-                                          , T6
-                                          , T7
-                                          , T8
-                                          , T9
-                                          , T10
-                                          , T11
-                                          , T12
-                                        ]] = {}
+  override def eat[U](xyy: U): Bingfeng[T1, U, MiaoMiao0, MiaoMiao2[Jin[T1, T2, T3, T4, T5, T6, T7], Jin[T8, T9, T10, T11, T12, T13, U]]] = {
+    super.eat(xyy)
+  }
 
-  override def put[T](xyy: T): Bingfeng[T,
+  override def put[U](xyy: U): Bingfeng[U,
                                         T12,
-                                        MiaoMiao6[T7, T8, T9, T10, T11, T12],
-                                        MiaoMiao1[Jin[T, T1, T2, T3, T4, T5, T6]],
-                                        Jin[T, T1, T2, T3, T4, T5, T6],
-                                        MiaoMiao12[
-                                            T
-                                          , T1
-                                          , T2
-                                          , T3
-                                          , T4
-                                          , T5
-                                          , T6
-                                          , T7
-                                          , T8
-                                          , T9
-                                          , T10
-                                          , T11
-                                        ]] = {}
+                                        Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#I#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]]#I,
+                                        Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#J,
+                                        Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#M[MiaoMiao6[T8, T9, T10, T11, T12, T13]]#Ten,
+                                        Jin[T1, T2, T3, T4, T5, T6, T7]#R[U]#M[MiaoMiao5[T8, T9, T10, T11, T12]]] = {
+    super.put(xyy)
+  }
 
   override def plus[T <: Natural](t: T): T#R[T13]#R[T12]#R[T11]#R[T10]#R[T9]#R[T8]#R[T7]#R[T6]#R[T5]#R[T4]#R[T3]#R[T2]#R[T1] =
     t.put(head.i6)
