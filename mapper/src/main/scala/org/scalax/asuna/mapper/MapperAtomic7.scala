@@ -130,9 +130,7 @@ object Miaomiao extends App {
   val mi =
     MiaoMiao0.miaomiao0.append(i1).plus(MiaoMiao0.miaomiao0.append(i2).append(i3).plus(MiaoMiao1(i4))).plus(MiaoMiao0.miaomiao0.plus(MiaoMiao0.miaomiao0))
 
-  println(
-    mi.plus(mi).plus(mi)
-    /*.plus(MiaoMiao0.miaomiao0.append("喵").append("汪"))*/ /*.plus(mi).plus(mi).plus(mi).plus(mi).plus(MiaoMiao0.miaomiao0.plus(MiaoMiao0.miaomiao0).plus(mi)).plus(mi)*/ )
+  println(mi.plus(mi).plus(mi).plus(MiaoMiao0.miaomiao0.append("喵").append("汪")))
   println(MiaoMiao0.miaomiao0.append(i1).plus(MiaoMiao0.miaomiao0.append(i2)))
 
   println(MiaoMiao0.miaomiao0.append(i1).append(i2).append(i3).append(i4))
