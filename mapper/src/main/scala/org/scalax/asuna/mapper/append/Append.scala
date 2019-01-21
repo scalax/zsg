@@ -1,34 +1,11 @@
 package org.scalax.asuna.mapper.append;
+
 import scala.language.higherKinds;
 
 trait TypeParam {
   type H
   type T <: TypeParam
 }
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- */
 
 class Item0
 
