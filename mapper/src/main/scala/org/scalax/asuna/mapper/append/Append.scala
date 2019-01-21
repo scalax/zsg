@@ -48,14 +48,14 @@ object Item0 {
 
 }
 
-trait Type0 extends TypeParam {
+class Type0 extends TypeParam {
   override type H = Item0
   override type T = Type0
 }
 
 class Item1[T1](val i1: T1)
 
-trait Type1[T1 <: TypeParam] extends TypeParam {
+class Type1[T1 <: TypeParam] extends TypeParam {
   override type H = Item1[T1#H]
   override type T = Type1[T1#T]
 }
@@ -80,7 +80,7 @@ object Item1 {
 
 class Item2[T1, T2](val i1: T1, val i2: T2)
 
-trait Type2[T1 <: TypeParam, T2 <: TypeParam] extends TypeParam {
+class Type2[T1 <: TypeParam, T2 <: TypeParam] extends TypeParam {
   override type H = Item2[T1#H, T2#H]
   override type T = Type2[T1#T, T2#T]
 }
@@ -106,7 +106,7 @@ object Item2 {
 
 class Item3[T1, T2, T3](val i1: T1, val i2: T2, val i3: T3)
 
-trait Type3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam] extends TypeParam {
+class Type3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam] extends TypeParam {
   override type H = Item3[T1#H, T2#H, T3#H]
   override type T = Type3[T1#T, T2#T, T3#T]
 }
@@ -135,7 +135,7 @@ object Item3 {
 
 class Item4[T1, T2, T3, T4](val i1: T1, val i2: T2, val i3: T3, val i4: T4)
 
-trait Type4[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T4 <: TypeParam] extends TypeParam {
+class Type4[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T4 <: TypeParam] extends TypeParam {
   override type H = Item4[T1#H, T2#H, T3#H, T4#H]
   override type T = Type4[T1#T, T2#T, T3#T, T4#T]
 }
