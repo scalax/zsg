@@ -15,11 +15,13 @@ object Item0 {
     override def application(t: ItemTag[Item0], context: Context[K]): K#M[Type0] = context.start
   }
 
-  def plus0[T1 <: TypeParam]: Plus[Type0, T1, Type1[T1]] = new Plus[Type0, T1, Type1[T1]] {
-    override def plus(p: Item0, item: T1#H): Item1[T1#H] = Item.apply(item)
-    override def take(t: Item1[T1#H]): (Item0, T1#H)     = (Item.apply, t.i1)
-    override def sub: Plus[Type0, T1#T, Type1[T1#T]]     = plus0[T1#T]
+  def plus0[T <: TypeParam]: Plus[Type0, T, Type1[T]] = new Plus[Type0, T, Type1[T]] {
+    override def plus(p: Item0, item: T#H): Item1[T#H] = Item.apply(item)
+    override def take(t: Item1[T#H]): (Item0, T#H)     = (Item.apply, t.i1)
+    override def sub: Plus[Type0, T#T, Type1[T#T]]     = plus0[T#T]
   }
+
+  def put0[T <: TypeParam]: Plus[Type0, T, Type1[T]] = plus0[T]
 
 }
 
@@ -45,10 +47,16 @@ object Item1 {
       }
     }
 
-  def plus1[T1 <: TypeParam, T2 <: TypeParam]: Plus[Type1[T1], T2, Type2[T1, T2]] = new Plus[Type1[T1], T2, Type2[T1, T2]] {
-    override def plus(p: Item1[T1#H], item: T2#H): Item2[T1#H, T2#H] = Item.apply(p.i1, item)
-    override def take(t: Item2[T1#H, T2#H]): (Item1[T1#H], T2#H)     = (Item.apply(t.i1), t.i2)
-    override def sub: Plus[Type1[T1#T], T2#T, Type2[T1#T, T2#T]]     = plus1[T1#T, T2#T]
+  def plus1[T1 <: TypeParam, T <: TypeParam]: Plus[Type1[T1], T, Type2[T1, T]] = new Plus[Type1[T1], T, Type2[T1, T]] {
+    override def plus(p: Item1[T1#H], item: T#H): Item2[T1#H, T#H] = Item.apply(p.i1, item)
+    override def take(t: Item2[T1#H, T#H]): (Item1[T1#H], T#H)     = (Item.apply(t.i1), t.i2)
+    override def sub: Plus[Type1[T1#T], T#T, Type2[T1#T, T#T]]     = plus1[T1#T, T#T]
+  }
+
+  def put1[T1 <: TypeParam, T <: TypeParam]: Plus[Type1[T1], T, Type2[T, T1]] = new Plus[Type1[T1], T, Type2[T, T1]] {
+    override def plus(p: Item1[T1#H], item: T#H): Item2[T#H, T1#H] = Item.apply(item, p.i1)
+    override def take(t: Item2[T#H, T1#H]): (Item1[T1#H], T#H)     = (Item.apply(t.i2), t.i1)
+    override def sub: Plus[Type1[T1#T], T#T, Type2[T#T, T1#T]]     = put1[T1#T, T#T]
   }
 
 }
@@ -68,15 +76,26 @@ object Item2 {
   ): Application[K, Item2[T1, T2], Type2[P1, P2]] =
     new Application[K, Item2[T1, T2], Type2[P1, P2]] {
       override def application(t: ItemTag[Item2[T1, T2]], context: Context[K]): K#M[Type2[P1, P2]] = {
-        val ii2 = t2.application(new ItemTag[T2], context)
-        context.append(Item1.implicit1(t1).application(new ItemTag[Item1[T1]], context), ii2, Item1.plus1[P1, P2])
+        if (context.reverse) {
+          val ii1 = t1.application(new ItemTag[T1], context)
+          context.append(Item1.implicit1(t2).application(new ItemTag[Item1[T2]], context), ii1, Item1.put1[P2, P1])
+        } else {
+          val ii2 = t2.application(new ItemTag[T2], context)
+          context.append(Item1.implicit1(t1).application(new ItemTag[Item1[T1]], context), ii2, Item1.plus1[P1, P2])
+        }
       }
     }
 
-  def plus2[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam]: Plus[Type2[T1, T2], T3, Type3[T1, T2, T3]] = new Plus[Type2[T1, T2], T3, Type3[T1, T2, T3]] {
-    override def plus(p: Item2[T1#H, T2#H], item: T3#H): Item3[T1#H, T2#H, T3#H] = Item.apply(p.i1, p.i2, item)
-    override def take(t: Item3[T1#H, T2#H, T3#H]): (Item2[T1#H, T2#H], T3#H)     = (Item.apply(t.i1, t.i2), t.i3)
-    override def sub: Plus[Type2[T1#T, T2#T], T3#T, Type3[T1#T, T2#T, T3#T]]     = plus2[T1#T, T2#T, T3#T]
+  def plus2[T1 <: TypeParam, T2 <: TypeParam, T <: TypeParam]: Plus[Type2[T1, T2], T, Type3[T1, T2, T]] = new Plus[Type2[T1, T2], T, Type3[T1, T2, T]] {
+    override def plus(p: Item2[T1#H, T2#H], item: T#H): Item3[T1#H, T2#H, T#H] = Item.apply(p.i1, p.i2, item)
+    override def take(t: Item3[T1#H, T2#H, T#H]): (Item2[T1#H, T2#H], T#H)     = (Item.apply(t.i1, t.i2), t.i3)
+    override def sub: Plus[Type2[T1#T, T2#T], T#T, Type3[T1#T, T2#T, T#T]]     = plus2[T1#T, T2#T, T#T]
+  }
+
+  def put2[T1 <: TypeParam, T2 <: TypeParam, T <: TypeParam]: Plus[Type2[T1, T2], T, Type3[T, T1, T2]] = new Plus[Type2[T1, T2], T, Type3[T, T1, T2]] {
+    override def plus(p: Item2[T1#H, T2#H], item: T#H): Item3[T#H, T1#H, T2#H] = Item.apply(item, p.i1, p.i2)
+    override def take(t: Item3[T#H, T1#H, T2#H]): (Item2[T1#H, T2#H], T#H)     = (Item.apply(t.i2, t.i3), t.i1)
+    override def sub: Plus[Type2[T1#T, T2#T], T#T, Type3[T#T, T1#T, T2#T]]     = put2[T1#T, T2#T, T#T]
   }
 
 }
@@ -97,16 +116,28 @@ object Item3 {
   ): Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] =
     new Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] {
       override def application(t: ItemTag[Item3[T1, T2, T3]], context: Context[K]): K#M[Type3[P1, P2, P3]] = {
-        val ii3 = t3.application(new ItemTag[T3], context)
-        context.append(Item2.implicit2(t1, t2).application(new ItemTag[Item2[T1, T2]], context), ii3, Item2.plus2[P1, P2, P3])
+        if (context.reverse) {
+          val ii1 = t1.application(new ItemTag[T1], context)
+          context.append(Item2.implicit2(t2, t3).application(new ItemTag[Item2[T2, T3]], context), ii1, Item2.put2[P2, P3, P1])
+        } else {
+          val ii3 = t3.application(new ItemTag[T3], context)
+          context.append(Item2.implicit2(t1, t2).application(new ItemTag[Item2[T1, T2]], context), ii3, Item2.plus2[P1, P2, P3])
+        }
       }
     }
 
-  def plus3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T4 <: TypeParam]: Plus[Type3[T1, T2, T3], T4, Type4[T1, T2, T3, T4]] =
-    new Plus[Type3[T1, T2, T3], T4, Type4[T1, T2, T3, T4]] {
-      override def plus(p: Item3[T1#H, T2#H, T3#H], item: T4#H): Item4[T1#H, T2#H, T3#H, T4#H] = Item.apply(p.i1, p.i2, p.i3, item)
-      override def take(t: Item4[T1#H, T2#H, T3#H, T4#H]): (Item3[T1#H, T2#H, T3#H], T4#H)     = (Item.apply(t.i1, t.i2, t.i3), t.i4)
-      override def sub: Plus[Type3[T1#T, T2#T, T3#T], T4#T, Type4[T1#T, T2#T, T3#T, T4#T]]     = plus3[T1#T, T2#T, T3#T, T4#T]
+  def plus3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T <: TypeParam]: Plus[Type3[T1, T2, T3], T, Type4[T1, T2, T3, T]] =
+    new Plus[Type3[T1, T2, T3], T, Type4[T1, T2, T3, T]] {
+      override def plus(p: Item3[T1#H, T2#H, T3#H], item: T#H): Item4[T1#H, T2#H, T3#H, T#H] = Item.apply(p.i1, p.i2, p.i3, item)
+      override def take(t: Item4[T1#H, T2#H, T3#H, T#H]): (Item3[T1#H, T2#H, T3#H], T#H)     = (Item.apply(t.i1, t.i2, t.i3), t.i4)
+      override def sub: Plus[Type3[T1#T, T2#T, T3#T], T#T, Type4[T1#T, T2#T, T3#T, T#T]]     = plus3[T1#T, T2#T, T3#T, T#T]
+    }
+
+  def put3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T <: TypeParam]: Plus[Type3[T1, T2, T3], T, Type4[T, T1, T2, T3]] =
+    new Plus[Type3[T1, T2, T3], T, Type4[T, T1, T2, T3]] {
+      override def plus(p: Item3[T1#H, T2#H, T3#H], item: T#H): Item4[T#H, T1#H, T2#H, T3#H] = Item.apply(item, p.i1, p.i2, p.i3)
+      override def take(t: Item4[T#H, T1#H, T2#H, T3#H]): (Item3[T1#H, T2#H, T3#H], T#H)     = (Item.apply(t.i2, t.i3, t.i4), t.i1)
+      override def sub: Plus[Type3[T1#T, T2#T, T3#T], T#T, Type4[T#T, T1#T, T2#T, T3#T]]     = put3[T1#T, T2#T, T3#T, T#T]
     }
 
 }
@@ -128,8 +159,13 @@ object Item4 {
   ): Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] =
     new Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] {
       override def application(t: ItemTag[Item4[T1, T2, T3, T4]], context: Context[K]): K#M[Type4[P1, P2, P3, P4]] = {
-        val ii4 = t4.application(new ItemTag[T4], context)
-        context.append(Item3.implicit3(t1, t2, t3).application(new ItemTag[Item3[T1, T2, T3]], context), ii4, Item3.plus3[P1, P2, P3, P4])
+        if (context.reverse) {
+          val ii1 = t1.application(new ItemTag[T1], context)
+          context.append(Item3.implicit3(t2, t3, t4).application(new ItemTag[Item3[T2, T3, T4]], context), ii1, Item3.put3[P2, P3, P4, P1])
+        } else {
+          val ii4 = t4.application(new ItemTag[T4], context)
+          context.append(Item3.implicit3(t1, t2, t3).application(new ItemTag[Item3[T1, T2, T3]], context), ii4, Item3.plus3[P1, P2, P3, P4])
+        }
       }
     }
 
@@ -164,9 +200,11 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
 trait Context[K <: KindContext] {
   self =>
 
+  def reverse: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[Type0]
-  def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(i, self)
-  def 虚得一逼[T](t: => T): ItemTag[T]                                                      = new ItemTag[T]
+  def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] =
+    ii.application(t = i, context = self)
+  def 虚得一逼[T](t: => T): ItemTag[T] = new ItemTag[T]
 
 }

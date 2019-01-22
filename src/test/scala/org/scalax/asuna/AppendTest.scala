@@ -62,14 +62,15 @@ object AppendTest extends App {
   )
 
   class KK extends KindContext {
-    override type M[P <: TypeParam] = (P#H, P#T#H, P#T#T#T#T#H) => (Reads[P#T#T#H], OWrites[P#T#T#T#H], Decoder[P#T#T#H], ObjectEncoder[P#T#T#T#H])
+    override type M[P <: TypeParam] = (P#H, P#T#H, P#T#T#T#T#H) => (Reads[P#T#T#H], OWrites[P#T#T#T#H], Decoder[P#T#T#H], P#T#T#T#H => List[(String, Json)])
   }
 
   object m extends Context[KK] {
+    override val reverse: Boolean = true
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
-      x: (X#H, X#T#H, X#T#T#T#T#H) => (Reads[X#T#T#H], OWrites[X#T#T#T#H], Decoder[X#T#T#H], ObjectEncoder[X#T#T#T#H]),
-      y: (Y#H, Y#T#H, Y#T#T#T#T#H) => (Reads[Y#T#T#H], OWrites[Y#T#T#T#H], Decoder[Y#T#T#H], ObjectEncoder[Y#T#T#T#H]),
-      plus: Plus[X, Y, Z]): (Z#H, Z#T#H, Z#T#T#T#T#H) => (Reads[Z#T#T#H], OWrites[Z#T#T#T#H], Decoder[Z#T#T#H], ObjectEncoder[Z#T#T#T#H]) = {
+      x: (X#H, X#T#H, X#T#T#T#T#H) => (Reads[X#T#T#H], OWrites[X#T#T#T#H], Decoder[X#T#T#H], X#T#T#T#H => List[(String, Json)]),
+      y: (Y#H, Y#T#H, Y#T#T#T#T#H) => (Reads[Y#T#T#H], OWrites[Y#T#T#T#H], Decoder[Y#T#T#H], Y#T#T#T#H => List[(String, Json)]),
+      plus: Plus[X, Y, Z]): (Z#H, Z#T#H, Z#T#T#T#T#H) => (Reads[Z#T#T#H], OWrites[Z#T#T#T#H], Decoder[Z#T#T#H], Z#T#T#T#H => List[(String, Json)]) = {
       type PolyX1 = X#H
       type PolyX2 = X#T#H
       type RX1    = X#T#T#H
@@ -94,19 +95,18 @@ object AppendTest extends App {
         (r1.flatMap(i1 => r2.map(i2 => sub.plus(i1, i2))), OWrites[RZ2] { rz2 =>
           val (rx2, ry2) = sub.sub.take(rz2)
           w1.writes(rx2) ++ w2.writes(ry2)
-        }, d1.flatMap(i1 => d2.map(i2 => sub.plus(i1, i2))), ObjectEncoder.instance { rz2: RZ2 =>
+        }, d1.flatMap(i1 => d2.map(i2 => sub.plus(i1, i2))), { rz2: RZ2 =>
           val (rx2, ry2) = sub.sub.take(rz2)
-          JsonObject.fromMap(e1.encodeObject(rx2).toMap ++ e2.encodeObject(ry2).toMap)
+          e1.apply(rx2) ::: e2.apply(ry2)
         })
       }
     }
 
-    override def start: (Item0, Item0, Item0) => (Reads[Item0], OWrites[Item0], Decoder[Item0], ObjectEncoder[Item0]) = {
+    override def start: (Item0, Item0, Item0) => (Reads[Item0], OWrites[Item0], Decoder[Item0], Item0 => List[(String, Json)]) = {
       { (ii: Item0, iii: Item0, key: Item0) =>
-        (Reads[Item0](p => JsSuccess(Item.apply)),
-         OWrites[Item0](p => JsObject.empty),
-         Decoder.instance(f => Right(Item.apply)),
-         ObjectEncoder.instance(i => JsonObject.empty))
+        (Reads[Item0](p => JsSuccess(Item.apply)), OWrites[Item0](p => JsObject.empty), Decoder.instance(f => Right(Item.apply)), { i: Item0 =>
+          List.empty
+        })
       }
     }
   }
@@ -135,9 +135,8 @@ object AppendTest extends App {
   implicit def app1[T1, T2]
     : Application[KK, ((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2])), ItemP[(Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]), T1, T2]] =
     new Application[KK, ((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2])), ItemP[(Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]), T1, T2]] {
-      def application(
-        t: ItemTag[((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]))],
-        context: Context[KK]): ((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]), String) => (Reads[T1], OWrites[T2], Decoder[T1], ObjectEncoder[T2]) = {
+      override def application(t: ItemTag[((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]))], context: Context[KK])
+        : ((Reads[T1], Writes[T2]), (Decoder[T1], Encoder[T2]), String) => (Reads[T1], OWrites[T2], Decoder[T1], T2 => List[(String, Json)]) = {
         (play, circe, key) =>
           (Reads[T1](j =>
              j match {
@@ -145,8 +144,9 @@ object AppendTest extends App {
                  play._1.reads(e.fields.toMap.get(key).get)
            }),
            OWrites[T2](j => JsObject(Seq((key, play._2.writes(j))))),
-           Decoder.decodeJsonObject.emap(f => f.toMap.get(key).get.as(circe._1).left.map(_.message)),
-           ObjectEncoder.instance[T2](i => JsonObject((key, circe._2(i)))))
+           Decoder.decodeJsonObject.emap(f => f.toMap.get(key).get.as(circe._1).left.map(_.message)), { i: T2 =>
+             List((key, circe._2(i)))
+           })
       }
     }
 
@@ -155,8 +155,9 @@ object AppendTest extends App {
                             circeD: Decoder[T1],
                             circeE: Encoder[T2]): Application[KK, (Placeholder[T1], Placeholder[T2]), ItemP[Placeholder[T1], Placeholder[T2], T1, T2]] =
     new Application[KK, (Placeholder[T1], Placeholder[T2]), ItemP[Placeholder[T1], Placeholder[T2], T1, T2]] {
-      def application(t: ItemTag[(Placeholder[T1], Placeholder[T2])],
-                      context: Context[KK]): (Placeholder[T1], Placeholder[T2], String) => (Reads[T1], OWrites[T2], Decoder[T1], ObjectEncoder[T2]) = {
+      override def application(
+        t: ItemTag[(Placeholder[T1], Placeholder[T2])],
+        context: Context[KK]): (Placeholder[T1], Placeholder[T2], String) => (Reads[T1], OWrites[T2], Decoder[T1], T2 => List[(String, Json)]) = {
         (play, circe, key) =>
           (Reads[T1](j =>
              j match {
@@ -164,8 +165,9 @@ object AppendTest extends App {
                  playR.reads(e.fields.toMap.get(key).get)
            }),
            OWrites[T2](j => JsObject(Seq((key, playW.writes(j))))),
-           Decoder.decodeJsonObject.emap(f => f.toMap.get(key).get.as(circeD).left.map(_.message)),
-           ObjectEncoder.instance[T2](i => JsonObject((key, circeE(i)))))
+           Decoder.decodeJsonObject.emap(f => f.toMap.get(key).get.as(circeD).left.map(_.message)), { i: T2 =>
+             List((key, circeE(i)))
+           })
       }
     }
 
@@ -173,12 +175,12 @@ object AppendTest extends App {
 
   val (playR, playW, circeD, circeE) = func(polyPlay, polyCirce, polyKeys)
   val (playR1, playW1, circeD1, circeE1) =
-    (playR.map(generic12), Writes[koukou2](s => playW.writes(generic21(s))), circeD.map(generic12), circeE.contramapObject(generic21))
+    (playR.map(generic12), Writes[koukou2](s => playW.writes(generic21(s))), circeD.map(generic12), circeE.compose(generic21))
 
   val model           = koukou2(id = "123456789", name = "name", age = 2, i4 = "i4", i5 = 5, i6 = "i6")
   val playJsonResult  = playW1.writes(model)
   val playResult      = play.api.libs.json.Json.stringify(playJsonResult)
-  val circeJsonResult = circeE1(model)
+  val circeJsonResult = io.circe.Json.fromJsonObject(io.circe.JsonObject.fromIterable(circeE1(model)))
   val circeResult     = circeJsonResult.noSpaces
 
   println(s"encode 结果是否相等: ${io.circe.parser.parse(playResult).right.get == circeJsonResult}")
