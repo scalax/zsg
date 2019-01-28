@@ -104,12 +104,12 @@ object Miaomiao extends App {
   val i3: Long   = 3L
   val i4: Double = 4
 
-  val mi = MiaoMiao0.miaomiao0
+  /*val mi = MiaoMiao0.miaomiao0
     .append(i1)
     .plus(MiaoMiao0.miaomiao0.plus(MiaoMiao0.miaomiao0))
     .plus(MiaoMiao0.miaomiao0.append(i2).append(i3).plus(MiaoMiao0.miaomiao0.append(i4)))
 
   val bar = mi.plus(mi).plus(mi.plus(mi).plus(mi).plus(MiaoMiao0.miaomiao0.append("喵").append("汪")))
-  println(bar)
+  println(bar)*/
 
 }
