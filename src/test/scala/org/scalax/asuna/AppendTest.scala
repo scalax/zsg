@@ -194,7 +194,7 @@ object AppendTest extends App {
       }
     }
 
-  val func = m.lift(m.虚得一逼(polySum))
+  val func = m.lift(Context.虚得一逼(polySum))
 
   val (playR, playW, circeD, circeE) = func(polyPlay, polyCirce, polyKeys)
   val (playR1, playW1, circeD1, circeE1) =

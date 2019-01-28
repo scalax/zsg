@@ -203,8 +203,10 @@ trait Context[K <: KindContext] {
   def reverse: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[Type0]
-  def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] =
-    ii.application(t = i, context = self)
-  def 虚得一逼[T](t: => T): ItemTag[T] = new ItemTag[T]
+  def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(t = i, context = self)
 
+}
+
+object Context {
+  def 虚得一逼[T](t: => T): ItemTag[T] = new ItemTag[T]
 }
