@@ -21,7 +21,7 @@ object LazyImplicitHelper {
       val lazyImplicit = weakTypeOf[LazyImplicit[T]]
       val t            = weakTypeOf[T]
       c.Expr[LazyImplicit[T]] {
-        q"""new ${lazyImplicit} { override def value: ${t} = implicitly }"""
+        q"""new ${lazyImplicit} { override def value: ${t} = implicitly[${t}] }"""
       }
     }
   }

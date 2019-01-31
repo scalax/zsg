@@ -1,6 +1,6 @@
-package org.scalax.asuna.mapper.append;
+package org.scalax.asuna.mapper.append
 
-import scala.language.higherKinds;
+import scala.language.higherKinds
 
 trait TypeParam {
   type H
@@ -43,7 +43,7 @@ object Item1 {
     new Application[K, Item1[T1], Type1[P1]] {
       override def application(t: ItemTag[Item1[T1]], context: Context[K]): K#M[Type1[P1]] = {
         val ii1 = t1.application(new ItemTag[T1], context)
-        context.append(Item0.implicit0[K].application(new ItemTag[Item0], context), ii1, Item0.plus0[P1])
+        context.append(Item0.implicit0.application(new ItemTag[Item0], context), ii1, Item0.plus0[P1])
       }
     }
 
@@ -178,6 +178,13 @@ object Item {
   def apply2[T1, T2](t1: T1, t2: T2): Item2[T1, T2]                                 = new Item2(t1, t2)
   def apply3[T1, T2, T3](t1: T1, t2: T2, t3: T3): Item3[T1, T2, T3]                 = new Item3(t1, t2, t3)
   def apply4[T1, T2, T3, T4](t1: T1, t2: T2, t3: T3, t4: T4): Item4[T1, T2, T3, T4] = new Item4(t1, t2, t3, t4)
+
+  val applyTag0: ItemTag[Item0]                                                                             = new ItemTag[Item0]
+  def applyTag1[T1](tag1: ItemTag[T1])                                                                      = new ItemTag[Item1[T1]]
+  def applyTag2[T1, T2](tag1: ItemTag[T1], tag2: ItemTag[T2])                                               = new ItemTag[Item2[T1, T2]]
+  def applyTag3[T1, T2, T3](tag1: ItemTag[T1], tag2: ItemTag[T2], tag3: ItemTag[T3])                        = new ItemTag[Item3[T1, T2, T3]]
+  def applyTag4[T1, T2, T3, T4](tag1: ItemTag[T1], tag2: ItemTag[T2], tag3: ItemTag[T3], tag4: ItemTag[T4]) = new ItemTag[Item4[T1, T2, T3, T4]]
+  def 虚得一逼[T](tag: => ItemTag[T]): ItemTag[T]                                                          = new ItemTag[T]
 
 }
 
