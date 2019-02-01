@@ -2,11 +2,13 @@ package org.scalax.asuna.mapper.append
 
 object MacroTest4 {
 
+  trait MM
+
   case class LargeModel(
       i1: Int = 123
     , i2: String
     , i3: String
-    , i4: String
+    , i4: MM
     , i5: String
     , i6: String
     , i7: String
@@ -212,7 +214,7 @@ object MacroTest4 {
       i1 = 404
     , i2 = "init string"
     , i3 = "init string"
-    , i4 = "init string"
+    , i4 = new MM {}
     , i5 = "init string"
     , i6 = "init string"
     , i7 = "init string"
