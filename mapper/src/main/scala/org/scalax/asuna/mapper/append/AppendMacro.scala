@@ -56,8 +56,8 @@ trait TreeContent {
 
   class TreeContent(val tree: Tree, val names: List[String]) {
     def nameMessage(index: Int): String = names match {
-      case List(name) => s"""你的名字找不到,给你一点提示:${name}"""
-      case nameName   => s"""喵呜,一堆名字找不到,给你很多提示:${nameName.mkString(",")}\n下面要照着做哦: 把 debug(context) 写成 i${index}.debug(context)"""
+      case List(name) => s"""你的名字找不到, 给你一点提示: ${name}"""
+      case nameName   => s"""喵呜,一堆名字找不到, 给你很多提示: ${nameName.mkString(",")}\n下面要照着做哦: 把 debug(context) 写成 i${index}.debug(context)"""
     }
   }
 
@@ -208,6 +208,7 @@ object ModelApply {
       override def p = pp
     }
   }
+
   def instance[M]: ModelApplyApply[M] = new ModelApplyApply[M]
 
   implicit def appendMacroImpl[H, M, P, S]: ModelApply.Aux[H, M, P, S] = macro AppendMacro.AppendMacroImpl2.generic[H, M, P, S]
