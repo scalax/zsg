@@ -1,5 +1,6 @@
 package org.scalax.asuna.mapper.append
 
+import scala.annotation.implicitNotFound
 import scala.language.higherKinds
 
 trait TypeParam {
@@ -8,6 +9,23 @@ trait TypeParam {
 }
 
 class Item0
+class DebugItem0 extends Item0 {
+  def debug[K <: KindContext](context: Context[K]): Application[K, DebugItem0, Type0] = new Application[K, DebugItem0, Type0] {
+    override def application(t: ItemTag[DebugItem0], context: Context[K]): K#M[Type0] = {
+      Item0.implicit0[K].application(new ItemTag[Item0], context)
+    }
+  }
+}
+
+object DebugItem0 {
+
+  implicit def debugImplicit0[K <: KindContext]: Application[K, DebugItem0, Type0] = new Application[K, DebugItem0, Type0] {
+    override def application(t: ItemTag[DebugItem0], context: Context[K]): K#M[Type0] = {
+      Item0.implicit0[K].application(new ItemTag[Item0], context)
+    }
+  }
+
+}
 
 object Item0 {
 
@@ -31,6 +49,25 @@ class Type0 extends TypeParam {
 }
 
 class Item1[T1](val i1: T1)
+class DebugItem1[T1, M1](override val i1: T1) extends Item1[T1](i1) {
+  def debug[K <: KindContext, P1 <: TypeParam](context: Context[K])(implicit t1: DebugApplication[K, T1, P1, M1]): Application[K, DebugItem1[T1, M1], Type1[P1]] =
+    new Application[K, DebugItem1[T1, M1], Type1[P1]] {
+      override def application(t: ItemTag[DebugItem1[T1, M1]], context: Context[K]): K#M[Type1[P1]] = {
+        Item1.implicit1(t1).application(new ItemTag[Item1[T1]], context)
+      }
+    }
+}
+
+object DebugItem1 {
+
+  implicit def debugImplicit1[K <: KindContext, T1, M1, P1 <: TypeParam](implicit t1: Application[K, T1, P1]): Application[K, DebugItem1[T1, M1], Type1[P1]] =
+    new Application[K, DebugItem1[T1, M1], Type1[P1]] {
+      override def application(t: ItemTag[DebugItem1[T1, M1]], context: Context[K]): K#M[Type1[P1]] = {
+        Item1.implicit1(t1).application(new ItemTag[Item1[T1]], context)
+      }
+    }
+
+}
 
 object Item1 {
 
@@ -62,6 +99,27 @@ class Type1[T1 <: TypeParam] extends TypeParam {
 }
 
 class Item2[T1, T2](val i1: T1, val i2: T2)
+class DebugItem2[T1, T2, M1, M2](override val i1: T1, override val i2: T2) extends Item2[T1, T2](i1, i2) {
+  def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam](
+    context: Context[K])(implicit t1: DebugApplication[K, T1, P1, M1], t2: DebugApplication[K, T2, P2, M2]): Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] =
+    new Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] {
+      override def application(t: ItemTag[DebugItem2[T1, T2, M1, M2]], context: Context[K]): K#M[Type2[P1, P2]] =
+        Item2.implicit2(t1, t2).application(new ItemTag[Item2[T1, T2]], context)
+    }
+}
+
+object DebugItem2 {
+
+  implicit def debugImplicit2[K <: KindContext, T1, T2, M1, M2, P1 <: TypeParam, P2 <: TypeParam](
+    implicit t1: Application[K, T1, P1],
+    t2: Application[K, T2, P2]): Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] =
+    new Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] {
+      override def application(t: ItemTag[DebugItem2[T1, T2, M1, M2]], context: Context[K]): K#M[Type2[P1, P2]] = {
+        Item2.implicit2(t1, t2).application(new ItemTag[Item2[T1, T2]], context)
+      }
+    }
+
+}
 
 object Item2 {
 
@@ -99,6 +157,31 @@ class Type2[T1 <: TypeParam, T2 <: TypeParam] extends TypeParam {
 }
 
 class Item3[T1, T2, T3](val i1: T1, val i2: T2, val i3: T3)
+class DebugItem3[T1, T2, T3, M1, M2, M3](override val i1: T1, override val i2: T2, override val i3: T3) extends Item3[T1, T2, T3](i1, i2, i3) {
+  def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam](context: Context[K])(
+    implicit t1: DebugApplication[K, T1, P1, M1],
+    t2: DebugApplication[K, T2, P2, M2],
+    t3: DebugApplication[K, T3, P3, M3]): Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] =
+    new Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] {
+      override def application(t: ItemTag[DebugItem3[T1, T2, T3, M1, M2, M3]], context: Context[K]): K#M[Type3[P1, P2, P3]] =
+        Item3.implicit3(t1, t2, t3).application(new ItemTag[Item3[T1, T2, T3]], context)
+    }
+}
+
+object DebugItem3 {
+
+  implicit def debugImplicit3[K <: KindContext, T1, T2, T3, M1, M2, M3, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam](
+      implicit t1: Application[K, T1, P1]
+    , t2: Application[K, T2, P2]
+    , t3: Application[K, T3, P3]
+  ): Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] =
+    new Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] {
+      override def application(t: ItemTag[DebugItem3[T1, T2, T3, M1, M2, M3]], context: Context[K]): K#M[Type3[P1, P2, P3]] = {
+        Item3.implicit3(t1, t2, t3).application(new ItemTag[Item3[T1, T2, T3]], context)
+      }
+    }
+
+}
 
 object Item3 {
 
@@ -141,6 +224,35 @@ class Type3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam] extends TypeParam
 }
 
 class Item4[T1, T2, T3, T4](val i1: T1, val i2: T2, val i3: T3, val i4: T4)
+class DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4](override val i1: T1, override val i2: T2, override val i3: T3, override val i4: T4)
+    extends Item4[T1, T2, T3, T4](i1, i2, i3, i4) {
+  def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam, P4 <: TypeParam](context: Context[K])(
+    implicit t1: DebugApplication[K, T1, P1, M1],
+    t2: DebugApplication[K, T2, P2, M2],
+    t3: DebugApplication[K, T3, P3, M3],
+    t4: DebugApplication[K, T4, P4, M4]): Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] =
+    new Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] {
+      override def application(t: ItemTag[DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4]], context: Context[K]): K#M[Type4[P1, P2, P3, P4]] = {
+        Item4.implicit4(t1, t2, t3, t4).application(new ItemTag[Item4[T1, T2, T3, T4]], context)
+      }
+    }
+}
+
+object DebugItem4 {
+
+  implicit def debugImplicit4[K <: KindContext, T1, T2, T3, T4, M1, M2, M3, M4, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam, P4 <: TypeParam](
+      implicit t1: Application[K, T1, P1]
+    , t2: Application[K, T2, P2]
+    , t3: Application[K, T3, P3]
+    , t4: Application[K, T4, P4]
+  ): Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] =
+    new Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] {
+      override def application(t: ItemTag[DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4]], context: Context[K]): K#M[Type4[P1, P2, P3, P4]] = {
+        Item4.implicit4(t1, t2, t3, t4).application(new ItemTag[Item4[T1, T2, T3, T4]], context)
+      }
+    }
+
+}
 
 object Item4 {
 
@@ -191,6 +303,21 @@ object Item {
 
 trait Application[K <: KindContext, T, I <: TypeParam] {
   def application(t: ItemTag[T], context: Context[K]): K#M[I]
+}
+
+@implicitNotFound(msg = "application not found")
+trait DebugApplication[K <: KindContext, T, I <: TypeParam, Message] extends Application[K, T, I] {
+  override def application(t: ItemTag[T], context: Context[K]): K#M[I]
+}
+
+object DebugApplication {
+
+  implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message](implicit app: Application[K, T, I]): DebugApplication[K, T, I, Message] = {
+    new DebugApplication[K, T, I, Message] {
+      override def application(t: ItemTag[T], context: Context[K]): K#M[I] = app.application(t, context)
+    }
+  }
+
 }
 
 trait KindContext {
