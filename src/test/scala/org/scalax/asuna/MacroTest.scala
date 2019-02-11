@@ -3,30 +3,11 @@ package org.scalax.asuna.mapper.append
 import io.circe._
 import org.scalax.asuna.implements.LazyImplicit
 
-import scala.annotation.implicitNotFound
-
 object MacroTest {
-
-  /*@implicitNotFound(msg = "message: ${M}")
-  class Miao[M]
-
-  class Wu[M] {
-    def miaomiao(implicit mm: Miao[M]): Miao[M] = mm
-  }
-
-  def mmmm = {
-    type `找不到隐式转换` = String
-    new Wu[`找不到隐式转换`].miaomiao
-  }*/
 
   trait MapperKou[H] {
 
     def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): (H => M, S, ItemTag[P]) = ll.p
-
-    def debug[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): P = {
-      val (a, s, p) = ll.p
-      p.debug
-    }
 
     def kou1[M, P, S, R <: TypeParam](implicit ll: ModelApply.Aux[H, M, P, S], app: Application[KM, P, R], cv1: S <:< R#H, cv2: M <:< R#T#H): JsonPro[H] = {
       val (a, s, p) = ll.p

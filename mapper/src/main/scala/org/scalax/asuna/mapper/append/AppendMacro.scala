@@ -54,12 +54,7 @@ trait TreeContent {
     }
   }
 
-  class TreeContent(val tree: Tree, val names: List[String]) {
-    def nameMessage(index: Int): String = names match {
-      case List(name) => s"""你的名字找不到, 给你一点提示: ${name}"""
-      case nameName   => s"""喵呜,一堆名字找不到, 给你很多提示: ${nameName.mkString(",")}\n下面要照着做哦: 把 debug(context) 写成 i${index}.debug(context)"""
-    }
-  }
+  class TreeContent(val tree: Tree, val names: List[String])
 
   @tailrec
   final def applyTag(append: Vector[TreeContent], t: List[TreeContent]): Vector[TreeContent] = {
@@ -68,14 +63,7 @@ trait TreeContent {
         applyTag(
             append.+:(
               new TreeContent(
-                q"""{
-                  type ${TypeName(i1.nameMessage(1))} = String
-                  type ${TypeName(i2.nameMessage(2))} = String
-                  type ${TypeName(i3.nameMessage(3))} = String
-                  type ${TypeName(i4.nameMessage(4))} = String
-                  org.scalax.asuna.mapper.append.Item.applyTag4(${i1.tree}, ${i2.tree}, ${i3.tree}, ${i4.tree}).message[${TypeName(i1.nameMessage(1))}, ${TypeName(
-                i2.nameMessage(2))}, ${TypeName(i3.nameMessage(3))}, ${TypeName(i4.nameMessage(4))}]
-                }"""
+                q"""org.scalax.asuna.mapper.append.Item.tag4(${i1.tree}, ${i2.tree}, ${i3.tree}, ${i4.tree})"""
               , i1.names ::: i2.names ::: i3.names ::: i4.names
             )
           )
@@ -84,32 +72,19 @@ trait TreeContent {
       case i1 :: i2 :: i3 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""{
-                type ${TypeName(i1.nameMessage(1))} = String
-                type ${TypeName(i2.nameMessage(2))} = String
-                type ${TypeName(i3.nameMessage(3))} = String
-                org.scalax.asuna.mapper.append.Item.applyTag3(${i1.tree}, ${i2.tree}, ${i3.tree}).message[${TypeName(i1.nameMessage(1))}, ${TypeName(
-              i2.nameMessage(2))}, ${TypeName(i3.nameMessage(3))}]
-              }"""
+              q"""org.scalax.asuna.mapper.append.Item.tag3(${i1.tree}, ${i2.tree}, ${i3.tree})"""
             , i1.names ::: i2.names ::: i3.names
           ))
       case i1 :: i2 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""{
-                type ${TypeName(i1.nameMessage(1))} = String
-                type ${TypeName(i2.nameMessage(2))} = String
-              org.scalax.asuna.mapper.append.Item.applyTag2(${i1.tree}, ${i2.tree}).message[${TypeName(i1.nameMessage(1))}, ${TypeName(i2.nameMessage(2))}]
-              }"""
+              q"""org.scalax.asuna.mapper.append.Item.tag2(${i1.tree}, ${i2.tree})"""
             , i1.names ::: i2.names
           ))
       case i1 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""{
-                type ${TypeName(i1.nameMessage(1))} = String
-                org.scalax.asuna.mapper.append.Item.applyTag1(${i1.tree}).message[${TypeName(i1.nameMessage(1))}]
-              }"""
+              q"""org.scalax.asuna.mapper.append.Item.tag1(${i1.tree})"""
             , i1.names
           ))
       case Nil => append
@@ -124,7 +99,7 @@ trait TreeContent {
   final def applyTag2(t: List[TreeContent]): Tree = {
     t match {
       case Nil =>
-        q"""org.scalax.asuna.mapper.append.Item.applyTag0"""
+        q"""org.scalax.asuna.mapper.append.Item.tag0"""
       case head :: Nil =>
         head.tree
       case l =>
@@ -205,7 +180,7 @@ object ModelApply {
       override type M   = MM
       override type P   = PP
       override type Str = SS
-      override def p = pp
+      override def p: (H => MM, SS, ItemTag[PP]) = pp
     }
   }
 
@@ -258,6 +233,7 @@ object AppendMacro {
         Option(names.map { name =>
           new TreeContent(q"""org.scalax.asuna.mapper.append.ApplyProperty[${weakTypeTag}].p(_.${TermName(name)})""", List(name))
         })
+
       override def receive: PartialFunction[TreeActorMessage, (Option[TreeActorMessage], ContextTreeActor)] = {
         case _ => (Option.empty, subSelf)
       }
