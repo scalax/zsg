@@ -2,416 +2,418 @@ package org.scalax.asuna.mapper.append
 
 object MacroTest4 {
 
+  trait MM
+
   case class LargeModel(
-      i1: Int = 123
-    , i2: String
-    , i3: String
-    , i4: String
-    , i5: String
-    , i6: String
-    , i7: String
-    , i8: String
-    , i9: String
-    , i10: String
-    , i11: String
-    , i12: String
-    , i13: String
-    , i14: String
-    , i15: String
-    , i16: String
-    , i17: Option[LargeModel11]
-    , i18: String
-    , i19: String
-    , i20: String
-    , i21: String
-    , i22: String
-    , i23: String
-    , i24: String
-    , i25: String
-    , i26: String
-    , i27: String
-    , i28: String
-    , i29: String
-    , i30: String
-    , i31: String
-    , i32: String
-    , i33: String
-    , i34: String
-    , i35: String
-    , i36: String
-    , i37: String
-    , i38: String
-    , i39: String
-    , i40: String
-    , i41: String
-    , i42: Int = 27
-    , i43: String
-    , i44: String
-    , i45: String
-    , i46: String
-    , i47: String
-    , i48: String
-    , i49: String
-    , i50: String
-    , i51: String
-    , i52: String
-    , i53: String
-    , i54: String
-    , i55: String
-    , i56: Int = 3812
-    , i57: String
-    , i58: String
-    , i59: String
-    , i60: String
-    , i61: String
-    , i62: String
-    , i63: String
-    , i64: String
-    , i65: String
-    , i66: String
-    , i67: String
-    , i68: String
-    , i69: String
-    , i70: String
-    , i71: String
-    , i72: String
-    , i73: String
-    , i74: String
-    , i75: String
-    , i76: String
-    , i77: String
-    , i78: String
-    , i79: String
-    , i80: String
-    , i81: String
-    , i82: String
-    , i83: String
-    , i84: String
-    , i85: String
-    , i86: String
-    , i87: String
-    , i88: String
-    , i89: String
-    , i90: String
-    , i91: String
-    , i92: String
-    , i93: String
-    , i94: Int = 782
-    , i95: String
-    , i96: String
-    , i97: String
-    , i98: String
-    , i99: String
-    , i100: String
+      miaomiao1: Int = 123
+    , miaomiao2: String
+    , miaomiao3: String
+    , miaomiao4: String
+    , miaomiao5: String
+    , miaomiao6: String
+    , miaomiao7: String
+    , miaomiao8: String
+    , miaomiao9: String
+    , miaomiao10: String
+    , miaomiao11: String
+    , miaomiao12: String
+    , miaomiao13: String
+    , miaomiao14: String
+    , miaomiao15: String
+    , miaomiao16: String
+    , miaomiao17: Option[LargeModel11]
+    , miaomiao18: String
+    , miaomiao19: String
+    , miaomiao20: String
+    , miaomiao21: String
+    , miaomiao22: String
+    , miaomiao23: String
+    , miaomiao24: String
+    , miaomiao25: String
+    , miaomiao26: String
+    , miaomiao27: String
+    , miaomiao28: String
+    , miaomiao29: String
+    , miaomiao30: String
+    , miaomiao31: String
+    , miaomiao32: String
+    , miaomiao33: String
+    , miaomiao34: String
+    , miaomiao35: String
+    , miaomiao36: String
+    , miaomiao37: String
+    , miaomiao38: String
+    , miaomiao39: String
+    , miaomiao40: String
+    , miaomiao41: String
+    , miaomiao42: Int = 27
+    , miaomiao43: String
+    , miaomiao44: String
+    , miaomiao45: String
+    , miaomiao46: String
+    , miaomiao47: String
+    , miaomiao48: String
+    , miaomiao49: String
+    , miaomiao50: String
+    , miaomiao51: String
+    , miaomiao52: String
+    , miaomiao53: String
+    , miaomiao54: String
+    , miaomiao55: String
+    , miaomiao56: Int = 3812
+    , miaomiao57: String
+    , miaomiao58: String
+    , miaomiao59: String
+    , miaomiao60: String
+    , miaomiao61: String
+    , miaomiao62: String
+    , miaomiao63: String
+    , miaomiao64: String
+    , miaomiao65: String
+    , miaomiao66: String
+    , miaomiao67: String
+    , miaomiao68: String
+    , miaomiao69: String
+    , miaomiao70: String
+    , miaomiao71: String
+    , miaomiao72: String
+    , miaomiao73: String
+    , miaomiao74: String
+    , miaomiao75: String
+    , miaomiao76: String
+    , miaomiao77: String
+    , miaomiao78: String
+    , miaomiao79: String
+    , miaomiao80: String
+    , miaomiao81: String
+    , miaomiao82: String
+    , miaomiao83: String
+    , miaomiao84: String
+    , miaomiao85: String
+    , miaomiao86: String
+    , miaomiao87: String
+    , miaomiao88: String
+    , miaomiao89: String
+    , miaomiao90: String
+    , miaomiao91: String
+    , miaomiao92: String
+    , miaomiao93: String
+    , miaomiao94: Int = 782
+    , miaomiao95: String
+    , miaomiao96: String
+    , miaomiao97: String
+    , miaomiao98: String
+    , miaomiao99: String
+    , miaomiao100: String
   )
 
   case class LargeModel11(
-      i1: Int = 123
-    , i2: String
-    , i3: String
-    , i4: String
-    , i5: String
-    , i6: String
-    , i7: String
-    , i8: String
-    , i9: String
-    , i10: String
-    , i11: List[LargeModel]
-    , i12: String
-    , i13: String
-    , i14: String
-    , i15: String
-    , i16: String
-    , i17: String
-    , i18: String
-    , i19: String
-    , i20: String
-    , i21: String
-    , i22: String
-    , i23: String
-    , i24: String
-    , i25: String
-    , i26: String
-    , i27: String
-    , i28: String
-    , i29: String
-    , i30: String
-    , i31: String
-    , i32: String
-    , i33: String
-    , i34: String
-    , i35: String
-    , i36: String
-    , i37: String
-    , i38: String
-    , i39: String
-    , i40: String
-    , i41: String
-    , i42: Int = 27
-    , i43: String
-    , i44: String
-    , i45: String
-    , i46: String
-    , i47: String
-    , i48: String
-    , i49: String
-    , i50: String
-    , i51: String
-    , i52: String
-    , i53: String
-    , i54: String
-    , i55: String
-    , i56: Int = 3812
-    , i57: String
-    , i58: String
-    , i59: String
-    , i60: String
-    , i61: String
-    , i62: String
-    , i63: String
-    , i64: String
-    , i65: String
-    , i66: String
-    , i67: String
-    , i68: String
-    , i69: String
-    , i70: String
-    , i71: String
-    , i72: String
-    , i73: String
-    , i74: String
-    , i75: String
-    , i76: String
-    , i77: String
-    , i78: String
-    , i79: String
-    , i80: String
-    , i81: String
-    , i82: String
-    , i83: String
-    , i84: String
-    , i85: String
-    , i86: String
-    , i87: String
-    , i88: String
-    , i89: String
-    , i90: String
-    , i91: String
-    , i92: String
-    , i93: String
-    , i94: Int = 782
-    , i95: String
-    , i96: String
-    , i97: String
-    , i98: String
-    , i99: String
-    , i100: String
+      miaomiao1: Int = 123
+    , miaomiao2: String
+    , miaomiao3: String
+    , miaomiao4: String
+    , miaomiao5: String
+    , miaomiao6: String
+    , miaomiao7: String
+    , miaomiao8: String
+    , miaomiao9: String
+    , miaomiao10: String
+    , miaomiao11: List[LargeModel]
+    , miaomiao12: String
+    , miaomiao13: String
+    , miaomiao14: String
+    , miaomiao15: String
+    , miaomiao16: String
+    , miaomiao17: String
+    , miaomiao18: String
+    , miaomiao19: String
+    , miaomiao20: String
+    , miaomiao21: String
+    , miaomiao22: String
+    , miaomiao23: String
+    , miaomiao24: String
+    , miaomiao25: String
+    , miaomiao26: String
+    , miaomiao27: String
+    , miaomiao28: String
+    , miaomiao29: String
+    , miaomiao30: String
+    , miaomiao31: String
+    , miaomiao32: String
+    , miaomiao33: String
+    , miaomiao34: String
+    , miaomiao35: String
+    , miaomiao36: String
+    , miaomiao37: String
+    , miaomiao38: String
+    , miaomiao39: String
+    , miaomiao40: String
+    , miaomiao41: String
+    , miaomiao42: Int = 27
+    , miaomiao43: String
+    , miaomiao44: String
+    , miaomiao45: String
+    , miaomiao46: String
+    , miaomiao47: String
+    , miaomiao48: String
+    , miaomiao49: String
+    , miaomiao50: String
+    , miaomiao51: String
+    , miaomiao52: String
+    , miaomiao53: String
+    , miaomiao54: String
+    , miaomiao55: String
+    , miaomiao56: Int = 3812
+    , miaomiao57: String
+    , miaomiao58: String
+    , miaomiao59: String
+    , miaomiao60: String
+    , miaomiao61: String
+    , miaomiao62: String
+    , miaomiao63: String
+    , miaomiao64: String
+    , miaomiao65: String
+    , miaomiao66: String
+    , miaomiao67: String
+    , miaomiao68: String
+    , miaomiao69: String
+    , miaomiao70: String
+    , miaomiao71: String
+    , miaomiao72: String
+    , miaomiao73: String
+    , miaomiao74: String
+    , miaomiao75: String
+    , miaomiao76: String
+    , miaomiao77: String
+    , miaomiao78: String
+    , miaomiao79: String
+    , miaomiao80: String
+    , miaomiao81: String
+    , miaomiao82: String
+    , miaomiao83: String
+    , miaomiao84: String
+    , miaomiao85: String
+    , miaomiao86: String
+    , miaomiao87: String
+    , miaomiao88: String
+    , miaomiao89: String
+    , miaomiao90: String
+    , miaomiao91: String
+    , miaomiao92: String
+    , miaomiao93: String
+    , miaomiao94: Int = 782
+    , miaomiao95: String
+    , miaomiao96: String
+    , miaomiao97: String
+    , miaomiao98: String
+    , miaomiao99: String
+    , miaomiao100: String
   )
 
   def dd = LargeModel(
-      i1 = 404
-    , i2 = "init string"
-    , i3 = "init string"
-    , i4 = "init string"
-    , i5 = "init string"
-    , i6 = "init string"
-    , i7 = "init string"
-    , i8 = "init string"
-    , i9 = "init string"
-    , i10 = "init string"
-    , i11 = "init string"
-    , i12 = "2333"
-    , i13 = "init string"
-    , i14 = "init string"
-    , i15 = "init string"
-    , i16 = "init string"
-    , i17 = Option(jj)
-    , i18 = "init string"
-    , i19 = "init string"
-    , i20 = "init string"
-    , i21 = "init string"
-    , i22 = "init string"
-    , i23 = "init string"
-    , i24 = "init string"
-    , i25 = "init string"
-    , i26 = "init string"
-    , i27 = "init string"
-    , i28 = "init string"
-    , i29 = "init string"
-    , i30 = "init string"
-    , i31 = "init string"
-    , i32 = "init string"
-    , i33 = "init string"
-    , i34 = "init string"
-    , i35 = "init string"
-    , i36 = "init string"
-    , i37 = "init string"
-    , i38 = "init string"
-    , i39 = "init string"
-    , i40 = "init string"
-    , i41 = "init string"
-    , i42 = 2333
-    , i43 = "init string"
-    , i44 = "init string"
-    , i45 = "init string"
-    , i46 = "init string"
-    , i47 = "init string"
-    , i48 = "init string"
-    , i49 = "init string"
-    , i50 = "init string"
-    , i51 = "init string"
-    , i52 = "init string"
-    , i53 = "init string"
-    , i54 = "init string"
-    , i55 = "init string"
-    , i56 = 4567
-    , i57 = "init string"
-    , i58 = "init string"
-    , i59 = "init string"
-    , i60 = "init string"
-    , i61 = "init string"
-    , i62 = "init string"
-    , i63 = "init string"
-    , i64 = "init string"
-    , i65 = "init string"
-    , i66 = "init string"
-    , i67 = "init string"
-    , i68 = "init string"
-    , i69 = "init string"
-    , i70 = "init string"
-    , i71 = "init string"
-    , i72 = "init string"
-    , i73 = "init string"
-    , i74 = "init string"
-    , i75 = "init string"
-    , i76 = "init string"
-    , i77 = "init string"
-    , i78 = "init string"
-    , i79 = "init string"
-    , i80 = "init string"
-    , i81 = "init string"
-    , i82 = "init string"
-    , i83 = "init string"
-    , i84 = "init string"
-    , i85 = "init string"
-    , i86 = "init string"
-    , i87 = "init string"
-    , i88 = "init string"
-    , i89 = "init string"
-    , i90 = "init string"
-    , i91 = "init string"
-    , i92 = "init string"
-    , i93 = "init string"
-    , i94 = 8910
-    , i95 = "init string"
-    , i96 = "init string"
-    , i97 = "init string"
-    , i98 = "init string"
-    , i99 = "init string"
-    , i100 = "init string"
+      miaomiao1 = 404
+    , miaomiao2 = "init string"
+    , miaomiao3 = "init string"
+    , miaomiao4 = "init string"
+    , miaomiao5 = "init string"
+    , miaomiao6 = "init string"
+    , miaomiao7 = "init string"
+    , miaomiao8 = "init string"
+    , miaomiao9 = "init string"
+    , miaomiao10 = "init string"
+    , miaomiao11 = "init string"
+    , miaomiao12 = "2333"
+    , miaomiao13 = "init string"
+    , miaomiao14 = "init string"
+    , miaomiao15 = "init string"
+    , miaomiao16 = "init string"
+    , miaomiao17 = Option(jj)
+    , miaomiao18 = "init string"
+    , miaomiao19 = "init string"
+    , miaomiao20 = "init string"
+    , miaomiao21 = "init string"
+    , miaomiao22 = "init string"
+    , miaomiao23 = "init string"
+    , miaomiao24 = "init string"
+    , miaomiao25 = "init string"
+    , miaomiao26 = "init string"
+    , miaomiao27 = "init string"
+    , miaomiao28 = "init string"
+    , miaomiao29 = "init string"
+    , miaomiao30 = "init string"
+    , miaomiao31 = "init string"
+    , miaomiao32 = "init string"
+    , miaomiao33 = "init string"
+    , miaomiao34 = "init string"
+    , miaomiao35 = "init string"
+    , miaomiao36 = "init string"
+    , miaomiao37 = "init string"
+    , miaomiao38 = "init string"
+    , miaomiao39 = "init string"
+    , miaomiao40 = "init string"
+    , miaomiao41 = "init string"
+    , miaomiao42 = 2333
+    , miaomiao43 = "init string"
+    , miaomiao44 = "init string"
+    , miaomiao45 = "init string"
+    , miaomiao46 = "init string"
+    , miaomiao47 = "init string"
+    , miaomiao48 = "init string"
+    , miaomiao49 = "init string"
+    , miaomiao50 = "init string"
+    , miaomiao51 = "init string"
+    , miaomiao52 = "init string"
+    , miaomiao53 = "init string"
+    , miaomiao54 = "init string"
+    , miaomiao55 = "init string"
+    , miaomiao56 = 4567
+    , miaomiao57 = "init string"
+    , miaomiao58 = "init string"
+    , miaomiao59 = "init string"
+    , miaomiao60 = "init string"
+    , miaomiao61 = "init string"
+    , miaomiao62 = "init string"
+    , miaomiao63 = "init string"
+    , miaomiao64 = "init string"
+    , miaomiao65 = "init string"
+    , miaomiao66 = "init string"
+    , miaomiao67 = "init string"
+    , miaomiao68 = "init string"
+    , miaomiao69 = "init string"
+    , miaomiao70 = "init string"
+    , miaomiao71 = "init string"
+    , miaomiao72 = "init string"
+    , miaomiao73 = "init string"
+    , miaomiao74 = "init string"
+    , miaomiao75 = "init string"
+    , miaomiao76 = "init string"
+    , miaomiao77 = "init string"
+    , miaomiao78 = "init string"
+    , miaomiao79 = "init string"
+    , miaomiao80 = "init string"
+    , miaomiao81 = "init string"
+    , miaomiao82 = "init string"
+    , miaomiao83 = "init string"
+    , miaomiao84 = "init string"
+    , miaomiao85 = "init string"
+    , miaomiao86 = "init string"
+    , miaomiao87 = "init string"
+    , miaomiao88 = "init string"
+    , miaomiao89 = "init string"
+    , miaomiao90 = "init string"
+    , miaomiao91 = "init string"
+    , miaomiao92 = "init string"
+    , miaomiao93 = "init string"
+    , miaomiao94 = 8910
+    , miaomiao95 = "init string"
+    , miaomiao96 = "init string"
+    , miaomiao97 = "init string"
+    , miaomiao98 = "init string"
+    , miaomiao99 = "init string"
+    , miaomiao100 = "init string"
   )
 
   val jj = LargeModel11(
-      i1 = 404
-    , i2 = "init string"
-    , i3 = "init string"
-    , i4 = "init string"
-    , i5 = "init string"
-    , i6 = "init string"
-    , i7 = "init string"
-    , i8 = "init string"
-    , i9 = "init string"
-    , i10 = "init string"
-    , i11 = List.empty
-    , i12 = "2333"
-    , i13 = "init string"
-    , i14 = "init string"
-    , i15 = "init string"
-    , i16 = "init string"
-    , i17 = "init string"
-    , i18 = "init string"
-    , i19 = "init string"
-    , i20 = "init string"
-    , i21 = "init string"
-    , i22 = "init string"
-    , i23 = "init string"
-    , i24 = "init string"
-    , i25 = "init string"
-    , i26 = "init string"
-    , i27 = "init string"
-    , i28 = "init string"
-    , i29 = "init string"
-    , i30 = "init string"
-    , i31 = "init string"
-    , i32 = "init string"
-    , i33 = "init string"
-    , i34 = "init string"
-    , i35 = "init string"
-    , i36 = "init string"
-    , i37 = "init string"
-    , i38 = "init string"
-    , i39 = "init string"
-    , i40 = "init string"
-    , i41 = "init string"
-    , i42 = 2333
-    , i43 = "init string"
-    , i44 = "init string"
-    , i45 = "init string"
-    , i46 = "init string"
-    , i47 = "init string"
-    , i48 = "init string"
-    , i49 = "init string"
-    , i50 = "init string"
-    , i51 = "init string"
-    , i52 = "init string"
-    , i53 = "init string"
-    , i54 = "init string"
-    , i55 = "init string"
-    , i56 = 4567
-    , i57 = "init string"
-    , i58 = "init string"
-    , i59 = "init string"
-    , i60 = "init string"
-    , i61 = "init string"
-    , i62 = "init string"
-    , i63 = "init string"
-    , i64 = "init string"
-    , i65 = "init string"
-    , i66 = "init string"
-    , i67 = "init string"
-    , i68 = "init string"
-    , i69 = "init string"
-    , i70 = "init string"
-    , i71 = "init string"
-    , i72 = "init string"
-    , i73 = "init string"
-    , i74 = "init string"
-    , i75 = "init string"
-    , i76 = "init string"
-    , i77 = "init string"
-    , i78 = "init string"
-    , i79 = "init string"
-    , i80 = "init string"
-    , i81 = "init string"
-    , i82 = "init string"
-    , i83 = "init string"
-    , i84 = "init string"
-    , i85 = "init string"
-    , i86 = "init string"
-    , i87 = "init string"
-    , i88 = "init string"
-    , i89 = "init string"
-    , i90 = "init string"
-    , i91 = "init string"
-    , i92 = "init string"
-    , i93 = "init string"
-    , i94 = 8910
-    , i95 = "init string"
-    , i96 = "init string"
-    , i97 = "init string"
-    , i98 = "init string"
-    , i99 = "init string"
-    , i100 = "init string"
+      miaomiao1 = 404
+    , miaomiao2 = "init string"
+    , miaomiao3 = "init string"
+    , miaomiao4 = "init string"
+    , miaomiao5 = "init string"
+    , miaomiao6 = "init string"
+    , miaomiao7 = "init string"
+    , miaomiao8 = "init string"
+    , miaomiao9 = "init string"
+    , miaomiao10 = "init string"
+    , miaomiao11 = List.empty
+    , miaomiao12 = "2333"
+    , miaomiao13 = "init string"
+    , miaomiao14 = "init string"
+    , miaomiao15 = "init string"
+    , miaomiao16 = "init string"
+    , miaomiao17 = "init string"
+    , miaomiao18 = "init string"
+    , miaomiao19 = "init string"
+    , miaomiao20 = "init string"
+    , miaomiao21 = "init string"
+    , miaomiao22 = "init string"
+    , miaomiao23 = "init string"
+    , miaomiao24 = "init string"
+    , miaomiao25 = "init string"
+    , miaomiao26 = "init string"
+    , miaomiao27 = "init string"
+    , miaomiao28 = "init string"
+    , miaomiao29 = "init string"
+    , miaomiao30 = "init string"
+    , miaomiao31 = "init string"
+    , miaomiao32 = "init string"
+    , miaomiao33 = "init string"
+    , miaomiao34 = "init string"
+    , miaomiao35 = "init string"
+    , miaomiao36 = "init string"
+    , miaomiao37 = "init string"
+    , miaomiao38 = "init string"
+    , miaomiao39 = "init string"
+    , miaomiao40 = "init string"
+    , miaomiao41 = "init string"
+    , miaomiao42 = 2333
+    , miaomiao43 = "init string"
+    , miaomiao44 = "init string"
+    , miaomiao45 = "init string"
+    , miaomiao46 = "init string"
+    , miaomiao47 = "init string"
+    , miaomiao48 = "init string"
+    , miaomiao49 = "init string"
+    , miaomiao50 = "init string"
+    , miaomiao51 = "init string"
+    , miaomiao52 = "init string"
+    , miaomiao53 = "init string"
+    , miaomiao54 = "init string"
+    , miaomiao55 = "init string"
+    , miaomiao56 = 4567
+    , miaomiao57 = "init string"
+    , miaomiao58 = "init string"
+    , miaomiao59 = "init string"
+    , miaomiao60 = "init string"
+    , miaomiao61 = "init string"
+    , miaomiao62 = "init string"
+    , miaomiao63 = "init string"
+    , miaomiao64 = "init string"
+    , miaomiao65 = "init string"
+    , miaomiao66 = "init string"
+    , miaomiao67 = "init string"
+    , miaomiao68 = "init string"
+    , miaomiao69 = "init string"
+    , miaomiao70 = "init string"
+    , miaomiao71 = "init string"
+    , miaomiao72 = "init string"
+    , miaomiao73 = "init string"
+    , miaomiao74 = "init string"
+    , miaomiao75 = "init string"
+    , miaomiao76 = "init string"
+    , miaomiao77 = "init string"
+    , miaomiao78 = "init string"
+    , miaomiao79 = "init string"
+    , miaomiao80 = "init string"
+    , miaomiao81 = "init string"
+    , miaomiao82 = "init string"
+    , miaomiao83 = "init string"
+    , miaomiao84 = "init string"
+    , miaomiao85 = "init string"
+    , miaomiao86 = "init string"
+    , miaomiao87 = "init string"
+    , miaomiao88 = "init string"
+    , miaomiao89 = "init string"
+    , miaomiao90 = "init string"
+    , miaomiao91 = "init string"
+    , miaomiao92 = "init string"
+    , miaomiao93 = "init string"
+    , miaomiao94 = 8910
+    , miaomiao95 = "init string"
+    , miaomiao96 = "init string"
+    , miaomiao97 = "init string"
+    , miaomiao98 = "init string"
+    , miaomiao99 = "init string"
+    , miaomiao100 = "init string"
   )
 
 }

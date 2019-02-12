@@ -1,13 +1,17 @@
-package org.scalax.asuna.mapper.append.common
+package org.scalax.asuna.mapper.append.debug
 
-import org.scalax.asuna.mapper.append.ItemTag
+import org.scalax.asuna.mapper.append.{ItemTag, ItemTagWithMessage}
 
 import scala.annotation.tailrec
 import scala.collection.immutable.Queue
 import scala.language.experimental.macros
 
+trait ItemTagWithMessageApply[P] {
+  def debug[Message]: ItemTagWithMessage[P, Message] = new ItemTagWithMessage[P, Message]
+}
+
 class ApplyProperty[Model] {
-  def p[P](u: Model => P): ItemTag[P] = new ItemTag[P]
+  def p[P](u: Model => P): ItemTagWithMessageApply[P] = new ItemTagWithMessageApply[P] {}
 }
 
 object ApplyProperty {
@@ -18,9 +22,15 @@ trait TreeActorMessage {
   def actorIndex: Int
 }
 
+trait MessageContent {
+  def middleMessage(name: String): String
+  def leafMessage(name: String): String
+}
+
 trait TreeContent {
 
   val c: scala.reflect.macros.blackbox.Context
+  val messageContent: MessageContent
 
   import c.universe._
 
@@ -59,12 +69,20 @@ trait TreeContent {
 
   @tailrec
   final def applyTag(append: Vector[TreeContent], t: List[TreeContent]): Vector[TreeContent] = {
+
     t match {
       case i1 :: i2 :: i3 :: i4 :: tail =>
         applyTag(
             append.+:(
               new TreeContent(
-                q"""org.scalax.asuna.mapper.append.Item.tag4(${i1.tree}, ${i2.tree}, ${i3.tree}, ${i4.tree})"""
+                q"""{
+                  type ${TypeName(messageContent.middleMessage("i1"))} = String
+                  type ${TypeName(messageContent.middleMessage("i2"))} = String
+                  type ${TypeName(messageContent.middleMessage("i3"))} = String
+                  type ${TypeName(messageContent.middleMessage("i4"))} = String
+                  org.scalax.asuna.mapper.append.Item.debug4(${i1.tree}, ${i2.tree}, ${i3.tree}, ${i4.tree}).debug[${TypeName(messageContent.middleMessage("i1"))}, ${TypeName(
+                messageContent.middleMessage("i2"))}, ${TypeName(messageContent.middleMessage("i3"))}, ${TypeName(messageContent.middleMessage("i4"))}]
+                }"""
               , i1.names ::: i2.names ::: i3.names ::: i4.names
             )
           )
@@ -73,38 +91,86 @@ trait TreeContent {
       case i1 :: i2 :: i3 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""org.scalax.asuna.mapper.append.Item.tag3(${i1.tree}, ${i2.tree}, ${i3.tree})"""
+              q"""{
+              type ${TypeName(messageContent.middleMessage("i1"))} = String
+              type ${TypeName(messageContent.middleMessage("i2"))} = String
+              type ${TypeName(messageContent.middleMessage("i3"))} = String
+              org.scalax.asuna.mapper.append.Item.debug3(${i1.tree}, ${i2.tree}, ${i3.tree}).debug[${TypeName(messageContent.middleMessage("i1"))}, ${TypeName(
+              messageContent.middleMessage("i2"))}, ${TypeName(messageContent.middleMessage("i3"))}]
+            }"""
             , i1.names ::: i2.names ::: i3.names
           ))
       case i1 :: i2 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""org.scalax.asuna.mapper.append.Item.tag2(${i1.tree}, ${i2.tree})"""
+              q"""{
+              type ${TypeName(messageContent.middleMessage("i1"))} = String
+              type ${TypeName(messageContent.middleMessage("i2"))} = String
+              org.scalax.asuna.mapper.append.Item.debug2(${i1.tree}, ${i2.tree}).debug[${TypeName(messageContent.middleMessage("i1"))}, ${TypeName(
+              messageContent.middleMessage("i2"))}]
+            }"""
             , i1.names ::: i2.names
           ))
       case i1 :: Nil =>
         append.+:(
           new TreeContent(
-              q"""org.scalax.asuna.mapper.append.Item.tag1(${i1.tree})"""
+              q"""{
+              type ${TypeName(messageContent.middleMessage("i1"))} = String
+              org.scalax.asuna.mapper.append.Item.debug1(${i1.tree}).debug[${TypeName(messageContent.middleMessage("i1"))}]
+            }"""
             , i1.names
           ))
       case Nil => append
     }
   }
 
-  def applyTag1(t: List[TreeContent]): Vector[TreeContent] = {
-    applyTag(Vector.empty, t)
+  final def initTag(append: Vector[TreeContent], t: List[TreeContent]): Vector[TreeContent] = {
+    t match {
+      case i1 :: i2 :: i3 :: i4 :: tail =>
+        initTag(
+            append.+:(
+              new TreeContent(
+                q"""org.scalax.asuna.mapper.append.Item.message4(${i1.tree}, ${i2.tree}, ${i3.tree}, ${i4.tree})"""
+              , i1.names ::: i2.names ::: i3.names ::: i4.names
+            )
+          )
+          , tail
+        )
+      case i1 :: i2 :: i3 :: Nil =>
+        append.+:(
+          new TreeContent(
+              q"""org.scalax.asuna.mapper.append.Item.message3(${i1.tree}, ${i2.tree}, ${i3.tree})"""
+            , i1.names ::: i2.names ::: i3.names
+          ))
+      case i1 :: i2 :: Nil =>
+        append.+:(
+          new TreeContent(
+              q"""org.scalax.asuna.mapper.append.Item.message2(${i1.tree}, ${i2.tree})"""
+            , i1.names ::: i2.names
+          ))
+      case i1 :: Nil =>
+        append.+:(
+          new TreeContent(
+              q"""org.scalax.asuna.mapper.append.Item.message1(${i1.tree})"""
+            , i1.names
+          ))
+      case Nil => append
+    }
+  }
+
+  def applyTag1(t: List[TreeContent]): List[TreeContent] = {
+    initTag(Vector.empty, t).toList
   }
 
   @tailrec
   final def applyTag2(t: List[TreeContent]): Tree = {
     t match {
       case Nil =>
-        q"""org.scalax.asuna.mapper.append.Item.tag0"""
+        q"""org.scalax.asuna.mapper.append.Item.debug0"""
       case head :: Nil =>
         head.tree
       case l =>
-        applyTag2(applyTag1(l).toList)
+        applyTag2(applyTag(Vector.empty, l).toList)
     }
   }
 
@@ -139,7 +205,7 @@ trait TreeContent {
   }
 
   def zipTrees1(tree: List[ContextTreeActor]): Tree = {
-    q"""org.scalax.asuna.mapper.append.Item.虚得一逼(${applyTag2(zipTrees(tree.flatMap(_.typer)).map(s => s.head))})"""
+    q"""org.scalax.asuna.mapper.append.Item.虚得一逼(${applyTag2(applyTag1(zipTrees(tree.flatMap(_.typer)).map(s => s.head)))})"""
   }
 
   @tailrec
@@ -193,9 +259,22 @@ object ModelApply {
 
 object AppendMacro {
 
-  class AppendMacroImpl2(override val c: scala.reflect.macros.whitebox.Context) extends AppendMacroImpl1
+  val messageContent = new MessageContent {
+    override def middleMessage(name: String): String = s" 你的 implicit 找不到哦, 请把 .debug(context) 替换成 .${name}.debug(context) 继续努力吧"
+    override def leafMessage(name: String): String   = s" 找不到的 implicit 就在这里啦, 它的属性名是: ${name}, 大家快去调试吧"
+  }
+
+  class AppendMacroImpl2(override val c: scala.reflect.macros.whitebox.Context) extends AppendMacroImplImpl(c, messageContent)
+
+  class AppendMacroImplImpl(override val c: scala.reflect.macros.whitebox.Context, override val messageContent: MessageContent) extends AppendMacroApply.AppendMacroImpl1
+
+}
+
+object AppendMacroApply {
 
   trait AppendMacroImpl1 extends TreeContent {
+
+    override val messageContent: MessageContent
 
     override val c: scala.reflect.macros.blackbox.Context
 
@@ -232,7 +311,13 @@ object AppendMacro {
 
       override def typer: Option[List[TreeContent]] =
         Option(names.map { name =>
-          new TreeContent(q"""org.scalax.asuna.mapper.append.ApplyProperty[${weakTypeTag}].p(_.${TermName(name)})""", List(name))
+          new TreeContent(
+              q"""{
+              type ${TypeName(messageContent.leafMessage(name))} = String
+              org.scalax.asuna.mapper.append.debug.ApplyProperty[${weakTypeTag}].p(_.${TermName(name)}).debug[${TypeName(messageContent.leafMessage(name))}]
+            }"""
+            , List(name)
+          )
         })
 
       override def receive: PartialFunction[TreeActorMessage, (Option[TreeActorMessage], ContextTreeActor)] = {
@@ -241,8 +326,7 @@ object AppendMacro {
 
     }
 
-    class ShapelessGenericGetterImpl(override val valName: String, override val selfIndex: Int, override implicit val weakTypeTag: Type)
-        extends ShapelessGenericGetter
+    class ShapelessGenericGetterImpl(override val valName: String, override val selfIndex: Int, override implicit val weakTypeTag: Type) extends ShapelessGenericGetter
 
     def generic[H: c.WeakTypeTag, P: c.WeakTypeTag, M: c.WeakTypeTag, Str: c.WeakTypeTag]: c.Expr[ModelApply.Aux[H, M, P, Str]] = {
       val h = c.weakTypeOf[H]
@@ -252,7 +336,7 @@ object AppendMacro {
       val List(item)      = result
 
       c.Expr[ModelApply.Aux[H, M, P, Str]] {
-        q"""org.scalax.asuna.mapper.append.ModelApply.instance[${h}].model((${item.tree1}, ${item.tree2}, ${zipTrees1(result)}))"""
+        q"""org.scalax.asuna.mapper.append.debug.ModelApply.instance[${h}].model((${item.tree1}, ${item.tree2}, ${zipTrees1(result)}))"""
       }
     }
 
