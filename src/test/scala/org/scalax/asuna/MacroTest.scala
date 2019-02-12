@@ -1,7 +1,8 @@
-package org.scalax.asuna.mapper.append
+package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
 import org.scalax.asuna.implements.LazyImplicit
+import org.scalax.asuna.mapper.append._
 
 object MacroTest {
 
@@ -11,7 +12,7 @@ object MacroTest {
 
     def kou1[M, P, S, R <: TypeParam](implicit ll: ModelApply.Aux[H, M, P, S], app: Application[KM, P, R], cv1: S <:< R#H, cv2: M <:< R#T#H): JsonPro[H] = {
       val (a, s, p) = ll.p
-      app.application(p, ii).compose[H] { mm: H =>
+      app.application(ii).compose[H] { mm: H =>
         (cv1(s), cv2(a(mm)))
       }
     }
@@ -73,7 +74,8 @@ object MacroTest {
   }
 
   implicit def im[T](implicit t: LazyImplicit[Encoder[T]]): Application[KM, T, ItemPP[String, T]] = new Application[KM, T, ItemPP[String, T]] {
-    override def application(ttt: ItemTag[T], context: Context[KM]): JsonPro[(String, T)] = {
+    override def tag: ItemTag[T] = new ItemTag[T]
+    override def application(context: Context[KM]): JsonPro[(String, T)] = {
       new JsonPro[(String, T)] {
         override def p(tt: (String, T), m: List[(String, Json)]): List[(String, Json)] = {
           val (name, item) = tt
