@@ -8,12 +8,11 @@ object MacroTest {
 
   trait MapperKou[H] {
 
-    def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): (H => M, S, ItemTag[P]) = ll.p
+    def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): ModelApply.Aux[H, M, P, S] = ll
 
     def kou1[M, P, S, R <: TypeParam](implicit ll: ModelApply.Aux[H, M, P, S], app: Application[KM, P, R], cv1: S <:< R#H, cv2: M <:< R#T#H): JsonPro[H] = {
-      val (a, s, p) = ll.p
       app.application(ii).compose[H] { mm: H =>
-        (cv1(s), cv2(a(mm)))
+        (cv1(ll.names), cv2(ll.getter(mm)))
       }
     }
 
