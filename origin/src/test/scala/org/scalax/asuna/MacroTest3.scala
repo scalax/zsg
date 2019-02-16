@@ -14,6 +14,7 @@ object MacroTest3 {
   }
 
   object EncodeImplicit {
+
     implicit val encodeHNil: EncodeImplicit[HNil] = new EncodeImplicit[HNil] { override def mm = ObjectEncoder.instance(_ => JsonObject.empty) }
 
     implicit def encodeHCons[K <: Symbol, H, T <: HList](implicit
@@ -28,6 +29,7 @@ object MacroTest3 {
 
     implicit def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: EncodeImplicit[R]): EncodeImplicit[A] =
       new EncodeImplicit[A] { override def mm = ObjectEncoder.instance(a => encodeR.mm.encodeObject(gen.to(a))) }
+
   }
 
 }
