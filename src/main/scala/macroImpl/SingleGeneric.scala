@@ -4,18 +4,16 @@ import scala.annotation.tailrec
 import scala.reflect.macros.blackbox
 import scala.language.existentials
 
-case class ModelNames(n: List[String], override val isFromCurrent: Boolean = false) extends P2SMessage {
+case class ModelNames(n: List[String], override val isFromCurrent: Boolean = false) extends MacroMessage {
   override def changeCurrent(isFrom: Boolean): ModelNames = ModelNames(n, isFrom)
 }
-
-case class ModelNamesToParent(n: List[String]) extends S2PMessage
 
 trait WTypeTag {
   type Model
   def W
 }
 
-case class ModelWithType[I <: blackbox.Context](typeTag: I#Type, override val isFromCurrent: Boolean = false) extends P2SMessage {
+case class ModelWithType[I <: blackbox.Context](typeTag: I#Type, override val isFromCurrent: Boolean = false) extends MacroMessage {
   override def changeCurrent(isFrom: Boolean): ModelWithType[I] = ModelWithType[I](typeTag, isFrom)
 }
 
@@ -57,7 +55,7 @@ class NameActor[I <: blackbox.Context](override val c: I, names: List[String] = 
 
   override def tree: Tree = q"""${applyValue2(names.map(name => Literal(Constant(name))))}"""
 
-  override def receive: PartialFunction[P2SMessage, (NameActor[I], SubResult)] = {
+  override def receive: PartialFunction[MacroMessage, (NameActor[I], SendResult)] = {
     case ModelNames(n, false) => (new NameActor(c, n), done)
     case _                    => (self, done)
   }
@@ -129,12 +127,12 @@ trait TypeActor[I <: blackbox.Context] extends MacroChildActor[I] {
 
   }
 
-  override def receive: PartialFunction[P2SMessage, (TypeActor[I], SubResult)] = {
+  override def receive: PartialFunction[MacroMessage, (TypeActor[I], SendResult)] = {
     case ModelWithType(typeTag: c.universe.Type, false) =>
       (new TypeActor[I] {
         override val c: self.c.type                      = self.c
         override def typeTagOpt: Option[c.universe.Type] = Option(typeTag)
-      }, sendToParent(ModelNamesToParent(names(typeTag))))
+      }, send(ModelNames(names(typeTag))))
     case _ => (self, done)
   }
 
@@ -254,7 +252,7 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
 
   override def tree: Tree = zipTrees1(content)
 
-  override def receive: PartialFunction[P2SMessage, (TagActor[I], SubResult)] = {
+  override def receive: PartialFunction[MacroMessage, (TagActor[I], SendResult)] = {
     case ModelWithType(typeTag: c.universe.Type, false) =>
       (new TagActor[I] {
         override val c: self.c.type                      = self.c
@@ -270,25 +268,6 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
         override val messageContent                      = self.messageContent
       }, done)
     case _ => (self, done)
-  }
-
-}
-
-trait SingleGeneric[I <: blackbox.Context] extends MacroParentActor[I] {
-  self =>
-
-  override val c: I
-
-  def m: c.universe.Type
-
-  override def init: ParentContent = sendToAll(ModelWithType(m))
-
-  override def receive: PartialFunction[S2PMessage, (SingleGeneric[I], ParentResult)] = {
-    case ModelNamesToParent(n) =>
-      (new SingleGeneric[I] {
-        override val c: self.c.type = self.c
-        override def m              = self.m
-      }, sendToAll(ModelNames(n)))
   }
 
 }

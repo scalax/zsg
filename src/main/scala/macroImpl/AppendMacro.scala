@@ -2,43 +2,24 @@ package org.scalax.asuna.mapper.append.macroImpl
 
 import scala.reflect.macros.blackbox
 
-sealed trait Message
-
-trait P2SMessage extends Message {
+trait MacroMessage {
   def isFromCurrent: Boolean
-  def changeCurrent(isFrom: Boolean): P2SMessage
+  def changeCurrent(isFrom: Boolean): MacroMessage
 }
-
-trait S2PMessage extends Message
 
 sealed trait SendResult
 
-sealed trait ParentResult extends SendResult
-
-class ParentDone extends ParentResult
-object ParentDone {
-  val done: ParentDone = new ParentDone
+class DoneResult extends SendResult
+object DoneResult {
+  val done: DoneResult = new DoneResult
 }
 
-sealed trait ParentContent extends ParentResult {
-  def m: List[P2SMessage]
-}
-
-sealed trait SubResult extends SendResult
-
-class SubDone extends SubResult
-object SubDone {
-  val done: SubDone = new SubDone
-}
-
-trait SubContent extends SubResult {
-  def m: List[S2PMessage]
+trait ResultContent extends SendResult {
+  def m: List[MacroMessage]
 }
 
 trait MacroActor[I <: blackbox.Context] {
-
   def c: I
-
 }
 
 trait MacroChildActor[I <: blackbox.Context] extends MacroActor[I] {
@@ -47,46 +28,22 @@ trait MacroChildActor[I <: blackbox.Context] extends MacroActor[I] {
 
   import c.universe._
 
-  def sendToParent(i: S2PMessage): SubContent = {
-    new SubContent {
+  def send(i: MacroMessage): ResultContent = {
+    new ResultContent {
       override def m = List(i)
     }
   }
 
-  def sendToParent(i: List[S2PMessage]): SubContent = {
-    new SubContent {
+  def send(i: List[MacroMessage]): ResultContent = {
+    new ResultContent {
       override def m = i
     }
   }
 
-  def done: SubDone = SubDone.done
+  def done: DoneResult = DoneResult.done
 
   def tree: Tree
 
-  def receive: PartialFunction[P2SMessage, (MacroChildActor[I], SubResult)]
-
-}
-
-trait MacroParentActor[I <: blackbox.Context] extends MacroActor[I] {
-
-  override def c: I
-
-  def sendToAll(i: P2SMessage): ParentContent = {
-    new ParentContent {
-      override def m = List(i)
-    }
-  }
-
-  def sendToAll(i: List[P2SMessage]): ParentContent = {
-    new ParentContent {
-      override def m = i
-    }
-  }
-
-  def done: ParentDone = ParentDone.done
-
-  def init: ParentContent
-
-  def receive: PartialFunction[S2PMessage, (MacroParentActor[I], ParentResult)]
+  def receive: PartialFunction[MacroMessage, (MacroChildActor[I], SendResult)]
 
 }
