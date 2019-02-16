@@ -84,9 +84,8 @@ object AppendMacroApply {
 
         override val c: self.c.type = self.c
 
-        override def parent: MacroParentActor[self.c.type] = new SingleGeneric[self.c.type] {
-          override val c: self.c.type     = subSelf.c
-          override def m: c.universe.Type = h
+        override def init: ResultContent = new ResultContent {
+          override def m = List(ModelWithType(h))
         }
 
         override def children: List[MacroChildActor[self.c.type]] =
