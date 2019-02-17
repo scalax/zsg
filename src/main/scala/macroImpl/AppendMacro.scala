@@ -28,16 +28,12 @@ trait MacroChildActor[I <: blackbox.Context] extends MacroActor[I] {
 
   import c.universe._
 
-  def send(i: MacroMessage): ResultContent = {
-    new ResultContent {
-      override def m = List(i)
-    }
+  def send(i: MacroMessage): ResultContent = new ResultContent {
+    override def m = List(i)
   }
 
-  def send(i: List[MacroMessage]): ResultContent = {
-    new ResultContent {
-      override def m = i
-    }
+  def send(i: List[MacroMessage]): ResultContent = new ResultContent {
+    override def m = i
   }
 
   def done: DoneResult = DoneResult.done

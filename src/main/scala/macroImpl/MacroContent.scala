@@ -14,14 +14,14 @@ trait MacroContent[I <: blackbox.Context] {
   def init: ResultContent
   def children: List[MacroChildActor[c.type]]
 
-  def genChildren: List[MacroChildActor[c.type]] = {
+  protected def genChildren: List[MacroChildActor[c.type]] = {
     val message1 = init.m.map(s => (s.changeCurrent(false), -1))
     genChildrenImpl(Queue(message1: _*), children.zipWithIndex)
   }
 
   def result: List[Tree] = genChildren.map(_.tree)
 
-  def genChildrenImpl(pQueue: Queue[(MacroMessage, Int)], pActors: List[(MacroChildActor[c.type], Int)]): List[MacroChildActor[c.type]] = {
+  protected def genChildrenImpl(pQueue: Queue[(MacroMessage, Int)], pActors: List[(MacroChildActor[c.type], Int)]): List[MacroChildActor[c.type]] = {
 
     val (pQueue1, pActor1) = pQueue.dequeueOption match {
       case Some(((_: DoneResult, _: Int), i)) =>
