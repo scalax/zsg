@@ -88,17 +88,17 @@ object AppendMacroApply {
           override def m = List(ModelWithType(h))
         }
 
-        override def children: List[MacroChildActor[self.c.type]] =
-          List(
-              new TypeActor[self.c.type] {
-              override val c: self.c.type = self.c
-            }
-            , new NameActor[c.type](self.c)
-            , new TagActor[self.c.type] {
-              override val c: self.c.type = self.c
-              override val messageContent = self.messageContent
-            }
-          )
+        override def children: List[MacroChildActor[self.c.type]] = List(
+            new SetterActor[self.c.type] {
+            override val c: self.c.type = self.c
+          }
+          , new NameActor[c.type](self.c)
+          , new TagActor[self.c.type] {
+            override val c: self.c.type = self.c
+            override val messageContent = self.messageContent
+          }
+        )
+
       }
 
       val List(tree1, tree2, tree3) = treeContent.result
