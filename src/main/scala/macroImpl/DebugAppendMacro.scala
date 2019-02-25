@@ -11,10 +11,12 @@ class ItemTagWithMessageApply[P] {
 
 class ApplyProperty[Model] {
   def p[P](u: Model => P): ItemTagWithMessageApply[P] = new ItemTagWithMessageApply[P]
+  def tag[P](u: Model => P): ItemTag[P]               = new ItemTag[P]
 }
 
 object ApplyProperty {
-  def apply[Model]: ApplyProperty[Model] = new ApplyProperty[Model]
+  def apply[Model]: ApplyProperty[Model]          = new ApplyProperty[Model]
+  def tag[T, P](i: ItemTag[T])(p: T => P): T => P = p
 }
 
 trait TreeActorMessage {
@@ -26,6 +28,7 @@ trait ModelApply[H] {
   type P
   type Str
   def getter: H => M
+  def setter: M => H
   def names: Str
   def tag: ItemTag[P]
 }
@@ -35,12 +38,13 @@ object ModelApply {
   type Aux[H, MM, PP, SS] = ModelApply[H] { type M = MM; type P = PP; type Str = SS }
 
   class ModelApplyApply[H] {
-    def model[MM, PP, SS](g: H => MM, n: SS, t: ItemTag[PP]): ModelApply.Aux[H, MM, PP, SS] = new ModelApply[H] {
+    def model[MM, PP, SS](g: H => MM, s: MM => H, n: SS, t: ItemTag[PP]): ModelApply.Aux[H, MM, PP, SS] = new ModelApply[H] {
       override type M   = MM
       override type P   = PP
       override type Str = SS
 
       override def getter = g
+      override def setter = s
       override def names  = n
       override def tag    = t
     }
@@ -76,7 +80,7 @@ object AppendMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, P: c.WeakTypeTag, M: c.WeakTypeTag, Str: c.WeakTypeTag]: c.Expr[ModelApply.Aux[H, M, P, Str]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag, P: c.WeakTypeTag, Str: c.WeakTypeTag]: c.Expr[ModelApply.Aux[H, M, P, Str]] = {
       val h = c.weakTypeOf[H]
 
       val treeContent = new MacroContent[c.type] {
@@ -92,6 +96,9 @@ object AppendMacroApply {
             new SetterActor[self.c.type] {
             override val c: self.c.type = self.c
           }
+          , new SetterActor1[c.type] {
+            override val c: self.c.type = self.c
+          }
           , new NameActor[c.type](self.c)
           , new TagActor[self.c.type] {
             override val c: self.c.type = self.c
@@ -101,10 +108,10 @@ object AppendMacroApply {
 
       }
 
-      val List(tree1, tree2, tree3) = treeContent.result
+      val List(tree1, tree2, tree3, tree4) = treeContent.result
 
       c.Expr[ModelApply.Aux[H, M, P, Str]] {
-        q"""org.scalax.asuna.mapper.append.debug.ModelApply.instance[${h}].model(${tree1}, ${tree2}, ${tree3})"""
+        q"""org.scalax.asuna.mapper.append.debug.ModelApply.instance[${h}].model(${tree1}, ${tree2}, ${tree3}, ${tree4})"""
       }
     }
 
