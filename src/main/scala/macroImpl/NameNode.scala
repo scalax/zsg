@@ -55,7 +55,7 @@ trait TreeNode[T <: NodeType] extends NameNode[T] {
   def index: Int
   def leaf: (NameNode[T], List[NameNode[T]])
 
-  override def toString: String = s"TreeNode(${index}, ${(leaf._1 :: leaf._2).toString})"
+  override def toString: String = s"TreeNode(${index},\n${(leaf._1 :: leaf._2).map(i => i.toString.split("\n").map(ii => " " + ii).mkString("\n")).mkString("\n")}\n)"
 
 }
 
@@ -147,7 +147,7 @@ object Accumulation {
   def buildImpl2[T <: NodeType](h: TreeNode[T], n: List[TreeNode[T]]): TreeNode[T] = {
     val (h1, h2) = buildImpl1(h, n, 0)
     h2 match {
-      case Nil                => h1
+      case Nil          => h1
       case n @ (_ :: _) => buildImpl2(h1, n)
     }
   }

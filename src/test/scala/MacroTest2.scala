@@ -6,9 +6,11 @@ import org.scalax.asuna.mapper.append.MacroTest4
 object MacroTest2 {
 
   object mm {
-    implicit lazy val kk111Encoder: ObjectEncoder[MacroTest4.LargeModel] = MacroTest.kou[MacroTest4.LargeModel].kou1.toEncoder
+    implicit lazy val kk111Encoder: ObjectEncoder[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1.encoder
+    implicit lazy val kk112Encoder: ObjectEncoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.encoder
 
-    implicit lazy val kk112Encoder: ObjectEncoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.toEncoder
+    implicit lazy val kk113Encoder: Decoder[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1.decoder
+    implicit lazy val kk114Encoder: Decoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.decoder
   }
 
   /*object ll {
