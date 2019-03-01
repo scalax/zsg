@@ -1,25 +1,40 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
+import org.scalax.asuna.mapper.append.Item
+import org.scalax.asuna.mapper.append.debug.ApplyProperty
+
 import scala.reflect.macros.blackbox
 import scala.language.existentials
 
-case class ModelNames(n: List[String], override val isFromCurrent: Boolean = false) extends MacroMessage {
+case class ModelNames(n: Vector[String], override val isFromCurrent: Boolean = false) extends MacroMessage {
   override def changeCurrent(isFrom: Boolean): ModelNames = ModelNames(n, isFrom)
-}
-
-trait WTypeTag {
-  type Model
-  def W
 }
 
 case class ModelWithType[I <: blackbox.Context](typeTag: I#Type, override val isFromCurrent: Boolean = false) extends MacroMessage {
   override def changeCurrent(isFrom: Boolean): ModelWithType[I] = ModelWithType[I](typeTag, isFrom)
 }
 
-class NameActor[I <: blackbox.Context](override val c: I, names: List[String] = List.empty) extends MacroChildActor[I] {
+trait GolbalMacroVar {
+
+  val c: blackbox.Context
+
+  import c.universe._
+
+  def item0      = Literal(Constant(Item.apply0))
+  def itemObject = weakTypeOf[Item].typeSymbol.companion
+
+  def applyPropertyObject = weakTypeOf[ApplyProperty[_]].typeSymbol.companion
+
+}
+
+class NameActor[I <: blackbox.Context](override val c: I, names: Vector[String] = Vector.empty) extends MacroChildActor[I] {
   self =>
 
   import c.universe._
+
+  val g = new GolbalMacroVar {
+    override val c: self.c.type = self.c
+  }
 
   class TreeNodeType extends NodeType {
     override type UpperType  = TreeTreeNode
@@ -38,25 +53,25 @@ class NameActor[I <: blackbox.Context](override val c: I, names: List[String] = 
   }
 
   trait TreeListNode {
-    def tree: List[Tree]
+    def tree: Vector[Tree]
     override def toString: String = s"TreeListNode(${tree.mkString(", ")})"
   }
 
   val accumulation = new Accumulation[TreeNodeType] {
     override def toUpper(append: TreeListNode): TreeTreeNode = new TreeTreeNode {
-      override val tree = q"""org.scalax.asuna.mapper.append.Item.${TermName("apply" + append.tree.size)}(..${append.tree})"""
+      override val tree = q"""${g.itemObject}.${TermName("apply" + append.tree.size)}(..${append.tree})"""
     }
     override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = x.content.tree :: y.tree
+      override val tree = y.tree.:+(x.content.tree)
     }
     override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = q"""${Literal(Constant(leaf.content.name))}""" :: y.tree
+      override val tree = y.tree.:+(q"""${Literal(Constant(leaf.content.name))}""")
     }
     override def initUpper(x: TreeUpper[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(x.content.tree)
+      override val tree = Vector(x.content.tree)
     }
     override def initLeaf(x: TreeLeaf[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(q"""${Literal(Constant(x.content.name))}""")
+      override val tree = Vector(q"""${Literal(Constant(x.content.name))}""")
     }
   }
 
@@ -65,10 +80,10 @@ class NameActor[I <: blackbox.Context](override val c: I, names: List[String] = 
       new NameTree {
         override val name = n
     }) match {
-      case h :: tail =>
-        Accumulation.toT(Accumulation.build[TreeNodeType](h, tail), accumulation).tree
+      case v @ (Vector(h, _*)) =>
+        Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
       case _ =>
-        q"""org.scalax.asuna.mapper.append.Item.apply0"""
+        g.item0
     }
 
   override def receive: PartialFunction[MacroMessage, (NameActor[I], SendResult)] = {
@@ -85,8 +100,12 @@ trait SetterActor1[I <: blackbox.Context] extends MacroChildActor[I] {
 
   import c.universe._
 
+  lazy val g = new GolbalMacroVar {
+    override val c: self.c.type = self.c
+  }
+
   def typeTagOpt: Option[c.universe.Type] = Option.empty
-  def names: List[String]                 = List.empty
+  def names: Vector[String]               = Vector.empty
 
   class TreeNodeType extends NodeType {
     override type UpperType  = TreeTreeNode
@@ -102,79 +121,91 @@ trait SetterActor1[I <: blackbox.Context] extends MacroChildActor[I] {
 
   trait TreeTreeNode {
     def tree: Tree
-    def index: Map[String, List[Int]]
+    def index: Vector[(String, Vector[Int])]
     override def toString: String = s"TreeTreeNode(${tree})"
   }
 
   trait TreeListNode {
-    def tree: List[TreeTreeNode]
+    def tree: Vector[TreeTreeNode]
     override def toString: String = s"TreeListNode(${tree.mkString(", ")})"
   }
 
   val accumulation = new Accumulation[TreeNodeType] {
     override def toUpper(append: TreeListNode): TreeTreeNode = new TreeTreeNode {
-      override val tree = q"""org.scalax.asuna.mapper.append.Item.${TermName("tag" + append.tree.size)}(..${append.tree.map(_.tree)})"""
+      override val tree = q"""${g.itemObject}.${TermName("tag" + append.tree.size)}(..${append.tree.map(_.tree)})"""
       override val index = {
-        val s = append.tree.size
+        append.tree.foldLeft(Vector.empty[(String, Vector[Int])]) { (x, y) =>
+          x ++ y.index
+        }
+        /*.map {
+            case (k, v) =>
+              (k, v match {
+                case v @ (Vector(h, _*)) =>
+                  (s - h) +: v.tail
+              })
+          }*/
+        /*val s = append.tree.size
         append.tree
-          .foldLeft(Map.empty[String, List[Int]]) { (x, y) =>
+          .foldLeft(Map.empty[String, Vector[Int]]) { (x, y) =>
             x ++ y.index
           }
           .map {
             case (k, v) =>
               (k, v match {
-                case head :: tail =>
-                  (s - head) :: tail
+                case v @ (Vector(h, _*)) =>
+                  (s - h) +: v.tail
               })
-          }
+          }*/
       }
     }
-    override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree =
-        new TreeTreeNode {
+    override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeListNode): TreeListNode =
+      new TreeListNode {
+        override val tree = y.tree.:+(new TreeTreeNode {
           override val tree  = x.content.tree
-          override val index = x.content.index.map { case (ppp, pppp) => (ppp, x.index :: pppp) }
-        } :: y.tree
-    }
-    override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = new TreeTreeNode {
-        override val tree  = q"""org.scalax.asuna.mapper.append.debug.ApplyProperty[${leaf.content.typeTag}].tag(_.${TermName(leaf.content.name)})"""
-        override val index = Map((leaf.content.name, List(leaf.index)))
-      } :: y.tree
-    }
+          override val index = x.content.index.map { case (ppp, pppp) => (ppp, x.index +: pppp) }
+        })
+      }
+    override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeListNode): TreeListNode =
+      new TreeListNode {
+        override val tree = y.tree.:+(new TreeTreeNode {
+          override val tree  = q"""${g.applyPropertyObject}[${leaf.content.typeTag}].tag(_.${TermName(leaf.content.name)})"""
+          override val index = Vector((leaf.content.name, Vector(leaf.index)))
+        })
+      }
     override def initUpper(x: TreeUpper[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(new TreeTreeNode {
+      override val tree = Vector(new TreeTreeNode {
         override val tree  = x.content.tree
-        override def index = x.content.index.map { case (ppp, pppp) => (ppp, x.index :: pppp) }
+        override val index = x.content.index.map { case (ppp, pppp) => (ppp, x.index +: pppp) }
       })
     }
     override def initLeaf(x: TreeLeaf[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(new TreeTreeNode {
-        override val tree  = q"""org.scalax.asuna.mapper.append.debug.ApplyProperty[${x.content.typeTag}].tag(_.${TermName(x.content.name)})"""
-        override val index = Map((x.content.name, List(x.index)))
+      override val tree = Vector(new TreeTreeNode {
+        override val tree  = q"""${g.applyPropertyObject}[${x.content.typeTag}].tag(_.${TermName(x.content.name)})"""
+        override val index = Vector((x.content.name, Vector(x.index)))
       })
     }
   }
 
-  override def tree: Tree =
-    typeTagOpt.toList.flatMap { t =>
+  override def tree: Tree = {
+    typeTagOpt.toVector.flatMap { t =>
       names.map(n =>
         new NameTree {
           override val typeTag = t
           override val name    = n
         }: NameTree)
     } match {
-      case h :: tail =>
-        val p = Accumulation.toT(Accumulation.build[TreeNodeType](h, tail), accumulation)
-        q"""org.scalax.asuna.mapper.append.debug.ApplyProperty.tag(${p.tree}) { model => ${h.typeTag.typeSymbol.companion}(..${p.index.map {
+      case v @ (Vector(h, _*)) =>
+        val p = Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation)
+        q"""${g.applyPropertyObject}.tag(${p.tree}) { model => ${h.typeTag.typeSymbol.companion}(..${p.index.map {
           case (name, pp) =>
             q"""${TermName(name)} = ${pp.foldLeft(Ident(TermName("model")): Tree) { (x, y) =>
-              q"""${x}.${TermName("i" + y.toString)}"""
+              q"""${x}.${TermName("i" + (y + 1).toString)}"""
             }}"""
         }}) }"""
       case _ =>
-        q"""org.scalax.asuna.mapper.append.Item.apply0"""
+        g.item0
     }
+  }
 
   override def receive: PartialFunction[MacroMessage, (SetterActor1[I], SendResult)] = {
     case ModelWithType(typeTag: c.universe.Type, false) =>
@@ -201,6 +232,10 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
 
   import c.universe._
 
+  lazy val g = new GolbalMacroVar {
+    override val c: self.c.type = self.c
+  }
+
   val valName = "model"
 
   class TreeNodeType extends NodeType {
@@ -220,32 +255,32 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
   }
 
   trait TreeListNode {
-    def tree: List[Tree]
+    def tree: Vector[Tree]
     override def toString: String = s"TreeListNode(${tree.mkString(", ")})"
   }
 
   val accumulation = new Accumulation[TreeNodeType] {
     override def toUpper(append: TreeListNode): TreeTreeNode = new TreeTreeNode {
-      override val tree = q"""org.scalax.asuna.mapper.append.Item.${TermName("apply" + append.tree.size)}(..${append.tree})"""
+      override val tree = q"""${g.itemObject}.${TermName("apply" + append.tree.size)}(..${append.tree})"""
     }
     override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = x.content.tree :: y.tree
+      override val tree = y.tree.:+(x.content.tree)
     }
     override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = q"""${TermName(valName)}.${TermName(leaf.content.name)}""" :: y.tree
+      override val tree = y.tree.:+(q"""${TermName(valName)}.${TermName(leaf.content.name)}""")
     }
     override def initUpper(x: TreeUpper[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(x.content.tree)
+      override val tree = Vector(x.content.tree)
     }
     override def initLeaf(x: TreeLeaf[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(q"""${TermName(valName)}.${TermName(x.content.name)}""")
+      override val tree = Vector(q"""${TermName(valName)}.${TermName(x.content.name)}""")
     }
   }
 
   def typeTagOpt: Option[c.universe.Type] = Option.empty
 
-  def names(tOpt: c.universe.Type): List[String] =
-    tOpt.members.toList
+  def names(tOpt: c.universe.Type): Vector[String] =
+    tOpt.members.toVector
       .filter { s =>
         s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
       }
@@ -259,7 +294,7 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
   override def tree: Tree = typeTagOpt match {
     case Some(typeOpt) =>
       q"""{ ${TermName(valName)}: ${typeOpt} =>
-          ${typeTagOpt.toList
+          ${typeTagOpt.toVector
         .flatMap { t =>
           names(t)
         }
@@ -267,10 +302,10 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
           new NameTree {
             override val name = n
         }) match {
-        case h :: tail =>
-          Accumulation.toT(Accumulation.build[TreeNodeType](h, tail), accumulation).tree
+        case v @ (Vector(h, _*)) =>
+          Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
         case _ =>
-          q"""org.scalax.asuna.mapper.append.Item.apply0"""
+          g.item0
       }}
         }"""
     case _ => Literal(Constant("喵"))
@@ -301,8 +336,12 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
 
   import c.universe._
 
+  lazy val g = new GolbalMacroVar {
+    override val c: self.c.type = self.c
+  }
+
   def typeTagOpt: Option[c.universe.Type] = Option.empty
-  def names: List[String]                 = List.empty
+  def names: Vector[String]               = Vector.empty
 
   class TreeNodeType extends NodeType {
     override type UpperType  = TreeTreeNode
@@ -322,48 +361,46 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
   }
 
   trait TreeListNode {
-    def tree: List[Tree]
+    def tree: Vector[Tree]
     override def toString: String = s"TreeListNode(${tree.mkString(", ")})"
   }
 
   val accumulation = new Accumulation[TreeNodeType] {
     override def toUpper(append: TreeListNode): TreeTreeNode = new TreeTreeNode {
-      override val tree = q"""org.scalax.asuna.mapper.append.Item.${TermName("tag" + append.tree.size)}(..${append.tree})"""
+      override val tree = q"""${g.itemObject}.${TermName("tag" + append.tree.size)}(..${append.tree})"""
     }
     override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = x.content.tree :: y.tree
+      override val tree = y.tree.:+(x.content.tree)
     }
     override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeListNode): TreeListNode = new TreeListNode {
-      override val tree = q"""{
+      override val tree = y.tree.:+(q"""{
         type ${TypeName(messageContent.leafMessage(leaf.content.name))} = String
-        org.scalax.asuna.mapper.append.debug.ApplyProperty[${leaf.content.typeTag}].p(_.${TermName(leaf.content.name)}).debug[${TypeName(
-        messageContent.leafMessage(leaf.content.name))}]
-      }""" :: y.tree
+        ${g.applyPropertyObject}[${leaf.content.typeTag}].p(_.${TermName(leaf.content.name)}).debug[${TypeName(messageContent.leafMessage(leaf.content.name))}]
+      }""")
     }
     override def initUpper(x: TreeUpper[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(x.content.tree)
+      override val tree = Vector(x.content.tree)
     }
     override def initLeaf(x: TreeLeaf[TreeNodeType]): TreeListNode = new TreeListNode {
-      override val tree = List(q"""{
+      override val tree = Vector(q"""{
         type ${TypeName(messageContent.leafMessage(x.content.name))} = String
-        org.scalax.asuna.mapper.append.debug.ApplyProperty[${x.content.typeTag}].p(_.${TermName(x.content.name)}).debug[${TypeName(
-        messageContent.leafMessage(x.content.name))}]
+        ${g.applyPropertyObject}[${x.content.typeTag}].p(_.${TermName(x.content.name)}).debug[${TypeName(messageContent.leafMessage(x.content.name))}]
       }""")
     }
   }
 
   override def tree: Tree =
-    typeTagOpt.toList.flatMap { t =>
+    typeTagOpt.toVector.flatMap { t =>
       names.map(n =>
         new NameTree {
           override val typeTag = t
           override val name    = n
       })
     } match {
-      case h :: tail =>
-        Accumulation.toT(Accumulation.build[TreeNodeType](h, tail), accumulation).tree
+      case v @ (Vector(h, _*)) =>
+        Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
       case _ =>
-        q"""org.scalax.asuna.mapper.append.Item.apply0"""
+        g.item0
     }
 
   override def receive: PartialFunction[MacroMessage, (TagActor[I], SendResult)] = {

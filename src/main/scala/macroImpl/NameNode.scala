@@ -53,15 +53,15 @@ object TreeLeaf {
 trait TreeNode[T <: NodeType] extends NameNode[T] {
 
   def index: Int
-  def leaf: (NameNode[T], List[NameNode[T]])
+  def leaf: (NameNode[T], Vector[NameNode[T]])
 
-  override def toString: String = s"TreeNode(${index},\n${(leaf._1 :: leaf._2).map(i => i.toString.split("\n").map(ii => " " + ii).mkString("\n")).mkString("\n")}\n)"
+  override def toString: String = s"TreeNode(${index},\n${(leaf._1 +: leaf._2).map(i => i.toString.split("\n").map(ii => " " + ii).mkString("\n")).mkString("\n")}\n)"
 
 }
 
 object TreeNode {
 
-  def apply[T <: NodeType](head1: NameNode[T], leaf1: List[NameNode[T]], index1: Int): TreeNode[T] = {
+  def apply[T <: NodeType](head1: NameNode[T], leaf1: Vector[NameNode[T]], index1: Int): TreeNode[T] = {
     new TreeNode[T] {
       override val index = index1
       override val leaf  = (head1, leaf1)
@@ -112,47 +112,47 @@ object Accumulation {
     toTImpl(node, accumulation).content
   }
 
-  def buildImpl[T <: NodeType](h: T#LeafType, l: List[T#LeafType], index: Int): (TreeNode[T], List[TreeNode[T]]) = {
+  def buildImpl[T <: NodeType](h: T#LeafType, l: Vector[T#LeafType], index: Int): (TreeNode[T], Vector[TreeNode[T]]) = {
     l match {
-      case i1 :: i2 :: i3 :: i4 :: tail =>
-        val b = buildImpl(i4, tail, (index + 1) % 4)
-        (TreeNode(TreeLeaf(h, 0), List(TreeLeaf(i1, 1), TreeLeaf(i2, 2), TreeLeaf(i3, 3)), index), b._1 :: b._2)
-      case i1 :: i2 :: i3 :: Nil =>
-        (TreeNode(TreeLeaf(h, 0), List(TreeLeaf(i1, 1), TreeLeaf(i2, 2), TreeLeaf(i3, 3)), index), List.empty)
-      case i1 :: i2 :: Nil =>
-        (TreeNode(TreeLeaf(h, 0), List(TreeLeaf(i1, 1), TreeLeaf(i2, 2)), index), List.empty)
-      case i1 :: Nil =>
-        (TreeNode(TreeLeaf(h, 0), List(TreeLeaf(i1, 1)), index), List.empty)
-      case Nil =>
-        (TreeNode(TreeLeaf(h, 0), List.empty, index), List.empty)
+      case v @ (Vector(i1, i2, i3, i4, _*)) =>
+        val b = buildImpl(i4, v.drop(4), (index + 1) % 4)
+        (TreeNode(TreeLeaf(h, 0), Vector(TreeLeaf(i1, 1), TreeLeaf(i2, 2), TreeLeaf(i3, 3)), index), b._1 +: b._2)
+      case Vector(i1, i2, i3) =>
+        (TreeNode(TreeLeaf(h, 0), Vector(TreeLeaf(i1, 1), TreeLeaf(i2, 2), TreeLeaf(i3, 3)), index), Vector.empty)
+      case Vector(i1, i2) =>
+        (TreeNode(TreeLeaf(h, 0), Vector(TreeLeaf(i1, 1), TreeLeaf(i2, 2)), index), Vector.empty)
+      case Vector(i1) =>
+        (TreeNode(TreeLeaf(h, 0), Vector(TreeLeaf(i1, 1)), index), Vector.empty)
+      case Vector() =>
+        (TreeNode(TreeLeaf(h, 0), Vector.empty, index), Vector.empty)
     }
   }
 
-  def buildImpl1[T <: NodeType](h: TreeNode[T], n: List[TreeNode[T]], index: Int): (TreeNode[T], List[TreeNode[T]]) = {
+  def buildImpl1[T <: NodeType](h: TreeNode[T], n: Vector[TreeNode[T]], index: Int): (TreeNode[T], Vector[TreeNode[T]]) = {
     n match {
-      case i1 :: i2 :: i3 :: i4 :: tail =>
-        val b = buildImpl1(i4, tail, (index + 1) % 4)
-        (TreeNode(h, List(i1, i2, i3), index), b._1 :: b._2)
-      case i1 :: i2 :: i3 :: Nil =>
-        (TreeNode(h, List(i1, i2, i3), index), List.empty)
-      case i1 :: i2 :: Nil =>
-        (TreeNode(h, List(i1, i2), index), List.empty)
-      case i1 :: Nil =>
-        (TreeNode(h, List(i1), index), List.empty)
-      case Nil =>
-        (TreeNode(h, List.empty, index), List.empty)
+      case v @ Vector(i1, i2, i3, i4, _*) =>
+        val b = buildImpl1(i4, v.drop(4), (index + 1) % 4)
+        (TreeNode(h, Vector(i1, i2, i3), index), b._1 +: b._2)
+      case Vector(i1, i2, i3) =>
+        (TreeNode(h, Vector(i1, i2, i3), index), Vector.empty)
+      case Vector(i1, i2) =>
+        (TreeNode(h, Vector(i1, i2), index), Vector.empty)
+      case Vector(i1) =>
+        (TreeNode(h, Vector(i1), index), Vector.empty)
+      case Vector() =>
+        (TreeNode(h, Vector.empty, index), Vector.empty)
     }
   }
 
-  def buildImpl2[T <: NodeType](h: TreeNode[T], n: List[TreeNode[T]]): TreeNode[T] = {
+  def buildImpl2[T <: NodeType](h: TreeNode[T], n: Vector[TreeNode[T]]): TreeNode[T] = {
     val (h1, h2) = buildImpl1(h, n, 0)
     h2 match {
-      case Nil          => h1
-      case n @ (_ :: _) => buildImpl2(h1, n)
+      case Vector()            => h1
+      case n @ (Vector(_, _*)) => buildImpl2(h1, n)
     }
   }
 
-  def build[T <: NodeType](h: T#LeafType, l: List[T#LeafType]): TreeNode[T] = {
+  def build[T <: NodeType](h: T#LeafType, l: Vector[T#LeafType]): TreeNode[T] = {
     val b = buildImpl(h, l, 0)
     buildImpl2(b._1, b._2)
   }

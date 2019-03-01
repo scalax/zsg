@@ -50,12 +50,12 @@ object MacroTest {
     }
 
     def to(name: II): IIII[T] = new IIII[T] {
-      def encoder: ObjectEncoder[T] = new ObjectEncoder[T] {
+      override val encoder: ObjectEncoder[T] = new ObjectEncoder[T] {
         override def encodeObject(a: T): JsonObject = {
           JsonObject.fromIterable(self.p(name, a, List.empty))
         }
       }
-      def decoder: Decoder[T] = Decoder.decodeJsonObject.emap(j => d(j, name))
+      override val decoder: Decoder[T] = Decoder.decodeJsonObject.emap(j => d(j, name))
     }
 
   }
