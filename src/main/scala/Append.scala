@@ -314,6 +314,8 @@ class ItemTag[T] {
   def debug: T = throw new Exception("debugging")
 }
 
+class Item
+
 object Item {
 
   val apply0: Item0                                                                 = new Item0
