@@ -1,0 +1,103 @@
+@(count: Int)
+
+class CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    val rep@{i}: Rep@{i}
+    @if(i < count) { , }
+}) extends DataGenTag {
+
+    @@deprecated("Your are debugging case class mapping rule. This is CaseClassRepMapper@{count}. You can replace selfInfo with\n" +
+    "@for(i <- 1 to count) {debug@{i}(context)\n}to find the missing column.", "0.0.1") def info: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }] = this;
+
+    def debug[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`, @for(i <- 1 to count) {
+        `@{i}`,
+        Target@{i},
+        `rep@{i}.debug(context)`
+        @if(i < count) { , }
+    }]
+    (context: EncoderWrapperHelper[RepCol, DataCol, Wrapper])
+    (implicit @for(i <- 1 to count) { debugShape@{i}: EncoderDebugShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol, `@{i}`, `debug(context)`, `rep@{i}.debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`] @if(i < count) { , } })
+    : EncoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+        context
+    };
+
+    def debug[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`, @for(i <- 1 to count) {
+        `@{i}`,
+        Target@{i},
+        `rep@{i}.debug(context)`
+        @if(i < count) { , }
+    }]
+    (context: DecoderWrapperHelper[RepCol, DataCol, Wrapper])
+    (implicit @for(i <- 1 to count) { debugShape@{i}: DecoderDebugShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol, `@{i}`, `debug(context)`, `rep@{i}.debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`] @if(i < count) { , } })
+    : DecoderWrapperHelper[RepCol, DataCol, Wrapper] = {
+        context
+    };
+
+    def debug[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], `debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`, @for(i <- 1 to count) {
+        `@{i}`,
+        Target@{i},
+        `rep@{i}.debug(context)`
+        @if(i < count) { , }
+    }]
+    (context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper])
+    (implicit @for(i <- 1 to count) { debugShape@{i}: FormatterDebugShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, EncoderDataCol, DecoderDataCol, `@{i}`, `debug(context)`, `rep@{i}.debug(context)`, `.\nOr you can change debug(context) to debug1(context) - debug@{count}(context) to debug other fields.\n\n`] @if(i < count) { , } })
+    : FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper] = {
+        context
+    };
+
+    @for(i <- 1 to count) {
+        def debug@{i}[RepCol, DataCol, Wrapper[_, _] <: EncoderContent[_, _], Target, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]
+        (context: EncoderWrapperHelper[RepCol, DataCol, Wrapper])
+        (implicit debugShape: EncoderDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, DataCol, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]): EncoderShapeValue[Data@{i}, RepCol, DataCol] = {
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
+            new EncoderShapeValue[Data@{i}, RepCol, DataCol] {
+            override type RepType = Target;
+            override val rep = target1;
+            override val shape = shape1;
+            }
+        };
+
+        def debug@{i}[RepCol, DataCol, Wrapper[_, _] <: DecoderContent[_, _], Target, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]
+        (context: DecoderWrapperHelper[RepCol, DataCol, Wrapper])
+        (implicit debugShape: DecoderDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, DataCol, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]): DecoderShapeValue[Data@{i}, RepCol, DataCol] = {
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
+            new DecoderShapeValue[Data@{i}, RepCol, DataCol] {
+            override type RepType = Target;
+            override val rep = target1;
+            override val shape = shape1;
+            }
+        };
+
+        def debug@{i}[RepCol, EncoderDataCol, DecoderDataCol, Wrapper[_, _] <: FormatterContent[_, _], Target, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]
+        (context: FormatterWrapperHelper[RepCol, EncoderDataCol, DecoderDataCol, Wrapper])
+        (implicit debugShape: FormatterDebugShape.Aux[Rep@{i}, Data@{i}, Target, RepCol, EncoderDataCol, DecoderDataCol, `@{i}`, `debug@{i}(context)`, `rep@{i}.debug(context)`, `.\n\n`]): FormatterShapeValue[Data@{i}, RepCol, EncoderDataCol, DecoderDataCol] = {
+            val target1 = debugShape.shape.wrapRep(rep@{i});
+            val shape1 = debugShape.shape.packed;
+            new FormatterShapeValue[Data@{i}, RepCol, EncoderDataCol, DecoderDataCol] {
+            override type RepType = Target;
+            override val rep = target1;
+            override val shape = shape1;
+            }
+        };
+    }
+
+    override type TempData = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }];
+
+};
+
+class PropertyDataType@{count}[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}]

@@ -1,0 +1,17 @@
+@(count: Int)
+
+def withData[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    data@{i}: Data@{i}
+    @if(i < count) { , }
+}): CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new CaseClassDataMapper@{count}(@for(i <- 1 to count) {
+        data@{i} = data@{i}
+        @if(i < count) { , }
+    })
+};

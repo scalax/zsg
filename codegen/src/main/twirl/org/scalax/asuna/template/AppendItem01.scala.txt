@@ -1,0 +1,17 @@
+@(count: Int)
+
+@aa(index: Int) = { Item@{count - 1} [@for(i <- (index - count + 1) to (index - 1)) { I@{i} @if(i < (index - 1)) { , } }] }
+
+@bb(index: Int) = { @for(i <- 1 to index) {
+    override def i@{i} = self.i@{i + 1}
+  }
+}
+
+trait Item@{count} @if(count > 0) { [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] } extends @aa(count) @**@ {
+    self =>
+
+    @for(i <- 1 to count) {
+        @if(i < count) { override } def i@{i}: I@{i}
+    }
+
+}

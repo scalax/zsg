@@ -1,0 +1,20 @@
+@(count: Int)
+
+@aa(index: Int) = { ItemImpl@{count - 1} @if(count > 1) { [@for(i <- (index - count + 1) to (index - 1)) { I@{i} @if(i < (index - 1)) { , } }] } }
+
+@bb(index: Int) = { @for(i <- 1 to index) {
+    override def i@{i} = self.i@{i + 1}
+  }
+}
+
+class ItemImpl@{count} @if(count > 0) { [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] }
+(override val head: I1, override val tail: ItemImpl@{count - 1}[@for(i <- 2 to count) { I@{i} @if(i < count) { , } }]) @**@
+extends @aa(count + 1) (tail.head, tail.tail)
+with Item@{count}@if(count > 0) { [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] } @**@ {
+self =>
+
+    @for(i <- 1 to count) {
+        @if(i < count) { override } def i@{i}: I@{i}
+    }
+
+}

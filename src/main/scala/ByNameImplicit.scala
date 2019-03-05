@@ -19,7 +19,7 @@ object ByNameImplicitMacro {
 
     def implicitFetch[T: c.WeakTypeTag]: c.Expr[ByNameImplicit[T]] = {
       val byNameImplicit = weakTypeOf[ByNameImplicit[T]]
-      val t            = weakTypeOf[T]
+      val t              = weakTypeOf[T]
       c.Expr[ByNameImplicit[T]] {
         q"""new ${byNameImplicit} { override def value: ${t} = implicitly[${t}] }"""
       }

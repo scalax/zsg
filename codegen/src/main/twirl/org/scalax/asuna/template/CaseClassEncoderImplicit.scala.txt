@@ -1,0 +1,84 @@
+@(count: Int)
+
+implicit def caseClassHelper@{count}EncoderGen[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i},
+        Target@{i},
+    } RepCol, DataCol](
+    implicit @for(i <- 1 to count) { shape@{i}: EncoderShape.Aux[Rep@{i}, Data@{i}, Target@{i}, RepCol, DataCol] @if(i < count) { , } })
+    : EncoderShape.Aux[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }],
+    CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }],
+    CaseClassRepMapper@{count}[
+        @for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+    }], RepCol, DataCol] = {
+    new EncoderShape[CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }], RepCol, DataCol] {
+        override type Target = CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }];
+        override type Data = CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }];
+        override def wrapRep(base: => CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Rep@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }]): CaseClassRepMapper@{count}[
+            @for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }] = {
+            new CaseClassRepMapper@{count}[
+                @for(i <- 1 to count) {
+                Target@{i},
+                Data@{i}
+                @if(i < count) { , }
+            }](@for(i <- 1 to count) {
+                rep@{i} = shape@{i}.wrapRep(base.rep@{i})
+                @if(i < count) { , }
+            });
+        };
+        override def buildRep(base: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }], oldRep: RepCol): RepCol = {
+            val rep@{count + 1} = oldRep;
+            @for(i <- (count to 1 by - 1)) {
+                val rep@{i} = shape@{i}.buildRep(base.rep@{i}, rep@{i + 1});
+            }
+            rep1;
+        };
+        override def buildData(data: CaseClassDataMapper@{count}[@for(i <- 1 to count) {
+            Data@{i}
+            @if(i < count) { , }
+        }], rep: CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+            Target@{i},
+            Data@{i}
+            @if(i < count) { , }
+        }], oldData: DataCol): DataCol = {
+            val data@{count + 1} = oldData;
+            @for(i <- (count to 1 by - 1)) {
+                val data@{i} = shape@{i}.buildData(data.data@{i}, rep.rep@{i}, data@{i + 1});
+            }
+            data1;
+        };
+    }
+};

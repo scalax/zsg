@@ -1,0 +1,18 @@
+@(maxItem: Int)
+
+class ItemImpl0 extends Item0
+
+class ItemImpl1[I1](val head: I1) extends ItemImpl0 with Item1[I1] {
+  def i1: I1 = head
+}
+
+class ItemImpl2[I1, I2](override val head: I1, val tail: ItemImpl1[I2]) extends ItemImpl1(head) with Item2[I1, I2] {
+  override def i1: I1 = head
+  def i2: I2 = tail.head
+}
+
+@for(i <- 3 to maxItem) {
+
+    @org.scalax.asuna.template.txt.AppendItemImpl01(count = i)
+
+}

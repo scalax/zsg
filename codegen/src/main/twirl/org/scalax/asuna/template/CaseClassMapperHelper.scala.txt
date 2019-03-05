@@ -1,0 +1,63 @@
+@(count: Int)
+
+def withRep[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    rep@{i}: Rep@{i},
+} setter: => PropertyDataType@{count}[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}]): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Data@{i}
+        @if(i < count) { , }
+    }](@for(i <- 1 to count) {
+        rep@{i} = rep@{i}
+        @if(i < count) { , }
+    })
+};
+
+def defineDataType[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    property@{i}: PropertyType[Data@{i}]
+    @if(i < count) { , }
+}): PropertyDataType@{count}[@for(i <- 1 to count) {
+    Data@{i}
+    @if(i < count) { , }
+}] = {
+    new PropertyDataType@{count}[@for(i <- 1 to count) {
+        Data@{i}
+        @if(i < count) { , }
+    }]
+    ???
+};
+
+def mergeRep[@for(i <- 1 to count) {
+    Rep@{i} <: DataGenTag
+    @if(i < count) { , }
+}](@for(i <- 1 to count) {
+    rep@{i}: Rep@{i}
+    @if(i < count) { , }
+}): CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+    Rep@{i},
+    Rep@{i}#TempData
+    @if(i < count) { , }
+}] = {
+    new CaseClassRepMapper@{count}[@for(i <- 1 to count) {
+        Rep@{i},
+        Rep@{i}#TempData
+        @if(i < count) { , }
+    }](@for(i <- 1 to count) {
+        rep@{i} = rep@{i}
+        @if(i < count) { , }
+    })
+};

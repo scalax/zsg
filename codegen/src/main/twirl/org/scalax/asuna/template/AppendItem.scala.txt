@@ -1,0 +1,13 @@
+@(maxItem: Int)
+
+trait Item0
+
+trait Item1[I1] extends Item0 {
+  def i1: I1
+}
+
+@for(i <- 2 to maxItem) {
+
+    @org.scalax.asuna.template.txt.AppendItem01(count = i)
+
+}
