@@ -1,0 +1,10 @@
+@(count: Int)
+
+trait Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] {
+    self =>
+
+    @for(i <- 1 to count) {
+        def i@{i}: I@{i}
+    }
+
+}
