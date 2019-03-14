@@ -105,8 +105,12 @@ object TemplateUtils1 {
       }
     }
     override def initUpper(x: TreeUpper[TreeNodeType], length: Int): TreeTreeNode = new TreeTreeNode {
-      override val to_1    = x.content.to_1
-      override val content = x.content.content
+      override val to_1 = x.content.to_1
+      override val content = if (length == 1) {
+        s"Item1[${x.content.content}]"
+      } else {
+        x.content.content
+      }
     }
     override def initLeaf(x: TreeLeaf[TreeNodeType], length: Int): TreeTreeNode = new TreeTreeNode {
       override val to_1 = x.content.name.isEmpty || (length == 1)
@@ -224,7 +228,6 @@ object TemplateTree1 {
       )
       , TemplateUtils2.accumulation
     )
-    println(i.content.map { case (i1, i2) => s"${i1}item${i2}" }.mkString("\n"))
     i.content.map { case (i1, i2) => s"${i1}item${i2}" }.mkString("\n")
     /*} else {
       val i = Accumulation.toT(

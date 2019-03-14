@@ -5,7 +5,7 @@ trait Xyy[I] {
 }
 
 class ItemEatXyy0 extends Item0 {
-    override def eat[T](xyy: T): ItemPlusXyy1[T] = new ItemPlusXyy1(item = new ItemValue1(i1 = xyy))
+    @* override def eat[T](xyy: T): ItemPlusXyy1[T] = new ItemPlusXyy1(item = new ItemValue1(i1 = xyy)) *@
     override def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
 }
 

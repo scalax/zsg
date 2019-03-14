@@ -111,7 +111,7 @@ object Item1 {
 class Item2[T1, T2](val i1: T1, val i2: T2)
 class DebugItem2[T1, T2, M1, M2](override val i1: T1, override val i2: T2) extends Item2[T1, T2](i1, i2) {
   def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam](
-    context: Context[K]
+      context: Context[K]
   )(implicit t1: DebugApplication[K, T1, P1, M1], t2: DebugApplication[K, T2, P2, M2]): Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] =
     new Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] {
       override def tag: ItemTag[DebugItem2[T1, T2, M1, M2]] = Item.debug2(t1.tag, t2.tag).debug[M1, M2]
@@ -131,8 +131,8 @@ class Type2[T1 <: TypeParam, T2 <: TypeParam] extends TypeParam {
 object DebugItem2 {
 
   implicit def debugImplicit2[K <: KindContext, T1, T2, M1, M2, P1 <: TypeParam, P2 <: TypeParam](
-    implicit t1: Application[K, T1, P1],
-    t2: Application[K, T2, P2]
+      implicit t1: Application[K, T1, P1]
+    , t2: Application[K, T2, P2]
   ): Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] =
     new Application[K, DebugItem2[T1, T2, M1, M2], Type2[P1, P2]] {
       override def tag: ItemTag[DebugItem2[T1, T2, M1, M2]] = Item.debug2(t1.tag, t2.tag).debug[M1, M2]
@@ -146,8 +146,8 @@ object DebugItem2 {
 object Item2 {
 
   implicit def implicit2[K <: KindContext, T1, T2, P1 <: TypeParam, P2 <: TypeParam](
-    implicit t1: Application[K, T1, P1],
-    t2: Application[K, T2, P2]
+      implicit t1: Application[K, T1, P1]
+    , t2: Application[K, T2, P2]
   ): Application[K, Item2[T1, T2], Type2[P1, P2]] =
     new Application[K, Item2[T1, T2], Type2[P1, P2]] {
       override def tag: ItemTag[Item2[T1, T2]] = Item.tag2(t1.tag, t2.tag)
@@ -179,9 +179,9 @@ object Item2 {
 class Item3[T1, T2, T3](val i1: T1, val i2: T2, val i3: T3)
 class DebugItem3[T1, T2, T3, M1, M2, M3](override val i1: T1, override val i2: T2, override val i3: T3) extends Item3[T1, T2, T3](i1, i2, i3) {
   def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam](context: Context[K])(
-    implicit t1: DebugApplication[K, T1, P1, M1],
-    t2: DebugApplication[K, T2, P2, M2],
-    t3: DebugApplication[K, T3, P3, M3]
+      implicit t1: DebugApplication[K, T1, P1, M1]
+    , t2: DebugApplication[K, T2, P2, M2]
+    , t3: DebugApplication[K, T3, P3, M3]
   ): Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] =
     new Application[K, DebugItem3[T1, T2, T3, M1, M2, M3], Type3[P1, P2, P3]] {
       override def tag: ItemTag[DebugItem3[T1, T2, T3, M1, M2, M3]] = Item.debug3(t1.tag, t2.tag, t3.tag).debug[M1, M2, M3]
@@ -254,10 +254,10 @@ class Item4[T1, T2, T3, T4](val i1: T1, val i2: T2, val i3: T3, val i4: T4)
 class DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4](override val i1: T1, override val i2: T2, override val i3: T3, override val i4: T4)
     extends Item4[T1, T2, T3, T4](i1, i2, i3, i4) {
   def debug[K <: KindContext, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam, P4 <: TypeParam](context: Context[K])(
-    implicit t1: DebugApplication[K, T1, P1, M1],
-    t2: DebugApplication[K, T2, P2, M2],
-    t3: DebugApplication[K, T3, P3, M3],
-    t4: DebugApplication[K, T4, P4, M4]
+      implicit t1: DebugApplication[K, T1, P1, M1]
+    , t2: DebugApplication[K, T2, P2, M2]
+    , t3: DebugApplication[K, T3, P3, M3]
+    , t4: DebugApplication[K, T4, P4, M4]
   ): Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] =
     new Application[K, DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4], Type4[P1, P2, P3, P4]] {
       override def tag: ItemTag[DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4]] = Item.debug4(t1.tag, t2.tag, t3.tag, t4.tag).debug[M1, M2, M3, M4]
@@ -346,16 +346,16 @@ object Item {
   def message2[T1, T2, M1, M2](t1: ItemTagWithMessage[T1, M1], t2: ItemTagWithMessage[T2, M2]): ItemTag[DebugItem2[T1, T2, M1, M2]] =
     new ItemTag[DebugItem2[T1, T2, M1, M2]]
   def message3[T1, T2, T3, M1, M2, M3](
-    t1: ItemTagWithMessage[T1, M1],
-    t2: ItemTagWithMessage[T2, M2],
-    t3: ItemTagWithMessage[T3, M3]
+      t1: ItemTagWithMessage[T1, M1]
+    , t2: ItemTagWithMessage[T2, M2]
+    , t3: ItemTagWithMessage[T3, M3]
   ): ItemTag[DebugItem3[T1, T2, T3, M1, M2, M3]] =
     new ItemTag[DebugItem3[T1, T2, T3, M1, M2, M3]]
   def message4[T1, T2, T3, T4, M1, M2, M3, M4](
-    t1: ItemTagWithMessage[T1, M1],
-    t2: ItemTagWithMessage[T2, M2],
-    t3: ItemTagWithMessage[T3, M3],
-    t4: ItemTagWithMessage[T4, M4]
+      t1: ItemTagWithMessage[T1, M1]
+    , t2: ItemTagWithMessage[T2, M2]
+    , t3: ItemTagWithMessage[T3, M3]
+    , t4: ItemTagWithMessage[T4, M4]
   ): ItemTag[DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4]] =
     new ItemTag[DebugItem4[T1, T2, T3, T4, M1, M2, M3, M4]]
 

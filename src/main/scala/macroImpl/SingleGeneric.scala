@@ -77,7 +77,7 @@ class NameActor[I <: blackbox.Context](override val c: I, names: Vector[String] 
 
   override def tree: Tree =
     names.map(
-      n =>
+        n =>
         new NameTree {
           override val name = n
         }
@@ -191,7 +191,7 @@ trait SetterActor1[I <: blackbox.Context] extends MacroChildActor[I] {
   override def tree: Tree = {
     typeTagOpt.toVector.flatMap { t =>
       names.map(
-        n =>
+          n =>
           new NameTree {
             override val typeTag = t
             override val name    = n
@@ -303,7 +303,7 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
           names(t)
         }
         .map(
-          n =>
+            n =>
             new NameTree {
               override val name = n
             }
@@ -398,7 +398,7 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
   override def tree: Tree =
     typeTagOpt.toVector.flatMap { t =>
       names.map(
-        n =>
+          n =>
           new NameTree {
             override val typeTag = t
             override val name    = n
