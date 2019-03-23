@@ -1,11 +1,10 @@
 @(maxItem: Int)
 
-class ItemPlusXyy0 extends Item0 {
-}
+trait ItemPlusXyy0 extends Any with Item0
 
 @for(i <- 1 to maxItem) {
 
-    class ItemPlusXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }](override val item: EatValue0@for(ii <- 1 to i) { #AddItem[I@{ii}] }) extends Xyy[EatValue0@for(ii <- 1 to i) { #AddItem[I@{ii}] }]
+    class ItemPlusXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }](override val item: EatValue0@for(ii <- 1 to i) { #AddItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to i) { #AddItem[I@{ii}] }]
     with Item@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }] {
         @org.scalax.asuna.codegen.TemplateTree1.plusXyy(i)
 
@@ -14,7 +13,7 @@ class ItemPlusXyy0 extends Item0 {
 
 }
 
-class ItemPlusXyy@{maxItem + 1}[@for(ii <- 1 to maxItem + 1) { I@{ii} @if(ii < maxItem + 1) { , } }](override val item: EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddItem[I@{ii}] }) extends Xyy[EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddItem[I@{ii}] }]
+class ItemPlusXyy@{maxItem + 1}[@for(ii <- 1 to maxItem + 1) { I@{ii} @if(ii < maxItem + 1) { , } }](override val item: EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddItem[I@{ii}] }]
 with Item@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { I@{ii} @if(ii < (maxItem + 1)) { , } }] {
     @org.scalax.asuna.codegen.TemplateTree1.plusXyy(maxItem + 1)
 }

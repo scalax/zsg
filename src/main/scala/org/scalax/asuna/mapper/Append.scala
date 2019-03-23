@@ -1,10 +1,10 @@
-trait Item0 {
+trait Item0 extends Any {
   def eat[T](xyy: T): Item1[T] = new Item1[T] {
     override def i1: T = xyy
   }
   def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
 }
-trait Item1[I1] {
+trait Item1[I1] extends Any {
   self =>
   def i1: I1
   def eat[T](xyy: T): Item2[T, I1] = new Item2[T, I1] {
@@ -15,7 +15,7 @@ trait Item1[I1] {
     (xyy, self.i1)
   }
 }
-trait Item2[I1, I2] {
+trait Item2[I1, I2] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -28,7 +28,7 @@ trait Item2[I1, I2] {
     (xyy, self.i1, self.i2)
   }
 }
-trait Item3[I1, I2, I3] {
+trait Item3[I1, I2, I3] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -43,7 +43,7 @@ trait Item3[I1, I2, I3] {
     (xyy, self.i1, self.i2, self.i3)
   }
 }
-trait Item4[I1, I2, I3, I4] {
+trait Item4[I1, I2, I3, I4] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -60,7 +60,7 @@ trait Item4[I1, I2, I3, I4] {
     (xyy, self.i1, self.i2, self.i3, self.i4)
   }
 }
-trait Item5[I1, I2, I3, I4, I5] {
+trait Item5[I1, I2, I3, I4, I5] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -79,7 +79,7 @@ trait Item5[I1, I2, I3, I4, I5] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5)
   }
 }
-trait Item6[I1, I2, I3, I4, I5, I6] {
+trait Item6[I1, I2, I3, I4, I5, I6] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -100,7 +100,7 @@ trait Item6[I1, I2, I3, I4, I5, I6] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6)
   }
 }
-trait Item7[I1, I2, I3, I4, I5, I6, I7] {
+trait Item7[I1, I2, I3, I4, I5, I6, I7] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -123,7 +123,7 @@ trait Item7[I1, I2, I3, I4, I5, I6, I7] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7)
   }
 }
-trait Item8[I1, I2, I3, I4, I5, I6, I7, I8] {
+trait Item8[I1, I2, I3, I4, I5, I6, I7, I8] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -148,7 +148,7 @@ trait Item8[I1, I2, I3, I4, I5, I6, I7, I8] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
   }
 }
-trait Item9[I1, I2, I3, I4, I5, I6, I7, I8, I9] {
+trait Item9[I1, I2, I3, I4, I5, I6, I7, I8, I9] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -175,7 +175,7 @@ trait Item9[I1, I2, I3, I4, I5, I6, I7, I8, I9] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9)
   }
 }
-trait Item10[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10] {
+trait Item10[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -204,7 +204,7 @@ trait Item10[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10)
   }
 }
-trait Item11[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11] {
+trait Item11[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -235,7 +235,7 @@ trait Item11[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11)
   }
 }
-trait Item12[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12] {
+trait Item12[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -268,7 +268,7 @@ trait Item12[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12)
   }
 }
-trait Item13[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13] {
+trait Item13[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -303,7 +303,7 @@ trait Item13[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13)
   }
 }
-trait Item14[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14] {
+trait Item14[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -341,7 +341,7 @@ trait Item14[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14)
   }
 }
-trait Item15[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15] {
+trait Item15[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -381,7 +381,7 @@ trait Item15[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15] {
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15)
   }
 }
-trait Item16[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16] {
+trait Item16[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -423,7 +423,7 @@ trait Item16[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15, self.i16)
   }
 }
-trait Item17[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17] {
+trait Item17[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -467,7 +467,7 @@ trait Item17[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15, self.i16, self.i17)
   }
 }
-trait Item18[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18] {
+trait Item18[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -533,7 +533,7 @@ trait Item18[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     )
   }
 }
-trait Item19[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19] {
+trait Item19[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -602,7 +602,7 @@ trait Item19[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     )
   }
 }
-trait Item20[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20] {
+trait Item20[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -674,7 +674,7 @@ trait Item20[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     )
   }
 }
-trait Item21[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21] {
+trait Item21[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21] extends Any {
   self =>
   def i1: I1
   def i2: I2
@@ -749,7 +749,7 @@ trait Item21[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I
     )
   }
 }
-trait Item22[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22] {
+trait Item22[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22] extends Any {
   self =>
   def i1: I1
   def i2: I2

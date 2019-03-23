@@ -190,3 +190,70 @@ object TemplateTree1 {
   }
 
 }
+
+/*object TemplateUtils3 {
+
+  class TreeNodeType extends NodeType {
+    override type UpperType = TreeTreeNode
+    override type LeafType  = NameTree
+  }
+
+  trait NameTree {
+    def name: Option[(String, String => String)]
+  }
+
+  trait TreeTreeNode {
+    def to_1: Boolean
+    def content: Vector[(String, String => String)]
+    def valDefine: Vector[String]
+  }
+
+  val accumulation = new Accumulation[TreeNodeType] {
+    override def appendUpper(x: TreeUpper[TreeNodeType], y: TreeTreeNode, length: Int): TreeTreeNode = new TreeTreeNode {
+      override val to_1 = x.content.to_1 && y.to_1
+      override val content = {
+        y.content ++ x.content.content.map { case (i1, i2) => (i1, if (to_1) s".i1${i2}" else s".i2${i2}") }
+      }
+    }
+    override def appendLeaf(leaf: TreeLeaf[TreeNodeType], y: TreeTreeNode, length: Int): TreeTreeNode = new TreeTreeNode {
+      override val to_1 = leaf.content.name.isEmpty || y.to_1
+      override val content = {
+        y.content ++ leaf.content.name.map { case (i1, i2) => (i1, if (to_1) s".i1${i2}" else s".i2${i2}") }.toVector
+      }
+    }
+    override def initUpper(x: TreeUpper[TreeNodeType], length: Int): TreeTreeNode = new TreeTreeNode {
+      override val to_1 = x.content.to_1
+      override val content = x.content.content.map { i =>
+        (i._1, s".i1${i._2}")
+      }
+    }
+    override def initLeaf(x: TreeLeaf[TreeNodeType], length: Int): TreeTreeNode = new TreeTreeNode {
+      override val to_1 = x.content.name.isEmpty
+      override val content = x.content.name.map { i =>
+        (i._1, s".i1${i._2}")
+      }.toVector
+    }
+  }
+
+}
+
+object TemplateTree3 {
+
+  def eatXyy(index: Int): String = {
+    val i = Accumulation.toT(
+        Accumulation.build[TemplateUtils2.TreeNodeType](
+          new TemplateUtils2.NameTree {
+          override val name = Option.empty
+        }
+        , (1 to index).toVector.map { t =>
+          new TemplateUtils2.NameTree {
+            override val name = Option((s"override def i${t}: I${t} = ", ""))
+          }
+        }
+      )
+      , TemplateUtils2.accumulation
+    )
+    i.content.map { case (i1, i2) => s"${i1}item.item${i2}" }.mkString("\n")
+  }
+
+}*/

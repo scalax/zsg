@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-trait Item0 {
+trait Item0 extends Any {
     def eat[T](xyy: T): Item1[T] = new Item1[T] {
         override def i1: T = xyy
     }
