@@ -1,0 +1,3 @@
+@(count: Int)
+
+@org.scalax.asuna.codegen.TemplateTree.plusXyy(count)

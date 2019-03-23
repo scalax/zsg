@@ -76,10 +76,12 @@ class NameActor[I <: blackbox.Context](override val c: I, names: Vector[String] 
   }
 
   override def tree: Tree =
-    names.map(n =>
-      new NameTree {
-        override val name = n
-    }) match {
+    names.map(
+        n =>
+        new NameTree {
+          override val name = n
+        }
+    ) match {
       case v @ (Vector(h, _*)) =>
         Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
       case _ =>
@@ -188,11 +190,13 @@ trait SetterActor1[I <: blackbox.Context] extends MacroChildActor[I] {
 
   override def tree: Tree = {
     typeTagOpt.toVector.flatMap { t =>
-      names.map(n =>
-        new NameTree {
-          override val typeTag = t
-          override val name    = n
-        }: NameTree)
+      names.map(
+          n =>
+          new NameTree {
+            override val typeTag = t
+            override val name    = n
+          }: NameTree
+      )
     } match {
       case v @ (Vector(h, _*)) =>
         val p = Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation)
@@ -298,10 +302,12 @@ trait SetterActor[I <: blackbox.Context] extends MacroChildActor[I] {
         .flatMap { t =>
           names(t)
         }
-        .map(n =>
-          new NameTree {
-            override val name = n
-        }) match {
+        .map(
+            n =>
+            new NameTree {
+              override val name = n
+            }
+        ) match {
         case v @ (Vector(h, _*)) =>
           Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
         case _ =>
@@ -391,11 +397,13 @@ trait TagActor[I <: blackbox.Context] extends MacroChildActor[I] {
 
   override def tree: Tree =
     typeTagOpt.toVector.flatMap { t =>
-      names.map(n =>
-        new NameTree {
-          override val typeTag = t
-          override val name    = n
-      })
+      names.map(
+          n =>
+          new NameTree {
+            override val typeTag = t
+            override val name    = n
+          }
+      )
     } match {
       case v @ (Vector(h, _*)) =>
         Accumulation.toT(Accumulation.build[TreeNodeType](h, v.tail), accumulation).tree
