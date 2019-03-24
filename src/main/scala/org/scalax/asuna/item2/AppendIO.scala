@@ -38,7 +38,7 @@ object EatValue1Append extends EatValue1Append
 trait EatValue1UpToTopAppend extends Any with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#Replace[I#Sub#AddItem[T]]
+  override type Append[T, I <: EatItem] = I#RightReplace[I#RightSub#AddRightItem[T]]
 
   override type UpToPItem1  = EatValue1UpToTopAppend
   override type UpToPItem2  = EatValue1UpToTopAppend
@@ -48,7 +48,7 @@ trait EatValue1UpToTopAppend extends Any with AppendIO {
   override def upToPItem2: EatValue1UpToTopAppend  = self
   override def upToTopItem: EatValue1UpToTopAppend = self
 
-  override def append[T, I <: EatItem](t: T, i: I): I#Replace[I#Sub#AddItem[T]] = i.replace(i.sub.addItem(t))
+  override def append[T, I <: EatItem](t: T, i: I): I#RightReplace[I#RightSub#AddRightItem[T]] = i.replace(i.sub.addRightItem(t))
 
 }
 
@@ -76,7 +76,7 @@ object EatValue2Append extends EatValue2Append
 trait EatValue2UpToTopAppend extends Any with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#Plus[EatValue2Append#Append[T, I#Sub]]
+  override type Append[T, I <: EatItem] = I#RightPlus[EatValue2Append#Append[T, I#RightSub]]
 
   override type UpToPItem1  = EatValue2UpToTopAppend
   override type UpToPItem2  = EatValue2UpToTopAppend
@@ -86,7 +86,7 @@ trait EatValue2UpToTopAppend extends Any with AppendIO {
   override def upToPItem2: EatValue2UpToTopAppend  = self
   override def upToTopItem: EatValue2UpToTopAppend = self
 
-  override def append[T, I <: EatItem](t: T, i: I): I#Plus[EatValue2Append#Append[T, I#Sub]] = i.plus(EatValue2Append.append(t, i.sub))
+  override def append[T, I <: EatItem](t: T, i: I): I#RightPlus[EatValue2Append#Append[T, I#RightSub]] = i.plus(EatValue2Append.append(t, i.sub))
 
 }
 
@@ -95,7 +95,7 @@ object EatValue2UpToTopAppend extends EatValue2UpToTopAppend
 class PItem1Append[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#Plus[T1#Append[T, I#Sub]]
+  override type Append[T, I <: EatItem] = I#RightPlus[T1#Append[T, I#RightSub]]
 
   override type UpToPItem1  = ReplaceAppend[PItem1Append[T1]]
   override type UpToPItem2  = ReplaceAppend[PItem1Append[T1]]
@@ -105,14 +105,14 @@ class PItem1Append[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   override def upToPItem2: ReplaceAppend[PItem1Append[T1]]  = new ReplaceAppend[PItem1Append[T1]](self)
   override def upToTopItem: ReplaceAppend[PItem1Append[T1]] = new ReplaceAppend[PItem1Append[T1]](self)
 
-  override def append[T, I <: EatItem](t: T, i: I): I#Plus[T1#Append[T, I#Sub]] = i.plus(sub.append(t, i.sub))
+  override def append[T, I <: EatItem](t: T, i: I): I#RightPlus[T1#Append[T, I#RightSub]] = i.plus(sub.append(t, i.sub))
 
 }
 
 class PItem2Append[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = PItem1[T1#Append[T, I#Sub]]
+  override type Append[T, I <: EatItem] = PItem1[T1#Append[T, I#RightSub]]
 
   override type UpToPItem1  = PItem1Append[PItem2Append[T1]]
   override type UpToPItem2  = PItem2Append[PItem2Append[T1]]
@@ -122,8 +122,8 @@ class PItem2Append[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   override def upToPItem2: PItem2Append[PItem2Append[T1]] = new PItem2Append[PItem2Append[T1]](self)
   override def upToTopItem: TopAppend[PItem2Append[T1]]   = new TopAppend[PItem2Append[T1]](self)
 
-  override def append[T, I <: EatItem](t: T, i: I): PItem1[T1#Append[T, I#Sub]] = new PItem1[T1#Append[T, I#Sub]] {
-    override val i1: T1#Append[T, I#Sub] = self.sub.append(t, i.sub)
+  override def append[T, I <: EatItem](t: T, i: I): PItem1[T1#Append[T, I#RightSub]] = new PItem1[T1#Append[T, I#RightSub]] {
+    override val i1: T1#Append[T, I#RightSub] = self.sub.append(t, i.sub)
   }
 
 }
@@ -131,7 +131,7 @@ class PItem2Append[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
 class ReplaceAppend[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#Replace[T1#Append[T, I#Sub]]
+  override type Append[T, I <: EatItem] = I#RightReplace[T1#Append[T, I#RightSub]]
 
   override type UpToPItem1  = ReplaceAppend[ReplaceAppend[T1]]
   override type UpToPItem2  = ReplaceAppend[ReplaceAppend[T1]]
@@ -141,14 +141,14 @@ class ReplaceAppend[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   override def upToPItem2: ReplaceAppend[ReplaceAppend[T1]]  = new ReplaceAppend[ReplaceAppend[T1]](self)
   override def upToTopItem: ReplaceAppend[ReplaceAppend[T1]] = new ReplaceAppend[ReplaceAppend[T1]](self)
 
-  override def append[T, I <: EatItem](t: T, i: I): I#Replace[T1#Append[T, I#Sub]] = i.replace(sub.append(t, i.sub))
+  override def append[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Append[T, I#RightSub]] = i.replace(sub.append(t, i.sub))
 
 }
 
 class TopAppend[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#Plus[T1#Append[T, I#Sub]]
+  override type Append[T, I <: EatItem] = I#RightPlus[T1#Append[T, I#RightSub]]
 
   override type UpToPItem1  = TopAppend[TopAppend[T1]]
   override type UpToPItem2  = TopAppend[TopAppend[T1]]
@@ -158,6 +158,6 @@ class TopAppend[T1 <: AppendIO](val sub: T1) extends AnyVal with AppendIO {
   override def upToPItem2: TopAppend[TopAppend[T1]]  = new TopAppend[TopAppend[T1]](self)
   override def upToTopItem: TopAppend[TopAppend[T1]] = new TopAppend[TopAppend[T1]](self)
 
-  override def append[T, I <: EatItem](t: T, i: I): I#Plus[T1#Append[T, I#Sub]] = i.plus(sub.append(t, i.sub))
+  override def append[T, I <: EatItem](t: T, i: I): I#RightPlus[T1#Append[T, I#RightSub]] = i.plus(sub.append(t, i.sub))
 
 }

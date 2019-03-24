@@ -17,7 +17,7 @@ trait CurrentIO extends Any {
 trait EatValue1Current extends Any with CurrentIO {
   self =>
 
-  override type Current[T, I <: EatItem] = I#AddItem[T]
+  override type Current[T, I <: EatItem] = I#AddRightItem[T]
 
   override type UpToPItem1 = ReplaceCurrent[EatValue1Current]
   override type UpToPItem2 = ReplaceCurrent[EatValue1Current]
@@ -25,7 +25,7 @@ trait EatValue1Current extends Any with CurrentIO {
   override def upToPItem1: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
   override def upToPItem2: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
 
-  override def current[T, I <: EatItem](t: T, i: I): I#AddItem[T] = i.addItem(t)
+  override def current[T, I <: EatItem](t: T, i: I): I#AddRightItem[T] = i.addRightItem(t)
 
 }
 
@@ -51,7 +51,7 @@ object EatValue2Current extends EatValue2Current
 class ReplaceCurrent[T1 <: CurrentIO](val sub: T1) extends AnyVal with CurrentIO {
   self =>
 
-  override type Current[T, I <: EatItem] = I#Replace[T1#Current[T, I#Sub]]
+  override type Current[T, I <: EatItem] = I#RightReplace[T1#Current[T, I#RightSub]]
 
   override type UpToPItem1 = ReplaceCurrent[ReplaceCurrent[T1]]
   override type UpToPItem2 = ReplaceCurrent[ReplaceCurrent[T1]]
@@ -59,6 +59,6 @@ class ReplaceCurrent[T1 <: CurrentIO](val sub: T1) extends AnyVal with CurrentIO
   override def upToPItem1: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
   override def upToPItem2: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
 
-  override def current[T, I <: EatItem](t: T, i: I): I#Replace[T1#Current[T, I#Sub]] = i.replace(sub.current(t, i.sub))
+  override def current[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Current[T, I#RightSub]] = i.replace(sub.current(t, i.sub))
 
 }
