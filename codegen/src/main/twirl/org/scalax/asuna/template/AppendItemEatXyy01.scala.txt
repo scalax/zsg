@@ -1,3 +1,0 @@
-@(count: Int)
-
-@org.scalax.asuna.codegen.TemplateTree.eatXyy(count)

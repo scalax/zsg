@@ -1,24 +1,12 @@
 @(count: Int)
 
-trait Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] {
+trait Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] extends Any {
     self =>
 
     @for(i <- 1 to count) {
         def i@{i}: I@{i}
     }
 
-    def eat[T](xyy: T): Item@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }] = new Item@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }] {
-        override def i1: T = xyy
-        @for(i <- 1 to count) {
-            override def i@{i + 1}: I@{i} = self.i@{i}
-        }
-    }
-
-    def eatToTuple[T](xyy: T): Tuple@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }] = {
-        (xyy,
-        @for(i <- 1 to count) {
-            self.i@{i} @if(i < count) { , }
-        })
-    }
+    def eat[T](xyy: T): Item@{count + 1}[@for(i <- 1 to count) { I@{i} @if(i < count) { , } }, T]
 
 }

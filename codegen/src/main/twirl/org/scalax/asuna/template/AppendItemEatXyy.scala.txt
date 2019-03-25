@@ -1,19 +1,26 @@
 @(maxItem: Int)
 
-trait Xyy[I] {
-  def item: I
+trait Xyy[I] extends Any {
+  protected def item: I
 }
 
-class ItemEatXyy0 extends Item0 {
-    @* override def eat[T](xyy: T): ItemPlusXyy1[T] = new ItemPlusXyy1(item = new ItemValue1(i1 = xyy)) *@
-    override def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+trait ArticleXyy0 extends Any with Article0 {
+    override def eat[T](xyy: T): ArticleXyy1[T]
 }
 
 @for(i <- 1 to maxItem) {
 
-    class ItemEatXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }](override val item: E[@org.scalax.asuna.template.txt.AppendItemEatXyy01(i)]) extends Xyy[E[@org.scalax.asuna.template.txt.AppendItemEatXyy01(i)]]
-    with Item@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }] {
+    trait ArticleXyy@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] extends Any with Xyy[EatValue0@for(ii <- i to 1 by (- 1)) { #AddRightItem[E@{ii}] }]
+    with Article@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] {
+        override protected def item: EatValue0@for(ii <- i to 1 by (- 1)) { #AddRightItem[E@{ii}] }
         @org.scalax.asuna.codegen.TemplateTree1.eatXyy(i)
+        override def eat[T](xyy: T): ArticleXyy@{i + 1}[T, @for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]
     }
 
+}
+
+trait ArticleXyy@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] extends Any with Xyy[EatValue0@for(ii <- (maxItem + 1) to 1 by (- 1)) { #AddRightItem[E@{ii}] }]
+with Article@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] {
+    override protected def item: EatValue0@for(ii <- (maxItem + 1) to 1 by (- 1)) { #AddRightItem[E@{ii}] }
+    @org.scalax.asuna.codegen.TemplateTree1.eatXyy((maxItem + 1))
 }

@@ -1,8 +1,8 @@
 @(maxItem: Int)
 
 class ItemValue0 extends Item0 {
-    override def eat[T](xyy: T): ItemValue1[T] = new ItemValue1(i1 = xyy)
-    override def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+    @* override def eat[T](xyy: T): ItemValue1[T] = new ItemValue1(i1 = xyy)
+    override def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy) *@
 }
 
 @for(i <- 1 to maxItem) {

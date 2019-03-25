@@ -1,11 +1,11 @@
 import scala.language.higherKinds
 
-trait CurrentIO {
+trait RightCurrentIO extends Any {
 
   type Current[T, I <: EatItem] <: EatItem
 
-  type UpToPItem1 <: CurrentIO
-  type UpToPItem2 <: CurrentIO
+  type UpToPItem1 <: RightCurrentIO
+  type UpToPItem2 <: RightCurrentIO
 
   def upToPItem1: UpToPItem1
   def upToPItem2: UpToPItem2
@@ -14,28 +14,24 @@ trait CurrentIO {
 
 }
 
-trait EatValue1Current extends CurrentIO {
+trait EatValue1Current extends Any with RightCurrentIO {
   self =>
 
-  override type Current[T, I <: EatItem] = I#AddItem[T]
+  override type Current[T, I <: EatItem] = I#AddRightItem[T]
 
   override type UpToPItem1 = ReplaceCurrent[EatValue1Current]
   override type UpToPItem2 = ReplaceCurrent[EatValue1Current]
 
-  override def upToPItem1: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current] {
-    override val sub = self
-  }
-  override def upToPItem2: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current] {
-    override val sub = self
-  }
+  override def upToPItem1: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
+  override def upToPItem2: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
 
-  override def current[T, I <: EatItem](t: T, i: I): I#AddItem[T] = i.addItem(t)
+  override def current[T, I <: EatItem](t: T, i: I): I#AddRightItem[T] = i.addRightItem(t)
 
 }
 
 object EatValue1Current extends EatValue1Current
 
-trait EatValue2Current extends CurrentIO {
+trait EatValue2Current extends Any with RightCurrentIO {
   self =>
 
   override type Current[T, I <: EatItem] = I
@@ -52,23 +48,17 @@ trait EatValue2Current extends CurrentIO {
 
 object EatValue2Current extends EatValue2Current
 
-trait ReplaceCurrent[T1 <: CurrentIO] extends CurrentIO {
+class ReplaceCurrent[T1 <: RightCurrentIO](val sub: T1) extends AnyVal with RightCurrentIO {
   self =>
 
-  override type Current[T, I <: EatItem] = I#Replace[T1#Current[T, I#Sub]]
+  override type Current[T, I <: EatItem] = I#RightReplace[T1#Current[T, I#RightSub]]
 
   override type UpToPItem1 = ReplaceCurrent[ReplaceCurrent[T1]]
   override type UpToPItem2 = ReplaceCurrent[ReplaceCurrent[T1]]
 
-  override def upToPItem1: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]] {
-    override val sub = self
-  }
-  override def upToPItem2: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]] {
-    override val sub = self
-  }
+  override def upToPItem1: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
+  override def upToPItem2: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
 
-  def sub: T1
-
-  override def current[T, I <: EatItem](t: T, i: I): I#Replace[T1#Current[T, I#Sub]] = i.replace(sub.current(t, i.sub))
+  override def current[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Current[T, I#RightSub]] = i.rightReplace(sub.current(t, i.rightSub))
 
 }
