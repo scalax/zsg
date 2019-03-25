@@ -5,7 +5,7 @@ class ItemValue@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }](@
 }) extends Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] {
     self =>
 
-    override def eat[T](xyy: T): ItemValue@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }] = new ItemValue@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }](
+    @* override def eat[T](xyy: T): ItemValue@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }] = new ItemValue@{count + 1}[T, @for(i <- 1 to count) { I@{i} @if(i < count) { , } }](
         i1 = xyy,
         @for(i <- 1 to count) {
             i@{i + 1} = self.i@{i} @if(i < count) { , }
@@ -17,6 +17,6 @@ class ItemValue@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }](@
         @for(i <- 1 to count) {
             self.i@{i} @if(i < count) { , }
         })
-    }
+    } *@
 
 }

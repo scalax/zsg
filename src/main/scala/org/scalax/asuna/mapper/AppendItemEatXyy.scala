@@ -1,348 +1,460 @@
 trait Xyy[I] extends Any {
-def item: I
+  def item: I
 }
-trait ItemEatXyy0 extends Any with Item0 {
-override def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+trait ArticleXyy0 extends Any with Article0 {}
+trait ArticleXyy1[E1] extends Any with Xyy[EatValue0#AddRightItem[E1]] with Article1[E1] {
+  override def item: EatValue0#AddRightItem[E1]
+  override def e1: E1 = item.item.i1
 }
-class ItemEatXyy1[I1](override val item: EatValue0#AddRightItem[I1]) extends AnyVal with Xyy[EatValue0#AddRightItem[I1]] with Item1[I1] {
-override def i1: I1 = item.item.i1
-def addRightItem[T](xyy: T): ItemEatXyy2[I1, T] = new ItemEatXyy2(new E(new PItem2[EatValue1[I1], EatValue1[T]] {
-override val i1 = item.item
-override val i2 = new EatValue1(xyy)
-}))
+trait ArticleXyy2[E1, E2] extends Any with Xyy[EatValue0#AddRightItem[E2]#AddRightItem[E1]] with Article2[E1, E2] {
+  override def item: EatValue0#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2
+  override def e2: E2 = item.item.i1
 }
-class ItemEatXyy2[ I1  ,   I2  ](override val item: EatValue0#Add2Item[I1, I2]) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2]]
-with Item2[ I1  ,   I2  ] {
-override def i1: I1 = item.item.i1.i1
-override def i2: I2 = item.item.i2.i1
-def addRightItem[T](xyy: T): ItemEatXyy3[ I1  ,   I2  , T] = new ItemEatXyy3(item.addRightItem(xyy))
+trait ArticleXyy3[E1, E2, E3] extends Any with Xyy[EatValue0#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]] with Article3[E1, E2, E3] {
+  override def item: EatValue0#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i1
+  override def e2: E2 = item.item.i1.i2
+  override def e3: E3 = item.item.i1.i1
 }
-class ItemEatXyy3[ I1  ,   I2  ,   I3  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3] ]
-with Item3[ I1  ,   I2  ,   I3  ] {
-override def i1: I1 = item.item.i1.i1
-override def i2: I2 = item.item.i2.i1
-override def i3: I3 = item.item.i2.i2
-def addRightItem[T](xyy: T): ItemEatXyy4[ I1  ,   I2  ,   I3  , T] = new ItemEatXyy4(item.addRightItem(xyy))
+trait ArticleXyy4[E1, E2, E3, E4] extends Any with Xyy[EatValue0#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]] with Article4[E1, E2, E3, E4] {
+  override def item: EatValue0#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i2
+  override def e2: E2 = item.item.i2.i1
+  override def e3: E3 = item.item.i1.i2
+  override def e4: E4 = item.item.i1.i1
 }
-class ItemEatXyy4[ I1  ,   I2  ,   I3  ,   I4  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4] ]
-with Item4[ I1  ,   I2  ,   I3  ,   I4  ] {
-override def i1: I1 = item.item.i1.i1.i1
-override def i2: I2 = item.item.i1.i2.i1
-override def i3: I3 = item.item.i1.i2.i2
-override def i4: I4 = item.item.i2.i1.i1
-def addRightItem[T](xyy: T): ItemEatXyy5[ I1  ,   I2  ,   I3  ,   I4  , T] = new ItemEatXyy5(item.addRightItem(xyy))
+trait ArticleXyy5[E1, E2, E3, E4, E5]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article5[E1, E2, E3, E4, E5] {
+  override def item: EatValue0#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i1.i1
+  override def e2: E2 = item.item.i1.i2.i2
+  override def e3: E3 = item.item.i1.i2.i1
+  override def e4: E4 = item.item.i1.i1.i2
+  override def e5: E5 = item.item.i1.i1.i1
 }
-class ItemEatXyy5[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5] ]
-with Item5[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ] {
-override def i1: I1 = item.item.i1.i1.i1
-override def i2: I2 = item.item.i1.i2.i1
-override def i3: I3 = item.item.i1.i2.i2
-override def i4: I4 = item.item.i2.i1.i1
-override def i5: I5 = item.item.i2.i1.i2
-def addRightItem[T](xyy: T): ItemEatXyy6[ I1  ,   I2  ,   I3  ,   I4  ,   I5  , T] = new ItemEatXyy6(item.addRightItem(xyy))
+trait ArticleXyy6[E1, E2, E3, E4, E5, E6]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article6[E1, E2, E3, E4, E5, E6] {
+  override def item: EatValue0#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i1.i2
+  override def e2: E2 = item.item.i2.i1.i1
+  override def e3: E3 = item.item.i1.i2.i2
+  override def e4: E4 = item.item.i1.i2.i1
+  override def e5: E5 = item.item.i1.i1.i2
+  override def e6: E6 = item.item.i1.i1.i1
 }
-class ItemEatXyy6[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6] ]
-with Item6[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ] {
-override def i1: I1 = item.item.i1.i1.i1
-override def i2: I2 = item.item.i1.i2.i1
-override def i3: I3 = item.item.i1.i2.i2
-override def i4: I4 = item.item.i2.i1.i1
-override def i5: I5 = item.item.i2.i1.i2
-override def i6: I6 = item.item.i2.i2.i1
-def addRightItem[T](xyy: T): ItemEatXyy7[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  , T] = new ItemEatXyy7(item.addRightItem(xyy))
+trait ArticleXyy7[E1, E2, E3, E4, E5, E6, E7]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article7[E1, E2, E3, E4, E5, E6, E7] {
+  override def item: EatValue0#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i2.i1
+  override def e2: E2 = item.item.i2.i1.i2
+  override def e3: E3 = item.item.i2.i1.i1
+  override def e4: E4 = item.item.i1.i2.i2
+  override def e5: E5 = item.item.i1.i2.i1
+  override def e6: E6 = item.item.i1.i1.i2
+  override def e7: E7 = item.item.i1.i1.i1
 }
-class ItemEatXyy7[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7] ]
-with Item7[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ] {
-override def i1: I1 = item.item.i1.i1.i1
-override def i2: I2 = item.item.i1.i2.i1
-override def i3: I3 = item.item.i1.i2.i2
-override def i4: I4 = item.item.i2.i1.i1
-override def i5: I5 = item.item.i2.i1.i2
-override def i6: I6 = item.item.i2.i2.i1
-override def i7: I7 = item.item.i2.i2.i2
-def addRightItem[T](xyy: T): ItemEatXyy8[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  , T] = new ItemEatXyy8(item.addRightItem(xyy))
+trait ArticleXyy8[E1, E2, E3, E4, E5, E6, E7, E8]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article8[E1, E2, E3, E4, E5, E6, E7, E8] {
+  override def item: EatValue0#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i2.i2
+  override def e2: E2 = item.item.i2.i2.i1
+  override def e3: E3 = item.item.i2.i1.i2
+  override def e4: E4 = item.item.i2.i1.i1
+  override def e5: E5 = item.item.i1.i2.i2
+  override def e6: E6 = item.item.i1.i2.i1
+  override def e7: E7 = item.item.i1.i1.i2
+  override def e8: E8 = item.item.i1.i1.i1
 }
-class ItemEatXyy8[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8] ]
-with Item8[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-def addRightItem[T](xyy: T): ItemEatXyy9[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  , T] = new ItemEatXyy9(item.addRightItem(xyy))
+trait ArticleXyy9[E1, E2, E3, E4, E5, E6, E7, E8, E9]
+    extends Any
+    with Xyy[
+      EatValue0#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+    ]
+    with Article9[E1, E2, E3, E4, E5, E6, E7, E8, E9] {
+  override def item
+    : EatValue0#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1 = item.item.i2.i1.i1.i1
+  override def e2: E2 = item.item.i1.i2.i2.i2
+  override def e3: E3 = item.item.i1.i2.i2.i1
+  override def e4: E4 = item.item.i1.i2.i1.i2
+  override def e5: E5 = item.item.i1.i2.i1.i1
+  override def e6: E6 = item.item.i1.i1.i2.i2
+  override def e7: E7 = item.item.i1.i1.i2.i1
+  override def e8: E8 = item.item.i1.i1.i1.i2
+  override def e9: E9 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy9[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9] ]
-with Item9[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-def addRightItem[T](xyy: T): ItemEatXyy10[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  , T] = new ItemEatXyy10(item.addRightItem(xyy))
+trait ArticleXyy10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[
+      E2
+    ]#AddRightItem[E1]]
+    with Article10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] {
+  override def item: EatValue0#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[
+    E2
+  ]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i1.i2
+  override def e2: E2   = item.item.i2.i1.i1.i1
+  override def e3: E3   = item.item.i1.i2.i2.i2
+  override def e4: E4   = item.item.i1.i2.i2.i1
+  override def e5: E5   = item.item.i1.i2.i1.i2
+  override def e6: E6   = item.item.i1.i2.i1.i1
+  override def e7: E7   = item.item.i1.i1.i2.i2
+  override def e8: E8   = item.item.i1.i1.i2.i1
+  override def e9: E9   = item.item.i1.i1.i1.i2
+  override def e10: E10 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy10[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10] ]
-with Item10[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-def addRightItem[T](xyy: T): ItemEatXyy11[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  , T] = new ItemEatXyy11(item.addRightItem(xyy))
+trait ArticleXyy11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[
+      E3
+    ]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11] {
+  override def item: EatValue0#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[
+    E3
+  ]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i2.i1
+  override def e2: E2   = item.item.i2.i1.i1.i2
+  override def e3: E3   = item.item.i2.i1.i1.i1
+  override def e4: E4   = item.item.i1.i2.i2.i2
+  override def e5: E5   = item.item.i1.i2.i2.i1
+  override def e6: E6   = item.item.i1.i2.i1.i2
+  override def e7: E7   = item.item.i1.i2.i1.i1
+  override def e8: E8   = item.item.i1.i1.i2.i2
+  override def e9: E9   = item.item.i1.i1.i2.i1
+  override def e10: E10 = item.item.i1.i1.i1.i2
+  override def e11: E11 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy11[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11] ]
-with Item11[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-override def i11: I11 = item.item.i2.i1.i2.i2
-def addRightItem[T](xyy: T): ItemEatXyy12[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  , T] = new ItemEatXyy12(item.addRightItem(xyy))
+trait ArticleXyy12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]
+    extends Any
+    with Xyy[
+      EatValue0#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[
+        E4
+      ]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+    ]
+    with Article12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12] {
+  override def item
+    : EatValue0#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[
+      E4
+    ]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i2.i2
+  override def e2: E2   = item.item.i2.i1.i2.i1
+  override def e3: E3   = item.item.i2.i1.i1.i2
+  override def e4: E4   = item.item.i2.i1.i1.i1
+  override def e5: E5   = item.item.i1.i2.i2.i2
+  override def e6: E6   = item.item.i1.i2.i2.i1
+  override def e7: E7   = item.item.i1.i2.i1.i2
+  override def e8: E8   = item.item.i1.i2.i1.i1
+  override def e9: E9   = item.item.i1.i1.i2.i2
+  override def e10: E10 = item.item.i1.i1.i2.i1
+  override def e11: E11 = item.item.i1.i1.i1.i2
+  override def e12: E12 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy12[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12] ]
-with Item12[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-override def i11: I11 = item.item.i2.i1.i2.i2
-override def i12: I12 = item.item.i2.i2.i1.i1
-def addRightItem[T](xyy: T): ItemEatXyy13[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  , T] = new ItemEatXyy13(item.addRightItem(xyy))
+trait ArticleXyy13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]
+    extends Any
+    with Xyy[
+      EatValue0#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[
+        E5
+      ]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+    ]
+    with Article13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] {
+  override def item
+    : EatValue0#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[
+      E5
+    ]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i2.i1.i1
+  override def e2: E2   = item.item.i2.i1.i2.i2
+  override def e3: E3   = item.item.i2.i1.i2.i1
+  override def e4: E4   = item.item.i2.i1.i1.i2
+  override def e5: E5   = item.item.i2.i1.i1.i1
+  override def e6: E6   = item.item.i1.i2.i2.i2
+  override def e7: E7   = item.item.i1.i2.i2.i1
+  override def e8: E8   = item.item.i1.i2.i1.i2
+  override def e9: E9   = item.item.i1.i2.i1.i1
+  override def e10: E10 = item.item.i1.i1.i2.i2
+  override def e11: E11 = item.item.i1.i1.i2.i1
+  override def e12: E12 = item.item.i1.i1.i1.i2
+  override def e13: E13 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy13[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13] ]
-with Item13[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-override def i11: I11 = item.item.i2.i1.i2.i2
-override def i12: I12 = item.item.i2.i2.i1.i1
-override def i13: I13 = item.item.i2.i2.i1.i2
-def addRightItem[T](xyy: T): ItemEatXyy14[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  , T] = new ItemEatXyy14(item.addRightItem(xyy))
+trait ArticleXyy14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
+    extends Any
+    with Xyy[
+      EatValue0#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[
+        E6
+      ]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+    ]
+    with Article14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] {
+  override def item: EatValue0#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[
+    E7
+  ]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i2.i1.i2
+  override def e2: E2   = item.item.i2.i2.i1.i1
+  override def e3: E3   = item.item.i2.i1.i2.i2
+  override def e4: E4   = item.item.i2.i1.i2.i1
+  override def e5: E5   = item.item.i2.i1.i1.i2
+  override def e6: E6   = item.item.i2.i1.i1.i1
+  override def e7: E7   = item.item.i1.i2.i2.i2
+  override def e8: E8   = item.item.i1.i2.i2.i1
+  override def e9: E9   = item.item.i1.i2.i1.i2
+  override def e10: E10 = item.item.i1.i2.i1.i1
+  override def e11: E11 = item.item.i1.i1.i2.i2
+  override def e12: E12 = item.item.i1.i1.i2.i1
+  override def e13: E13 = item.item.i1.i1.i1.i2
+  override def e14: E14 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy14[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14] ]
-with Item14[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-override def i11: I11 = item.item.i2.i1.i2.i2
-override def i12: I12 = item.item.i2.i2.i1.i1
-override def i13: I13 = item.item.i2.i2.i1.i2
-override def i14: I14 = item.item.i2.i2.i2.i1
-def addRightItem[T](xyy: T): ItemEatXyy15[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  , T] = new ItemEatXyy15(item.addRightItem(xyy))
+trait ArticleXyy15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]
+    extends Any
+    with Xyy[
+      EatValue0#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[
+        E7
+      ]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+    ]
+    with Article15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15] {
+  override def item: EatValue0#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[
+    E8
+  ]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i2.i2.i1
+  override def e2: E2   = item.item.i2.i2.i1.i2
+  override def e3: E3   = item.item.i2.i2.i1.i1
+  override def e4: E4   = item.item.i2.i1.i2.i2
+  override def e5: E5   = item.item.i2.i1.i2.i1
+  override def e6: E6   = item.item.i2.i1.i1.i2
+  override def e7: E7   = item.item.i2.i1.i1.i1
+  override def e8: E8   = item.item.i1.i2.i2.i2
+  override def e9: E9   = item.item.i1.i2.i2.i1
+  override def e10: E10 = item.item.i1.i2.i1.i2
+  override def e11: E11 = item.item.i1.i2.i1.i1
+  override def e12: E12 = item.item.i1.i1.i2.i2
+  override def e13: E13 = item.item.i1.i1.i2.i1
+  override def e14: E14 = item.item.i1.i1.i1.i2
+  override def e15: E15 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy15[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15] ]
-with Item15[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i2.i2.i2
-override def i8: I8 = item.item.i2.i1.i1.i1
-override def i9: I9 = item.item.i2.i1.i1.i2
-override def i10: I10 = item.item.i2.i1.i2.i1
-override def i11: I11 = item.item.i2.i1.i2.i2
-override def i12: I12 = item.item.i2.i2.i1.i1
-override def i13: I13 = item.item.i2.i2.i1.i2
-override def i14: I14 = item.item.i2.i2.i2.i1
-override def i15: I15 = item.item.i2.i2.i2.i2
-def addRightItem[T](xyy: T): ItemEatXyy16[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  , T] = new ItemEatXyy16(item.addRightItem(xyy))
+trait ArticleXyy16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[
+      E8
+    ]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16] {
+  override def item: EatValue0#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[
+    E9
+  ]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i2.i2.i2
+  override def e2: E2   = item.item.i2.i2.i2.i1
+  override def e3: E3   = item.item.i2.i2.i1.i2
+  override def e4: E4   = item.item.i2.i2.i1.i1
+  override def e5: E5   = item.item.i2.i1.i2.i2
+  override def e6: E6   = item.item.i2.i1.i2.i1
+  override def e7: E7   = item.item.i2.i1.i1.i2
+  override def e8: E8   = item.item.i2.i1.i1.i1
+  override def e9: E9   = item.item.i1.i2.i2.i2
+  override def e10: E10 = item.item.i1.i2.i2.i1
+  override def e11: E11 = item.item.i1.i2.i1.i2
+  override def e12: E12 = item.item.i1.i2.i1.i1
+  override def e13: E13 = item.item.i1.i1.i2.i2
+  override def e14: E14 = item.item.i1.i1.i2.i1
+  override def e15: E15 = item.item.i1.i1.i1.i2
+  override def e16: E16 = item.item.i1.i1.i1.i1
 }
-class ItemEatXyy16[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16] ]
-with Item16[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-def addRightItem[T](xyy: T): ItemEatXyy17[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  , T] = new ItemEatXyy17(item.addRightItem(xyy))
+trait ArticleXyy17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[
+      E9
+    ]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] {
+  override def item: EatValue0#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[
+    E10
+  ]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i1.i1.i1
+  override def e2: E2   = item.item.i1.i2.i2.i2.i2
+  override def e3: E3   = item.item.i1.i2.i2.i2.i1
+  override def e4: E4   = item.item.i1.i2.i2.i1.i2
+  override def e5: E5   = item.item.i1.i2.i2.i1.i1
+  override def e6: E6   = item.item.i1.i2.i1.i2.i2
+  override def e7: E7   = item.item.i1.i2.i1.i2.i1
+  override def e8: E8   = item.item.i1.i2.i1.i1.i2
+  override def e9: E9   = item.item.i1.i2.i1.i1.i1
+  override def e10: E10 = item.item.i1.i1.i2.i2.i2
+  override def e11: E11 = item.item.i1.i1.i2.i2.i1
+  override def e12: E12 = item.item.i1.i1.i2.i1.i2
+  override def e13: E13 = item.item.i1.i1.i2.i1.i1
+  override def e14: E14 = item.item.i1.i1.i1.i2.i2
+  override def e15: E15 = item.item.i1.i1.i1.i2.i1
+  override def e16: E16 = item.item.i1.i1.i1.i1.i2
+  override def e17: E17 = item.item.i1.i1.i1.i1.i1
 }
-class ItemEatXyy17[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17] ]
-with Item17[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-def addRightItem[T](xyy: T): ItemEatXyy18[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  , T] = new ItemEatXyy18(item.addRightItem(xyy))
+trait ArticleXyy18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[
+      E10
+    ]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] {
+  override def item: EatValue0#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[
+    E11
+  ]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[
+    E1
+  ]
+  override def e1: E1   = item.item.i2.i1.i1.i1.i2
+  override def e2: E2   = item.item.i2.i1.i1.i1.i1
+  override def e3: E3   = item.item.i1.i2.i2.i2.i2
+  override def e4: E4   = item.item.i1.i2.i2.i2.i1
+  override def e5: E5   = item.item.i1.i2.i2.i1.i2
+  override def e6: E6   = item.item.i1.i2.i2.i1.i1
+  override def e7: E7   = item.item.i1.i2.i1.i2.i2
+  override def e8: E8   = item.item.i1.i2.i1.i2.i1
+  override def e9: E9   = item.item.i1.i2.i1.i1.i2
+  override def e10: E10 = item.item.i1.i2.i1.i1.i1
+  override def e11: E11 = item.item.i1.i1.i2.i2.i2
+  override def e12: E12 = item.item.i1.i1.i2.i2.i1
+  override def e13: E13 = item.item.i1.i1.i2.i1.i2
+  override def e14: E14 = item.item.i1.i1.i2.i1.i1
+  override def e15: E15 = item.item.i1.i1.i1.i2.i2
+  override def e16: E16 = item.item.i1.i1.i1.i2.i1
+  override def e17: E17 = item.item.i1.i1.i1.i1.i2
+  override def e18: E18 = item.item.i1.i1.i1.i1.i1
 }
-class ItemEatXyy18[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18] ]
-with Item18[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-override def i18: I18 = item.item.i2.i1.i1.i2.i1
-def addRightItem[T](xyy: T): ItemEatXyy19[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  , T] = new ItemEatXyy19(item.addRightItem(xyy))
+trait ArticleXyy19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[
+      E11
+    ]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[
+      E1
+    ]]
+    with Article19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] {
+  override def item: EatValue0#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[
+    E12
+  ]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[
+    E2
+  ]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i1.i2.i1
+  override def e2: E2   = item.item.i2.i1.i1.i1.i2
+  override def e3: E3   = item.item.i2.i1.i1.i1.i1
+  override def e4: E4   = item.item.i1.i2.i2.i2.i2
+  override def e5: E5   = item.item.i1.i2.i2.i2.i1
+  override def e6: E6   = item.item.i1.i2.i2.i1.i2
+  override def e7: E7   = item.item.i1.i2.i2.i1.i1
+  override def e8: E8   = item.item.i1.i2.i1.i2.i2
+  override def e9: E9   = item.item.i1.i2.i1.i2.i1
+  override def e10: E10 = item.item.i1.i2.i1.i1.i2
+  override def e11: E11 = item.item.i1.i2.i1.i1.i1
+  override def e12: E12 = item.item.i1.i1.i2.i2.i2
+  override def e13: E13 = item.item.i1.i1.i2.i2.i1
+  override def e14: E14 = item.item.i1.i1.i2.i1.i2
+  override def e15: E15 = item.item.i1.i1.i2.i1.i1
+  override def e16: E16 = item.item.i1.i1.i1.i2.i2
+  override def e17: E17 = item.item.i1.i1.i1.i2.i1
+  override def e18: E18 = item.item.i1.i1.i1.i1.i2
+  override def e19: E19 = item.item.i1.i1.i1.i1.i1
 }
-class ItemEatXyy19[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19] ]
-with Item19[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-override def i18: I18 = item.item.i2.i1.i1.i2.i1
-override def i19: I19 = item.item.i2.i1.i1.i2.i2
-def addRightItem[T](xyy: T): ItemEatXyy20[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  , T] = new ItemEatXyy20(item.addRightItem(xyy))
+trait ArticleXyy20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[
+      E12
+    ]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[
+      E2
+    ]#AddRightItem[E1]]
+    with Article20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] {
+  override def item: EatValue0#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[
+    E13
+  ]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[
+    E3
+  ]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i1.i2.i2
+  override def e2: E2   = item.item.i2.i1.i1.i2.i1
+  override def e3: E3   = item.item.i2.i1.i1.i1.i2
+  override def e4: E4   = item.item.i2.i1.i1.i1.i1
+  override def e5: E5   = item.item.i1.i2.i2.i2.i2
+  override def e6: E6   = item.item.i1.i2.i2.i2.i1
+  override def e7: E7   = item.item.i1.i2.i2.i1.i2
+  override def e8: E8   = item.item.i1.i2.i2.i1.i1
+  override def e9: E9   = item.item.i1.i2.i1.i2.i2
+  override def e10: E10 = item.item.i1.i2.i1.i2.i1
+  override def e11: E11 = item.item.i1.i2.i1.i1.i2
+  override def e12: E12 = item.item.i1.i2.i1.i1.i1
+  override def e13: E13 = item.item.i1.i1.i2.i2.i2
+  override def e14: E14 = item.item.i1.i1.i2.i2.i1
+  override def e15: E15 = item.item.i1.i1.i2.i1.i2
+  override def e16: E16 = item.item.i1.i1.i2.i1.i1
+  override def e17: E17 = item.item.i1.i1.i1.i2.i2
+  override def e18: E18 = item.item.i1.i1.i1.i2.i1
+  override def e19: E19 = item.item.i1.i1.i1.i1.i2
+  override def e20: E20 = item.item.i1.i1.i1.i1.i1
 }
-class ItemEatXyy20[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20] ]
-with Item20[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-override def i18: I18 = item.item.i2.i1.i1.i2.i1
-override def i19: I19 = item.item.i2.i1.i1.i2.i2
-override def i20: I20 = item.item.i2.i1.i2.i1.i1
-def addRightItem[T](xyy: T): ItemEatXyy21[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  , T] = new ItemEatXyy21(item.addRightItem(xyy))
+trait ArticleXyy21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E21]#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[E14]#AddRightItem[
+      E13
+    ]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[E4]#AddRightItem[
+      E3
+    ]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] {
+  override def item: EatValue0#AddRightItem[E21]#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[
+    E14
+  ]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[
+    E4
+  ]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i2.i1.i1
+  override def e2: E2   = item.item.i2.i1.i1.i2.i2
+  override def e3: E3   = item.item.i2.i1.i1.i2.i1
+  override def e4: E4   = item.item.i2.i1.i1.i1.i2
+  override def e5: E5   = item.item.i2.i1.i1.i1.i1
+  override def e6: E6   = item.item.i1.i2.i2.i2.i2
+  override def e7: E7   = item.item.i1.i2.i2.i2.i1
+  override def e8: E8   = item.item.i1.i2.i2.i1.i2
+  override def e9: E9   = item.item.i1.i2.i2.i1.i1
+  override def e10: E10 = item.item.i1.i2.i1.i2.i2
+  override def e11: E11 = item.item.i1.i2.i1.i2.i1
+  override def e12: E12 = item.item.i1.i2.i1.i1.i2
+  override def e13: E13 = item.item.i1.i2.i1.i1.i1
+  override def e14: E14 = item.item.i1.i1.i2.i2.i2
+  override def e15: E15 = item.item.i1.i1.i2.i2.i1
+  override def e16: E16 = item.item.i1.i1.i2.i1.i2
+  override def e17: E17 = item.item.i1.i1.i2.i1.i1
+  override def e18: E18 = item.item.i1.i1.i1.i2.i2
+  override def e19: E19 = item.item.i1.i1.i1.i2.i1
+  override def e20: E20 = item.item.i1.i1.i1.i1.i2
+  override def e21: E21 = item.item.i1.i1.i1.i1.i1
 }
-class ItemEatXyy21[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ,   I21  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20]  #AddRightItem[I21] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20]  #AddRightItem[I21] ]
-with Item21[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ,   I21  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-override def i18: I18 = item.item.i2.i1.i1.i2.i1
-override def i19: I19 = item.item.i2.i1.i1.i2.i2
-override def i20: I20 = item.item.i2.i1.i2.i1.i1
-override def i21: I21 = item.item.i2.i1.i2.i1.i2
-def addRightItem[T](xyy: T): ItemEatXyy22[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ,   I21  , T] = new ItemEatXyy22(item.addRightItem(xyy))
-}
-class ItemEatXyy22[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ,   I21  ,   I22  ](override val item: EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20]  #AddRightItem[I21]  #AddRightItem[I22] ) extends AnyVal with Xyy[EatValue0#Add2Item[I1, I2] #AddRightItem[I3]  #AddRightItem[I4]  #AddRightItem[I5]  #AddRightItem[I6]  #AddRightItem[I7]  #AddRightItem[I8]  #AddRightItem[I9]  #AddRightItem[I10]  #AddRightItem[I11]  #AddRightItem[I12]  #AddRightItem[I13]  #AddRightItem[I14]  #AddRightItem[I15]  #AddRightItem[I16]  #AddRightItem[I17]  #AddRightItem[I18]  #AddRightItem[I19]  #AddRightItem[I20]  #AddRightItem[I21]  #AddRightItem[I22] ]
-with Item22[ I1  ,   I2  ,   I3  ,   I4  ,   I5  ,   I6  ,   I7  ,   I8  ,   I9  ,   I10  ,   I11  ,   I12  ,   I13  ,   I14  ,   I15  ,   I16  ,   I17  ,   I18  ,   I19  ,   I20  ,   I21  ,   I22  ] {
-override def i1: I1 = item.item.i1.i1.i1.i1.i1
-override def i2: I2 = item.item.i1.i1.i1.i2.i1
-override def i3: I3 = item.item.i1.i1.i1.i2.i2
-override def i4: I4 = item.item.i1.i1.i2.i1.i1
-override def i5: I5 = item.item.i1.i1.i2.i1.i2
-override def i6: I6 = item.item.i1.i1.i2.i2.i1
-override def i7: I7 = item.item.i1.i1.i2.i2.i2
-override def i8: I8 = item.item.i1.i2.i1.i1.i1
-override def i9: I9 = item.item.i1.i2.i1.i1.i2
-override def i10: I10 = item.item.i1.i2.i1.i2.i1
-override def i11: I11 = item.item.i1.i2.i1.i2.i2
-override def i12: I12 = item.item.i1.i2.i2.i1.i1
-override def i13: I13 = item.item.i1.i2.i2.i1.i2
-override def i14: I14 = item.item.i1.i2.i2.i2.i1
-override def i15: I15 = item.item.i1.i2.i2.i2.i2
-override def i16: I16 = item.item.i2.i1.i1.i1.i1
-override def i17: I17 = item.item.i2.i1.i1.i1.i2
-override def i18: I18 = item.item.i2.i1.i1.i2.i1
-override def i19: I19 = item.item.i2.i1.i1.i2.i2
-override def i20: I20 = item.item.i2.i1.i2.i1.i1
-override def i21: I21 = item.item.i2.i1.i2.i1.i2
-override def i22: I22 = item.item.i2.i1.i2.i2.i1
+trait ArticleXyy22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]
+    extends Any
+    with Xyy[EatValue0#AddRightItem[E22]#AddRightItem[E21]#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[E15]#AddRightItem[
+      E14
+    ]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[E5]#AddRightItem[
+      E4
+    ]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]]
+    with Article22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
+  override def item: EatValue0#AddRightItem[E22]#AddRightItem[E21]#AddRightItem[E20]#AddRightItem[E19]#AddRightItem[E18]#AddRightItem[E17]#AddRightItem[E16]#AddRightItem[
+    E15
+  ]#AddRightItem[E14]#AddRightItem[E13]#AddRightItem[E12]#AddRightItem[E11]#AddRightItem[E10]#AddRightItem[E9]#AddRightItem[E8]#AddRightItem[E7]#AddRightItem[E6]#AddRightItem[
+    E5
+  ]#AddRightItem[E4]#AddRightItem[E3]#AddRightItem[E2]#AddRightItem[E1]
+  override def e1: E1   = item.item.i2.i1.i2.i1.i2
+  override def e2: E2   = item.item.i2.i1.i2.i1.i1
+  override def e3: E3   = item.item.i2.i1.i1.i2.i2
+  override def e4: E4   = item.item.i2.i1.i1.i2.i1
+  override def e5: E5   = item.item.i2.i1.i1.i1.i2
+  override def e6: E6   = item.item.i2.i1.i1.i1.i1
+  override def e7: E7   = item.item.i1.i2.i2.i2.i2
+  override def e8: E8   = item.item.i1.i2.i2.i2.i1
+  override def e9: E9   = item.item.i1.i2.i2.i1.i2
+  override def e10: E10 = item.item.i1.i2.i2.i1.i1
+  override def e11: E11 = item.item.i1.i2.i1.i2.i2
+  override def e12: E12 = item.item.i1.i2.i1.i2.i1
+  override def e13: E13 = item.item.i1.i2.i1.i1.i2
+  override def e14: E14 = item.item.i1.i2.i1.i1.i1
+  override def e15: E15 = item.item.i1.i1.i2.i2.i2
+  override def e16: E16 = item.item.i1.i1.i2.i2.i1
+  override def e17: E17 = item.item.i1.i1.i2.i1.i2
+  override def e18: E18 = item.item.i1.i1.i2.i1.i1
+  override def e19: E19 = item.item.i1.i1.i1.i2.i2
+  override def e20: E20 = item.item.i1.i1.i1.i2.i1
+  override def e21: E21 = item.item.i1.i1.i1.i1.i2
+  override def e22: E22 = item.item.i1.i1.i1.i1.i1
 }

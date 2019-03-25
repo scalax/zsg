@@ -1,0 +1,10 @@
+@(count: Int)
+
+trait Article@{count} [@for(i <- 1 to count) { E@{i} @if(i < count) { , } }] extends Any {
+    self =>
+
+    @for(i <- 1 to count) {
+        def e@{i}: E@{i}
+    }
+
+}

@@ -159,17 +159,17 @@ object TemplateTree1 {
     val i = Accumulation.toT(
         Accumulation.build[TemplateUtils2.TreeNodeType](
           new TemplateUtils2.NameTree {
-          override val name = Option.empty
+          override val name = Option((s"override def e${index}: E${index} = ", ""))
         }
-        , (1 to index).toVector.map { t =>
+        , ((index - 1) to 1 by (-1)).toVector.map { t =>
           new TemplateUtils2.NameTree {
-            override val name = Option((s"override def i${t}: I${t} = ", ""))
+            override val name = Option((s"override def e${t}: E${t} = ", ""))
           }
         }
       )
       , TemplateUtils2.accumulation
     )
-    i.content.map { case (i1, i2) => s"${i1}item.item${i2}" }.mkString("\n")
+    i.content.reverse.map { case (i1, i2) => s"${i1}item.item${i2}" }.mkString("\n")
   }
 
   def plusXyy(index: Int): String = {

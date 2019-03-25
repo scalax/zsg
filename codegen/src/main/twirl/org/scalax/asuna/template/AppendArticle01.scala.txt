@@ -1,10 +1,10 @@
 @(count: Int)
 
-trait Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] extends Any {
+trait Article@{count} [@for(i <- 1 to count) { E@{i} @if(i < count) { , } }] extends Any {
     self =>
 
     @for(i <- 1 to count) {
-        def i@{i}: I@{i}
+        def e@{i}: E@{i}
     }
 
     @* def addRightItem[T](xyy: T): Item@{count + 1}[@for(i <- 1 to count) { I@{i} @if(i < count) { , } }, T] = throw new Exception("addRightItem can not be execute.")

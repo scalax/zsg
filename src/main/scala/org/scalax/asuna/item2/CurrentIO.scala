@@ -1,11 +1,11 @@
 import scala.language.higherKinds
 
-trait CurrentIO extends Any {
+trait RightCurrentIO extends Any {
 
   type Current[T, I <: EatItem] <: EatItem
 
-  type UpToPItem1 <: CurrentIO
-  type UpToPItem2 <: CurrentIO
+  type UpToPItem1 <: RightCurrentIO
+  type UpToPItem2 <: RightCurrentIO
 
   def upToPItem1: UpToPItem1
   def upToPItem2: UpToPItem2
@@ -14,7 +14,7 @@ trait CurrentIO extends Any {
 
 }
 
-trait EatValue1Current extends Any with CurrentIO {
+trait EatValue1Current extends Any with RightCurrentIO {
   self =>
 
   override type Current[T, I <: EatItem] = I#AddRightItem[T]
@@ -31,7 +31,7 @@ trait EatValue1Current extends Any with CurrentIO {
 
 object EatValue1Current extends EatValue1Current
 
-trait EatValue2Current extends Any with CurrentIO {
+trait EatValue2Current extends Any with RightCurrentIO {
   self =>
 
   override type Current[T, I <: EatItem] = I
@@ -48,7 +48,7 @@ trait EatValue2Current extends Any with CurrentIO {
 
 object EatValue2Current extends EatValue2Current
 
-class ReplaceCurrent[T1 <: CurrentIO](val sub: T1) extends AnyVal with CurrentIO {
+class ReplaceCurrent[T1 <: RightCurrentIO](val sub: T1) extends AnyVal with RightCurrentIO {
   self =>
 
   override type Current[T, I <: EatItem] = I#RightReplace[T1#Current[T, I#RightSub]]
@@ -59,6 +59,6 @@ class ReplaceCurrent[T1 <: CurrentIO](val sub: T1) extends AnyVal with CurrentIO
   override def upToPItem1: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
   override def upToPItem2: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
 
-  override def current[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Current[T, I#RightSub]] = i.replace(sub.current(t, i.sub))
+  override def current[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Current[T, I#RightSub]] = i.rightReplace(sub.current(t, i.rightSub))
 
 }

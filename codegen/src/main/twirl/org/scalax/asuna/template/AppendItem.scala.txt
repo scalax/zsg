@@ -1,10 +1,10 @@
 @(maxItem: Int)
 
 trait Item0 extends Any {
-    def eat[T](xyy: T): Item1[T] = new Item1[T] {
+    @* def eat[T](xyy: T): Item1[T] = new Item1[T] {
         override def i1: T = xyy
     }
-    def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+    def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy) *@
 }
 
 @for(i <- 1 to maxItem) {
