@@ -311,18 +311,17 @@ object App extends App {
   type II9  = Int
   type II10 = String
 
-  /*val bb = new ItemEatXyy9(
+  val bb = new AppendXyy9(
       E.item0
       .addRightItem("1": II1)
       .addRightItem("2": II2)
-      .addLeftItem(3: II3)
+      .addRightItem(3: II3)
       .addRightItem("4": II4)
-      .addLeftItem(5: II5)
+      .addRightItem(5: II5)
       .addRightItem("6": II6)
-      .addLeftItem("7": II7)
+      .addRightItem("7": II7)
       .addRightItem("8": II8)
-      .addLeftItem(9: II9)
-  )*/
-  //val cc = new ItemPlusXyy10(bb.item.addRightItem("10": II10))
+      .addRightItem(9: II9)
+  )
 
 }

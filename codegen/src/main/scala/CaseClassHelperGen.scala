@@ -20,7 +20,7 @@ object CaseClassHelperGen extends App {
   writer1.println(content12)
   writer1.close()
 
-  val path2 =
+  /*val path2 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("mapper").resolve("AppendItemValue.scala")
 
   Files.createDirectories(path2.getParent)
@@ -30,7 +30,7 @@ object CaseClassHelperGen extends App {
     Source.fromString(org.scalax.asuna.template.txt.AppendItemImpl(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content22 = content21.mkString(System.lineSeparator)
   writer2.println(content22)
-  writer2.close()
+  writer2.close()*/
 
   val path3 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("mapper").resolve("AppendItemEatXyy.scala")

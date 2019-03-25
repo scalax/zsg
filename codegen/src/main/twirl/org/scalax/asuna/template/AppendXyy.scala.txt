@@ -1,17 +1,20 @@
 @(maxItem: Int)
 
-trait AppendXyy0 extends Any with Item0
+class AppendXyy0 extends ItemPlusXyy0 with ArticleXyy0 {
+    override def eat[T](xyy: T): AppendXyy1[T] = new AppendXyy1(EatValue0.addRightItem(xyy))
+}
 
 @for(i <- 1 to maxItem) {
 
-    class AppendXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }](override val item: EatValue0@for(ii <- 1 to i) { #AddRightItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to i) { #AddRightItem[I@{ii}] }]
+    class AppendXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }](override protected val item: EatValue0@for(ii <- 1 to i) { #AddRightItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to i) { #AddRightItem[I@{ii}] }]
     with ItemPlusXyy@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }] with ArticleXyy@{i}[@for(ii <- i to 1 by (- 1)) { I@{ii} @if(ii > 1) { , } }] {
         self =>
+        override def eat[T](xyy: T): AppendXyy@{i + 1}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }, T] = new AppendXyy@{i + 1}(item.addRightItem(xyy))
     }
 
 }
 
-class AppendXyy@{maxItem + 1}[@for(ii <- 1 to maxItem + 1) { I@{ii} @if(ii < maxItem + 1) { , } }](override val item: EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddRightItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddRightItem[I@{ii}] }]
+class AppendXyy@{maxItem + 1}[@for(ii <- 1 to maxItem + 1) { I@{ii} @if(ii < maxItem + 1) { , } }](override protected val item: EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddRightItem[I@{ii}] }) extends AnyVal with Xyy[EatValue0@for(ii <- 1 to (maxItem + 1)) { #AddRightItem[I@{ii}] }]
 with ItemPlusXyy@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { I@{ii} @if(ii < (maxItem + 1)) { , } }] with ArticleXyy@{maxItem + 1}[@for(ii <- (maxItem + 1) to 1 by (- 1)) { I@{ii} @if(ii > 1) { , } }] {
     self =>
 }
