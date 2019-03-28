@@ -1,0 +1,58 @@
+@(maxItem: Int)
+
+package org.scalax.asuna.mapper.item
+
+trait ArticleXyyContext {
+
+    def plus0[K <: KindContext, II0 <: ItemType0](start: K#M[II0]): Application[K, Item0, II0] = new Application[K, Item0, II0] {
+        override def application(context: Context[K]): K#M[II0] = start
+    }
+
+    def put0[K <: KindContext, II0 <: ArticleType0](start: K#M[II0]): Application[K, Item0, II0] = new Application[K, Item0, II0] {
+        override def application(context: Context[K]): K#M[II0] = start
+    }
+
+    def plusPlus1[T1 <: TypeParam]: Plus[XyyType0, T1, XyyType1[T1]] = new Plus[XyyType0, T1, XyyType1[T1]] {
+        override def plus(p: AppendXyy0, item: T1#H): AppendXyy1[T1#H] = p.eat(item)
+        override def sub: Plus[XyyType0, T1#T, XyyType1[T1#T]] = plusPlus1[T1#T]
+    }
+
+
+@for(i <- 1 to maxItem) {
+
+    def plus@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParam } , II0 <: ItemType0 @for(ii <- 1 to i) { , II@{ii} <: ItemType@{ii}[@for(iii <- 1 to ii) { T@{iii} @if(iii < ii) { , } }] }](start: K#M[II0], @for(ii <- 1 to i) { p@{ii}: Plus[II@{ii - 1}, T@{ii}, II@{ii}], } @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } }): Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], II@{i}] = new Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], II@{i}] {
+        override def application(context: Context[K]): K#M[II@{i}] = {
+            val ii@{i} = t@{i}.application(context)
+            context.append(plus@{i - 1}[K @for(ii <- 1 to (i - 1)) { , H@{ii} } @for(ii <- 1 to (i - 1)) { , T@{ii} } @for(ii <- 0 to (i - 1)) { , II@{ii} }](start @for(ii <- 1 to (i - 1)) { , p@{ii} } @for(ii <- 1 to (i - 1)) { , t@{ii} }).application(context), ii@{i}, p@{i})
+        }
+    }
+
+    def put@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParam } , II0 <: ArticleType0 @for(ii <- i to 1 by (- 1)) { , II@{i - ii + 1} <: ArticleType@{i - ii + 1}[@for(iii <- ii to i) { T@{iii} @if(iii < i) { , } }] }](start: K#M[II0], @for(ii <- 1 to i) { p@{ii}: Plus[II@{ii - 1}, T@{i - ii + 1}, II@{ii}], } @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } }): Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], II@{i}] = new Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], II@{i}] {
+        override def application(context: Context[K]): K#M[II@{i}] = {
+            val ii1 = t1.application(context)
+            context.append(put@{i - 1}[K @for(ii <- 2 to i) { , H@{ii} } @for(ii <- 2 to i) { , T@{ii} } @for(ii <- 0 to (i - 1)) { , II@{ii} }](start @for(ii <- 2 to i) { , p@{ii - 1} } @for(ii <- 2 to i) { , t@{ii} }).application(context), ii1, p@{i})
+        }
+    }
+
+    def plusII@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParam }](@for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } }): Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], XyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = new Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], XyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[XyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+            plus@{i}[K @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} }, XyyType0 @for(ii <- 1 to i) { , XyyType@{ii}[@for(iii <- 1 to ii) { T@{iii} @if(iii < ii) { , } }] }](context.start @for(ii <- 1 to i) { , plusPlus@{ii} } @for(ii <- 1 to i) { , t@{ii} }).application(context)
+        }
+    }
+
+    def putII@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParam }](@for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } }): Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], XyyType@{i}[@for(ii <- i to 1 by (- 1)) { T@{ii} @if(ii > 1) { , } }]] = new Application[K, Item@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], XyyType@{i}[@for(ii <- i to 1 by (- 1)) { T@{ii} @if(ii > 1) { , } }]] {
+        override def application(context: Context[K]): K#M[XyyType@{i}[@for(ii <- i to 1 by (- 1)) { T@{ii} @if(ii > 1) { , } }]] = {
+            put@{i}[K @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} }, XyyType0 @for(ii <- 1 to i) { , XyyType@{ii}[@for(iii <- 1 to ii) { T@{i - iii + 1} @if(iii < ii) { , } }] }](context.start @for(ii <- 1 to i) { , plusPlus@{ii} } @for(ii <- 1 to i) { , t@{ii} }).application(context)
+        }
+    }
+
+}
+
+@for(i <- 2 to maxItem) {
+    def plusPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeParam @if(ii < i) { , } }]: Plus[XyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, XyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = new Plus[XyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, XyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def plus(p: AppendXyy@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#H @if(ii < (i - 1)) { , } }], item: T@{i}#H): AppendXyy@{i}[@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }] = p.eat(item)
+        override def sub: Plus[XyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#T @if(ii < (i - 1)) { , } }], T@{i}#T, XyyType@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]] = plusPlus@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
+    }
+}
+
+}

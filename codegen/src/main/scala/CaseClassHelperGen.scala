@@ -104,4 +104,16 @@ object CaseClassHelperGen extends App {
   writer8.println(content82)
   writer8.close()
 
+  val path9 =
+    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("mapper").resolve("AppendArticleXyy.scala")
+
+  Files.createDirectories(path9.getParent)
+
+  val writer9 = new PrintWriter(path9.toFile)
+  val content91 =
+    Source.fromString(org.scalax.asuna.template.txt.AppendArticleXyy(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content92 = content91.mkString(System.lineSeparator)
+  writer9.println(content92)
+  writer9.close()
+
 }
