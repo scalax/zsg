@@ -1,11 +1,13 @@
 @(maxItem: Int)
 
+package org.scalax.asuna.mapper.item
+
 trait Xyy[I] extends Any {
   protected def item: I
 }
 
 trait ArticleXyy0 extends Any with Article0 {
-    override def eat[T](xyy: T): ArticleXyy1[T]
+    override def eat[T](xyy: T): Eat[T]
 }
 
 @for(i <- 1 to maxItem) {
@@ -14,7 +16,7 @@ trait ArticleXyy0 extends Any with Article0 {
     with Article@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] {
         override protected def item: EatValue0@for(ii <- i to 1 by (- 1)) { #AddRightItem[E@{ii}] }
         @org.scalax.asuna.codegen.TemplateTree1.eatXyy(i)
-        override def eat[T](xyy: T): ArticleXyy@{i + 1}[T, @for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]
+        override def eat[T](xyy: T): Eat[T]
     }
 
 }

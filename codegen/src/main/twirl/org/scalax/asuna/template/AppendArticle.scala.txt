@@ -1,18 +1,26 @@
 @(maxItem: Int)
 
+package org.scalax.asuna.mapper.item
+
+import scala.language.higherKinds
+
 trait Article0 extends Any {
-    def eat[T](xyy: T): Article1[T]
+    type Eat[T] <: Article1[T]
+    def eat[T](xyy: T): Eat[T]
 }
 
 @for(i <- 1 to maxItem) {
     trait Article@{i} [@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] extends Any {
         self =>
 
+        type Eat[T] <: Article@{i + 1} [T, @for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]
+
+
         @for(ii <- 1 to i) {
             def e@{ii}: E@{ii}
         }
 
-        def eat[T](xyy: T): Article@{i + 1}[T, @for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]
+        def eat[T](xyy: T): Eat[T]
 
     }
 }

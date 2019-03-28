@@ -1,7 +1,0 @@
-@(count: Int)
-
-class ItemValue@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }](@for(i <- 1 to count) {
-    @if(i < count) { override } val i@{i}: I@{i} @if(i < count) { , }
-}) extends Item@{count} [@for(i <- 1 to count) { I@{i} @if(i < count) { , } }] {
-    self =>
-}

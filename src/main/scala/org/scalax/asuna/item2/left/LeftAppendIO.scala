@@ -1,3 +1,5 @@
+package org.scalax.asuna.mapper.item
+
 import scala.language.higherKinds
 
 trait LeftAppendIO extends Any {

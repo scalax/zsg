@@ -1,3 +1,5 @@
+package org.scalax.asuna.mapper.item
+
 import scala.language.higherKinds
 
 trait EatItem extends Any {
@@ -311,17 +313,10 @@ object App extends App {
   type II9  = Int
   type II10 = String
 
-  val bb = new AppendXyy9(
-      E.item0
-      .addRightItem("1": II1)
-      .addRightItem("2": II2)
-      .addRightItem(3: II3)
-      .addRightItem("4": II4)
-      .addRightItem(5: II5)
-      .addRightItem("6": II6)
-      .addRightItem("7": II7)
-      .addRightItem("8": II8)
-      .addRightItem(9: II9)
-  )
+  val bb = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5)
+
+  val cc = bb.addRightItem("6").addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11).addRightItem(12)
+
+  println(cc)
 
 }
