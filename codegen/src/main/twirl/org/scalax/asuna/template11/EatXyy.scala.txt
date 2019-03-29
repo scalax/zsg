@@ -1,0 +1,26 @@
+@(maxItem: Int)
+
+package org.scalax.asuna.ii.item
+
+class ArticleXyy0 {
+    def eat[T](xyy: T): ArticleXyy1[T] = new ArticleXyy1(xyy)
+    def pudao[T](xyy: T): ArticleXyy1[T] = new ArticleXyy1(xyy)
+}
+
+object ArticleXyy0 extends ArticleXyy0
+
+class ArticleXyy1[E1](val head: E1) {
+    def eat[T](xyy: T): ArticleXyy2[E1, T] = new ArticleXyy2(head, org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
+    def pudao[T](xyy: T): ArticleXyy2[T, E1] = new ArticleXyy2(xyy, org.scalax.asuna.mapper.item.EatValue0.addRightItem(head))
+}
+
+@for(i <- 2 to maxItem) {
+
+    class ArticleXyy@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }](val head: E1, val item: org.scalax.asuna.mapper.item.EatValue0@for(ii <- 2 to i) { #AddRightItem[E@{ii}] }) {
+        def eat[T](xyy: T): ArticleXyy@{i + 1}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }, T] = new ArticleXyy@{i + 1}(head, item.addRightItem(xyy))
+        def pudao[T](xyy: T): ArticleXyy@{i + 1}[T, @for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }, E1] = new ArticleXyy@{i + 1}(xyy, item.addRightItem(head))
+    }
+
+}
+
+class ArticleXyy@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }](val head: E1, val item: org.scalax.asuna.mapper.item.EatValue0@for(ii <- 2 to (maxItem + 1)) { #AddRightItem[E@{ii}] })
