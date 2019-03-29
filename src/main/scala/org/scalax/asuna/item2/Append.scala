@@ -1,4 +1,6 @@
 package org.scalax.asuna.mapper.item
+import org.scalax.asuna.ii.item.EatXyyType0
+
 import scala.language.higherKinds
 
 trait TypeParam {
@@ -21,7 +23,7 @@ trait Context[K <: KindContext] {
 
   def reverse: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
-  def start: K#M[XyyType0]
+  def start: K#M[EatXyyType0]
   //def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(context = self)
 
 }
