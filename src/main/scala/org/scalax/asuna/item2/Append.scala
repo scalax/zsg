@@ -22,6 +22,7 @@ trait Context[K <: KindContext] {
   self =>
 
   def reverse: Boolean
+  def useHList: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[EatXyyType0]
   //def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(context = self)
