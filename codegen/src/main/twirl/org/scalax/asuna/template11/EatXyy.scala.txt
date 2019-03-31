@@ -10,20 +10,38 @@ trait ArticleXyy0 extends Any with XyyItem0 {
 
 object ArticleXyy0 extends ArticleXyy0
 
-@for(i <- 1 to maxItem) {
+class ArticleXyy1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
+  override def eat[T](xyy: T): ArticleXyy2[E1, T] = new ArticleXyy2[E1, T](xyy :: head)
+  override def rightHead: E1                      = head.head
+  override def rightTail: ArticleXyy0             = ArticleXyy0
+  override def i1: E1                             = head.head
+}
+
+@for(i <- 2 to maxItem) {
 
     class ArticleXyy@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }](val head: @for(ii <- i to 1 by (- 1)) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] {
+
         override def eat[T](xyy: T): ArticleXyy@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = new ArticleXyy@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T](xyy :: head)
 
+        override def rightHead: E@{i} = head.head
+        override def rightTail: ArticleXyy@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] = new ArticleXyy@{i - 1}(head.tail)
+
+
         @for(ii <- 1 to i) {
-            override def i@{ii}: E@{ii} = head@for(ii <- 1 to (i - ii)) { .tail }.head
+            override def i@{ii}: E@{ii} = head@for(iii <- 1 to (i - ii)) { .tail }.head
         }
+
     }
 
 }
 
 class ArticleXyy@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }](val head: @for(ii <- (maxItem + 1) to 1 by (- 1)) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] {
+
+    override def rightHead: E@{maxItem + 1} = head.head
+    override def rightTail: ArticleXyy@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = new ArticleXyy@{maxItem}(head.tail)
+
     @for(ii <- 1 to (maxItem + 1)) {
         override def i@{ii}: E@{ii} = head@for(ii <- 1 to (maxItem + 1 - ii)) { .tail }.head
     }
+
 }

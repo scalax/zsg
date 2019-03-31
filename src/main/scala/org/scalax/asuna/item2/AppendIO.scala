@@ -40,17 +40,17 @@ object EatValue1Append extends EatValue1Append
 trait EatValue1UpToTopAppend extends Any with RightAppendIO {
   self =>
 
-  override type Append[T, I <: EatItem] = I#RightReplace[I#RightSub#AddRightItem[T]]
+  override type Append[T, I <: EatItem] = I
 
-  override type UpToPItem1  = EatValue1UpToTopAppend
-  override type UpToPItem2  = EatValue1UpToTopAppend
-  override type UpToTopItem = EatValue1UpToTopAppend
+  override type UpToPItem1  = RightNotUseAppendIO
+  override type UpToPItem2  = RightNotUseAppendIO
+  override type UpToTopItem = RightNotUseAppendIO
 
-  override def upToPItem1: EatValue1UpToTopAppend  = self
-  override def upToPItem2: EatValue1UpToTopAppend  = self
-  override def upToTopItem: EatValue1UpToTopAppend = self
+  override def upToPItem1: RightNotUseAppendIO  = RightNotUseAppendIO
+  override def upToPItem2: RightNotUseAppendIO  = RightNotUseAppendIO
+  override def upToTopItem: RightNotUseAppendIO = RightNotUseAppendIO
 
-  override def append[T, I <: EatItem](t: T, i: I): I#RightReplace[I#RightSub#AddRightItem[T]] = i.rightReplace(i.rightSub.addRightItem(t))
+  override def append[T, I <: EatItem](t: T, i: I): I = i
 
 }
 
@@ -80,13 +80,13 @@ trait EatValue2UpToTopAppend extends Any with RightAppendIO {
 
   override type Append[T, I <: EatItem] = I#RightPlus[EatValue2Append#Append[T, I#RightSub]]
 
-  override type UpToPItem1  = EatValue2UpToTopAppend
-  override type UpToPItem2  = EatValue2UpToTopAppend
-  override type UpToTopItem = EatValue2UpToTopAppend
+  override type UpToPItem1  = RightNotUseAppendIO
+  override type UpToPItem2  = RightNotUseAppendIO
+  override type UpToTopItem = RightNotUseAppendIO
 
-  override def upToPItem1: EatValue2UpToTopAppend  = self
-  override def upToPItem2: EatValue2UpToTopAppend  = self
-  override def upToTopItem: EatValue2UpToTopAppend = self
+  override def upToPItem1: RightNotUseAppendIO  = RightNotUseAppendIO
+  override def upToPItem2: RightNotUseAppendIO  = RightNotUseAppendIO
+  override def upToTopItem: RightNotUseAppendIO = RightNotUseAppendIO
 
   override def append[T, I <: EatItem](t: T, i: I): I#RightPlus[EatValue2Append#Append[T, I#RightSub]] = i.rightPlus(EatValue2Append.append(t, i.rightSub))
 

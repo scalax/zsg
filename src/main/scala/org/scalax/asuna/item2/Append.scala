@@ -14,7 +14,8 @@ trait KindContext {
 
 trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
   def plus(p: X#H, item: Y#H): Z#H
-  //def take(t: Z#H): (X#H, Y#H)
+  def takeHead(t: Z#H): Y#H
+  def takeTail(t: Z#H): X#H
   def sub: Plus[X#T, Y#T, Z#T]
 }
 
