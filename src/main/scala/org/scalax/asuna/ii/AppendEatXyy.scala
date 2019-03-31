@@ -17,9 +17,9 @@ trait AppendEatXyy {
           }
         } else {
           if (context.reverse) {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.hlistPut1)
+            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.item2Put1)
           } else {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.hlistPlus1)
+            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.item2Plus1)
           }
         }
       }

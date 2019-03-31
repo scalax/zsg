@@ -1,0 +1,46 @@
+@(maxItem: Int)
+
+package org.scalax.asuna.ii.item
+
+import shapeless._
+
+trait ArticleXyyReverse0 extends Any with XyyItem0 {
+    override def eat[T](xyy: T): ArticleXyy1[T] = new ArticleXyy1(xyy :: HNil)
+}
+
+object ArticleXyyReverse0 extends ArticleXyyReverse0
+
+class ArticleXyyReverse1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
+  override def pudao[T](xyy: T): ArticleXyyReverse2[T, E1] = new ArticleXyyReverse2[T, E1](xyy :: head)
+  override def leftHead: E1                      = head.head
+  override def leftTail: ArticleXyyReverse0             = ArticleXyyReverse0
+  override def i1: E1                             = head.head
+}
+
+@for(i <- 2 to maxItem) {
+
+    class ArticleXyyReverse@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }](val head: @for(ii <- 1 to i) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] {
+
+        override def pudao[T](xyy: T): ArticleXyyReverse@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] = new ArticleXyyReverse@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} } ](xyy :: head)
+
+        override def leftHead: E1 = head.head
+        override def leftTail: ArticleXyyReverse@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] = new ArticleXyyReverse@{i - 1}(head.tail)
+
+        @for(ii <- 1 to i) {
+            override def i@{ii}: E@{ii} = head@for(iii <- 1 to (ii - 1)) { .tail }.head
+        }
+
+    }
+
+}
+
+class ArticleXyyReverse@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }](val head: @for(ii <- 1 to (maxItem + 1)) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] {
+
+    override def leftHead: E1 = head.head
+    override def leftTail: ArticleXyyReverse@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = new ArticleXyyReverse@{maxItem}(head.tail)
+
+    @for(ii <- 1 to (maxItem + 1)) {
+        override def i@{ii}: E@{ii} = head@for(ii <- 1 to (ii - 1)) { .tail }.head
+    }
+
+}

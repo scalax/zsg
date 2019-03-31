@@ -28,7 +28,7 @@ class ArticleXyy1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
 
 
         @for(ii <- 1 to i) {
-            override def i@{ii}: E@{ii} = head@for(ii <- 1 to (i - ii)) { .tail }.head
+            override def i@{ii}: E@{ii} = head@for(iii <- 1 to (i - ii)) { .tail }.head
         }
 
     }

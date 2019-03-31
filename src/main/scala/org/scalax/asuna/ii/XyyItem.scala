@@ -11,8 +11,8 @@ object XyyItem0 extends XyyItem0
 trait XyyItem1[E1] extends Any {
   self =>
   def i1: E1
-  def leafHead: E1        = self.i1
-  def leafTail: XyyItem0  = XyyItem0
+  def leftHead: E1        = self.i1
+  def leftTail: XyyItem0  = XyyItem0
   def rightHead: E1       = self.i1
   def rightTail: XyyItem0 = XyyItem0
   def eat[T](xyy: T): XyyItem2[E1, T] = new XyyItem2[E1, T] {
