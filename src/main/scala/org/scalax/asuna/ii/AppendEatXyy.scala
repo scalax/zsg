@@ -11,15 +11,15 @@ trait AppendEatXyy {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType1[T1]] = {
         if (context.useHList) {
           if (context.reverse) {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.hlistPut1)
+            context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)
           } else {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.hlistPlus1)
+            context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPlus1)
           }
         } else {
           if (context.reverse) {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.item2Put1)
+            context.append(context.start, t1.application(context), ArticleXyyPlus.item2Put1)
           } else {
-            context.append(xyy0.application(context), t1.application(context), ArticleXyyPlus.item2Plus1)
+            context.append(context.start, t1.application(context), ArticleXyyPlus.item2Plus1)
           }
         }
       }
