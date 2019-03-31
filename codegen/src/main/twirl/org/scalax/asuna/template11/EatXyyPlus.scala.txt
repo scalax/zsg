@@ -6,6 +6,8 @@ object ArticleXyyPlus {
 
 def miaomiaomiao1[T0 <: EatXyyType0, T1 <: org.scalax.asuna.mapper.item.TypeParam]: org.scalax.asuna.mapper.item.Plus[T0, T1, EatXyyType1[T1]] = new org.scalax.asuna.mapper.item.Plus[T0, T1, EatXyyType1[T1]] {
     override def plus(p: T0#H, item: T1#H): XyyItem1[T1#H] = ArticleXyy0.eat(item)
+    override def takeHead(t: XyyItem1[T1#H]): T1#H = t.i1
+    override def takeTail(t: XyyItem1[T1#H]): T0#H = XyyItem0
     override def sub: org.scalax.asuna.mapper.item.Plus[T0#T, T1#T, EatXyyType1[T1#T]] = miaomiaomiao1[T0#T, T1#T]
 }
 
@@ -17,6 +19,8 @@ def hlistPut1[T1 <: org.scalax.asuna.mapper.item.TypeParam] = hlistPlus1[T1]
     : org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
     new org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def plus(p: XyyItem@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#H @if(ii < (i - 1)) { , } }], item: T@{i}#H): XyyItem@{i}[@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }] = p.eat(item)
+        override def takeHead(t: XyyItem@{i}[@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }]): T@{i}#H = t.rightHead
+        override def takeTail(t: XyyItem@{i}[@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }]): XyyItem@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#H @if(ii < (i - 1)) { , } }] = t.rightTail
         override def sub: org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }]#T, T@{i}#T, EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]#T] = plus@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
     }
 
@@ -24,6 +28,8 @@ def hlistPut1[T1 <: org.scalax.asuna.mapper.item.TypeParam] = hlistPlus1[T1]
     : org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, EatXyyType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] =
     new org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, EatXyyType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] {
         override def plus(p: XyyItem@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#H @if(ii < (i - 1)) { , } }], item: T@{i}#H): XyyItem@{i}[T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H }] = p.pudao(item)
+        override def takeHead(t: XyyItem@{i}[T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H }]): T@{i}#H = t.leftHead
+        override def takeTail(t: XyyItem@{i}[T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H }]): XyyItem@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii}#H @if(ii < (i - 1)) { , } }] = t.leftTail
         override def sub: org.scalax.asuna.mapper.item.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }]#T, T@{i}#T, EatXyyType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]#T] = put@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
     }
 }

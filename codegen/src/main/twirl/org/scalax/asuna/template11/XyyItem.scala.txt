@@ -13,13 +13,47 @@ trait XyyItem0 extends Any {
 
 object XyyItem0 extends XyyItem0
 
-@for(i <- 1 to maxItem) {
+trait XyyItem1[E1] extends Any {
+    self =>
+
+    def i1: E1
+
+    def leafHead: E1 = self.i1
+    def leafTail: XyyItem0 = XyyItem0
+    def rightHead: E1 = self.i1
+    def rightTail: XyyItem0 = XyyItem0
+
+    def eat[T](xyy: T): XyyItem2[E1, T] = new XyyItem2[E1, T] {
+        override def i1: E1 = self.i1
+        override def i2: T  = xyy
+    }
+    def pudao[T](xyy: T): XyyItem2[T, E1] = new XyyItem2[T, E1] {
+        override def i1: T  = xyy
+        override def i2: E1 = self.i1
+    }
+
+}
+
+@for(i <- 2 to maxItem) {
 
     trait XyyItem@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] extends Any {
         self =>
 
         @for(ii <- 1 to i) {
             def i@{ii}: E@{ii}
+        }
+
+        def leftHead: E1 = self.i1
+        def leftTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] = new XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] {
+            @for(ii <- 2 to i) {
+                def i@{ii - 1}: E@{ii} = self.i@{ii}
+            }
+        }
+        def rightHead: E@{i} = self.i@{i}
+        def rightTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] = new XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] {
+            @for(ii <- 2 to i) {
+                def i@{ii - 1}: E@{ii - 1} = self.i@{ii - 1}
+            }
         }
 
         def eat[T](xyy: T): XyyItem@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = new XyyItem@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] {
@@ -40,7 +74,23 @@ object XyyItem0 extends XyyItem0
 }
 
 trait XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] extends Any {
+    self =>
+
     @for(ii <- 1 to (maxItem + 1)) {
         def i@{ii}: E@{ii}
     }
+
+    def leftHead: E1 = self.i1
+    def leftTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = new XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] {
+        @for(ii <- 2 to (maxItem + 1)) {
+            def i@{ii - 1}: E@{ii} = self.i@{ii}
+        }
+    }
+    def rightHead: E@{maxItem + 1} = self.i@{maxItem + 1}
+    def rightTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = new XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] {
+        @for(ii <- 2 to (maxItem + 1)) {
+            def i@{ii - 1}: E@{ii - 1} = self.i@{ii - 1}
+        }
+    }
+
 }
