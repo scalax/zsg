@@ -104,16 +104,70 @@ object CaseClassHelperGen1 extends App {
   writer8.println(content82)
   writer8.close()
 
-  /*val path9 =
-    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("mapper").resolve("AppendArticleXyy.scala")
+  val path9 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tuple")
+      .resolve("EatTuplePlus.scala")
 
   Files.createDirectories(path9.getParent)
 
   val writer9 = new PrintWriter(path9.toFile)
   val content91 =
-    Source.fromString(org.scalax.asuna.template.txt.AppendArticleXyy(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template11.tuple.txt.EatTuplePlus(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content92 = content91.mkString(System.lineSeparator)
   writer9.println(content92)
-  writer9.close()*/
+  writer9.close()
+
+  val path10 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tuple")
+      .resolve("EatXyyType.scala")
+
+  Files.createDirectories(path10.getParent)
+
+  val writer10 = new PrintWriter(path10.toFile)
+  val content101 =
+    Source.fromString(org.scalax.asuna.template11.tuple.txt.EatXyyType(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content102 = content101.mkString(System.lineSeparator)
+  writer10.println(content102)
+  writer10.close()
+
+  val path11 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tuple")
+      .resolve("AppendTuple.scala")
+
+  Files.createDirectories(path11.getParent)
+
+  val writer11 = new PrintWriter(path11.toFile)
+  val content111 =
+    Source.fromString(org.scalax.asuna.template11.tuple.txt.AppendTuple(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content112 = content111.mkString(System.lineSeparator)
+  writer11.println(content112)
+  writer11.close()
 
 }

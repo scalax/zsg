@@ -15,13 +15,13 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.item.KindContext, H1, T1 <: org.s
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem1[H1], EatXyyType1[T1]] {
         override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType1[T1]] = {
             if (context.useHList) {
-                if (context.reverse) {
+                if (context.isReverse) {
                     context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)
                 } else {
                     context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPlus1)
                 }
             } else {
-                if (context.reverse) {
+                if (context.isReverse) {
                     context.append(context.start, t1.application(context), ArticleXyyPlus.item2Put1)
                 } else {
                     context.append(context.start, t1.application(context), ArticleXyyPlus.item2Plus1)
@@ -37,7 +37,7 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.item.KindContext, H1, T1 <: org.s
     : org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem@{i}[@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
-            if (context.reverse) {
+            if (context.isReverse) {
                 context.append(xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyPlus.put@{i})
             } else {
                 context.append(xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyPlus.plus@{i})
@@ -48,3 +48,5 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.item.KindContext, H1, T1 <: org.s
 }
 
 }
+
+object AppendEatXyy extends AppendEatXyy

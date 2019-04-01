@@ -1,11 +1,16 @@
 package org.scalax.asuna.mapper.item
-import org.scalax.asuna.ii.item.EatXyyType0
+import org.scalax.asuna.ii.item.{EatXyyType0, XyyItem0}
 
 import scala.language.higherKinds
 
 trait TypeParam {
   type H
   type T <: TypeParam
+}
+
+class EndParam extends TypeParam {
+  override type H = XyyItem0
+  override type T = EndParam
 }
 
 trait KindContext {
@@ -22,11 +27,32 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
 trait Context[K <: KindContext] {
   self =>
 
-  def reverse: Boolean
+  def isReverse: Boolean
   def useHList: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[EatXyyType0]
   //def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(context = self)
+
+  def reverse: Context[K] = new Context[K] {
+    override def isReverse                                                                                              = !self.isReverse
+    override def useHList                                                                                               = self.useHList
+    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
+    override def start: K#M[EatXyyType0]                                                                                = self.start
+  }
+
+  def touseHList: Context[K] = new Context[K] {
+    override def isReverse                                                                                              = self.isReverse
+    override def useHList                                                                                               = true
+    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
+    override def start: K#M[EatXyyType0]                                                                                = self.start
+  }
+
+  def notTouseHList: Context[K] = new Context[K] {
+    override def isReverse                                                                                              = self.isReverse
+    override def useHList                                                                                               = false
+    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
+    override def start: K#M[EatXyyType0]                                                                                = self.start
+  }
 
 }
 

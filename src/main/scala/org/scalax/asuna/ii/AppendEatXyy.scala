@@ -10,13 +10,13 @@ trait AppendEatXyy {
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem1[H1], EatXyyType1[T1]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType1[T1]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)
           } else {
             context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPlus1)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(context.start, t1.application(context), ArticleXyyPlus.item2Put1)
           } else {
             context.append(context.start, t1.application(context), ArticleXyyPlus.item2Plus1)
@@ -30,7 +30,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem2[H1, H2], EatXyyType2[T1, T2]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem2[H1, H2], EatXyyType2[T1, T2]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType2[T1, T2]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy1(t2).application(context), t1.application(context), ArticleXyyPlus.put2)
         } else {
           context.append(xyy1(t1).application(context), t2.application(context), ArticleXyyPlus.plus2)
@@ -52,7 +52,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem3[H1, H2, H3], EatXyyType3[T1, T2, T3]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem3[H1, H2, H3], EatXyyType3[T1, T2, T3]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType3[T1, T2, T3]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy2(t2, t3).application(context), t1.application(context), ArticleXyyPlus.put3)
         } else {
           context.append(xyy2(t1, t2).application(context), t3.application(context), ArticleXyyPlus.plus3)
@@ -77,7 +77,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem4[H1, H2, H3, H4], EatXyyType4[T1, T2, T3, T4]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem4[H1, H2, H3, H4], EatXyyType4[T1, T2, T3, T4]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType4[T1, T2, T3, T4]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy3(t2, t3, t4).application(context), t1.application(context), ArticleXyyPlus.put4)
         } else {
           context.append(xyy3(t1, t2, t3).application(context), t4.application(context), ArticleXyyPlus.plus4)
@@ -105,7 +105,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem5[H1, H2, H3, H4, H5], EatXyyType5[T1, T2, T3, T4, T5]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem5[H1, H2, H3, H4, H5], EatXyyType5[T1, T2, T3, T4, T5]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType5[T1, T2, T3, T4, T5]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyPlus.put5)
         } else {
           context.append(xyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyPlus.plus5)
@@ -136,7 +136,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem6[H1, H2, H3, H4, H5, H6], EatXyyType6[T1, T2, T3, T4, T5, T6]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem6[H1, H2, H3, H4, H5, H6], EatXyyType6[T1, T2, T3, T4, T5, T6]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType6[T1, T2, T3, T4, T5, T6]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy5(t2, t3, t4, t5, t6).application(context), t1.application(context), ArticleXyyPlus.put6)
         } else {
           context.append(xyy5(t1, t2, t3, t4, t5).application(context), t6.application(context), ArticleXyyPlus.plus6)
@@ -170,7 +170,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem7[H1, H2, H3, H4, H5, H6, H7], EatXyyType7[T1, T2, T3, T4, T5, T6, T7]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem7[H1, H2, H3, H4, H5, H6, H7], EatXyyType7[T1, T2, T3, T4, T5, T6, T7]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType7[T1, T2, T3, T4, T5, T6, T7]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy6(t2, t3, t4, t5, t6, t7).application(context), t1.application(context), ArticleXyyPlus.put7)
         } else {
           context.append(xyy6(t1, t2, t3, t4, t5, t6).application(context), t7.application(context), ArticleXyyPlus.plus7)
@@ -207,7 +207,7 @@ trait AppendEatXyy {
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem8[H1, H2, H3, H4, H5, H6, H7, H8], EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.XyyItem8[H1, H2, H3, H4, H5, H6, H7, H8], EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy7(t2, t3, t4, t5, t6, t7, t8).application(context), t1.application(context), ArticleXyyPlus.put8)
         } else {
           context.append(xyy7(t1, t2, t3, t4, t5, t6, t7).application(context), t8.application(context), ArticleXyyPlus.plus8)
@@ -257,7 +257,7 @@ trait AppendEatXyy {
       T9
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyPlus.put9)
         } else {
           context.append(xyy8(t1, t2, t3, t4, t5, t6, t7, t8).application(context), t9.application(context), ArticleXyyPlus.plus9)
@@ -322,7 +322,7 @@ trait AppendEatXyy {
       T10
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy9(t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t1.application(context), ArticleXyyPlus.put10)
         } else {
           context.append(xyy9(t1, t2, t3, t4, t5, t6, t7, t8, t9).application(context), t10.application(context), ArticleXyyPlus.plus10)
@@ -392,7 +392,7 @@ trait AppendEatXyy {
       T11
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy10(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11).application(context), t1.application(context), ArticleXyyPlus.put11)
         } else {
           context.append(xyy10(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t11.application(context), ArticleXyyPlus.plus11)
@@ -467,7 +467,7 @@ trait AppendEatXyy {
       T12
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy11(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12).application(context), t1.application(context), ArticleXyyPlus.put12)
         } else {
           context.append(xyy11(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11).application(context), t12.application(context), ArticleXyyPlus.plus12)
@@ -547,7 +547,7 @@ trait AppendEatXyy {
       T13
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy12(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13).application(context), t1.application(context), ArticleXyyPlus.put13)
         } else {
           context.append(xyy12(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12).application(context), t13.application(context), ArticleXyyPlus.plus13)
@@ -632,7 +632,7 @@ trait AppendEatXyy {
       T14
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy13(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14).application(context), t1.application(context), ArticleXyyPlus.put14)
         } else {
           context.append(xyy13(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13).application(context), t14.application(context), ArticleXyyPlus.plus14)
@@ -722,7 +722,7 @@ trait AppendEatXyy {
       T15
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy14(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15).application(context), t1.application(context), ArticleXyyPlus.put15)
         } else {
           context.append(xyy14(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14).application(context), t15.application(context), ArticleXyyPlus.plus15)
@@ -806,7 +806,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(xyy15(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context), t1.application(context), ArticleXyyPlus.put16)
         } else {
           context.append(xyy15(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15).application(context), t16.application(context), ArticleXyyPlus.plus16)
@@ -894,7 +894,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(
             xyy16(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context),
             t1.application(context),
@@ -994,7 +994,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(
             xyy17(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context),
             t1.application(context),
@@ -1099,7 +1099,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(
             xyy18(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19).application(context),
             t1.application(context),
@@ -1207,7 +1207,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(
             xyy19(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20).application(context),
             t1.application(context),
@@ -1319,7 +1319,7 @@ trait AppendEatXyy {
       override def application(
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[EatXyyType21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] = {
-        if (context.reverse) {
+        if (context.isReverse) {
           context.append(
             xyy20(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21).application(context),
             t1.application(context),
@@ -1335,3 +1335,4 @@ trait AppendEatXyy {
       }
     }
 }
+object AppendEatXyy extends AppendEatXyy
