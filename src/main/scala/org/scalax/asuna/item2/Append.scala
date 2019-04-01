@@ -1,4 +1,5 @@
 package org.scalax.asuna.mapper.item
+
 import org.scalax.asuna.ii.item.EatXyyType0
 
 import scala.language.higherKinds
