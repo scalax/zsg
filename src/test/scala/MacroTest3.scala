@@ -15,10 +15,12 @@ object MacroTest3 {
 
     implicit val encodeHNil: EncodeImplicit[HNil] = new EncodeImplicit[HNil] { override def mm = ObjectEncoder.instance(_ => JsonObject.empty) }
 
-    implicit def encodeHCons[K <: Symbol, H, T <: HList](implicit
-                                                         key: Witness.Aux[K],
-                                                         encodeH: ByNameImplicit[Encoder[H]],
-                                                         encodeT: EncodeImplicit[T]): EncodeImplicit[FieldType[K, H] :: T] =
+    implicit def encodeHCons[K <: Symbol, H, T <: HList](
+        implicit
+      key: Witness.Aux[K]
+      , encodeH: ByNameImplicit[Encoder[H]]
+      , encodeT: EncodeImplicit[T]
+    ): EncodeImplicit[FieldType[K, H] :: T] =
       new EncodeImplicit[FieldType[K, H] :: T] {
         override def mm = ObjectEncoder.instance {
           case h :: t => (key.value.name -> encodeH.value(h)) +: encodeT.mm.encodeObject(t)
