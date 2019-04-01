@@ -5,13 +5,35 @@ import org.scalax.asuna.mapper.item._
 
 object TupleTest {
 
-  trait TupleEncoder[T] {
+  sealed trait TupleEncoder[T] {
+    def body(t: List[String], i: T): List[String]
 
-    def body(t: T): List[String]
+    def print(t: List[String], i: T): String = {
+      val ii = body(t, i)
+      s"TupleMiaoMiaoMiao${ii.size}(${ii.mkString(", ")})"
+    }
 
-    def print(t: T): String = body(t) match {
-      case i :: Nil => i
-      case ii       => s"TupleMiaoMiaoMiao${ii.size}(${ii.mkString(", ")})"
+    def ++[R](o: TupleEncoder[R]): TupleEncoder[(T, R)]
+  }
+
+  trait TupleEncoder1[T] extends TupleEncoder[T] {
+    self =>
+
+    def pro(t: T): String
+
+    override def body(t: List[String], i: T): List[String] = pro(i) :: t
+    override def ++[R](o: TupleEncoder[R]): TupleEncoder[(T, R)] = new TupleEncoder2[(T, R)] {
+      override def body(t: List[String], i: (T, R)): List[String] = self.pro(i._1) :: o.body(t, i._2)
+    }
+
+  }
+
+  trait TupleEncoder2[T] extends TupleEncoder[T] {
+    self =>
+
+    override def body(t: List[String], i: T): List[String]
+    override def ++[R](o: TupleEncoder[R]): TupleEncoder[(T, R)] = new TupleEncoder2[(T, R)] {
+      override def body(t: List[String], i: (T, R)): List[String] = self.print(List.empty, i._1) :: o.body(t, i._2)
     }
 
   }
@@ -21,6 +43,7 @@ object TupleTest {
   }
 
   object tencoderContext extends Context[TupleContext[(AppendTuple, TupleTestImplicit)]] {
+
     override def useHList: Boolean  = true
     override def isReverse: Boolean = true
 
@@ -30,8 +53,10 @@ object TupleTest {
       , p: Plus[X, Y, Z]
     ): (TupleEncoder[Z#H], Z#H => Z#T#H) = {
 
-      (new TupleEncoder[Z#H] {
-        override def body(z: Z#H) = y._1.print(p.takeHead(z)) :: x._1.body(p.takeTail(z))
+      val aa = y._1.++(x._1)
+
+      (new TupleEncoder2[Z#H] {
+        override def body(t: List[String], i: Z#H): List[String] = aa.body(t, (p.takeHead(i), p.takeTail(i)))
       }, { i: Z#H =>
         val x1 = p.takeTail(i)
         val y1 = p.takeHead(i)
@@ -40,9 +65,10 @@ object TupleTest {
     }
 
     override def start: (TupleEncoder[XyyItem0], XyyItem0 => XyyItem0) =
-      (new TupleEncoder[XyyItem0] {
-        override def body(t: XyyItem0) = List.empty
+      (new TupleEncoder2[XyyItem0] {
+        override def body(t: List[String], i: XyyItem0) = t
       }, identity)
+
   }
 
   def encodeTuple[T, I <: TypeParam](x: T)(implicit ii: Application[TupleContext[(AppendTuple, TupleTestImplicit)], T, I]): (TupleEncoder[I#H], I#H => I#T#H) = {
@@ -65,19 +91,19 @@ object TupleTest {
   }
 
   trait TupleTestImplicit {
-    implicit def ii: Application[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)], String, TupleTest.Type1] =
-      new Application[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)], String, TupleTest.Type1] {
-        override def application(cotext: Context[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleTest.TupleEncoder[String], String => List[String]) =
-          (new TupleTest.TupleEncoder[String] {
-            override def body(t: String) = List(t.toString)
+    implicit def ii: Application[TupleContext[(AppendTuple, TupleTestImplicit)], String, Type1] =
+      new Application[TupleContext[(AppendTuple, TupleTestImplicit)], String, Type1] {
+        override def application(cotext: Context[TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleEncoder[String], String => List[String]) =
+          (new TupleEncoder1[String] {
+            override def pro(t: String) = t.toString
           }, t => List(s"copy1: ${t}", s"copy2: ${t}"))
       }
 
-    implicit def ii2: Application[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)], Int, TupleTest.Type2] =
-      new Application[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)], Int, TupleTest.Type2] {
-        override def application(cotext: Context[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleTest.TupleEncoder[Int], Int => List[String]) =
-          (new TupleTest.TupleEncoder[Int] {
-            override def body(t: Int) = List(t.toString)
+    implicit def ii2: Application[TupleContext[(AppendTuple, TupleTestImplicit)], Int, Type2] =
+      new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Int, TupleTest.Type2] {
+        override def application(cotext: Context[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleEncoder[Int], Int => List[String]) =
+          (new TupleEncoder1[Int] {
+            override def pro(t: Int) = t.toString
           }, t => List(s"${t}", s"plus one: ${t + 1}"))
       }
   }
