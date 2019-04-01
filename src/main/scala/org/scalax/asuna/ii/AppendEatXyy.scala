@@ -1335,3 +1335,4 @@ trait AppendEatXyy {
       }
     }
 }
+object AppendEatXyy extends AppendEatXyy

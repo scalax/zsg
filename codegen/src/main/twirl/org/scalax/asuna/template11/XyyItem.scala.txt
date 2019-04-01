@@ -3,12 +3,17 @@
 package org.scalax.asuna.ii.item
 
 trait XyyItem0 extends Any {
+
     def eat[T](xyy: T): XyyItem1[T] = new XyyItem1[T] {
         override def i1: T = xyy
     }
     def pudao[T](xyy: T): XyyItem1[T] = new XyyItem1[T] {
         override def i1: T = xyy
     }
+
+    def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+    def pudaoToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
+
 }
 
 object XyyItem0 extends XyyItem0
@@ -31,6 +36,9 @@ trait XyyItem1[E1] extends Any {
         override def i1: T  = xyy
         override def i2: E1 = self.i1
     }
+
+    def eatToTuple[T](xyy: T): Tuple2[E1, T] = (self.i1, xyy)
+    def pudaoToTuple[T](xyy: T): Tuple2[T, E1] = (xyy, self.i1)
 
 }
 
@@ -69,6 +77,12 @@ trait XyyItem1[E1] extends Any {
             }
         }
 
+        def eatToTuple[T](xyy: T): Tuple@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = (@for(ii <- 1 to i) { self.i@{ii}, } xyy)
+        def pudaoToTuple[T](xyy: T): Tuple@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] = (xyy @for(ii <- 1 to i) { , self.i@{ii} })
+
+        def leftTuple: Tuple@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] = Tuple@{i - 1}(@for(ii <- 2 to i) { self.i@{ii} @if(ii < i) { , } })
+        def rightTuple: Tuple@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] = Tuple@{i - 1}(@for(ii <- 2 to i) { self.i@{ii - 1} @if(ii < i) { , } })
+
     }
 
 }
@@ -92,5 +106,8 @@ trait XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (ma
             def i@{ii - 1}: E@{ii - 1} = self.i@{ii - 1}
         }
     }
+
+    def leftTuple: Tuple@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = (@for(ii <- 2 to (maxItem + 1)) { self.i@{ii} @if(ii < (maxItem + 1)) { , } })
+    def rightTuple: Tuple@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = (@for(ii <- 2 to (maxItem + 1)) { self.i@{ii - 1} @if(ii < (maxItem + 1)) { , } })
 
 }

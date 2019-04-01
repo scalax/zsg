@@ -48,3 +48,5 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.item.KindContext, H1, T1 <: org.s
 }
 
 }
+
+object AppendEatXyy extends AppendEatXyy
