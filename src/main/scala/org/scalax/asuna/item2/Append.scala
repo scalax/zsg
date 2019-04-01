@@ -1,5 +1,5 @@
 package org.scalax.asuna.mapper.item
-import org.scalax.asuna.ii.item.{EatXyyType0, XyyItem0}
+import org.scalax.asuna.ii.item.EatXyyType0
 
 import scala.language.higherKinds
 
@@ -9,7 +9,7 @@ trait TypeParam {
 }
 
 class EndParam extends TypeParam {
-  override type H = XyyItem0
+  override type H = EndParam
   override type T = EndParam
 }
 
