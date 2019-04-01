@@ -15,13 +15,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2), XyyTupleType2[T1, T2]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType2[T1, T2]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy1(t2).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut2)
           } else {
             context.append(AppendEatXyy.xyy1(t1).application(context), t2.application(context), ArticleXyyTuplePlus.hlistPlus2)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy1(t2).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put2)
           } else {
             context.append(AppendEatXyy.xyy1(t1).application(context), t2.application(context), ArticleXyyTuplePlus.item2Plus2)
@@ -45,13 +45,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3), XyyTupleType3[T1, T2, T3]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType3[T1, T2, T3]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy2(t2, t3).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut3)
           } else {
             context.append(AppendEatXyy.xyy2(t1, t2).application(context), t3.application(context), ArticleXyyTuplePlus.hlistPlus3)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy2(t2, t3).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put3)
           } else {
             context.append(AppendEatXyy.xyy2(t1, t2).application(context), t3.application(context), ArticleXyyTuplePlus.item2Plus3)
@@ -78,13 +78,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4), XyyTupleType4[T1, T2, T3, T4]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType4[T1, T2, T3, T4]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy3(t2, t3, t4).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut4)
           } else {
             context.append(AppendEatXyy.xyy3(t1, t2, t3).application(context), t4.application(context), ArticleXyyTuplePlus.hlistPlus4)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy3(t2, t3, t4).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put4)
           } else {
             context.append(AppendEatXyy.xyy3(t1, t2, t3).application(context), t4.application(context), ArticleXyyTuplePlus.item2Plus4)
@@ -114,13 +114,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T3, T4, T5]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType5[T1, T2, T3, T4, T5]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut5)
           } else {
             context.append(AppendEatXyy.xyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyTuplePlus.hlistPlus5)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put5)
           } else {
             context.append(AppendEatXyy.xyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyTuplePlus.item2Plus5)
@@ -153,13 +153,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6), XyyTupleType6[T1, T2, T3, T4, T5, T6]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType6[T1, T2, T3, T4, T5, T6]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy5(t2, t3, t4, t5, t6).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut6)
           } else {
             context.append(AppendEatXyy.xyy5(t1, t2, t3, t4, t5).application(context), t6.application(context), ArticleXyyTuplePlus.hlistPlus6)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy5(t2, t3, t4, t5, t6).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put6)
           } else {
             context.append(AppendEatXyy.xyy5(t1, t2, t3, t4, t5).application(context), t6.application(context), ArticleXyyTuplePlus.item2Plus6)
@@ -195,13 +195,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6, H7), XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy6(t2, t3, t4, t5, t6, t7).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut7)
           } else {
             context.append(AppendEatXyy.xyy6(t1, t2, t3, t4, t5, t6).application(context), t7.application(context), ArticleXyyTuplePlus.hlistPlus7)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy6(t2, t3, t4, t5, t6, t7).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put7)
           } else {
             context.append(AppendEatXyy.xyy6(t1, t2, t3, t4, t5, t6).application(context), t7.application(context), ArticleXyyTuplePlus.item2Plus7)
@@ -240,13 +240,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6, H7, H8), XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy7(t2, t3, t4, t5, t6, t7, t8).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut8)
           } else {
             context.append(AppendEatXyy.xyy7(t1, t2, t3, t4, t5, t6, t7).application(context), t8.application(context), ArticleXyyTuplePlus.hlistPlus8)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy7(t2, t3, t4, t5, t6, t7, t8).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put8)
           } else {
             context.append(AppendEatXyy.xyy7(t1, t2, t3, t4, t5, t6, t7).application(context), t8.application(context), ArticleXyyTuplePlus.item2Plus8)
@@ -288,13 +288,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9), XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut9)
           } else {
             context.append(AppendEatXyy.xyy8(t1, t2, t3, t4, t5, t6, t7, t8).application(context), t9.application(context), ArticleXyyTuplePlus.hlistPlus9)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put9)
           } else {
             context.append(AppendEatXyy.xyy8(t1, t2, t3, t4, t5, t6, t7, t8).application(context), t9.application(context), ArticleXyyTuplePlus.item2Plus9)
@@ -339,13 +339,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy9(t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut10)
           } else {
             context.append(AppendEatXyy.xyy9(t1, t2, t3, t4, t5, t6, t7, t8, t9).application(context), t10.application(context), ArticleXyyTuplePlus.hlistPlus10)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy9(t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put10)
           } else {
             context.append(AppendEatXyy.xyy9(t1, t2, t3, t4, t5, t6, t7, t8, t9).application(context), t10.application(context), ArticleXyyTuplePlus.item2Plus10)
@@ -393,13 +393,13 @@ trait AppendTuple {
     new org.scalax.asuna.mapper.item.Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy10(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut11)
           } else {
             context.append(AppendEatXyy.xyy10(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t11.application(context), ArticleXyyTuplePlus.hlistPlus11)
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(AppendEatXyy.xyy10(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put11)
           } else {
             context.append(AppendEatXyy.xyy10(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10).application(context), t11.application(context), ArticleXyyTuplePlus.item2Plus11)
@@ -463,7 +463,7 @@ trait AppendTuple {
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy11(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12).application(context),
               t1.application(context),
@@ -477,7 +477,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy11(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12).application(context),
               t1.application(context),
@@ -567,7 +567,7 @@ trait AppendTuple {
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy12(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13).application(context),
               t1.application(context),
@@ -581,7 +581,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy12(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13).application(context),
               t1.application(context),
@@ -676,7 +676,7 @@ trait AppendTuple {
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy13(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14).application(context),
               t1.application(context),
@@ -690,7 +690,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy13(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14).application(context),
               t1.application(context),
@@ -792,7 +792,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy14(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15).application(context),
               t1.application(context),
@@ -806,7 +806,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy14(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15).application(context),
               t1.application(context),
@@ -913,7 +913,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy15(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context),
               t1.application(context),
@@ -927,7 +927,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
               AppendEatXyy.xyy15(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context),
               t1.application(context),
@@ -1039,7 +1039,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy16(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context)
               , t1.application(context)
@@ -1053,7 +1053,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy16(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context)
               , t1.application(context)
@@ -1170,7 +1170,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy17(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context)
               , t1.application(context)
@@ -1184,7 +1184,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy17(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context)
               , t1.application(context)
@@ -1306,7 +1306,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy18(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19).application(context)
               , t1.application(context)
@@ -1320,7 +1320,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy18(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19).application(context)
               , t1.application(context)
@@ -1447,7 +1447,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy19(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20).application(context)
               , t1.application(context)
@@ -1461,7 +1461,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy19(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20).application(context)
               , t1.application(context)
@@ -1593,7 +1593,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy20(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21).application(context)
               , t1.application(context)
@@ -1607,7 +1607,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy20(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21).application(context)
               , t1.application(context)
@@ -1744,7 +1744,7 @@ trait AppendTuple {
         context: org.scalax.asuna.mapper.item.Context[K]
       ): K#M[XyyTupleType22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] = {
         if (context.useHList) {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy21(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22).application(context)
               , t1.application(context)
@@ -1758,7 +1758,7 @@ trait AppendTuple {
             )
           }
         } else {
-          if (context.reverse) {
+          if (context.isReverse) {
             context.append(
                 AppendEatXyy.xyy21(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22).application(context)
               , t1.application(context)

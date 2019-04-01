@@ -21,8 +21,8 @@ object TupleTest extends App {
   }
 
   object tencoderContext extends Context[TupleContext[AppendTuple]] {
-    override def useHList: Boolean = true
-    override def reverse: Boolean  = true
+    override def useHList: Boolean  = true
+    override def isReverse: Boolean = true
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: (TupleEncoder[X#H], X#H => X#T#H),
                                                                         y: (TupleEncoder[Y#H], Y#H => Y#T#H),

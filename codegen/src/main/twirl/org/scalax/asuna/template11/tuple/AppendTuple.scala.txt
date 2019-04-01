@@ -21,13 +21,13 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.item.KindContext, H1, T1 <: org.s
     new org.scalax.asuna.mapper.item.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.useHList) {
-                if (context.reverse) {
+                if (context.isReverse) {
                     context.append(AppendEatXyy.xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut@{i})
                 } else {
                     context.append(AppendEatXyy.xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyTuplePlus.hlistPlus@{i})
                 }
             } else {
-                if (context.reverse) {
+                if (context.isReverse) {
                     context.append(AppendEatXyy.xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put@{i})
                 } else {
                     context.append(AppendEatXyy.xyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyTuplePlus.item2Plus@{i})
