@@ -11,7 +11,7 @@ object TupleTest {
 
     def print(t: T): String = body(t) match {
       case i :: Nil => i
-      case ii       => s"TupleMiaoMiaoMiao${ii.size}(${ii.mkString(",")})"
+      case ii       => s"TupleMiaoMiaoMiao${ii.size}(${ii.mkString(", ")})"
     }
 
   }
