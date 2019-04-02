@@ -1,7 +1,7 @@
 package org.scalax.asuna.ii.item
 import shapeless._
 trait ArticleXyyReverse0 extends Any with XyyItem0 {
-  override def eat[T](xyy: T): ArticleXyy1[T] = new ArticleXyy1(xyy :: HNil)
+  override def pudao[T](xyy: T): ArticleXyyReverse1[T] = new ArticleXyyReverse1(xyy :: HNil)
 }
 object ArticleXyyReverse0 extends ArticleXyyReverse0
 class ArticleXyyReverse1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {

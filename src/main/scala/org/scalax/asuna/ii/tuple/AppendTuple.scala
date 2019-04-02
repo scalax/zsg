@@ -5,7 +5,19 @@ trait AppendTuple {
   ): org.scalax.asuna.mapper.item.Application[K, Tuple1[H1], XyyTupleType1[T1]] =
     new org.scalax.asuna.mapper.item.Application[K, Tuple1[H1], XyyTupleType1[T1]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[XyyTupleType1[T1]] = {
-        context.append(context.start, t1.application(context), ArticleXyyTuplePlus.tuplePlus1)
+        if (context.useHList) {
+          if (context.isReverse) {
+            context.append(context.start, t1.application(context), ArticleXyyTuplePlus.hlistPut1)
+          } else {
+            context.append(context.start, t1.application(context), ArticleXyyTuplePlus.hlistPlus1)
+          }
+        } else {
+          if (context.isReverse) {
+            context.append(context.start, t1.application(context), ArticleXyyTuplePlus.item2Put1)
+          } else {
+            context.append(context.start, t1.application(context), ArticleXyyTuplePlus.item2Plus1)
+          }
+        }
       }
     }
   implicit def xyy2[K <: org.scalax.asuna.mapper.item.KindContext, H1, H2, T1 <: org.scalax.asuna.mapper.item.TypeParam, T2 <: org.scalax.asuna.mapper.item.TypeParam](
