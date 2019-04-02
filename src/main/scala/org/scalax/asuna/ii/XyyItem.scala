@@ -6,8 +6,9 @@ trait XyyItem0 extends Any {
   def pudaoToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
 }
 object XyyItem0 extends XyyItem0
-trait XyyItem1[E1] extends Any {
+trait XyyItem1[E1] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag1[E1]] {
   self =>
+  override type IITag = ItemTag1[E1]
   def i1: E1
   def leftHead: E1                           = throw new Exception("Can not use this method.")
   def leftTail: XyyItem0                     = throw new Exception("Can not use this method.")
@@ -18,8 +19,9 @@ trait XyyItem1[E1] extends Any {
   def eatToTuple[T](xyy: T): Tuple2[E1, T]   = (self.i1, xyy)
   def pudaoToTuple[T](xyy: T): Tuple2[T, E1] = (xyy, self.i1)
 }
-trait XyyItem2[E1, E2] extends Any {
+trait XyyItem2[E1, E2] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag2[E1, E2]] {
   self =>
+  override type IITag = ItemTag2[E1, E2]
   def i1: E1
   def i2: E2
   def leftHead: E1                               = throw new Exception("Can not use this method.")
@@ -33,8 +35,9 @@ trait XyyItem2[E1, E2] extends Any {
   def leftTuple: Tuple1[E2]                      = Tuple1(self.i2)
   def rightTuple: Tuple1[E1]                     = Tuple1(self.i1)
 }
-trait XyyItem3[E1, E2, E3] extends Any {
+trait XyyItem3[E1, E2, E3] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag3[E1, E2, E3]] {
   self =>
+  override type IITag = ItemTag3[E1, E2, E3]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -49,8 +52,9 @@ trait XyyItem3[E1, E2, E3] extends Any {
   def leftTuple: Tuple2[E2, E3]                      = Tuple2(self.i2, self.i3)
   def rightTuple: Tuple2[E1, E2]                     = Tuple2(self.i1, self.i2)
 }
-trait XyyItem4[E1, E2, E3, E4] extends Any {
+trait XyyItem4[E1, E2, E3, E4] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag4[E1, E2, E3, E4]] {
   self =>
+  override type IITag = ItemTag4[E1, E2, E3, E4]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -66,8 +70,9 @@ trait XyyItem4[E1, E2, E3, E4] extends Any {
   def leftTuple: Tuple3[E2, E3, E4]                      = Tuple3(self.i2, self.i3, self.i4)
   def rightTuple: Tuple3[E1, E2, E3]                     = Tuple3(self.i1, self.i2, self.i3)
 }
-trait XyyItem5[E1, E2, E3, E4, E5] extends Any {
+trait XyyItem5[E1, E2, E3, E4, E5] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag5[E1, E2, E3, E4, E5]] {
   self =>
+  override type IITag = ItemTag5[E1, E2, E3, E4, E5]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -84,8 +89,9 @@ trait XyyItem5[E1, E2, E3, E4, E5] extends Any {
   def leftTuple: Tuple4[E2, E3, E4, E5]                      = Tuple4(self.i2, self.i3, self.i4, self.i5)
   def rightTuple: Tuple4[E1, E2, E3, E4]                     = Tuple4(self.i1, self.i2, self.i3, self.i4)
 }
-trait XyyItem6[E1, E2, E3, E4, E5, E6] extends Any {
+trait XyyItem6[E1, E2, E3, E4, E5, E6] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag6[E1, E2, E3, E4, E5, E6]] {
   self =>
+  override type IITag = ItemTag6[E1, E2, E3, E4, E5, E6]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -103,8 +109,9 @@ trait XyyItem6[E1, E2, E3, E4, E5, E6] extends Any {
   def leftTuple: Tuple5[E2, E3, E4, E5, E6]                      = Tuple5(self.i2, self.i3, self.i4, self.i5, self.i6)
   def rightTuple: Tuple5[E1, E2, E3, E4, E5]                     = Tuple5(self.i1, self.i2, self.i3, self.i4, self.i5)
 }
-trait XyyItem7[E1, E2, E3, E4, E5, E6, E7] extends Any {
+trait XyyItem7[E1, E2, E3, E4, E5, E6, E7] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag7[E1, E2, E3, E4, E5, E6, E7]] {
   self =>
+  override type IITag = ItemTag7[E1, E2, E3, E4, E5, E6, E7]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -123,8 +130,9 @@ trait XyyItem7[E1, E2, E3, E4, E5, E6, E7] extends Any {
   def leftTuple: Tuple6[E2, E3, E4, E5, E6, E7]                      = Tuple6(self.i2, self.i3, self.i4, self.i5, self.i6, self.i7)
   def rightTuple: Tuple6[E1, E2, E3, E4, E5, E6]                     = Tuple6(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6)
 }
-trait XyyItem8[E1, E2, E3, E4, E5, E6, E7, E8] extends Any {
+trait XyyItem8[E1, E2, E3, E4, E5, E6, E7, E8] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag8[E1, E2, E3, E4, E5, E6, E7, E8]] {
   self =>
+  override type IITag = ItemTag8[E1, E2, E3, E4, E5, E6, E7, E8]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -144,8 +152,9 @@ trait XyyItem8[E1, E2, E3, E4, E5, E6, E7, E8] extends Any {
   def leftTuple: Tuple7[E2, E3, E4, E5, E6, E7, E8]                      = Tuple7(self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
   def rightTuple: Tuple7[E1, E2, E3, E4, E5, E6, E7]                     = Tuple7(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7)
 }
-trait XyyItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9] extends Any {
+trait XyyItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag9[E1, E2, E3, E4, E5, E6, E7, E8, E9]] {
   self =>
+  override type IITag = ItemTag9[E1, E2, E3, E4, E5, E6, E7, E8, E9]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -166,8 +175,11 @@ trait XyyItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9] extends Any {
   def leftTuple: Tuple8[E2, E3, E4, E5, E6, E7, E8, E9]                       = Tuple8(self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9)
   def rightTuple: Tuple8[E1, E2, E3, E4, E5, E6, E7, E8]                      = Tuple8(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
 }
-trait XyyItem10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] extends Any {
+trait XyyItem10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]] {
   self =>
+  override type IITag = ItemTag10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -191,8 +203,11 @@ trait XyyItem10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] extends Any {
   def leftTuple: Tuple9[E2, E3, E4, E5, E6, E7, E8, E9, E10] = Tuple9(self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10)
   def rightTuple: Tuple9[E1, E2, E3, E4, E5, E6, E7, E8, E9] = Tuple9(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9)
 }
-trait XyyItem11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11] extends Any {
+trait XyyItem11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]] {
   self =>
+  override type IITag = ItemTag11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -217,8 +232,11 @@ trait XyyItem11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11] extends Any {
   def leftTuple: Tuple10[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11] = Tuple10(self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11)
   def rightTuple: Tuple10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] = Tuple10(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10)
 }
-trait XyyItem12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12] extends Any {
+trait XyyItem12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]] {
   self =>
+  override type IITag = ItemTag12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -246,8 +264,11 @@ trait XyyItem12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12] extends Any {
   def rightTuple: Tuple11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11] =
     Tuple11(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11)
 }
-trait XyyItem13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] extends Any {
+trait XyyItem13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]] {
   self =>
+  override type IITag = ItemTag13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -276,8 +297,11 @@ trait XyyItem13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] extends 
   def rightTuple: Tuple12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12] =
     Tuple12(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12)
 }
-trait XyyItem14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] extends Any {
+trait XyyItem14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]] {
   self =>
+  override type IITag = ItemTag14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -307,8 +331,11 @@ trait XyyItem14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] ext
   def rightTuple: Tuple13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] =
     Tuple13(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13)
 }
-trait XyyItem15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15] extends Any {
+trait XyyItem15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]] {
   self =>
+  override type IITag = ItemTag15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -339,8 +366,11 @@ trait XyyItem15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def rightTuple: Tuple14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] =
     Tuple14(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14)
 }
-trait XyyItem16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16] extends Any {
+trait XyyItem16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]] {
   self =>
+  override type IITag = ItemTag16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -372,8 +402,11 @@ trait XyyItem16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def rightTuple: Tuple15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15] =
     Tuple15(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15)
 }
-trait XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] extends Any {
+trait XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]] {
   self =>
+  override type IITag = ItemTag17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -406,8 +439,11 @@ trait XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def rightTuple: Tuple16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16] =
     Tuple16(self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15, self.i16)
 }
-trait XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] extends Any {
+trait XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]] {
   self =>
+  override type IITag = ItemTag18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -517,8 +553,11 @@ trait XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       self.i17
     )
 }
-trait XyyItem19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] extends Any {
+trait XyyItem19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]] {
   self =>
+  override type IITag = ItemTag19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -634,8 +673,11 @@ trait XyyItem19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       , self.i18
     )
 }
-trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] extends Any {
+trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]] {
   self =>
+  override type IITag = ItemTag20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -757,8 +799,11 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       , self.i19
     )
 }
-trait XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] extends Any {
+trait XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]] {
   self =>
+  override type IITag = ItemTag21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]
   def i1: E1
   def i2: E2
   def i3: E3
@@ -885,8 +930,11 @@ trait XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       , self.i20
     )
 }
-trait XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] extends Any {
+trait XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]
+    extends Any
+    with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]] {
   self =>
+  override type IITag = ItemTag22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]
   def i1: E1
   def i2: E2
   def i3: E3
