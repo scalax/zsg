@@ -4,12 +4,8 @@ package org.scalax.asuna.ii.item
 
 trait XyyItem0 extends Any {
 
-    def eat[T](xyy: T): XyyItem1[T] = new XyyItem1[T] {
-        override def i1: T = xyy
-    }
-    def pudao[T](xyy: T): XyyItem1[T] = new XyyItem1[T] {
-        override def i1: T = xyy
-    }
+    def eat[T](xyy: T): XyyItem1[T] = throw new Exception("Can not use this method.")
+    def pudao[T](xyy: T): XyyItem1[T] = throw new Exception("Can not use this method.")
 
     def eatToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
     def pudaoToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
@@ -23,19 +19,13 @@ trait XyyItem1[E1] extends Any {
 
     def i1: E1
 
-    def leftHead: E1 = self.i1
-    def leftTail: XyyItem0 = XyyItem0
-    def rightHead: E1 = self.i1
-    def rightTail: XyyItem0 = XyyItem0
+    def leftHead: E1 = throw new Exception("Can not use this method.")
+    def leftTail: XyyItem0 = throw new Exception("Can not use this method.")
+    def rightHead: E1 = throw new Exception("Can not use this method.")
+    def rightTail: XyyItem0 = throw new Exception("Can not use this method.")
 
-    def eat[T](xyy: T): XyyItem2[E1, T] = new XyyItem2[E1, T] {
-        override def i1: E1 = self.i1
-        override def i2: T  = xyy
-    }
-    def pudao[T](xyy: T): XyyItem2[T, E1] = new XyyItem2[T, E1] {
-        override def i1: T  = xyy
-        override def i2: E1 = self.i1
-    }
+    def eat[T](xyy: T): XyyItem2[E1, T] = throw new Exception("Can not use this method.")
+    def pudao[T](xyy: T): XyyItem2[T, E1] = throw new Exception("Can not use this method.")
 
     def eatToTuple[T](xyy: T): Tuple2[E1, T] = (self.i1, xyy)
     def pudaoToTuple[T](xyy: T): Tuple2[T, E1] = (xyy, self.i1)
@@ -51,31 +41,13 @@ trait XyyItem1[E1] extends Any {
             def i@{ii}: E@{ii}
         }
 
-        def leftHead: E1 = self.i1
-        def leftTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] = new XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] {
-            @for(ii <- 2 to i) {
-                def i@{ii - 1}: E@{ii} = self.i@{ii}
-            }
-        }
-        def rightHead: E@{i} = self.i@{i}
-        def rightTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] = new XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] {
-            @for(ii <- 2 to i) {
-                def i@{ii - 1}: E@{ii - 1} = self.i@{ii - 1}
-            }
-        }
+        def leftHead: E1 = throw new Exception("Can not use this method.")
+        def leftTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii} @if(ii < i) { , } }] = throw new Exception("Can not use this method.")
+        def rightHead: E@{i} = throw new Exception("Can not use this method.")
+        def rightTail: XyyItem@{i - 1}[@for(ii <- 2 to i) { E@{ii - 1} @if(ii < i) { , } }] = throw new Exception("Can not use this method.")
 
-        def eat[T](xyy: T): XyyItem@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = new XyyItem@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] {
-            @for(ii <- 1 to i) {
-                override def i@{ii}: E@{ii} = self.i@{ii}
-            }
-            override def i@{i + 1}: T = xyy
-        }
-        def pudao[T](xyy: T): XyyItem@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] = new XyyItem@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] {
-            override def i1: T = xyy
-            @for(ii <- 1 to i) {
-                override def i@{ii + 1}: E@{ii} = self.i@{ii}
-            }
-        }
+        def eat[T](xyy: T): XyyItem@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = throw new Exception("Can not use this method.")
+        def pudao[T](xyy: T): XyyItem@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] = throw new Exception("Can not use this method.")
 
         def eatToTuple[T](xyy: T): Tuple@{i + 1}[@for(ii <- 1 to i) { E@{ii}, } T] = (@for(ii <- 1 to i) { self.i@{ii}, } xyy)
         def pudaoToTuple[T](xyy: T): Tuple@{i + 1}[T @for(ii <- 1 to i) { , E@{ii} }] = (xyy @for(ii <- 1 to i) { , self.i@{ii} })
@@ -94,18 +66,10 @@ trait XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (ma
         def i@{ii}: E@{ii}
     }
 
-    def leftHead: E1 = self.i1
-    def leftTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = new XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] {
-        @for(ii <- 2 to (maxItem + 1)) {
-            def i@{ii - 1}: E@{ii} = self.i@{ii}
-        }
-    }
-    def rightHead: E@{maxItem + 1} = self.i@{maxItem + 1}
-    def rightTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = new XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] {
-        @for(ii <- 2 to (maxItem + 1)) {
-            def i@{ii - 1}: E@{ii - 1} = self.i@{ii - 1}
-        }
-    }
+    def leftHead: E1 = throw new Exception("Can not use this method.")
+    def leftTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = throw new Exception("Can not use this method.")
+    def rightHead: E@{maxItem + 1} = throw new Exception("Can not use this method.")
+    def rightTail: XyyItem@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = throw new Exception("Can not use this method.")
 
     def leftTuple: Tuple@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] = (@for(ii <- 2 to (maxItem + 1)) { self.i@{ii} @if(ii < (maxItem + 1)) { , } })
     def rightTuple: Tuple@{maxItem}[@for(ii <- 2 to (maxItem + 1)) { E@{ii - 1} @if(ii < (maxItem + 1)) { , } }] = (@for(ii <- 2 to (maxItem + 1)) { self.i@{ii - 1} @if(ii < (maxItem + 1)) { , } })
