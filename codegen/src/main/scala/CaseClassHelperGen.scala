@@ -170,4 +170,48 @@ object CaseClassHelperGen1 extends App {
   writer11.println(content112)
   writer11.close()
 
+  val path12 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tag")
+      .resolve("ItemTag.scala")
+
+  Files.createDirectories(path12.getParent)
+
+  val writer12 = new PrintWriter(path12.toFile)
+  val content121 =
+    Source.fromString(org.scalax.asuna.template11.tag.txt.ItemTag(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content122 = content121.mkString(System.lineSeparator)
+  writer12.println(content122)
+  writer12.close()
+
+  val path13 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tag")
+      .resolve("NodeTag.scala")
+
+  Files.createDirectories(path13.getParent)
+
+  val writer13 = new PrintWriter(path13.toFile)
+  val content131 =
+    Source.fromString(org.scalax.asuna.template11.tag.txt.NodeTag(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content132 = content131.mkString(System.lineSeparator)
+  writer13.println(content132)
+  writer13.close()
+
 }

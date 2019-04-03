@@ -1,0 +1,25 @@
+@(maxItem: Int)
+
+package org.scalax.asuna.ii.item
+
+class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
+
+    override type RawItem = T1
+    override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
+    override type TailItem = org.scalax.asuna.mapper.item.EndItemTag
+    override type Sub = ItemTag1[T1]
+    override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag1[(RawItem, I#RawItem)]
+
+}
+
+@for(i <- 2 to maxItem) {
+    class ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
+
+        override type RawItem = T1
+        override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
+        override type TailItem = ItemTag@{i - 1}[@for(ii <- 2 to i){ T@{ii} @if(ii < i) { , } }]
+        override type Sub = ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]
+        override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag@{i}[@for(ii <- 1 to i) { (@for(iii <- 1 to (ii - 1)) { TailItem# } RawItem, I@for(iii <- 1 to (ii - 1)) { #TailItem } #RawItem) @if(ii < i) { , } }]
+
+    }
+}

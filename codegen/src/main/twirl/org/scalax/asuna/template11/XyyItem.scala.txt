@@ -14,8 +14,10 @@ trait XyyItem0 extends Any {
 
 object XyyItem0 extends XyyItem0
 
-trait XyyItem1[E1] extends Any {
+trait XyyItem1[E1] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag1[E1]] {
     self =>
+
+    override type IITag = ItemTag1[E1]
 
     def i1: E1
 
@@ -34,8 +36,10 @@ trait XyyItem1[E1] extends Any {
 
 @for(i <- 2 to maxItem) {
 
-    trait XyyItem@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] extends Any {
+    trait XyyItem@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]] {
         self =>
+
+        override type IITag = ItemTag@{i}[@for(ii <- 1 to i) { E@{ii} @if(ii < i) { , } }]
 
         @for(ii <- 1 to i) {
             def i@{ii}: E@{ii}
@@ -59,8 +63,10 @@ trait XyyItem1[E1] extends Any {
 
 }
 
-trait XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] extends Any {
+trait XyyItem@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }]] {
     self =>
+
+    override type IITag = ItemTag@{maxItem + 1}[@for(ii <- 1 to (maxItem + 1)) { E@{ii} @if(ii < (maxItem + 1)) { , } }]
 
     @for(ii <- 1 to (maxItem + 1)) {
         def i@{ii}: E@{ii}

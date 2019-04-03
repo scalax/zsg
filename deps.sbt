@@ -1,6 +1,6 @@
 resolvers += Resolver.sonatypeRepo("releases")
 
-val slickVersion = "3.2.3"
+val slickVersion = "3.3.0"
 
 libraryDependencies += "com.typesafe.slick" %% "slick" % slickVersion
 
