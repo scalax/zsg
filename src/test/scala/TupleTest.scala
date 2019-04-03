@@ -102,7 +102,7 @@ object Util {
   import TupleTest._
 
   trait TupleTestImplicit {
-    implicit def ii: Application[TupleContext[(AppendTuple, TupleTestImplicit)], String, Type1] =
+    implicit val ii: Application[TupleContext[(AppendTuple, TupleTestImplicit)], String, Type1] =
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], String, Type1] {
         override def application(cotext: Context[TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleEncoder[String], String => List[String]) =
           (new TupleEncoder1[String] {
@@ -110,7 +110,7 @@ object Util {
           }, t => List(s"copy1: ${t}", s"copy2: ${t}"))
       }
 
-    implicit def ii2: Application[TupleContext[(AppendTuple, TupleTestImplicit)], Int, Type2] =
+    implicit val ii2: Application[TupleContext[(AppendTuple, TupleTestImplicit)], Int, Type2] =
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Int, TupleTest.Type2] {
         override def application(cotext: Context[TupleTest.TupleContext[(AppendTuple, TupleTestImplicit)]]): (TupleEncoder[Int], Int => List[String]) =
           (new TupleEncoder1[Int] {
