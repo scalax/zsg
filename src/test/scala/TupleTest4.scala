@@ -1,8 +1,23 @@
 package org.scalax.asuna.mapper.append.test
 
-import org.scalax.asuna.mapper.append.slick.SlickUtil
+import org.scalax.asuna.ii.item.AppendTuple
+import org.scalax.asuna.mapper.append.slick.SlickUtil.TupleTestImplicit
+import org.scalax.asuna.mapper.item.{Application, TypeParam}
+import org.scalax.asuna.mapper.append.slick.TupleTest3
+import slick.ast.TypedType
+
+import scala.language.implicitConversions
 
 object TupleTest4 extends App {
+
+  val iiiiii = new TupleTest3.TEncoderContext[(AppendTuple, TupleTestImplicit)]
+
+  implicit def columnExtendsionMethod[T, I <: TypeParam, RawDataType](i: T)(implicit ii: Application[TupleTest3.TupleContext[(AppendTuple, TupleTestImplicit)], T, I],
+                                                                            p: T <:< I#H,
+                                                                            profile: slick.jdbc.JdbcProfile): TupleTest3.P[I#T#H] = {
+    import profile.api._
+    ii.application(iiiiii).iii(p(i), implicitly[TypedType[Option[Boolean]]])
+  }
 
   import slick.jdbc.H2Profile.api._
 
@@ -18,7 +33,7 @@ object TupleTest4 extends App {
 
   val s7 = ts
     .filter { d =>
-      SlickUtil.pp.encodeTuple(d.id, d.price) inSet Seq(1 -> 1.0, 2 -> 2.0)
+      (d.id, d.price) inSet Seq(1 -> 1.0, 2 -> 2.0)
     }
     .filterIf(true)(_.myString === "stack")
     .result
@@ -30,7 +45,7 @@ object TupleTest4 extends App {
 
   val s8 = ts
     .filter { d =>
-      SlickUtil.pp.encodeTuple(d.id, d.price) inSetBind Seq(1 -> 1.0, 2 -> 2.0)
+      (d.id, d.price) inSetBind Seq(1 -> 1.0, 2 -> 2.0)
     }
     .filterIf(true)(_.myString === "stack")
     .result
@@ -42,7 +57,7 @@ object TupleTest4 extends App {
 
   val s9 = ts
     .filter { d =>
-      SlickUtil.pp.encodeTuple(d.id.?, d.price) inSet Seq(Option(1) -> 1.0, Option.empty -> 2.0)
+      (d.id.?, d.price) inSet Seq(Option(1) -> 1.0, Option.empty -> 2.0)
     }
     .filterIf(true)(_.myString === "stack")
     .result

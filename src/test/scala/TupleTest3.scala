@@ -86,12 +86,12 @@ object TupleTest3 {
 
   }
 
-  class PP[K] {
+  /*class PP[K] {
     private val c: Context[TupleContext[K]] = new TEncoderContext[K]
     def encodeTuple[T, I <: TypeParam](x: T)(implicit ii: Application[TupleContext[K], T, I], iii: T <:< I#H, pp: slick.ast.TypedType[Option[Boolean]]): P[I#T#H] = {
       ii.application(c).iii(x, pp)
     }
-  }
+  }*/
 
   class PU[P] extends TypeParam {
     override type H = P
@@ -139,7 +139,5 @@ object SlickUtil {
   }
 
   object TupleTestImplicit extends TupleTestImplicit
-
-  val pp = new PP[(AppendTuple, TupleTestImplicit)]
 
 }
