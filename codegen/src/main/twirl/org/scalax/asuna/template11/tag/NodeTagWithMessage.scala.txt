@@ -2,24 +2,24 @@
 
 package org.scalax.asuna.ii.item
 
-class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
+class NodeTagWithMessage1[T1 <: org.scalax.asuna.mapper.item.ItemTag, M1 <: org.scalax.asuna.mapper.item.Message] extends org.scalax.asuna.mapper.item.ItemTag {
 
     override type RawItem = org.scalax.asuna.mapper.item.NotUseItem
     override type HeadItem = T1
     override type TailItem = org.scalax.asuna.mapper.item.EndItemTag
-    override type Sub = NodeTag1[T1#Sub]
-
+    override type Sub = NodeTagWithMessage1[T1#Sub, M1]
+    override type NoMessage = NodeTag1[T1#Sub]
     override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag1[HeadItem#Sub#Pull[I#HeadItem#Sub]]
 
 }
 
 @for(i <- 2 to maxItem) {
-    class NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < i) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
+    class NodeTagWithMessage@{i}[@for(ii <- 1 to i){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag, M@{ii} <: org.scalax.asuna.mapper.item.Message @if(ii < i) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
         override type RawItem = org.scalax.asuna.mapper.item.NotUseItem
         override type HeadItem = T1
-        override type TailItem = NodeTag@{i - 1}[@for(ii <- 2 to i){ T@{ii} @if(ii < i) { , } }]
-        override type Sub = NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}#Sub @if(ii < i) { , } }]
+        override type TailItem = NodeTagWithMessage@{i - 1}[@for(ii <- 2 to i){ T@{ii}, M@{ii} @if(ii < i) { , } }]
+        override type Sub = NodeTagWithMessage@{i}[@for(ii <- 1 to i){ T@{ii}#Sub, M@{ii} @if(ii < i) { , } }]
         override type NoMessage = NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}#NoMessage @if(ii < i) { , } }]
         override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag@{i}[@for(ii <- 1 to i) { @for(iii <- 1 to (ii - 1)) { TailItem# } HeadItem#Sub#Pull[I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem#Sub] @if(ii < i) { , } }]
         override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({

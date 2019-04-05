@@ -214,4 +214,70 @@ object CaseClassHelperGen1 extends App {
   writer13.println(content132)
   writer13.close()
 
+  val path14 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tag")
+      .resolve("ItemTagWithMessage.scala")
+
+  Files.createDirectories(path14.getParent)
+
+  val writer14 = new PrintWriter(path14.toFile)
+  val content141 =
+    Source.fromString(org.scalax.asuna.template11.tag.txt.ItemTagWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content142 = content141.mkString(System.lineSeparator)
+  writer14.println(content142)
+  writer14.close()
+
+  val path15 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tag")
+      .resolve("NodeTagWithMessage.scala")
+
+  Files.createDirectories(path15.getParent)
+
+  val writer15 = new PrintWriter(path15.toFile)
+  val content151 =
+    Source.fromString(org.scalax.asuna.template11.tag.txt.NodeTagWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content152 = content151.mkString(System.lineSeparator)
+  writer15.println(content152)
+  writer15.close()
+
+  val path16 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("tag")
+      .resolve("Message.scala")
+
+  Files.createDirectories(path16.getParent)
+
+  val writer16 = new PrintWriter(path16.toFile)
+  val content161 =
+    Source.fromString(org.scalax.asuna.template11.tag.txt.Message(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content162 = content161.mkString(System.lineSeparator)
+  writer16.println(content162)
+  writer16.close()
+
 }
