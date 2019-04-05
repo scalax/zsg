@@ -2,7 +2,7 @@
 
 package org.scalax.asuna.ii.item
 
-class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
+class ItemTagWithMessage1[T1, Message1 <: org.scalax.asuna.mapper.item.Message] extends org.scalax.asuna.mapper.item.ItemTag {
 
     override type RawItem = T1
     override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
@@ -14,16 +14,16 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
 }
 
 @for(i <- 2 to maxItem) {
-    class ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
+    class ItemTagWithMessage@{i}[@for(ii <- 1 to i){ T@{ii}, Message@{ii} <: org.scalax.asuna.mapper.item.Message @if(ii < i) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
         override type RawItem = T1
         override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
-        override type TailItem = ItemTag@{i - 1}[@for(ii <- 2 to i){ T@{ii} @if(ii < i) { , } }]
-        override type Sub = ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]
+        override type TailItem = ItemTagWithMessage@{i - 1}[@for(ii <- 2 to i){ T@{ii}, Message@{ii} @if(ii < i) { , } }]
+        override type Sub = ItemTagWithMessage@{i}[@for(ii <- 1 to i){ T@{ii}, Message@{ii} @if(ii < i) { , } }]
 
         override type NoMessage = ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]
 
-        override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag@{i}[@for(ii <- 1 to i) { (@for(iii <- 1 to (ii - 1)) { TailItem# } RawItem, I@for(iii <- 1 to (ii - 1)) { #TailItem } #RawItem) @if(ii < i) { , } }]
+        override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage@{i}[@for(ii <- 1 to i) { (@for(iii <- 1 to (ii - 1)) { TailItem# } RawItem, I@for(iii <- 1 to (ii - 1)) { #TailItem } #RawItem), Message@{ii} @if(ii < i) { , } }]
         override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage@{i}[@for(ii <- 1 to i) { T@{ii}, I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem @if(ii < i) { , } }], I@for(ii <- 1 to i) { #TailItem }]
 
     }

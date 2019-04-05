@@ -1,16 +1,22 @@
 package org.scalax.asuna.ii.item
-class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
+class NodeTagWithMessage1[T1 <: org.scalax.asuna.mapper.item.ItemTag, M1 <: org.scalax.asuna.mapper.item.Message] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem                                         = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem                                        = T1
   override type TailItem                                        = org.scalax.asuna.mapper.item.EndItemTag
-  override type Sub                                             = NodeTag1[T1#Sub]
+  override type Sub                                             = NodeTagWithMessage1[T1#Sub, M1]
+  override type NoMessage                                       = NodeTag1[T1#Sub]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag1[HeadItem#Sub#Pull[I#HeadItem#Sub]]
 }
-class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
+class NodeTagWithMessage2[
+  T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
+  T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message
+] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem                                         = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem                                        = T1
-  override type TailItem                                        = NodeTag1[T2]
-  override type Sub                                             = NodeTag2[T1#Sub, T2#Sub]
+  override type TailItem                                        = NodeTagWithMessage1[T2, M2]
+  override type Sub                                             = NodeTagWithMessage2[T1#Sub, M1, T2#Sub, M2]
   override type NoMessage                                       = NodeTag2[T1#NoMessage, T2#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag2[HeadItem#Sub#Pull[I#HeadItem#Sub], TailItem#HeadItem#Sub#Pull[I#TailItem#HeadItem#Sub]]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
@@ -19,12 +25,18 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage2[Type1#Result, Type1#Left#HeadItem, Type2#Result, Type2#Left#HeadItem], Type2#Left]
   })#II
 }
-class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag, T3 <: org.scalax.asuna.mapper.item.ItemTag]
-    extends org.scalax.asuna.mapper.item.ItemTag {
+class NodeTagWithMessage3[
+  T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
+  T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
+  T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message
+] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag2[T2, T3]
-  override type Sub       = NodeTag3[T1#Sub, T2#Sub, T3#Sub]
+  override type TailItem  = NodeTagWithMessage2[T2, M2, T3, M3]
+  override type Sub       = NodeTagWithMessage3[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3]
   override type NoMessage = NodeTag3[T1#NoMessage, T2#NoMessage, T3#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag3[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -45,16 +57,20 @@ class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     ], Type3#Left]
   })#II
 }
-class NodeTag4[
+class NodeTagWithMessage4[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
-  T4 <: org.scalax.asuna.mapper.item.ItemTag
+  M3 <: org.scalax.asuna.mapper.item.Message,
+  T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag3[T2, T3, T4]
-  override type Sub       = NodeTag4[T1#Sub, T2#Sub, T3#Sub, T4#Sub]
+  override type TailItem  = NodeTagWithMessage3[T2, M2, T3, M3, T4, M4]
+  override type Sub       = NodeTagWithMessage4[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4]
   override type NoMessage = NodeTag4[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag4[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -79,17 +95,22 @@ class NodeTag4[
     ], Type4#Left]
   })#II
 }
-class NodeTag5[
+class NodeTagWithMessage5[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
-  T5 <: org.scalax.asuna.mapper.item.ItemTag
+  M4 <: org.scalax.asuna.mapper.item.Message,
+  T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag4[T2, T3, T4, T5]
-  override type Sub       = NodeTag5[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub]
+  override type TailItem  = NodeTagWithMessage4[T2, M2, T3, M3, T4, M4, T5, M5]
+  override type Sub       = NodeTagWithMessage5[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5]
   override type NoMessage = NodeTag5[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag5[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -118,18 +139,24 @@ class NodeTag5[
     ], Type5#Left]
   })#II
 }
-class NodeTag6[
+class NodeTagWithMessage6[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
-  T6 <: org.scalax.asuna.mapper.item.ItemTag
+  M5 <: org.scalax.asuna.mapper.item.Message,
+  T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag5[T2, T3, T4, T5, T6]
-  override type Sub       = NodeTag6[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub]
+  override type TailItem  = NodeTagWithMessage5[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6]
+  override type Sub       = NodeTagWithMessage6[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6]
   override type NoMessage = NodeTag6[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag6[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -162,19 +189,26 @@ class NodeTag6[
     ], Type6#Left]
   })#II
 }
-class NodeTag7[
+class NodeTagWithMessage7[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
-  T7 <: org.scalax.asuna.mapper.item.ItemTag
+  M6 <: org.scalax.asuna.mapper.item.Message,
+  T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag6[T2, T3, T4, T5, T6, T7]
-  override type Sub       = NodeTag7[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub]
+  override type TailItem  = NodeTagWithMessage6[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7]
+  override type Sub       = NodeTagWithMessage7[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6, T7#Sub, M7]
   override type NoMessage = NodeTag7[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage, T7#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag7[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -211,20 +245,28 @@ class NodeTag7[
     ], Type7#Left]
   })#II
 }
-class NodeTag8[
+class NodeTagWithMessage8[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
-  T8 <: org.scalax.asuna.mapper.item.ItemTag
+  M7 <: org.scalax.asuna.mapper.item.Message,
+  T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag7[T2, T3, T4, T5, T6, T7, T8]
-  override type Sub       = NodeTag8[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub]
+  override type TailItem  = NodeTagWithMessage7[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8]
+  override type Sub       = NodeTagWithMessage8[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6, T7#Sub, M7, T8#Sub, M8]
   override type NoMessage = NodeTag8[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage, T7#NoMessage, T8#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag8[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -265,21 +307,30 @@ class NodeTag8[
     ], Type8#Left]
   })#II
 }
-class NodeTag9[
+class NodeTagWithMessage9[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
-  T9 <: org.scalax.asuna.mapper.item.ItemTag
+  M8 <: org.scalax.asuna.mapper.item.Message,
+  T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem  = T1
-  override type TailItem  = NodeTag8[T2, T3, T4, T5, T6, T7, T8, T9]
-  override type Sub       = NodeTag9[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub]
+  override type TailItem  = NodeTagWithMessage8[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9]
+  override type Sub       = NodeTagWithMessage9[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6, T7#Sub, M7, T8#Sub, M8, T9#Sub, M9]
   override type NoMessage = NodeTag9[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage, T7#NoMessage, T8#NoMessage, T9#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag9[
     HeadItem#Sub#Pull[I#HeadItem#Sub],
@@ -326,22 +377,32 @@ class NodeTag9[
     ], Type9#Left]
   })#II
 }
-class NodeTag10[
+class NodeTagWithMessage10[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
-  T10 <: org.scalax.asuna.mapper.item.ItemTag
+  M9 <: org.scalax.asuna.mapper.item.Message,
+  T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag9[T2, T3, T4, T5, T6, T7, T8, T9, T10]
-  override type Sub      = NodeTag10[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub]
+  override type TailItem = NodeTagWithMessage9[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10]
+  override type Sub      = NodeTagWithMessage10[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6, T7#Sub, M7, T8#Sub, M8, T9#Sub, M9, T10#Sub, M10]
   override type NoMessage =
     NodeTag10[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage, T7#NoMessage, T8#NoMessage, T9#NoMessage, T10#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag10[
@@ -395,23 +456,35 @@ class NodeTag10[
     ], Type10#Left]
   })#II
 }
-class NodeTag11[
+class NodeTagWithMessage11[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
-  T11 <: org.scalax.asuna.mapper.item.ItemTag
+  M10 <: org.scalax.asuna.mapper.item.Message,
+  T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag10[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
-  override type Sub      = NodeTag11[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub]
+  override type TailItem = NodeTagWithMessage10[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11]
+  override type Sub =
+    NodeTagWithMessage11[T1#Sub, M1, T2#Sub, M2, T3#Sub, M3, T4#Sub, M4, T5#Sub, M5, T6#Sub, M6, T7#Sub, M7, T8#Sub, M8, T9#Sub, M9, T10#Sub, M10, T11#Sub, M11]
   override type NoMessage =
     NodeTag11[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage, T6#NoMessage, T7#NoMessage, T8#NoMessage, T9#NoMessage, T10#NoMessage, T11#NoMessage]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag11[
@@ -471,24 +544,61 @@ class NodeTag11[
     ], Type11#Left]
   })#II
 }
-class NodeTag12[
+class NodeTagWithMessage12[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
-  T12 <: org.scalax.asuna.mapper.item.ItemTag
+  M11 <: org.scalax.asuna.mapper.item.Message,
+  T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag11[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
-  override type Sub      = NodeTag12[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub]
+  override type TailItem = NodeTagWithMessage11[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12]
+  override type Sub = NodeTagWithMessage12[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12
+  ]
   override type NoMessage = NodeTag12[
     T1#NoMessage,
     T2#NoMessage,
@@ -566,25 +676,65 @@ class NodeTag12[
     ], Type12#Left]
   })#II
 }
-class NodeTag13[
+class NodeTagWithMessage13[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
-  T13 <: org.scalax.asuna.mapper.item.ItemTag
+  M12 <: org.scalax.asuna.mapper.item.Message,
+  T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag12[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]
-  override type Sub      = NodeTag13[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub]
+  override type TailItem = NodeTagWithMessage12[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12, T13, M13]
+  override type Sub = NodeTagWithMessage13[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13
+  ]
   override type NoMessage = NodeTag13[
     T1#NoMessage,
     T2#NoMessage,
@@ -669,26 +819,69 @@ class NodeTag13[
     ], Type13#Left]
   })#II
 }
-class NodeTag14[
+class NodeTagWithMessage14[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
-  T14 <: org.scalax.asuna.mapper.item.ItemTag
+  M13 <: org.scalax.asuna.mapper.item.Message,
+  T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag13[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
-  override type Sub      = NodeTag14[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub, T14#Sub]
+  override type TailItem = NodeTagWithMessage13[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12, T13, M13, T14, M14]
+  override type Sub = NodeTagWithMessage14[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13,
+    T14#Sub,
+    M14
+  ]
   override type NoMessage = NodeTag14[
     T1#NoMessage,
     T2#NoMessage,
@@ -780,27 +973,74 @@ class NodeTag14[
     ], Type14#Left]
   })#II
 }
-class NodeTag15[
+class NodeTagWithMessage15[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
-  T15 <: org.scalax.asuna.mapper.item.ItemTag
+  M14 <: org.scalax.asuna.mapper.item.Message,
+  T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag14[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
-  override type Sub      = NodeTag15[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub, T14#Sub, T15#Sub]
+  override type TailItem =
+    NodeTagWithMessage14[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12, T13, M13, T14, M14, T15, M15]
+  override type Sub = NodeTagWithMessage15[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13,
+    T14#Sub,
+    M14,
+    T15#Sub,
+    M15
+  ]
   override type NoMessage = NodeTag15[
     T1#NoMessage,
     T2#NoMessage,
@@ -899,28 +1139,78 @@ class NodeTag15[
     ], Type15#Left]
   })#II
 }
-class NodeTag16[
+class NodeTagWithMessage16[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
-  T16 <: org.scalax.asuna.mapper.item.ItemTag
+  M15 <: org.scalax.asuna.mapper.item.Message,
+  T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag15[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
-  override type Sub      = NodeTag16[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub, T14#Sub, T15#Sub, T16#Sub]
+  override type TailItem =
+    NodeTagWithMessage15[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12, T13, M13, T14, M14, T15, M15, T16, M16]
+  override type Sub = NodeTagWithMessage16[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13,
+    T14#Sub,
+    M14,
+    T15#Sub,
+    M15,
+    T16#Sub,
+    M16
+  ]
   override type NoMessage = NodeTag16[
     T1#NoMessage,
     T2#NoMessage,
@@ -1026,30 +1316,82 @@ class NodeTag16[
     ], Type16#Left]
   })#II
 }
-class NodeTag17[
+class NodeTagWithMessage17[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
-  T17 <: org.scalax.asuna.mapper.item.ItemTag
+  M16 <: org.scalax.asuna.mapper.item.Message,
+  T17 <: org.scalax.asuna.mapper.item.ItemTag,
+  M17 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag16[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
-  override type Sub =
-    NodeTag17[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub, T14#Sub, T15#Sub, T16#Sub, T17#Sub]
+  override type TailItem =
+    NodeTagWithMessage16[T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12, T13, M13, T14, M14, T15, M15, T16, M16, T17, M17]
+  override type Sub = NodeTagWithMessage17[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13,
+    T14#Sub,
+    M14,
+    T15#Sub,
+    M15,
+    T16#Sub,
+    M16,
+    T17#Sub,
+    M17
+  ]
   override type NoMessage = NodeTag17[
     T1#NoMessage,
     T2#NoMessage,
@@ -1162,31 +1504,120 @@ class NodeTag17[
     ], Type17#Left]
   })#II
 }
-class NodeTag18[
+class NodeTagWithMessage18[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message,
   T17 <: org.scalax.asuna.mapper.item.ItemTag,
-  T18 <: org.scalax.asuna.mapper.item.ItemTag
+  M17 <: org.scalax.asuna.mapper.item.Message,
+  T18 <: org.scalax.asuna.mapper.item.ItemTag,
+  M18 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag17[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
-  override type Sub =
-    NodeTag18[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub, T6#Sub, T7#Sub, T8#Sub, T9#Sub, T10#Sub, T11#Sub, T12#Sub, T13#Sub, T14#Sub, T15#Sub, T16#Sub, T17#Sub, T18#Sub]
+  override type TailItem = NodeTagWithMessage17[
+    T2,
+    M2,
+    T3,
+    M3,
+    T4,
+    M4,
+    T5,
+    M5,
+    T6,
+    M6,
+    T7,
+    M7,
+    T8,
+    M8,
+    T9,
+    M9,
+    T10,
+    M10,
+    T11,
+    M11,
+    T12,
+    M12,
+    T13,
+    M13,
+    T14,
+    M14,
+    T15,
+    M15,
+    T16,
+    M16,
+    T17,
+    M17,
+    T18,
+    M18
+  ]
+  override type Sub = NodeTagWithMessage18[
+    T1#Sub,
+    M1,
+    T2#Sub,
+    M2,
+    T3#Sub,
+    M3,
+    T4#Sub,
+    M4,
+    T5#Sub,
+    M5,
+    T6#Sub,
+    M6,
+    T7#Sub,
+    M7,
+    T8#Sub,
+    M8,
+    T9#Sub,
+    M9,
+    T10#Sub,
+    M10,
+    T11#Sub,
+    M11,
+    T12#Sub,
+    M12,
+    T13#Sub,
+    M13,
+    T14#Sub,
+    M14,
+    T15#Sub,
+    M15,
+    T16#Sub,
+    M16,
+    T17#Sub,
+    M17,
+    T18#Sub,
+    M18
+  ]
   override type NoMessage = NodeTag18[
     T1#NoMessage,
     T2#NoMessage,
@@ -1306,50 +1737,125 @@ class NodeTag18[
     ], Type18#Left]
   })#II
 }
-class NodeTag19[
+class NodeTagWithMessage19[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message,
   T17 <: org.scalax.asuna.mapper.item.ItemTag,
+  M17 <: org.scalax.asuna.mapper.item.Message,
   T18 <: org.scalax.asuna.mapper.item.ItemTag,
-  T19 <: org.scalax.asuna.mapper.item.ItemTag
+  M18 <: org.scalax.asuna.mapper.item.Message,
+  T19 <: org.scalax.asuna.mapper.item.ItemTag,
+  M19 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag18[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
-  override type Sub = NodeTag19[
+  override type TailItem = NodeTagWithMessage18[
+    T2,
+    M2,
+    T3,
+    M3,
+    T4,
+    M4,
+    T5,
+    M5,
+    T6,
+    M6,
+    T7,
+    M7,
+    T8,
+    M8,
+    T9,
+    M9,
+    T10,
+    M10,
+    T11,
+    M11,
+    T12,
+    M12,
+    T13,
+    M13,
+    T14,
+    M14,
+    T15,
+    M15,
+    T16,
+    M16,
+    T17,
+    M17,
+    T18,
+    M18,
+    T19,
+    M19
+  ]
+  override type Sub = NodeTagWithMessage19[
     T1#Sub,
+    M1,
     T2#Sub,
+    M2,
     T3#Sub,
+    M3,
     T4#Sub,
+    M4,
     T5#Sub,
+    M5,
     T6#Sub,
+    M6,
     T7#Sub,
+    M7,
     T8#Sub,
+    M8,
     T9#Sub,
+    M9,
     T10#Sub,
+    M10,
     T11#Sub,
+    M11,
     T12#Sub,
+    M12,
     T13#Sub,
+    M13,
     T14#Sub,
+    M14,
     T15#Sub,
+    M15,
     T16#Sub,
+    M16,
     T17#Sub,
+    M17,
     T18#Sub,
-    T19#Sub
+    M18,
+    T19#Sub,
+    M19
   ]
   override type NoMessage = NodeTag19[
     T1#NoMessage,
@@ -1477,52 +1983,131 @@ class NodeTag19[
     ], Type19#Left]
   })#II
 }
-class NodeTag20[
+class NodeTagWithMessage20[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message,
   T17 <: org.scalax.asuna.mapper.item.ItemTag,
+  M17 <: org.scalax.asuna.mapper.item.Message,
   T18 <: org.scalax.asuna.mapper.item.ItemTag,
+  M18 <: org.scalax.asuna.mapper.item.Message,
   T19 <: org.scalax.asuna.mapper.item.ItemTag,
-  T20 <: org.scalax.asuna.mapper.item.ItemTag
+  M19 <: org.scalax.asuna.mapper.item.Message,
+  T20 <: org.scalax.asuna.mapper.item.ItemTag,
+  M20 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag19[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
-  override type Sub = NodeTag20[
+  override type TailItem = NodeTagWithMessage19[
+    T2,
+    M2,
+    T3,
+    M3,
+    T4,
+    M4,
+    T5,
+    M5,
+    T6,
+    M6,
+    T7,
+    M7,
+    T8,
+    M8,
+    T9,
+    M9,
+    T10,
+    M10,
+    T11,
+    M11,
+    T12,
+    M12,
+    T13,
+    M13,
+    T14,
+    M14,
+    T15,
+    M15,
+    T16,
+    M16,
+    T17,
+    M17,
+    T18,
+    M18,
+    T19,
+    M19,
+    T20,
+    M20
+  ]
+  override type Sub = NodeTagWithMessage20[
     T1#Sub,
+    M1,
     T2#Sub,
+    M2,
     T3#Sub,
+    M3,
     T4#Sub,
+    M4,
     T5#Sub,
+    M5,
     T6#Sub,
+    M6,
     T7#Sub,
+    M7,
     T8#Sub,
+    M8,
     T9#Sub,
+    M9,
     T10#Sub,
+    M10,
     T11#Sub,
+    M11,
     T12#Sub,
+    M12,
     T13#Sub,
+    M13,
     T14#Sub,
+    M14,
     T15#Sub,
+    M15,
     T16#Sub,
+    M16,
     T17#Sub,
+    M17,
     T18#Sub,
+    M18,
     T19#Sub,
-    T20#Sub
+    M19,
+    T20#Sub,
+    M20
   ]
   override type NoMessage = NodeTag20[
     T1#NoMessage,
@@ -1657,54 +2242,137 @@ class NodeTag20[
     ], Type20#Left]
   })#II
 }
-class NodeTag21[
+class NodeTagWithMessage21[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message,
   T17 <: org.scalax.asuna.mapper.item.ItemTag,
+  M17 <: org.scalax.asuna.mapper.item.Message,
   T18 <: org.scalax.asuna.mapper.item.ItemTag,
+  M18 <: org.scalax.asuna.mapper.item.Message,
   T19 <: org.scalax.asuna.mapper.item.ItemTag,
+  M19 <: org.scalax.asuna.mapper.item.Message,
   T20 <: org.scalax.asuna.mapper.item.ItemTag,
-  T21 <: org.scalax.asuna.mapper.item.ItemTag
+  M20 <: org.scalax.asuna.mapper.item.Message,
+  T21 <: org.scalax.asuna.mapper.item.ItemTag,
+  M21 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag20[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
-  override type Sub = NodeTag21[
+  override type TailItem = NodeTagWithMessage20[
+    T2,
+    M2,
+    T3,
+    M3,
+    T4,
+    M4,
+    T5,
+    M5,
+    T6,
+    M6,
+    T7,
+    M7,
+    T8,
+    M8,
+    T9,
+    M9,
+    T10,
+    M10,
+    T11,
+    M11,
+    T12,
+    M12,
+    T13,
+    M13,
+    T14,
+    M14,
+    T15,
+    M15,
+    T16,
+    M16,
+    T17,
+    M17,
+    T18,
+    M18,
+    T19,
+    M19,
+    T20,
+    M20,
+    T21,
+    M21
+  ]
+  override type Sub = NodeTagWithMessage21[
     T1#Sub,
+    M1,
     T2#Sub,
+    M2,
     T3#Sub,
+    M3,
     T4#Sub,
+    M4,
     T5#Sub,
+    M5,
     T6#Sub,
+    M6,
     T7#Sub,
+    M7,
     T8#Sub,
+    M8,
     T9#Sub,
+    M9,
     T10#Sub,
+    M10,
     T11#Sub,
+    M11,
     T12#Sub,
+    M12,
     T13#Sub,
+    M13,
     T14#Sub,
+    M14,
     T15#Sub,
+    M15,
     T16#Sub,
+    M16,
     T17#Sub,
+    M17,
     T18#Sub,
+    M18,
     T19#Sub,
+    M19,
     T20#Sub,
-    T21#Sub
+    M20,
+    T21#Sub,
+    M21
   ]
   override type NoMessage = NodeTag21[
     T1#NoMessage,
@@ -1846,56 +2514,143 @@ class NodeTag21[
     ], Type21#Left]
   })#II
 }
-class NodeTag22[
+class NodeTagWithMessage22[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
+  M1 <: org.scalax.asuna.mapper.item.Message,
   T2 <: org.scalax.asuna.mapper.item.ItemTag,
+  M2 <: org.scalax.asuna.mapper.item.Message,
   T3 <: org.scalax.asuna.mapper.item.ItemTag,
+  M3 <: org.scalax.asuna.mapper.item.Message,
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
+  M4 <: org.scalax.asuna.mapper.item.Message,
   T5 <: org.scalax.asuna.mapper.item.ItemTag,
+  M5 <: org.scalax.asuna.mapper.item.Message,
   T6 <: org.scalax.asuna.mapper.item.ItemTag,
+  M6 <: org.scalax.asuna.mapper.item.Message,
   T7 <: org.scalax.asuna.mapper.item.ItemTag,
+  M7 <: org.scalax.asuna.mapper.item.Message,
   T8 <: org.scalax.asuna.mapper.item.ItemTag,
+  M8 <: org.scalax.asuna.mapper.item.Message,
   T9 <: org.scalax.asuna.mapper.item.ItemTag,
+  M9 <: org.scalax.asuna.mapper.item.Message,
   T10 <: org.scalax.asuna.mapper.item.ItemTag,
+  M10 <: org.scalax.asuna.mapper.item.Message,
   T11 <: org.scalax.asuna.mapper.item.ItemTag,
+  M11 <: org.scalax.asuna.mapper.item.Message,
   T12 <: org.scalax.asuna.mapper.item.ItemTag,
+  M12 <: org.scalax.asuna.mapper.item.Message,
   T13 <: org.scalax.asuna.mapper.item.ItemTag,
+  M13 <: org.scalax.asuna.mapper.item.Message,
   T14 <: org.scalax.asuna.mapper.item.ItemTag,
+  M14 <: org.scalax.asuna.mapper.item.Message,
   T15 <: org.scalax.asuna.mapper.item.ItemTag,
+  M15 <: org.scalax.asuna.mapper.item.Message,
   T16 <: org.scalax.asuna.mapper.item.ItemTag,
+  M16 <: org.scalax.asuna.mapper.item.Message,
   T17 <: org.scalax.asuna.mapper.item.ItemTag,
+  M17 <: org.scalax.asuna.mapper.item.Message,
   T18 <: org.scalax.asuna.mapper.item.ItemTag,
+  M18 <: org.scalax.asuna.mapper.item.Message,
   T19 <: org.scalax.asuna.mapper.item.ItemTag,
+  M19 <: org.scalax.asuna.mapper.item.Message,
   T20 <: org.scalax.asuna.mapper.item.ItemTag,
+  M20 <: org.scalax.asuna.mapper.item.Message,
   T21 <: org.scalax.asuna.mapper.item.ItemTag,
-  T22 <: org.scalax.asuna.mapper.item.ItemTag
+  M21 <: org.scalax.asuna.mapper.item.Message,
+  T22 <: org.scalax.asuna.mapper.item.ItemTag,
+  M22 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem  = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem = T1
-  override type TailItem = NodeTag21[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
-  override type Sub = NodeTag22[
+  override type TailItem = NodeTagWithMessage21[
+    T2,
+    M2,
+    T3,
+    M3,
+    T4,
+    M4,
+    T5,
+    M5,
+    T6,
+    M6,
+    T7,
+    M7,
+    T8,
+    M8,
+    T9,
+    M9,
+    T10,
+    M10,
+    T11,
+    M11,
+    T12,
+    M12,
+    T13,
+    M13,
+    T14,
+    M14,
+    T15,
+    M15,
+    T16,
+    M16,
+    T17,
+    M17,
+    T18,
+    M18,
+    T19,
+    M19,
+    T20,
+    M20,
+    T21,
+    M21,
+    T22,
+    M22
+  ]
+  override type Sub = NodeTagWithMessage22[
     T1#Sub,
+    M1,
     T2#Sub,
+    M2,
     T3#Sub,
+    M3,
     T4#Sub,
+    M4,
     T5#Sub,
+    M5,
     T6#Sub,
+    M6,
     T7#Sub,
+    M7,
     T8#Sub,
+    M8,
     T9#Sub,
+    M9,
     T10#Sub,
+    M10,
     T11#Sub,
+    M11,
     T12#Sub,
+    M12,
     T13#Sub,
+    M13,
     T14#Sub,
+    M14,
     T15#Sub,
+    M15,
     T16#Sub,
+    M16,
     T17#Sub,
+    M17,
     T18#Sub,
+    M18,
     T19#Sub,
+    M19,
     T20#Sub,
+    M20,
     T21#Sub,
-    T22#Sub
+    M21,
+    T22#Sub,
+    M22
   ]
   override type NoMessage = NodeTag22[
     T1#NoMessage,
