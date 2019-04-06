@@ -1,0 +1,22 @@
+@(maxItem: Int)
+
+package org.scalax.asuna.ii.item
+
+trait AppendEatXyyWithMessage {
+
+@for(i <- 1 to maxItem) {
+
+    implicit def xyyWithMessage@{i}[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to i) { , H@{ii}, M@{ii} <: org.scalax.asuna.mapper.item.Message } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.item.TypeParam }]
+    (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.item.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
+    : org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTagWithMessage@{i}[@for(ii <- 1 to i) { H@{ii}, M@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTagWithMessage@{i}[@for(ii <- 1 to i) { H@{ii}, M@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+            AppendEatXyy.xyy@{i}(@for(ii <- 1 to i) { t@{ii} @if(ii < i) { , } }).application(context)
+        }
+    }
+
+}
+
+}
+
+object AppendEatXyyWithMessage extends AppendEatXyyWithMessage

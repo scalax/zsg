@@ -27,7 +27,7 @@ object CaseClassHelperGen1 extends App {
 
   val writer2 = new PrintWriter(path2.toFile)
   val content21 =
-    Source.fromString(org.scalax.asuna.template11.txt.EatXyyType(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template11.txt.EatXyyType(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content22 = content21.mkString(System.lineSeparator)
   writer2.println(content22)
   writer2.close()
@@ -39,19 +39,29 @@ object CaseClassHelperGen1 extends App {
 
   val writer3 = new PrintWriter(path3.toFile)
   val content31 =
-    Source.fromString(org.scalax.asuna.template11.txt.EatXyyPlus(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template11.txt.EatXyyPlus(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content32 = content31.mkString(System.lineSeparator)
   writer3.println(content32)
   writer3.close()
 
   val path4 =
-    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("AppendEatXyy.scala")
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("append")
+      .resolve("AppendEatXyy.scala")
 
   Files.createDirectories(path4.getParent)
 
   val writer4 = new PrintWriter(path4.toFile)
   val content41 =
-    Source.fromString(org.scalax.asuna.template11.txt.AppendEatXyy(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template11.append.txt.AppendEatXyy(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content42 = content41.mkString(System.lineSeparator)
   writer4.println(content42)
   writer4.close()
@@ -171,17 +181,7 @@ object CaseClassHelperGen1 extends App {
   writer11.close()
 
   val path12 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("tag")
-      .resolve("ItemTag.scala")
+    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("ItemTag.scala")
 
   Files.createDirectories(path12.getParent)
 
@@ -193,17 +193,7 @@ object CaseClassHelperGen1 extends App {
   writer12.close()
 
   val path13 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("tag")
-      .resolve("NodeTag.scala")
+    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("NodeTag.scala")
 
   Files.createDirectories(path13.getParent)
 
@@ -259,17 +249,7 @@ object CaseClassHelperGen1 extends App {
   writer15.close()
 
   val path16 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("tag")
-      .resolve("Message.scala")
+    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("Message.scala")
 
   Files.createDirectories(path16.getParent)
 
@@ -279,5 +259,27 @@ object CaseClassHelperGen1 extends App {
   val content162 = content161.mkString(System.lineSeparator)
   writer16.println(content162)
   writer16.close()
+
+  val path17 =
+    Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("ii")
+      .resolve("append")
+      .resolve("AppendItemWithMessage.scala")
+
+  Files.createDirectories(path17.getParent)
+
+  val writer17 = new PrintWriter(path17.toFile)
+  val content171 =
+    Source.fromString(org.scalax.asuna.template11.append.txt.AppendItemWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content172 = content171.mkString(System.lineSeparator)
+  writer17.println(content172)
+  writer17.close()
 
 }

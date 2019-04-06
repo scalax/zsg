@@ -27,7 +27,7 @@ class NodeTagWithMessage1[T1 <: org.scalax.asuna.mapper.item.ItemTag, M1 <: org.
             @for(ii <- 2 to i) {
                 type Type@{ii} = T@{ii}#InputMessage[Type@{ii - 1}#Left];
             }
-            type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage@{i}[@for(ii <- 1 to i) { Type@{ii}#Result, Type@{ii}#Left#HeadItem @if(ii < i) { , } }], Type@{i}#Left]
+            type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage@{i}[@for(ii <- 1 to i) { Type@{ii}#Result, M@{ii} @if(ii < i) { , } }], Type@{i}#Left]
         })#II
 
     }
