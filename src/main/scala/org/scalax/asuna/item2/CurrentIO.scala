@@ -2,65 +2,106 @@ package org.scalax.asuna.mapper.item
 
 import scala.language.higherKinds
 
-trait RightCurrentIO extends Any {
+trait UpToPlus {
 
-  type Current[T, I <: EatItem] <: EatItem
+  type UpToDone <: UpToPlus
+  type UpToNotDone <: UpToPlus
+  type Current[T <: EatItem, PlusItem <: EatItem] <: EatItem
 
-  type UpToPItem1 <: RightCurrentIO
-  type UpToPItem2 <: RightCurrentIO
-
-  def upToPItem1: UpToPItem1
-  def upToPItem2: UpToPItem2
-
-  def current[T, I <: EatItem](t: T, i: I): Current[T, I]
+  def upToDone: UpToDone
+  def upToNotDone: UpToNotDone
+  def current[T <: EatItem, PlusItem <: EatItem](eat: T, p: PlusItem): Current[T, PlusItem]
 
 }
 
-trait EatValue1Current extends Any with RightCurrentIO {
+class NotUseUpToPlus extends UpToPlus {
+
+  override type UpToDone                        = NotUseUpToPlus
+  override type UpToNotDone                     = NotUseUpToPlus
+  override type Current[T <: EatItem, PlusItem] = NotUse
+
+  override def upToDone: NotUseUpToPlus                                                = NotUseUpToPlus
+  override def upToNotDone: NotUseUpToPlus                                             = NotUseUpToPlus
+  override def current[T <: EatItem, PlusItem <: EatItem](eat: T, p: PlusItem): NotUse = NotUse
+
+}
+
+object NotUseUpToPlus extends NotUseUpToPlus
+
+class UpToDonePlus extends UpToPlus {
   self =>
 
-  override type Current[T, I <: EatItem] = I#AddRightItem[T]
+  override type UpToDone                                   = UpToDonePlus
+  override type UpToNotDone                                = UpToDonePlus
+  override type Current[T <: EatItem, PlusItem <: EatItem] = T
 
-  override type UpToPItem1 = ReplaceCurrent[EatValue1Current]
-  override type UpToPItem2 = ReplaceCurrent[EatValue1Current]
-
-  override def upToPItem1: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
-  override def upToPItem2: ReplaceCurrent[EatValue1Current] = new ReplaceCurrent[EatValue1Current](self)
-
-  override def current[T, I <: EatItem](t: T, i: I): I#AddRightItem[T] = i.addRightItem(t)
+  override def upToDone: UpToDonePlus                                             = self
+  override def upToNotDone: UpToDonePlus                                          = self
+  override def current[T <: EatItem, PlusItem <: EatItem](eat: T, p: PlusItem): T = eat
 
 }
 
-object EatValue1Current extends EatValue1Current
+object UpToDonePlus extends UpToDonePlus
 
-trait EatValue2Current extends Any with RightCurrentIO {
+class UpToNotDonePlus extends UpToPlus {
   self =>
 
-  override type Current[T, I <: EatItem] = I
+  override type UpToDone                                   = UpToDonePlus
+  override type UpToNotDone                                = UpToNotDonePlus
+  override type Current[T <: EatItem, PlusItem <: EatItem] = PlusItem
 
-  override type UpToPItem1 = EatValue2Current
-  override type UpToPItem2 = EatValue2Current
-
-  override def upToPItem1: EatValue2Current = self
-  override def upToPItem2: EatValue2Current = self
-
-  override def current[T, I <: EatItem](t: T, i: I): I = i
+  override def upToDone: UpToDonePlus                                                    = UpToDonePlus
+  override def upToNotDone: UpToNotDonePlus                                              = self
+  override def current[T <: EatItem, PlusItem <: EatItem](eat: T, p: PlusItem): PlusItem = p
 
 }
 
-object EatValue2Current extends EatValue2Current
+object UpToNotDonePlus extends UpToNotDonePlus
 
-class ReplaceCurrent[T1 <: RightCurrentIO](val sub: T1) extends AnyVal with RightCurrentIO {
+trait AddItemPlus {
+
+  type Change <: AddItemPlus
+  def change: Change
+
+  type Add[T <: EatItem, I] <: EatItem
+  def add[T <: EatItem, I](eat: T, item: I): Add[T, I]
+
+}
+
+trait NotPlusAddItemPlus extends AddItemPlus {
   self =>
 
-  override type Current[T, I <: EatItem] = I#RightReplace[T1#Current[T, I#RightSub]]
+  override type Change = PlusAddItemPlus
+  override def change: PlusAddItemPlus = PlusAddItemPlus
 
-  override type UpToPItem1 = ReplaceCurrent[ReplaceCurrent[T1]]
-  override type UpToPItem2 = ReplaceCurrent[ReplaceCurrent[T1]]
-
-  override def upToPItem1: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
-  override def upToPItem2: ReplaceCurrent[ReplaceCurrent[T1]] = new ReplaceCurrent[ReplaceCurrent[T1]](self)
-
-  override def current[T, I <: EatItem](t: T, i: I): I#RightReplace[T1#Current[T, I#RightSub]] = i.rightReplace(sub.current(t, i.rightSub))
+  override type Add[T <: EatItem, I] = T#NotPlusItem[I]
+  override def add[T <: EatItem, I](eat: T, item: I): T#NotPlusItem[I] = eat.notPlusItem(item)
 
 }
+
+object NotPlusAddItemPlus extends NotPlusAddItemPlus
+
+trait PlusAddItemPlus extends AddItemPlus {
+  self =>
+
+  override type Change = NotPlusAddItemPlus
+  override def change: NotPlusAddItemPlus = NotPlusAddItemPlus
+
+  override type Add[T <: EatItem, I] = T#UpToPlusItem[I]
+  override def add[T <: EatItem, I](eat: T, item: I): T#UpToPlusItem[I] = eat.upToPlusItem(item)
+
+}
+
+object PlusAddItemPlus extends PlusAddItemPlus
+
+trait NotUseAddItemPlus extends AddItemPlus {
+
+  override type Change = NotUseAddItemPlus
+  override def change: NotUseAddItemPlus = NotUseAddItemPlus
+
+  override type Add[T <: EatItem, I] = NotUse
+  override def add[T <: EatItem, I](eat: T, item: I): NotUse = NotUse
+
+}
+
+object NotUseAddItemPlus extends NotUseAddItemPlus

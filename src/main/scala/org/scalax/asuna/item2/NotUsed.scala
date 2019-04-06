@@ -7,21 +7,22 @@ object NotUseDropRightResult extends NotUseDropRightResult
 class NotUse extends EatItem {
   self =>
 
-  override type RightPlus[T <: EatItem]    = NotUse
+  override type NotPlusItem[T] = NotUse
+  override def notPlusItem[T](t: T): NotUse = NotUse
+
+  override type PlusItem[T] = NotUse
+  override def plusItem[T](t: T): NotUse = NotUse
+
+  override type UpToP           = NotUseUpToPlus
+  override type UpToPlusItem[T] = NotUse
+  override def upToP: NotUseUpToPlus         = NotUseUpToPlus
+  override def upToPlusItem[T](t: T): NotUse = self
+
   override type RightSub                   = NotUse
   override type RightReplace[T <: EatItem] = NotUse
-  override type AddRightItem[T]            = NotUse
-
-  override type RightCurrent = RightNotUseCurrentIO
-  override type RightAppend  = RightNotUseAppendIO
-
-  override def rightCurrent: RightNotUseCurrentIO = RightNotUseCurrentIO
-  override def rightAppend: RightNotUseAppendIO   = RightNotUseAppendIO
 
   override def rightSub: NotUse                         = self
-  override def rightPlus[T <: EatItem](t: T): NotUse    = self
   override def rightReplace[T <: EatItem](t: T): NotUse = self
-  override def addRightItem[T](t: T): NotUse            = self
 
   override type RightDrop     = NotUse
   override type DropIO        = NotUsedDropIO
@@ -34,42 +35,6 @@ class NotUse extends EatItem {
 }
 
 object NotUse extends NotUse
-
-trait RightNotUseCurrentIO extends Any with RightCurrentIO {
-  self =>
-
-  override type Current[T, I <: EatItem] = NotUse
-
-  override type UpToPItem1 = RightNotUseCurrentIO
-  override type UpToPItem2 = RightNotUseCurrentIO
-
-  override def upToPItem1: RightNotUseCurrentIO = self
-  override def upToPItem2: RightNotUseCurrentIO = self
-
-  override def current[T, I <: EatItem](t: T, i: I): NotUse = NotUse
-
-}
-
-object RightNotUseCurrentIO extends RightNotUseCurrentIO
-
-trait RightNotUseAppendIO extends Any with RightAppendIO {
-  self =>
-
-  override type Append[T, I <: EatItem] = NotUse
-
-  override type UpToPItem1  = RightNotUseAppendIO
-  override type UpToPItem2  = RightNotUseAppendIO
-  override type UpToTopItem = RightNotUseAppendIO
-
-  override def upToPItem1: RightNotUseAppendIO  = self
-  override def upToPItem2: RightNotUseAppendIO  = self
-  override def upToTopItem: RightNotUseAppendIO = self
-
-  override def append[T, I <: EatItem](t: T, i: I): NotUse = NotUse
-
-}
-
-object RightNotUseAppendIO extends RightNotUseAppendIO
 
 class NotUsedDropIO extends RightDropIO {
   self =>

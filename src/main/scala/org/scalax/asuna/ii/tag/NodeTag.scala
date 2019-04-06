@@ -16,12 +16,7 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
     type Type1 = T1#InputMessage[I];
     type Type2 = T2#InputMessage[Type1#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage2[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`
-    ], Type2#Left]
+    type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag2[Type1#Result, Type2#Result], Type2#Left]
   })#II
 }
 class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag, T3 <: org.scalax.asuna.mapper.item.ItemTag]
@@ -40,14 +35,7 @@ class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type Type1 = T1#InputMessage[I];
     type Type2 = T2#InputMessage[Type1#Left];
     type Type3 = T3#InputMessage[Type2#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage3[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
-      Type3#Result,
-      `Application can not load with index 3, please eat xyy.`
-    ], Type3#Left]
+    type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag3[Type1#Result, Type2#Result, Type3#Result], Type3#Left]
   })#II
 }
 class NodeTag4[
@@ -72,16 +60,7 @@ class NodeTag4[
     type Type2 = T2#InputMessage[Type1#Left];
     type Type3 = T3#InputMessage[Type2#Left];
     type Type4 = T4#InputMessage[Type3#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage4[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
-      Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
-      Type4#Result,
-      `Application can not load with index 4, please eat xyy.`
-    ], Type4#Left]
+    type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag4[Type1#Result, Type2#Result, Type3#Result, Type4#Result], Type4#Left]
   })#II
 }
 class NodeTag5[
@@ -109,18 +88,7 @@ class NodeTag5[
     type Type3 = T3#InputMessage[Type2#Left];
     type Type4 = T4#InputMessage[Type3#Left];
     type Type5 = T5#InputMessage[Type4#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage5[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
-      Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
-      Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
-      Type5#Result,
-      `Application can not load with index 5, please eat xyy.`
-    ], Type5#Left]
+    type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag5[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result], Type5#Left]
   })#II
 }
 class NodeTag6[
@@ -151,20 +119,7 @@ class NodeTag6[
     type Type4 = T4#InputMessage[Type3#Left];
     type Type5 = T5#InputMessage[Type4#Left];
     type Type6 = T6#InputMessage[Type5#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage6[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
-      Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
-      Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
-      Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
-      Type6#Result,
-      `Application can not load with index 6, please eat xyy.`
-    ], Type6#Left]
+    type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag6[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result, Type6#Result], Type6#Left]
   })#II
 }
 class NodeTag7[
@@ -198,22 +153,10 @@ class NodeTag7[
     type Type5 = T5#InputMessage[Type4#Left];
     type Type6 = T6#InputMessage[Type5#Left];
     type Type7 = T7#InputMessage[Type6#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage7[
-      Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
-      Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
-      Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
-      Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
-      Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
-      Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
-      Type7#Result,
-      `Application can not load with index 7, please eat xyy.`
-    ], Type7#Left]
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[
+      NodeTag7[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result, Type6#Result, Type7#Result],
+      Type7#Left
+    ]
   })#II
 }
 class NodeTag8[
@@ -250,23 +193,15 @@ class NodeTag8[
     type Type6 = T6#InputMessage[Type5#Left];
     type Type7 = T7#InputMessage[Type6#Left];
     type Type8 = T8#InputMessage[Type7#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage8[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag8[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
-      Type8#Result,
-      `Application can not load with index 8, please eat xyy.`
+      Type8#Result
     ], Type8#Left]
   })#II
 }
@@ -309,25 +244,16 @@ class NodeTag9[
     type Type7 = T7#InputMessage[Type6#Left];
     type Type8 = T8#InputMessage[Type7#Left];
     type Type9 = T9#InputMessage[Type8#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage9[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag9[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
-      Type9#Result,
-      `Application can not load with index 9, please eat xyy.`
+      Type9#Result
     ], Type9#Left]
   })#II
 }
@@ -376,27 +302,17 @@ class NodeTag10[
     type Type8  = T8#InputMessage[Type7#Left];
     type Type9  = T9#InputMessage[Type8#Left];
     type Type10 = T10#InputMessage[Type9#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage10[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag10[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
-      Type10#Result,
-      `Application can not load with index 10, please eat xyy.`
+      Type10#Result
     ], Type10#Left]
   })#II
 }
@@ -450,29 +366,18 @@ class NodeTag11[
     type Type9  = T9#InputMessage[Type8#Left];
     type Type10 = T10#InputMessage[Type9#Left];
     type Type11 = T11#InputMessage[Type10#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage11[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag11[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
-      Type11#Result,
-      `Application can not load with index 11, please eat xyy.`
+      Type11#Result
     ], Type11#Left]
   })#II
 }
@@ -543,31 +448,19 @@ class NodeTag12[
     type Type10 = T10#InputMessage[Type9#Left];
     type Type11 = T11#InputMessage[Type10#Left];
     type Type12 = T12#InputMessage[Type11#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage12[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag12[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
-      Type12#Result,
-      `Application can not load with index 12, please eat xyy.`
+      Type12#Result
     ], Type12#Left]
   })#II
 }
@@ -644,33 +537,20 @@ class NodeTag13[
     type Type11 = T11#InputMessage[Type10#Left];
     type Type12 = T12#InputMessage[Type11#Left];
     type Type13 = T13#InputMessage[Type12#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage13[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag13[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
-      Type13#Result,
-      `Application can not load with index 13, please eat xyy.`
+      Type13#Result
     ], Type13#Left]
   })#II
 }
@@ -753,35 +633,21 @@ class NodeTag14[
     type Type12 = T12#InputMessage[Type11#Left];
     type Type13 = T13#InputMessage[Type12#Left];
     type Type14 = T14#InputMessage[Type13#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage14[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag14[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
-      Type14#Result,
-      `Application can not load with index 14, please eat xyy.`
+      Type14#Result
     ], Type14#Left]
   })#II
 }
@@ -870,37 +736,22 @@ class NodeTag15[
     type Type13 = T13#InputMessage[Type12#Left];
     type Type14 = T14#InputMessage[Type13#Left];
     type Type15 = T15#InputMessage[Type14#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage15[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag15[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
-      Type15#Result,
-      `Application can not load with index 15, please eat xyy.`
+      Type15#Result
     ], Type15#Left]
   })#II
 }
@@ -995,39 +846,23 @@ class NodeTag16[
     type Type14 = T14#InputMessage[Type13#Left];
     type Type15 = T15#InputMessage[Type14#Left];
     type Type16 = T16#InputMessage[Type15#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage16[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag16[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
-      Type16#Result,
-      `Application can not load with index 16, please eat xyy.`
+      Type16#Result
     ], Type16#Left]
   })#II
 }
@@ -1129,41 +964,24 @@ class NodeTag17[
     type Type15 = T15#InputMessage[Type14#Left];
     type Type16 = T16#InputMessage[Type15#Left];
     type Type17 = T17#InputMessage[Type16#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage17[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag17[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
-      Type17#Result,
-      `Application can not load with index 17, please eat xyy.`
+      Type17#Result
     ], Type17#Left]
   })#II
 }
@@ -1271,43 +1089,25 @@ class NodeTag18[
     type Type16 = T16#InputMessage[Type15#Left];
     type Type17 = T17#InputMessage[Type16#Left];
     type Type18 = T18#InputMessage[Type17#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage18[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag18[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
       Type17#Result,
-      `Application can not load with index 17, please eat xyy.`,
-      Type18#Result,
-      `Application can not load with index 18, please eat xyy.`
+      Type18#Result
     ], Type18#Left]
   })#II
 }
@@ -1440,45 +1240,26 @@ class NodeTag19[
     type Type17 = T17#InputMessage[Type16#Left];
     type Type18 = T18#InputMessage[Type17#Left];
     type Type19 = T19#InputMessage[Type18#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage19[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag19[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
       Type17#Result,
-      `Application can not load with index 17, please eat xyy.`,
       Type18#Result,
-      `Application can not load with index 18, please eat xyy.`,
-      Type19#Result,
-      `Application can not load with index 19, please eat xyy.`
+      Type19#Result
     ], Type19#Left]
   })#II
 }
@@ -1618,47 +1399,27 @@ class NodeTag20[
     type Type18 = T18#InputMessage[Type17#Left];
     type Type19 = T19#InputMessage[Type18#Left];
     type Type20 = T20#InputMessage[Type19#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage20[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag20[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
       Type17#Result,
-      `Application can not load with index 17, please eat xyy.`,
       Type18#Result,
-      `Application can not load with index 18, please eat xyy.`,
       Type19#Result,
-      `Application can not load with index 19, please eat xyy.`,
-      Type20#Result,
-      `Application can not load with index 20, please eat xyy.`
+      Type20#Result
     ], Type20#Left]
   })#II
 }
@@ -1805,49 +1566,28 @@ class NodeTag21[
     type Type19 = T19#InputMessage[Type18#Left];
     type Type20 = T20#InputMessage[Type19#Left];
     type Type21 = T21#InputMessage[Type20#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage21[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag21[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
       Type17#Result,
-      `Application can not load with index 17, please eat xyy.`,
       Type18#Result,
-      `Application can not load with index 18, please eat xyy.`,
       Type19#Result,
-      `Application can not load with index 19, please eat xyy.`,
       Type20#Result,
-      `Application can not load with index 20, please eat xyy.`,
-      Type21#Result,
-      `Application can not load with index 21, please eat xyy.`
+      Type21#Result
     ], Type21#Left]
   })#II
 }
@@ -2001,51 +1741,29 @@ class NodeTag22[
     type Type20 = T20#InputMessage[Type19#Left];
     type Type21 = T21#InputMessage[Type20#Left];
     type Type22 = T22#InputMessage[Type21#Left];
-    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTagWithMessage22[
+    type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag22[
       Type1#Result,
-      `Application can not load with index 1, please eat xyy.`,
       Type2#Result,
-      `Application can not load with index 2, please eat xyy.`,
       Type3#Result,
-      `Application can not load with index 3, please eat xyy.`,
       Type4#Result,
-      `Application can not load with index 4, please eat xyy.`,
       Type5#Result,
-      `Application can not load with index 5, please eat xyy.`,
       Type6#Result,
-      `Application can not load with index 6, please eat xyy.`,
       Type7#Result,
-      `Application can not load with index 7, please eat xyy.`,
       Type8#Result,
-      `Application can not load with index 8, please eat xyy.`,
       Type9#Result,
-      `Application can not load with index 9, please eat xyy.`,
       Type10#Result,
-      `Application can not load with index 10, please eat xyy.`,
       Type11#Result,
-      `Application can not load with index 11, please eat xyy.`,
       Type12#Result,
-      `Application can not load with index 12, please eat xyy.`,
       Type13#Result,
-      `Application can not load with index 13, please eat xyy.`,
       Type14#Result,
-      `Application can not load with index 14, please eat xyy.`,
       Type15#Result,
-      `Application can not load with index 15, please eat xyy.`,
       Type16#Result,
-      `Application can not load with index 16, please eat xyy.`,
       Type17#Result,
-      `Application can not load with index 17, please eat xyy.`,
       Type18#Result,
-      `Application can not load with index 18, please eat xyy.`,
       Type19#Result,
-      `Application can not load with index 19, please eat xyy.`,
       Type20#Result,
-      `Application can not load with index 20, please eat xyy.`,
       Type21#Result,
-      `Application can not load with index 21, please eat xyy.`,
-      Type22#Result,
-      `Application can not load with index 22, please eat xyy.`
+      Type22#Result
     ], Type22#Left]
   })#II
 }
