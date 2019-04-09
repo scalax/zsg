@@ -58,7 +58,7 @@ class UpToNotDonePlus extends UpToPlus {
 
 object UpToNotDonePlus extends UpToNotDonePlus
 
-trait AddItemPlus {
+/*trait AddItemPlus {
 
   type Change <: AddItemPlus
   def change: Change
@@ -104,4 +104,4 @@ trait NotUseAddItemPlus extends AddItemPlus {
 
 }
 
-object NotUseAddItemPlus extends NotUseAddItemPlus
+object NotUseAddItemPlus extends NotUseAddItemPlus*/
