@@ -54,7 +54,7 @@ class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
   self =>
 
   override type ToPItem1[T]                = PItem1[EatValue2[T1, T]]
-  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, EatValue2[T1, T]]
+  override type ToPItem2[TT <: EatItem, T] = Dadao[TT, EatValue2[T1, T]]
 
   override def toPItem1[T](t: T): PItem1[EatValue2[T1, T]] = new PItem1[EatValue2[T1, T]] {
     override val i1 = new EatValue2[T1, T] {
@@ -62,7 +62,8 @@ class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
       override val i2     = t
     }
   }
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, EatValue2[T1, T]] = new PItem2[TT, EatValue2[T1, T]] {
+
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): Dadao[TT, EatValue2[T1, T]] = new Dadao[TT, EatValue2[T1, T]] {
     override val i1 = tt
     override val i2 = new EatValue2[T1, T] {
       override val i1: T1 = self.i1
@@ -101,7 +102,12 @@ class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
   override def dropIO: EatValue1RightDropIO = EatValue1RightDropIO
   override def dropRightItem: T1            = self.i1
 
-  override def toString: String = s"EatValue1(${i1})"
+  override def toString: String = {
+    val ii =
+      s"""
+         |i1: ${i1}""".stripMargin.split("\n").filterNot(_.isEmpty).map(s => s"  ${s}").mkString("\n")
+    s"EatValue1:\n${ii}"
+  }
 
 }
 
@@ -112,14 +118,14 @@ trait EatValue2[T1, T2] extends Any with EatItem {
   def i2: T2
 
   override type ToPItem1[T]                = PItem2[EatValue2[T1, T2], EatValue1[T]]
-  override type ToPItem2[TT <: EatItem, T] = PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]]
+  override type ToPItem2[TT <: EatItem, T] = Dadao[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]]
 
   override def toPItem1[T](t: T): PItem2[EatValue2[T1, T2], EatValue1[T]] = new PItem2[EatValue2[T1, T2], EatValue1[T]] {
     override val i1 = self
     override val i2 = new EatValue1[T](t)
   }
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] =
-    new PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] {
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): Dadao[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] =
+    new Dadao[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] {
       override val i1 = new PItem2[TT, EatValue2[T1, T2]] {
         override val i1 = tt
         override val i2 = self
@@ -154,7 +160,13 @@ trait EatValue2[T1, T2] extends Any with EatItem {
   override def dropIO: EatValue2RightDropIO = EatValue2RightDropIO
   override def dropRightItem: T2            = self.i2
 
-  override def toString: String = s"EatValue2(${i1}, ${i2})"
+  override def toString: String = {
+    val ii =
+      s"""
+         |i1: ${i1}
+         |i2: ${i2}""".stripMargin.split("\n").filterNot(_.isEmpty).map(s => s"  ${s}").mkString("\n")
+    s"EatValue2:\n${ii}"
+  }
 
 }
 
@@ -212,7 +224,13 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
   override def dropIO: RightSub#DropIO#UpToPItem1 = rightSub.dropIO.upToPItem1
   override def dropRightItem: T1#DropRightItem    = self.i1.dropRightItem
 
-  override def toString: String = s"PItem1(${i1})"
+  override def toString: String = {
+    val ii =
+      s"""
+         |i1: ${i1}
+       """.stripMargin.split("\n").map(s => s"  ${s}").filterNot(_.isEmpty).mkString("\n")
+    s"PItem1:\n${ii}"
+  }
 
 }
 
@@ -258,7 +276,81 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
     }
   }*/
 
-  override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem1[T]                = T2#ToPItem2[T1, T]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T2#ToPItem2[T1, T]]
+
+  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T2#ToPItem2[T1, T]] = {
+    type II = T2#ToPItem2[T1, T]
+    val aa = self.i2.toPItem2(self.i1, t)
+
+    new PItem2[TT, T2#ToPItem2[T1, T]] {
+      override val i1 = tt
+      override val i2 = self.i2.toPItem2(self.i1, t)
+    }
+  }
+
+  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
+  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
+    override val i1 = self
+    override val i2 = self.i2.plusItem(t)
+  }
+
+  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
+  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
+    override val i1 = self.i1
+    override val i2 = self.i2.notPlusItem(t)
+  }
+
+  override type UpToP           = T2#UpToP#UpToNotDone
+  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
+  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
+  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
+      new PItem2[T1, T2#UpToPlusItem[T]] {
+      override val i1 = self.i1
+      override val i2 = self.i2.upToPlusItem(t)
+    }
+    , self.plusItem(t)
+  )*/
+
+  override type RightSub                   = T2
+  override type RightReplace[T <: EatItem] = PItem2[T1, T]
+
+  override def rightSub: T2 = i2
+  override def rightReplace[T <: EatItem](t: T): PItem2[T1, T] = new PItem2[T1, T] {
+    override val i1 = self.i1
+    override val i2 = t
+  }
+
+  override type RightDrop     = T1
+  override type DropIO        = RightSub#DropIO#UpToPItem2
+  override type DropRightItem = T2#DropRightItem
+
+  override def rightDrop: T1                      = self.i1
+  override def dropIO: RightSub#DropIO#UpToPItem2 = rightSub.dropIO.upToPItem2
+  override def dropRightItem: T2#DropRightItem    = self.i2.dropRightItem
+
+  override def toString: String = {
+    val ii =
+      s"""
+         |i1: ${i1}
+         |i2: ${i2}
+       """.stripMargin.split("\n").filterNot(_.trim.isEmpty).map(s => s"  ${s}").mkString("\n")
+    s"PItem2:\n${ii}"
+  }
+
+}
+
+trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem {
+  self =>
+
+  override type TT1 = T1
+  override type TT2 = T2
+
+  override def i1: T1
+  override def i2: T2
+
+  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
   override type ToPItem2[TT <: EatItem, T] = ({
     type II = T2#ToPItem2[T1, T]
     type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
@@ -270,7 +362,7 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
     type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
   })#PP = {
     type II = T2#ToPItem2[T1, T]
-    val aa = self.i2.toPItem2(self.i1, t)
+    val aa: II = self.i2.toPItem2(self.i1, t)
 
     new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
       override val i1 = new PItem2[TT, II#TT1] {
@@ -279,6 +371,32 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
       }
       override val i2 = new PItem1[II#TT2] {
         override val i1 = aa.i2
+      }
+    }
+  }*/
+
+  override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem2[TT <: EatItem, T] = ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]]
+  })#PP
+
+  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]]
+  })#PP = {
+    type II = T2#ToPItem2[T1, T]
+    val aa = self.i2.toPItem2(self.i1, t)
+
+    new PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]] {
+      override val i1 = tt
+      override val i2 = new Dadao[II#TT1, PItem1[II#TT2]] {
+        override val i1 = aa.i1
+        override val i2 = new PItem1[II#TT2] {
+          override val i1 = aa.i2
+        }
       }
     }
   }
@@ -323,7 +441,113 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
   override def dropIO: RightSub#DropIO#UpToPItem2 = rightSub.dropIO.upToPItem2
   override def dropRightItem: T2#DropRightItem    = self.i2.dropRightItem
 
-  override def toString: String = s"PItem2(${i1}, ${i2})"
+  override def toString: String = {
+    val ii =
+      s"""
+         |i1: ${i1}
+         |i2: ${i2}
+       """.stripMargin.split("\n").filterNot(_.trim.isEmpty).map(s => s"  ${s}").mkString("\n")
+    s"Dadao:\n${ii}"
+  }
+
+}
+
+trait Qieguozhe[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem {
+  self =>
+
+  override type TT1 = T1
+  override type TT2 = T2
+
+  override def i1: T1
+  override def i2: T2
+
+  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem2[TT <: EatItem, T] = ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP
+
+  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP = {
+    type II = T2#ToPItem2[T1, T]
+    val aa: II = self.i2.toPItem2(self.i1, t)
+
+    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
+      override val i1 = new PItem2[TT, II#TT1] {
+        override val i1 = tt
+        override val i2 = aa.i1
+      }
+      override val i2 = new PItem1[II#TT2] {
+        override val i1 = aa.i2
+      }
+    }
+  }*/
+
+  override type ToPItem1[T]                = PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]]
+
+  override def toPItem1[T](t: T): PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] = {
+    val aa = self.i2.toPItem2(self.i1, t)
+    new PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] {
+      override val i1 = aa.i1
+      override val i2 = aa.i2
+    }
+  }
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]] = {
+    val aa = self.i2.toPItem2(self.i1, t)
+    new PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]] {
+      override val i1 = tt
+      override val i2 = new PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] {
+        override val i1 = aa.i1
+        override val i2 = aa.i2
+      }
+    }
+  }
+
+  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
+  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
+    override val i1 = self
+    override val i2 = self.i2.plusItem(t)
+  }
+
+  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
+  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
+    override val i1 = self.i1
+    override val i2 = self.i2.notPlusItem(t)
+  }
+
+  override type UpToP           = T2#UpToP#UpToNotDone
+  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
+  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
+  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
+      new PItem2[T1, T2#UpToPlusItem[T]] {
+      override val i1 = self.i1
+      override val i2 = self.i2.upToPlusItem(t)
+    }
+    , self.plusItem(t)
+  )*/
+
+  override type RightSub                   = T2
+  override type RightReplace[T <: EatItem] = PItem2[T1, T]
+
+  override def rightSub: T2 = i2
+  override def rightReplace[T <: EatItem](t: T): PItem2[T1, T] = new PItem2[T1, T] {
+    override val i1 = self.i1
+    override val i2 = t
+  }
+
+  override type RightDrop     = T1
+  override type DropIO        = RightSub#DropIO#UpToPItem2
+  override type DropRightItem = T2#DropRightItem
+
+  override def rightDrop: T1                      = self.i1
+  override def dropIO: RightSub#DropIO#UpToPItem2 = rightSub.dropIO.upToPItem2
+  override def dropRightItem: T2#DropRightItem    = self.i2.dropRightItem
+
+  override def toString: String = s"Qieguozhe(${i1}, ${i2})"
 
 }
 
@@ -428,19 +652,19 @@ object App extends App {
 
   val cc = bb.addRightItem("6").addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11).addRightItem(12)
 
-  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
+  /*println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4"))
-  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))*/
 
   val dd = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6")
 
-  println(dd)
+  /*println(dd)
   println(dd.addRightItem("7"))
-  println(dd.addRightItem("7").addRightItem("8"))
+  println(dd.addRightItem("7").addRightItem("8"))*/
   println(dd.addRightItem("7").addRightItem("8").addRightItem(9))
-  println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10))
+  /*println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10))
   println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11))
-  println(cc)
+  println(cc)*/
 
   /*val i1  = cc.dropRight
   val i2  = i1.dropRight
