@@ -4,22 +4,11 @@ import scala.language.higherKinds
 
 trait EatItem extends Any {
 
-  /*type NotPlusItem[T] <: EatItem
-  def notPlusItem[T](t: T): NotPlusItem[T]
-
-  type PlusItem[T] <: EatItem
-  def plusItem[T](t: T): PlusItem[T]*/
-
   type ToPItem1[T] <: EatItem
   type ToPItem2[TT <: EatItem, T] <: PItem2PP
 
   def toPItem1[T](t: T): ToPItem1[T]
   def toPItem2[TT <: EatItem, T](tt: TT, t: T): ToPItem2[TT, T]
-
-  /*type UpToP <: UpToPlus
-  type UpToPlusItem[T] <: EatItem
-  def upToP: UpToP
-  def upToPlusItem[T](t: T): UpToPlusItem[T]*/
 
   type RightSub <: EatItem
   type RightReplace[T <: EatItem] <: EatItem
@@ -71,23 +60,6 @@ class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
     }
   }
 
-  /*override type NotPlusItem[T] = EatValue2[T1, T]
-  override def notPlusItem[T](t: T): EatValue2[T1, T] = new EatValue2[T1, T] {
-    override val i1: T1 = self.i1
-    override val i2     = t
-  }
-
-  override type PlusItem[T] = EatValue2[T1, T]
-  override def plusItem[T](t: T): EatValue2[T1, T] = new EatValue2[T1, T] {
-    override val i1: T1 = self.i1
-    override val i2     = t
-  }
-
-  override type UpToP           = NotUseUpToPlus
-  override type UpToPlusItem[T] = NotUse
-  override def upToP: NotUseUpToPlus         = NotUseUpToPlus
-  override def upToPlusItem[T](t: T): NotUse = NotUse*/
-
   override type RightSub                   = NotUse
   override type RightReplace[T <: EatItem] = NotUse
 
@@ -135,17 +107,6 @@ trait EatValue2[T1, T2] extends Any with EatItem {
       }
     }
 
-  /*override type NotPlusItem[T] = EatValue1[T]
-  override def notPlusItem[T](t: T): EatValue1[T] = new EatValue1(t)
-
-  override type PlusItem[T] = EatValue1[T]
-  override def plusItem[T](t: T): EatValue1[T] = new EatValue1(t)
-
-  override type UpToP           = UpToNotDonePlus
-  override type UpToPlusItem[T] = EatValue1[T]
-  override def upToP: UpToNotDonePlus              = UpToNotDonePlus
-  override def upToPlusItem[T](t: T): EatValue1[T] = new EatValue1[T](t)*/
-
   override type RightSub                   = NotUse
   override type RightReplace[T <: EatItem] = NotUse
 
@@ -175,38 +136,16 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
 
   def i1: T1
 
-  override type ToPItem1[T]                = T1#ToPItem1[T]
+  override type ToPItem1[T]                = PItem1[T1#ToPItem1[T]]
   override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T1#ToPItem1[T]]
 
-  override def toPItem1[T](t: T): T1#ToPItem1[T] = /*new PItem1[T1#ToPItem1[T]]*/ {
-    /*override val i1 =*/
-    self.i1.toPItem1(t)
+  override def toPItem1[T](t: T): PItem1[T1#ToPItem1[T]] = new PItem1[T1#ToPItem1[T]] {
+    override val i1 = self.i1.toPItem1(t)
   }
   override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T1#ToPItem1[T]] = new PItem2[TT, T1#ToPItem1[T]] {
     override val i1 = tt
     override val i2 = self.i1.toPItem1(t)
   }
-
-  /*override type PlusItem[T] = PItem2[T1, T1#PlusItem[T]]
-  override def plusItem[T](t: T): PItem2[T1, T1#PlusItem[T]] = new PItem2[T1, T1#PlusItem[T]] {
-    override val i1                 = self.i1
-    override val i2: T1#PlusItem[T] = self.i1.plusItem(t)
-  }
-
-  override type NotPlusItem[T] = PItem1[T1#NotPlusItem[T]]
-  override def notPlusItem[T](t: T): PItem1[T1#NotPlusItem[T]] = new PItem1[T1#NotPlusItem[T]] {
-    override val i1 = self.i1.notPlusItem(t)
-  }
-
-  override type UpToP           = T1#UpToP#UpToDone
-  override type UpToPlusItem[T] = T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]]
-  override def upToP: T1#UpToP#UpToDone = self.i1.upToP.upToDone
-  override def upToPlusItem[T](t: T): T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]] = self.i1.upToP.current(
-      new PItem1[T1#UpToPlusItem[T]] {
-      override val i1 = self.i1.upToPlusItem(t)
-    }
-    , self.plusItem(t)
-  )*/
 
   override type RightSub                   = T1
   override type RightReplace[T <: EatItem] = PItem1[T]
@@ -225,10 +164,7 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
   override def dropRightItem: T1#DropRightItem    = self.i1.dropRightItem
 
   override def toString: String = {
-    val ii =
-      s"""
-         |i1: ${i1}
-       """.stripMargin.split("\n").map(s => s"  ${s}").filterNot(_.isEmpty).mkString("\n")
+    val ii = s"i1: ${i1}".split("\n").map(s => s"  ${s}").filterNot(_.isEmpty).mkString("\n")
     s"PItem1:\n${ii}"
   }
 
@@ -251,35 +187,12 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
   override def i1: T1
   override def i2: T2
 
-  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
-  override type ToPItem2[TT <: EatItem, T] = ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
-  })#PP
-
-  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
-  })#PP = {
-    type II = T2#ToPItem2[T1, T]
-    val aa: II = self.i2.toPItem2(self.i1, t)
-
-    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
-      override val i1 = new PItem2[TT, II#TT1] {
-        override val i1 = tt
-        override val i2 = aa.i1
-      }
-      override val i2 = new PItem1[II#TT2] {
-        override val i1 = aa.i2
-      }
-    }
-  }*/
-
-  override type ToPItem1[T]                = T2#ToPItem2[T1, T]
+  override type ToPItem1[T]                = PItem1[T2#ToPItem2[T1, T]]
   override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T2#ToPItem2[T1, T]]
 
-  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem1[T](t: T): PItem1[T2#ToPItem2[T1, T]] = new PItem1[T2#ToPItem2[T1, T]] {
+    override val i1 = self.i2.toPItem2(self.i1, t)
+  }
   override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T2#ToPItem2[T1, T]] = {
     type II = T2#ToPItem2[T1, T]
     val aa = self.i2.toPItem2(self.i1, t)
@@ -289,29 +202,6 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
       override val i2 = self.i2.toPItem2(self.i1, t)
     }
   }
-
-  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
-  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
-    override val i1 = self
-    override val i2 = self.i2.plusItem(t)
-  }
-
-  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
-  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
-    override val i1 = self.i1
-    override val i2 = self.i2.notPlusItem(t)
-  }
-
-  override type UpToP           = T2#UpToP#UpToNotDone
-  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
-  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
-  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
-      new PItem2[T1, T2#UpToPlusItem[T]] {
-      override val i1 = self.i1
-      override val i2 = self.i2.upToPlusItem(t)
-    }
-    , self.plusItem(t)
-  )*/
 
   override type RightSub                   = T2
   override type RightReplace[T <: EatItem] = PItem2[T1, T]
@@ -350,21 +240,22 @@ trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem
   override def i1: T1
   override def i2: T2
 
-  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem1[T] = T2#ToPItem2[T1, T]
   override type ToPItem2[TT <: EatItem, T] = ({
     type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+    type PP = Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]]
   })#PP
 
   override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+
   override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
     type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+    type PP = Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]]
   })#PP = {
     type II = T2#ToPItem2[T1, T]
-    val aa: II = self.i2.toPItem2(self.i1, t)
+    val aa = self.i2.toPItem2(self.i1, t)
 
-    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
+    new Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]] {
       override val i1 = new PItem2[TT, II#TT1] {
         override val i1 = tt
         override val i2 = aa.i1
@@ -373,56 +264,7 @@ trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem
         override val i1 = aa.i2
       }
     }
-  }*/
-
-  override type ToPItem1[T] = T2#ToPItem2[T1, T]
-  override type ToPItem2[TT <: EatItem, T] = ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]]
-  })#PP
-
-  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
-
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]]
-  })#PP = {
-    type II = T2#ToPItem2[T1, T]
-    val aa = self.i2.toPItem2(self.i1, t)
-
-    new PItem2[TT, Dadao[II#TT1, PItem1[II#TT2]]] {
-      override val i1 = tt
-      override val i2 = new Dadao[II#TT1, PItem1[II#TT2]] {
-        override val i1 = aa.i1
-        override val i2 = new PItem1[II#TT2] {
-          override val i1 = aa.i2
-        }
-      }
-    }
   }
-
-  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
-  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
-    override val i1 = self
-    override val i2 = self.i2.plusItem(t)
-  }
-
-  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
-  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
-    override val i1 = self.i1
-    override val i2 = self.i2.notPlusItem(t)
-  }
-
-  override type UpToP           = T2#UpToP#UpToNotDone
-  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
-  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
-  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
-      new PItem2[T1, T2#UpToPlusItem[T]] {
-      override val i1 = self.i1
-      override val i2 = self.i2.upToPlusItem(t)
-    }
-    , self.plusItem(t)
-  )*/
 
   override type RightSub                   = T2
   override type RightReplace[T <: EatItem] = PItem2[T1, T]
@@ -442,9 +284,7 @@ trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem
   override def dropRightItem: T2#DropRightItem    = self.i2.dropRightItem
 
   override def toString: String = {
-    val ii =
-      s"""
-         |i1: ${i1}
+    val ii = s"""|i1: ${i1}
          |i2: ${i2}
        """.stripMargin.split("\n").filterNot(_.trim.isEmpty).map(s => s"  ${s}").mkString("\n")
     s"Dadao:\n${ii}"
@@ -452,88 +292,32 @@ trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem
 
 }
 
-trait Qieguozhe[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem {
+trait Qieguozhe[T1 <: EatItem] extends Any with EatItem {
   self =>
 
-  override type TT1 = T1
-  override type TT2 = T2
+  def i1: T1
 
-  override def i1: T1
-  override def i2: T2
+  override type ToPItem1[T]                = PItem1[PItem1[T1#ToPItem1[T]]]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T1#ToPItem1[T]]
 
-  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
-  override type ToPItem2[TT <: EatItem, T] = ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
-  })#PP
-
-  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
-    type II = T2#ToPItem2[T1, T]
-    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
-  })#PP = {
-    type II = T2#ToPItem2[T1, T]
-    val aa: II = self.i2.toPItem2(self.i1, t)
-
-    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
-      override val i1 = new PItem2[TT, II#TT1] {
-        override val i1 = tt
-        override val i2 = aa.i1
+  override def toPItem1[T](t: T): PItem1[PItem1[T1#ToPItem1[T]]] = {
+    new PItem1[PItem1[T1#ToPItem1[T]]] {
+      override val i1 = new PItem1[T1#ToPItem1[T]] {
+        override val i1 = self.i1.toPItem1(t)
       }
-      override val i2 = new PItem1[II#TT2] {
-        override val i1 = aa.i2
-      }
-    }
-  }*/
-
-  override type ToPItem1[T]                = PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]
-  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]]
-
-  override def toPItem1[T](t: T): PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] = {
-    val aa = self.i2.toPItem2(self.i1, t)
-    new PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] {
-      override val i1 = aa.i1
-      override val i2 = aa.i2
     }
   }
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]] = {
-    val aa = self.i2.toPItem2(self.i1, t)
-    new PItem2[TT, PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2]] {
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T1#ToPItem1[T]] = {
+    new PItem2[TT, T1#ToPItem1[T]] {
       override val i1 = tt
-      override val i2 = new PItem2[T2#ToPItem2[T1, T]#TT1, T2#ToPItem2[T1, T]#TT2] {
-        override val i1 = aa.i1
-        override val i2 = aa.i2
-      }
+      override val i2 = self.i1.toPItem1(t)
     }
   }
 
-  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
-  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
-    override val i1 = self
-    override val i2 = self.i2.plusItem(t)
-  }
-
-  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
-  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
-    override val i1 = self.i1
-    override val i2 = self.i2.notPlusItem(t)
-  }
-
-  override type UpToP           = T2#UpToP#UpToNotDone
-  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
-  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
-  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
-      new PItem2[T1, T2#UpToPlusItem[T]] {
-      override val i1 = self.i1
-      override val i2 = self.i2.upToPlusItem(t)
-    }
-    , self.plusItem(t)
-  )*/
-
-  override type RightSub                   = T2
+  override type RightSub                   = T1
   override type RightReplace[T <: EatItem] = PItem2[T1, T]
 
-  override def rightSub: T2 = i2
+  override def rightSub: T1 = i1
   override def rightReplace[T <: EatItem](t: T): PItem2[T1, T] = new PItem2[T1, T] {
     override val i1 = self.i1
     override val i2 = t
@@ -541,13 +325,16 @@ trait Qieguozhe[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with Eat
 
   override type RightDrop     = T1
   override type DropIO        = RightSub#DropIO#UpToPItem2
-  override type DropRightItem = T2#DropRightItem
+  override type DropRightItem = T1#DropRightItem
 
   override def rightDrop: T1                      = self.i1
   override def dropIO: RightSub#DropIO#UpToPItem2 = rightSub.dropIO.upToPItem2
-  override def dropRightItem: T2#DropRightItem    = self.i2.dropRightItem
+  override def dropRightItem: T1#DropRightItem    = self.i1.dropRightItem
 
-  override def toString: String = s"Qieguozhe(${i1}, ${i2})"
+  override def toString: String = {
+    val ii = s"i1: ${i1}".split("\n").map(s => s"  ${s}").filterNot(_.isEmpty).mkString("\n")
+    s"Qieguozhe:\n${ii}"
+  }
 
 }
 
@@ -566,39 +353,6 @@ trait E[I <: EatItem] extends EatItem {
     override val i1 = tt
     override val i2 = self.item.toPItem1(t)
   }
-
-  /*override type NotPlusItem[T] = E[I#NotPlusItem[T], P#Change]
-  override def notPlusItem[T](t: T): E[I#NotPlusItem[T], P#Change] = new E[I#NotPlusItem[T], P#Change] {
-    override val item        = self.item.notPlusItem(t)
-    override val addItemPlus = self.addItemPlus.change
-  }
-
-  override type PlusItem[T] = E[PItem2[I, I#PlusItem[T]], P]
-  override def plusItem[T](t: T): E[PItem2[I, I#PlusItem[T]], P] =
-    new E[PItem2[I, I#PlusItem[T]], P] {
-      override val item = new PItem2[I, I#PlusItem[T]] {
-        override val i1 = self.item
-        override val i2 = self.item.plusItem(t)
-      }
-      override val addItemPlus = self.addItemPlus
-    }
-
-  override type UpToP           = I#UpToP
-  override type UpToPlusItem[T] = I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]]
-  override def upToP: I#UpToP = self.item.upToP
-  override def upToPlusItem[T](t: T): I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]] = self.upToP.current(
-      new E[I#UpToPlusItem[T], P#Change] {
-      override val item        = self.item.upToPlusItem(t)
-      override val addItemPlus = self.addItemPlus.change
-    }
-    , new E[PItem2[I, I#UpToPlusItem[T]], P#Change] {
-      override val item = new PItem2[I, I#UpToPlusItem[T]] {
-        override val i1 = self.item
-        override val i2 = self.item.upToPlusItem(t)
-      }
-      override val addItemPlus = self.addItemPlus.change
-    }
-  )*/
 
   override type RightSub                   = I
   override type RightReplace[T <: EatItem] = E[T]
@@ -623,7 +377,7 @@ trait E[I <: EatItem] extends EatItem {
 
   def dropRight: DropIO#Drop[E[I]] = dropIO.drop(self)
 
-  override def toString: String = s"E(${item})"
+  override def toString: String = s"${item}\n"
 
 }
 
@@ -650,21 +404,29 @@ object App extends App {
 
   val bb = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5)
 
-  val cc = bb.addRightItem("6").addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11).addRightItem(12)
-
-  /*println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4"))
-  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))*/
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))
 
   val dd = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6")
 
-  /*println(dd)
+  println(dd)
   println(dd.addRightItem("7"))
-  println(dd.addRightItem("7").addRightItem("8"))*/
+  println(dd.addRightItem("7").addRightItem("8"))
   println(dd.addRightItem("7").addRightItem("8").addRightItem(9))
-  /*println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10))
+  println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10))
   println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11))
-  println(cc)*/
+
+  val cc = dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11).addRightItem(12)
+  println(cc)
+  println(cc.addRightItem("13"))
+
+  val ee = cc.addRightItem("13").addRightItem("14")
+  println(ee)
+
+  println(ee.addRightItem("15"))
+  println(ee.addRightItem("15").addRightItem(16))
+  println(ee.addRightItem("15").addRightItem(16).addRightItem(32))
 
   /*val i1  = cc.dropRight
   val i2  = i1.dropRight
@@ -692,3 +454,412 @@ object App extends App {
   println(i11)*/
 
 }
+
+/*
+[info] Running org.scalax.asuna.mapper.item.App
+PItem1:
+  i1: PItem2:
+    i1: EatValue2:
+      i1: 1
+      i2: 2
+    i2: EatValue1:
+      i1: 3
+
+PItem1:
+  i1: PItem1:
+    i1: Dadao:
+      i1: EatValue2:
+        i1: 1
+        i2: 2
+      i2: EatValue2:
+        i1: 3
+        i2: 4
+
+PItem1:
+  i1: PItem1:
+    i1: Dadao:
+      i1: PItem2:
+        i1: EatValue2:
+          i1: 1
+          i2: 2
+        i2: EatValue2:
+          i1: 3
+          i2: 4
+      i2: PItem1:
+        i1: EatValue1:
+          i1: 5
+
+PItem1:
+  i1: PItem1:
+    i1: PItem2:
+      i1: PItem2:
+        i1: EatValue2:
+          i1: 1
+          i2: 2
+        i2: EatValue2:
+          i1: 3
+          i2: 4
+      i2: PItem1:
+        i1: EatValue2:
+          i1: 5
+          i2: 6
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem2:
+        i1: PItem2:
+          i1: EatValue2:
+            i1: 1
+            i2: 2
+          i2: EatValue2:
+            i1: 3
+            i2: 4
+        i2: PItem2:
+          i1: EatValue2:
+            i1: 5
+            i2: 6
+          i2: EatValue1:
+            i1: 7
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem2:
+          i1: PItem2:
+            i1: EatValue2:
+              i1: 1
+              i2: 2
+            i2: EatValue2:
+              i1: 3
+              i2: 4
+          i2: Dadao:
+            i1: EatValue2:
+              i1: 5
+              i2: 6
+            i2: EatValue2:
+              i1: 7
+              i2: 8
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: Dadao:
+            i1: PItem2:
+              i1: PItem2:
+                i1: EatValue2:
+                  i1: 1
+                  i2: 2
+                i2: EatValue2:
+                  i1: 3
+                  i2: 4
+              i2: PItem2:
+                i1: EatValue2:
+                  i1: 5
+                  i2: 6
+                i2: EatValue2:
+                  i1: 7
+                  i2: 8
+            i2: PItem1:
+              i1: PItem1:
+                i1: EatValue1:
+                  i1: 9
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem2:
+            i1: PItem2:
+              i1: PItem2:
+                i1: EatValue2:
+                  i1: 1
+                  i2: 2
+                i2: EatValue2:
+                  i1: 3
+                  i2: 4
+              i2: PItem2:
+                i1: EatValue2:
+                  i1: 5
+                  i2: 6
+                i2: EatValue2:
+                  i1: 7
+                  i2: 8
+            i2: PItem1:
+              i1: PItem1:
+                i1: EatValue2:
+                  i1: 9
+                  i2: 10
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem2:
+              i1: PItem2:
+                i1: PItem2:
+                  i1: EatValue2:
+                    i1: 1
+                    i2: 2
+                  i2: EatValue2:
+                    i1: 3
+                    i2: 4
+                i2: PItem2:
+                  i1: EatValue2:
+                    i1: 5
+                    i2: 6
+                  i2: EatValue2:
+                    i1: 7
+                    i2: 8
+              i2: PItem1:
+                i1: PItem2:
+                  i1: EatValue2:
+                    i1: 9
+                    i2: 10
+                  i2: EatValue1:
+                    i1: 11
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem2:
+                i1: PItem2:
+                  i1: PItem2:
+                    i1: EatValue2:
+                      i1: 1
+                      i2: 2
+                    i2: EatValue2:
+                      i1: 3
+                      i2: 4
+                  i2: PItem2:
+                    i1: EatValue2:
+                      i1: 5
+                      i2: 6
+                    i2: EatValue2:
+                      i1: 7
+                      i2: 8
+                i2: PItem1:
+                  i1: Dadao:
+                    i1: EatValue2:
+                      i1: 9
+                      i2: 10
+                    i2: EatValue2:
+                      i1: 11
+                      i2: 12
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem1:
+                i1: PItem2:
+                  i1: PItem2:
+                    i1: PItem2:
+                      i1: EatValue2:
+                        i1: 1
+                        i2: 2
+                      i2: EatValue2:
+                        i1: 3
+                        i2: 4
+                    i2: PItem2:
+                      i1: EatValue2:
+                        i1: 5
+                        i2: 6
+                      i2: EatValue2:
+                        i1: 7
+                        i2: 8
+                  i2: Dadao:
+                    i1: PItem2:
+                      i1: EatValue2:
+                        i1: 9
+                        i2: 10
+                      i2: EatValue2:
+                        i1: 11
+                        i2: 12
+                    i2: PItem1:
+                      i1: EatValue1:
+                        i1: 13
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem1:
+                i1: PItem1:
+                  i1: Dadao:
+                    i1: PItem2:
+                      i1: PItem2:
+                        i1: PItem2:
+                          i1: EatValue2:
+                            i1: 1
+                            i2: 2
+                          i2: EatValue2:
+                            i1: 3
+                            i2: 4
+                        i2: PItem2:
+                          i1: EatValue2:
+                            i1: 5
+                            i2: 6
+                          i2: EatValue2:
+                            i1: 7
+                            i2: 8
+                      i2: PItem2:
+                        i1: EatValue2:
+                          i1: 9
+                          i2: 10
+                        i2: EatValue2:
+                          i1: 11
+                          i2: 12
+                    i2: PItem1:
+                      i1: PItem1:
+                        i1: EatValue2:
+                          i1: 13
+                          i2: 14
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem1:
+                i1: PItem1:
+                  i1: PItem2:
+                    i1: PItem2:
+                      i1: PItem2:
+                        i1: PItem2:
+                          i1: EatValue2:
+                            i1: 1
+                            i2: 2
+                          i2: EatValue2:
+                            i1: 3
+                            i2: 4
+                        i2: PItem2:
+                          i1: EatValue2:
+                            i1: 5
+                            i2: 6
+                          i2: EatValue2:
+                            i1: 7
+                            i2: 8
+                      i2: PItem2:
+                        i1: EatValue2:
+                          i1: 9
+                          i2: 10
+                        i2: EatValue2:
+                          i1: 11
+                          i2: 12
+                    i2: PItem1:
+                      i1: PItem2:
+                        i1: EatValue2:
+                          i1: 13
+                          i2: 14
+                        i2: EatValue1:
+                          i1: 15
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem1:
+                i1: PItem1:
+                  i1: PItem1:
+                    i1: PItem2:
+                      i1: PItem2:
+                        i1: PItem2:
+                          i1: PItem2:
+                            i1: EatValue2:
+                              i1: 1
+                              i2: 2
+                            i2: EatValue2:
+                              i1: 3
+                              i2: 4
+                          i2: PItem2:
+                            i1: EatValue2:
+                              i1: 5
+                              i2: 6
+                            i2: EatValue2:
+                              i1: 7
+                              i2: 8
+                        i2: PItem2:
+                          i1: EatValue2:
+                            i1: 9
+                            i2: 10
+                          i2: EatValue2:
+                            i1: 11
+                            i2: 12
+                      i2: PItem1:
+                        i1: Dadao:
+                          i1: EatValue2:
+                            i1: 13
+                            i2: 14
+                          i2: EatValue2:
+                            i1: 15
+                            i2: 16
+
+PItem1:
+  i1: PItem1:
+    i1: PItem1:
+      i1: PItem1:
+        i1: PItem1:
+          i1: PItem1:
+            i1: PItem1:
+              i1: PItem1:
+                i1: PItem1:
+                  i1: PItem1:
+                    i1: PItem1:
+                      i1: PItem2:
+                        i1: PItem2:
+                          i1: PItem2:
+                            i1: PItem2:
+                              i1: EatValue2:
+                                i1: 1
+                                i2: 2
+                              i2: EatValue2:
+                                i1: 3
+                                i2: 4
+                            i2: PItem2:
+                              i1: EatValue2:
+                                i1: 5
+                                i2: 6
+                              i2: EatValue2:
+                                i1: 7
+                                i2: 8
+                          i2: PItem2:
+                            i1: EatValue2:
+                              i1: 9
+                              i2: 10
+                            i2: EatValue2:
+                              i1: 11
+                              i2: 12
+                        i2: Dadao:
+                          i1: PItem2:
+                            i1: EatValue2:
+                              i1: 13
+                              i2: 14
+                            i2: EatValue2:
+                              i1: 15
+                              i2: 16
+                          i2: PItem1:
+                            i1: EatValue1:
+                              i1: 32
+ */
