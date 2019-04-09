@@ -239,14 +239,14 @@ object CaseClassHelperGen1 extends App {
       .resolve("tag")
       .resolve("NodeTagWithMessage.scala")
 
-  Files.createDirectories(path15.getParent)
+  /*Files.createDirectories(path15.getParent)
 
   val writer15 = new PrintWriter(path15.toFile)
   val content151 =
     Source.fromString(org.scalax.asuna.template11.tag.txt.NodeTagWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content152 = content151.mkString(System.lineSeparator)
   writer15.println(content152)
-  writer15.close()
+  writer15.close()*/
 
   val path16 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("Message.scala")

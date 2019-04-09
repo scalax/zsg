@@ -4,21 +4,28 @@ import scala.language.higherKinds
 
 trait EatItem extends Any {
 
-  type RightPlus[T <: EatItem] <: EatItem
+  /*type NotPlusItem[T] <: EatItem
+  def notPlusItem[T](t: T): NotPlusItem[T]
+
+  type PlusItem[T] <: EatItem
+  def plusItem[T](t: T): PlusItem[T]*/
+
+  type ToPItem1[T] <: EatItem
+  type ToPItem2[TT <: EatItem, T] <: PItem2PP
+
+  def toPItem1[T](t: T): ToPItem1[T]
+  def toPItem2[TT <: EatItem, T](tt: TT, t: T): ToPItem2[TT, T]
+
+  /*type UpToP <: UpToPlus
+  type UpToPlusItem[T] <: EatItem
+  def upToP: UpToP
+  def upToPlusItem[T](t: T): UpToPlusItem[T]*/
+
   type RightSub <: EatItem
   type RightReplace[T <: EatItem] <: EatItem
-  type AddRightItem[T] <: EatItem
-
-  type RightCurrent <: RightCurrentIO
-  type RightAppend <: RightAppendIO
-
-  def rightCurrent: RightCurrent
-  def rightAppend: RightAppend
 
   def rightSub: RightSub
-  def rightPlus[T <: EatItem](t: T): RightPlus[T]
   def rightReplace[T <: EatItem](t: T): RightReplace[T]
-  def addRightItem[T](t: T): AddRightItem[T]
 
   type RightDrop <: EatItem
   type DropIO <: RightDropIO
@@ -35,7 +42,9 @@ trait EatValue0 extends Any {
 
   type AddRightItem[T] = E[EatValue1[T]]
 
-  def addRightItem[T](t: T): E[EatValue1[T]] = new E[EatValue1[T]](new EatValue1(t))
+  def addRightItem[T](t: T): E[EatValue1[T]] = new E[EatValue1[T]] {
+    override val item = new EatValue1(t)
+  }
 
 }
 
@@ -44,24 +53,45 @@ object EatValue0 extends EatValue0
 class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
   self =>
 
-  override type RightPlus[T <: EatItem]    = NotUse
-  override type RightSub                   = NotUse
-  override type RightReplace[T <: EatItem] = NotUse
-  override type AddRightItem[T]            = EatValue2[T1, T]
+  override type ToPItem1[T]                = PItem1[EatValue2[T1, T]]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, EatValue2[T1, T]]
 
-  override type RightCurrent = EatValue1Current
-  override type RightAppend  = EatValue1Append
+  override def toPItem1[T](t: T): PItem1[EatValue2[T1, T]] = new PItem1[EatValue2[T1, T]] {
+    override val i1 = new EatValue2[T1, T] {
+      override val i1: T1 = self.i1
+      override val i2     = t
+    }
+  }
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, EatValue2[T1, T]] = new PItem2[TT, EatValue2[T1, T]] {
+    override val i1 = tt
+    override val i2 = new EatValue2[T1, T] {
+      override val i1: T1 = self.i1
+      override val i2     = t
+    }
+  }
 
-  override def rightCurrent: EatValue1Current = EatValue1Current
-  override def rightAppend: EatValue1Append   = EatValue1Append
-
-  override def rightSub: NotUse                         = NotUse
-  override def rightPlus[T <: EatItem](t: T): NotUse    = NotUse
-  override def rightReplace[T <: EatItem](t: T): NotUse = NotUse
-  override def addRightItem[T](t: T): EatValue2[T1, T] = new EatValue2[T1, T] {
+  /*override type NotPlusItem[T] = EatValue2[T1, T]
+  override def notPlusItem[T](t: T): EatValue2[T1, T] = new EatValue2[T1, T] {
     override val i1: T1 = self.i1
     override val i2     = t
   }
+
+  override type PlusItem[T] = EatValue2[T1, T]
+  override def plusItem[T](t: T): EatValue2[T1, T] = new EatValue2[T1, T] {
+    override val i1: T1 = self.i1
+    override val i2     = t
+  }
+
+  override type UpToP           = NotUseUpToPlus
+  override type UpToPlusItem[T] = NotUse
+  override def upToP: NotUseUpToPlus         = NotUseUpToPlus
+  override def upToPlusItem[T](t: T): NotUse = NotUse*/
+
+  override type RightSub                   = NotUse
+  override type RightReplace[T <: EatItem] = NotUse
+
+  override def rightSub: NotUse                         = NotUse
+  override def rightReplace[T <: EatItem](t: T): NotUse = NotUse
 
   override type RightDrop     = NotUse
   override type DropIO        = EatValue1RightDropIO
@@ -81,21 +111,40 @@ trait EatValue2[T1, T2] extends Any with EatItem {
   def i1: T1
   def i2: T2
 
-  override type RightPlus[T <: EatItem]    = NotUse
+  override type ToPItem1[T]                = PItem2[EatValue2[T1, T2], EatValue1[T]]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]]
+
+  override def toPItem1[T](t: T): PItem2[EatValue2[T1, T2], EatValue1[T]] = new PItem2[EatValue2[T1, T2], EatValue1[T]] {
+    override val i1 = self
+    override val i2 = new EatValue1[T](t)
+  }
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] =
+    new PItem2[PItem2[TT, EatValue2[T1, T2]], PItem1[EatValue1[T]]] {
+      override val i1 = new PItem2[TT, EatValue2[T1, T2]] {
+        override val i1 = tt
+        override val i2 = self
+      }
+      override val i2 = new PItem1[EatValue1[T]] {
+        override val i1 = new EatValue1[T](t)
+      }
+    }
+
+  /*override type NotPlusItem[T] = EatValue1[T]
+  override def notPlusItem[T](t: T): EatValue1[T] = new EatValue1(t)
+
+  override type PlusItem[T] = EatValue1[T]
+  override def plusItem[T](t: T): EatValue1[T] = new EatValue1(t)
+
+  override type UpToP           = UpToNotDonePlus
+  override type UpToPlusItem[T] = EatValue1[T]
+  override def upToP: UpToNotDonePlus              = UpToNotDonePlus
+  override def upToPlusItem[T](t: T): EatValue1[T] = new EatValue1[T](t)*/
+
   override type RightSub                   = NotUse
   override type RightReplace[T <: EatItem] = NotUse
-  override type AddRightItem[T]            = NotUse
-
-  override type RightCurrent = EatValue2Current
-  override type RightAppend  = EatValue2Append
-
-  override def rightCurrent: EatValue2Current = EatValue2Current
-  override def rightAppend: EatValue2Append   = EatValue2Append
 
   override def rightSub: NotUse                         = NotUse
-  override def rightPlus[T](t: T): NotUse               = NotUse
   override def rightReplace[T <: EatItem](t: T): NotUse = NotUse
-  override def addRightItem[T](t: T): NotUse            = NotUse
 
   override type RightDrop     = EatValue1[T1]
   override type DropIO        = EatValue2RightDropIO
@@ -114,26 +163,46 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
 
   def i1: T1
 
-  override type RightPlus[T <: EatItem]    = PItem2[T1, T]
+  override type ToPItem1[T]                = T1#ToPItem1[T]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T1#ToPItem1[T]]
+
+  override def toPItem1[T](t: T): T1#ToPItem1[T] = /*new PItem1[T1#ToPItem1[T]]*/ {
+    /*override val i1 =*/
+    self.i1.toPItem1(t)
+  }
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T1#ToPItem1[T]] = new PItem2[TT, T1#ToPItem1[T]] {
+    override val i1 = tt
+    override val i2 = self.i1.toPItem1(t)
+  }
+
+  /*override type PlusItem[T] = PItem2[T1, T1#PlusItem[T]]
+  override def plusItem[T](t: T): PItem2[T1, T1#PlusItem[T]] = new PItem2[T1, T1#PlusItem[T]] {
+    override val i1                 = self.i1
+    override val i2: T1#PlusItem[T] = self.i1.plusItem(t)
+  }
+
+  override type NotPlusItem[T] = PItem1[T1#NotPlusItem[T]]
+  override def notPlusItem[T](t: T): PItem1[T1#NotPlusItem[T]] = new PItem1[T1#NotPlusItem[T]] {
+    override val i1 = self.i1.notPlusItem(t)
+  }
+
+  override type UpToP           = T1#UpToP#UpToDone
+  override type UpToPlusItem[T] = T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]]
+  override def upToP: T1#UpToP#UpToDone = self.i1.upToP.upToDone
+  override def upToPlusItem[T](t: T): T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]] = self.i1.upToP.current(
+      new PItem1[T1#UpToPlusItem[T]] {
+      override val i1 = self.i1.upToPlusItem(t)
+    }
+    , self.plusItem(t)
+  )*/
+
   override type RightSub                   = T1
   override type RightReplace[T <: EatItem] = PItem1[T]
-  override type AddRightItem[T]            = NotUse
-
-  override type RightCurrent = RightSub#RightCurrent#UpToPItem1
-  override type RightAppend  = RightSub#RightAppend#UpToPItem1
-
-  override def rightCurrent: RightSub#RightCurrent#UpToPItem1 = rightSub.rightCurrent.upToPItem1
-  override def rightAppend: RightSub#RightAppend#UpToPItem1   = rightSub.rightAppend.upToPItem1
 
   override def rightSub: T1 = i1
-  override def rightPlus[T <: EatItem](t: T): PItem2[T1, T] = new PItem2[T1, T] {
-    override val i1 = self.i1
-    override val i2 = t
-  }
   override def rightReplace[T <: EatItem](t: T): PItem1[T] = new PItem1[T] {
     override val i1 = t
   }
-  override def addRightItem[T](t: T): NotUse = NotUse
 
   override type RightDrop     = NotUse
   override type DropIO        = RightSub#DropIO#UpToPItem1
@@ -147,30 +216,104 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
 
 }
 
-trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with EatItem {
+trait PItem2PP extends Any with EatItem {
+  type TT1 <: EatItem
+  type TT2 <: EatItem
+
+  def i1: TT1
+  def i2: TT2
+}
+
+trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem {
   self =>
 
-  def i1: T1
-  def i2: T2
+  override type TT1 = T1
+  override type TT2 = T2
 
-  override type RightPlus[T <: EatItem]    = NotUse
+  override def i1: T1
+  override def i2: T2
+
+  /*override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem2[TT <: EatItem, T] = ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP
+
+  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP = {
+    type II = T2#ToPItem2[T1, T]
+    val aa: II = self.i2.toPItem2(self.i1, t)
+
+    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
+      override val i1 = new PItem2[TT, II#TT1] {
+        override val i1 = tt
+        override val i2 = aa.i1
+      }
+      override val i2 = new PItem1[II#TT2] {
+        override val i1 = aa.i2
+      }
+    }
+  }*/
+
+  override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem2[TT <: EatItem, T] = ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP
+
+  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
+    type II = T2#ToPItem2[T1, T]
+    type PP = PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]]
+  })#PP = {
+    type II = T2#ToPItem2[T1, T]
+    val aa = self.i2.toPItem2(self.i1, t)
+
+    new PItem2[PItem2[TT, II#TT1], PItem1[II#TT2]] {
+      override val i1 = new PItem2[TT, II#TT1] {
+        override val i1 = tt
+        override val i2 = aa.i1
+      }
+      override val i2 = new PItem1[II#TT2] {
+        override val i1 = aa.i2
+      }
+    }
+  }
+
+  /*override type PlusItem[T] = PItem2[PItem2[T1, T2], T2#PlusItem[T]]
+  override def plusItem[T](t: T): PItem2[PItem2[T1, T2], T2#PlusItem[T]] = new PItem2[PItem2[T1, T2], T2#PlusItem[T]] {
+    override val i1 = self
+    override val i2 = self.i2.plusItem(t)
+  }
+
+  override type NotPlusItem[T] = PItem2[T1, T2#NotPlusItem[T]]
+  override def notPlusItem[T](t: T): PItem2[T1, T2#NotPlusItem[T]] = new PItem2[T1, T2#NotPlusItem[T]] {
+    override val i1 = self.i1
+    override val i2 = self.i2.notPlusItem(t)
+  }
+
+  override type UpToP           = T2#UpToP#UpToNotDone
+  override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
+  override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
+  override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
+      new PItem2[T1, T2#UpToPlusItem[T]] {
+      override val i1 = self.i1
+      override val i2 = self.i2.upToPlusItem(t)
+    }
+    , self.plusItem(t)
+  )*/
+
   override type RightSub                   = T2
   override type RightReplace[T <: EatItem] = PItem2[T1, T]
-  override type AddRightItem[T]            = NotUse
 
-  override type RightCurrent = RightSub#RightCurrent#UpToPItem2
-  override type RightAppend  = RightSub#RightAppend#UpToPItem2
-
-  override def rightCurrent: RightSub#RightCurrent#UpToPItem2 = rightSub.rightCurrent.upToPItem2
-  override def rightAppend: RightSub#RightAppend#UpToPItem2   = rightSub.rightAppend.upToPItem2
-
-  override def rightSub: T2                          = i2
-  override def rightPlus[T <: EatItem](t: T): NotUse = NotUse
+  override def rightSub: T2 = i2
   override def rightReplace[T <: EatItem](t: T): PItem2[T1, T] = new PItem2[T1, T] {
     override val i1 = self.i1
     override val i2 = t
   }
-  override def addRightItem[T](t: T): NotUse = NotUse
 
   override type RightDrop     = T1
   override type DropIO        = RightSub#DropIO#UpToPItem2
@@ -184,29 +327,66 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with EatItem {
 
 }
 
-class E[I <: EatItem](val item: I) extends EatItem {
+trait E[I <: EatItem] extends EatItem {
   self =>
 
-  override type RightPlus[T <: EatItem]    = E[PItem2[I, T]]
+  def item: I
+
+  override type ToPItem1[T]                = E[I#ToPItem1[T]]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, I#ToPItem1[T]]
+
+  override def toPItem1[T](t: T): E[I#ToPItem1[T]] = new E[I#ToPItem1[T]] {
+    override val item = self.item.toPItem1(t)
+  }
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, I#ToPItem1[T]] = new PItem2[TT, I#ToPItem1[T]] {
+    override val i1 = tt
+    override val i2 = self.item.toPItem1(t)
+  }
+
+  /*override type NotPlusItem[T] = E[I#NotPlusItem[T], P#Change]
+  override def notPlusItem[T](t: T): E[I#NotPlusItem[T], P#Change] = new E[I#NotPlusItem[T], P#Change] {
+    override val item        = self.item.notPlusItem(t)
+    override val addItemPlus = self.addItemPlus.change
+  }
+
+  override type PlusItem[T] = E[PItem2[I, I#PlusItem[T]], P]
+  override def plusItem[T](t: T): E[PItem2[I, I#PlusItem[T]], P] =
+    new E[PItem2[I, I#PlusItem[T]], P] {
+      override val item = new PItem2[I, I#PlusItem[T]] {
+        override val i1 = self.item
+        override val i2 = self.item.plusItem(t)
+      }
+      override val addItemPlus = self.addItemPlus
+    }
+
+  override type UpToP           = I#UpToP
+  override type UpToPlusItem[T] = I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]]
+  override def upToP: I#UpToP = self.item.upToP
+  override def upToPlusItem[T](t: T): I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]] = self.upToP.current(
+      new E[I#UpToPlusItem[T], P#Change] {
+      override val item        = self.item.upToPlusItem(t)
+      override val addItemPlus = self.addItemPlus.change
+    }
+    , new E[PItem2[I, I#UpToPlusItem[T]], P#Change] {
+      override val item = new PItem2[I, I#UpToPlusItem[T]] {
+        override val i1 = self.item
+        override val i2 = self.item.upToPlusItem(t)
+      }
+      override val addItemPlus = self.addItemPlus.change
+    }
+  )*/
+
   override type RightSub                   = I
   override type RightReplace[T <: EatItem] = E[T]
-  override type AddRightItem[T]            = RightSub#RightAppend#UpToTopItem#Append[T, E[RightSub#RightCurrent#Current[T, I]]]
-
-  override type RightCurrent = RightSub#RightCurrent
-  override type RightAppend  = RightSub#RightAppend#UpToTopItem
-
-  override def rightCurrent: RightSub#RightCurrent           = rightSub.rightCurrent
-  override def rightAppend: RightSub#RightAppend#UpToTopItem = rightSub.rightAppend.upToTopItem
 
   override def rightSub: I = item
-  override def rightPlus[T <: EatItem](t: T): E[PItem2[I, T]] =
-    new E(new PItem2[I, T] {
-      override val i1: I = self.item
-      override val i2    = t
-    })
-  override def rightReplace[T <: EatItem](t: T): E[T] = new E(t)
-  override def addRightItem[T](t: T): RightSub#RightAppend#UpToTopItem#Append[T, E[RightSub#RightCurrent#Current[T, I]]] = {
-    rightSub.rightAppend.upToTopItem.append(t, new E(self.rightSub.rightCurrent.current(t, self.item)))
+  override def rightReplace[T <: EatItem](t: T): E[T] = new E[T] {
+    override val item = t
+  }
+
+  type AddRightItem[T] = E[I#ToPItem1[T]]
+  def addRightItem[T](t: T): E[I#ToPItem1[T]] = new E[I#ToPItem1[T]] {
+    override val item = self.item.toPItem1(t)
   }
 
   override type RightDrop     = NotUse
@@ -224,7 +404,9 @@ class E[I <: EatItem](val item: I) extends EatItem {
 }
 
 object E {
-  def value1[T](t: T): E[EatValue1[T]] = new E(new EatValue1(t))
+  def value1[T](t: T): E[EatValue1[T]] = new E[EatValue1[T]] {
+    override val item = new EatValue1(t)
+  }
 
   val item0: EatValue0 = EatValue0
 }
@@ -246,10 +428,21 @@ object App extends App {
 
   val cc = bb.addRightItem("6").addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11).addRightItem(12)
 
-  println(bb)
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4"))
+  println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))
+
+  val dd = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6")
+
+  println(dd)
+  println(dd.addRightItem("7"))
+  println(dd.addRightItem("7").addRightItem("8"))
+  println(dd.addRightItem("7").addRightItem("8").addRightItem(9))
+  println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10))
+  println(dd.addRightItem("7").addRightItem("8").addRightItem(9).addRightItem(10).addRightItem(11))
   println(cc)
 
-  val i1  = cc.dropRight
+  /*val i1  = cc.dropRight
   val i2  = i1.dropRight
   val i3  = i2.dropRight
   val i4  = i3.dropRight
@@ -272,6 +465,6 @@ object App extends App {
   println(i8)
   println(i9)
   println(i10)
-  println(i11)
+  println(i11)*/
 
 }

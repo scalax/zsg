@@ -7,7 +7,7 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
     override type RawItem = T1
     override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
     override type TailItem = org.scalax.asuna.mapper.item.EndItemTag
-    override type Sub = ItemTag1[T1]
+    override type Sub = org.scalax.asuna.mapper.item.EndItemTag
     override type NoMessage = ItemTag1[T1]
     override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag1[(RawItem, I#RawItem)]
 
@@ -19,7 +19,7 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
         override type RawItem = T1
         override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
         override type TailItem = ItemTag@{i - 1}[@for(ii <- 2 to i){ T@{ii} @if(ii < i) { , } }]
-        override type Sub = ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]
+        override type Sub = org.scalax.asuna.mapper.item.EndItemTag
 
         override type NoMessage = ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]
 
