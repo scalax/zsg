@@ -42,17 +42,17 @@ object EatValue0 extends EatValue0
 class EatValue1[T1](val i1: T1) extends AnyVal with EatItem {
   self =>
 
-  override type ToPItem1[T]                = PItem1[EatValue2[T1, T]]
-  override type ToPItem2[TT <: EatItem, T] = Dadao[TT, EatValue2[T1, T]]
+  override type ToPItem1[T]                = Qieguozhe[EatValue2[T1, T]]
+  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, EatValue2[T1, T]]
 
-  override def toPItem1[T](t: T): PItem1[EatValue2[T1, T]] = new PItem1[EatValue2[T1, T]] {
+  override def toPItem1[T](t: T): Qieguozhe[EatValue2[T1, T]] = new Qieguozhe[EatValue2[T1, T]] {
     override val i1 = new EatValue2[T1, T] {
       override val i1: T1 = self.i1
       override val i2     = t
     }
   }
 
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): Dadao[TT, EatValue2[T1, T]] = new Dadao[TT, EatValue2[T1, T]] {
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, EatValue2[T1, T]] = new PItem2[TT, EatValue2[T1, T]] {
     override val i1 = tt
     override val i2 = new EatValue2[T1, T] {
       override val i1: T1 = self.i1
@@ -188,16 +188,16 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatIte
   override def i2: T2
 
   override type ToPItem1[T]                = PItem1[T2#ToPItem2[T1, T]]
-  override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T2#ToPItem2[T1, T]]
+  override type ToPItem2[TT <: EatItem, T] = Dadao[TT, T2#ToPItem2[T1, T]]
 
   override def toPItem1[T](t: T): PItem1[T2#ToPItem2[T1, T]] = new PItem1[T2#ToPItem2[T1, T]] {
     override val i1 = self.i2.toPItem2(self.i1, t)
   }
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T2#ToPItem2[T1, T]] = {
-    type II = T2#ToPItem2[T1, T]
-    val aa = self.i2.toPItem2(self.i1, t)
-
-    new PItem2[TT, T2#ToPItem2[T1, T]] {
+  /*new PItem1[T2#ToPItem2[T1, T]] {
+    override val i1 = self.i2.toPItem2(self.i1, t)
+  }*/
+  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): Dadao[TT, T2#ToPItem2[T1, T]] = {
+    new Dadao[TT, T2#ToPItem2[T1, T]] {
       override val i1 = tt
       override val i2 = self.i2.toPItem2(self.i1, t)
     }
@@ -240,23 +240,26 @@ trait Dadao[T1 <: EatItem, T2 <: EatItem] extends Any with PItem2PP with EatItem
   override def i1: T1
   override def i2: T2
 
-  override type ToPItem1[T] = T2#ToPItem2[T1, T]
+  override type ToPItem1[T] = PItem2[T1, T2#ToPItem2[T1, T]#TT2]
   override type ToPItem2[TT <: EatItem, T] = ({
     type II = T2#ToPItem2[T1, T]
-    type PP = Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]]
+    type PP = Dadao[Dadao[TT, II#TT1], PItem1[II#TT2]]
   })#PP
 
-  override def toPItem1[T](t: T): T2#ToPItem2[T1, T] = self.i2.toPItem2(self.i1, t)
+  override def toPItem1[T](t: T): PItem2[T1, T2#ToPItem2[T1, T]#TT2] = new PItem2[T1, T2#ToPItem2[T1, T]#TT2] {
+    override val i1 = self.i1
+    override val i2 = self.i2.toPItem2(self.i1, t).i2
+  }
 
   override def toPItem2[TT <: EatItem, T](tt: TT, t: T): ({
     type II = T2#ToPItem2[T1, T]
-    type PP = Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]]
+    type PP = Dadao[Dadao[TT, II#TT1], PItem1[II#TT2]]
   })#PP = {
     type II = T2#ToPItem2[T1, T]
     val aa = self.i2.toPItem2(self.i1, t)
 
-    new Dadao[PItem2[TT, II#TT1], PItem1[II#TT2]] {
-      override val i1 = new PItem2[TT, II#TT1] {
+    new Dadao[Dadao[TT, II#TT1], PItem1[II#TT2]] {
+      override val i1 = new Dadao[TT, II#TT1] {
         override val i1 = tt
         override val i2 = aa.i1
       }
@@ -297,16 +300,15 @@ trait Qieguozhe[T1 <: EatItem] extends Any with EatItem {
 
   def i1: T1
 
-  override type ToPItem1[T]                = PItem1[PItem1[T1#ToPItem1[T]]]
+  override type ToPItem1[T]                = T1#ToPItem1[T]
   override type ToPItem2[TT <: EatItem, T] = PItem2[TT, T1#ToPItem1[T]]
 
-  override def toPItem1[T](t: T): PItem1[PItem1[T1#ToPItem1[T]]] = {
-    new PItem1[PItem1[T1#ToPItem1[T]]] {
-      override val i1 = new PItem1[T1#ToPItem1[T]] {
-        override val i1 = self.i1.toPItem1(t)
-      }
+  override def toPItem1[T](t: T): T1#ToPItem1[T] = self.i1.toPItem1(t)
+  /*{
+    new PItem1[T1#ToPItem1[T]] {
+      override val i1 = self.i1.toPItem1(t)
     }
-  }
+  }*/
   override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[TT, T1#ToPItem1[T]] = {
     new PItem2[TT, T1#ToPItem1[T]] {
       override val i1 = tt
@@ -332,7 +334,7 @@ trait Qieguozhe[T1 <: EatItem] extends Any with EatItem {
   override def dropRightItem: T1#DropRightItem    = self.i1.dropRightItem
 
   override def toString: String = {
-    val ii = s"i1: ${i1}".split("\n").map(s => s"  ${s}").filterNot(_.isEmpty).mkString("\n")
+    val ii = s"i1: ${i1}".split("\n").filterNot(_.trim.isEmpty).map(s => s"  ${s}").mkString("\n")
     s"Qieguozhe:\n${ii}"
   }
 
@@ -404,6 +406,8 @@ object App extends App {
 
   val bb = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5)
 
+  println(E.item0.addRightItem("1"))
+  println(E.item0.addRightItem("1").addRightItem("2"))
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3))
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4"))
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5))
@@ -454,412 +458,3 @@ object App extends App {
   println(i11)*/
 
 }
-
-/*
-[info] Running org.scalax.asuna.mapper.item.App
-PItem1:
-  i1: PItem2:
-    i1: EatValue2:
-      i1: 1
-      i2: 2
-    i2: EatValue1:
-      i1: 3
-
-PItem1:
-  i1: PItem1:
-    i1: Dadao:
-      i1: EatValue2:
-        i1: 1
-        i2: 2
-      i2: EatValue2:
-        i1: 3
-        i2: 4
-
-PItem1:
-  i1: PItem1:
-    i1: Dadao:
-      i1: PItem2:
-        i1: EatValue2:
-          i1: 1
-          i2: 2
-        i2: EatValue2:
-          i1: 3
-          i2: 4
-      i2: PItem1:
-        i1: EatValue1:
-          i1: 5
-
-PItem1:
-  i1: PItem1:
-    i1: PItem2:
-      i1: PItem2:
-        i1: EatValue2:
-          i1: 1
-          i2: 2
-        i2: EatValue2:
-          i1: 3
-          i2: 4
-      i2: PItem1:
-        i1: EatValue2:
-          i1: 5
-          i2: 6
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem2:
-        i1: PItem2:
-          i1: EatValue2:
-            i1: 1
-            i2: 2
-          i2: EatValue2:
-            i1: 3
-            i2: 4
-        i2: PItem2:
-          i1: EatValue2:
-            i1: 5
-            i2: 6
-          i2: EatValue1:
-            i1: 7
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem2:
-          i1: PItem2:
-            i1: EatValue2:
-              i1: 1
-              i2: 2
-            i2: EatValue2:
-              i1: 3
-              i2: 4
-          i2: Dadao:
-            i1: EatValue2:
-              i1: 5
-              i2: 6
-            i2: EatValue2:
-              i1: 7
-              i2: 8
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: Dadao:
-            i1: PItem2:
-              i1: PItem2:
-                i1: EatValue2:
-                  i1: 1
-                  i2: 2
-                i2: EatValue2:
-                  i1: 3
-                  i2: 4
-              i2: PItem2:
-                i1: EatValue2:
-                  i1: 5
-                  i2: 6
-                i2: EatValue2:
-                  i1: 7
-                  i2: 8
-            i2: PItem1:
-              i1: PItem1:
-                i1: EatValue1:
-                  i1: 9
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem2:
-            i1: PItem2:
-              i1: PItem2:
-                i1: EatValue2:
-                  i1: 1
-                  i2: 2
-                i2: EatValue2:
-                  i1: 3
-                  i2: 4
-              i2: PItem2:
-                i1: EatValue2:
-                  i1: 5
-                  i2: 6
-                i2: EatValue2:
-                  i1: 7
-                  i2: 8
-            i2: PItem1:
-              i1: PItem1:
-                i1: EatValue2:
-                  i1: 9
-                  i2: 10
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem2:
-              i1: PItem2:
-                i1: PItem2:
-                  i1: EatValue2:
-                    i1: 1
-                    i2: 2
-                  i2: EatValue2:
-                    i1: 3
-                    i2: 4
-                i2: PItem2:
-                  i1: EatValue2:
-                    i1: 5
-                    i2: 6
-                  i2: EatValue2:
-                    i1: 7
-                    i2: 8
-              i2: PItem1:
-                i1: PItem2:
-                  i1: EatValue2:
-                    i1: 9
-                    i2: 10
-                  i2: EatValue1:
-                    i1: 11
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem2:
-                i1: PItem2:
-                  i1: PItem2:
-                    i1: EatValue2:
-                      i1: 1
-                      i2: 2
-                    i2: EatValue2:
-                      i1: 3
-                      i2: 4
-                  i2: PItem2:
-                    i1: EatValue2:
-                      i1: 5
-                      i2: 6
-                    i2: EatValue2:
-                      i1: 7
-                      i2: 8
-                i2: PItem1:
-                  i1: Dadao:
-                    i1: EatValue2:
-                      i1: 9
-                      i2: 10
-                    i2: EatValue2:
-                      i1: 11
-                      i2: 12
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem1:
-                i1: PItem2:
-                  i1: PItem2:
-                    i1: PItem2:
-                      i1: EatValue2:
-                        i1: 1
-                        i2: 2
-                      i2: EatValue2:
-                        i1: 3
-                        i2: 4
-                    i2: PItem2:
-                      i1: EatValue2:
-                        i1: 5
-                        i2: 6
-                      i2: EatValue2:
-                        i1: 7
-                        i2: 8
-                  i2: Dadao:
-                    i1: PItem2:
-                      i1: EatValue2:
-                        i1: 9
-                        i2: 10
-                      i2: EatValue2:
-                        i1: 11
-                        i2: 12
-                    i2: PItem1:
-                      i1: EatValue1:
-                        i1: 13
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem1:
-                i1: PItem1:
-                  i1: Dadao:
-                    i1: PItem2:
-                      i1: PItem2:
-                        i1: PItem2:
-                          i1: EatValue2:
-                            i1: 1
-                            i2: 2
-                          i2: EatValue2:
-                            i1: 3
-                            i2: 4
-                        i2: PItem2:
-                          i1: EatValue2:
-                            i1: 5
-                            i2: 6
-                          i2: EatValue2:
-                            i1: 7
-                            i2: 8
-                      i2: PItem2:
-                        i1: EatValue2:
-                          i1: 9
-                          i2: 10
-                        i2: EatValue2:
-                          i1: 11
-                          i2: 12
-                    i2: PItem1:
-                      i1: PItem1:
-                        i1: EatValue2:
-                          i1: 13
-                          i2: 14
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem1:
-                i1: PItem1:
-                  i1: PItem2:
-                    i1: PItem2:
-                      i1: PItem2:
-                        i1: PItem2:
-                          i1: EatValue2:
-                            i1: 1
-                            i2: 2
-                          i2: EatValue2:
-                            i1: 3
-                            i2: 4
-                        i2: PItem2:
-                          i1: EatValue2:
-                            i1: 5
-                            i2: 6
-                          i2: EatValue2:
-                            i1: 7
-                            i2: 8
-                      i2: PItem2:
-                        i1: EatValue2:
-                          i1: 9
-                          i2: 10
-                        i2: EatValue2:
-                          i1: 11
-                          i2: 12
-                    i2: PItem1:
-                      i1: PItem2:
-                        i1: EatValue2:
-                          i1: 13
-                          i2: 14
-                        i2: EatValue1:
-                          i1: 15
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem1:
-                i1: PItem1:
-                  i1: PItem1:
-                    i1: PItem2:
-                      i1: PItem2:
-                        i1: PItem2:
-                          i1: PItem2:
-                            i1: EatValue2:
-                              i1: 1
-                              i2: 2
-                            i2: EatValue2:
-                              i1: 3
-                              i2: 4
-                          i2: PItem2:
-                            i1: EatValue2:
-                              i1: 5
-                              i2: 6
-                            i2: EatValue2:
-                              i1: 7
-                              i2: 8
-                        i2: PItem2:
-                          i1: EatValue2:
-                            i1: 9
-                            i2: 10
-                          i2: EatValue2:
-                            i1: 11
-                            i2: 12
-                      i2: PItem1:
-                        i1: Dadao:
-                          i1: EatValue2:
-                            i1: 13
-                            i2: 14
-                          i2: EatValue2:
-                            i1: 15
-                            i2: 16
-
-PItem1:
-  i1: PItem1:
-    i1: PItem1:
-      i1: PItem1:
-        i1: PItem1:
-          i1: PItem1:
-            i1: PItem1:
-              i1: PItem1:
-                i1: PItem1:
-                  i1: PItem1:
-                    i1: PItem1:
-                      i1: PItem2:
-                        i1: PItem2:
-                          i1: PItem2:
-                            i1: PItem2:
-                              i1: EatValue2:
-                                i1: 1
-                                i2: 2
-                              i2: EatValue2:
-                                i1: 3
-                                i2: 4
-                            i2: PItem2:
-                              i1: EatValue2:
-                                i1: 5
-                                i2: 6
-                              i2: EatValue2:
-                                i1: 7
-                                i2: 8
-                          i2: PItem2:
-                            i1: EatValue2:
-                              i1: 9
-                              i2: 10
-                            i2: EatValue2:
-                              i1: 11
-                              i2: 12
-                        i2: Dadao:
-                          i1: PItem2:
-                            i1: EatValue2:
-                              i1: 13
-                              i2: 14
-                            i2: EatValue2:
-                              i1: 15
-                              i2: 16
-                          i2: PItem1:
-                            i1: EatValue1:
-                              i1: 32
- */
