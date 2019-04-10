@@ -4,23 +4,20 @@ trait NotUseDropRightResult
 
 object NotUseDropRightResult extends NotUseDropRightResult
 
-class NotUse extends EatItem {
+class NotUse extends EatItem with PItem2PP {
   self =>
 
-  /*override type NotPlusItem[T] = NotUse
-  override def notPlusItem[T](t: T): NotUse = NotUse
+  override type TT1 = NotUse
+  override def i1: NotUse = self
 
-  override type PlusItem[T] = NotUse
-  override def plusItem[T](t: T): NotUse = NotUse*/
+  override type TT2 = NotUse
+  override def i2: NotUse = self
 
-  override type ToPItem1[T]                = NotUse
-  override type ToPItem2[TT <: EatItem, T] = PItem2[NotUse, NotUse]
+  override type ToPItem1[TT <: PItem1PP, T] = NotUse
+  override type ToPItem2[TT <: PItem2PP, T] = NotUse
 
-  override def toPItem1[T](t: T): NotUse = self
-  override def toPItem2[TT <: EatItem, T](tt: TT, t: T): PItem2[NotUse, NotUse] = new PItem2[NotUse, NotUse] {
-    override val i1 = NotUse
-    override val i2 = NotUse
-  }
+  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): NotUse = self
+  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): NotUse = self
 
   /*override type UpToP           = NotUseUpToPlus
   override type UpToPlusItem[T] = NotUse
