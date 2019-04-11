@@ -7,14 +7,14 @@ trait EatItem extends Any {
   type SelfType <: PItem1PP
   def selfItem: SelfType
 
-  type ToPItem1[TT <: PItem1PP, T] <: PItem2PP
-  type ToPItem2[TT <: PItem2PP, T] <: PItem2PP
+  type ToPItem1[TT <: PItem1PP, T <: PItem1PP] <: PItem2PP
+  type ToPItem2[TT <: PItem2PP, T <: PItem1PP] <: PItem2PP
 
-  def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): ToPItem1[TT, T]
-  def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): ToPItem2[TT, T]
+  def toPItem1[TT <: PItem1PP, T <: PItem1PP](tt: TT, t: T): ToPItem1[TT, T]
+  def toPItem2[TT <: PItem2PP, T <: PItem1PP](tt: TT, t: T): ToPItem2[TT, T]
 
-  type AddRightItem[T] = ToPItem1[SelfType, T]
-  def addRightItem[T](t: T): ToPItem1[SelfType, T] = toPItem1(selfItem, t)
+  type AddRightItem[T] = ToPItem1[SelfType, EatValue1[T]]
+  def addRightItem[T](t: T): ToPItem1[SelfType, EatValue1[T]] = toPItem1(selfItem, new EatValue1(t))
 
   type RightSub <: PItem1PP
   type RightReplace[T <: PItem1PP] <: PItem1PP
@@ -52,24 +52,24 @@ class EatValue1[T1](val value1: T1) extends AnyVal with EatItem with PItem1PP {
   override type TT1 = EatValue1[T1]
   override def i1: EatValue1[T1] = self
 
-  override type ToPItem1[TT <: PItem1PP, T] = EatValue2[T1, T]
-  override type ToPItem2[TT <: PItem2PP, T] = Dadao[TT#TT1, TT#TT2#ToPItem1[TT#TT2, T]]
+  override type ToPItem1[TT <: PItem1PP, T <: PItem1PP] = PItem2[T, EatValue1[T1]]
+  override type ToPItem2[TT <: PItem2PP, T <: PItem1PP] = Dadao[T, TT]
 
   //这踏马也不能动了
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): EatValue2[T1, T] = {
+  override def toPItem1[TT <: PItem1PP, T <: PItem1PP](tt: TT, t: T): PItem2[T, EatValue1[T1]] = {
     println("77" * 10)
-    new EatValue2[T1, T] {
-      override val value1: T1 = self.value1
-      override val value2     = t
+    new PItem2[T, EatValue1[T1]] {
+      override val i1 = t
+      override val i2 = self
     }
   }
 
   //这踏马不能动了
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): Dadao[TT#TT1, TT#TT2#ToPItem1[TT#TT2, T]] = {
+  override def toPItem2[TT <: PItem2PP, T <: PItem1PP](tt: TT, t: T): Dadao[T, TT] = {
     println("88" * 10)
-    new Dadao[TT#TT1, TT#TT2#ToPItem1[TT#TT2, T]] {
-      override val i1 = tt.i1
-      override val i2 = tt.i2.toPItem1(tt.i2, t)
+    new Dadao[T, TT] {
+      override val i1 = t
+      override val i2 = tt
     }
   }
 
@@ -87,15 +87,11 @@ class EatValue1[T1](val value1: T1) extends AnyVal with EatItem with PItem1PP {
   override def dropIO: EatValue1RightDropIO = EatValue1RightDropIO
   override def dropRightItem: T1            = self.value1
 
-  override def toString: String = {
-    val ii =
-      s"""i1: ${self.value1}""".stripMargin.split("\n").filterNot(_.isEmpty).map(s => s"  ${s}").mkString("\n")
-    s"EatValue1:\n${ii}"
-  }
+  override def toString: String = s"""value: ${self.value1}"""
 
 }
 
-trait EatValue2[T1, T2] extends Any with EatItem with PItem2PP {
+/*trait EatValue2[T1, T2] extends Any with EatItem with PItem2PP {
   self =>
 
   override type SelfType = EatValue2[T1, T2]
@@ -109,24 +105,24 @@ trait EatValue2[T1, T2] extends Any with EatItem with PItem2PP {
   override def i1: EatValue1[T1] = new EatValue1(self.value1)
   override def i2: EatValue1[T2] = new EatValue1(self.value2)
 
-  override type ToPItem1[TT <: PItem1PP, T] = Dadao[TT, EatValue1[T]]
-  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT, EatValue1[T]]
+  override type ToPItem1[TT <: PItem1PP, T] = Dadao[EatValue1[T], TT]
+  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2]
 
   //这踏马暂时也无法动了
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): Dadao[TT, EatValue1[T]] = {
+  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): Dadao[EatValue1[T], TT] = {
     println("55" * 10)
-    new Dadao[TT, EatValue1[T]] {
-      override val i1 = tt
-      override val i2 = new EatValue1(t)
+    new Dadao[EatValue1[T], TT] {
+      override val i1 = new EatValue1(t)
+      override val i2 = tt
     }
   }
 
   //这里要有大盗
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT, EatValue1[T]] = {
+  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2] = {
     println("66" * 10)
-    new PItem2[TT, EatValue1[T]] {
-      override val i1 = tt
-      override val i2 = new EatValue1(t)
+    new PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2] {
+      override val i1 = tt.i1.toPItem1(tt.i1, t)
+      override val i2 = tt.i2
     }
   }
 
@@ -152,7 +148,7 @@ trait EatValue2[T1, T2] extends Any with EatItem with PItem2PP {
     s"EatValue2:\n${ii}"
   }
 
-}
+}*/
 
 trait PItem1PP extends Any with EatItem {
   type TT1 <: PItem1PP
@@ -179,31 +175,31 @@ trait PItem2[T1 <: PItem1PP, T2 <: PItem1PP] extends Any with PItem2PP with EatI
   override type SelfType = PItem2[T1, T2]
   override def selfItem: PItem2[T1, T2] = self
 
-  override type ToPItem1[TT <: PItem1PP, T] = ({
-    type II   = T2#ToPItem1[T2, T]
-    type IIII = Dadao[Dadao[T1, II#TT1], II#TT2]
-  })#IIII
-  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT#TT1, T2#ToPItem2[SelfType, T]]
+  override type ToPItem1[TT <: PItem1PP, T <: PItem1PP] = ({
+    type II = T1#ToPItem1[T1, T]
+    type PP = Dadao[II#TT1, PItem2[II#TT2, T2]]
+  })#PP
+  override type ToPItem2[TT <: PItem2PP, T <: PItem1PP] = Dadao[TT#TT1, T2#ToPItem2[SelfType, T]]
 
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): ({
-    type II   = T2#ToPItem1[T2, T]
-    type IIII = Dadao[Dadao[T1, II#TT1], II#TT2]
-  })#IIII = {
+  override def toPItem1[TT <: PItem1PP, T <: PItem1PP](tt: TT, t: T): ({
+    type II = T1#ToPItem1[T1, T]
+    type PP = Dadao[II#TT1, PItem2[II#TT2, T2]]
+  })#PP = {
     println("44" * 10)
-    type II = T2#ToPItem1[T2, T]
-    val ii = self.i2.toPItem1(self.i2, t)
-    new Dadao[Dadao[T1, II#TT1], II#TT2] {
-      override val i1 = new Dadao[T1, II#TT1] {
-        override val i1 = self.i1
-        override val i2 = ii.i1
+    type II = T1#ToPItem1[T1, T]
+    val ii = self.i1.toPItem1(self.i1, t)
+    new Dadao[II#TT1, PItem2[II#TT2, T2]] {
+      override val i1 = ii.i1
+      override val i2 = new PItem2[II#TT2, T2] {
+        override val i1 = ii.i2
+        override val i2 = self.i2
       }
-      override val i2 = ii.i2
     }
   }
 
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT#TT1, T2#ToPItem2[SelfType, T]] = {
+  override def toPItem2[TT <: PItem2PP, T <: PItem1PP](tt: TT, t: T): Dadao[TT#TT1, T2#ToPItem2[SelfType, T]] = {
     println("33" * 10)
-    new PItem2[TT#TT1, T2#ToPItem2[SelfType, T]] {
+    new Dadao[TT#TT1, T2#ToPItem2[SelfType, T]] {
       override val i1 = tt.i1
       override val i2 = self.i2.toPItem2(self.selfItem, t)
     }
@@ -249,15 +245,23 @@ trait Dadao[T1 <: PItem1PP, T2 <: PItem1PP] extends Any with PItem2PP with EatIt
   override def i1: T1
   override def i2: T2
 
-  override type ToPItem1[TT <: PItem1PP, T] = SelfType#ToPItem2[SelfType, T]
-  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT#TT1, T2#ToPItem1[T2, T]]
+  override type ToPItem1[TT <: PItem1PP, T <: PItem1PP] = ({
+    type II  = T1#ToPItem1[T1, T]
+    type III = T2#ToPItem1[T2, II]
+  })#III
+  override type ToPItem2[TT <: PItem2PP, T <: PItem1PP] = PItem2[TT#TT1, T2#ToPItem1[T2, T]]
 
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): SelfType#ToPItem2[SelfType, T] = {
+  override def toPItem1[TT <: PItem1PP, T <: PItem1PP](tt: TT, t: T): ({
+    type II  = T1#ToPItem1[T1, T]
+    type III = T2#ToPItem1[T2, II]
+  })#III = {
     println("11" * 10)
-    selfItem.toPItem2(selfItem, t)
+    type II = T1#ToPItem1[T1, T]
+    val ii = self.i1.toPItem1(self.i1, t)
+    self.i2.toPItem1(self.i2, ii)
   }
 
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT#TT1, T2#ToPItem1[T2, T]] = {
+  override def toPItem2[TT <: PItem2PP, T <: PItem1PP](tt: TT, t: T): PItem2[TT#TT1, T2#ToPItem1[T2, T]] = {
     println("22" * 10)
     new PItem2[TT#TT1, T2#ToPItem1[T2, T]] {
       override val i1 = tt.i1
