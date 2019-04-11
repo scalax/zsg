@@ -91,65 +91,6 @@ class EatValue1[T1](val value1: T1) extends AnyVal with EatItem with PItem1PP {
 
 }
 
-/*trait EatValue2[T1, T2] extends Any with EatItem with PItem2PP {
-  self =>
-
-  override type SelfType = EatValue2[T1, T2]
-  override def selfItem: EatValue2[T1, T2] = self
-
-  def value1: T1
-  def value2: T2
-
-  override type TT1 = EatValue1[T1]
-  override type TT2 = EatValue1[T2]
-  override def i1: EatValue1[T1] = new EatValue1(self.value1)
-  override def i2: EatValue1[T2] = new EatValue1(self.value2)
-
-  override type ToPItem1[TT <: PItem1PP, T] = Dadao[EatValue1[T], TT]
-  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2]
-
-  //这踏马暂时也无法动了
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): Dadao[EatValue1[T], TT] = {
-    println("55" * 10)
-    new Dadao[EatValue1[T], TT] {
-      override val i1 = new EatValue1(t)
-      override val i2 = tt
-    }
-  }
-
-  //这里要有大盗
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2] = {
-    println("66" * 10)
-    new PItem2[TT#TT1#ToPItem1[TT#TT1, T], TT#TT2] {
-      override val i1 = tt.i1.toPItem1(tt.i1, t)
-      override val i2 = tt.i2
-    }
-  }
-
-  override type RightSub                    = NotUse
-  override type RightReplace[T <: PItem1PP] = NotUse
-
-  override def rightSub: NotUse                          = NotUse
-  override def rightReplace[T <: PItem1PP](t: T): NotUse = NotUse
-
-  override type RightDrop     = EatValue1[T1]
-  override type DropIO        = EatValue2RightDropIO
-  override type DropRightItem = T2
-
-  override def rightDrop: EatValue1[T1]     = new EatValue1[T1](self.value1)
-  override def dropIO: EatValue2RightDropIO = EatValue2RightDropIO
-  override def dropRightItem: T2            = self.value2
-
-  override def toString: String = {
-    val ii =
-      s"""
-         |i1: ${self.value1}
-         |i2: ${self.value2}""".stripMargin.split("\n").filterNot(_.isEmpty).map(s => s"  ${s}").mkString("\n")
-    s"EatValue2:\n${ii}"
-  }
-
-}*/
-
 trait PItem1PP extends Any with EatItem {
   type TT1 <: PItem1PP
   def i1: TT1
@@ -246,19 +187,26 @@ trait Dadao[T1 <: PItem1PP, T2 <: PItem1PP] extends Any with PItem2PP with EatIt
   override def i2: T2
 
   override type ToPItem1[TT <: PItem1PP, T <: PItem1PP] = ({
-    type II  = T1#ToPItem1[T1, T]
-    type III = T2#ToPItem1[T2, II]
-  })#III
+    type II   = T1#ToPItem1[T1, T]
+    type III  = T2#ToPItem1[T2, II]
+    type IIII = PItem2[III#TT1, III#TT2]
+  })#IIII
   override type ToPItem2[TT <: PItem2PP, T <: PItem1PP] = PItem2[TT#TT1, T2#ToPItem1[T2, T]]
 
   override def toPItem1[TT <: PItem1PP, T <: PItem1PP](tt: TT, t: T): ({
+    type II   = T1#ToPItem1[T1, T]
+    type III  = T2#ToPItem1[T2, II]
+    type IIII = PItem2[III#TT1, III#TT2]
+  })#IIII = {
+    println("11" * 10)
     type II  = T1#ToPItem1[T1, T]
     type III = T2#ToPItem1[T2, II]
-  })#III = {
-    println("11" * 10)
-    type II = T1#ToPItem1[T1, T]
-    val ii = self.i1.toPItem1(self.i1, t)
-    self.i2.toPItem1(self.i2, ii)
+    val ii  = self.i1.toPItem1(self.i1, t)
+    val iii = self.i2.toPItem1(self.i2, ii)
+    new PItem2[III#TT1, III#TT2] {
+      override val i1 = iii.i1
+      override val i2 = iii.i2
+    }
   }
 
   override def toPItem2[TT <: PItem2PP, T <: PItem1PP](tt: TT, t: T): PItem2[TT#TT1, T2#ToPItem1[T2, T]] = {
@@ -300,527 +248,602 @@ object E {
 }
 
 /*
-EatValue1:
-  i1: 1
+value: 1
 
 
 
 
-77777777777777777777
-EatValue2:
-  i1: 1
-  i2: 2
-
-
-
-
-77777777777777777777
-55555555555555555555
-Dadao:
-  i1: EatValue2:
-    i1: 1
-    i2: 2
-  i2: EatValue1:
-    i1: 3
-
-
-
-
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 PItem2:
-  i1: EatValue2:
-    i1: 1
-    i2: 2
-  i2: EatValue2:
-    i1: 3
-    i2: 4
+  i1: value: 2
+  i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: EatValue2:
-      i1: 1
-      i2: 2
-    i2: EatValue2:
-      i1: 3
-      i2: 4
-  i2: EatValue1:
-    i1: 5
+  i1: value: 3
+  i2: PItem2:
+    i1: value: 2
+    i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 11111111111111111111
-22222222222222222222
+77777777777777777777
+44444444444444444444
 77777777777777777777
 PItem2:
-  i1: Dadao:
-    i1: EatValue2:
-      i1: 1
-      i2: 2
-    i2: EatValue2:
-      i1: 3
-      i2: 4
-  i2: EatValue2:
-    i1: 5
-    i2: 6
+  i1: PItem2:
+    i1: value: 4
+    i2: value: 3
+  i2: PItem2:
+    i1: value: 2
+    i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: EatValue2:
-        i1: 1
-        i2: 2
-      i2: EatValue2:
-        i1: 3
-        i2: 4
-    i2: EatValue2:
-      i1: 5
-      i2: 6
-  i2: EatValue1:
-    i1: 7
+  i1: value: 5
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 4
+      i2: value: 3
+    i2: PItem2:
+      i1: value: 2
+      i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
+77777777777777777777
+44444444444444444444
+44444444444444444444
 77777777777777777777
 PItem2:
-  i1: Dadao:
-    i1: Dadao:
-      i1: EatValue2:
-        i1: 1
-        i2: 2
-      i2: EatValue2:
-        i1: 3
-        i2: 4
-    i2: EatValue2:
-      i1: 5
-      i2: 6
-  i2: EatValue2:
-    i1: 7
-    i2: 8
+  i1: PItem2:
+    i1: value: 6
+    i2: value: 5
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 4
+      i2: value: 3
+    i2: PItem2:
+      i1: value: 2
+      i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: EatValue2:
-          i1: 1
-          i2: 2
-        i2: EatValue2:
-          i1: 3
-          i2: 4
-      i2: EatValue2:
-        i1: 5
-        i2: 6
-    i2: EatValue2:
-      i1: 7
-      i2: 8
-  i2: EatValue1:
-    i1: 9
+  i1: value: 7
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 6
+      i2: value: 5
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 4
+        i2: value: 3
+      i2: PItem2:
+        i1: value: 2
+        i2: value: 1
 
 
 
 
-77777777777777777777
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
 77777777777777777777
 PItem2:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: EatValue2:
-          i1: 1
-          i2: 2
-        i2: EatValue2:
-          i1: 3
-          i2: 4
-      i2: EatValue2:
-        i1: 5
-        i2: 6
-    i2: EatValue2:
-      i1: 7
-      i2: 8
-  i2: EatValue2:
-    i1: 9
-    i2: 10
+  i1: PItem2:
+    i1: value: 8
+    i2: value: 7
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 6
+      i2: value: 5
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 4
+        i2: value: 3
+      i2: PItem2:
+        i1: value: 2
+        i2: value: 1
 
 
 
 
 77777777777777777777
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
+44444444444444444444
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: EatValue2:
-            i1: 1
-            i2: 2
-          i2: EatValue2:
-            i1: 3
-            i2: 4
-        i2: EatValue2:
-          i1: 5
-          i2: 6
-      i2: EatValue2:
-        i1: 7
-        i2: 8
-    i2: EatValue2:
-      i1: 9
-      i2: 10
-  i2: EatValue1:
-    i1: 11
+  i1: value: 9
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 8
+      i2: value: 7
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 6
+        i2: value: 5
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 4
+          i2: value: 3
+        i2: PItem2:
+          i1: value: 2
+          i2: value: 1
+
+
+
+
+77777777777777777777
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+PItem2:
+  i1: PItem2:
+    i1: value: 10
+    i2: value: 9
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 8
+      i2: value: 7
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 6
+        i2: value: 5
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 4
+          i2: value: 3
+        i2: PItem2:
+          i1: value: 2
+          i2: value: 1
+
+
+
+
+77777777777777777777
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+Dadao:
+  i1: value: 11
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 10
+      i2: value: 9
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 8
+        i2: value: 7
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 6
+          i2: value: 5
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 4
+            i2: value: 3
+          i2: PItem2:
+            i1: value: 2
+            i2: value: 1
 
 
 
 
 分隔线
 77777777777777777777
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
+44444444444444444444
 77777777777777777777
 44444444444444444444
-55555555555555555555
-11111111111111111111
-22222222222222222222
+44444444444444444444
 77777777777777777777
-分隔线
-PItem2:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: EatValue2:
-            i1: 1
-            i2: 2
-          i2: EatValue2:
-            i1: 3
-            i2: 4
-        i2: EatValue2:
-          i1: 5
-          i2: 6
-      i2: EatValue2:
-        i1: 7
-        i2: 8
-    i2: EatValue2:
-      i1: 9
-      i2: 10
-  i2: EatValue2:
-    i1: 11
-    i2: 12
-
-
-
-
-44444444444444444444
-55555555555555555555
-Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: Dadao:
-            i1: EatValue2:
-              i1: 1
-              i2: 2
-            i2: EatValue2:
-              i1: 3
-              i2: 4
-          i2: EatValue2:
-            i1: 5
-            i2: 6
-        i2: EatValue2:
-          i1: 7
-          i2: 8
-      i2: EatValue2:
-        i1: 9
-        i2: 10
-    i2: EatValue2:
-      i1: 11
-      i2: 12
-  i2: EatValue1:
-    i1: 13
-
-
-
-
-分隔线
-44444444444444444444
-55555555555555555555
 11111111111111111111
-22222222222222222222
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
 77777777777777777777
 分隔线
 PItem2:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: Dadao:
-            i1: EatValue2:
-              i1: 1
-              i2: 2
-            i2: EatValue2:
-              i1: 3
-              i2: 4
-          i2: EatValue2:
-            i1: 5
-            i2: 6
-        i2: EatValue2:
-          i1: 7
-          i2: 8
-      i2: EatValue2:
-        i1: 9
-        i2: 10
-    i2: EatValue2:
-      i1: 11
-      i2: 12
-  i2: EatValue2:
-    i1: 13
-    i2: 14
+  i1: PItem2:
+    i1: value: 12
+    i2: value: 11
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 10
+      i2: value: 9
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 8
+        i2: value: 7
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 6
+          i2: value: 5
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 4
+            i2: value: 3
+          i2: PItem2:
+            i1: value: 2
+            i2: value: 1
 
 
 
 
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: Dadao:
-            i1: Dadao:
-              i1: EatValue2:
-                i1: 1
-                i2: 2
-              i2: EatValue2:
-                i1: 3
-                i2: 4
-            i2: EatValue2:
-              i1: 5
-              i2: 6
-          i2: EatValue2:
-            i1: 7
-            i2: 8
-        i2: EatValue2:
-          i1: 9
-          i2: 10
-      i2: EatValue2:
-        i1: 11
-        i2: 12
-    i2: EatValue2:
-      i1: 13
-      i2: 14
-  i2: EatValue1:
-    i1: 15
+  i1: value: 13
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 12
+      i2: value: 11
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 10
+        i2: value: 9
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 8
+          i2: value: 7
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 6
+            i2: value: 5
+          i2: PItem2:
+            i1: PItem2:
+              i1: value: 4
+              i2: value: 3
+            i2: PItem2:
+              i1: value: 2
+              i2: value: 1
+
+
+
+
+分隔线
+44444444444444444444
+44444444444444444444
+77777777777777777777
+11111111111111111111
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
+分隔线
+PItem2:
+  i1: PItem2:
+    i1: value: 14
+    i2: value: 13
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 12
+      i2: value: 11
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 10
+        i2: value: 9
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 8
+          i2: value: 7
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 6
+            i2: value: 5
+          i2: PItem2:
+            i1: PItem2:
+              i1: value: 4
+              i2: value: 3
+            i2: PItem2:
+              i1: value: 2
+              i2: value: 1
 
 
 
 
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
+Dadao:
+  i1: value: 15
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 14
+      i2: value: 13
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 12
+        i2: value: 11
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 10
+          i2: value: 9
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 8
+            i2: value: 7
+          i2: PItem2:
+            i1: PItem2:
+              i1: value: 6
+              i2: value: 5
+            i2: PItem2:
+              i1: PItem2:
+                i1: value: 4
+                i2: value: 3
+              i2: PItem2:
+                i1: value: 2
+                i2: value: 1
+
+
+
+
+44444444444444444444
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
+77777777777777777777
+44444444444444444444
+44444444444444444444
 77777777777777777777
 PItem2:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: Dadao:
-            i1: Dadao:
-              i1: EatValue2:
-                i1: 1
-                i2: 2
-              i2: EatValue2:
-                i1: 3
-                i2: 4
-            i2: EatValue2:
-              i1: 5
-              i2: 6
-          i2: EatValue2:
-            i1: 7
-            i2: 8
-        i2: EatValue2:
-          i1: 9
-          i2: 10
-      i2: EatValue2:
-        i1: 11
-        i2: 12
-    i2: EatValue2:
-      i1: 13
-      i2: 14
-  i2: EatValue2:
-    i1: 15
-    i2: 16
+  i1: PItem2:
+    i1: value: 16
+    i2: value: 15
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 14
+      i2: value: 13
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 12
+        i2: value: 11
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 10
+          i2: value: 9
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 8
+            i2: value: 7
+          i2: PItem2:
+            i1: PItem2:
+              i1: value: 6
+              i2: value: 5
+            i2: PItem2:
+              i1: PItem2:
+                i1: value: 4
+                i2: value: 3
+              i2: PItem2:
+                i1: value: 2
+                i2: value: 1
 
 
 
 
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
 11111111111111111111
-22222222222222222222
 77777777777777777777
 44444444444444444444
-55555555555555555555
+44444444444444444444
+77777777777777777777
+44444444444444444444
+44444444444444444444
+77777777777777777777
 Dadao:
-  i1: Dadao:
-    i1: Dadao:
-      i1: Dadao:
-        i1: Dadao:
-          i1: Dadao:
-            i1: Dadao:
-              i1: Dadao:
-                i1: EatValue2:
-                  i1: 1
-                  i2: 2
-                i2: EatValue2:
-                  i1: 3
-                  i2: 4
-              i2: EatValue2:
-                i1: 5
-                i2: 6
-            i2: EatValue2:
-              i1: 7
-              i2: 8
-          i2: EatValue2:
-            i1: 9
-            i2: 10
-        i2: EatValue2:
-          i1: 11
-          i2: 12
-      i2: EatValue2:
-        i1: 13
-        i2: 14
-    i2: EatValue2:
-      i1: 15
-      i2: 16
-  i2: EatValue1:
-    i1: 32
+  i1: value: 32
+  i2: PItem2:
+    i1: PItem2:
+      i1: value: 16
+      i2: value: 15
+    i2: PItem2:
+      i1: PItem2:
+        i1: value: 14
+        i2: value: 13
+      i2: PItem2:
+        i1: PItem2:
+          i1: value: 12
+          i2: value: 11
+        i2: PItem2:
+          i1: PItem2:
+            i1: value: 10
+            i2: value: 9
+          i2: PItem2:
+            i1: PItem2:
+              i1: value: 8
+              i2: value: 7
+            i2: PItem2:
+              i1: PItem2:
+                i1: value: 6
+                i2: value: 5
+              i2: PItem2:
+                i1: PItem2:
+                  i1: value: 4
+                  i2: value: 3
+                i2: PItem2:
+                  i1: value: 2
+                  i2: value: 1
+
  */
