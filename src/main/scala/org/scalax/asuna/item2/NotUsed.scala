@@ -7,6 +7,9 @@ object NotUseDropRightResult extends NotUseDropRightResult
 class NotUse extends EatItem with PItem2PP {
   self =>
 
+  override type SelfType = NotUse
+  override def selfItem: SelfType = NotUse
+
   override type TT1 = NotUse
   override def i1: NotUse = self
 
