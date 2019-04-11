@@ -291,53 +291,532 @@ trait Dadao[T1 <: PItem1PP, T2 <: PItem1PP] extends Any with PItem2PP with EatIt
 
 }
 
-/*trait E[I <: PItem1PP] extends EatItem with PItem1PP {
-  self =>
-
-  override type TT1 = I
-  override def i1: I = self.item
-  def item: I
-
-  override type ToPItem1[TT <: PItem1PP, T] = E[I#ToPItem1[E[I], T]]
-  override type ToPItem2[TT <: PItem2PP, T] = PItem2[TT, I#ToPItem1[TT, T]]
-
-  override def toPItem1[TT <: PItem1PP, T](tt: TT, t: T): E[I#ToPItem1[E[I], T]] = new E[I#ToPItem1[E[I], T]] {
-    override val item = self.item.toPItem1(self, t)
-  }
-  override def toPItem2[TT <: PItem2PP, T](tt: TT, t: T): PItem2[TT, I#ToPItem1[TT, T]] = new PItem2[TT, I#ToPItem1[TT, T]] {
-    override val i1 = tt
-    override val i2 = self.item.toPItem1(tt, t)
-  }
-
-  override type RightSub                    = I
-  override type RightReplace[T <: PItem1PP] = E[T]
-
-  override def rightSub: I = item
-  override def rightReplace[T <: PItem1PP](t: T): E[T] = new E[T] {
-    override val item = t
-  }
-
-  type AddRightItem[T] = E[I#ToPItem1[E[I], T]]
-  def addRightItem[T](t: T): E[I#ToPItem1[E[I], T]] = toPItem1(self, t)
-
-  override type RightDrop     = NotUse
-  override type DropIO        = RightSub#DropIO#UpToTopItem
-  override type DropRightItem = I#DropRightItem
-
-  override def rightDrop: NotUse                   = NotUse
-  override def dropIO: RightSub#DropIO#UpToTopItem = rightSub.dropIO.upToTopItem
-  override def dropRightItem: I#DropRightItem      = item.dropRightItem
-
-  def dropRight: DropIO#Drop[E[I]] = dropIO.drop(self)
-
-  override def toString: String = s"${item}\n"
-
-}*/
-
 object E {
-  /*def value1[T](t: T): E[EatValue1[T]] = new E[EatValue1[T]] {
-    override val item = new EatValue1(t)
-  }*/
-
   val item0: EatValue0 = EatValue0
 }
+
+/*
+EatValue1:
+  i1: 1
+
+
+
+
+77777777777777777777
+EatValue2:
+  i1: 1
+  i2: 2
+
+
+
+
+77777777777777777777
+55555555555555555555
+Dadao:
+  i1: EatValue2:
+    i1: 1
+    i2: 2
+  i2: EatValue1:
+    i1: 3
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+PItem2:
+  i1: EatValue2:
+    i1: 1
+    i2: 2
+  i2: EatValue2:
+    i1: 3
+    i2: 4
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: EatValue2:
+      i1: 1
+      i2: 2
+    i2: EatValue2:
+      i1: 3
+      i2: 4
+  i2: EatValue1:
+    i1: 5
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+PItem2:
+  i1: Dadao:
+    i1: EatValue2:
+      i1: 1
+      i2: 2
+    i2: EatValue2:
+      i1: 3
+      i2: 4
+  i2: EatValue2:
+    i1: 5
+    i2: 6
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: EatValue2:
+        i1: 1
+        i2: 2
+      i2: EatValue2:
+        i1: 3
+        i2: 4
+    i2: EatValue2:
+      i1: 5
+      i2: 6
+  i2: EatValue1:
+    i1: 7
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+PItem2:
+  i1: Dadao:
+    i1: Dadao:
+      i1: EatValue2:
+        i1: 1
+        i2: 2
+      i2: EatValue2:
+        i1: 3
+        i2: 4
+    i2: EatValue2:
+      i1: 5
+      i2: 6
+  i2: EatValue2:
+    i1: 7
+    i2: 8
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: EatValue2:
+          i1: 1
+          i2: 2
+        i2: EatValue2:
+          i1: 3
+          i2: 4
+      i2: EatValue2:
+        i1: 5
+        i2: 6
+    i2: EatValue2:
+      i1: 7
+      i2: 8
+  i2: EatValue1:
+    i1: 9
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+PItem2:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: EatValue2:
+          i1: 1
+          i2: 2
+        i2: EatValue2:
+          i1: 3
+          i2: 4
+      i2: EatValue2:
+        i1: 5
+        i2: 6
+    i2: EatValue2:
+      i1: 7
+      i2: 8
+  i2: EatValue2:
+    i1: 9
+    i2: 10
+
+
+
+
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: EatValue2:
+            i1: 1
+            i2: 2
+          i2: EatValue2:
+            i1: 3
+            i2: 4
+        i2: EatValue2:
+          i1: 5
+          i2: 6
+      i2: EatValue2:
+        i1: 7
+        i2: 8
+    i2: EatValue2:
+      i1: 9
+      i2: 10
+  i2: EatValue1:
+    i1: 11
+
+
+
+
+分隔线
+77777777777777777777
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+分隔线
+PItem2:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: EatValue2:
+            i1: 1
+            i2: 2
+          i2: EatValue2:
+            i1: 3
+            i2: 4
+        i2: EatValue2:
+          i1: 5
+          i2: 6
+      i2: EatValue2:
+        i1: 7
+        i2: 8
+    i2: EatValue2:
+      i1: 9
+      i2: 10
+  i2: EatValue2:
+    i1: 11
+    i2: 12
+
+
+
+
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: Dadao:
+            i1: EatValue2:
+              i1: 1
+              i2: 2
+            i2: EatValue2:
+              i1: 3
+              i2: 4
+          i2: EatValue2:
+            i1: 5
+            i2: 6
+        i2: EatValue2:
+          i1: 7
+          i2: 8
+      i2: EatValue2:
+        i1: 9
+        i2: 10
+    i2: EatValue2:
+      i1: 11
+      i2: 12
+  i2: EatValue1:
+    i1: 13
+
+
+
+
+分隔线
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+分隔线
+PItem2:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: Dadao:
+            i1: EatValue2:
+              i1: 1
+              i2: 2
+            i2: EatValue2:
+              i1: 3
+              i2: 4
+          i2: EatValue2:
+            i1: 5
+            i2: 6
+        i2: EatValue2:
+          i1: 7
+          i2: 8
+      i2: EatValue2:
+        i1: 9
+        i2: 10
+    i2: EatValue2:
+      i1: 11
+      i2: 12
+  i2: EatValue2:
+    i1: 13
+    i2: 14
+
+
+
+
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: Dadao:
+            i1: Dadao:
+              i1: EatValue2:
+                i1: 1
+                i2: 2
+              i2: EatValue2:
+                i1: 3
+                i2: 4
+            i2: EatValue2:
+              i1: 5
+              i2: 6
+          i2: EatValue2:
+            i1: 7
+            i2: 8
+        i2: EatValue2:
+          i1: 9
+          i2: 10
+      i2: EatValue2:
+        i1: 11
+        i2: 12
+    i2: EatValue2:
+      i1: 13
+      i2: 14
+  i2: EatValue1:
+    i1: 15
+
+
+
+
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+PItem2:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: Dadao:
+            i1: Dadao:
+              i1: EatValue2:
+                i1: 1
+                i2: 2
+              i2: EatValue2:
+                i1: 3
+                i2: 4
+            i2: EatValue2:
+              i1: 5
+              i2: 6
+          i2: EatValue2:
+            i1: 7
+            i2: 8
+        i2: EatValue2:
+          i1: 9
+          i2: 10
+      i2: EatValue2:
+        i1: 11
+        i2: 12
+    i2: EatValue2:
+      i1: 13
+      i2: 14
+  i2: EatValue2:
+    i1: 15
+    i2: 16
+
+
+
+
+44444444444444444444
+55555555555555555555
+11111111111111111111
+22222222222222222222
+77777777777777777777
+44444444444444444444
+55555555555555555555
+Dadao:
+  i1: Dadao:
+    i1: Dadao:
+      i1: Dadao:
+        i1: Dadao:
+          i1: Dadao:
+            i1: Dadao:
+              i1: Dadao:
+                i1: EatValue2:
+                  i1: 1
+                  i2: 2
+                i2: EatValue2:
+                  i1: 3
+                  i2: 4
+              i2: EatValue2:
+                i1: 5
+                i2: 6
+            i2: EatValue2:
+              i1: 7
+              i2: 8
+          i2: EatValue2:
+            i1: 9
+            i2: 10
+        i2: EatValue2:
+          i1: 11
+          i2: 12
+      i2: EatValue2:
+        i1: 13
+        i2: 14
+    i2: EatValue2:
+      i1: 15
+      i2: 16
+  i2: EatValue1:
+    i1: 32
+ */
