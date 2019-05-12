@@ -23,7 +23,7 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
   def sub: Plus[X#T, Y#T, Z#T]
 }
 
-/*trait Context[K <: KindContext] {
+trait Context[K <: KindContext] {
   self =>
 
   def isReverse: Boolean
@@ -57,4 +57,4 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
 
 trait Application[K <: KindContext, T, I <: TypeParam] {
   def application(context: Context[K]): K#M[I]
-}*/
+}

@@ -13,15 +13,19 @@ object TupleTest2 extends App {
   val dd: (List[String], List[String], (List[String], List[String], List[String])) = cc
   println(dd)
 
-  type aa = NodeTag4[NodeTag2[ItemTag2[String, Int], ItemTag3[Long, Long, Int]],
-                     NodeTag3[ItemTag3[Int, Int, Int], ItemTag3[Int, String, Int], ItemTag2[Int, Int]],
-                     ItemTag1[Int],
-                     ItemTag2[Int, Short]]
+  type aa = NodeTag4[
+    NodeTag2[ItemTag2[String, Int], ItemTag3[Long, Long, Int]],
+    NodeTag3[ItemTag3[Int, Int, Int], ItemTag3[Int, String, Int], ItemTag2[Int, Int]],
+    ItemTag1[Int],
+    ItemTag2[Int, Short]
+  ]
 
-  type bb = NodeTag4[NodeTag2[ItemTag2[Int, String], ItemTag3[String, String, String]],
-                     NodeTag3[ItemTag3[String, Int, Int], ItemTag3[Int, String, Int], ItemTag2[Int, Int]],
-                     ItemTag1[Long],
-                     ItemTag2[Int, String]]
+  type bb = NodeTag4[
+    NodeTag2[ItemTag2[Int, String], ItemTag3[String, String, String]],
+    NodeTag3[ItemTag3[String, Int, Int], ItemTag3[Int, String, Int], ItemTag2[Int, Int]],
+    ItemTag1[Long],
+    ItemTag2[Int, String]
+  ]
 
   val iiii: aa#Pull[bb] = null
 

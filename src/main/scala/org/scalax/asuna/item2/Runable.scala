@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.item
 
-object App extends App {
+object App11 extends App {
 
   type II1  = String
   type II2  = String
@@ -24,7 +24,7 @@ object App extends App {
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6").toString + "\n\n\n\n")
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6").addRightItem("7").toString + "\n\n\n\n")
   println(
-    E.item0
+      E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -33,9 +33,10 @@ object App extends App {
       .addRightItem("6")
       .addRightItem("7")
       .addRightItem("8")
-      .toString + "\n\n\n\n")
+      .toString + "\n\n\n\n"
+  )
   println(
-    E.item0
+      E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -45,9 +46,10 @@ object App extends App {
       .addRightItem("7")
       .addRightItem("8")
       .addRightItem(9)
-      .toString + "\n\n\n\n")
+      .toString + "\n\n\n\n"
+  )
   println(
-    E.item0
+      E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -58,9 +60,10 @@ object App extends App {
       .addRightItem("8")
       .addRightItem(9)
       .addRightItem(10)
-      .toString + "\n\n\n\n")
+      .toString + "\n\n\n\n"
+  )
   println(
-    E.item0
+      E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -72,7 +75,8 @@ object App extends App {
       .addRightItem(9)
       .addRightItem(10)
       .addRightItem(11)
-      .toString + "\n\n\n\n")
+      .toString + "\n\n\n\n"
+  )
 
   println("分隔线")
   val dd = E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6")
