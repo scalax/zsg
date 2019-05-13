@@ -18,6 +18,14 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type Type2 = T2#InputMessage[Type1#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag2[Type1#Result, Type2#Result], Type2#Left]
   })#II
+  def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam, I2 <: org.scalax.asuna.mapper.item.TypeParam](
+    c: org.scalax.asuna.mapper.item.Context[K]
+  )(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag2[T1, T2], EatXyyType2[I1, I2]] =
+    AppendNodeTagEatXyy.xyy2(dapp1, dapp2)
 }
 class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag, T3 <: org.scalax.asuna.mapper.item.ItemTag]
     extends org.scalax.asuna.mapper.item.ItemTag {
@@ -37,6 +45,18 @@ class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type Type3 = T3#InputMessage[Type2#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag3[Type1#Result, Type2#Result, Type3#Result], Type3#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag3[T1, T2, T3], EatXyyType3[I1, I2, I3]] =
+    AppendNodeTagEatXyy.xyy3(dapp1, dapp2, dapp3)
 }
 class NodeTag4[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -62,6 +82,20 @@ class NodeTag4[
     type Type4 = T4#InputMessage[Type3#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag4[Type1#Result, Type2#Result, Type3#Result, Type4#Result], Type4#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
+    AppendNodeTagEatXyy.xyy4(dapp1, dapp2, dapp3, dapp4)
 }
 class NodeTag5[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -90,6 +124,22 @@ class NodeTag5[
     type Type5 = T5#InputMessage[Type4#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag5[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result], Type5#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag5[T1, T2, T3, T4, T5], EatXyyType5[I1, I2, I3, I4, I5]] =
+    AppendNodeTagEatXyy.xyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
 class NodeTag6[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -121,6 +171,24 @@ class NodeTag6[
     type Type6 = T6#InputMessage[Type5#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag6[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result, Type6#Result], Type6#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag6[T1, T2, T3, T4, T5, T6], EatXyyType6[I1, I2, I3, I4, I5, I6]] =
+    AppendNodeTagEatXyy.xyy6(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6)
 }
 class NodeTag7[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -158,6 +226,26 @@ class NodeTag7[
       Type7#Left
     ]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag7[T1, T2, T3, T4, T5, T6, T7], EatXyyType7[I1, I2, I3, I4, I5, I6, I7]] =
+    AppendNodeTagEatXyy.xyy7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
 }
 class NodeTag8[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -204,6 +292,28 @@ class NodeTag8[
       Type8#Result
     ], Type8#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag8[T1, T2, T3, T4, T5, T6, T7, T8], EatXyyType8[I1, I2, I3, I4, I5, I6, I7, I8]] =
+    AppendNodeTagEatXyy.xyy8(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8)
 }
 class NodeTag9[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -256,6 +366,30 @@ class NodeTag9[
       Type9#Result
     ], Type9#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag9[T1, T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType9[I1, I2, I3, I4, I5, I6, I7, I8, I9]] =
+    AppendNodeTagEatXyy.xyy9(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9)
 }
 class NodeTag10[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -315,6 +449,43 @@ class NodeTag10[
       Type10#Result
     ], Type10#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10], EatXyyType10[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10
+  ]] =
+    AppendNodeTagEatXyy.xyy10(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10)
 }
 class NodeTag11[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -380,6 +551,46 @@ class NodeTag11[
       Type11#Result
     ], Type11#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11], EatXyyType11[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11
+  ]] =
+    AppendNodeTagEatXyy.xyy11(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11)
 }
 class NodeTag12[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -463,6 +674,49 @@ class NodeTag12[
       Type12#Result
     ], Type12#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12], EatXyyType12[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12
+  ]] =
+    AppendNodeTagEatXyy.xyy12(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12)
 }
 class NodeTag13[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -553,6 +807,52 @@ class NodeTag13[
       Type13#Result
     ], Type13#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13], EatXyyType13[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13
+  ]] =
+    AppendNodeTagEatXyy.xyy13(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13)
 }
 class NodeTag14[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -650,6 +950,55 @@ class NodeTag14[
       Type14#Result
     ], Type14#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14], EatXyyType14[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14
+  ]] =
+    AppendNodeTagEatXyy.xyy14(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14)
 }
 class NodeTag15[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -754,6 +1103,58 @@ class NodeTag15[
       Type15#Result
     ], Type15#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15], EatXyyType15[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14,
+    I15
+  ]] =
+    AppendNodeTagEatXyy.xyy15(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15)
 }
 class NodeTag16[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -865,6 +1266,61 @@ class NodeTag16[
       Type16#Result
     ], Type16#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16], EatXyyType16[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14,
+    I15,
+    I16
+  ]] =
+    AppendNodeTagEatXyy.xyy16(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16)
 }
 class NodeTag17[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -984,6 +1440,64 @@ class NodeTag17[
       Type17#Result
     ], Type17#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17], EatXyyType17[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14,
+    I15,
+    I16,
+    I17
+  ]] =
+    AppendNodeTagEatXyy.xyy17(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17)
 }
 class NodeTag18[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -1110,6 +1624,67 @@ class NodeTag18[
       Type18#Result
     ], Type18#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam,
+    I18 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
+    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18], EatXyyType18[
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14,
+    I15,
+    I16,
+    I17,
+    I18
+  ]] =
+    AppendNodeTagEatXyy.xyy18(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17, dapp18)
 }
 class NodeTag19[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -1262,6 +1837,91 @@ class NodeTag19[
       Type19#Result
     ], Type19#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam,
+    I18 <: org.scalax.asuna.mapper.item.TypeParam,
+    I19 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
+    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`],
+    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, `Application can not load with index 19, please eat xyy.`]
+  )
+    : org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag19[
+      T1,
+      T2,
+      T3,
+      T4,
+      T5,
+      T6,
+      T7,
+      T8,
+      T9,
+      T10,
+      T11,
+      T12,
+      T13,
+      T14,
+      T15,
+      T16,
+      T17,
+      T18,
+      T19
+    ], EatXyyType19[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19]] =
+    AppendNodeTagEatXyy.xyy19(
+      dapp1,
+      dapp2,
+      dapp3,
+      dapp4,
+      dapp5,
+      dapp6,
+      dapp7,
+      dapp8,
+      dapp9,
+      dapp10,
+      dapp11,
+      dapp12,
+      dapp13,
+      dapp14,
+      dapp15,
+      dapp16,
+      dapp17,
+      dapp18,
+      dapp19
+    )
 }
 class NodeTag20[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -1422,6 +2082,94 @@ class NodeTag20[
       Type20#Result
     ], Type20#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam,
+    I18 <: org.scalax.asuna.mapper.item.TypeParam,
+    I19 <: org.scalax.asuna.mapper.item.TypeParam,
+    I20 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
+    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`],
+    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, `Application can not load with index 19, please eat xyy.`],
+    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, `Application can not load with index 20, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag20[
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11,
+    T12,
+    T13,
+    T14,
+    T15,
+    T16,
+    T17,
+    T18,
+    T19,
+    T20
+  ], EatXyyType20[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20]] =
+    AppendNodeTagEatXyy.xyy20(
+      dapp1,
+      dapp2,
+      dapp3,
+      dapp4,
+      dapp5,
+      dapp6,
+      dapp7,
+      dapp8,
+      dapp9,
+      dapp10,
+      dapp11,
+      dapp12,
+      dapp13,
+      dapp14,
+      dapp15,
+      dapp16,
+      dapp17,
+      dapp18,
+      dapp19,
+      dapp20
+    )
 }
 class NodeTag21[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -1590,6 +2338,98 @@ class NodeTag21[
       Type21#Result
     ], Type21#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam,
+    I18 <: org.scalax.asuna.mapper.item.TypeParam,
+    I19 <: org.scalax.asuna.mapper.item.TypeParam,
+    I20 <: org.scalax.asuna.mapper.item.TypeParam,
+    I21 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
+    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`],
+    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, `Application can not load with index 19, please eat xyy.`],
+    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, `Application can not load with index 20, please eat xyy.`],
+    dapp21: org.scalax.asuna.mapper.item.DebugApplication[K, T21, I21, `Application can not load with index 21, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag21[
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11,
+    T12,
+    T13,
+    T14,
+    T15,
+    T16,
+    T17,
+    T18,
+    T19,
+    T20,
+    T21
+  ], EatXyyType21[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21]] =
+    AppendNodeTagEatXyy.xyy21(
+      dapp1,
+      dapp2,
+      dapp3,
+      dapp4,
+      dapp5,
+      dapp6,
+      dapp7,
+      dapp8,
+      dapp9,
+      dapp10,
+      dapp11,
+      dapp12,
+      dapp13,
+      dapp14,
+      dapp15,
+      dapp16,
+      dapp17,
+      dapp18,
+      dapp19,
+      dapp20,
+      dapp21
+    )
 }
 class NodeTag22[
   T1 <: org.scalax.asuna.mapper.item.ItemTag,
@@ -1766,4 +2606,100 @@ class NodeTag22[
       Type22#Result
     ], Type22#Left]
   })#II
+  def debug[
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    I1 <: org.scalax.asuna.mapper.item.TypeParam,
+    I2 <: org.scalax.asuna.mapper.item.TypeParam,
+    I3 <: org.scalax.asuna.mapper.item.TypeParam,
+    I4 <: org.scalax.asuna.mapper.item.TypeParam,
+    I5 <: org.scalax.asuna.mapper.item.TypeParam,
+    I6 <: org.scalax.asuna.mapper.item.TypeParam,
+    I7 <: org.scalax.asuna.mapper.item.TypeParam,
+    I8 <: org.scalax.asuna.mapper.item.TypeParam,
+    I9 <: org.scalax.asuna.mapper.item.TypeParam,
+    I10 <: org.scalax.asuna.mapper.item.TypeParam,
+    I11 <: org.scalax.asuna.mapper.item.TypeParam,
+    I12 <: org.scalax.asuna.mapper.item.TypeParam,
+    I13 <: org.scalax.asuna.mapper.item.TypeParam,
+    I14 <: org.scalax.asuna.mapper.item.TypeParam,
+    I15 <: org.scalax.asuna.mapper.item.TypeParam,
+    I16 <: org.scalax.asuna.mapper.item.TypeParam,
+    I17 <: org.scalax.asuna.mapper.item.TypeParam,
+    I18 <: org.scalax.asuna.mapper.item.TypeParam,
+    I19 <: org.scalax.asuna.mapper.item.TypeParam,
+    I20 <: org.scalax.asuna.mapper.item.TypeParam,
+    I21 <: org.scalax.asuna.mapper.item.TypeParam,
+    I22 <: org.scalax.asuna.mapper.item.TypeParam
+  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
+    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
+    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
+    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
+    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
+    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
+    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
+    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
+    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
+    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
+    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
+    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
+    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
+    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
+    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
+    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
+    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`],
+    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, `Application can not load with index 19, please eat xyy.`],
+    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, `Application can not load with index 20, please eat xyy.`],
+    dapp21: org.scalax.asuna.mapper.item.DebugApplication[K, T21, I21, `Application can not load with index 21, please eat xyy.`],
+    dapp22: org.scalax.asuna.mapper.item.DebugApplication[K, T22, I22, `Application can not load with index 22, please eat xyy.`]
+  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag22[
+    T1,
+    T2,
+    T3,
+    T4,
+    T5,
+    T6,
+    T7,
+    T8,
+    T9,
+    T10,
+    T11,
+    T12,
+    T13,
+    T14,
+    T15,
+    T16,
+    T17,
+    T18,
+    T19,
+    T20,
+    T21,
+    T22
+  ], EatXyyType22[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22]] =
+    AppendNodeTagEatXyy.xyy22(
+      dapp1,
+      dapp2,
+      dapp3,
+      dapp4,
+      dapp5,
+      dapp6,
+      dapp7,
+      dapp8,
+      dapp9,
+      dapp10,
+      dapp11,
+      dapp12,
+      dapp13,
+      dapp14,
+      dapp15,
+      dapp16,
+      dapp17,
+      dapp18,
+      dapp19,
+      dapp20,
+      dapp21,
+      dapp22
+    )
 }
