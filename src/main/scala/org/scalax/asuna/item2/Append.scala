@@ -1,5 +1,6 @@
 package org.scalax.asuna.mapper.item
 
+import scala.annotation.implicitNotFound
 import scala.language.higherKinds
 
 trait TypeParam {
@@ -23,7 +24,7 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
   def sub: Plus[X#T, Y#T, Z#T]
 }
 
-/*trait Context[K <: KindContext] {
+trait Context[K <: KindContext] {
   self =>
 
   def isReverse: Boolean
@@ -57,4 +58,20 @@ trait Plus[X <: TypeParam, Y <: TypeParam, Z <: TypeParam] {
 
 trait Application[K <: KindContext, T, I <: TypeParam] {
   def application(context: Context[K]): K#M[I]
-}*/
+}
+@implicitNotFound(msg = "\nApplication not found.\nKindContext: ${K}\nMessage    :${Message}")
+trait DebugApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message] extends Application[K, T, I] {
+  override def application(context: Context[K]): K#M[I]
+}
+
+object DebugApplication {
+
+  implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message](
+    implicit app: Application[K, T, I]
+  ): DebugApplication[K, T, I, Message] = {
+    new DebugApplication[K, T, I, Message] {
+      override def application(context: Context[K]): K#M[I] = app.application(context)
+    }
+  }
+
+}

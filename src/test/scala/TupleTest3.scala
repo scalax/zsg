@@ -62,9 +62,11 @@ object TupleTest3 {
     override def useHList: Boolean  = true
     override def isReverse: Boolean = true
 
-    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: TupleEncoder[X#H, X#T#H],
-                                                                        y: TupleEncoder[Y#H, Y#T#H],
-                                                                        p: Plus[X, Y, Z]): TupleEncoder[Z#H, Z#T#H] = {
+    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
+      x: TupleEncoder[X#H, X#T#H],
+      y: TupleEncoder[Y#H, Y#T#H],
+      p: Plus[X, Y, Z]
+    ): TupleEncoder[Z#H, Z#T#H] = {
       new TupleEncoder[Z#H, Z#T#H] {
         override def rep(rep: Z#H, r: List[slick.ast.Node]): List[slick.ast.Node] = {
           y.rep(p.takeHead(rep), x.rep(p.takeTail(rep), r))
@@ -112,7 +114,8 @@ object SlickUtil {
   trait TupleTestImplicit {
     implicit def ii[T](
       implicit b: BaseTypedType[T],
-      profile: slick.jdbc.JdbcProfile): Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[T], Type2[slick.lifted.Rep[T], T]] = {
+      profile: slick.jdbc.JdbcProfile
+    ): Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[T], Type2[slick.lifted.Rep[T], T]] = {
       import profile.api._
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Rep[T], Type2[Rep[T], T]] {
         override def application(cotext: Context[TupleContext[(AppendTuple, TupleTestImplicit)]]): TupleEncoder[Rep[T], T] =
@@ -124,8 +127,10 @@ object SlickUtil {
       }
     }
 
-    implicit def ii2[T](implicit b: BaseTypedType[T], profile: slick.jdbc.JdbcProfile)
-      : Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[Option[T]], Type2[slick.lifted.Rep[Option[T]], Option[T]]] = {
+    implicit def ii2[T](
+      implicit b: BaseTypedType[T],
+      profile: slick.jdbc.JdbcProfile
+    ): Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[Option[T]], Type2[slick.lifted.Rep[Option[T]], Option[T]]] = {
       import profile.api._
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Rep[Option[T]], Type2[Rep[Option[T]], Option[T]]] {
         override def application(cotext: Context[TupleContext[(AppendTuple, TupleTestImplicit)]]): TupleEncoder[Rep[Option[T]], Option[T]] =

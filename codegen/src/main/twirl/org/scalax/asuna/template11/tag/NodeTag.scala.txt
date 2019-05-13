@@ -30,5 +30,11 @@ class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.as
             type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag@{i}[@for(ii <- 1 to i) { Type@{ii}#Result @if(ii < i) { , } }], Type@{i}#Left]
         })#II
 
+        def debug[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to i) { , I@{ii} <: org.scalax.asuna.mapper.item.TypeParam }](c: org.scalax.asuna.mapper.item.Context[K])(implicit @for(ii <- 1 to i) {
+            dapp@{ii}: org.scalax.asuna.mapper.item.DebugApplication[K, T@{ii}, I@{ii}, `Application can not load with index @{ii}, please eat xyy.`] @if(ii < i) { , }
+        }): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }]] =
+        AppendNodeTagEatXyy.xyy@{i}(@for(ii <- 1 to i) { dapp@{ii} @if(ii < i) { , } })
+
     }
+
 }
