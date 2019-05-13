@@ -11,6 +11,11 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
     override type NoMessage = ItemTag1[T1]
     override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag1[(RawItem, I#RawItem)]
 
+    def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam](c: org.scalax.asuna.mapper.item.Context[K])(
+        implicit dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
+    ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag1[T1], EatXyyType1[I1]] =
+        AppendEatXyy.xyy1(dapp1)
+
 }
 
 @for(i <- 2 to maxItem) {
@@ -27,7 +32,7 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
         override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage@{i}[@for(ii <- 1 to i) { T@{ii}, I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem @if(ii < i) { , } }], I@for(ii <- 1 to i) { #TailItem }]
 
         def debug[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to i) { , I@{ii} <: org.scalax.asuna.mapper.item.TypeParam }](c: org.scalax.asuna.mapper.item.Context[K])(implicit @for(ii <- 1 to i) {
-            dapp@{ii}: org.scalax.asuna.mapper.item.DebugApplication[K, T@{ii}, I@{ii}, `Application can not load with index @{ii}, please eat xyy.`] @if(ii < i) { , }
+            dapp@{ii}: org.scalax.asuna.mapper.item.DebugItemApplication[K, T@{ii}, I@{ii}, `Application can not load with index @{ii}, please eat xyy.`] @if(ii < i) { , }
             }): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }], EatXyyType@{i}[@for(ii <- 1 to i) { I@{ii} @if(ii < i) { , } }]] =
         AppendEatXyy.xyy@{i}(@for(ii <- 1 to i) { dapp@{ii} @if(ii < i) { , } })
 
