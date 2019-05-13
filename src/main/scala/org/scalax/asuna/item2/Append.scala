@@ -67,9 +67,25 @@ trait DebugApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scala
 object DebugApplication {
 
   implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message](
-    implicit app: Application[K, T, I]
+      implicit app: Application[K, T, I]
   ): DebugApplication[K, T, I, Message] = {
     new DebugApplication[K, T, I, Message] {
+      override def application(context: Context[K]): K#M[I] = app.application(context)
+    }
+  }
+
+}
+@implicitNotFound(msg = "\nApplication not found.\nItemType: ${T}\nKindContext: ${K}\nMessage    :${Message}")
+trait DebugItemApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message] extends Application[K, T, I] {
+  override def application(context: Context[K]): K#M[I]
+}
+
+object DebugItemApplication {
+
+  implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message](
+      implicit app: Application[K, T, I]
+  ): DebugItemApplication[K, T, I, Message] = {
+    new DebugItemApplication[K, T, I, Message] {
       override def application(context: Context[K]): K#M[I] = app.application(context)
     }
   }

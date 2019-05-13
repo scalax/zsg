@@ -21,8 +21,8 @@ class ItemTagWithMessage2[T1, Message1 <: org.scalax.asuna.mapper.item.Message, 
     c: org.scalax.asuna.mapper.item.Context[K]
   )(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag2[T1, T2], EatXyyType2[I1, I2]] =
     AppendEatXyy.xyy2(dapp1, dapp2)
 }
@@ -62,9 +62,9 @@ class ItemTagWithMessage3[
     I3 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag3[T1, T2, T3], EatXyyType3[I1, I2, I3]] =
     AppendEatXyy.xyy3(dapp1, dapp2, dapp3)
 }
@@ -111,10 +111,10 @@ class ItemTagWithMessage4[
     I4 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
     AppendEatXyy.xyy4(dapp1, dapp2, dapp3, dapp4)
 }
@@ -168,11 +168,11 @@ class ItemTagWithMessage5[
     I5 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag5[T1, T2, T3, T4, T5], EatXyyType5[I1, I2, I3, I4, I5]] =
     AppendEatXyy.xyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
@@ -233,12 +233,12 @@ class ItemTagWithMessage6[
     I6 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag6[T1, T2, T3, T4, T5, T6], EatXyyType6[I1, I2, I3, I4, I5, I6]] =
     AppendEatXyy.xyy6(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6)
 }
@@ -306,13 +306,13 @@ class ItemTagWithMessage7[
     I7 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag7[T1, T2, T3, T4, T5, T6, T7], EatXyyType7[I1, I2, I3, I4, I5, I6, I7]] =
     AppendEatXyy.xyy7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
 }
@@ -387,14 +387,14 @@ class ItemTagWithMessage8[
     I8 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag8[T1, T2, T3, T4, T5, T6, T7, T8], EatXyyType8[I1, I2, I3, I4, I5, I6, I7, I8]] =
     AppendEatXyy.xyy8(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8)
 }
@@ -476,15 +476,15 @@ class ItemTagWithMessage9[
     I9 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag9[T1, T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType9[I1, I2, I3, I4, I5, I6, I7, I8, I9]] =
     AppendEatXyy.xyy9(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9)
 }
@@ -577,16 +577,16 @@ class ItemTagWithMessage10[
     I10 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10], EatXyyType10[
     I1,
     I2,
@@ -700,17 +700,17 @@ class ItemTagWithMessage11[
     I11 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11], EatXyyType11[
     I1,
     I2,
@@ -857,18 +857,18 @@ class ItemTagWithMessage12[
     I12 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12], EatXyyType12[
     I1,
     I2,
@@ -1028,19 +1028,19 @@ class ItemTagWithMessage13[
     I13 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13], EatXyyType13[
     I1,
     I2,
@@ -1213,20 +1213,20 @@ class ItemTagWithMessage14[
     I14 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14], EatXyyType14[
     I1,
     I2,
@@ -1412,21 +1412,21 @@ class ItemTagWithMessage15[
     I15 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15], EatXyyType15[
     I1,
     I2,
@@ -1625,22 +1625,22 @@ class ItemTagWithMessage16[
     I16 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16], EatXyyType16[
     I1,
     I2,
@@ -1852,23 +1852,23 @@ class ItemTagWithMessage17[
     I17 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17], EatXyyType17[
     I1,
     I2,
@@ -2093,24 +2093,24 @@ class ItemTagWithMessage18[
     I18 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17],
-    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, Message18]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17],
+    dapp18: org.scalax.asuna.mapper.item.DebugItemApplication[K, T18, I18, Message18]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18], EatXyyType18[
     I1,
     I2,
@@ -2348,25 +2348,25 @@ class ItemTagWithMessage19[
     I19 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17],
-    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, Message18],
-    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, Message19]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17],
+    dapp18: org.scalax.asuna.mapper.item.DebugItemApplication[K, T18, I18, Message18],
+    dapp19: org.scalax.asuna.mapper.item.DebugItemApplication[K, T19, I19, Message19]
   )
     : org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag19[
       T1,
@@ -2618,26 +2618,26 @@ class ItemTagWithMessage20[
     I20 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17],
-    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, Message18],
-    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, Message19],
-    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, Message20]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17],
+    dapp18: org.scalax.asuna.mapper.item.DebugItemApplication[K, T18, I18, Message18],
+    dapp19: org.scalax.asuna.mapper.item.DebugItemApplication[K, T19, I19, Message19],
+    dapp20: org.scalax.asuna.mapper.item.DebugItemApplication[K, T20, I20, Message20]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag20[
     T1,
     T2,
@@ -2922,27 +2922,27 @@ class ItemTagWithMessage21[
     I21 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17],
-    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, Message18],
-    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, Message19],
-    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, Message20],
-    dapp21: org.scalax.asuna.mapper.item.DebugApplication[K, T21, I21, Message21]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17],
+    dapp18: org.scalax.asuna.mapper.item.DebugItemApplication[K, T18, I18, Message18],
+    dapp19: org.scalax.asuna.mapper.item.DebugItemApplication[K, T19, I19, Message19],
+    dapp20: org.scalax.asuna.mapper.item.DebugItemApplication[K, T20, I20, Message20],
+    dapp21: org.scalax.asuna.mapper.item.DebugItemApplication[K, T21, I21, Message21]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag21[
     T1,
     T2,
@@ -3241,28 +3241,28 @@ class ItemTagWithMessage22[
     I22 <: org.scalax.asuna.mapper.item.TypeParam
   ](c: org.scalax.asuna.mapper.item.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugApplication[K, T4, I4, Message4],
-    dapp5: org.scalax.asuna.mapper.item.DebugApplication[K, T5, I5, Message5],
-    dapp6: org.scalax.asuna.mapper.item.DebugApplication[K, T6, I6, Message6],
-    dapp7: org.scalax.asuna.mapper.item.DebugApplication[K, T7, I7, Message7],
-    dapp8: org.scalax.asuna.mapper.item.DebugApplication[K, T8, I8, Message8],
-    dapp9: org.scalax.asuna.mapper.item.DebugApplication[K, T9, I9, Message9],
-    dapp10: org.scalax.asuna.mapper.item.DebugApplication[K, T10, I10, Message10],
-    dapp11: org.scalax.asuna.mapper.item.DebugApplication[K, T11, I11, Message11],
-    dapp12: org.scalax.asuna.mapper.item.DebugApplication[K, T12, I12, Message12],
-    dapp13: org.scalax.asuna.mapper.item.DebugApplication[K, T13, I13, Message13],
-    dapp14: org.scalax.asuna.mapper.item.DebugApplication[K, T14, I14, Message14],
-    dapp15: org.scalax.asuna.mapper.item.DebugApplication[K, T15, I15, Message15],
-    dapp16: org.scalax.asuna.mapper.item.DebugApplication[K, T16, I16, Message16],
-    dapp17: org.scalax.asuna.mapper.item.DebugApplication[K, T17, I17, Message17],
-    dapp18: org.scalax.asuna.mapper.item.DebugApplication[K, T18, I18, Message18],
-    dapp19: org.scalax.asuna.mapper.item.DebugApplication[K, T19, I19, Message19],
-    dapp20: org.scalax.asuna.mapper.item.DebugApplication[K, T20, I20, Message20],
-    dapp21: org.scalax.asuna.mapper.item.DebugApplication[K, T21, I21, Message21],
-    dapp22: org.scalax.asuna.mapper.item.DebugApplication[K, T22, I22, Message22]
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4],
+    dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5],
+    dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6],
+    dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7],
+    dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8],
+    dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9],
+    dapp10: org.scalax.asuna.mapper.item.DebugItemApplication[K, T10, I10, Message10],
+    dapp11: org.scalax.asuna.mapper.item.DebugItemApplication[K, T11, I11, Message11],
+    dapp12: org.scalax.asuna.mapper.item.DebugItemApplication[K, T12, I12, Message12],
+    dapp13: org.scalax.asuna.mapper.item.DebugItemApplication[K, T13, I13, Message13],
+    dapp14: org.scalax.asuna.mapper.item.DebugItemApplication[K, T14, I14, Message14],
+    dapp15: org.scalax.asuna.mapper.item.DebugItemApplication[K, T15, I15, Message15],
+    dapp16: org.scalax.asuna.mapper.item.DebugItemApplication[K, T16, I16, Message16],
+    dapp17: org.scalax.asuna.mapper.item.DebugItemApplication[K, T17, I17, Message17],
+    dapp18: org.scalax.asuna.mapper.item.DebugItemApplication[K, T18, I18, Message18],
+    dapp19: org.scalax.asuna.mapper.item.DebugItemApplication[K, T19, I19, Message19],
+    dapp20: org.scalax.asuna.mapper.item.DebugItemApplication[K, T20, I20, Message20],
+    dapp21: org.scalax.asuna.mapper.item.DebugItemApplication[K, T21, I21, Message21],
+    dapp22: org.scalax.asuna.mapper.item.DebugItemApplication[K, T22, I22, Message22]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag22[
     T1,
     T2,
