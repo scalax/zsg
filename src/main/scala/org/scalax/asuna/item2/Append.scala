@@ -91,3 +91,5 @@ object DebugItemApplication {
   }
 
 }
+
+class AppendTag[T]
