@@ -7,6 +7,7 @@ trait ItemTag {
   type HeadItem <: ItemTag
   type TailItem <: ItemTag
   type Sub <: ItemTag
+  type XyyItemType
 
   type NoMessage <: ItemTag
 

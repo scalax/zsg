@@ -5,6 +5,7 @@ class ItemTagWithMessage1[T1, Message1 <: org.scalax.asuna.mapper.item.Message] 
   override type TailItem                                        = org.scalax.asuna.mapper.item.EndItemTag
   override type Sub                                             = org.scalax.asuna.mapper.item.EndItemTag
   override type NoMessage                                       = ItemTag1[T1]
+  override type XyyItemType                                     = XyyItem1[T1]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag1[(RawItem, I#RawItem)]
 }
 class ItemTagWithMessage2[T1, Message1 <: org.scalax.asuna.mapper.item.Message, T2, Message2 <: org.scalax.asuna.mapper.item.Message]
@@ -14,6 +15,7 @@ class ItemTagWithMessage2[T1, Message1 <: org.scalax.asuna.mapper.item.Message, 
   override type TailItem                                        = ItemTagWithMessage1[T2, Message2]
   override type Sub                                             = org.scalax.asuna.mapper.item.EndItemTag
   override type NoMessage                                       = ItemTag2[T1, T2]
+  override type XyyItemType                                     = XyyItem2[T1, T2]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage2[(RawItem, I#RawItem), Message1, (TailItem#RawItem, I#TailItem#RawItem), Message2]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] =
     org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage2[T1, I#HeadItem, T2, I#TailItem#HeadItem], I#TailItem#TailItem]
@@ -34,11 +36,12 @@ class ItemTagWithMessage3[
   T3,
   Message3 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage2[T2, Message2, T3, Message3]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag3[T1, T2, T3]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage2[T2, Message2, T3, Message3]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag3[T1, T2, T3]
+  override type XyyItemType = XyyItem3[T1, T2, T3]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage3[
     (RawItem, I#RawItem),
     Message1,
@@ -78,11 +81,12 @@ class ItemTagWithMessage4[
   T4,
   Message4 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage3[T2, Message2, T3, Message3, T4, Message4]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag4[T1, T2, T3, T4]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage3[T2, Message2, T3, Message3, T4, Message4]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag4[T1, T2, T3, T4]
+  override type XyyItemType = XyyItem4[T1, T2, T3, T4]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage4[
     (RawItem, I#RawItem),
     Message1,
@@ -130,11 +134,12 @@ class ItemTagWithMessage5[
   T5,
   Message5 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage4[T2, Message2, T3, Message3, T4, Message4, T5, Message5]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag5[T1, T2, T3, T4, T5]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage4[T2, Message2, T3, Message3, T4, Message4, T5, Message5]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag5[T1, T2, T3, T4, T5]
+  override type XyyItemType = XyyItem5[T1, T2, T3, T4, T5]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage5[
     (RawItem, I#RawItem),
     Message1,
@@ -190,11 +195,12 @@ class ItemTagWithMessage6[
   T6,
   Message6 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage5[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag6[T1, T2, T3, T4, T5, T6]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage5[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag6[T1, T2, T3, T4, T5, T6]
+  override type XyyItemType = XyyItem6[T1, T2, T3, T4, T5, T6]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage6[
     (RawItem, I#RawItem),
     Message1,
@@ -258,11 +264,12 @@ class ItemTagWithMessage7[
   T7,
   Message7 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage6[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag7[T1, T2, T3, T4, T5, T6, T7]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage6[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag7[T1, T2, T3, T4, T5, T6, T7]
+  override type XyyItemType = XyyItem7[T1, T2, T3, T4, T5, T6, T7]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage7[
     (RawItem, I#RawItem),
     Message1,
@@ -334,11 +341,12 @@ class ItemTagWithMessage8[
   T8,
   Message8 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage7[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag8[T1, T2, T3, T4, T5, T6, T7, T8]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage7[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag8[T1, T2, T3, T4, T5, T6, T7, T8]
+  override type XyyItemType = XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage8[
     (RawItem, I#RawItem),
     Message1,
@@ -418,11 +426,12 @@ class ItemTagWithMessage9[
   T9,
   Message9 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = T1
-  override type HeadItem  = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem  = ItemTagWithMessage8[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8, T9, Message9]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
+  override type RawItem     = T1
+  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
+  override type TailItem    = ItemTagWithMessage8[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8, T9, Message9]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
+  override type XyyItemType = XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage9[
     (RawItem, I#RawItem),
     Message1,
@@ -514,8 +523,9 @@ class ItemTagWithMessage10[
   override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
   override type TailItem =
     ItemTagWithMessage9[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8, T9, Message9, T10, Message10]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]
+  override type XyyItemType = XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage10[
     (RawItem, I#RawItem),
     Message1,
@@ -629,8 +639,9 @@ class ItemTagWithMessage11[
   override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
   override type TailItem =
     ItemTagWithMessage10[T2, Message2, T3, Message3, T4, Message4, T5, Message5, T6, Message6, T7, Message7, T8, Message8, T9, Message9, T10, Message10, T11, Message11]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
+  override type XyyItemType = XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage11[
     (RawItem, I#RawItem),
     Message1,
@@ -778,8 +789,9 @@ class ItemTagWithMessage12[
     T12,
     Message12
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
+  override type XyyItemType = XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage12[
     (RawItem, I#RawItem),
     Message1,
@@ -941,8 +953,9 @@ class ItemTagWithMessage13[
     T13,
     Message13
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]
+  override type XyyItemType = XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage13[
     (RawItem, I#RawItem),
     Message1,
@@ -1118,8 +1131,9 @@ class ItemTagWithMessage14[
     T14,
     Message14
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
+  override type XyyItemType = XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage14[
     (RawItem, I#RawItem),
     Message1,
@@ -1309,8 +1323,9 @@ class ItemTagWithMessage15[
     T15,
     Message15
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
+  override type XyyItemType = XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage15[
     (RawItem, I#RawItem),
     Message1,
@@ -1514,8 +1529,9 @@ class ItemTagWithMessage16[
     T16,
     Message16
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
+  override type XyyItemType = XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage16[
     (RawItem, I#RawItem),
     Message1,
@@ -1733,8 +1749,9 @@ class ItemTagWithMessage17[
     T17,
     Message17
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
+  override type XyyItemType = XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage17[
     (RawItem, I#RawItem),
     Message1,
@@ -1966,8 +1983,9 @@ class ItemTagWithMessage18[
     T18,
     Message18
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+  override type XyyItemType = XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage18[
     (RawItem, I#RawItem),
     Message1,
@@ -2213,8 +2231,9 @@ class ItemTagWithMessage19[
     T19,
     Message19
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+  override type XyyItemType = XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage19[
     (RawItem, I#RawItem),
     Message1,
@@ -2475,8 +2494,9 @@ class ItemTagWithMessage20[
     T20,
     Message20
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+  override type XyyItemType = XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage20[
     (RawItem, I#RawItem),
     Message1,
@@ -2771,8 +2791,9 @@ class ItemTagWithMessage21[
     T21,
     Message21
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+  override type XyyItemType = XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage21[
     (RawItem, I#RawItem),
     Message1,
@@ -3082,8 +3103,9 @@ class ItemTagWithMessage22[
     T22,
     Message22
   ]
-  override type Sub       = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage = ItemTag22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type NoMessage   = ItemTag22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
+  override type XyyItemType = XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage22[
     (RawItem, I#RawItem),
     Message1,

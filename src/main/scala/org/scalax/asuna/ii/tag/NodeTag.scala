@@ -4,6 +4,7 @@ class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.as
   override type HeadItem                                        = T1
   override type TailItem                                        = org.scalax.asuna.mapper.item.EndItemTag
   override type Sub                                             = NodeTag1[T1#Sub]
+  override type XyyItemType                                     = XyyItem1[T1]
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag1[HeadItem#Sub#Pull[I#HeadItem#Sub]]
 }
 class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
@@ -18,6 +19,7 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type Type2 = T2#InputMessage[Type1#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag2[Type1#Result, Type2#Result], Type2#Left]
   })#II
+  override type XyyItemType = XyyItem2[T1#XyyItemType, T2#XyyItemType]
   def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam, I2 <: org.scalax.asuna.mapper.item.TypeParam](
     c: org.scalax.asuna.mapper.item.Context[K]
   )(
@@ -45,6 +47,7 @@ class NodeTag3[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type Type3 = T3#InputMessage[Type2#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag3[Type1#Result, Type2#Result, Type3#Result], Type3#Left]
   })#II
+  override type XyyItemType = XyyItem3[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -82,6 +85,7 @@ class NodeTag4[
     type Type4 = T4#InputMessage[Type3#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag4[Type1#Result, Type2#Result, Type3#Result, Type4#Result], Type4#Left]
   })#II
+  override type XyyItemType = XyyItem4[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -124,6 +128,7 @@ class NodeTag5[
     type Type5 = T5#InputMessage[Type4#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag5[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result], Type5#Left]
   })#II
+  override type XyyItemType = XyyItem5[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -171,6 +176,7 @@ class NodeTag6[
     type Type6 = T6#InputMessage[Type5#Left];
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag6[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result, Type6#Result], Type6#Left]
   })#II
+  override type XyyItemType = XyyItem6[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -226,6 +232,7 @@ class NodeTag7[
       Type7#Left
     ]
   })#II
+  override type XyyItemType = XyyItem7[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType, T7#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -292,6 +299,7 @@ class NodeTag8[
       Type8#Result
     ], Type8#Left]
   })#II
+  override type XyyItemType = XyyItem8[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType, T7#XyyItemType, T8#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -366,6 +374,8 @@ class NodeTag9[
       Type9#Result
     ], Type9#Left]
   })#II
+  override type XyyItemType =
+    XyyItem9[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType, T7#XyyItemType, T8#XyyItemType, T9#XyyItemType]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -449,6 +459,18 @@ class NodeTag10[
       Type10#Result
     ], Type10#Left]
   })#II
+  override type XyyItemType = XyyItem10[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -551,6 +573,19 @@ class NodeTag11[
       Type11#Result
     ], Type11#Left]
   })#II
+  override type XyyItemType = XyyItem11[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -674,6 +709,20 @@ class NodeTag12[
       Type12#Result
     ], Type12#Left]
   })#II
+  override type XyyItemType = XyyItem12[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -807,6 +856,21 @@ class NodeTag13[
       Type13#Result
     ], Type13#Left]
   })#II
+  override type XyyItemType = XyyItem13[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -950,6 +1014,22 @@ class NodeTag14[
       Type14#Result
     ], Type14#Left]
   })#II
+  override type XyyItemType = XyyItem14[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -1103,6 +1183,23 @@ class NodeTag15[
       Type15#Result
     ], Type15#Left]
   })#II
+  override type XyyItemType = XyyItem15[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -1266,6 +1363,24 @@ class NodeTag16[
       Type16#Result
     ], Type16#Left]
   })#II
+  override type XyyItemType = XyyItem16[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -1440,6 +1555,25 @@ class NodeTag17[
       Type17#Result
     ], Type17#Left]
   })#II
+  override type XyyItemType = XyyItem17[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -1624,6 +1758,26 @@ class NodeTag18[
       Type18#Result
     ], Type18#Left]
   })#II
+  override type XyyItemType = XyyItem18[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType,
+    T18#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -1837,6 +1991,27 @@ class NodeTag19[
       Type19#Result
     ], Type19#Left]
   })#II
+  override type XyyItemType = XyyItem19[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType,
+    T18#XyyItemType,
+    T19#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -2082,6 +2257,28 @@ class NodeTag20[
       Type20#Result
     ], Type20#Left]
   })#II
+  override type XyyItemType = XyyItem20[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType,
+    T18#XyyItemType,
+    T19#XyyItemType,
+    T20#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -2338,6 +2535,29 @@ class NodeTag21[
       Type21#Result
     ], Type21#Left]
   })#II
+  override type XyyItemType = XyyItem21[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType,
+    T18#XyyItemType,
+    T19#XyyItemType,
+    T20#XyyItemType,
+    T21#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
@@ -2606,6 +2826,30 @@ class NodeTag22[
       Type22#Result
     ], Type22#Left]
   })#II
+  override type XyyItemType = XyyItem22[
+    T1#XyyItemType,
+    T2#XyyItemType,
+    T3#XyyItemType,
+    T4#XyyItemType,
+    T5#XyyItemType,
+    T6#XyyItemType,
+    T7#XyyItemType,
+    T8#XyyItemType,
+    T9#XyyItemType,
+    T10#XyyItemType,
+    T11#XyyItemType,
+    T12#XyyItemType,
+    T13#XyyItemType,
+    T14#XyyItemType,
+    T15#XyyItemType,
+    T16#XyyItemType,
+    T17#XyyItemType,
+    T18#XyyItemType,
+    T19#XyyItemType,
+    T20#XyyItemType,
+    T21#XyyItemType,
+    T22#XyyItemType
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.item.KindContext,
     I1 <: org.scalax.asuna.mapper.item.TypeParam,
