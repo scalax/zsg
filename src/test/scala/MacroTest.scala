@@ -3,10 +3,13 @@ package org.scalax.asuna.mapper.append.debug
 import io.circe._
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append._
+import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 
 object MacroTest {
 
   class MapperKou[H] {
+
+    def kou11[M <: org.scalax.asuna.mapper.item.ItemTag](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
 
     def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): ModelApply.Aux[H, M, P, S] = ll
 
