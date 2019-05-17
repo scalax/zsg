@@ -156,7 +156,7 @@ class ArticleXyyReverse12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12](val
   override def i12: E12                                                                     = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: HNil
 ) extends AnyVal
     with XyyItem13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] {
   override def pudao[T](xyy: T): ArticleXyyReverse14[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13] =
@@ -178,7 +178,7 @@ class ArticleXyyReverse13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i13: E13                                                                          = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: HNil
 ) extends AnyVal
     with XyyItem14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] {
   override def pudao[T](xyy: T): ArticleXyyReverse15[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14] =
@@ -201,7 +201,7 @@ class ArticleXyyReverse14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i14: E14                                                                               = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: HNil
 ) extends AnyVal
     with XyyItem15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15] {
   override def pudao[T](xyy: T): ArticleXyyReverse16[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15] =
@@ -225,7 +225,7 @@ class ArticleXyyReverse15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i15: E15                                                                                    = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: HNil
 ) extends AnyVal
     with XyyItem16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16] {
   override def pudao[T](xyy: T): ArticleXyyReverse17[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16] =
@@ -250,7 +250,7 @@ class ArticleXyyReverse16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i16: E16                                                                                         = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: HNil
 ) extends AnyVal
     with XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] {
   override def pudao[T](xyy: T): ArticleXyyReverse18[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] =
@@ -276,7 +276,7 @@ class ArticleXyyReverse17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i17: E17                                                                                              = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: HNil
 ) extends AnyVal
     with XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] {
   override def pudao[T](xyy: T): ArticleXyyReverse19[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] =
@@ -303,7 +303,7 @@ class ArticleXyyReverse18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i18: E18                                                                                                   = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: HNil
 ) extends AnyVal
     with XyyItem19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] {
   override def pudao[T](xyy: T): ArticleXyyReverse20[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] =
@@ -331,7 +331,7 @@ class ArticleXyyReverse19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i19: E19                                                                                                        = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: HNil
 ) extends AnyVal
     with XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] {
   override def pudao[T](xyy: T): ArticleXyyReverse21[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] =
@@ -360,7 +360,7 @@ class ArticleXyyReverse20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i20: E20                                                                                                             = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: E21 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: E21 :: HNil
 ) extends AnyVal
     with XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] {
   override def pudao[T](xyy: T): ArticleXyyReverse22[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
@@ -391,7 +391,7 @@ class ArticleXyyReverse21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13
   override def i21: E21 = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
 }
 class ArticleXyyReverse22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22](
-  val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: E21 :: E22 :: HNil
+    val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: E21 :: E22 :: HNil
 ) extends AnyVal
     with XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
   override def leftHead: E1 = head.head
