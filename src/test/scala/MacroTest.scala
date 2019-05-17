@@ -1,9 +1,10 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
+import org.scalax.asuna.ii.item.{EatXyyType0, XyyItem0}
 import org.scalax.asuna.implements.ByNameImplicit
-import org.scalax.asuna.mapper.append._
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
+import org.scalax.asuna.mapper.item._
 
 object MacroTest {
 
@@ -14,19 +15,19 @@ object MacroTest {
     def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): ModelApply.Aux[H, M, P, S] = ll
 
     def kou1[M, P, S, R <: TypeParam](
-        implicit ll: ModelApply.Aux[H, M, P, S]
-      , app: Application[KM, P, R]
-      , cv1: S <:< R#H
-      , cv2: M <:< R#T#H
-      , cv3: R#T#H <:< M
-    ): IIII[H] = {
+                                       implicit ll: ModelApply.Aux[H, M, P, S]
+                                       , app: Application[KM, P, R]
+                                       , cv1: S <:< R#H
+                                       , cv2: M <:< R#T#H
+                                       , cv3: R#T#H <:< M
+                                     ): IIII[H] = {
       app
         .application(ii)
         .compose[H](u = { mm: H =>
-          cv2(ll.getter(mm))
-        }, p1 = { p: R#T#H =>
-          ll.setter(cv3(p))
-        })
+        cv2(ll.getter(mm))
+      }, p1 = { p: R#T#H =>
+        ll.setter(cv3(p))
+      })
         .to(cv1(ll.names))
     }
 
@@ -66,19 +67,20 @@ object MacroTest {
   }
 
   object ii extends Context[KM] {
-    override def reverse: Boolean = false
+    override def isReverse: Boolean = false
+    override def useHList: Boolean  = false
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: JsonPro[X#T#H, X#H], y: JsonPro[Y#T#H, Y#H], plus: Plus[X, Y, Z]): JsonPro[Z#T#H, Z#H] = {
       new JsonPro[Z#T#H, Z#H] {
         override def p(name: Z#H, t: Z#T#H, m: List[(String, Json)]): List[(String, Json)] = {
-          val (namex, namey) = plus.take(name)
-          val (itemx, itemy) = plus.sub.take(t)
-          y.p(namey, itemy, x.p(namex, itemx, m))
+          val (namex, namey) = (plus.takeHead(name), plus.takeTail(name))
+          val (itemx, itemy) = (plus.sub.takeHead(t), plus.sub.takeTail(t))
+          y.p(namex, itemx, x.p(namey, itemy, m))
         }
         override def d(j: JsonObject, name: Z#H): Either[String, Z#T#H] = {
-          val (xx1, yy1) = plus.take(name)
-          x.d(j, xx1).right.flatMap { x1 =>
-            y.d(j, yy1).right.map { y1 =>
+          val (xx1, yy1) = (plus.takeHead(name), plus.takeTail(name))
+          x.d(j, yy1).right.flatMap { x1 =>
+            y.d(j, xx1).right.map { y1 =>
               plus.sub.plus(x1, y1)
             }
           }
@@ -86,10 +88,10 @@ object MacroTest {
       }
     }
 
-    override def start: JsonPro[Item0, Item0] = {
-      new JsonPro[Item0, Item0] {
-        override def p(name: Item0, t: Item0, m: List[(String, Json)]): List[(String, Json)] = m
-        override def d(j: JsonObject, name: Item0): Either[String, Item0]                    = Right(Item.apply0)
+    override def start: JsonPro[XyyItem0, XyyItem0] = {
+      new JsonPro[XyyItem0, XyyItem0] {
+        override def p(name: XyyItem0, t: XyyItem0, m: List[(String, Json)]): List[(String, Json)] = m
+        override def d(j: JsonObject, name: XyyItem0): Either[String, XyyItem0]                    = Right(new XyyItem0 {})
       }
     }
   }
@@ -100,13 +102,12 @@ object MacroTest {
 
     class ItemP1 extends TypeParam {
       override type H = T2
-      override type T = Type0
+      override type T = EndParam
     }
   }
 
   implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
     new Application[KM, T, ItemPP[T]] {
-      override def tag: ItemTag[T] = new ItemTag[T]
       override def application(context: Context[KM]): JsonPro[T, String] = {
         new JsonPro[T, String] {
           override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
