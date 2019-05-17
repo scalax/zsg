@@ -10,8 +10,11 @@ class ModelApply[I] {
 
 trait AsunaGeneric[H] {
   type II <: ItemTag
+  type S
+  def tag: AppendTag[II]
   def getter: H => II#XyyItemType
   def setter: II#XyyItemType => H
+  def names: S
 }
 
 object AsunaGeneric {
@@ -20,23 +23,26 @@ object AsunaGeneric {
 
   trait GenericApply[M] {
     def init1[K <: ItemTag](i: AppendTag[K]): GenericApply1[M, K] = new GenericApply1[M, K] {
-      override def init2(ii: M => K#XyyItemType, mm: K#XyyItemType => M): Aux[M, K] = {
+      override def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, K, T] = {
         new AsunaGeneric[M] {
           override type II = K
+          override type S  = T
+          override def tag    = i
           override def getter = ii
           override def setter = mm
+          override def names  = n
         }
       }
     }
   }
 
   trait GenericApply1[M, K <: ItemTag] {
-    def init2(ii: M => K#XyyItemType, mm: K#XyyItemType => M): Aux[M, K]
+    def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, K, T]
   }
 
-  type Aux[H, K <: ItemTag] = AsunaGeneric[H] { type II = K }
+  type Aux[H, K <: ItemTag, U] = AsunaGeneric[H] { type II = K; type S = U }
 
-  implicit def appendMacroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II <: ItemTag, T]: AsunaGeneric.Aux[H, II, T] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II, T]
 
 }
 
@@ -47,7 +53,7 @@ object AsunaGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M <: org.scalax.asuna.mapper.item.ItemTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M <: org.scalax.asuna.mapper.item.ItemTag: c.WeakTypeTag, U]: c.Expr[AsunaGeneric.Aux[H, M, U]] = {
       val h     = c.weakTypeOf[H]
       val hType = h.typeSymbol
 
@@ -84,6 +90,16 @@ object AsunaGenericMacroApply {
           }"""
       }
 
+      val nameProTag = if (proTypeTag.length <= 22) {
+        q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.length)}(..${props.map(s => q"""${Literal(Constant(s))}""")})"""
+      } else {
+        q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
+          q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
+            q"""${Literal(Constant(p))}"""
+          }})"""
+        }})"""
+      }
+
       val proSize = props.size
 
       def inputItem: List[(String, Tree)] = {
@@ -107,8 +123,8 @@ object AsunaGenericMacroApply {
 
       val inputFunc = q"""{ item => ${hType.companion}.apply(..${inputItem.map { case (item, m) => q"""${TermName(item)} = ${m}""" }}) }"""
 
-      c.Expr[AsunaGeneric.Aux[H, M]] {
-        q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTag}).init2(${nameTag}, ${inputFunc})"""
+      c.Expr[AsunaGeneric.Aux[H, M, U]] {
+        q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTag}).init2(${nameTag}, ${inputFunc}, ${nameProTag})"""
       }
     }
 

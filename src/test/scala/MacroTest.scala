@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
-import org.scalax.asuna.ii.item.{EatXyyType0, XyyItem0}
+import org.scalax.asuna.ii.item.XyyItem0
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 import org.scalax.asuna.mapper.item._
@@ -10,24 +10,24 @@ object MacroTest {
 
   class MapperKou[H] {
 
-    def kou11[M <: org.scalax.asuna.mapper.item.ItemTag](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
+    def kou11[M <: org.scalax.asuna.mapper.item.ItemTag, S](implicit ll: AsunaGeneric.Aux[H, M, S]): AsunaGeneric.Aux[H, M, S] = ll
 
-    def kou[M, P, S](implicit ll: ModelApply.Aux[H, M, P, S]): ModelApply.Aux[H, M, P, S] = ll
+    def kou2[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](implicit ll: AsunaGeneric.Aux[H, R, U]): ll.II = throw new Exception("pp")
 
-    def kou1[M, P, S, R <: TypeParam](
-                                       implicit ll: ModelApply.Aux[H, M, P, S]
-                                       , app: Application[KM, P, R]
-                                       , cv1: S <:< R#H
-                                       , cv2: M <:< R#T#H
-                                       , cv3: R#T#H <:< M
-                                     ): IIII[H] = {
+    def kou1[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](
+        implicit ll: AsunaGeneric.Aux[H, R, U]
+      , app: Application[KM, R, I]
+      , cv1: U <:< I#H
+      , cv2: R#XyyItemType <:< I#T#H
+      , cv3: I#T#H <:< R#XyyItemType
+    ): IIII[H] = {
       app
         .application(ii)
         .compose[H](u = { mm: H =>
-        cv2(ll.getter(mm))
-      }, p1 = { p: R#T#H =>
-        ll.setter(cv3(p))
-      })
+          cv2(ll.getter(mm))
+        }, p1 = { p: I#T#H =>
+          ll.setter(cv3(p))
+        })
         .to(cv1(ll.names))
     }
 
