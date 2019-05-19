@@ -76,7 +76,7 @@ object MacroTest {
 
   object ii extends Context[KM] {
     override def isReverse: Boolean = false
-    override def useHList: Boolean  = false
+    override def useHList: Boolean  = true
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: JsonPro[X#T#H, X#H], y: JsonPro[Y#T#H, Y#H], plus: Plus[X, Y, Z]): JsonPro[Z#T#H, Z#H] = {
       new JsonPro[Z#T#H, Z#H] {

@@ -67,6 +67,7 @@ object AsunaGenericMacroApply {
             val proName = n.trim
             proName
         }
+        .reverse
 
       val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
       val typeTag = if (proTypeTag.length <= 22) {
