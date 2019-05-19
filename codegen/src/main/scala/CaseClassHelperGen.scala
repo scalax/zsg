@@ -7,6 +7,29 @@ import scala.io.Source
 
 object CaseClassHelperGen1 extends App {
 
+  for (i <- 2 to 22) yield {
+    val path19 = Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("mapper" + i)
+      .resolve("Append" + i + ".scala")
+
+    Files.createDirectories(path19.getParent)
+
+    val writer19   = new PrintWriter(path19.toFile)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.AppendXyy(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
+
+
   val maxPropertyNum = 21
 
   val path1 = Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("EatXyy.scala")
@@ -44,7 +67,7 @@ object CaseClassHelperGen1 extends App {
   writer3.println(content32)
   writer3.close()
 
-  val path4 =
+  /*val path4 =
     Paths
       .get(".")
       .resolve("src")
@@ -64,7 +87,7 @@ object CaseClassHelperGen1 extends App {
     Source.fromString(org.scalax.asuna.template11.append.txt.AppendEatXyy(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content42 = content41.mkString(System.lineSeparator)
   writer4.println(content42)
-  writer4.close()
+  writer4.close()*/
 
   val path5 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("XyyItem.scala")
@@ -180,7 +203,7 @@ object CaseClassHelperGen1 extends App {
   writer11.println(content112)
   writer11.close()
 
-  val path12 =
+  /*val path12 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("ItemTag.scala")
 
   Files.createDirectories(path12.getParent)
@@ -190,7 +213,7 @@ object CaseClassHelperGen1 extends App {
     Source.fromString(org.scalax.asuna.template11.tag.txt.ItemTag(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content122 = content121.mkString(System.lineSeparator)
   writer12.println(content122)
-  writer12.close()
+  writer12.close()*/
 
   val path13 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("NodeTag.scala")
