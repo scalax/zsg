@@ -63,9 +63,9 @@ object TupleTest3 {
     override def isReverse: Boolean = true
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
-      x: TupleEncoder[X#H, X#T#H],
-      y: TupleEncoder[Y#H, Y#T#H],
-      p: Plus[X, Y, Z]
+        x: TupleEncoder[X#H, X#T#H]
+      , y: TupleEncoder[Y#H, Y#T#H]
+      , p: Plus[X, Y, Z]
     ): TupleEncoder[Z#H, Z#T#H] = {
       new TupleEncoder[Z#H, Z#T#H] {
         override def rep(rep: Z#H, r: List[slick.ast.Node]): List[slick.ast.Node] = {
@@ -113,8 +113,8 @@ object SlickUtil {
 
   trait TupleTestImplicit {
     implicit def ii[T](
-      implicit b: BaseTypedType[T],
-      profile: slick.jdbc.JdbcProfile
+        implicit b: BaseTypedType[T]
+      , profile: slick.jdbc.JdbcProfile
     ): Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[T], Type2[slick.lifted.Rep[T], T]] = {
       import profile.api._
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Rep[T], Type2[Rep[T], T]] {
@@ -128,8 +128,8 @@ object SlickUtil {
     }
 
     implicit def ii2[T](
-      implicit b: BaseTypedType[T],
-      profile: slick.jdbc.JdbcProfile
+        implicit b: BaseTypedType[T]
+      , profile: slick.jdbc.JdbcProfile
     ): Application[TupleContext[(AppendTuple, TupleTestImplicit)], slick.lifted.Rep[Option[T]], Type2[slick.lifted.Rep[Option[T]], Option[T]]] = {
       import profile.api._
       new Application[TupleContext[(AppendTuple, TupleTestImplicit)], Rep[Option[T]], Type2[Rep[Option[T]], Option[T]]] {
