@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
 import org.scalax.asuna.ii.item.XyyItem0
-//import org.scalax.asuna.implements.ByNameImplicit
+import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 import org.scalax.asuna.mapper.item._
 
@@ -130,11 +130,14 @@ object MacroTest {
     }
   }
 
-  /*implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
+  implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
     new Application[KM, T, ItemPP[T]] {
       override def application(context: Context[KM]): JsonPro[T, String] = {
         new JsonPro[T, String] {
           override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
+            ((name, t.value(tt))) :: m
+          }
+          override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
             ((name, t.value(tt))) :: m
           }
           override def d(j: JsonObject, name: String): Either[String, T] = {
@@ -142,6 +145,6 @@ object MacroTest {
           }
         }
       }
-    }*/
+    }
 
 }
