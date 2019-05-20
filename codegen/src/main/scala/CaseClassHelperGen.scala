@@ -49,6 +49,27 @@ object CaseClassHelperGen1 extends App {
     writer19.close()
   }
 
+  for (i <- 2 to 22) yield {
+    val path19 = Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("mapper" + i)
+      .resolve("ItemTagWithMessage" + i + ".scala")
+
+    Files.createDirectories(path19.getParent)
+
+    val writer19   = new PrintWriter(path19.toFile)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.ItemTagWithMessage(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
   val maxPropertyNum = 21
 
   val path1 = Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("EatXyy.scala")
@@ -221,40 +242,6 @@ object CaseClassHelperGen1 extends App {
   val content112 = content111.mkString(System.lineSeparator)
   writer11.println(content112)
   writer11.close()
-
-  val path14 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("tag")
-      .resolve("ItemTagWithMessage.scala")
-
-  Files.createDirectories(path14.getParent)
-
-  val writer14 = new PrintWriter(path14.toFile)
-  val content141 =
-    Source.fromString(org.scalax.asuna.template11.tag.txt.ItemTagWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content142 = content141.mkString(System.lineSeparator)
-  writer14.println(content142)
-  writer14.close()
-
-  val path16 =
-    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("Message.scala")
-
-  Files.createDirectories(path16.getParent)
-
-  val writer16 = new PrintWriter(path16.toFile)
-  val content161 =
-    Source.fromString(org.scalax.asuna.template11.tag.txt.Message(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content162 = content161.mkString(System.lineSeparator)
-  writer16.println(content162)
-  writer16.close()
 
   val path18 =
     Paths

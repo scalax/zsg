@@ -189,3 +189,4 @@ object NodeTag11 {
       }
     }
 }
+class `Application can not load with index 11, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
