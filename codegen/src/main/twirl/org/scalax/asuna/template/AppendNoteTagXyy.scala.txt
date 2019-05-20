@@ -1,0 +1,46 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.ii.item
+
+class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
+
+    override type RawItem = org.scalax.asuna.mapper.item.NotUseItem
+    override type HeadItem = T1
+    override type TailItem = NodeTag@{tagNum - 1}[@for(ii <- 2 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
+    override type Sub = NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#Sub @if(ii < tagNum) { , } }]
+    override type NoMessage = NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#NoMessage @if(ii < tagNum) { , } }]
+    override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { @for(iii <- 1 to (ii - 1)) { TailItem# } HeadItem#Sub#Pull[I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem#Sub] @if(ii < tagNum) { , } }]
+    override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
+        type Type1 = T1#InputMessage[I];
+        @for(ii <- 2 to tagNum) {
+            type Type@{ii} = T@{ii}#InputMessage[Type@{ii - 1}#Left];
+        }
+        type II = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { Type@{ii}#Result @if(ii < tagNum) { , } }], Type@{tagNum}#Left]
+    })#II
+    override type XyyItemType = XyyItem@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#XyyItemType @if(ii < tagNum) { , } }]
+
+
+    def debug[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.item.TypeParam }](c: org.scalax.asuna.mapper.item.Context[K])(implicit @for(ii <- 1 to tagNum) {
+        dapp@{ii}: org.scalax.asuna.mapper.item.DebugApplication[K, T@{ii}, I@{ii}, `Application can not load with index @{ii}, please eat xyy.`] @if(ii < tagNum) { , }
+    }): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
+    NodeTag@{tagNum}.appendNodeTagEatXyy@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
+
+}
+
+object NodeTag@{tagNum} {
+
+    implicit def appendNodeTagEatXyy@{tagNum}[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to tagNum) { , H@{ii} <: org.scalax.asuna.mapper.item.ItemTag } @for(ii <- 1 to tagNum) { , T@{ii} <: org.scalax.asuna.mapper.item.TypeParam }]
+    (implicit @for(ii <- 1 to tagNum) { t@{ii}: org.scalax.asuna.mapper.item.Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
+    : org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+    new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
+        override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
+            if (context.isReverse) {
+                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ArticleXyyPlus.put@{tagNum})
+            } else {
+                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ArticleXyyPlus.plus@{tagNum})
+            }
+        }
+    }
+
+
+}

@@ -26,7 +26,7 @@ class ItemTagWithMessage2[T1, Message1 <: org.scalax.asuna.mapper.item.Message, 
     dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1]
     , dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag2[T1, T2], EatXyyType2[I1, I2]] =
-    AppendEatXyy.appendEatXyy2(dapp1, dapp2)
+    ItemTag2.appendEatXyy2(dapp1, dapp2)
 }
 class ItemTagWithMessage3[
     T1
@@ -69,7 +69,7 @@ class ItemTagWithMessage3[
     , dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2]
     , dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag3[T1, T2, T3], EatXyyType3[I1, I2, I3]] =
-    AppendEatXyy.appendEatXyy3(dapp1, dapp2, dapp3)
+    ItemTag3.appendEatXyy3(dapp1, dapp2, dapp3)
 }
 class ItemTagWithMessage4[
     T1
@@ -120,7 +120,7 @@ class ItemTagWithMessage4[
     , dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3]
     , dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
-    AppendEatXyy.appendEatXyy4(dapp1, dapp2, dapp3, dapp4)
+    ItemTag4.appendEatXyy4(dapp1, dapp2, dapp3, dapp4)
 }
 class ItemTagWithMessage5[
     T1
@@ -179,7 +179,7 @@ class ItemTagWithMessage5[
     , dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4]
     , dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag5[T1, T2, T3, T4, T5], EatXyyType5[I1, I2, I3, I4, I5]] =
-    AppendEatXyy.appendEatXyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
+    ItemTag5.appendEatXyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
 class ItemTagWithMessage6[
     T1
@@ -246,7 +246,7 @@ class ItemTagWithMessage6[
     , dapp5: org.scalax.asuna.mapper.item.DebugItemApplication[K, T5, I5, Message5]
     , dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag6[T1, T2, T3, T4, T5, T6], EatXyyType6[I1, I2, I3, I4, I5, I6]] =
-    AppendEatXyy.appendEatXyy6(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6)
+    ItemTag6.appendEatXyy6(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6)
 }
 class ItemTagWithMessage7[
     T1
@@ -321,7 +321,7 @@ class ItemTagWithMessage7[
     , dapp6: org.scalax.asuna.mapper.item.DebugItemApplication[K, T6, I6, Message6]
     , dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag7[T1, T2, T3, T4, T5, T6, T7], EatXyyType7[I1, I2, I3, I4, I5, I6, I7]] =
-    AppendEatXyy.appendEatXyy7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
+    ItemTag7.appendEatXyy7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
 }
 class ItemTagWithMessage8[
     T1
@@ -404,7 +404,7 @@ class ItemTagWithMessage8[
     , dapp7: org.scalax.asuna.mapper.item.DebugItemApplication[K, T7, I7, Message7]
     , dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag8[T1, T2, T3, T4, T5, T6, T7, T8], EatXyyType8[I1, I2, I3, I4, I5, I6, I7, I8]] =
-    AppendEatXyy.appendEatXyy8(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8)
+    ItemTag8.appendEatXyy8(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8)
 }
 class ItemTagWithMessage9[
     T1
@@ -495,7 +495,7 @@ class ItemTagWithMessage9[
     , dapp8: org.scalax.asuna.mapper.item.DebugItemApplication[K, T8, I8, Message8]
     , dapp9: org.scalax.asuna.mapper.item.DebugItemApplication[K, T9, I9, Message9]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag9[T1, T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType9[I1, I2, I3, I4, I5, I6, I7, I8, I9]] =
-    AppendEatXyy.appendEatXyy9(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9)
+    ItemTag9.appendEatXyy9(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9)
 }
 class ItemTagWithMessage10[
     T1
@@ -609,7 +609,7 @@ class ItemTagWithMessage10[
     , I9
     , I10
   ]] =
-    AppendEatXyy.appendEatXyy10(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10)
+    ItemTag10.appendEatXyy10(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10)
 }
 class ItemTagWithMessage11[
     T1
@@ -735,7 +735,7 @@ class ItemTagWithMessage11[
     , I10
     , I11
   ]] =
-    AppendEatXyy.appendEatXyy11(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11)
+    ItemTag11.appendEatXyy11(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11)
 }
 class ItemTagWithMessage12[
     T1
@@ -895,7 +895,7 @@ class ItemTagWithMessage12[
     , I11
     , I12
   ]] =
-    AppendEatXyy.appendEatXyy12(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12)
+    ItemTag12.appendEatXyy12(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12)
 }
 class ItemTagWithMessage13[
     T1
@@ -1069,7 +1069,7 @@ class ItemTagWithMessage13[
     , I12
     , I13
   ]] =
-    AppendEatXyy.appendEatXyy13(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13)
+    ItemTag13.appendEatXyy13(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13)
 }
 class ItemTagWithMessage14[
     T1
@@ -1257,7 +1257,7 @@ class ItemTagWithMessage14[
     , I13
     , I14
   ]] =
-    AppendEatXyy.appendEatXyy14(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14)
+    ItemTag14.appendEatXyy14(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14)
 }
 class ItemTagWithMessage15[
     T1
@@ -1459,7 +1459,7 @@ class ItemTagWithMessage15[
     , I14
     , I15
   ]] =
-    AppendEatXyy.appendEatXyy15(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15)
+    ItemTag15.appendEatXyy15(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15)
 }
 class ItemTagWithMessage16[
     T1
@@ -1675,7 +1675,7 @@ class ItemTagWithMessage16[
     , I15
     , I16
   ]] =
-    AppendEatXyy.appendEatXyy16(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16)
+    ItemTag16.appendEatXyy16(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16)
 }
 class ItemTagWithMessage17[
     T1
@@ -1905,7 +1905,7 @@ class ItemTagWithMessage17[
     , I16
     , I17
   ]] =
-    AppendEatXyy.appendEatXyy17(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17)
+    ItemTag17.appendEatXyy17(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17)
 }
 class ItemTagWithMessage18[
     T1
@@ -2149,7 +2149,7 @@ class ItemTagWithMessage18[
     , I17
     , I18
   ]] =
-    AppendEatXyy.appendEatXyy18(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17, dapp18)
+    ItemTag18.appendEatXyy18(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12, dapp13, dapp14, dapp15, dapp16, dapp17, dapp18)
 }
 class ItemTagWithMessage19[
     T1
@@ -2407,7 +2407,7 @@ class ItemTagWithMessage19[
     , T18
     , T19
   ], EatXyyType19[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19]] =
-    AppendEatXyy.appendEatXyy19(
+    ItemTag19.appendEatXyy19(
         dapp1
       , dapp2
       , dapp3
@@ -2699,7 +2699,7 @@ class ItemTagWithMessage20[
     , T19
     , T20
   ], EatXyyType20[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20]] =
-    AppendEatXyy.appendEatXyy20(
+    ItemTag20.appendEatXyy20(
         dapp1
       , dapp2
       , dapp3
@@ -3006,7 +3006,7 @@ class ItemTagWithMessage21[
     , T20
     , T21
   ], EatXyyType21[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21]] =
-    AppendEatXyy.appendEatXyy21(
+    ItemTag21.appendEatXyy21(
         dapp1
       , dapp2
       , dapp3
@@ -3328,7 +3328,7 @@ class ItemTagWithMessage22[
     , T21
     , T22
   ], EatXyyType22[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22]] =
-    AppendEatXyy.appendEatXyy22(
+    ItemTag22.appendEatXyy22(
         dapp1
       , dapp2
       , dapp3

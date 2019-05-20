@@ -3,7 +3,7 @@ package org.scalax.asuna.mapper.append.debug
 import io.circe._
 import io.circe.syntax._
 import org.scalax.asuna.implements.ByNameImplicit
-import org.scalax.asuna.mapper.append.MacroTest4
+import org.scalax.asuna.mapper.append.{MacroTest3, MacroTest4}
 import org.scalax.asuna.mapper.append.debug.MacroTest.{IIII, ItemPP, JsonPro, KM}
 import org.scalax.asuna.mapper.item.{Application, Context}
 
@@ -17,14 +17,14 @@ object MacroTest2 extends App {
     implicit lazy val kk114Encoder: Decoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.decoder
   }*/
 
-  import org.scalax.asuna.ii.item.AppendEatXyy._
-  import org.scalax.asuna.ii.item.AppendNodeTagEatXyy._
-
   implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
     new Application[KM, T, ItemPP[T]] {
       override def application(context: Context[KM]): JsonPro[T, String] = {
         new JsonPro[T, String] {
           override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
+            ((name, t.value(tt))) :: m
+          }
+          override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
             ((name, t.value(tt))) :: m
           }
           override def d(j: JsonObject, name: String): Either[String, T] = {
@@ -35,18 +35,18 @@ object MacroTest2 extends App {
     }
 
   object miaomiaomiao {
-    implicit def iiii[T](implicit ii: IIII[T]): ObjectEncoder[T] = ii.encoder
+    implicit def iiii[T](implicit ii: IIII[T]): ObjectEncoder[T] = ii.reverseEncoder
     implicit def iiiiii[T](implicit ii: IIII[T]): Decoder[T]     = ii.decoder
 
     implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1
     implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1
 
-    def iiiiiiii: String                                 = MacroTest4.dd.asJson.noSpaces
+    def iiiiiiii: String                                 = MacroTest4.dd.asJson.spaces2
     def iiiiiiiiii: Either[Error, MacroTest4.LargeModel] = io.circe.parser.parse(miaomiaomiao.iiiiiiii).right.flatMap(_.as[MacroTest4.LargeModel])
   }
 
   println(miaomiaomiao.iiiiiiii)
-  println(miaomiaomiao.iiiiiiiiii)
+  //println(miaomiaomiao.iiiiiiiiii)
 
   /*object ll {
     implicit lazy val kk211Encoder: ObjectEncoder[MacroTest4.LargeModel]   = implicitly[MacroTest3.EncodeImplicit[MacroTest4.LargeModel]].mm

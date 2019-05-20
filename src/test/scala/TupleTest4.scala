@@ -13,7 +13,7 @@ object TupleTest4 extends App {
   val iiiiii = new TupleTest3.TEncoderContext[(AppendTuple, TupleTestImplicit)]
 
   implicit def columnExtendsionMethod[T, I <: TypeParam, RawDataType](
-    i: T
+      i: T
   )(implicit ii: Application[TupleTest3.TupleContext[(AppendTuple, TupleTestImplicit)], T, I], p: T <:< I#H, profile: slick.jdbc.JdbcProfile): TupleTest3.P[I#T#H] = {
     import profile.api._
     ii.application(iiiiii).iii(p(i), implicitly[TypedType[Option[Boolean]]])

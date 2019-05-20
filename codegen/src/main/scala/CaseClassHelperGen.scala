@@ -7,6 +7,48 @@ import scala.io.Source
 
 object CaseClassHelperGen1 extends App {
 
+  for (i <- 2 to 22) yield {
+    val path19 = Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("mapper" + i)
+      .resolve("Append" + i + ".scala")
+
+    Files.createDirectories(path19.getParent)
+
+    val writer19   = new PrintWriter(path19.toFile)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.AppendXyy(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
+  for (i <- 2 to 22) yield {
+    val path19 = Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("mapper" + i)
+      .resolve("NodeTag" + i + ".scala")
+
+    Files.createDirectories(path19.getParent)
+
+    val writer19   = new PrintWriter(path19.toFile)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.AppendNoteTagXyy(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
   val maxPropertyNum = 21
 
   val path1 = Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("EatXyy.scala")
@@ -44,7 +86,7 @@ object CaseClassHelperGen1 extends App {
   writer3.println(content32)
   writer3.close()
 
-  val path4 =
+  /*val path4 =
     Paths
       .get(".")
       .resolve("src")
@@ -64,7 +106,7 @@ object CaseClassHelperGen1 extends App {
     Source.fromString(org.scalax.asuna.template11.append.txt.AppendEatXyy(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content42 = content41.mkString(System.lineSeparator)
   writer4.println(content42)
-  writer4.close()
+  writer4.close()*/
 
   val path5 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("XyyItem.scala")
@@ -180,30 +222,6 @@ object CaseClassHelperGen1 extends App {
   writer11.println(content112)
   writer11.close()
 
-  val path12 =
-    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("ItemTag.scala")
-
-  Files.createDirectories(path12.getParent)
-
-  val writer12 = new PrintWriter(path12.toFile)
-  val content121 =
-    Source.fromString(org.scalax.asuna.template11.tag.txt.ItemTag(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content122 = content121.mkString(System.lineSeparator)
-  writer12.println(content122)
-  writer12.close()
-
-  val path13 =
-    Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("NodeTag.scala")
-
-  Files.createDirectories(path13.getParent)
-
-  val writer13 = new PrintWriter(path13.toFile)
-  val content131 =
-    Source.fromString(org.scalax.asuna.template11.tag.txt.NodeTag(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content132 = content131.mkString(System.lineSeparator)
-  writer13.println(content132)
-  writer13.close()
-
   val path14 =
     Paths
       .get(".")
@@ -226,28 +244,6 @@ object CaseClassHelperGen1 extends App {
   writer14.println(content142)
   writer14.close()
 
-  val path15 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("tag")
-      .resolve("NodeTagWithMessage.scala")
-
-  /*Files.createDirectories(path15.getParent)
-
-  val writer15 = new PrintWriter(path15.toFile)
-  val content151 =
-    Source.fromString(org.scalax.asuna.template11.tag.txt.NodeTagWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content152 = content151.mkString(System.lineSeparator)
-  writer15.println(content152)
-  writer15.close()*/
-
   val path16 =
     Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("ii").resolve("tag").resolve("Message.scala")
 
@@ -259,28 +255,6 @@ object CaseClassHelperGen1 extends App {
   val content162 = content161.mkString(System.lineSeparator)
   writer16.println(content162)
   writer16.close()
-
-  val path17 =
-    Paths
-      .get(".")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("org")
-      .resolve("scalax")
-      .resolve("asuna")
-      .resolve("ii")
-      .resolve("append")
-      .resolve("AppendItemWithMessage.scala")
-
-  Files.createDirectories(path17.getParent)
-
-  val writer17 = new PrintWriter(path17.toFile)
-  val content171 =
-    Source.fromString(org.scalax.asuna.template11.append.txt.AppendItemWithMessage(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-  val content172 = content171.mkString(System.lineSeparator)
-  writer17.println(content172)
-  writer17.close()
 
   val path18 =
     Paths

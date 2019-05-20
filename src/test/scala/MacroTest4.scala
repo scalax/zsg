@@ -215,7 +215,7 @@ object MacroTest4 {
     , miaomiao2 = "init string"
     , miaomiao3 = "init string"
     , miaomiao4 = "init string"
-    , miaomiao5 = "init string"
+    , miaomiao5 = "开始"
     , miaomiao6 = "init string"
     , miaomiao7 = "init string"
     , miaomiao8 = "init string"
@@ -307,7 +307,7 @@ object MacroTest4 {
     , miaomiao94 = 8910
     , miaomiao95 = "init string"
     , miaomiao96 = "init string"
-    , miaomiao97 = "init string"
+    , miaomiao97 = "结束"
     , miaomiao98 = "init string"
     , miaomiao99 = "init string"
     , miaomiao100 = "init string"
