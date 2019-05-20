@@ -97,7 +97,7 @@ object MacroTest {
           val itemx = plus.sub.takeHead(t)
           val itemy = plus.sub.takeTail(t)
 
-          x.p(namey, itemy, y.p(namex, itemx, m))
+          x.reverseP(namey, itemy, y.reverseP(namex, itemx, m))
         }
 
         override def d(j: JsonObject, name: Z#H): Either[String, Z#T#H] = {
