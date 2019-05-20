@@ -65,7 +65,7 @@ class Item2Xyy6[T1, T2, T3, T4, T5, T6](
 }
 class Item2Xyy7[T1, T2, T3, T4, T5, T6, T7](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]
 ) extends AnyVal
     with XyyItem7[T1, T2, T3, T4, T5, T6, T7] {
@@ -82,7 +82,7 @@ class Item2Xyy7[T1, T2, T3, T4, T5, T6, T7](
 }
 class Item2Xyy8[T1, T2, T3, T4, T5, T6, T7, T8](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]
@@ -102,7 +102,7 @@ class Item2Xyy8[T1, T2, T3, T4, T5, T6, T7, T8](
 }
 class Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T9](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]
@@ -123,7 +123,7 @@ class Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T9](
 }
 class Item2Xyy10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]
@@ -145,7 +145,7 @@ class Item2Xyy10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](
 }
 class Item2Xyy11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]
@@ -169,7 +169,7 @@ class Item2Xyy11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
 }
 class Item2Xyy12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]
@@ -194,7 +194,7 @@ class Item2Xyy12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](
 }
 class Item2Xyy13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]
@@ -220,7 +220,7 @@ class Item2Xyy13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13](
 }
 class Item2Xyy14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]
@@ -247,7 +247,7 @@ class Item2Xyy14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14](
 }
 class Item2Xyy15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]
@@ -275,7 +275,7 @@ class Item2Xyy15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]
@@ -304,7 +304,7 @@ class Item2Xyy16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]
@@ -334,7 +334,7 @@ class Item2Xyy17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]#AddRightItem[
@@ -367,7 +367,7 @@ class Item2Xyy18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]#AddRightItem[
@@ -401,7 +401,7 @@ class Item2Xyy19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]#AddRightItem[
@@ -436,7 +436,7 @@ class Item2Xyy20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]#AddRightItem[
@@ -472,7 +472,7 @@ class Item2Xyy21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 }
 class Item2Xyy22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
-      T7
+    T7
   ]#AddRightItem[
       T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]#AddRightItem[

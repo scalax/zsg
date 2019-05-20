@@ -1,7 +1,0 @@
-@(maxItem: Int)
-
-package org.scalax.asuna.ii.item
-
-@for(i <- 1 to maxItem) {
-    class `Application can not load with index @{i}, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
-}
