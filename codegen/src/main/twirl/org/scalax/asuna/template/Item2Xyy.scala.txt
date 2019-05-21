@@ -1,0 +1,26 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.ii.item
+
+class Item2Xyy@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }](val item: org.scalax.asuna.mapper.item.EatValue0 @for(ii <- 1 to tagNum) { #AddRightItem[T@{ii}] }) extends AnyVal with XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }] {
+
+    override def eat[T](xyy: T): Item2Xyy@{tagNum + 1}[@for(ii <- 1 to tagNum) { T@{ii}, } T] = new Item2Xyy@{tagNum + 1}[@for(ii <- 1 to tagNum) { T@{ii}, } T](item.addRightItem(xyy))
+
+    override def rightHead: T@{tagNum} = item.dropRightItem
+    override def rightTail: Item2Xyy@{tagNum - 1}[@for(ii <- 2 to tagNum) { T@{ii - 1} @if(ii < tagNum) { , } }] = new Item2Xyy@{tagNum - 1}(item.dropRight)
+
+    @org.scalax.asuna.codegen.Property.toItem1II(tagNum)
+
+}
+
+
+class Item2XyyReverse@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }](val item: org.scalax.asuna.mapper.item.EatValue0 @for(ii <- tagNum to 1 by (- 1)) { #AddRightItem[T@{ii}] }) extends AnyVal with XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }] {
+
+    override def pudao[T](xyy: T): Item2XyyReverse@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , T@{ii} }] = new Item2XyyReverse@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , T@{ii} }](item.addRightItem(xyy))
+
+    override def leftHead: T1 = item.dropRightItem
+    override def leftTail: Item2XyyReverse@{tagNum - 1}[@for(ii <- 2 to tagNum) { T@{ii} @if(ii < tagNum) { , } }] = new Item2XyyReverse@{tagNum - 1}(item.dropRight)
+
+    @org.scalax.asuna.codegen.Property.toItem2II(tagNum)
+
+}
