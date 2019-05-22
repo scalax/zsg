@@ -265,13 +265,13 @@ object NodeTag16 {
           context.append(
               NodeTag15.appendNodeTagEatXyy15(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context)
             , t1.application(context)
-            , ArticleXyyPlus.put16
+            , ArticleXyyPlus16.put16
           )
         } else {
           context.append(
               NodeTag15.appendNodeTagEatXyy15(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15).application(context)
             , t16.application(context)
-            , ArticleXyyPlus.plus16
+            , ArticleXyyPlus16.plus16
           )
         }
       }

@@ -35,9 +35,9 @@ object NodeTag@{tagNum} {
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
         override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
             if (context.isReverse) {
-                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ArticleXyyPlus.put@{tagNum})
+                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ArticleXyyPlus@{tagNum}.put@{tagNum})
             } else {
-                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ArticleXyyPlus.plus@{tagNum})
+                context.append(NodeTag@{tagNum - 1}.appendNodeTagEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ArticleXyyPlus@{tagNum}.plus@{tagNum})
             }
         }
     }

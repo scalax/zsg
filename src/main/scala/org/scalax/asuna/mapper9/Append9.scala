@@ -107,9 +107,9 @@ object ItemTag9 {
     ]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
         if (context.isReverse) {
-          context.append(ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyPlus.put9)
+          context.append(ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyPlus9.put9)
         } else {
-          context.append(ItemTag8.appendEatXyy8(t1, t2, t3, t4, t5, t6, t7, t8).application(context), t9.application(context), ArticleXyyPlus.plus9)
+          context.append(ItemTag8.appendEatXyy8(t1, t2, t3, t4, t5, t6, t7, t8).application(context), t9.application(context), ArticleXyyPlus9.plus9)
         }
       }
     }

@@ -200,13 +200,13 @@ object ItemTag14 {
           context.append(
             ItemTag13.appendEatXyy13(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14).application(context),
             t1.application(context),
-            ArticleXyyPlus.put14
+            ArticleXyyPlus14.put14
           )
         } else {
           context.append(
             ItemTag13.appendEatXyy13(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13).application(context),
             t14.application(context),
-            ArticleXyyPlus.plus14
+            ArticleXyyPlus14.plus14
           )
         }
       }

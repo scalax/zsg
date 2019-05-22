@@ -67,9 +67,9 @@ object NodeTag5 {
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag5[H1, H2, H3, H4, H5], EatXyyType5[T1, T2, T3, T4, T5]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType5[T1, T2, T3, T4, T5]] = {
         if (context.isReverse) {
-          context.append(NodeTag4.appendNodeTagEatXyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyPlus.put5)
+          context.append(NodeTag4.appendNodeTagEatXyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyPlus5.put5)
         } else {
-          context.append(NodeTag4.appendNodeTagEatXyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyPlus.plus5)
+          context.append(NodeTag4.appendNodeTagEatXyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyPlus5.plus5)
         }
       }
     }
