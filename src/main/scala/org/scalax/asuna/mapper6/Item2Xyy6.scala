@@ -1,6 +1,6 @@
 package org.scalax.asuna.ii.item
 class Item2Xyy6[T1, T2, T3, T4, T5, T6](
-  val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]
+    val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]
 ) extends AnyVal
     with XyyItem6[T1, T2, T3, T4, T5, T6] {
   override def eat[T](xyy: T): Item2Xyy7[T1, T2, T3, T4, T5, T6, T] = new Item2Xyy7[T1, T2, T3, T4, T5, T6, T](item.addRightItem(xyy))
@@ -14,7 +14,7 @@ class Item2Xyy6[T1, T2, T3, T4, T5, T6](
   def i6: T6                                                        = item.item.i2.i1.i2
 }
 class Item2XyyReverse6[T1, T2, T3, T4, T5, T6](
-  val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T6]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[T3]#AddRightItem[T2]#AddRightItem[T1]
+    val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T6]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[T3]#AddRightItem[T2]#AddRightItem[T1]
 ) extends AnyVal
     with XyyItem6[T1, T2, T3, T4, T5, T6] {
   override def pudao[T](xyy: T): Item2XyyReverse7[T, T1, T2, T3, T4, T5, T6] = new Item2XyyReverse7[T, T1, T2, T3, T4, T5, T6](item.addRightItem(xyy))

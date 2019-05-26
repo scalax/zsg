@@ -1,7 +1,9 @@
 package org.scalax.asuna.ii.item
 class Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T9](
-  val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[T7]#AddRightItem[
-    T8
+    val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
+    T7
+  ]#AddRightItem[
+      T8
   ]#AddRightItem[T9]
 ) extends AnyVal
     with XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9] {
@@ -19,8 +21,10 @@ class Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T9](
   def i9: T9                                                                     = item.item.i2.i1.i1.i1
 }
 class Item2XyyReverse9[T1, T2, T3, T4, T5, T6, T7, T8, T9](
-  val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T9]#AddRightItem[T8]#AddRightItem[T7]#AddRightItem[T6]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[T3]#AddRightItem[
-    T2
+    val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T9]#AddRightItem[T8]#AddRightItem[T7]#AddRightItem[T6]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[
+    T3
+  ]#AddRightItem[
+      T2
   ]#AddRightItem[T1]
 ) extends AnyVal
     with XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9] {

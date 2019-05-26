@@ -17,3 +17,7 @@ object ArticleXyyPlus3 {
       override def sub: org.scalax.asuna.mapper.item.Plus[EatXyyType2[T1, T2]#T, T3#T, EatXyyType3[T3, T1, T2]#T] = put3[T1#T, T2#T, T3#T]
     }
 }
+class TypeParam3[T1, T2, T3] extends org.scalax.asuna.mapper.item.TypeParam {
+  override type H = T1
+  override type T = TypeParam2[T2, T3]
+}

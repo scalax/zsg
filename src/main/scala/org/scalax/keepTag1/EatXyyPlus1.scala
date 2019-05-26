@@ -34,3 +34,8 @@ object ArticleXyyPlus {
   def item2Put1[T1 <: org.scalax.asuna.mapper.item.TypeParam]  = miaomiaomiao4[EatXyyType0, T1]
 
 }
+
+class TypeParam1[T1] extends org.scalax.asuna.mapper.item.TypeParam {
+  override type H = T1
+  override type T = org.scalax.asuna.mapper.item.EndParam
+}

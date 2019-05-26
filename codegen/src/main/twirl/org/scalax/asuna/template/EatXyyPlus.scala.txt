@@ -23,3 +23,8 @@ object ArticleXyyPlus@{tagNum} {
     }
 
 }
+
+class TypeParam@{tagNum}[T1 @for(i <- 2 to tagNum) { , T@{i} }] extends org.scalax.asuna.mapper.item.TypeParam {
+  override type H = T1
+  override type T = TypeParam@{tagNum - 1}[@for(i <- 2 to tagNum) { T@{i} @if(i < tagNum) { , } }]
+}

@@ -31,7 +31,7 @@ trait Context[K <: KindContext] {
   def useHList: Boolean
   def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[org.scalax.asuna.ii.item.EatXyyType0]
-  //def lift[T, I <: TypeParam](i: ItemTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(context = self)
+  def lift[T, I <: TypeParam](i: AppendTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(context = self)
 
   def reverse: Context[K] = new Context[K] {
     override def isReverse                                                                                              = !self.isReverse
