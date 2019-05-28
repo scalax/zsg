@@ -30,86 +30,86 @@ trait XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def pudao[T](xyy: T): XyyItem19[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] = throw new Exception("Can not use this method.")
   def eatToTuple[T](xyy: T): Tuple19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, T] =
     (
-        self.i1
-      , self.i2
-      , self.i3
-      , self.i4
-      , self.i5
-      , self.i6
-      , self.i7
-      , self.i8
-      , self.i9
-      , self.i10
-      , self.i11
-      , self.i12
-      , self.i13
-      , self.i14
-      , self.i15
-      , self.i16
-      , self.i17
-      , self.i18
-      , xyy
+      self.i1,
+      self.i2,
+      self.i3,
+      self.i4,
+      self.i5,
+      self.i6,
+      self.i7,
+      self.i8,
+      self.i9,
+      self.i10,
+      self.i11,
+      self.i12,
+      self.i13,
+      self.i14,
+      self.i15,
+      self.i16,
+      self.i17,
+      self.i18,
+      xyy
     )
   def pudaoToTuple[T](xyy: T): Tuple19[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] =
     (
-        xyy
-      , self.i1
-      , self.i2
-      , self.i3
-      , self.i4
-      , self.i5
-      , self.i6
-      , self.i7
-      , self.i8
-      , self.i9
-      , self.i10
-      , self.i11
-      , self.i12
-      , self.i13
-      , self.i14
-      , self.i15
-      , self.i16
-      , self.i17
-      , self.i18
+      xyy,
+      self.i1,
+      self.i2,
+      self.i3,
+      self.i4,
+      self.i5,
+      self.i6,
+      self.i7,
+      self.i8,
+      self.i9,
+      self.i10,
+      self.i11,
+      self.i12,
+      self.i13,
+      self.i14,
+      self.i15,
+      self.i16,
+      self.i17,
+      self.i18
     )
   def leftTuple: Tuple17[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18] =
     Tuple17(
-        self.i2
-      , self.i3
-      , self.i4
-      , self.i5
-      , self.i6
-      , self.i7
-      , self.i8
-      , self.i9
-      , self.i10
-      , self.i11
-      , self.i12
-      , self.i13
-      , self.i14
-      , self.i15
-      , self.i16
-      , self.i17
-      , self.i18
+      self.i2,
+      self.i3,
+      self.i4,
+      self.i5,
+      self.i6,
+      self.i7,
+      self.i8,
+      self.i9,
+      self.i10,
+      self.i11,
+      self.i12,
+      self.i13,
+      self.i14,
+      self.i15,
+      self.i16,
+      self.i17,
+      self.i18
     )
   def rightTuple: Tuple17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] =
     Tuple17(
-        self.i1
-      , self.i2
-      , self.i3
-      , self.i4
-      , self.i5
-      , self.i6
-      , self.i7
-      , self.i8
-      , self.i9
-      , self.i10
-      , self.i11
-      , self.i12
-      , self.i13
-      , self.i14
-      , self.i15
-      , self.i16
-      , self.i17
+      self.i1,
+      self.i2,
+      self.i3,
+      self.i4,
+      self.i5,
+      self.i6,
+      self.i7,
+      self.i8,
+      self.i9,
+      self.i10,
+      self.i11,
+      self.i12,
+      self.i13,
+      self.i14,
+      self.i15,
+      self.i16,
+      self.i17
     )
 }

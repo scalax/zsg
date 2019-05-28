@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
-import org.scalax.asuna.ii.item.XyyItem0
+import org.scalax.asuna.ii.item.{TypeParam2, XyyItem0}
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 import org.scalax.asuna.mapper.item._
@@ -37,6 +37,25 @@ object MacroTest {
 
   class KM extends KindContext {
     override type M[P <: TypeParam] = JsonPro[P#T#H, P#H]
+  }
+
+  object KM {
+    implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, TypeParam2[String, T]] =
+      new Application[KM, T, TypeParam2[String, T]] {
+        override def application(context: Context[KM]): JsonPro[T, String] = {
+          new JsonPro[T, String] {
+            override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
+              ((name, t.value(tt))) :: m
+            }
+            override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
+              ((name, t.value(tt))) :: m
+            }
+            override def d(j: JsonObject, name: String): Either[String, T] = {
+              j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
+            }
+          }
+        }
+      }
   }
 
   trait IIII[I] {
@@ -129,22 +148,5 @@ object MacroTest {
       override type T = EndParam
     }
   }
-
-  implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
-    new Application[KM, T, ItemPP[T]] {
-      override def application(context: Context[KM]): JsonPro[T, String] = {
-        new JsonPro[T, String] {
-          override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
-          }
-          override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
-          }
-          override def d(j: JsonObject, name: String): Either[String, T] = {
-            j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
-          }
-        }
-      }
-    }
 
 }

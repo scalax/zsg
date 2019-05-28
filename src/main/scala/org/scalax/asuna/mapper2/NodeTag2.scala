@@ -13,24 +13,24 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
   })#II
   override type XyyItemType = XyyItem2[T1#XyyItemType, T2#XyyItemType]
   def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam, I2 <: org.scalax.asuna.mapper.item.TypeParam](
-      c: org.scalax.asuna.mapper.item.Context[K]
+    c: org.scalax.asuna.mapper.item.Context[K]
   )(
-      implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
-    , dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`]
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
+    dapp2: org.scalax.asuna.mapper.item.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag2[T1, T2], EatXyyType2[I1, I2]] =
     NodeTag2.appendNodeTagEatXyy2(dapp1, dapp2)
 }
 object NodeTag2 {
   implicit def appendNodeTagEatXyy2[
-      K <: org.scalax.asuna.mapper.item.KindContext
-    , H1 <: org.scalax.asuna.mapper.item.ItemTag
-    , H2 <: org.scalax.asuna.mapper.item.ItemTag
-    , T1 <: org.scalax.asuna.mapper.item.TypeParam
-    , T2 <: org.scalax.asuna.mapper.item.TypeParam
+    K <: org.scalax.asuna.mapper.item.KindContext,
+    H1 <: org.scalax.asuna.mapper.item.ItemTag,
+    H2 <: org.scalax.asuna.mapper.item.ItemTag,
+    T1 <: org.scalax.asuna.mapper.item.TypeParam,
+    T2 <: org.scalax.asuna.mapper.item.TypeParam
   ](
-      implicit t1: org.scalax.asuna.mapper.item.Application[K, H1, T1]
-    , t2: org.scalax.asuna.mapper.item.Application[K, H2, T2]
+    implicit t1: org.scalax.asuna.mapper.item.Application[K, H1, T1],
+    t2: org.scalax.asuna.mapper.item.Application[K, H2, T2]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag2[H1, H2], EatXyyType2[T1, T2]] =
     new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag2[H1, H2], EatXyyType2[T1, T2]] {
       override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType2[T1, T2]] = {

@@ -11,11 +11,11 @@ class ItemTagWithMessage2[T1, Message1 <: org.scalax.asuna.mapper.item.Message, 
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] =
     org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage2[T1, I#HeadItem, T2, I#TailItem#HeadItem], I#TailItem#TailItem]
   def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam, I2 <: org.scalax.asuna.mapper.item.TypeParam](
-      c: org.scalax.asuna.mapper.item.Context[K]
+    c: org.scalax.asuna.mapper.item.Context[K]
   )(
-      implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1]
-    , dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2]
+    implicit
+    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2]
   ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag2[T1, T2], EatXyyType2[I1, I2]] =
     ItemTag2.appendEatXyy2(dapp1, dapp2)
 }

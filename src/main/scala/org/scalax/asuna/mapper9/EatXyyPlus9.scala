@@ -1,15 +1,15 @@
 package org.scalax.asuna.ii.item
 object ArticleXyyPlus9 {
   def plus9[
-      T1 <: org.scalax.asuna.mapper.item.TypeParam
-    , T2 <: org.scalax.asuna.mapper.item.TypeParam
-    , T3 <: org.scalax.asuna.mapper.item.TypeParam
-    , T4 <: org.scalax.asuna.mapper.item.TypeParam
-    , T5 <: org.scalax.asuna.mapper.item.TypeParam
-    , T6 <: org.scalax.asuna.mapper.item.TypeParam
-    , T7 <: org.scalax.asuna.mapper.item.TypeParam
-    , T8 <: org.scalax.asuna.mapper.item.TypeParam
-    , T9 <: org.scalax.asuna.mapper.item.TypeParam
+    T1 <: org.scalax.asuna.mapper.item.TypeParam,
+    T2 <: org.scalax.asuna.mapper.item.TypeParam,
+    T3 <: org.scalax.asuna.mapper.item.TypeParam,
+    T4 <: org.scalax.asuna.mapper.item.TypeParam,
+    T5 <: org.scalax.asuna.mapper.item.TypeParam,
+    T6 <: org.scalax.asuna.mapper.item.TypeParam,
+    T7 <: org.scalax.asuna.mapper.item.TypeParam,
+    T8 <: org.scalax.asuna.mapper.item.TypeParam,
+    T9 <: org.scalax.asuna.mapper.item.TypeParam
   ]: org.scalax.asuna.mapper.item.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
     new org.scalax.asuna.mapper.item.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
       override def plus(p: XyyItem8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): XyyItem9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H] =
@@ -20,15 +20,15 @@ object ArticleXyyPlus9 {
         plus9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
     }
   def put9[
-      T1 <: org.scalax.asuna.mapper.item.TypeParam
-    , T2 <: org.scalax.asuna.mapper.item.TypeParam
-    , T3 <: org.scalax.asuna.mapper.item.TypeParam
-    , T4 <: org.scalax.asuna.mapper.item.TypeParam
-    , T5 <: org.scalax.asuna.mapper.item.TypeParam
-    , T6 <: org.scalax.asuna.mapper.item.TypeParam
-    , T7 <: org.scalax.asuna.mapper.item.TypeParam
-    , T8 <: org.scalax.asuna.mapper.item.TypeParam
-    , T9 <: org.scalax.asuna.mapper.item.TypeParam
+    T1 <: org.scalax.asuna.mapper.item.TypeParam,
+    T2 <: org.scalax.asuna.mapper.item.TypeParam,
+    T3 <: org.scalax.asuna.mapper.item.TypeParam,
+    T4 <: org.scalax.asuna.mapper.item.TypeParam,
+    T5 <: org.scalax.asuna.mapper.item.TypeParam,
+    T6 <: org.scalax.asuna.mapper.item.TypeParam,
+    T7 <: org.scalax.asuna.mapper.item.TypeParam,
+    T8 <: org.scalax.asuna.mapper.item.TypeParam,
+    T9 <: org.scalax.asuna.mapper.item.TypeParam
   ]: org.scalax.asuna.mapper.item.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, EatXyyType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] =
     new org.scalax.asuna.mapper.item.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, EatXyyType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] {
       override def plus(p: XyyItem8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): XyyItem9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
@@ -42,4 +42,10 @@ object ArticleXyyPlus9 {
 class TypeParam9[T1, T2, T3, T4, T5, T6, T7, T8, T9] extends org.scalax.asuna.mapper.item.TypeParam {
   override type H = T1
   override type T = TypeParam8[T2, T3, T4, T5, T6, T7, T8, T9]
+}
+object TypeParam9 {
+  type Aux[T1, T2, T3, T4, T5, T6, T7, T8, T9] = org.scalax.asuna.mapper.item.TypeParam {
+    type H = T1
+    type T <: TypeParam8.Aux[T2, T3, T4, T5, T6, T7, T8, T9]
+  }
 }
