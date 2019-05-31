@@ -8,13 +8,24 @@ class ModelApply[I] {
   def to[R](m: I => R): AppendTag[R] = new AppendTag[R]
 }
 
+trait WrapTag {
+  type GenericType
+  type Tag <: ItemTag
+  type NameType
+}
+
+class WrapTagImpl[GT, TT <: ItemTag, NN] extends WrapTag {
+  override type GenericType = GT
+  override type Tag         = TT
+  override type NameType    = NN
+}
+
 trait AsunaGeneric[H] {
-  type II <: ItemTag
-  type S
-  def tag: AppendTag[II]
-  def getter: H => II#XyyItemType
-  def setter: II#XyyItemType => H
-  def names: S
+  type WT <: WrapTag
+  def tag: AppendTag[WT#Tag]
+  def getter: H => WT#GenericType
+  def setter: WT#GenericType => H
+  def names: WT#NameType
 }
 
 object AsunaGeneric {
@@ -23,10 +34,9 @@ object AsunaGeneric {
 
   trait GenericApply[M] {
     def init1[K <: ItemTag](i: AppendTag[K]): GenericApply1[M, K] = new GenericApply1[M, K] {
-      override def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, K, T] = {
+      override def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, WrapTagImpl[K#XyyItemType, K, T]] = {
         new AsunaGeneric[M] {
-          override type II = K
-          override type S  = T
+          override type WT = WrapTagImpl[K#XyyItemType, K, T]
           override def tag    = i
           override def getter = ii
           override def setter = mm
@@ -37,12 +47,12 @@ object AsunaGeneric {
   }
 
   trait GenericApply1[M, K <: ItemTag] {
-    def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, K, T]
+    def init2[T](ii: M => K#XyyItemType, mm: K#XyyItemType => M, n: T): Aux[M, WrapTagImpl[K#XyyItemType, K, T]]
   }
 
-  type Aux[H, K <: ItemTag, U] = AsunaGeneric[H] { type II = K; type S = U }
+  type Aux[H, WW <: WrapTag] = AsunaGeneric[H] { type WT = WW }
 
-  implicit def appendMacroImpl[H, II <: ItemTag, T]: AsunaGeneric.Aux[H, II, T] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II, T]
+  implicit def appendMacroImpl[H, II <: WrapTag, T]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
@@ -53,7 +63,7 @@ object AsunaGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M <: org.scalax.asuna.mapper.item.ItemTag: c.WeakTypeTag, U]: c.Expr[AsunaGeneric.Aux[H, M, U]] = {
+    def generic[H: c.WeakTypeTag, M <: WrapTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
       val h     = c.weakTypeOf[H]
       val hType = h.typeSymbol
 
@@ -124,7 +134,7 @@ object AsunaGenericMacroApply {
 
       val inputFunc = q"""{ item => ${hType.companion}.apply(..${inputItem.map { case (item, m) => q"""${TermName(item)} = ${m}""" }}) }"""
 
-      c.Expr[AsunaGeneric.Aux[H, M, U]] {
+      c.Expr[AsunaGeneric.Aux[H, M]] {
         q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTag}).init2(${nameTag}, ${inputFunc}, ${nameProTag})"""
       }
     }

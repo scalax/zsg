@@ -27,19 +27,6 @@ object Test02 extends App {
     override type M[P <: TypeParam] = JsonEncoder[P#T#H, P#H]
   }
 
-  object KContext {
-    implicit def im[T](implicit t: ByNameImplicit[Encoder[T]]): Application[KContext, T, TypeParam2[String, T]] =
-      new Application[KContext, T, TypeParam2[String, T]] {
-        override def application(context: Context[KContext]): JsonEncoder[T, String] = {
-          new JsonEncoder[T, String] {
-            override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-              ((name, t.value(tt))) :: m
-            }
-          }
-        }
-      }
-  }
-
   val ii = new Context[KContext] {
     override def isReverse: Boolean = true
     override def useHList: Boolean  = false
@@ -61,19 +48,18 @@ object Test02 extends App {
   object JsoSetter {
     def fetchEncoder[H] = new MapperKou[H]
     class MapperKou[H] {
-      def encoder[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U, NN <: TypeParam2.Aux[U, R#XyyItemType]](
-          implicit ll: AsunaGeneric.Aux[H, R, U]
-        , app: Application[KContext, R, org.scalax.asuna.ii.item.EatXyyType2[org.scalax.asuna.ii.item.TypeParam2[String, String], org.scalax.asuna.ii.item.TypeParam2[String, Int]]]
-        //, cv1: U <:< I#H
-        //, cv2: R#XyyItemType <:< I#T#H
+      def encoder[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+          implicit ll: AsunaGeneric.Aux[H, R]
+        , app: Application[KContext, R#Tag, I]
+        , cv1: R#NameType <:< I#H
+        , cv2: R#GenericType <:< I#T#H
       ): ObjectEncoder[H] = {
-        /*app
+        app
           .application(ii)
           .compose[H](u = { mm: H =>
             ll.getter(mm)
           })
-          .to(ll.names)*/
-        throw new Exception("imim")
+          .to(ll.names)
       }
     }
   }
@@ -81,16 +67,18 @@ object Test02 extends App {
   case class Test01(i1: String, i2: Int)
   case class Test02(i3: String, i4: Int)
 
-  val iiii1122: org.scalax.asuna.ii.item.EatXyyType2[org.scalax.asuna.ii.item.TypeParam2[String, String], org.scalax.asuna.ii.item.TypeParam2[String, Int]] =
-    throw new Exception("in")
-
-  iiii1122: TypeParam2.Aux[XyyItem2[String, String], XyyItem2[String, Int]]
-
-  type IIBB = iiii1122.type
-
-  val aa: IIBB#T#T = throw new Exception("imm")
-
   trait Poly1 {
+
+    implicit def im[T](implicit t: ByNameImplicit[Encoder[T]]): Application[KContext, T, TypeParam2[String, T]] =
+      new Application[KContext, T, TypeParam2[String, T]] {
+        override def application(context: Context[KContext]): JsonEncoder[T, String] = {
+          new JsonEncoder[T, String] {
+            override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+              ((name, t.value(tt))) :: m
+            }
+          }
+        }
+      }
 
     implicit def implicit1 = JsoSetter.fetchEncoder[Test01].encoder
 

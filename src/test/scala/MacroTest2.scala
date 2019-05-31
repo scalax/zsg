@@ -22,7 +22,6 @@ object MacroTest2 extends App {
     implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1
     implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1
 
-
     def iiiiiiii: String                                 = MacroTest4.dd.asJson.spaces2
     def iiiiiiiiii: Either[Error, MacroTest4.LargeModel] = io.circe.parser.parse(miaomiaomiao.iiiiiiii).right.flatMap(_.as[MacroTest4.LargeModel])
   }

@@ -10,16 +10,16 @@ object MacroTest {
 
   class MapperKou[H] {
 
-    def kou11[M <: org.scalax.asuna.mapper.item.ItemTag, S](implicit ll: AsunaGeneric.Aux[H, M, S]): AsunaGeneric.Aux[H, M, S] = ll
+    def kou11[M <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, S](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
 
-    def kou2[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](implicit ll: AsunaGeneric.Aux[H, R, U]): ll.II = throw new Exception("pp")
+    def kou2[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam, U](implicit ll: AsunaGeneric.Aux[H, R]): String = throw new Exception("pp")
 
-    def kou1[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](
-        implicit ll: AsunaGeneric.Aux[H, R, U]
-      , app: Application[KM, R, I]
-      , cv1: U <:< I#H
-      , cv2: R#XyyItemType <:< I#T#H
-      , cv3: I#T#H <:< R#XyyItemType
+    def kou1[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+        implicit ll: AsunaGeneric.Aux[H, R]
+      , app: Application[KM, R#Tag, I]
+      , cv1: R#NameType <:< I#H
+      , cv2: R#GenericType <:< I#T#H
+      , cv3: I#T#H <:< R#GenericType
     ): IIII[H] = {
       app
         .application(ii)
