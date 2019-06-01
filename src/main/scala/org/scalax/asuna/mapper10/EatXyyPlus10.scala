@@ -53,9 +53,3 @@ class TypeParam10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] extends org.scalax.as
   override type H = T1
   override type T = TypeParam9[T2, T3, T4, T5, T6, T7, T8, T9, T10]
 }
-object TypeParam10 {
-  type Aux[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = org.scalax.asuna.mapper.item.TypeParam {
-    type H = T1
-    type T <: TypeParam9.Aux[T2, T3, T4, T5, T6, T7, T8, T9, T10]
-  }
-}

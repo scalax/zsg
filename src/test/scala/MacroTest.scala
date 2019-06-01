@@ -1,8 +1,7 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
-import org.scalax.asuna.ii.item.{TypeParam2, XyyItem0}
-import org.scalax.asuna.implements.ByNameImplicit
+import org.scalax.asuna.ii.item.XyyItem0
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 import org.scalax.asuna.mapper.item._
 
@@ -10,9 +9,9 @@ object MacroTest {
 
   class MapperKou[H] {
 
-    def kou11[M <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, S](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
+    def kou11[M <: org.scalax.asuna.mapper.append.macroImpl.WrapTag](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
 
-    def kou2[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam, U](implicit ll: AsunaGeneric.Aux[H, R]): String = throw new Exception("pp")
+    def kou2[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](implicit ll: AsunaGeneric.Aux[H, R]): String = throw new Exception("pp")
 
     def kou1[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
         implicit ll: AsunaGeneric.Aux[H, R]
@@ -37,25 +36,6 @@ object MacroTest {
 
   class KM extends KindContext {
     override type M[P <: TypeParam] = JsonPro[P#T#H, P#H]
-  }
-
-  object KM {
-    implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, TypeParam2[String, T]] =
-      new Application[KM, T, TypeParam2[String, T]] {
-        override def application(context: Context[KM]): JsonPro[T, String] = {
-          new JsonPro[T, String] {
-            override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-              ((name, t.value(tt))) :: m
-            }
-            override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-              ((name, t.value(tt))) :: m
-            }
-            override def d(j: JsonObject, name: String): Either[String, T] = {
-              j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
-            }
-          }
-        }
-      }
   }
 
   trait IIII[I] {
@@ -136,16 +116,6 @@ object MacroTest {
         override def p(name: XyyItem0, t: XyyItem0, m: List[(String, Json)]): List[(String, Json)]        = m
         override def d(j: JsonObject, name: XyyItem0): Either[String, XyyItem0]                           = Right(new XyyItem0 {})
       }
-    }
-  }
-
-  class ItemPP[T2] extends TypeParam {
-    override type H = String
-    override type T = ItemP1
-
-    class ItemP1 extends TypeParam {
-      override type H = T2
-      override type T = EndParam
     }
   }
 

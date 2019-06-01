@@ -21,9 +21,3 @@ class TypeParam2[T1, T2] extends org.scalax.asuna.mapper.item.TypeParam {
   override type H = T1
   override type T = TypeParam1[T2]
 }
-object TypeParam2 {
-  type Aux[T1, T2] = org.scalax.asuna.mapper.item.TypeParam {
-    type H = T1
-    type T <: TypeParam1.Aux[T2]
-  }
-}
