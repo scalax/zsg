@@ -1,25 +1,24 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
-import org.scalax.asuna.ii.item.XyyItem0
-import org.scalax.asuna.implements.ByNameImplicit
+import org.scalax.asuna.mapper.item.XyyItem0
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
-import org.scalax.asuna.mapper.item._
+import org.scalax.asuna.mapper._
 
 object MacroTest {
 
   class MapperKou[H] {
 
-    def kou11[M <: org.scalax.asuna.mapper.item.ItemTag, S](implicit ll: AsunaGeneric.Aux[H, M, S]): AsunaGeneric.Aux[H, M, S] = ll
+    def kou11[M <: org.scalax.asuna.mapper.append.macroImpl.WrapTag](implicit ll: AsunaGeneric.Aux[H, M]): AsunaGeneric.Aux[H, M] = ll
 
-    def kou2[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](implicit ll: AsunaGeneric.Aux[H, R, U]): ll.II = throw new Exception("pp")
+    def kou2[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](implicit ll: AsunaGeneric.Aux[H, R]): String = throw new Exception("pp")
 
-    def kou1[R <: org.scalax.asuna.mapper.item.ItemTag, I <: TypeParam, U](
-        implicit ll: AsunaGeneric.Aux[H, R, U]
-      , app: Application[KM, R, I]
-      , cv1: U <:< I#H
-      , cv2: R#XyyItemType <:< I#T#H
-      , cv3: I#T#H <:< R#XyyItemType
+    def kou1[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+        implicit ll: AsunaGeneric.Aux[H, R]
+      , app: Application[KM, R#Tag, I]
+      , cv1: R#NameType <:< I#H
+      , cv2: R#GenericType <:< I#T#H
+      , cv3: I#T#H <:< R#GenericType
     ): IIII[H] = {
       app
         .application(ii)
@@ -34,6 +33,22 @@ object MacroTest {
   }
 
   def kou[T] = new MapperKou[T]
+  def koukou[T, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+      implicit ll: AsunaGeneric.Aux[T, R]
+    , app: Application[KM, R#Tag, I]
+    , cv1: R#NameType <:< I#H
+    , cv2: R#GenericType <:< I#T#H
+    , cv3: I#T#H <:< R#GenericType
+  ): IIII[T] = {
+    app
+      .application(ii)
+      .compose[T](u = { mm: T =>
+        cv2(ll.getter(mm))
+      }, { p: I#T#H =>
+        ll.setter(cv3(p))
+      })
+      .to(cv1(ll.names))
+  }
 
   class KM extends KindContext {
     override type M[P <: TypeParam] = JsonPro[P#T#H, P#H]
@@ -119,32 +134,5 @@ object MacroTest {
       }
     }
   }
-
-  class ItemPP[T2] extends TypeParam {
-    override type H = String
-    override type T = ItemP1
-
-    class ItemP1 extends TypeParam {
-      override type H = T2
-      override type T = EndParam
-    }
-  }
-
-  implicit def im[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[KM, T, ItemPP[T]] =
-    new Application[KM, T, ItemPP[T]] {
-      override def application(context: Context[KM]): JsonPro[T, String] = {
-        new JsonPro[T, String] {
-          override def p(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
-          }
-          override def reverseP(name: String, tt: T, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
-          }
-          override def d(j: JsonObject, name: String): Either[String, T] = {
-            j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
-          }
-        }
-      }
-    }
 
 }

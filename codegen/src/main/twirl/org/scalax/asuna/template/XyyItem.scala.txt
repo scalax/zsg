@@ -1,0 +1,28 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.mapper.item
+
+trait XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]] {
+    self =>
+
+    override type IITag = ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+
+    @for(ii <- 1 to tagNum) {
+        def i@{ii}: E@{ii}
+    }
+
+    def leftHead: E1 = throw new Exception("Can not use this method.")
+    def leftTail: XyyItem@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] = throw new Exception("Can not use this method.")
+    def rightHead: E@{tagNum} = throw new Exception("Can not use this method.")
+    def rightTail: XyyItem@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }] = throw new Exception("Can not use this method.")
+
+    def eat[T](xyy: T): XyyItem@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T] = throw new Exception("Can not use this method.")
+    def pudao[T](xyy: T): XyyItem@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = throw new Exception("Can not use this method.")
+
+    def eatToTuple[T](xyy: T): Tuple@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T] = (@for(ii <- 1 to tagNum) { self.i@{ii}, } xyy)
+    def pudaoToTuple[T](xyy: T): Tuple@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = (xyy @for(ii <- 1 to tagNum) { , self.i@{ii} })
+
+    def leftTuple: Tuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] = Tuple@{tagNum - 1}(@for(ii <- 2 to tagNum) { self.i@{ii} @if(ii < tagNum) { , } })
+    def rightTuple: Tuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }] = Tuple@{tagNum - 1}(@for(ii <- 2 to tagNum) { self.i@{ii - 1} @if(ii < tagNum) { , } })
+
+}

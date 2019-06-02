@@ -1,0 +1,18 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.mapper.item
+
+import shapeless._
+
+class ArticleXyy@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](val head: @for(ii <- tagNum to 1 by (- 1)) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] {
+
+    override def eat[T](xyy: T): ArticleXyy@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T] = new ArticleXyy@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T](xyy :: head)
+
+    override def rightHead: E@{tagNum} = head.head
+    override def rightTail: ArticleXyy@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }] = new ArticleXyy@{tagNum - 1}(head.tail)
+
+    @for(ii <- 1 to tagNum) {
+        override def i@{ii}: E@{ii} = head@for(iii <- 1 to (tagNum - ii)) { .tail }.head
+    }
+
+}

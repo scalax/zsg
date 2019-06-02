@@ -1,8 +1,8 @@
 package org.scalax.asuna.mapper.append.test
 
-import org.scalax.asuna.ii.item.AppendTuple
+import org.scalax.asuna.mapper.item.AppendTuple
 import org.scalax.asuna.mapper.append.slick.SlickUtil.TupleTestImplicit
-import org.scalax.asuna.mapper.item.{Application, TypeParam}
+import org.scalax.asuna.mapper.{Application, TypeParam}
 import org.scalax.asuna.mapper.append.slick.TupleTest3
 import slick.ast.TypedType
 

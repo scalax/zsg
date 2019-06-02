@@ -1,0 +1,8 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.mapper.item
+
+class EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.TypeParam {
+    override type H = XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } }]
+    override type T = EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
+}

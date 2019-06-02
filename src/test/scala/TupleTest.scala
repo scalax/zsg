@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.debug
 
-import org.scalax.asuna.ii.item.{AppendTuple, XyyItem0}
-import org.scalax.asuna.mapper.item._
+import org.scalax.asuna.mapper.item.{AppendTuple, XyyItem0}
+import org.scalax.asuna.mapper._
 
 object TupleTest {
 
