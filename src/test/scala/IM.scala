@@ -1,4 +1,4 @@
-import org.scalax.asuna.ii.item._
+import org.scalax.asuna.mapper._
 import org.scalax.asuna.mapper.item._
 
 object Test01 extends App {

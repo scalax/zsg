@@ -1,8 +1,8 @@
 import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
-import org.scalax.asuna.ii.item._
+import org.scalax.asuna.mapper.item._
+import org.scalax.asuna.mapper._
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
-import org.scalax.asuna.mapper.item._
 
 object Test02 extends App {
 
@@ -11,14 +11,12 @@ object Test02 extends App {
 
     def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
 
-    def to(name: II): ObjectEncoder[T] = new ObjectEncoder[T] {
-      override def encodeObject(a: T): JsonObject = {
-        JsonObject.fromIterable(self.p(a, name, List.empty))
-      }
-    }
-
     def compose[P](u: P => T): JsonEncoder[P, II] = new JsonEncoder[P, II] {
       override def p(t: P, name: II, m: List[(String, Json)]): List[(String, Json)] = self.p(u(t), name, m)
+    }
+
+    def addName(name: II): ObjectEncoder[T] = ObjectEncoder.instance { i =>
+      JsonObject.fromIterable(self.p(i, name, List.empty))
     }
 
   }
@@ -54,12 +52,7 @@ object Test02 extends App {
         , cv1: R#NameType <:< I#H
         , cv2: R#GenericType <:< I#T#H
       ): ObjectEncoder[H] = {
-        app
-          .application(ii)
-          .compose[H](u = { mm: H =>
-            ll.getter(mm)
-          })
-          .to(ll.names)
+        app.application(ii).compose[H](mm => ll.getter(mm)).addName(ll.names)
       }
     }
   }
@@ -82,6 +75,14 @@ object Test02 extends App {
 
     implicit def implicit1 = JsoSetter.fetchEncoder[Test01].encoder
 
+    val mi = implicit1.apply(Test01("1234", 12)).noSpaces
+
+  }
+
+  object Poly1 extends Poly1
+
+  {
+    println(Poly1.mi)
   }
 
 }

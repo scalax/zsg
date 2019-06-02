@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 class ItemTagWithMessage4[
   T1,
   Message1 <: org.scalax.asuna.mapper.item.Message,
@@ -36,17 +36,17 @@ class ItemTagWithMessage4[
     I#TailItem#TailItem#TailItem#HeadItem
   ], I#TailItem#TailItem#TailItem#TailItem]
   def debug[
-    K <: org.scalax.asuna.mapper.item.KindContext,
-    I1 <: org.scalax.asuna.mapper.item.TypeParam,
-    I2 <: org.scalax.asuna.mapper.item.TypeParam,
-    I3 <: org.scalax.asuna.mapper.item.TypeParam,
-    I4 <: org.scalax.asuna.mapper.item.TypeParam
-  ](c: org.scalax.asuna.mapper.item.Context[K])(
+    K <: org.scalax.asuna.mapper.KindContext,
+    I1 <: org.scalax.asuna.mapper.TypeParam,
+    I2 <: org.scalax.asuna.mapper.TypeParam,
+    I3 <: org.scalax.asuna.mapper.TypeParam,
+    I4 <: org.scalax.asuna.mapper.TypeParam
+  ](c: org.scalax.asuna.mapper.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugItemApplication[K, T1, I1, Message1],
-    dapp2: org.scalax.asuna.mapper.item.DebugItemApplication[K, T2, I2, Message2],
-    dapp3: org.scalax.asuna.mapper.item.DebugItemApplication[K, T3, I3, Message3],
-    dapp4: org.scalax.asuna.mapper.item.DebugItemApplication[K, T4, I4, Message4]
-  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
+    dapp1: org.scalax.asuna.mapper.DebugItemApplication[K, T1, I1, Message1],
+    dapp2: org.scalax.asuna.mapper.DebugItemApplication[K, T2, I2, Message2],
+    dapp3: org.scalax.asuna.mapper.DebugItemApplication[K, T3, I3, Message3],
+    dapp4: org.scalax.asuna.mapper.DebugItemApplication[K, T4, I4, Message4]
+  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
     ItemTag4.appendEatXyy4(dapp1, dapp2, dapp3, dapp4)
 }

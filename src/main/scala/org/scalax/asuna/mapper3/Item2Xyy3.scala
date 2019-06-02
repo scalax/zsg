@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 class Item2Xyy3[T1, T2, T3](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3])
     extends AnyVal
     with XyyItem3[T1, T2, T3] {

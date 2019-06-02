@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 
 import shapeless._
 

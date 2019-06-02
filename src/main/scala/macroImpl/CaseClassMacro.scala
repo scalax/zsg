@@ -1,6 +1,7 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
-import org.scalax.asuna.mapper.item.{AppendTag, ItemTag}
+import org.scalax.asuna.mapper.AppendTag
+import org.scalax.asuna.mapper.item.ItemTag
 
 import scala.language.experimental.macros
 
@@ -81,20 +82,20 @@ object AsunaGenericMacroApply {
 
       val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
       val typeTag = if (proTypeTag.length <= 22) {
-        q"""org.scalax.asuna.ii.item.BuildTagContect.lift(org.scalax.asuna.ii.item.BuildTagContect.tag(..${proTypeTag}))"""
+        q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.tag(..${proTypeTag}))"""
       } else {
-        q"""org.scalax.asuna.ii.item.BuildTagContect.lift(org.scalax.asuna.ii.item.BuildTagContect.nodeTag(..${proTypeTag
+        q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${proTypeTag
           .grouped(22)
           .toList
-          .map(i => q"""org.scalax.asuna.ii.item.BuildTagContect.tag(..${i})""")}))"""
+          .map(i => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${i})""")}))"""
       }
 
       val nameTag = if (proTypeTag.length <= 22) {
-        q"""(s: ${h}) => { org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.length)}(..${props.map(s => q"""s.${TermName(s)}""")}) }"""
+        q"""(s: ${h}) => { org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + proTypeTag.length)}(..${props.map(s => q"""s.${TermName(s)}""")}) }"""
       } else {
         q"""(s: ${h}) => {
-          org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
-          q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
+          org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + proTypeTag.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
+          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
             q"""s.${TermName(p)}"""
           }})"""
         }})
@@ -102,10 +103,10 @@ object AsunaGenericMacroApply {
       }
 
       val nameProTag = if (proTypeTag.length <= 22) {
-        q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.length)}(..${props.map(s => q"""${Literal(Constant(s))}""")})"""
+        q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + proTypeTag.length)}(..${props.map(s => q"""${Literal(Constant(s))}""")})"""
       } else {
-        q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + proTypeTag.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
-          q"""org.scalax.asuna.ii.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
+        q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + proTypeTag.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
+          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
             q"""${Literal(Constant(p))}"""
           }})"""
         }})"""

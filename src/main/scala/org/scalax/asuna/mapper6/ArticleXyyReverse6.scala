@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 import shapeless._
 class ArticleXyyReverse6[E1, E2, E3, E4, E5, E6](val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: HNil) extends AnyVal with XyyItem6[E1, E2, E3, E4, E5, E6] {
   override def pudao[T](xyy: T): ArticleXyyReverse7[T, E1, E2, E3, E4, E5, E6] = new ArticleXyyReverse7[T, E1, E2, E3, E4, E5, E6](xyy :: head)

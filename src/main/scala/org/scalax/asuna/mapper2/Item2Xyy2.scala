@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 class Item2Xyy2[T1, T2](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]) extends AnyVal with XyyItem2[T1, T2] {
   override def eat[T](xyy: T): Item2Xyy3[T1, T2, T] = new Item2Xyy3[T1, T2, T](item.addRightItem(xyy))
   override def rightHead: T2                        = item.dropRightItem

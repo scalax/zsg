@@ -2,11 +2,11 @@ package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
 import io.circe.syntax._
-import org.scalax.asuna.ii.item.TypeParam2
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.MacroTest4
 import org.scalax.asuna.mapper.append.debug.MacroTest.{IIII, JsonPro, KM}
-import org.scalax.asuna.mapper.item.{Application, Context}
+import org.scalax.asuna.mapper.item.TypeParam2
+import org.scalax.asuna.mapper.{Application, Context}
 
 object MacroTest2 extends App {
 
@@ -39,8 +39,8 @@ object MacroTest2 extends App {
         }
       }
 
-    implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1
-    implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1
+    implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.koukou
+    implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.koukou
 
     def iiiiiiii: String                                 = MacroTest4.dd.asJson.spaces2
     def iiiiiiiiii: Either[Error, MacroTest4.LargeModel] = io.circe.parser.parse(miaomiaomiao.iiiiiiii).right.flatMap(_.as[MacroTest4.LargeModel])

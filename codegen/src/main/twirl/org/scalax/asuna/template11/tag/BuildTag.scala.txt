@@ -1,25 +1,25 @@
 @(maxItem: Int)
 
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 
 import shapeless._
 
 trait BuildTagContect {
 
-def lift[T](tag : => org.scalax.asuna.mapper.item.AppendTag[T]): org.scalax.asuna.mapper.item.AppendTag[T] = new org.scalax.asuna.mapper.item.AppendTag[T]
+def lift[T](tag : => org.scalax.asuna.mapper.AppendTag[T]): org.scalax.asuna.mapper.AppendTag[T] = new org.scalax.asuna.mapper.AppendTag[T]
 
 @for(i <- 1 to maxItem) {
-    def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.item.AppendTag[T@{ii}] @if(ii < i) { , } }):
-    org.scalax.asuna.mapper.item.AppendTag[org.scalax.asuna.ii.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-    new org.scalax.asuna.mapper.item.AppendTag[org.scalax.asuna.ii.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
+    def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.AppendTag[T@{ii}] @if(ii < i) { , } }):
+    org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+    new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
 
-    def nodeTag[@for(ii <- 1 to i){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.item.AppendTag[T@{ii}] @if(ii < i) { , } }):
-        org.scalax.asuna.mapper.item.AppendTag[org.scalax.asuna.ii.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-        new org.scalax.asuna.mapper.item.AppendTag[org.scalax.asuna.ii.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
+    def nodeTag[@for(ii <- 1 to i){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.AppendTag[T@{ii}] @if(ii < i) { , } }):
+        org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+        new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
 
     def item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : T@{ii} @if(ii < i) { , } }):
-        org.scalax.asuna.ii.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] =
-        new org.scalax.asuna.ii.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+        org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] =
+        new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
 }
 
 }

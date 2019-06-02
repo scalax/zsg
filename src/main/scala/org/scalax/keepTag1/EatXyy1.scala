@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 import shapeless._
 trait ArticleXyy0 extends Any with XyyItem0 {
   override def eat[T](xyy: T): ArticleXyy1[T] = new ArticleXyy1(xyy :: HNil)

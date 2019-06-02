@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.slick
 
-import org.scalax.asuna.ii.item.{AppendTuple, XyyItem0}
-import org.scalax.asuna.mapper.item._
+import org.scalax.asuna.mapper.item.{AppendTuple, XyyItem0}
+import org.scalax.asuna.mapper._
 import slick.ast.{BaseTypedType, Library, LiteralNode, ProductNode}
 import slick.util.ConstArray
 import slick.lifted.OptionMapper

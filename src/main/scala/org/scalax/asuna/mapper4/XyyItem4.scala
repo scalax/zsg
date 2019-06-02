@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 trait XyyItem4[E1, E2, E3, E4] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag4[E1, E2, E3, E4]] {
   self =>
   override type IITag = ItemTag4[E1, E2, E3, E4]

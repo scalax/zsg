@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 import shapeless._
 trait ArticleXyyReverse0 extends Any with XyyItem0 {
   override def pudao[T](xyy: T): ArticleXyyReverse1[T] = new ArticleXyyReverse1(xyy :: HNil)

@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 
 class ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, Message@{ii} <: org.scalax.asuna.mapper.item.Message @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
@@ -15,9 +15,9 @@ class ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, Message@{ii} 
     override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum) { (@for(iii <- 1 to (ii - 1)) { TailItem# } RawItem, I@for(iii <- 1 to (ii - 1)) { #TailItem } #RawItem), Message@{ii} @if(ii < tagNum) { , } }]
     override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem @if(ii < tagNum) { , } }], I@for(ii <- 1 to tagNum) { #TailItem }]
 
-    def debug[K <: org.scalax.asuna.mapper.item.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.item.TypeParam }](c: org.scalax.asuna.mapper.item.Context[K])(implicit @for(ii <- 1 to tagNum) {
-        dapp@{ii}: org.scalax.asuna.mapper.item.DebugItemApplication[K, T@{ii}, I@{ii}, Message@{ii}] @if(ii < tagNum) { , }
-    }): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
+    def debug[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.TypeParam }](c: org.scalax.asuna.mapper.Context[K])(implicit @for(ii <- 1 to tagNum) {
+        dapp@{ii}: org.scalax.asuna.mapper.DebugItemApplication[K, T@{ii}, I@{ii}, Message@{ii}] @if(ii < tagNum) { , }
+    }): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
     ItemTag@{tagNum}.appendEatXyy@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
 
 }

@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 trait Item2XyyReverse0 extends Any with XyyItem0 {
   override def pudao[T](xyy: T): Item2XyyReverse1[T] = new Item2XyyReverse1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
 }

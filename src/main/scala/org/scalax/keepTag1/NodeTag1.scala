@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
   override type RawItem                                         = org.scalax.asuna.mapper.item.NotUseItem
   override type HeadItem                                        = T1
@@ -11,22 +11,22 @@ class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.as
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag1[Type1#Result], Type1#Left]
   })#II
   override type XyyItemType = XyyItem1[T1#XyyItemType]
-  def debug[K <: org.scalax.asuna.mapper.item.KindContext, I1 <: org.scalax.asuna.mapper.item.TypeParam](c: org.scalax.asuna.mapper.item.Context[K])(
+  def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam](c: org.scalax.asuna.mapper.Context[K])(
       implicit
-    dapp1: org.scalax.asuna.mapper.item.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
-  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag1[T1], EatXyyType1[I1]] =
+    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
+  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag1[T1], EatXyyType1[I1]] =
     NodeTag1.appendNodeTagEatXyy1(dapp1)
 }
 object NodeTag1 {
   implicit def appendNodeTagEatXyy1[
-      K <: org.scalax.asuna.mapper.item.KindContext
+      K <: org.scalax.asuna.mapper.KindContext
     , H1 <: org.scalax.asuna.mapper.item.ItemTag
-    , T1 <: org.scalax.asuna.mapper.item.TypeParam
+    , T1 <: org.scalax.asuna.mapper.TypeParam
   ](
-      implicit t1: org.scalax.asuna.mapper.item.Application[K, H1, T1]
-  ): org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag1[H1], EatXyyType1[T1]] =
-    new org.scalax.asuna.mapper.item.Application[K, org.scalax.asuna.ii.item.NodeTag1[H1], EatXyyType1[T1]] {
-      override def application(context: org.scalax.asuna.mapper.item.Context[K]): K#M[EatXyyType1[T1]] = {
+      implicit t1: org.scalax.asuna.mapper.Application[K, H1, T1]
+  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag1[H1], EatXyyType1[T1]] =
+    new org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag1[H1], EatXyyType1[T1]] {
+      override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType1[T1]] = {
         if (context.useHList) {
           if (context.isReverse) {
             context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)

@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 import shapeless._
 class ArticleXyy5[E1, E2, E3, E4, E5](val head: E5 :: E4 :: E3 :: E2 :: E1 :: HNil) extends AnyVal with XyyItem5[E1, E2, E3, E4, E5] {
   override def eat[T](xyy: T): ArticleXyy6[E1, E2, E3, E4, E5, T] = new ArticleXyy6[E1, E2, E3, E4, E5, T](xyy :: head)

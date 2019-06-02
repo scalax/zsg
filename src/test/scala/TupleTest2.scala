@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.test
 
-import org.scalax.asuna.ii.item._
+import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper.append.debug.Util
 
 object TupleTest2 extends App {

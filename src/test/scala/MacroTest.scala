@@ -1,9 +1,9 @@
 package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
-import org.scalax.asuna.ii.item.XyyItem0
+import org.scalax.asuna.mapper.item.XyyItem0
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
-import org.scalax.asuna.mapper.item._
+import org.scalax.asuna.mapper._
 
 object MacroTest {
 
@@ -33,6 +33,22 @@ object MacroTest {
   }
 
   def kou[T] = new MapperKou[T]
+  def koukou[T, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+      implicit ll: AsunaGeneric.Aux[T, R]
+    , app: Application[KM, R#Tag, I]
+    , cv1: R#NameType <:< I#H
+    , cv2: R#GenericType <:< I#T#H
+    , cv3: I#T#H <:< R#GenericType
+  ): IIII[T] = {
+    app
+      .application(ii)
+      .compose[T](u = { mm: T =>
+        cv2(ll.getter(mm))
+      }, { p: I#T#H =>
+        ll.setter(cv3(p))
+      })
+      .to(cv1(ll.names))
+  }
 
   class KM extends KindContext {
     override type M[P <: TypeParam] = JsonPro[P#T#H, P#H]

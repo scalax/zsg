@@ -1,4 +1,4 @@
-package org.scalax.asuna.ii.item
+package org.scalax.asuna.mapper.item
 trait Item2Xyy0 extends Any with XyyItem0 {
   override def eat[T](xyy: T): Item2Xyy1[T] = new Item2Xyy1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
 }
