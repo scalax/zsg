@@ -1,5 +1,6 @@
-asuna 第一个 Generic
+asuna
 ============================================
+第一个 Generic  
 现在我们用 asuna 设计一个 Generic 的过程, 他将和 shapeless 的有不少的差别
 
 1. 添加 [asuna.jar](https://github.com/djx314/asuna/blob/master/sample/lib/asuna_2.12-0.0.2-SNAP20181211.1.jar)
@@ -52,7 +53,7 @@ val ii = new Context[KContext] {
     }
 }
 ```
-
+isReverse 属性可以让你在不改变任何内容签名的前提下逆转遍历顺序.
 此时可加上对应属性的 implicit
 ```scala
 implicit def circeEncoderImplicit[T](implicit t: Encoder[T]): Application[KContext, T, TypeParam2[T, String]] =
