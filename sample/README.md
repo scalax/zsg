@@ -78,7 +78,7 @@ val jsonPro1Type: JsonEncoder2[XyyItem3[String, Int, Long], XyyItem3[String, Str
 val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, String, String]] = jsonPro2
 ```
 可以看到类型系统均如期运作  
-事实上, 类型系统在 Tag Type 正在做 `Item3[Encoder[S1, T1], Encoder[S2, T2], Encoder[S3, T3]]` 和 `Encoder[Item3[S1, S2, S3], Item3[T1, T2, T3]]` 的操作.
+事实上, 类型系统以 Tag Type 为引导做了 `Item3[Encoder[S1, T1], Encoder[S2, T2], Encoder[S3, T3]]` 到 `Encoder[Item3[S1, S2, S3], Item3[T1, T2, T3]]` 的转换.
 
 如今加入 Generic 来完成最后一步:
 ```scala
