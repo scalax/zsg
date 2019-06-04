@@ -102,4 +102,4 @@ println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
 ```
 
 这样设计的好处是 AsunaGeneric 可以独立出很多个需要 Generic 的部分,
-由用户自己去选择他自己应该选用哪个部分的 Generic, 例如 from, 例如 to, 例如 names.
+各个部分耦合程度十分低, 例如 from, 例如 to, 例如 names.
