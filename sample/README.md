@@ -53,8 +53,8 @@ val ii = new Context[KContext] {
     }
 }
 ```
-isReverse 属性可以让你在不改变任何内容签名的前提下逆转遍历顺序.
-此时可加上对应属性的 implicit
+isReverse 属性可以让你在不改变任何内容签名的前提下逆转遍历顺序.  
+然后加上对应属性的 implicit
 ```scala
 implicit def circeEncoderImplicit[T](implicit t: Encoder[T]): Application[KContext, T, TypeParam2[T, String]] =
     new Application[KContext, T, TypeParam2[T, String]] {
