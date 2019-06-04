@@ -22,7 +22,7 @@ trait JsonEncoder2[T, II] {
         ObjectEncoder.instance(s => JsonObject.fromIterable(p(s, name, List.empty)))
 }
 ```
-注意这里的 II 不能为 String, 稍后会对此进行讲解.
+注意这里的 II 不能为 String, 因为这是列的集合.
 
 我们先看看原始的 Generic 过程.
 
