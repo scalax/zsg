@@ -1,6 +1,6 @@
 asuna
 ============================================
-第一个 Generic  
+第一个 Generic[例程](https://github.com/scalax/asuna/blob/master/sample/src/main/scala/MacroTest1.scala)  
 现在我们用 asuna 设计一个 Generic 的过程, 他将和 shapeless 的有不少的差别
 
 1. 添加 [asuna.jar](https://github.com/djx314/asuna/blob/master/sample/lib/asuna_2.12-0.0.2-SNAP20181211.1.jar)
