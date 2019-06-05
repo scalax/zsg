@@ -1,7 +1,7 @@
 import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
 import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric}
 
 object Test01 extends App {
 
@@ -60,10 +60,10 @@ object Test01 extends App {
     def encoder[H, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
         implicit ll: AsunaGeneric.Aux[H, R]
       , app: Application[KContext, R#Tag, I]
-      , cv1: R#NameType <:< I#T#H
+      , cv1: AsunaNameGeneric.Aux[H, I#T#H]
       , cv2: R#GenericType <:< I#H
     ): ObjectEncoder[H] = {
-      app.application(ii).toJsonObject(ll.names).contramapObject(mm => ll.getter(mm))
+      app.application(ii).toJsonObject(cv1.names).contramapObject(mm => ll.getter(mm))
     }
   }
 
@@ -74,5 +74,18 @@ object Test01 extends App {
   import io.circe.syntax._
 
   println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
+
+  // error message:
+  /*[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest2.scala:79:58:
+  [error] Application not found.
+  [error] ItemType: java.util.Date
+  [error] KindContext: Test02.KContext
+  [error] Message    :第2列i4找不到 implicit
+  [error]     AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
+  [error]                                                          ^
+  [error] one error found
+  [error] (sample / Compile / compileIncremental) Compilation failed
+  [error] Total time: 3 s, completed 2019-6-5 18:39:01*/
+  //AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
 
 }

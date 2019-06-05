@@ -4,7 +4,7 @@ import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
 import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper._
 import org.scalax.asuna.implements.ByNameImplicit
-import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric}
 
 object AsunaTest02 extends App {
 
@@ -47,10 +47,10 @@ object AsunaTest02 extends App {
       def encoder[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
           implicit ll: AsunaGeneric.Aux[H, R]
         , app: Application[KContext, R#Tag, I]
-        , cv1: R#NameType <:< I#H
+        , cv1: AsunaNameGeneric.Aux[H, I#H]
         , cv2: R#GenericType <:< I#T#H
       ): ObjectEncoder[H] = {
-        app.application(ii).addName(ll.names).contramapObject(mm => ll.getter(mm))
+        app.application(ii).addName(cv1.names).contramapObject(mm => ll.getter(mm))
       }
     }
   }
