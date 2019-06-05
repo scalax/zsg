@@ -1,9 +1,0 @@
-
-
-调试
-========================
-在 Context 已经建立和必要 Application 已经导入的前提下, 以
-```scala
-case class Test03(i3: String, i4: java.util.Date)
-```
-为例
