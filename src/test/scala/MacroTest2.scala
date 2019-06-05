@@ -40,7 +40,7 @@ object MacroTest2 extends App {
         }
       }
 
-    lazy val kk111Encoder1111 = AsunaGeneric.init[MacroTest4.LargeModel].generic.debugInstance.debug(MacroTest.ii)
+    lazy val kk111Encoder1111 = AsunaGeneric.init[MacroTest4.LargeModel].generic.debugInstance.find2.debug(MacroTest.ii)
 
     implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.koukou
     implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.koukou

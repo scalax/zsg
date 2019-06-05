@@ -144,6 +144,24 @@ class NodeTag18[
     T17#XyyItemType,
     T18#XyyItemType
   ]
+  def find1: T1   = throw new Exception("debugging...")
+  def find2: T2   = throw new Exception("debugging...")
+  def find3: T3   = throw new Exception("debugging...")
+  def find4: T4   = throw new Exception("debugging...")
+  def find5: T5   = throw new Exception("debugging...")
+  def find6: T6   = throw new Exception("debugging...")
+  def find7: T7   = throw new Exception("debugging...")
+  def find8: T8   = throw new Exception("debugging...")
+  def find9: T9   = throw new Exception("debugging...")
+  def find10: T10 = throw new Exception("debugging...")
+  def find11: T11 = throw new Exception("debugging...")
+  def find12: T12 = throw new Exception("debugging...")
+  def find13: T13 = throw new Exception("debugging...")
+  def find14: T14 = throw new Exception("debugging...")
+  def find15: T15 = throw new Exception("debugging...")
+  def find16: T16 = throw new Exception("debugging...")
+  def find17: T17 = throw new Exception("debugging...")
+  def find18: T18 = throw new Exception("debugging...")
   def debug[
     K <: org.scalax.asuna.mapper.KindContext,
     I1 <: org.scalax.asuna.mapper.TypeParam,
@@ -166,24 +184,24 @@ class NodeTag18[
     I18 <: org.scalax.asuna.mapper.TypeParam
   ](c: org.scalax.asuna.mapper.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
-    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
-    dapp3: org.scalax.asuna.mapper.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
-    dapp4: org.scalax.asuna.mapper.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
-    dapp5: org.scalax.asuna.mapper.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`],
-    dapp6: org.scalax.asuna.mapper.DebugApplication[K, T6, I6, `Application can not load with index 6, please eat xyy.`],
-    dapp7: org.scalax.asuna.mapper.DebugApplication[K, T7, I7, `Application can not load with index 7, please eat xyy.`],
-    dapp8: org.scalax.asuna.mapper.DebugApplication[K, T8, I8, `Application can not load with index 8, please eat xyy.`],
-    dapp9: org.scalax.asuna.mapper.DebugApplication[K, T9, I9, `Application can not load with index 9, please eat xyy.`],
-    dapp10: org.scalax.asuna.mapper.DebugApplication[K, T10, I10, `Application can not load with index 10, please eat xyy.`],
-    dapp11: org.scalax.asuna.mapper.DebugApplication[K, T11, I11, `Application can not load with index 11, please eat xyy.`],
-    dapp12: org.scalax.asuna.mapper.DebugApplication[K, T12, I12, `Application can not load with index 12, please eat xyy.`],
-    dapp13: org.scalax.asuna.mapper.DebugApplication[K, T13, I13, `Application can not load with index 13, please eat xyy.`],
-    dapp14: org.scalax.asuna.mapper.DebugApplication[K, T14, I14, `Application can not load with index 14, please eat xyy.`],
-    dapp15: org.scalax.asuna.mapper.DebugApplication[K, T15, I15, `Application can not load with index 15, please eat xyy.`],
-    dapp16: org.scalax.asuna.mapper.DebugApplication[K, T16, I16, `Application can not load with index 16, please eat xyy.`],
-    dapp17: org.scalax.asuna.mapper.DebugApplication[K, T17, I17, `Application can not load with index 17, please eat xyy.`],
-    dapp18: org.scalax.asuna.mapper.DebugApplication[K, T18, I18, `Application can not load with index 18, please eat xyy.`]
+    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`],
+    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Please change .debug(context) to .find2.debug(context).`],
+    dapp3: org.scalax.asuna.mapper.DebugApplication[K, T3, I3, `Please change .debug(context) to .find3.debug(context).`],
+    dapp4: org.scalax.asuna.mapper.DebugApplication[K, T4, I4, `Please change .debug(context) to .find4.debug(context).`],
+    dapp5: org.scalax.asuna.mapper.DebugApplication[K, T5, I5, `Please change .debug(context) to .find5.debug(context).`],
+    dapp6: org.scalax.asuna.mapper.DebugApplication[K, T6, I6, `Please change .debug(context) to .find6.debug(context).`],
+    dapp7: org.scalax.asuna.mapper.DebugApplication[K, T7, I7, `Please change .debug(context) to .find7.debug(context).`],
+    dapp8: org.scalax.asuna.mapper.DebugApplication[K, T8, I8, `Please change .debug(context) to .find8.debug(context).`],
+    dapp9: org.scalax.asuna.mapper.DebugApplication[K, T9, I9, `Please change .debug(context) to .find9.debug(context).`],
+    dapp10: org.scalax.asuna.mapper.DebugApplication[K, T10, I10, `Please change .debug(context) to .find10.debug(context).`],
+    dapp11: org.scalax.asuna.mapper.DebugApplication[K, T11, I11, `Please change .debug(context) to .find11.debug(context).`],
+    dapp12: org.scalax.asuna.mapper.DebugApplication[K, T12, I12, `Please change .debug(context) to .find12.debug(context).`],
+    dapp13: org.scalax.asuna.mapper.DebugApplication[K, T13, I13, `Please change .debug(context) to .find13.debug(context).`],
+    dapp14: org.scalax.asuna.mapper.DebugApplication[K, T14, I14, `Please change .debug(context) to .find14.debug(context).`],
+    dapp15: org.scalax.asuna.mapper.DebugApplication[K, T15, I15, `Please change .debug(context) to .find15.debug(context).`],
+    dapp16: org.scalax.asuna.mapper.DebugApplication[K, T16, I16, `Please change .debug(context) to .find16.debug(context).`],
+    dapp17: org.scalax.asuna.mapper.DebugApplication[K, T17, I17, `Please change .debug(context) to .find17.debug(context).`],
+    dapp18: org.scalax.asuna.mapper.DebugApplication[K, T18, I18, `Please change .debug(context) to .find18.debug(context).`]
   ): org.scalax.asuna.mapper.Application[
     K,
     org.scalax.asuna.mapper.item.NodeTag18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18],
@@ -278,4 +296,4 @@ object NodeTag18 {
       }
     }
 }
-class `Application can not load with index 18, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
+class `Please change .debug(context) to .find18.debug(context).` extends org.scalax.asuna.mapper.item.Message

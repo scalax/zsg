@@ -11,7 +11,7 @@ class ItemTag1[T1] extends org.scalax.asuna.mapper.item.ItemTag {
     org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage1[T1, I#HeadItem], I#TailItem]
   def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam](c: org.scalax.asuna.mapper.Context[K])(
       implicit
-    dapp1: org.scalax.asuna.mapper.DebugItemApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
+    dapp1: org.scalax.asuna.mapper.DebugItemApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`]
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag1[T1], EatXyyType1[I1]] =
     ItemTag1.appendEatXyy1(dapp1)
 }

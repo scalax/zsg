@@ -12,12 +12,14 @@ class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asun
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag2[Type1#Result, Type2#Result], Type2#Left]
   })#II
   override type XyyItemType = XyyItem2[T1#XyyItemType, T2#XyyItemType]
+  def find1: T1 = throw new Exception("debugging...")
+  def find2: T2 = throw new Exception("debugging...")
   def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam, I2 <: org.scalax.asuna.mapper.TypeParam](
     c: org.scalax.asuna.mapper.Context[K]
   )(
     implicit
-    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
-    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`]
+    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`],
+    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Please change .debug(context) to .find2.debug(context).`]
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag2[T1, T2], EatXyyType2[I1, I2]] =
     NodeTag2.appendNodeTagEatXyy2(dapp1, dapp2)
 }
@@ -42,4 +44,4 @@ object NodeTag2 {
       }
     }
 }
-class `Application can not load with index 2, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
+class `Please change .debug(context) to .find2.debug(context).` extends org.scalax.asuna.mapper.item.Message

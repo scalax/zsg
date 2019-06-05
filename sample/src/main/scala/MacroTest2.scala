@@ -73,6 +73,21 @@ object Test02 extends App {
 
     val mi = implicit1.apply(Test01("1234", 12)).noSpaces
 
+    // debug
+    case class Test03(i3: String, i4: java.util.Date)
+
+    // error message:
+    /*[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest2.scala:79:58:
+    [error] Application not found.
+    [error] ItemType: java.util.Date
+    [error] KindContext: Test02.KContext
+    [error] Message    :第2列i4找不到 implicit
+    [error]     AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
+    [error]                                                          ^
+    [error] one error found
+    [error] (sample / Compile / compileIncremental) Compilation failed
+    [error] Total time: 3 s, completed 2019-6-5 18:39:01*/
+    //AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
   }
 
   object Poly1 extends Poly1
@@ -80,5 +95,9 @@ object Test02 extends App {
   {
     println(Poly1.mi)
   }
+
+
+
+
 
 }

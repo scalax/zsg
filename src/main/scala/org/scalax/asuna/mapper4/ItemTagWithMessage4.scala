@@ -50,3 +50,44 @@ class ItemTagWithMessage4[
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag4[T1, T2, T3, T4], EatXyyType4[I1, I2, I3, I4]] =
     ItemTag4.appendEatXyy4(dapp1, dapp2, dapp3, dapp4)
 }
+object ItemTagWithMessage4 {
+  implicit def appendEatXyy4[
+    K <: org.scalax.asuna.mapper.KindContext,
+    H1,
+    H2,
+    H3,
+    H4,
+    Message1 <: org.scalax.asuna.mapper.item.Message,
+    Message2 <: org.scalax.asuna.mapper.item.Message,
+    Message3 <: org.scalax.asuna.mapper.item.Message,
+    Message4 <: org.scalax.asuna.mapper.item.Message,
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam
+  ](
+    implicit t1: org.scalax.asuna.mapper.Application[K, H1, T1],
+    t2: org.scalax.asuna.mapper.Application[K, H2, T2],
+    t3: org.scalax.asuna.mapper.Application[K, H3, T3],
+    t4: org.scalax.asuna.mapper.Application[K, H4, T4]
+  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTagWithMessage4[H1, Message1, H2, Message2, H3, Message3, H4, Message4], EatXyyType4[
+    T1,
+    T2,
+    T3,
+    T4
+  ]] =
+    new org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTagWithMessage4[H1, Message1, H2, Message2, H3, Message3, H4, Message4], EatXyyType4[
+      T1,
+      T2,
+      T3,
+      T4
+    ]] {
+      override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType4[T1, T2, T3, T4]] = {
+        if (context.isReverse) {
+          context.append(ItemTag3.appendEatXyy3(t2, t3, t4).application(context), t1.application(context), ArticleXyyPlus4.put4)
+        } else {
+          context.append(ItemTag3.appendEatXyy3(t1, t2, t3).application(context), t4.application(context), ArticleXyyPlus4.plus4)
+        }
+      }
+    }
+}

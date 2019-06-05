@@ -72,7 +72,7 @@ object AsunaTest02 extends App {
       }
 
     implicit def implicit1: ObjectEncoder[Test02] = JsoSetter.fetchEncoder[Test02].encoder
-    implicit def implicit2 = AsunaGeneric.init[Test01].generic.debugInstance.debug(ii)
+    //implicit def implicit2 = AsunaGeneric.init[Test01].generic.debugInstance.debug(ii)
 
     val mi = implicit1(Test02("1234", 12)).noSpaces
 
