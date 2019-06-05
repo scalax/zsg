@@ -58,3 +58,46 @@ class ItemTagWithMessage5[
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag5[T1, T2, T3, T4, T5], EatXyyType5[I1, I2, I3, I4, I5]] =
     ItemTag5.appendEatXyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
+object ItemTagWithMessage5 {
+  implicit def appendEatXyy5[
+    K <: org.scalax.asuna.mapper.KindContext,
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    Message1 <: org.scalax.asuna.mapper.item.Message,
+    Message2 <: org.scalax.asuna.mapper.item.Message,
+    Message3 <: org.scalax.asuna.mapper.item.Message,
+    Message4 <: org.scalax.asuna.mapper.item.Message,
+    Message5 <: org.scalax.asuna.mapper.item.Message,
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam,
+    T5 <: org.scalax.asuna.mapper.TypeParam
+  ](
+    implicit t1: org.scalax.asuna.mapper.Application[K, H1, T1],
+    t2: org.scalax.asuna.mapper.Application[K, H2, T2],
+    t3: org.scalax.asuna.mapper.Application[K, H3, T3],
+    t4: org.scalax.asuna.mapper.Application[K, H4, T4],
+    t5: org.scalax.asuna.mapper.Application[K, H5, T5]
+  ): org.scalax.asuna.mapper.Application[
+    K,
+    org.scalax.asuna.mapper.item.ItemTagWithMessage5[H1, Message1, H2, Message2, H3, Message3, H4, Message4, H5, Message5],
+    EatXyyType5[T1, T2, T3, T4, T5]
+  ] =
+    new org.scalax.asuna.mapper.Application[
+      K,
+      org.scalax.asuna.mapper.item.ItemTagWithMessage5[H1, Message1, H2, Message2, H3, Message3, H4, Message4, H5, Message5],
+      EatXyyType5[T1, T2, T3, T4, T5]
+    ] {
+      override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType5[T1, T2, T3, T4, T5]] = {
+        if (context.isReverse) {
+          context.append(ItemTag4.appendEatXyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyPlus5.put5)
+        } else {
+          context.append(ItemTag4.appendEatXyy4(t1, t2, t3, t4).application(context), t5.application(context), ArticleXyyPlus5.plus5)
+        }
+      }
+    }
+}

@@ -13,7 +13,7 @@ class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.as
   override type XyyItemType = XyyItem1[T1#XyyItemType]
   def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam](c: org.scalax.asuna.mapper.Context[K])(
       implicit
-    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`]
+    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`]
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag1[T1], EatXyyType1[I1]] =
     NodeTag1.appendNodeTagEatXyy1(dapp1)
 }

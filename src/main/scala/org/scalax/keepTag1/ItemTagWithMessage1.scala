@@ -10,4 +10,4 @@ class ItemTagWithMessage1[T1, Message1 <: org.scalax.asuna.mapper.item.Message] 
   override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag1[(RawItem, I#RawItem)]
 }
 
-class `Application can not load with index 1, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
+class `Please change .debug(context) to .find1.debug(context).` extends org.scalax.asuna.mapper.item.Message

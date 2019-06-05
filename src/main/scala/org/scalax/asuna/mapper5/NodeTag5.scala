@@ -27,6 +27,11 @@ class NodeTag5[
     type II    = org.scalax.asuna.mapper.item.MessageResultImpl[NodeTag5[Type1#Result, Type2#Result, Type3#Result, Type4#Result, Type5#Result], Type5#Left]
   })#II
   override type XyyItemType = XyyItem5[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType]
+  def find1: T1 = throw new Exception("debugging...")
+  def find2: T2 = throw new Exception("debugging...")
+  def find3: T3 = throw new Exception("debugging...")
+  def find4: T4 = throw new Exception("debugging...")
+  def find5: T5 = throw new Exception("debugging...")
   def debug[
     K <: org.scalax.asuna.mapper.KindContext,
     I1 <: org.scalax.asuna.mapper.TypeParam,
@@ -36,11 +41,11 @@ class NodeTag5[
     I5 <: org.scalax.asuna.mapper.TypeParam
   ](c: org.scalax.asuna.mapper.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Application can not load with index 1, please eat xyy.`],
-    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Application can not load with index 2, please eat xyy.`],
-    dapp3: org.scalax.asuna.mapper.DebugApplication[K, T3, I3, `Application can not load with index 3, please eat xyy.`],
-    dapp4: org.scalax.asuna.mapper.DebugApplication[K, T4, I4, `Application can not load with index 4, please eat xyy.`],
-    dapp5: org.scalax.asuna.mapper.DebugApplication[K, T5, I5, `Application can not load with index 5, please eat xyy.`]
+    dapp1: org.scalax.asuna.mapper.DebugApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`],
+    dapp2: org.scalax.asuna.mapper.DebugApplication[K, T2, I2, `Please change .debug(context) to .find2.debug(context).`],
+    dapp3: org.scalax.asuna.mapper.DebugApplication[K, T3, I3, `Please change .debug(context) to .find3.debug(context).`],
+    dapp4: org.scalax.asuna.mapper.DebugApplication[K, T4, I4, `Please change .debug(context) to .find4.debug(context).`],
+    dapp5: org.scalax.asuna.mapper.DebugApplication[K, T5, I5, `Please change .debug(context) to .find5.debug(context).`]
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag5[T1, T2, T3, T4, T5], EatXyyType5[I1, I2, I3, I4, I5]] =
     NodeTag5.appendNodeTagEatXyy5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
@@ -74,4 +79,4 @@ object NodeTag5 {
       }
     }
 }
-class `Application can not load with index 5, please eat xyy.` extends org.scalax.asuna.mapper.item.Message
+class `Please change .debug(context) to .find5.debug(context).` extends org.scalax.asuna.mapper.item.Message

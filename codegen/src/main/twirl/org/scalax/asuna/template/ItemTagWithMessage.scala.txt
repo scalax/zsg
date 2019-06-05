@@ -21,3 +21,21 @@ class ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, Message@{ii} 
     ItemTag@{tagNum}.appendEatXyy@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
 
 }
+
+
+object ItemTagWithMessage@{tagNum} {
+
+    implicit def appendEatXyy@{tagNum}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to tagNum) { , H@{ii} } @for(ii <- 1 to tagNum) { , Message@{ii} <: org.scalax.asuna.mapper.item.Message } @for(ii <- 1 to tagNum) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
+    (implicit @for(ii <- 1 to tagNum) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
+    : org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, Message@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+        new org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, Message@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
+            override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
+                if (context.isReverse) {
+                    context.append(ItemTag@{tagNum - 1}.appendEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ArticleXyyPlus@{tagNum}.put@{tagNum})
+                } else {
+                    context.append(ItemTag@{tagNum - 1}.appendEatXyy@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ArticleXyyPlus@{tagNum}.plus@{tagNum})
+                }
+            }
+        }
+
+}
