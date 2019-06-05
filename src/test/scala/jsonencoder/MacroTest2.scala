@@ -1,10 +1,12 @@
+import java.util.Date
+
 import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
 import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper._
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 
-object Test02 extends App {
+object AsunaTest02 extends App {
 
   trait JsonEncoder[T, II] {
     self =>
@@ -53,7 +55,7 @@ object Test02 extends App {
     }
   }
 
-  case class Test01(i1: String, i2: Int)
+  case class Test01(i1: String, i2: Date)
   case class Test02(i3: String, i4: Int)
 
   trait Poly1 {
@@ -69,9 +71,10 @@ object Test02 extends App {
         }
       }
 
-    implicit def implicit1 = JsoSetter.fetchEncoder[Test01].encoder
+    implicit def implicit1: ObjectEncoder[Test02] = JsoSetter.fetchEncoder[Test02].encoder
+    implicit def implicit2 = AsunaGeneric.init[Test01].generic.debugInstance.debug(ii)
 
-    val mi = implicit1.apply(Test01("1234", 12)).noSpaces
+    val mi = implicit1(Test02("1234", 12)).noSpaces
 
   }
 

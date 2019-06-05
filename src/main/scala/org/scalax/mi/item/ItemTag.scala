@@ -45,6 +45,16 @@ trait MessageContent {
 
 }
 
+class MessageContentImpl[HI <: Message, TI <: MessageContent] extends MessageContent {
+  override type HeadItem = HI
+  override type TailItem = TI
+}
+
+class ZeroMessageContent extends MessageContent {
+  override type HeadItem = Message
+  override type TailItem = ZeroMessageContent
+}
+
 trait MessageResult {
 
   type Result <: ItemTag
