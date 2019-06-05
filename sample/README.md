@@ -1,6 +1,7 @@
-asuna 第一个 Generic
+asuna
 ============================================
-现在我们用 asuna 设计一个 Generic 的过程, 他将和 shapeless 的有不少的差别
+第一个 Generic  [例程](https://github.com/scalax/asuna/blob/master/sample/src/main/scala/MacroTest1.scala)  
+现在我们用 asuna 设计一个 Generic 的过程, 这和 shapeless 有不少的差别
 
 1. 添加 [asuna.jar](https://github.com/djx314/asuna/blob/master/sample/lib/asuna_2.12-0.0.2-SNAP20181211.1.jar)
 到你的 classpath.
@@ -21,7 +22,7 @@ trait JsonEncoder2[T, II] {
         ObjectEncoder.instance(s => JsonObject.fromIterable(p(s, name, List.empty)))
 }
 ```
-注意这里的 II 不能为 String, 稍后会对此进行讲解.
+注意这里的 II 不能为 String, 因为这是列的集合.
 
 我们先看看原始的 Generic 过程.
 
@@ -52,8 +53,8 @@ val ii = new Context[KContext] {
     }
 }
 ```
-
-此时可加上对应属性的 implicit
+isReverse 属性可以让你在不改变任何内容签名的前提下逆转遍历顺序.  
+然后加上对应属性的 implicit
 ```scala
 implicit def circeEncoderImplicit[T](implicit t: Encoder[T]): Application[KContext, T, TypeParam2[T, String]] =
     new Application[KContext, T, TypeParam2[T, String]] {
@@ -76,7 +77,8 @@ val jsonPro2 = appendTag(new AppendTag[ItemTag3[Float, Float, Int]])
 val jsonPro1Type: JsonEncoder2[XyyItem3[String, Int, Long], XyyItem3[String, String, String]] = jsonPro1
 val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, String, String]] = jsonPro2
 ```
-可以看到类型系统均如期运作
+可以看到类型系统均如期运作  
+事实上, 类型系统以 Tag Type 为引导做了 `Item3[Encoder[S1, T1], Encoder[S2, T2], Encoder[S3, T3]]` 到 `Encoder[Item3[S1, S2, S3], Item3[T1, T2, T3]]` 的转换.
 
 如今加入 Generic 来完成最后一步:
 ```scala
@@ -100,4 +102,4 @@ println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
 ```
 
 这样设计的好处是 AsunaGeneric 可以独立出很多个需要 Generic 的部分,
-由用户自己去选择他自己应该选用哪个部分的 Generic, 例如 from, 例如 to, 例如 names.
+各个部分耦合程度十分低, 例如 from, 例如 to, 例如 names.
