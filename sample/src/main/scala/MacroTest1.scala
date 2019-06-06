@@ -75,6 +75,7 @@ object Test01 extends App {
 
   println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
 
+  case class Test03(bar: String, date: java.util.Date)
   // error message:
   /*[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest1.scala:90:56:
   [error] Application not found.
@@ -86,7 +87,7 @@ object Test01 extends App {
   [error] one error found
   [error] (sample / Compile / compileIncremental) Compilation failed
   [error] Total time: 1 s, completed 2019-6-6 13:39:46*/
-  case class Test03(bar: String, date: java.util.Date)
+
   //AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
 
 }
