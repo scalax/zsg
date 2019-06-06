@@ -4,12 +4,7 @@ package org.scalax.asuna.mapper.item
 
 class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
-    override type RawItem = org.scalax.asuna.mapper.item.NotUseItem
-    override type HeadItem = T1
-    override type TailItem = NodeTag@{tagNum - 1}[@for(ii <- 2 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
     override type Sub = NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#Sub @if(ii < tagNum) { , } }]
-    override type NoMessage = NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#NoMessage @if(ii < tagNum) { , } }]
-    override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { @for(iii <- 1 to (ii - 1)) { TailItem# } HeadItem#Sub#Pull[I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem#Sub] @if(ii < tagNum) { , } }]
     override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
         type Type1 = T1#InputMessage[I];
         @for(ii <- 2 to tagNum) {

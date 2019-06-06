@@ -2,10 +2,8 @@
 
 package org.scalax.asuna.mapper.item
 
-trait XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]] {
+trait XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] extends Any {
     self =>
-
-    override type IITag = ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {
         def i@{ii}: E@{ii}

@@ -4,17 +4,10 @@ package org.scalax.asuna.mapper.item
 
 class ItemTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
-    override type RawItem = T1
-    override type HeadItem = org.scalax.asuna.mapper.item.EndItemTag
-    override type TailItem = ItemTag@{tagNum - 1}[@for(ii <- 2 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
-
     override type Sub = org.scalax.asuna.mapper.item.EndItemTag
-
-    override type NoMessage = ItemTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
 
     override type XyyItemType = XyyItem@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
 
-    override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { (@for(iii <- 1 to (ii - 1)) { TailItem# } RawItem, I@for(iii <- 1 to (ii - 1)) { #TailItem } #RawItem) @if(ii < tagNum) { , } }]
     override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, I@for(iii <- 1 to (ii - 1)) { #TailItem } #HeadItem @if(ii < tagNum) { , } }], I@for(ii <- 1 to tagNum) { #TailItem }]
 
     def debug[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.TypeParam }](c: org.scalax.asuna.mapper.Context[K])(implicit @for(ii <- 1 to tagNum) {

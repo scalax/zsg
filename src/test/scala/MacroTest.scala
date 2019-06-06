@@ -2,9 +2,8 @@ package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
 import org.scalax.asuna.mapper.item.XyyItem0
-import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.MacroTest4
 
 object MacroTest {
 
@@ -14,41 +13,24 @@ object MacroTest {
 
     def kou2[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](implicit ll: AsunaGeneric.Aux[H, R]): String = throw new Exception("pp")
 
-    def kou1[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
-        implicit ll: AsunaGeneric.Aux[H, R]
-      , app: Application[KM, R#Tag, I]
-      , cv1: R#NameType <:< I#H
-      , cv2: R#GenericType <:< I#T#H
-      , cv3: I#T#H <:< R#GenericType
-    ): IIII[H] = {
-      app
-        .application(ii)
-        .compose[H](u = { mm: H =>
-          cv2(ll.getter(mm))
-        }, p1 = { p: I#T#H =>
-          ll.setter(cv3(p))
-        })
-        .to(cv1(ll.names))
-    }
-
   }
 
   def kou[T] = new MapperKou[T]
   def koukou[T, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
       implicit ll: AsunaGeneric.Aux[T, R]
     , app: Application[KM, R#Tag, I]
-    , cv1: R#NameType <:< I#H
-    , cv2: R#GenericType <:< I#T#H
-    , cv3: I#T#H <:< R#GenericType
+    , cv1: AsunaNameGeneric.Aux[T, I#H]
+    , cv2: AsunaGetterGeneric.Aux[T, I#T#H]
+    , cv3: AsunaSetterGeneric.Aux[T, I#T#H]
   ): IIII[T] = {
     app
       .application(ii)
       .compose[T](u = { mm: T =>
-        cv2(ll.getter(mm))
+        cv2.getter(mm)
       }, { p: I#T#H =>
-        ll.setter(cv3(p))
+        cv3.setter(p)
       })
-      .to(cv1(ll.names))
+      .to(cv1.names)
   }
 
   class KM extends KindContext {

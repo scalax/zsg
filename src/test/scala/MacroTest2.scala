@@ -51,7 +51,6 @@ object MacroTest2 extends App {
 
   println(miaomiaomiao.iiiiiiii)
   println(miaomiaomiao.iiiiiiiiii)
-
   /*object ll {
     implicit lazy val kk211Encoder: ObjectEncoder[MacroTest4.LargeModel]   = implicitly[MacroTest3.EncodeImplicit[MacroTest4.LargeModel]].mm
     implicit lazy val kk212Encoder: ObjectEncoder[MacroTest4.LargeModel11] = implicitly[MacroTest3.EncodeImplicit[MacroTest4.LargeModel11]].mm
