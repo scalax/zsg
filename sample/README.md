@@ -108,7 +108,7 @@ println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
 ========================
 在 Context 已经建立和必要 Application 已经导入的前提下, 以
 ```scala
-case class Test03(i3: String, i4: java.util.Date)
+case class Test03(bar: String, date: java.util.Date)
 ```
 为例
 ```scala
@@ -116,16 +116,16 @@ AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
 ```
 将输出
 ```scala
-[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest2.scala:79:58:
+[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest1.scala:90:56:
 [error] Application not found.
 [error] ItemType: java.util.Date
-[error] KindContext: Test02.KContext
-[error] Message    :第2列i4找不到 implicit
-[error]     AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
-[error]                                                          ^
+[error] KindContext: Test01.KContext
+[error] Message    :第2列date找不到 implicit
+[error]   AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
+[error]                                                        ^
 [error] one error found
 [error] (sample / Compile / compileIncremental) Compilation failed
-[error] Total time: 3 s, completed 2019-6-5 18:39:01
+[error] Total time: 1 s, completed 2019-6-6 13:39:46
 ```
 的友好错误信息  
 无 22 列限制, 不过 22 列以上需要根据编译器提示操作.
