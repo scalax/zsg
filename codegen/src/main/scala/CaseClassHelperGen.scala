@@ -196,6 +196,27 @@ object CaseClassHelperGen1 extends App {
     writer19.close()
   }
 
+  for (i <- 1 to 22) yield {
+    val path19 = Paths
+      .get(".")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("org")
+      .resolve("scalax")
+      .resolve("asuna")
+      .resolve("mapper" + i)
+      .resolve("NumberMessage" + i + ".scala")
+
+    Files.createDirectories(path19.getParent)
+
+    val writer19   = new PrintWriter(path19.toFile)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.NumberMessage(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
   val maxPropertyNum = 21
 
   val path9 =
