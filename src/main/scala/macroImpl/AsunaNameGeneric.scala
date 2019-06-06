@@ -1,7 +1,5 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
-import org.scalax.asuna.mapper.item.{ItemTag, MessageContent}
-
 import scala.language.experimental.macros
 
 trait AsunaNameGeneric[H] {

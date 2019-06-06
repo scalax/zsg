@@ -83,13 +83,13 @@ val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, Str
 如今加入 Generic 来完成最后一步:
 ```scala
 object JsonSetter {
-    def encoder[H,R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+    def encoder[H, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
         implicit ll: AsunaGeneric.Aux[H, R]
         , app: Application[KContext, R#Tag, I]
-        , cv1: R#NameType <:< I#T#H
-        , cv2: R#GenericType <:< I#H
+        , cv1: AsunaNameGeneric.Aux[H, I#T#H]
+        , cv2: AsunaGetterGeneric.Aux[H, I#H]
     ): ObjectEncoder[H] = {
-        app.application(ii).toJsonObject(ll.names).contramapObject(mm => ll.getter(mm))
+        app.application(ii).toJsonObject(cv1.names).contramapObject(mm => cv2.getter(mm))
     }
 }
 ```
@@ -101,8 +101,8 @@ import io.circe.syntax._
 println(Foo("bar name", 2222).asJson.noSpaces) //{"bar":"bar name","age":2222}
 ```
 
-这样设计的好处是 AsunaGeneric 可以独立出很多个需要 Generic 的部分,
-各个部分耦合程度十分低, 例如 from, 例如 to, 例如 names.
+这样设计的好处是各个 Generic 耦合程度十分低, 例如 from, 例如 to, 例如 names,
+他们都可以分开设计直到使用时再进行拼接.
 
 调试
 ========================

@@ -1,7 +1,7 @@
 import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
 import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
 
 object Test01 extends App {
 
@@ -61,9 +61,9 @@ object Test01 extends App {
         implicit ll: AsunaGeneric.Aux[H, R]
       , app: Application[KContext, R#Tag, I]
       , cv1: AsunaNameGeneric.Aux[H, I#T#H]
-      , cv2: R#GenericType <:< I#H
+      , cv2: AsunaGetterGeneric.Aux[H, I#H]
     ): ObjectEncoder[H] = {
-      app.application(ii).toJsonObject(cv1.names).contramapObject(mm => ll.getter(mm))
+      app.application(ii).toJsonObject(cv1.names).contramapObject(mm => cv2.getter(mm))
     }
   }
 

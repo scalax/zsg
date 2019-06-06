@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.append.debug
 
 import io.circe._
 import org.scalax.asuna.mapper.item.XyyItem0
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
 import org.scalax.asuna.mapper.append.MacroTest4
 
@@ -21,15 +21,15 @@ object MacroTest {
       implicit ll: AsunaGeneric.Aux[T, R]
     , app: Application[KM, R#Tag, I]
     , cv1: AsunaNameGeneric.Aux[T, I#H]
-    , cv2: R#GenericType <:< I#T#H
-    , cv3: I#T#H <:< R#GenericType
+    , cv2: AsunaGetterGeneric.Aux[T, I#T#H]
+    , cv3: AsunaSetterGeneric.Aux[T, I#T#H]
   ): IIII[T] = {
     app
       .application(ii)
       .compose[T](u = { mm: T =>
-        cv2(ll.getter(mm))
+        cv2.getter(mm)
       }, { p: I#T#H =>
-        ll.setter(cv3(p))
+        cv3.setter(p)
       })
       .to(cv1.names)
   }

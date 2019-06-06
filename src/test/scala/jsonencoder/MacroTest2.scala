@@ -4,7 +4,7 @@ import io.circe.{Encoder, Json, JsonObject, ObjectEncoder}
 import org.scalax.asuna.mapper.item._
 import org.scalax.asuna.mapper._
 import org.scalax.asuna.implements.ByNameImplicit
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
 
 object AsunaTest02 extends App {
 
@@ -48,15 +48,22 @@ object AsunaTest02 extends App {
           implicit ll: AsunaGeneric.Aux[H, R]
         , app: Application[KContext, R#Tag, I]
         , cv1: AsunaNameGeneric.Aux[H, I#H]
-        , cv2: R#GenericType <:< I#T#H
+        , cv2: AsunaGetterGeneric.Aux[H,I#T#H]
       ): ObjectEncoder[H] = {
-        app.application(ii).addName(cv1.names).contramapObject(mm => ll.getter(mm))
+        app.application(ii).addName(cv1.names).contramapObject(mm => cv2.getter(mm))
       }
     }
   }
 
   case class Test01(i1: String, i2: Date)
   case class Test02(i3: String, i4: Int)
+
+  def mm[T] = new MP[T] {}
+
+  trait MP[I] {
+    def iii[H](implicit g: AsunaGetterGeneric.Aux[I, H]): I => H = g.getter
+  }
+
 
   trait Poly1 {
 
