@@ -1,11 +1,6 @@
 package org.scalax.asuna.mapper.item
 class NodeTag2[T1 <: org.scalax.asuna.mapper.item.ItemTag, T2 <: org.scalax.asuna.mapper.item.ItemTag] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem                                         = org.scalax.asuna.mapper.item.NotUseItem
-  override type HeadItem                                        = T1
-  override type TailItem                                        = NodeTag1[T2]
-  override type Sub                                             = NodeTag2[T1#Sub, T2#Sub]
-  override type NoMessage                                       = NodeTag2[T1#NoMessage, T2#NoMessage]
-  override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag2[HeadItem#Sub#Pull[I#HeadItem#Sub], TailItem#HeadItem#Sub#Pull[I#TailItem#HeadItem#Sub]]
+  override type Sub = NodeTag2[T1#Sub, T2#Sub]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
     type Type1 = T1#InputMessage[I];
     type Type2 = T2#InputMessage[Type1#Left];

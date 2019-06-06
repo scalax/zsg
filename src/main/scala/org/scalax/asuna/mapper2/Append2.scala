@@ -1,12 +1,7 @@
 package org.scalax.asuna.mapper.item
 class ItemTag2[T1, T2] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem                                         = T1
-  override type HeadItem                                        = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem                                        = ItemTag1[T2]
-  override type Sub                                             = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage                                       = ItemTag2[T1, T2]
-  override type XyyItemType                                     = XyyItem2[T1, T2]
-  override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag2[(RawItem, I#RawItem), (TailItem#RawItem, I#TailItem#RawItem)]
+  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+  override type XyyItemType = XyyItem2[T1, T2]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] =
     org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage2[T1, I#HeadItem, T2, I#TailItem#HeadItem], I#TailItem#TailItem]
   def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam, I2 <: org.scalax.asuna.mapper.TypeParam](

@@ -1,19 +1,7 @@
 package org.scalax.asuna.mapper.item
 class ItemTag6[T1, T2, T3, T4, T5, T6] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem     = T1
-  override type HeadItem    = org.scalax.asuna.mapper.item.EndItemTag
-  override type TailItem    = ItemTag5[T2, T3, T4, T5, T6]
   override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
-  override type NoMessage   = ItemTag6[T1, T2, T3, T4, T5, T6]
   override type XyyItemType = XyyItem6[T1, T2, T3, T4, T5, T6]
-  override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = ItemTag6[
-    (RawItem, I#RawItem),
-    (TailItem#RawItem, I#TailItem#RawItem),
-    (TailItem#TailItem#RawItem, I#TailItem#TailItem#RawItem),
-    (TailItem#TailItem#TailItem#RawItem, I#TailItem#TailItem#TailItem#RawItem),
-    (TailItem#TailItem#TailItem#TailItem#RawItem, I#TailItem#TailItem#TailItem#TailItem#RawItem),
-    (TailItem#TailItem#TailItem#TailItem#TailItem#RawItem, I#TailItem#TailItem#TailItem#TailItem#TailItem#RawItem)
-  ]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage6[
     T1,
     I#HeadItem,

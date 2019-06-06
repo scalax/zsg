@@ -13,9 +13,9 @@ object Test01 extends App {
     override def useHList: Boolean  = true
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
-      x: (String => (String, X#H), (String, X#T#H) => String),
-      y: (String => (String, Y#H), (String, Y#T#H) => String),
-      p: Plus[X, Y, Z]
+        x: (String => (String, X#H), (String, X#T#H) => String)
+      , y: (String => (String, Y#H), (String, Y#T#H) => String)
+      , p: Plus[X, Y, Z]
     ): (String => (String, Z#H), (String, Z#T#H) => String) = {
       ({ str: String =>
         val (i1Str, xh) = x._1(str)

@@ -27,6 +27,4 @@ object TupleTest2 extends App {
     , ItemTag2[Int, String]
   ]
 
-  val iiii: aa#Pull[bb] = null
-
 }

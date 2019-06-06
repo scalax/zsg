@@ -48,7 +48,7 @@ object AsunaTest02 extends App {
           implicit ll: AsunaGeneric.Aux[H, R]
         , app: Application[KContext, R#Tag, I]
         , cv1: AsunaNameGeneric.Aux[H, I#H]
-        , cv2: AsunaGetterGeneric.Aux[H,I#T#H]
+        , cv2: AsunaGetterGeneric.Aux[H, I#T#H]
       ): ObjectEncoder[H] = {
         app.application(ii).addName(cv1.names).contramapObject(mm => cv2.getter(mm))
       }
@@ -63,7 +63,6 @@ object AsunaTest02 extends App {
   trait MP[I] {
     def iii[H](implicit g: AsunaGetterGeneric.Aux[I, H]): I => H = g.getter
   }
-
 
   trait Poly1 {
 

@@ -1,7 +1,6 @@
 package org.scalax.asuna.mapper.item
-trait XyyItem7[E1, E2, E3, E4, E5, E6, E7] extends Any with org.scalax.asuna.mapper.item.TagContentImpl[ItemTag7[E1, E2, E3, E4, E5, E6, E7]] {
+trait XyyItem7[E1, E2, E3, E4, E5, E6, E7] extends Any {
   self =>
-  override type IITag = ItemTag7[E1, E2, E3, E4, E5, E6, E7]
   def i1: E1
   def i2: E2
   def i3: E3

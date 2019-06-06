@@ -4,7 +4,6 @@ import io.circe._
 import org.scalax.asuna.mapper.item.XyyItem0
 import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.MacroTest4
 
 object MacroTest {
 

@@ -6,18 +6,7 @@ class NodeTag5[
   T4 <: org.scalax.asuna.mapper.item.ItemTag,
   T5 <: org.scalax.asuna.mapper.item.ItemTag
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type RawItem   = org.scalax.asuna.mapper.item.NotUseItem
-  override type HeadItem  = T1
-  override type TailItem  = NodeTag4[T2, T3, T4, T5]
-  override type Sub       = NodeTag5[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub]
-  override type NoMessage = NodeTag5[T1#NoMessage, T2#NoMessage, T3#NoMessage, T4#NoMessage, T5#NoMessage]
-  override type Pull[I <: org.scalax.asuna.mapper.item.ItemTag] = NodeTag5[
-    HeadItem#Sub#Pull[I#HeadItem#Sub],
-    TailItem#HeadItem#Sub#Pull[I#TailItem#HeadItem#Sub],
-    TailItem#TailItem#HeadItem#Sub#Pull[I#TailItem#TailItem#HeadItem#Sub],
-    TailItem#TailItem#TailItem#HeadItem#Sub#Pull[I#TailItem#TailItem#TailItem#HeadItem#Sub],
-    TailItem#TailItem#TailItem#TailItem#HeadItem#Sub#Pull[I#TailItem#TailItem#TailItem#TailItem#HeadItem#Sub]
-  ]
+  override type Sub = NodeTag5[T1#Sub, T2#Sub, T3#Sub, T4#Sub, T5#Sub]
   override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = ({
     type Type1 = T1#InputMessage[I];
     type Type2 = T2#InputMessage[Type1#Left];
