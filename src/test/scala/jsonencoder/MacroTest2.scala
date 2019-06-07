@@ -44,13 +44,13 @@ object AsunaTest02 extends App {
   object JsoSetter {
     def fetchEncoder[H] = new MapperKou[H]
     class MapperKou[H] {
-      def encoder[R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+      def encoder[R <: ItemTag, I <: TypeParam](
           implicit ll: AsunaGeneric.Aux[H, R]
-        , app: Application[KContext, R#Tag, I]
+        , app: Application[KContext, R, I]
         , cv1: AsunaNameGeneric.Aux[H, I#H]
         , cv2: AsunaGetterGeneric.Aux[H, I#T#H]
       ): ObjectEncoder[H] = {
-        app.application(ii).addName(cv1.names).contramapObject(mm => cv2.getter(mm))
+        app.application(ii).addName(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii))
       }
     }
   }
@@ -61,7 +61,7 @@ object AsunaTest02 extends App {
   def mm[T] = new MP[T] {}
 
   trait MP[I] {
-    def iii[H](implicit g: AsunaGetterGeneric.Aux[I, H]): I => H = g.getter
+    def iii[H](implicit g: AsunaGetterGeneric.Aux[I, H]): I => ContextContent[H] = g.getter
   }
 
   trait Poly1 {

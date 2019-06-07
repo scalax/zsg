@@ -1,15 +1,17 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
+import org.scalax.asuna.mapper.item.ContextContent
+
 import scala.language.experimental.macros
 
 trait AsunaGetterGeneric[H] {
   type GenericType
-  def getter: H => GenericType
+  def getter: H => ContextContent[GenericType]
 }
 
 object AsunaGetterGeneric {
 
-  def init[M, R](i: M => R): AsunaGetterGeneric.Aux[M, R] = new AsunaGetterGeneric[M] {
+  def init[M, R](i: M => ContextContent[R]): AsunaGetterGeneric.Aux[M, R] = new AsunaGetterGeneric[M] {
     override type GenericType = R
     override def getter = i
   }
@@ -50,7 +52,7 @@ object AsunaGetterGenericMacroApply {
           q"""(s: ${h}) => { org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + proSize)}(..${props.map(s => q"""s.${TermName(s)}""")}) }"""
         } else {
           q"""(s: ${h}) => {
-          org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + props.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
+          org.scalax.asuna.mapper.item.BuildTagContect.${TermName("nodeItem" + props.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
             q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
               q"""s.${TermName(p)}"""
             }})"""
