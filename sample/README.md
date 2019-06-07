@@ -72,8 +72,8 @@ implicit def circeEncoderImplicit[T](implicit t: Encoder[T]): Application[KConte
 ```scala
 def appendTag[T, I <: TypeParam](tag: AppendTag[T])(implicit p: Application[KContext, T, I]): KContext#M[I] = p.application(ii)
 
-val jsonPro1 = appendTag(new AppendTag[ItemTag3[String, Int, Long]])
-val jsonPro2 = appendTag(new AppendTag[ItemTag3[Float, Float, Int]])
+val jsonPro1 = appendTag(BuildTagContect.tag(new AppendTag[String], new AppendTag[Int], new AppendTag[Long]))
+val jsonPro2 = appendTag(BuildTagContect.tag(new AppendTag[Float], new AppendTag[Float], new AppendTag[Int]))
 val jsonPro1Type: JsonEncoder2[XyyItem3[String, Int, Long], XyyItem3[String, String, String]] = jsonPro1
 val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, String, String]] = jsonPro2
 ```
