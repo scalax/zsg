@@ -53,8 +53,8 @@ object Test01 extends App {
 
   type DebugMessage = Message
 
-  val jsonPro1                                                                                  = appendTag(new AppendTag[ItemTag3[String, DebugMessage, Int, DebugMessage, Long, DebugMessage]])
-  val jsonPro2                                                                                  = appendTag(new AppendTag[ItemTag3[Float, DebugMessage, Float, DebugMessage, Int, DebugMessage]])
+  val jsonPro1                                                                                  = appendTag(BuildTagContect.tag(new AppendTag[String], new AppendTag[Int], new AppendTag[Long]))
+  val jsonPro2                                                                                  = appendTag(BuildTagContect.tag(new AppendTag[Float], new AppendTag[Float], new AppendTag[Int]))
   val jsonPro1Type: JsonEncoder2[XyyItem3[String, Int, Long], XyyItem3[String, String, String]] = jsonPro1
   val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, String, String]] = jsonPro2
 
