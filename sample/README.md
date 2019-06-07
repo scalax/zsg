@@ -83,13 +83,13 @@ val jsonPro2Type: JsonEncoder2[XyyItem3[Float, Float, Int], XyyItem3[String, Str
 如今加入 Generic 来完成最后一步:
 ```scala
 object JsonSetter {
-    def encoder[H, R <: org.scalax.asuna.mapper.append.macroImpl.WrapTag, I <: TypeParam](
+    def encoder[H, R <: ItemTag, I <: TypeParam](
         implicit ll: AsunaGeneric.Aux[H, R]
-        , app: Application[KContext, R#Tag, I]
+        , app: Application[KContext, R, I]
         , cv1: AsunaNameGeneric.Aux[H, I#T#H]
         , cv2: AsunaGetterGeneric.Aux[H, I#H]
     ): ObjectEncoder[H] = {
-        app.application(ii).toJsonObject(cv1.names).contramapObject(mm => cv2.getter(mm))
+        app.application(ii).toJsonObject(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii))
     }
 }
 ```
