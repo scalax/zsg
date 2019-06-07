@@ -1,33 +1,58 @@
 package org.scalax.asuna.mapper.item
-class ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type Sub         = org.scalax.asuna.mapper.item.EndItemTag
+import org.scalax.asuna.mapper.item.impl._
+class ItemTag12[
+  T1,
+  M1 <: org.scalax.asuna.mapper.item.Message,
+  T2,
+  M2 <: org.scalax.asuna.mapper.item.Message,
+  T3,
+  M3 <: org.scalax.asuna.mapper.item.Message,
+  T4,
+  M4 <: org.scalax.asuna.mapper.item.Message,
+  T5,
+  M5 <: org.scalax.asuna.mapper.item.Message,
+  T6,
+  M6 <: org.scalax.asuna.mapper.item.Message,
+  T7,
+  M7 <: org.scalax.asuna.mapper.item.Message,
+  T8,
+  M8 <: org.scalax.asuna.mapper.item.Message,
+  T9,
+  M9 <: org.scalax.asuna.mapper.item.Message,
+  T10,
+  M10 <: org.scalax.asuna.mapper.item.Message,
+  T11,
+  M11 <: org.scalax.asuna.mapper.item.Message,
+  T12,
+  M12 <: org.scalax.asuna.mapper.item.Message
+] extends org.scalax.asuna.mapper.item.ItemTag {
   override type XyyItemType = XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
-  override type InputMessage[I <: org.scalax.asuna.mapper.item.MessageContent] = org.scalax.asuna.mapper.item.MessageResultImpl[ItemTagWithMessage12[
+  override type M[M <: org.scalax.asuna.mapper.item.Message] = ItemTag12[
     T1,
-    I#HeadItem,
+    M :-<>-: M1,
     T2,
-    I#TailItem#HeadItem,
+    M :-<>-: M2,
     T3,
-    I#TailItem#TailItem#HeadItem,
+    M :-<>-: M3,
     T4,
-    I#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M4,
     T5,
-    I#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M5,
     T6,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M6,
     T7,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M7,
     T8,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M8,
     T9,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M9,
     T10,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M10,
     T11,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem,
+    M :-<>-: M11,
     T12,
-    I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#HeadItem
-  ], I#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem#TailItem]
+    M :-<>-: M12
+  ]
   def debug[
     K <: org.scalax.asuna.mapper.KindContext,
     I1 <: org.scalax.asuna.mapper.TypeParam,
@@ -44,32 +69,23 @@ class ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] extends org.s
     I12 <: org.scalax.asuna.mapper.TypeParam
   ](c: org.scalax.asuna.mapper.Context[K])(
     implicit
-    dapp1: org.scalax.asuna.mapper.DebugItemApplication[K, T1, I1, `Please change .debug(context) to .find1.debug(context).`],
-    dapp2: org.scalax.asuna.mapper.DebugItemApplication[K, T2, I2, `Please change .debug(context) to .find2.debug(context).`],
-    dapp3: org.scalax.asuna.mapper.DebugItemApplication[K, T3, I3, `Please change .debug(context) to .find3.debug(context).`],
-    dapp4: org.scalax.asuna.mapper.DebugItemApplication[K, T4, I4, `Please change .debug(context) to .find4.debug(context).`],
-    dapp5: org.scalax.asuna.mapper.DebugItemApplication[K, T5, I5, `Please change .debug(context) to .find5.debug(context).`],
-    dapp6: org.scalax.asuna.mapper.DebugItemApplication[K, T6, I6, `Please change .debug(context) to .find6.debug(context).`],
-    dapp7: org.scalax.asuna.mapper.DebugItemApplication[K, T7, I7, `Please change .debug(context) to .find7.debug(context).`],
-    dapp8: org.scalax.asuna.mapper.DebugItemApplication[K, T8, I8, `Please change .debug(context) to .find8.debug(context).`],
-    dapp9: org.scalax.asuna.mapper.DebugItemApplication[K, T9, I9, `Please change .debug(context) to .find9.debug(context).`],
-    dapp10: org.scalax.asuna.mapper.DebugItemApplication[K, T10, I10, `Please change .debug(context) to .find10.debug(context).`],
-    dapp11: org.scalax.asuna.mapper.DebugItemApplication[K, T11, I11, `Please change .debug(context) to .find11.debug(context).`],
-    dapp12: org.scalax.asuna.mapper.DebugItemApplication[K, T12, I12, `Please change .debug(context) to .find12.debug(context).`]
-  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12], EatXyyType12[
-    I1,
-    I2,
-    I3,
-    I4,
-    I5,
-    I6,
-    I7,
-    I8,
-    I9,
-    I10,
-    I11,
-    I12
-  ]] =
+    dapp1: org.scalax.asuna.mapper.DebugItemApplication[K, T1, I1, M1],
+    dapp2: org.scalax.asuna.mapper.DebugItemApplication[K, T2, I2, M2],
+    dapp3: org.scalax.asuna.mapper.DebugItemApplication[K, T3, I3, M3],
+    dapp4: org.scalax.asuna.mapper.DebugItemApplication[K, T4, I4, M4],
+    dapp5: org.scalax.asuna.mapper.DebugItemApplication[K, T5, I5, M5],
+    dapp6: org.scalax.asuna.mapper.DebugItemApplication[K, T6, I6, M6],
+    dapp7: org.scalax.asuna.mapper.DebugItemApplication[K, T7, I7, M7],
+    dapp8: org.scalax.asuna.mapper.DebugItemApplication[K, T8, I8, M8],
+    dapp9: org.scalax.asuna.mapper.DebugItemApplication[K, T9, I9, M9],
+    dapp10: org.scalax.asuna.mapper.DebugItemApplication[K, T10, I10, M10],
+    dapp11: org.scalax.asuna.mapper.DebugItemApplication[K, T11, I11, M11],
+    dapp12: org.scalax.asuna.mapper.DebugItemApplication[K, T12, I12, M12]
+  ): org.scalax.asuna.mapper.Application[
+    K,
+    org.scalax.asuna.mapper.item.ItemTag12[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8, T9, M9, T10, M10, T11, M11, T12, M12],
+    EatXyyType12[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12]
+  ] =
     ItemTag12.appendEatXyy12(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8, dapp9, dapp10, dapp11, dapp12)
 }
 object ItemTag12 {
@@ -98,7 +114,19 @@ object ItemTag12 {
     T9 <: org.scalax.asuna.mapper.TypeParam,
     T10 <: org.scalax.asuna.mapper.TypeParam,
     T11 <: org.scalax.asuna.mapper.TypeParam,
-    T12 <: org.scalax.asuna.mapper.TypeParam
+    T12 <: org.scalax.asuna.mapper.TypeParam,
+    M1 <: org.scalax.asuna.mapper.item.Message,
+    M2 <: org.scalax.asuna.mapper.item.Message,
+    M3 <: org.scalax.asuna.mapper.item.Message,
+    M4 <: org.scalax.asuna.mapper.item.Message,
+    M5 <: org.scalax.asuna.mapper.item.Message,
+    M6 <: org.scalax.asuna.mapper.item.Message,
+    M7 <: org.scalax.asuna.mapper.item.Message,
+    M8 <: org.scalax.asuna.mapper.item.Message,
+    M9 <: org.scalax.asuna.mapper.item.Message,
+    M10 <: org.scalax.asuna.mapper.item.Message,
+    M11 <: org.scalax.asuna.mapper.item.Message,
+    M12 <: org.scalax.asuna.mapper.item.Message
   ](
     implicit t1: org.scalax.asuna.mapper.Application[K, H1, T1],
     t2: org.scalax.asuna.mapper.Application[K, H2, T2],
@@ -112,34 +140,16 @@ object ItemTag12 {
     t10: org.scalax.asuna.mapper.Application[K, H10, T10],
     t11: org.scalax.asuna.mapper.Application[K, H11, T11],
     t12: org.scalax.asuna.mapper.Application[K, H12, T12]
-  ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag12[H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12], EatXyyType12[
-    T1,
-    T2,
-    T3,
-    T4,
-    T5,
-    T6,
-    T7,
-    T8,
-    T9,
-    T10,
-    T11,
-    T12
-  ]] =
-    new org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag12[H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12], EatXyyType12[
-      T1,
-      T2,
-      T3,
-      T4,
-      T5,
-      T6,
-      T7,
-      T8,
-      T9,
-      T10,
-      T11,
-      T12
-    ]] {
+  ): org.scalax.asuna.mapper.Application[
+    K,
+    org.scalax.asuna.mapper.item.ItemTag12[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7, H8, M8, H9, M9, H10, M10, H11, M11, H12, M12],
+    EatXyyType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
+  ] =
+    new org.scalax.asuna.mapper.Application[
+      K,
+      org.scalax.asuna.mapper.item.ItemTag12[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7, H8, M8, H9, M9, H10, M10, H11, M11, H12, M12],
+      EatXyyType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
+    ] {
       override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
         if (context.isReverse) {
           context.append(ItemTag11.appendEatXyy11(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12).application(context), t1.application(context), ArticleXyyPlus12.put12)

@@ -10,16 +10,37 @@ def lift[T](tag : => org.scalax.asuna.mapper.AppendTag[T]): org.scalax.asuna.map
 
 @for(i <- 1 to maxItem) {
     def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.AppendTag[T@{ii}] @if(ii < i) { , } }):
-    org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-    new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
+    org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii}, Asuna.`Number: @{ii}` @if(ii < i) { , } }]] =
+    new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.ItemTag@{i}[@for(ii <- 1 to i){ T@{ii}, Asuna.`Number: @{ii}` @if(ii < i) { , } }]]
 
     def nodeTag[@for(ii <- 1 to i){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : org.scalax.asuna.mapper.AppendTag[T@{ii}] @if(ii < i) { , } }):
-        org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-        new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]]
+        org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, Asuna.`Number: @{ii}` @if(ii < i) { , } }]] =
+        new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, Asuna.`Number: @{ii}` @if(ii < i) { , } }]]
 
     def item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : T@{ii} @if(ii < i) { , } }):
-        org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] =
-        new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+        ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+        new ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
+            override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
+                if (c.isReverse) {
+                    new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
+                } else {
+                    new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                }
+            }
+        }
+
+    def nodeItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : ContextContent[T@{ii}] @if(ii < i) { , } }):
+        ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+        new ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
+            override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
+                if (c.isReverse) {
+                    new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
+                } else {
+                    new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                }
+            }
+        }
+
 }
 
 }

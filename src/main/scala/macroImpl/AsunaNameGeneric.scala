@@ -1,10 +1,12 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
+import org.scalax.asuna.mapper.item.ContextContent
+
 import scala.language.experimental.macros
 
 trait AsunaNameGeneric[H] {
   type NameType
-  def names: NameType
+  def names: ContextContent[NameType]
 }
 
 object AsunaNameGeneric {
@@ -12,9 +14,9 @@ object AsunaNameGeneric {
   def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M] {}
 
   trait AsunaNameGenericApply[M] {
-    def name[N](names1: N): Aux[M, N] = new AsunaNameGeneric[M] {
+    def name[N](names1: ContextContent[N]): Aux[M, N] = new AsunaNameGeneric[M] {
       override type NameType = N
-      override def names: N = names1
+      override def names: ContextContent[N] = names1
     }
   }
 
@@ -51,7 +53,7 @@ object AsunaNameGenericMacroApply {
         val nameProTag = if (props.length <= 22) {
           q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + props.length)}(..${props.map(s => q"""${Literal(Constant(s))}""")})"""
         } else {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + props.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
+          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("nodeItem" + props.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
             q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
               q"""${Literal(Constant(p))}"""
             }})"""

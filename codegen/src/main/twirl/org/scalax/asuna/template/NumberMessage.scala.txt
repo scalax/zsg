@@ -1,7 +1,8 @@
 @(tagNum: Int)
 
-package __root__
 
-class `Asuna Message: Please change .debug(context) to .find@{tagNum}.debug(context).` extends org.scalax.asuna.mapper.item.Message
+package Asuna {
 
-class `Asuna Number: @{tagNum}` extends org.scalax.asuna.mapper.item.Message
+class `Message: Please change .debug(context) to .find@{tagNum}.debug(context).` extends org.scalax.asuna.mapper.item.Message
+
+}

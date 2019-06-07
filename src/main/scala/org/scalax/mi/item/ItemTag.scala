@@ -1,45 +1,24 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper.item {
+  import org.scalax.asuna.mapper.{Context, KindContext}
 
-import scala.language.higherKinds
+  import scala.language.higherKinds
 
-trait ItemTag {
-  type Sub <: ItemTag
-  type XyyItemType
+  trait ItemTag {
+    type XyyItemType
+    type M[M <: org.scalax.asuna.mapper.item.Message] <: ItemTag
+  }
 
-  type InputMessage[I <: MessageContent] <: MessageResult
-}
+  class EndItemTag extends ItemTag
 
-class EndItemTag extends ItemTag {
-  override type Sub = EndItemTag
-}
+  trait Message
 
-trait Message
+  trait ContextContent[T] {
 
-trait MessageContent {
+    def withContext[K <: KindContext](c: Context[K]): T
 
-  type HeadItem <: Message
-  type TailItem <: MessageContent
+  }
 
-}
-
-class MessageContentImpl[HI <: Message, TI <: MessageContent] extends MessageContent {
-  override type HeadItem = HI
-  override type TailItem = TI
-}
-
-class ZeroMessageContent extends MessageContent {
-  override type HeadItem = Message
-  override type TailItem = ZeroMessageContent
-}
-
-trait MessageResult {
-
-  type Result <: ItemTag
-  type Left <: MessageContent
-
-}
-
-class MessageResultImpl[I <: ItemTag, II <: MessageContent] extends MessageResult {
-  override type Result = I
-  override type Left   = II
+  package impl {
+    case class :-<>-:[M1 <: Message, M2 <: Message](m1: M1, m2: M2) extends Message
+  }
 }
