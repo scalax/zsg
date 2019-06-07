@@ -76,7 +76,7 @@ object DebugApplication {
 
 }
 @implicitNotFound(
-  msg =
+    msg =
     "\nApplication not found.\nItemType    : ${T}\nKindContext : ${K}\nColumn Index: ${Message}\n\nNumber: 3 :-<>-: Number: 2 Means index = 3 * 22 + 2 = 68(1 based)\n\n"
 )
 trait DebugItemApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message] extends Application[K, T, I] {

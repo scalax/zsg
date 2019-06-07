@@ -116,16 +116,19 @@ AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
 ```
 将输出
 ```scala
-[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest1.scala:90:56:
+[error] E:\pro\workspace\asuna\sample\src\main\scala\MacroTest1.scala:93:46:
 [error] Application not found.
-[error] ItemType: java.util.Date
-[error] KindContext: Test01.KContext
-[error] Message    :第2列date找不到 implicit
-[error]   AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
-[error]                                                        ^
+[error] ItemType    : java.util.Date
+[error] KindContext : Test01.KContext
+[error] Column Index: Asuna.Number: 2
+[error]
+[error] Number: 3 :-<>-: Number: 2 Means index = 3 * 22 + 2 = 68(1 based)
+[error]
+[error]   AsunaGeneric.init[Test03].generic.tag.debug(ii)
+[error]                                              ^
 [error] one error found
 [error] (sample / Compile / compileIncremental) Compilation failed
-[error] Total time: 1 s, completed 2019-6-6 13:39:46
+[error] Total time: 1 s, completed 2019-6-7 14:18:29
 ```
 的友好错误信息  
 无 22 列限制, 不过 22 列以上需要根据编译器提示操作.

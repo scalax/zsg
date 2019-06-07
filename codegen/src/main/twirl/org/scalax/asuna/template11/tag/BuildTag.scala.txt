@@ -22,9 +22,17 @@ def lift[T](tag : => org.scalax.asuna.mapper.AppendTag[T]): org.scalax.asuna.map
         new ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
             override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
                 if (c.isReverse) {
-                    new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
+                    if (c.useHList) {
+                        new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
+                    } else {
+                        new org.scalax.asuna.mapper.item.Item2XyyReverse@{i}(EatValue0@for(ii <- 1 to i){ .addRightItem(t@{i - ii + 1}) })
+                    }
                 } else {
-                    new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                    if (c.useHList) {
+                        new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                    } else {
+                        new org.scalax.asuna.mapper.item.Item2Xyy@{i}(EatValue0@for(ii <- 1 to i){ .addRightItem(t@{ii}) })
+                    }
                 }
             }
         }
@@ -34,10 +42,19 @@ def lift[T](tag : => org.scalax.asuna.mapper.AppendTag[T]): org.scalax.asuna.map
         new ContextContent[org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
             override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
                 if (c.isReverse) {
-                    new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
+                    if (c.useHList) {
+                        new org.scalax.asuna.mapper.item.ArticleXyyReverse@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
+                    } else {
+                        new org.scalax.asuna.mapper.item.Item2XyyReverse@{i}(EatValue0@for(ii <- 1 to i){ .addRightItem(t@{i - ii + 1}.withContext(c)) })
+                    }
                 } else {
-                    new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                    if (c.useHList) {
+                        new org.scalax.asuna.mapper.item.ArticleXyy@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                    } else {
+                        new org.scalax.asuna.mapper.item.Item2Xyy@{i}(EatValue0@for(ii <- 1 to i){ .addRightItem(t@{ii}.withContext(c)) })
+                    }
                 }
+
             }
         }
 

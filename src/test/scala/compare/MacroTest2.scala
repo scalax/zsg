@@ -5,19 +5,10 @@ import io.circe.syntax._
 import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.append.MacroTest4
 import org.scalax.asuna.mapper.append.debug.MacroTest.{IIII, JsonPro, KM}
-import org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric
 import org.scalax.asuna.mapper.item.TypeParam2
 import org.scalax.asuna.mapper.{Application, Context}
 
 object MacroTest2 extends App {
-
-  /*object mm {
-    implicit lazy val kk111Encoder: ObjectEncoder[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1.encoder
-    implicit lazy val kk112Encoder: ObjectEncoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.encoder
-
-    implicit lazy val kk113Encoder: Decoder[MacroTest4.LargeModel]   = MacroTest.kou[MacroTest4.LargeModel].kou1.decoder
-    implicit lazy val kk114Encoder: Decoder[MacroTest4.LargeModel11] = MacroTest.kou[MacroTest4.LargeModel11].kou1.decoder
-  }*/
 
   object miaomiaomiao {
     implicit def iiii[T](implicit ii: IIII[T]): ObjectEncoder[T] = ii.reverseEncoder
@@ -40,9 +31,6 @@ object MacroTest2 extends App {
         }
       }
 
-
-    //lazy val kk111Encoder1111 = AsunaGeneric.init[MacroTest4.LargeModel].generic.tag.find3.debug(MacroTest.ii)
-
     implicit lazy val kk111Encoder: IIII[MacroTest4.LargeModel]   = MacroTest.koukou
     implicit lazy val kk112Encoder: IIII[MacroTest4.LargeModel11] = MacroTest.koukou
 
@@ -52,10 +40,5 @@ object MacroTest2 extends App {
 
   println(miaomiaomiao.iiiiiiii)
   println(miaomiaomiao.iiiiiiiiii)
-
-  /*object ll {
-    implicit lazy val kk211Encoder: ObjectEncoder[MacroTest4.LargeModel]   = implicitly[MacroTest3.EncodeImplicit[MacroTest4.LargeModel]].mm
-    implicit lazy val kk212Encoder: ObjectEncoder[MacroTest4.LargeModel11] = implicitly[MacroTest3.EncodeImplicit[MacroTest4.LargeModel11]].mm
-  }*/
 
 }
