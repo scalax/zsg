@@ -112,7 +112,7 @@ case class Test03(bar: String, date: java.util.Date)
 ```
 为例
 ```scala
-AsunaGeneric.init[Test03].generic.debugInstance.debug(ii)
+AsunaGeneric.init[Test03].generic.tag.debug(ii)
 ```
 将输出
 ```scala
