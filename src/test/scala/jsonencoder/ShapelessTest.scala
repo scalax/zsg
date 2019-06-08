@@ -5,7 +5,7 @@ import org.scalax.asuna.implements.ByNameImplicit
 import shapeless._
 import shapeless.labelled.FieldType
 
-object MacroTest3 {
+object ShapelessTest {
 
   trait EncodeImplicit[T] {
     def mm: ObjectEncoder[T]
