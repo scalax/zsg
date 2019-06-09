@@ -16,7 +16,7 @@ object Poly1 extends Poly1
 
 trait Poly2 extends CircePoly {
 
-  type CirceDecoder[T] = DecoderContent[T, Poly1]
+  type CirceDecoder[T] = DecoderContent[T, Poly2]
 
   implicit def implicit2: CirceDecoder[Test02]  = DecoderTest.implicitDecoder
   implicit def implicit3: CirceDecoder[Test03]  = DecoderTest.implicitDecoder
@@ -28,3 +28,22 @@ trait Poly2 extends CircePoly {
 }
 
 object Poly2 extends Poly2
+
+object Json1 extends CircePolyGetter[Poly1]
+object Json2 extends CircePolyGetter[Poly2]
+
+object Runner extends App {
+
+  val i1 = Json1.toJson(Test02("test02", 123))
+  println("message1:" + i1.noSpaces)
+  val i2 = Json2.fromJson[Test02](i1)
+  println("message2:" + i2)
+
+  val i3 = Json1.toJson(Test06("test06", 123))
+  println("message3:" + i3.noSpaces)
+  val i4 = Json2.fromJson[Test07](io.circe.parser.parse("""{"i3":"test07","i4":123}""").right.get)
+  println("message4:" + i4)
+
+  //Json1.toJson(Test03("Test03", 1234)) //not compiled
+
+}

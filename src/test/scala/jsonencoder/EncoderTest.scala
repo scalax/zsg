@@ -7,7 +7,7 @@ import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneri
 
 class EncoderContent[A, Poly](val encoder: Encoder[A]) extends AnyVal
 
-object EncoderTest extends App {
+object EncoderTest {
 
   def implicitEncoder[H, Poly, R <: ItemTag, I <: TypeParam](
       implicit ll: AsunaGeneric.Aux[H, R]

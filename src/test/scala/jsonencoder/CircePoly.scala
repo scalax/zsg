@@ -33,3 +33,10 @@ trait CircePoly {
   implicit def decoderContentImplicit[A, Poly](implicit e: DecoderContent[A, Poly]): Decoder[A] = e.decoder
 
 }
+
+trait CircePolyGetter[Poly] {
+
+  def toJson[M](m: M)(implicit encoder: EncoderContent[M, Poly]): Json   = encoder.encoder(m)
+  def fromJson[M](j: Json)(implicit decoder: DecoderContent[M, Poly]): M = decoder.decoder(j.hcursor).right.get
+
+}
