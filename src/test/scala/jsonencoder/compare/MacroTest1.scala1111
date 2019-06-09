@@ -1,0 +1,13 @@
+package org.scalax.asuna.mapper.append.debug
+
+import io.circe._
+import org.scalax.asuna.mapper.append.{CirceLargeModel, ShapelessTest}
+
+object MacroTest1 extends App {
+
+  object ll {
+    implicit lazy val kk211Encoder: ObjectEncoder[CirceLargeModel.LargeModel_1] = implicitly[ShapelessTest.EncodeImplicit[CirceLargeModel.LargeModel_1]].mm
+    implicit lazy val kk212Encoder: ObjectEncoder[CirceLargeModel.LargeModel_2] = implicitly[ShapelessTest.EncodeImplicit[CirceLargeModel.LargeModel_2]].mm
+  }
+
+}

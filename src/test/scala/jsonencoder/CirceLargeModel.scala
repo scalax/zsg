@@ -1,10 +1,8 @@
-package org.scalax.asuna.mapper.append
+package org.scalax.asuna.mapper.test
 
-object MacroTest4 {
+object CirceLargeModel {
 
-  trait MM
-
-  case class LargeModel(
+  case class LargeModel_1(
       miaomiao1: Int = 123
     , miaomiao2: String
     , miaomiao3: String
@@ -21,7 +19,7 @@ object MacroTest4 {
     , miaomiao14: String
     , miaomiao15: String
     , miaomiao16: String
-    , miaomiao17: Option[LargeModel11]
+    , miaomiao17: Option[LargeModel_2]
     , miaomiao18: String
     , miaomiao19: String
     , miaomiao20: String
@@ -107,7 +105,7 @@ object MacroTest4 {
     , miaomiao100: String
   )
 
-  case class LargeModel11(
+  case class LargeModel_2(
       miaomiao1: Int = 123
     , miaomiao2: String
     , miaomiao3: String
@@ -118,7 +116,7 @@ object MacroTest4 {
     , miaomiao8: String
     , miaomiao9: String
     , miaomiao10: String
-    , miaomiao11: List[LargeModel]
+    , miaomiao11: List[LargeModel_1]
     , miaomiao12: String
     , miaomiao13: String
     , miaomiao14: String
@@ -210,7 +208,7 @@ object MacroTest4 {
     , miaomiao100: String
   )
 
-  def dd = LargeModel(
+  def largeModel_1 = LargeModel_1(
       miaomiao1 = 404
     , miaomiao2 = "init string"
     , miaomiao3 = "init string"
@@ -227,7 +225,7 @@ object MacroTest4 {
     , miaomiao14 = "init string"
     , miaomiao15 = "init string"
     , miaomiao16 = "init string"
-    , miaomiao17 = Option(jj)
+    , miaomiao17 = Option(largeModel_2)
     , miaomiao18 = "init string"
     , miaomiao19 = "init string"
     , miaomiao20 = "init string"
@@ -313,7 +311,7 @@ object MacroTest4 {
     , miaomiao100 = "init string"
   )
 
-  val jj = LargeModel11(
+  val largeModel_2 = LargeModel_2(
       miaomiao1 = 404
     , miaomiao2 = "init string"
     , miaomiao3 = "init string"
