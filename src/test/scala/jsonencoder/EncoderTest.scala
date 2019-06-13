@@ -7,14 +7,45 @@ import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneri
 
 class EncoderContent[A, Poly](val encoder: Encoder[A]) extends AnyVal
 
+object EncoderContent {
+  //implicit def encoderContentImplicit1[A, Poly](implicit e: Encoder[A]): EncoderContent[A, Poly] = new EncoderContent[A, Poly](e)
+}
+
 object EncoderTest {
+
+  def initEncoder[H, P]: ImplicitApply1[H, P] =
+    new ImplicitApply1[H, P] {
+      def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R, P] = new ImplicitApply2[H, R, P] {
+        override def encoder[I <: TypeParam](implicit
+                                             app: Application[KContext[P], R, I],
+                                             cv1: AsunaNameGeneric.Aux[H, I#H],
+                                             cv2: AsunaGetterGeneric.Aux[H, I#T#H]): EncoderContent[H, P] = {
+          val ii = new ii[P]
+          new EncoderContent[H, P](app.application(ii).addName(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii)))
+        }
+      }
+    }
+
+  trait ImplicitApply1[H, P] {
+    def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R, P]
+  }
+
+  trait ImplicitApply2[H, R <: ItemTag, P] {
+    def encoder[I <: TypeParam](implicit
+                                app: Application[KContext[P], R, I],
+                                cv1: AsunaNameGeneric.Aux[H, I#H],
+                                cv2: AsunaGetterGeneric.Aux[H, I#T#H]): EncoderContent[H, P]
+
+    def toR: R = throw new Exception("123")
+  }
 
   def implicitEncoder[H, Poly, R <: ItemTag, I <: TypeParam](
       implicit ll: AsunaGeneric.Aux[H, R]
-    , app: Application[KContext, R, I]
+    , app: Application[KContext[Poly], R, I]
     , cv1: AsunaNameGeneric.Aux[H, I#H]
     , cv2: AsunaGetterGeneric.Aux[H, I#T#H]
   ): EncoderContent[H, Poly] = {
+    val ii = new ii[Poly]
     new EncoderContent[H, Poly](app.application(ii).addName(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii)))
   }
 
@@ -29,11 +60,11 @@ object EncoderTest {
 
   }
 
-  class KContext extends KindContext {
+  class KContext[P] extends KindContext {
     override type M[P <: TypeParam] = JsonEncoder[P#T#H, P#H]
   }
 
-  object ii extends Context[KContext] {
+  class ii[PolyType] extends Context[KContext[PolyType]] {
     override def isReverse: Boolean = false
     override def useHList: Boolean  = false
 

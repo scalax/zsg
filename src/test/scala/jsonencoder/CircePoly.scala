@@ -7,9 +7,13 @@ import org.scalax.asuna.mapper._
 
 trait CircePoly {
 
-  implicit def imEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application[EncoderTest.KContext, T, TypeParam2[String, T]] =
-    new Application[EncoderTest.KContext, T, TypeParam2[String, T]] {
-      override def application(context: Context[EncoderTest.KContext]): EncoderTest.JsonEncoder[T, String] = {
+  //type PolyType
+
+  implicit def encoderContentImplicit2[A, P](implicit e: EncoderContent[A, P]): Encoder[A] = e.encoder
+
+  implicit def imEncoder[T, P](implicit t: ByNameImplicit[Encoder[T]]): Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] =
+    new Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] {
+      override def application(context: Context[EncoderTest.KContext[P]]): EncoderTest.JsonEncoder[T, String] = {
         new EncoderTest.JsonEncoder[T, String] {
           override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
             ((name, t.value(tt))) :: m
@@ -18,19 +22,38 @@ trait CircePoly {
       }
     }
 
-  implicit def imDecoder[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[DecoderTest.KM, T, TypeParam2[String, T]] =
-    new Application[DecoderTest.KM, T, TypeParam2[String, T]] {
-      override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String] = {
-        new DecoderTest.JsonPro[T, String] {
-          override def d(j: JsonObject, name: String): Either[String, T] = {
-            j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
+  implicit def imEncoderContent[T, P](implicit t: ByNameImplicit[EncoderContent[T, P]]): Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] =
+    new Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] {
+      override def application(context: Context[EncoderTest.KContext[P]]): EncoderTest.JsonEncoder[T, String] = {
+        new EncoderTest.JsonEncoder[T, String] {
+          override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+            ((name, t.value.encoder(tt))) :: m
           }
         }
       }
     }
 
-  implicit def encoderContentImplicit[A, Poly](implicit e: EncoderContent[A, Poly]): Encoder[A] = e.encoder
-  implicit def decoderContentImplicit[A, Poly](implicit e: DecoderContent[A, Poly]): Decoder[A] = e.decoder
+  /*implicit def imEncoder[T, P](implicit t: ByNameImplicit[Encoder[T]]): Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] =
+    new Application[EncoderTest.KContext[P], T, TypeParam2[String, T]] {
+      override def application(context: Context[EncoderTest.KContext[P]]): EncoderTest.JsonEncoder[T, String] = {
+        new EncoderTest.JsonEncoder[T, String] {
+          override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+            ((name, t.value(tt))) :: m
+          }
+        }
+      }
+    }*/
+
+  /*implicit def imDecoder[T](implicit dd: ByNameImplicit[DecoderContent[T, PolyType]]): Application[DecoderTest.KM, T, TypeParam2[String, T]] =
+    new Application[DecoderTest.KM, T, TypeParam2[String, T]] {
+      override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String] = {
+        new DecoderTest.JsonPro[T, String] {
+          override def d(j: JsonObject, name: String): Either[String, T] = {
+            j(name).map(jj => dd.value.decoder.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
+          }
+        }
+      }
+    }*/
 
 }
 

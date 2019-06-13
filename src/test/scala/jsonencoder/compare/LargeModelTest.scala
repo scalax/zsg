@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.test
 
 object LargeModelTest extends App {
 
-  trait LargeModelPoly extends CircePoly {
+  /*trait LargeModelPoly extends CircePoly {
 
     type MEncoder[T] = EncoderContent[T, LargeModelPoly]
     type MDecoder[T] = DecoderContent[T, LargeModelPoly]
@@ -22,6 +22,6 @@ object LargeModelTest extends App {
   val i2 = JsonLarge.fromJson[CirceLargeModel.LargeModel_2](i1)
   println(i1.noSpaces)
   println("==================== line ====================")
-  println(i2)
+  println(i2)*/
 
 }
