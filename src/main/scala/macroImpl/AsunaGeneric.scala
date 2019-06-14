@@ -69,8 +69,6 @@ object AsunaGenericMacroApply {
             .map(i => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${i})""")}))"""
         }
 
-        println(q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTag})""")
-
         c.Expr[AsunaGeneric.Aux[H, M]] {
           q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTag})"""
         }

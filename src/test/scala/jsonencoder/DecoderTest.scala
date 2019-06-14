@@ -7,12 +7,6 @@ import org.scalax.asuna.mapper._
 
 class DecoderContent[A, Poly](val decoder: Decoder[A]) extends AnyVal
 
-object DecoderContent {
-
-  implicit def decoderContentImplicit1[A, Poly](implicit e: Decoder[A]): DecoderContent[A, Poly] = new DecoderContent[A, Poly](e)
-
-}
-
 object DecoderTest {
 
   def implicitDecoder[T, Poly, R <: ItemTag, I <: TypeParam](
