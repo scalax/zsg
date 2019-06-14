@@ -5,7 +5,13 @@ import org.scalax.asuna.implements.ByNameImplicit
 import org.scalax.asuna.mapper.item.TypeParam2
 import org.scalax.asuna.mapper._
 
-trait CircePoly {
+trait CircePoly[Poly] {
+
+  type CirceEncoder[I] = EncoderContent[I, Poly]
+  type CirceDecoder[I] = DecoderContent[I, Poly]
+
+  implicit def encoderContentImplicit2[A](implicit e: EncoderContent[A, Poly]): Encoder[A] = e.encoder
+  implicit def decoderContentImplicit2[A](implicit e: DecoderContent[A, Poly]): Decoder[A] = e.decoder
 
   implicit def imEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application[EncoderTest.KContext, T, TypeParam2[String, T]] =
     new Application[EncoderTest.KContext, T, TypeParam2[String, T]] {
@@ -18,7 +24,7 @@ trait CircePoly {
       }
     }
 
-  implicit def imDecoder[T](implicit t: ByNameImplicit[Encoder[T]], dd: ByNameImplicit[Decoder[T]]): Application[DecoderTest.KM, T, TypeParam2[String, T]] =
+  implicit def imDecoder[T](implicit dd: ByNameImplicit[Decoder[T]]): Application[DecoderTest.KM, T, TypeParam2[String, T]] =
     new Application[DecoderTest.KM, T, TypeParam2[String, T]] {
       override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String] = {
         new DecoderTest.JsonPro[T, String] {
@@ -28,9 +34,6 @@ trait CircePoly {
         }
       }
     }
-
-  implicit def encoderContentImplicit[A, Poly](implicit e: EncoderContent[A, Poly]): Encoder[A] = e.encoder
-  implicit def decoderContentImplicit[A, Poly](implicit e: DecoderContent[A, Poly]): Decoder[A] = e.decoder
 
 }
 
