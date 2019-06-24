@@ -13,9 +13,7 @@ package org.scalax.asuna.mapper.item {
   trait Message
 
   trait ContextContent[T] {
-
     def withContext[K <: KindContext](c: Context[K]): T
-
   }
 
   package impl {

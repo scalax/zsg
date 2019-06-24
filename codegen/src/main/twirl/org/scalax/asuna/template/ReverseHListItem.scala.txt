@@ -1,0 +1,18 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.mapper.item
+
+import shapeless._
+
+class ReverseHListItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](val head: @for(ii <- 1 to tagNum) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] {
+
+    override def pudao[T](xyy: T): ReverseHListItem@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = new ReverseHListItem@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} } ](xyy :: head)
+
+    override def leftHead: E1 = head.head
+    override def leftTail: ReverseHListItem@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] = new ReverseHListItem@{tagNum - 1}(head.tail)
+
+    @for(ii <- 1 to tagNum) {
+        override def i@{ii}: E@{ii} = head@for(iii <- 1 to (ii - 1)) { .tail }.head
+    }
+
+}

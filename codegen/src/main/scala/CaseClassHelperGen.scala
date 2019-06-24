@@ -80,12 +80,12 @@ object CaseClassHelperGen1 extends App {
       .resolve("scalax")
       .resolve("asuna")
       .resolve("mapper" + i)
-      .resolve("EatXyy" + i + ".scala")
+      .resolve("HListItem" + i + ".scala")
 
     Files.createDirectories(path19.getParent)
 
     val writer19   = new PrintWriter(path19.toFile)
-    val content191 = Source.fromString(org.scalax.asuna.template.txt.EatXyy(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.HListItem(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()
@@ -143,12 +143,12 @@ object CaseClassHelperGen1 extends App {
       .resolve("scalax")
       .resolve("asuna")
       .resolve("mapper" + i)
-      .resolve("ArticleXyyReverse" + i + ".scala")
+      .resolve("ReverseHListItem" + i + ".scala")
 
     Files.createDirectories(path19.getParent)
 
     val writer19   = new PrintWriter(path19.toFile)
-    val content191 = Source.fromString(org.scalax.asuna.template.txt.ArticleXyyReverse(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.ReverseHListItem(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()
