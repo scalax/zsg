@@ -333,15 +333,15 @@ object NodeTag17 {
       ): K#M[EatXyyType17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
         if (context.isReverse) {
           context.append(
-              NodeTag16.appendNodeTagEatXyy16(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-            , t1.application(context)
-            , ArticleXyyPlus17.put17
+            NodeTag16.appendNodeTagEatXyy16(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context),
+            t1.application(context),
+            ArticleXyyPlus17.put17
           )
         } else {
           context.append(
-              NodeTag16.appendNodeTagEatXyy16(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-            , t17.application(context)
-            , ArticleXyyPlus17.plus17
+            NodeTag16.appendNodeTagEatXyy16(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16).application(context),
+            t17.application(context),
+            ArticleXyyPlus17.plus17
           )
         }
       }

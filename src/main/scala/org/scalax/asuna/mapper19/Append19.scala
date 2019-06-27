@@ -350,15 +350,15 @@ object ItemTag19 {
       ): K#M[EatXyyType19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
         if (context.isReverse) {
           context.append(
-              ItemTag18.appendEatXyy18(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19).application(context)
-            , t1.application(context)
-            , ArticleXyyPlus19.put19
+            ItemTag18.appendEatXyy18(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19).application(context),
+            t1.application(context),
+            ArticleXyyPlus19.put19
           )
         } else {
           context.append(
-              ItemTag18.appendEatXyy18(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context)
-            , t19.application(context)
-            , ArticleXyyPlus19.plus19
+            ItemTag18.appendEatXyy18(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context),
+            t19.application(context),
+            ArticleXyyPlus19.plus19
           )
         }
       }
