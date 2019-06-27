@@ -1,16 +1,16 @@
 package org.scalax.asuna.mapper.item
-trait Item2Xyy0 extends Any with XyyItem0 {
-  override def eat[T](xyy: T): Item2Xyy1[T] = new Item2Xyy1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
+trait TreeItem0 extends Any with XyyItem0 {
+  override def eat[T](xyy: T): TreeItem1[T] = new TreeItem1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
 }
-object Item2Xyy0 extends Item2Xyy0
-class Item2Xyy1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with XyyItem1[T1] {
-  override def eat[T](xyy: T): Item2Xyy2[T1, T] = new Item2Xyy2[T1, T](item.addRightItem(xyy))
+object TreeItem0 extends TreeItem0
+class TreeItem1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with XyyItem1[T1] {
+  override def eat[T](xyy: T): TreeItem2[T1, T] = new TreeItem2[T1, T](item.addRightItem(xyy))
   override def rightHead: T1                    = item.dropRightItem
-  override def rightTail: Item2Xyy0             = Item2Xyy0
+  override def rightTail: TreeItem0             = TreeItem0
   override def i1: T1                           = item.item.i1
 }
 
-class Item2Xyy22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](
+class TreeItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[
       T7
   ]#AddRightItem[
@@ -21,7 +21,7 @@ class Item2Xyy22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
 ) extends AnyVal
     with XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] {
   override def rightHead: T22                                                                                                        = item.dropRightItem
-  override def rightTail: Item2Xyy21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = new Item2Xyy21(item.dropRight)
+  override def rightTail: TreeItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = new TreeItem21(item.dropRight)
   def i1: T1                                                                                                                         = item.item.i1.i1.i1.i1.i1
   def i2: T2                                                                                                                         = item.item.i1.i1.i1.i1.i2
   def i3: T3                                                                                                                         = item.item.i1.i1.i1.i2.i1

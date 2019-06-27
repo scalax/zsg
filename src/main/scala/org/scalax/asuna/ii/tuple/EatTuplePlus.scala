@@ -16,16 +16,16 @@ object ArticleXyyTuplePlus {
     }
   def miaomiaomiao3[T0 <: EatXyyType0, T1 <: org.scalax.asuna.mapper.TypeParam]: org.scalax.asuna.mapper.Plus[T0, T1, XyyTupleType1[T1]] =
     new org.scalax.asuna.mapper.Plus[T0, T1, XyyTupleType1[T1]] {
-      override def plus(p: T0#H, item: T1#H): Tuple1[T1#H]                            = Item2Xyy0.eatToTuple(item)
+      override def plus(p: T0#H, item: T1#H): Tuple1[T1#H]                            = TreeItem0.eatToTuple(item)
       override def takeHead(t: Tuple1[T1#H]): T1#H                                    = t._1
-      override def takeTail(t: Tuple1[T1#H]): T0#H                                    = Item2Xyy0
+      override def takeTail(t: Tuple1[T1#H]): T0#H                                    = TreeItem0
       override def sub: org.scalax.asuna.mapper.Plus[T0#T, T1#T, XyyTupleType1[T1#T]] = miaomiaomiao3[T0#T, T1#T]
     }
   def miaomiaomiao4[T0 <: EatXyyType0, T1 <: org.scalax.asuna.mapper.TypeParam]: org.scalax.asuna.mapper.Plus[T0, T1, XyyTupleType1[T1]] =
     new org.scalax.asuna.mapper.Plus[T0, T1, XyyTupleType1[T1]] {
-      override def plus(p: T0#H, item: T1#H): Tuple1[T1#H]                            = Item2XyyReverse0.pudaoToTuple(item)
+      override def plus(p: T0#H, item: T1#H): Tuple1[T1#H]                            = ReverseTreeItem0.pudaoToTuple(item)
       override def takeHead(t: Tuple1[T1#H]): T1#H                                    = t._1
-      override def takeTail(t: Tuple1[T1#H]): T0#H                                    = Item2XyyReverse0
+      override def takeTail(t: Tuple1[T1#H]): T0#H                                    = ReverseTreeItem0
       override def sub: org.scalax.asuna.mapper.Plus[T0#T, T1#T, XyyTupleType1[T1#T]] = miaomiaomiao4[T0#T, T1#T]
     }
   def hlistPlus1[T1 <: org.scalax.asuna.mapper.TypeParam] = miaomiaomiao1[EatXyyType0, T1]
@@ -53,7 +53,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType1[T1], T2, XyyTupleType2[T1, T2]] {
       override def plus(p: XyyItem1[T1#H], item: T2#H): Tuple2[T1#H, T2#H]                             = p.eatToTuple(item)
       override def takeHead(t: Tuple2[T1#H, T2#H]): T2#H                                               = t._2
-      override def takeTail(t: Tuple2[T1#H, T2#H]): XyyItem1[T1#H]                                     = Item2Xyy0.eat(t._1)
+      override def takeTail(t: Tuple2[T1#H, T2#H]): XyyItem1[T1#H]                                     = TreeItem0.eat(t._1)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType1[T1]#T, T2#T, XyyTupleType2[T1, T2]#T] = item2Plus2[T1#T, T2#T]
     }
   def item2Put2[T1 <: org.scalax.asuna.mapper.TypeParam, T2 <: org.scalax.asuna.mapper.TypeParam]
@@ -61,7 +61,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType1[T1], T2, XyyTupleType2[T2, T1]] {
       override def plus(p: XyyItem1[T1#H], item: T2#H): Tuple2[T2#H, T1#H]                             = p.pudaoToTuple(item)
       override def takeHead(t: Tuple2[T2#H, T1#H]): T2#H                                               = t._1
-      override def takeTail(t: Tuple2[T2#H, T1#H]): XyyItem1[T1#H]                                     = Item2XyyReverse0.pudao(t._2)
+      override def takeTail(t: Tuple2[T2#H, T1#H]): XyyItem1[T1#H]                                     = ReverseTreeItem0.pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType1[T1]#T, T2#T, XyyTupleType2[T2, T1]#T] = item2Put2[T1#T, T2#T]
     }
   def hlistPlus3[T1 <: org.scalax.asuna.mapper.TypeParam, T2 <: org.scalax.asuna.mapper.TypeParam, T3 <: org.scalax.asuna.mapper.TypeParam]
@@ -85,7 +85,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType2[T1, T2], T3, XyyTupleType3[T1, T2, T3]] {
       override def plus(p: XyyItem2[T1#H, T2#H], item: T3#H): Tuple3[T1#H, T2#H, T3#H]                         = p.eatToTuple(item)
       override def takeHead(t: Tuple3[T1#H, T2#H, T3#H]): T3#H                                                 = t._3
-      override def takeTail(t: Tuple3[T1#H, T2#H, T3#H]): XyyItem2[T1#H, T2#H]                                 = Item2Xyy0.eat(t._1).eat(t._2)
+      override def takeTail(t: Tuple3[T1#H, T2#H, T3#H]): XyyItem2[T1#H, T2#H]                                 = TreeItem0.eat(t._1).eat(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType2[T1, T2]#T, T3#T, XyyTupleType3[T1, T2, T3]#T] = item2Plus3[T1#T, T2#T, T3#T]
     }
   def item2Put3[T1 <: org.scalax.asuna.mapper.TypeParam, T2 <: org.scalax.asuna.mapper.TypeParam, T3 <: org.scalax.asuna.mapper.TypeParam]
@@ -93,7 +93,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType2[T1, T2], T3, XyyTupleType3[T3, T1, T2]] {
       override def plus(p: XyyItem2[T1#H, T2#H], item: T3#H): Tuple3[T3#H, T1#H, T2#H]                         = p.pudaoToTuple(item)
       override def takeHead(t: Tuple3[T3#H, T1#H, T2#H]): T3#H                                                 = t._1
-      override def takeTail(t: Tuple3[T3#H, T1#H, T2#H]): XyyItem2[T1#H, T2#H]                                 = Item2XyyReverse0.pudao(t._3).pudao(t._2)
+      override def takeTail(t: Tuple3[T3#H, T1#H, T2#H]): XyyItem2[T1#H, T2#H]                                 = ReverseTreeItem0.pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType2[T1, T2]#T, T3#T, XyyTupleType3[T3, T1, T2]#T] = item2Put3[T1#T, T2#T, T3#T]
     }
   def hlistPlus4[
@@ -129,7 +129,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType3[T1, T2, T3], T4, XyyTupleType4[T1, T2, T3, T4]] {
       override def plus(p: XyyItem3[T1#H, T2#H, T3#H], item: T4#H): Tuple4[T1#H, T2#H, T3#H, T4#H]                     = p.eatToTuple(item)
       override def takeHead(t: Tuple4[T1#H, T2#H, T3#H, T4#H]): T4#H                                                   = t._4
-      override def takeTail(t: Tuple4[T1#H, T2#H, T3#H, T4#H]): XyyItem3[T1#H, T2#H, T3#H]                             = Item2Xyy0.eat(t._1).eat(t._2).eat(t._3)
+      override def takeTail(t: Tuple4[T1#H, T2#H, T3#H, T4#H]): XyyItem3[T1#H, T2#H, T3#H]                             = TreeItem0.eat(t._1).eat(t._2).eat(t._3)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType3[T1, T2, T3]#T, T4#T, XyyTupleType4[T1, T2, T3, T4]#T] = item2Plus4[T1#T, T2#T, T3#T, T4#T]
     }
   def item2Put4[
@@ -141,7 +141,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType3[T1, T2, T3], T4, XyyTupleType4[T4, T1, T2, T3]] {
       override def plus(p: XyyItem3[T1#H, T2#H, T3#H], item: T4#H): Tuple4[T4#H, T1#H, T2#H, T3#H]                     = p.pudaoToTuple(item)
       override def takeHead(t: Tuple4[T4#H, T1#H, T2#H, T3#H]): T4#H                                                   = t._1
-      override def takeTail(t: Tuple4[T4#H, T1#H, T2#H, T3#H]): XyyItem3[T1#H, T2#H, T3#H]                             = Item2XyyReverse0.pudao(t._4).pudao(t._3).pudao(t._2)
+      override def takeTail(t: Tuple4[T4#H, T1#H, T2#H, T3#H]): XyyItem3[T1#H, T2#H, T3#H]                             = ReverseTreeItem0.pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType3[T1, T2, T3]#T, T4#T, XyyTupleType4[T4, T1, T2, T3]#T] = item2Put4[T1#T, T2#T, T3#T, T4#T]
     }
   def hlistPlus5[
@@ -180,7 +180,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType4[T1, T2, T3, T4], T5, XyyTupleType5[T1, T2, T3, T4, T5]] {
       override def plus(p: XyyItem4[T1#H, T2#H, T3#H, T4#H], item: T5#H): Tuple5[T1#H, T2#H, T3#H, T4#H, T5#H]                 = p.eatToTuple(item)
       override def takeHead(t: Tuple5[T1#H, T2#H, T3#H, T4#H, T5#H]): T5#H                                                     = t._5
-      override def takeTail(t: Tuple5[T1#H, T2#H, T3#H, T4#H, T5#H]): XyyItem4[T1#H, T2#H, T3#H, T4#H]                         = Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4)
+      override def takeTail(t: Tuple5[T1#H, T2#H, T3#H, T4#H, T5#H]): XyyItem4[T1#H, T2#H, T3#H, T4#H]                         = TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType4[T1, T2, T3, T4]#T, T5#T, XyyTupleType5[T1, T2, T3, T4, T5]#T] = item2Plus5[T1#T, T2#T, T3#T, T4#T, T5#T]
     }
   def item2Put5[
@@ -193,7 +193,7 @@ object ArticleXyyTuplePlus {
     new org.scalax.asuna.mapper.Plus[EatXyyType4[T1, T2, T3, T4], T5, XyyTupleType5[T5, T1, T2, T3, T4]] {
       override def plus(p: XyyItem4[T1#H, T2#H, T3#H, T4#H], item: T5#H): Tuple5[T5#H, T1#H, T2#H, T3#H, T4#H]                 = p.pudaoToTuple(item)
       override def takeHead(t: Tuple5[T5#H, T1#H, T2#H, T3#H, T4#H]): T5#H                                                     = t._1
-      override def takeTail(t: Tuple5[T5#H, T1#H, T2#H, T3#H, T4#H]): XyyItem4[T1#H, T2#H, T3#H, T4#H]                         = Item2XyyReverse0.pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+      override def takeTail(t: Tuple5[T5#H, T1#H, T2#H, T3#H, T4#H]): XyyItem4[T1#H, T2#H, T3#H, T4#H]                         = ReverseTreeItem0.pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType4[T1, T2, T3, T4]#T, T5#T, XyyTupleType5[T5, T1, T2, T3, T4]#T] = item2Put5[T1#T, T2#T, T3#T, T4#T, T5#T]
     }
   def hlistPlus6[
@@ -240,7 +240,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem5[T1#H, T2#H, T3#H, T4#H, T5#H], item: T6#H): Tuple6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H] = p.eatToTuple(item)
       override def takeHead(t: Tuple6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H]): T6#H                                           = t._6
       override def takeTail(t: Tuple6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H]): XyyItem5[T1#H, T2#H, T3#H, T4#H, T5#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType5[T1, T2, T3, T4, T5]#T, T6#T, XyyTupleType6[T1, T2, T3, T4, T5, T6]#T] =
         item2Plus6[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T]
     }
@@ -256,7 +256,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem5[T1#H, T2#H, T3#H, T4#H, T5#H], item: T6#H): Tuple6[T6#H, T1#H, T2#H, T3#H, T4#H, T5#H] = p.pudaoToTuple(item)
       override def takeHead(t: Tuple6[T6#H, T1#H, T2#H, T3#H, T4#H, T5#H]): T6#H                                           = t._1
       override def takeTail(t: Tuple6[T6#H, T1#H, T2#H, T3#H, T4#H, T5#H]): XyyItem5[T1#H, T2#H, T3#H, T4#H, T5#H] =
-        Item2XyyReverse0.pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType5[T1, T2, T3, T4, T5]#T, T6#T, XyyTupleType6[T6, T1, T2, T3, T4, T5]#T] =
         item2Put6[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T]
     }
@@ -307,7 +307,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H], item: T7#H): Tuple7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H] = p.eatToTuple(item)
       override def takeHead(t: Tuple7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H]): T7#H                                                 = t._7
       override def takeTail(t: Tuple7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H]): XyyItem6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType6[T1, T2, T3, T4, T5, T6]#T, T7#T, XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]#T] =
         item2Plus7[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T]
     }
@@ -324,7 +324,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H], item: T7#H): Tuple7[T7#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H] = p.pudaoToTuple(item)
       override def takeHead(t: Tuple7[T7#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H]): T7#H                                                 = t._1
       override def takeTail(t: Tuple7[T7#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H]): XyyItem6[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H] =
-        Item2XyyReverse0.pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType6[T1, T2, T3, T4, T5, T6]#T, T7#T, XyyTupleType7[T7, T1, T2, T3, T4, T5, T6]#T] =
         item2Put7[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T]
     }
@@ -378,7 +378,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H], item: T8#H): Tuple8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] = p.eatToTuple(item)
       override def takeHead(t: Tuple8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): T8#H                                                       = t._8
       override def takeTail(t: Tuple8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): XyyItem7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType7[T1, T2, T3, T4, T5, T6, T7]#T, T8#T, XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]#T] =
         item2Plus8[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T]
     }
@@ -396,7 +396,7 @@ object ArticleXyyTuplePlus {
       override def plus(p: XyyItem7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H], item: T8#H): Tuple8[T8#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H] = p.pudaoToTuple(item)
       override def takeHead(t: Tuple8[T8#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H]): T8#H                                                       = t._1
       override def takeTail(t: Tuple8[T8#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H]): XyyItem7[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H] =
-        Item2XyyReverse0.pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType7[T1, T2, T3, T4, T5, T6, T7]#T, T8#T, XyyTupleType8[T8, T1, T2, T3, T4, T5, T6, T7]#T] =
         item2Put8[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T]
     }
@@ -456,7 +456,7 @@ object ArticleXyyTuplePlus {
         p.eatToTuple(item)
       override def takeHead(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): T9#H = t._9
       override def takeTail(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): XyyItem8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]#T] =
         item2Plus9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
     }
@@ -476,7 +476,7 @@ object ArticleXyyTuplePlus {
         p.pudaoToTuple(item)
       override def takeHead(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): T9#H = t._1
       override def takeTail(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): XyyItem8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
-        Item2XyyReverse0.pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]#T] =
         item2Put9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
     }
@@ -547,7 +547,7 @@ object ArticleXyyTuplePlus {
       ): Tuple10[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H]                               = p.eatToTuple(item)
       override def takeHead(t: Tuple10[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H]): T10#H = t._10
       override def takeTail(t: Tuple10[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H]): XyyItem9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9)
       override def sub
         : org.scalax.asuna.mapper.Plus[EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]#T, T10#T, XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]#T] =
         item2Plus10[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T]
@@ -571,7 +571,7 @@ object ArticleXyyTuplePlus {
       ): Tuple10[T10#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]                               = p.pudaoToTuple(item)
       override def takeHead(t: Tuple10[T10#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): T10#H = t._1
       override def takeTail(t: Tuple10[T10#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): XyyItem9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H] =
-        Item2XyyReverse0.pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub
         : org.scalax.asuna.mapper.Plus[EatXyyType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]#T, T10#T, XyyTupleType10[T10, T1, T2, T3, T4, T5, T6, T7, T8, T9]#T] =
         item2Put10[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T]
@@ -652,7 +652,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple11[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H]
       ): XyyItem10[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10)
       override def sub
         : org.scalax.asuna.mapper.Plus[EatXyyType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]#T, T11#T, XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]#T] =
         item2Plus11[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T]
@@ -679,7 +679,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple11[T11#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H]
       ): XyyItem10[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H] =
-        Item2XyyReverse0.pudao(t._11).pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._11).pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub
         : org.scalax.asuna.mapper.Plus[EatXyyType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]#T, T11#T, XyyTupleType11[T11, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]#T] =
         item2Put11[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T]
@@ -785,7 +785,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple12[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H]
       ): XyyItem11[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]#T, T12#T, XyyTupleType12[
         T1,
         T2,
@@ -824,7 +824,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple12[T12#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H]
       ): XyyItem11[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H] =
-        Item2XyyReverse0.pudao(t._12).pudao(t._11).pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+        ReverseTreeItem0.pudao(t._12).pudao(t._11).pudao(t._10).pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]#T, T12#T, XyyTupleType12[
         T12,
         T1,
@@ -1042,7 +1042,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple13[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H]
       ): XyyItem12[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]#T, T13#T, XyyTupleType13[
         T1,
         T2,
@@ -1111,7 +1111,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple13[T13#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H]
       ): XyyItem12[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._13)
           .pudao(t._12)
           .pudao(t._11)
@@ -1354,7 +1354,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple14[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H]
       ): XyyItem13[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12).eat(t._13)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12).eat(t._13)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]#T, T14#T, XyyTupleType14[
         T1,
         T2,
@@ -1427,7 +1427,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple14[T14#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H]
       ): XyyItem13[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._14)
           .pudao(t._13)
           .pudao(t._12)
@@ -1684,7 +1684,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple15[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H]
       ): XyyItem14[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H] =
-        Item2Xyy0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12).eat(t._13).eat(t._14)
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8).eat(t._9).eat(t._10).eat(t._11).eat(t._12).eat(t._13).eat(t._14)
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]#T, T15#T, XyyTupleType15[
         T1,
         T2,
@@ -1761,7 +1761,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple15[T15#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H]
       ): XyyItem14[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._15)
           .pudao(t._14)
           .pudao(t._13)
@@ -2047,7 +2047,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple16[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H]
       ): XyyItem15[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -2143,7 +2143,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple16[T16#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H]
       ): XyyItem15[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._16)
           .pudao(t._15)
           .pudao(t._14)
@@ -2444,7 +2444,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple17[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H]
       ): XyyItem16[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -2545,7 +2545,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple17[T17#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H]
       ): XyyItem16[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._17)
           .pudao(t._16)
           .pudao(t._15)
@@ -2863,7 +2863,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple18[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H]
       ): XyyItem17[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -2969,7 +2969,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple18[T18#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H]
       ): XyyItem17[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._18)
           .pudao(t._17)
           .pudao(t._16)
@@ -3308,7 +3308,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple19[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H]
       ): XyyItem18[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -3422,7 +3422,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple19[T19#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H]
       ): XyyItem18[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._19)
           .pudao(t._18)
           .pudao(t._17)
@@ -3777,7 +3777,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple20[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H]
       ): XyyItem19[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -3896,7 +3896,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple20[T20#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H]
       ): XyyItem19[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._20)
           .pudao(t._19)
           .pudao(t._18)
@@ -4269,7 +4269,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple21[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H, T21#H]
       ): XyyItem20[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -4394,7 +4394,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple21[T21#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H]
       ): XyyItem20[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._21)
           .pudao(t._20)
           .pudao(t._19)
@@ -4783,7 +4783,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple22[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H, T21#H, T22#H]
       ): XyyItem21[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H, T21#H] =
-        Item2Xyy0
+        TreeItem0
           .eat(t._1)
           .eat(t._2)
           .eat(t._3)
@@ -4914,7 +4914,7 @@ object ArticleXyyTuplePlus {
       override def takeTail(
         t: Tuple22[T22#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H, T21#H]
       ): XyyItem21[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H, T17#H, T18#H, T19#H, T20#H, T21#H] =
-        Item2XyyReverse0
+        ReverseTreeItem0
           .pudao(t._22)
           .pudao(t._21)
           .pudao(t._20)

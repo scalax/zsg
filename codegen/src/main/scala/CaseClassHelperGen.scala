@@ -101,12 +101,12 @@ object CaseClassHelperGen1 extends App {
       .resolve("scalax")
       .resolve("asuna")
       .resolve("mapper" + i)
-      .resolve("Item2Xyy" + i + ".scala")
+      .resolve("TreeItem" + i + ".scala")
 
     Files.createDirectories(path19.getParent)
 
     val writer19   = new PrintWriter(path19.toFile)
-    val content191 = Source.fromString(org.scalax.asuna.template.txt.Item2Xyy(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content191 = Source.fromString(org.scalax.asuna.template.txt.TreeItem(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()

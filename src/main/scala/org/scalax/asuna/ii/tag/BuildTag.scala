@@ -15,13 +15,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem1(t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse1(EatValue0.addRightItem(t1))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem1(EatValue0.addRightItem(t1))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem1(t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy1(EatValue0.addRightItem(t1))
+            new org.scalax.asuna.mapper.item.TreeItem1(EatValue0.addRightItem(t1))
           }
         }
       }
@@ -33,13 +33,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem1(t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse1(EatValue0.addRightItem(t1.withContext(c)))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem1(EatValue0.addRightItem(t1.withContext(c)))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem1(t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy1(EatValue0.addRightItem(t1.withContext(c)))
+            new org.scalax.asuna.mapper.item.TreeItem1(EatValue0.addRightItem(t1.withContext(c)))
           }
         }
       }
@@ -61,13 +61,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem2(t1 :: t2 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse2(EatValue0.addRightItem(t2).addRightItem(t1))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem2(EatValue0.addRightItem(t2).addRightItem(t1))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem2(t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy2(EatValue0.addRightItem(t1).addRightItem(t2))
+            new org.scalax.asuna.mapper.item.TreeItem2(EatValue0.addRightItem(t1).addRightItem(t2))
           }
         }
       }
@@ -79,13 +79,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem2(t1.withContext(c) :: t2.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse2(EatValue0.addRightItem(t2.withContext(c)).addRightItem(t1.withContext(c)))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem2(EatValue0.addRightItem(t2.withContext(c)).addRightItem(t1.withContext(c)))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem2(t2.withContext(c) :: t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy2(EatValue0.addRightItem(t1.withContext(c)).addRightItem(t2.withContext(c)))
+            new org.scalax.asuna.mapper.item.TreeItem2(EatValue0.addRightItem(t1.withContext(c)).addRightItem(t2.withContext(c)))
           }
         }
       }
@@ -109,13 +109,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem3(t1 :: t2 :: t3 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse3(EatValue0.addRightItem(t3).addRightItem(t2).addRightItem(t1))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem3(EatValue0.addRightItem(t3).addRightItem(t2).addRightItem(t1))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem3(t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy3(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3))
+            new org.scalax.asuna.mapper.item.TreeItem3(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3))
           }
         }
       }
@@ -127,13 +127,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem3(t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse3(EatValue0.addRightItem(t3.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t1.withContext(c)))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem3(EatValue0.addRightItem(t3.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t1.withContext(c)))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem3(t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy3(EatValue0.addRightItem(t1.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t3.withContext(c)))
+            new org.scalax.asuna.mapper.item.TreeItem3(EatValue0.addRightItem(t1.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t3.withContext(c)))
           }
         }
       }
@@ -172,13 +172,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem4(t1 :: t2 :: t3 :: t4 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse4(EatValue0.addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem4(EatValue0.addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem4(t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy4(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4))
+            new org.scalax.asuna.mapper.item.TreeItem4(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4))
           }
         }
       }
@@ -195,7 +195,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem4(t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse4(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem4(
               EatValue0.addRightItem(t4.withContext(c)).addRightItem(t3.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t1.withContext(c))
             )
           }
@@ -203,7 +203,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem4(t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy4(
+            new org.scalax.asuna.mapper.item.TreeItem4(
               EatValue0.addRightItem(t1.withContext(c)).addRightItem(t2.withContext(c)).addRightItem(t3.withContext(c)).addRightItem(t4.withContext(c))
             )
           }
@@ -249,13 +249,13 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem5(t1 :: t2 :: t3 :: t4 :: t5 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse5(EatValue0.addRightItem(t5).addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1))
+            new org.scalax.asuna.mapper.item.ReverseTreeItem5(EatValue0.addRightItem(t5).addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1))
           }
         } else {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem5(t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy5(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5))
+            new org.scalax.asuna.mapper.item.TreeItem5(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5))
           }
         }
       }
@@ -277,7 +277,7 @@ trait BuildTagContect {
               t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: t5.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse5(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem5(
               EatValue0
                 .addRightItem(t5.withContext(c))
                 .addRightItem(t4.withContext(c))
@@ -290,7 +290,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem5(t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy5(
+            new org.scalax.asuna.mapper.item.TreeItem5(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -388,7 +388,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem6(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse6(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem6(
               EatValue0.addRightItem(t6).addRightItem(t5).addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1)
             )
           }
@@ -396,7 +396,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem6(t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy6(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5).addRightItem(t6))
+            new org.scalax.asuna.mapper.item.TreeItem6(EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5).addRightItem(t6))
           }
         }
       }
@@ -419,7 +419,7 @@ trait BuildTagContect {
               t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: t5.withContext(c) :: t6.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse6(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem6(
               EatValue0
                 .addRightItem(t6.withContext(c))
                 .addRightItem(t5.withContext(c))
@@ -435,7 +435,7 @@ trait BuildTagContect {
               t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy6(
+            new org.scalax.asuna.mapper.item.TreeItem6(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -553,7 +553,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem7(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse7(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem7(
               EatValue0.addRightItem(t7).addRightItem(t6).addRightItem(t5).addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1)
             )
           }
@@ -561,7 +561,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem7(t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy7(
+            new org.scalax.asuna.mapper.item.TreeItem7(
               EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5).addRightItem(t6).addRightItem(t7)
             )
           }
@@ -587,7 +587,7 @@ trait BuildTagContect {
               t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: t5.withContext(c) :: t6.withContext(c) :: t7.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse7(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem7(
               EatValue0
                 .addRightItem(t7.withContext(c))
                 .addRightItem(t6.withContext(c))
@@ -604,7 +604,7 @@ trait BuildTagContect {
               t7.withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy7(
+            new org.scalax.asuna.mapper.item.TreeItem7(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -727,7 +727,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem8(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse8(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem8(
               EatValue0.addRightItem(t8).addRightItem(t7).addRightItem(t6).addRightItem(t5).addRightItem(t4).addRightItem(t3).addRightItem(t2).addRightItem(t1)
             )
           }
@@ -735,7 +735,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem8(t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy8(
+            new org.scalax.asuna.mapper.item.TreeItem8(
               EatValue0.addRightItem(t1).addRightItem(t2).addRightItem(t3).addRightItem(t4).addRightItem(t5).addRightItem(t6).addRightItem(t7).addRightItem(t8)
             )
           }
@@ -763,7 +763,7 @@ trait BuildTagContect {
                 .withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: t5.withContext(c) :: t6.withContext(c) :: t7.withContext(c) :: t8.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse8(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem8(
               EatValue0
                 .addRightItem(t8.withContext(c))
                 .addRightItem(t7.withContext(c))
@@ -782,7 +782,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy8(
+            new org.scalax.asuna.mapper.item.TreeItem8(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -917,7 +917,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem9(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse9(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem9(
               EatValue0
                 .addRightItem(t9)
                 .addRightItem(t8)
@@ -934,7 +934,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem9(t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy9(
+            new org.scalax.asuna.mapper.item.TreeItem9(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -972,7 +972,7 @@ trait BuildTagContect {
                 .withContext(c) :: t4.withContext(c) :: t5.withContext(c) :: t6.withContext(c) :: t7.withContext(c) :: t8.withContext(c) :: t9.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse9(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem9(
               EatValue0
                 .addRightItem(t9.withContext(c))
                 .addRightItem(t8.withContext(c))
@@ -992,7 +992,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy9(
+            new org.scalax.asuna.mapper.item.TreeItem9(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -1139,7 +1139,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem10(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse10(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem10(
               EatValue0
                 .addRightItem(t10)
                 .addRightItem(t9)
@@ -1157,7 +1157,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem10(t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy10(
+            new org.scalax.asuna.mapper.item.TreeItem10(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -1197,7 +1197,7 @@ trait BuildTagContect {
                 .withContext(c) :: t5.withContext(c) :: t6.withContext(c) :: t7.withContext(c) :: t8.withContext(c) :: t9.withContext(c) :: t10.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse10(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem10(
               EatValue0
                 .addRightItem(t10.withContext(c))
                 .addRightItem(t9.withContext(c))
@@ -1218,7 +1218,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy10(
+            new org.scalax.asuna.mapper.item.TreeItem10(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -1377,7 +1377,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem11(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse11(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem11(
               EatValue0
                 .addRightItem(t11)
                 .addRightItem(t10)
@@ -1396,7 +1396,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem11(t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy11(
+            new org.scalax.asuna.mapper.item.TreeItem11(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -1438,7 +1438,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t7.withContext(c) :: t8.withContext(c) :: t9.withContext(c) :: t10.withContext(c) :: t11.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse11(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem11(
               EatValue0
                 .addRightItem(t11.withContext(c))
                 .addRightItem(t10.withContext(c))
@@ -1460,7 +1460,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy11(
+            new org.scalax.asuna.mapper.item.TreeItem11(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -1631,7 +1631,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem12(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse12(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem12(
               EatValue0
                 .addRightItem(t12)
                 .addRightItem(t11)
@@ -1651,7 +1651,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem12(t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy12(
+            new org.scalax.asuna.mapper.item.TreeItem12(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -1695,7 +1695,7 @@ trait BuildTagContect {
                 .withContext(c) :: t7.withContext(c) :: t8.withContext(c) :: t9.withContext(c) :: t10.withContext(c) :: t11.withContext(c) :: t12.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse12(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem12(
               EatValue0
                 .addRightItem(t12.withContext(c))
                 .addRightItem(t11.withContext(c))
@@ -1718,7 +1718,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy12(
+            new org.scalax.asuna.mapper.item.TreeItem12(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -1914,7 +1914,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem13(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse13(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem13(
               EatValue0
                 .addRightItem(t13)
                 .addRightItem(t12)
@@ -1935,7 +1935,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem13(t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy13(
+            new org.scalax.asuna.mapper.item.TreeItem13(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -1981,7 +1981,7 @@ trait BuildTagContect {
                 .withContext(c) :: t8.withContext(c) :: t9.withContext(c) :: t10.withContext(c) :: t11.withContext(c) :: t12.withContext(c) :: t13.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse13(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem13(
               EatValue0
                 .addRightItem(t13.withContext(c))
                 .addRightItem(t12.withContext(c))
@@ -2005,7 +2005,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy13(
+            new org.scalax.asuna.mapper.item.TreeItem13(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -2214,7 +2214,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem14(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse14(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem14(
               EatValue0
                 .addRightItem(t14)
                 .addRightItem(t13)
@@ -2236,7 +2236,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem14(t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy14(
+            new org.scalax.asuna.mapper.item.TreeItem14(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -2284,7 +2284,7 @@ trait BuildTagContect {
                 .withContext(c) :: t9.withContext(c) :: t10.withContext(c) :: t11.withContext(c) :: t12.withContext(c) :: t13.withContext(c) :: t14.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse14(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem14(
               EatValue0
                 .addRightItem(t14.withContext(c))
                 .addRightItem(t13.withContext(c))
@@ -2309,7 +2309,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy14(
+            new org.scalax.asuna.mapper.item.TreeItem14(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -2531,7 +2531,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem15(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse15(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem15(
               EatValue0
                 .addRightItem(t15)
                 .addRightItem(t14)
@@ -2554,7 +2554,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem15(t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy15(
+            new org.scalax.asuna.mapper.item.TreeItem15(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -2605,7 +2605,7 @@ trait BuildTagContect {
                 .withContext(c) :: t11.withContext(c) :: t12.withContext(c) :: t13.withContext(c) :: t14.withContext(c) :: t15.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse15(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem15(
               EatValue0
                 .addRightItem(t15.withContext(c))
                 .addRightItem(t14.withContext(c))
@@ -2632,7 +2632,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy15(
+            new org.scalax.asuna.mapper.item.TreeItem15(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -2869,7 +2869,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse16(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem16(
               EatValue0
                 .addRightItem(t16)
                 .addRightItem(t15)
@@ -2893,7 +2893,7 @@ trait BuildTagContect {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.HListItem16(t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil)
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy16(
+            new org.scalax.asuna.mapper.item.TreeItem16(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -2946,7 +2946,7 @@ trait BuildTagContect {
                 .withContext(c) :: t12.withContext(c) :: t13.withContext(c) :: t14.withContext(c) :: t15.withContext(c) :: t16.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse16(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem16(
               EatValue0
                 .addRightItem(t16.withContext(c))
                 .addRightItem(t15.withContext(c))
@@ -2974,7 +2974,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy16(
+            new org.scalax.asuna.mapper.item.TreeItem16(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -3224,7 +3224,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse17(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem17(
               EatValue0
                 .addRightItem(t17)
                 .addRightItem(t16)
@@ -3251,7 +3251,7 @@ trait BuildTagContect {
               t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy17(
+            new org.scalax.asuna.mapper.item.TreeItem17(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -3306,7 +3306,7 @@ trait BuildTagContect {
                 .withContext(c) :: t13.withContext(c) :: t14.withContext(c) :: t15.withContext(c) :: t16.withContext(c) :: t17.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse17(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem17(
               EatValue0
                 .addRightItem(t17.withContext(c))
                 .addRightItem(t16.withContext(c))
@@ -3335,7 +3335,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy17(
+            new org.scalax.asuna.mapper.item.TreeItem17(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -3598,7 +3598,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: t18 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse18(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem18(
               EatValue0
                 .addRightItem(t18)
                 .addRightItem(t17)
@@ -3626,7 +3626,7 @@ trait BuildTagContect {
               t18 :: t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy18(
+            new org.scalax.asuna.mapper.item.TreeItem18(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -3683,7 +3683,7 @@ trait BuildTagContect {
                 .withContext(c) :: t14.withContext(c) :: t15.withContext(c) :: t16.withContext(c) :: t17.withContext(c) :: t18.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse18(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem18(
               EatValue0
                 .addRightItem(t18.withContext(c))
                 .addRightItem(t17.withContext(c))
@@ -3713,7 +3713,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy18(
+            new org.scalax.asuna.mapper.item.TreeItem18(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -3989,7 +3989,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: t18 :: t19 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse19(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem19(
               EatValue0
                 .addRightItem(t19)
                 .addRightItem(t18)
@@ -4018,7 +4018,7 @@ trait BuildTagContect {
               t19 :: t18 :: t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy19(
+            new org.scalax.asuna.mapper.item.TreeItem19(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -4077,7 +4077,7 @@ trait BuildTagContect {
                 .withContext(c) :: t15.withContext(c) :: t16.withContext(c) :: t17.withContext(c) :: t18.withContext(c) :: t19.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse19(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem19(
               EatValue0
                 .addRightItem(t19.withContext(c))
                 .addRightItem(t18.withContext(c))
@@ -4108,7 +4108,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy19(
+            new org.scalax.asuna.mapper.item.TreeItem19(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -4397,7 +4397,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: t18 :: t19 :: t20 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse20(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem20(
               EatValue0
                 .addRightItem(t20)
                 .addRightItem(t19)
@@ -4427,7 +4427,7 @@ trait BuildTagContect {
               t20 :: t19 :: t18 :: t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy20(
+            new org.scalax.asuna.mapper.item.TreeItem20(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -4488,7 +4488,7 @@ trait BuildTagContect {
                 .withContext(c) :: t16.withContext(c) :: t17.withContext(c) :: t18.withContext(c) :: t19.withContext(c) :: t20.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse20(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem20(
               EatValue0
                 .addRightItem(t20.withContext(c))
                 .addRightItem(t19.withContext(c))
@@ -4520,7 +4520,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy20(
+            new org.scalax.asuna.mapper.item.TreeItem20(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -4822,7 +4822,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: t18 :: t19 :: t20 :: t21 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse21(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem21(
               EatValue0
                 .addRightItem(t21)
                 .addRightItem(t20)
@@ -4853,7 +4853,7 @@ trait BuildTagContect {
               t21 :: t20 :: t19 :: t18 :: t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy21(
+            new org.scalax.asuna.mapper.item.TreeItem21(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -4917,7 +4917,7 @@ trait BuildTagContect {
                 .withContext(c) :: t17.withContext(c) :: t18.withContext(c) :: t19.withContext(c) :: t20.withContext(c) :: t21.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse21(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem21(
               EatValue0
                 .addRightItem(t21.withContext(c))
                 .addRightItem(t20.withContext(c))
@@ -4951,7 +4951,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy21(
+            new org.scalax.asuna.mapper.item.TreeItem21(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))
@@ -5266,7 +5266,7 @@ trait BuildTagContect {
               t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: t16 :: t17 :: t18 :: t19 :: t20 :: t21 :: t22 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse22(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem22(
               EatValue0
                 .addRightItem(t22)
                 .addRightItem(t21)
@@ -5298,7 +5298,7 @@ trait BuildTagContect {
               t22 :: t21 :: t20 :: t19 :: t18 :: t17 :: t16 :: t15 :: t14 :: t13 :: t12 :: t11 :: t10 :: t9 :: t8 :: t7 :: t6 :: t5 :: t4 :: t3 :: t2 :: t1 :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy22(
+            new org.scalax.asuna.mapper.item.TreeItem22(
               EatValue0
                 .addRightItem(t1)
                 .addRightItem(t2)
@@ -5364,7 +5364,7 @@ trait BuildTagContect {
                 .withContext(c) :: t18.withContext(c) :: t19.withContext(c) :: t20.withContext(c) :: t21.withContext(c) :: t22.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2XyyReverse22(
+            new org.scalax.asuna.mapper.item.ReverseTreeItem22(
               EatValue0
                 .addRightItem(t22.withContext(c))
                 .addRightItem(t21.withContext(c))
@@ -5399,7 +5399,7 @@ trait BuildTagContect {
                 .withContext(c) :: t6.withContext(c) :: t5.withContext(c) :: t4.withContext(c) :: t3.withContext(c) :: t2.withContext(c) :: t1.withContext(c) :: HNil
             )
           } else {
-            new org.scalax.asuna.mapper.item.Item2Xyy22(
+            new org.scalax.asuna.mapper.item.TreeItem22(
               EatValue0
                 .addRightItem(t1.withContext(c))
                 .addRightItem(t2.withContext(c))

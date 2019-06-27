@@ -1,13 +1,50 @@
-package org.scalax.asuna.mapper.append.debug
+object Test01 extends App {
 
-import io.circe._
-import org.scalax.asuna.mapper.append.{CirceLargeModel, ShapelessTest}
-
-object MacroTest1 extends App {
-
-  object ll {
-    implicit lazy val kk211Encoder: ObjectEncoder[CirceLargeModel.LargeModel_1] = implicitly[ShapelessTest.EncodeImplicit[CirceLargeModel.LargeModel_1]].mm
-    implicit lazy val kk212Encoder: ObjectEncoder[CirceLargeModel.LargeModel_2] = implicitly[ShapelessTest.EncodeImplicit[CirceLargeModel.LargeModel_2]].mm
+  trait Space {
+    type Current
+    type Sub <: Space
+    def current: Current
+    def sub: Sub
   }
+
+  class `黄土`[C](override val current: C) extends Space {
+    self =>
+    override type Current = C
+    override type Sub     = `黄土`[C]
+    override def sub: `黄土`[C] = self
+  }
+
+  /*class `根1`[`树1`](val 叶子1: `树1`) extends `树` {
+    self =>
+    override def sub1: 根1[`树1`] = self
+    override def sub2: 根1[`树1`] = self
+    override type `子节点1` = 根1[`树1`]
+    override type `子节点2` = 根1[`树1`]
+  }
+
+  val tree1: `节点`[`根1`[String], `根1`[Int]] = new `节点`(new `根1`("树叶块"), new `根1`(12))
+  print(tree1.sub1.叶子1) //print: 树叶块
+  println
+
+  class `地狱` extends `树` {
+    self =>
+    override def sub1: `地狱` = self
+    override def sub2: `地狱` = self
+    override type `子节点1` = `地狱`
+    override type `子节点2` = `地狱`
+  }
+
+  object `地狱` extends `地狱`
+
+  class `根2`[`树1`](val 叶子1: `树1`) extends `树` {
+    self =>
+    override def sub1: `地狱` = `地狱`
+    override def sub2: `地狱` = `地狱`
+    override type `子节点1` = `地狱`
+    override type `子节点2` = `地狱`
+  }
+
+  val tree2: `节点`[`根2`[String], `根2`[Int]] = new `节点`(new `根2`("不知道落到哪里去的树叶块"), new `根2`(12))
+  print(tree2.sub1.叶子1) //print: 不知道落到哪里去的树叶块*/
 
 }

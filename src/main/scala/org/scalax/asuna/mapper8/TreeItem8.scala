@@ -1,13 +1,13 @@
 package org.scalax.asuna.mapper.item
-class Item2Xyy8[T1, T2, T3, T4, T5, T6, T7, T8](
+class TreeItem8[T1, T2, T3, T4, T5, T6, T7, T8](
   val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]#AddRightItem[T2]#AddRightItem[T3]#AddRightItem[T4]#AddRightItem[T5]#AddRightItem[T6]#AddRightItem[T7]#AddRightItem[
     T8
   ]
 ) extends AnyVal
     with XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8] {
-  override def eat[T](xyy: T): Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T] = new Item2Xyy9[T1, T2, T3, T4, T5, T6, T7, T8, T](item.addRightItem(xyy))
+  override def eat[T](xyy: T): TreeItem9[T1, T2, T3, T4, T5, T6, T7, T8, T] = new TreeItem9[T1, T2, T3, T4, T5, T6, T7, T8, T](item.addRightItem(xyy))
   override def rightHead: T8                                                = item.dropRightItem
-  override def rightTail: Item2Xyy7[T1, T2, T3, T4, T5, T6, T7]             = new Item2Xyy7(item.dropRight)
+  override def rightTail: TreeItem7[T1, T2, T3, T4, T5, T6, T7]             = new TreeItem7(item.dropRight)
   def i1: T1                                                                = item.item.i1.i1.i1
   def i2: T2                                                                = item.item.i1.i1.i2
   def i3: T3                                                                = item.item.i1.i2.i1
@@ -17,15 +17,15 @@ class Item2Xyy8[T1, T2, T3, T4, T5, T6, T7, T8](
   def i7: T7                                                                = item.item.i2.i2.i1
   def i8: T8                                                                = item.item.i2.i2.i2
 }
-class Item2XyyReverse8[T1, T2, T3, T4, T5, T6, T7, T8](
+class ReverseTreeItem8[T1, T2, T3, T4, T5, T6, T7, T8](
   val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T8]#AddRightItem[T7]#AddRightItem[T6]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[T3]#AddRightItem[T2]#AddRightItem[
     T1
   ]
 ) extends AnyVal
     with XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8] {
-  override def pudao[T](xyy: T): Item2XyyReverse9[T, T1, T2, T3, T4, T5, T6, T7, T8] = new Item2XyyReverse9[T, T1, T2, T3, T4, T5, T6, T7, T8](item.addRightItem(xyy))
+  override def pudao[T](xyy: T): ReverseTreeItem9[T, T1, T2, T3, T4, T5, T6, T7, T8] = new ReverseTreeItem9[T, T1, T2, T3, T4, T5, T6, T7, T8](item.addRightItem(xyy))
   override def leftHead: T1                                                          = item.dropRightItem
-  override def leftTail: Item2XyyReverse7[T2, T3, T4, T5, T6, T7, T8]                = new Item2XyyReverse7(item.dropRight)
+  override def leftTail: ReverseTreeItem7[T2, T3, T4, T5, T6, T7, T8]                = new ReverseTreeItem7(item.dropRight)
   def i1: T1                                                                         = item.item.i2.i2.i2
   def i2: T2                                                                         = item.item.i2.i2.i1
   def i3: T3                                                                         = item.item.i2.i1.i2

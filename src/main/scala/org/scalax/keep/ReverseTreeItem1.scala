@@ -1,16 +1,16 @@
 package org.scalax.asuna.mapper.item
-trait Item2XyyReverse0 extends Any with XyyItem0 {
-  override def pudao[T](xyy: T): Item2XyyReverse1[T] = new Item2XyyReverse1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
+trait ReverseTreeItem0 extends Any with XyyItem0 {
+  override def pudao[T](xyy: T): ReverseTreeItem1[T] = new ReverseTreeItem1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
 }
-object Item2XyyReverse0 extends Item2XyyReverse0
-class Item2XyyReverse1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with XyyItem1[T1] {
-  override def pudao[T](xyy: T): Item2XyyReverse2[T, T1] = new Item2XyyReverse2[T, T1](item.addRightItem(xyy))
+object ReverseTreeItem0 extends ReverseTreeItem0
+class ReverseTreeItem1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with XyyItem1[T1] {
+  override def pudao[T](xyy: T): ReverseTreeItem2[T, T1] = new ReverseTreeItem2[T, T1](item.addRightItem(xyy))
   override def leftHead: T1                              = item.dropRightItem
-  override def leftTail: Item2XyyReverse0                = Item2XyyReverse0
+  override def leftTail: ReverseTreeItem0                = ReverseTreeItem0
   override def i1: T1                                    = item.item.i1
 }
 
-class Item2XyyReverse22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](
+class ReverseTreeItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22](
     val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T22]#AddRightItem[T21]#AddRightItem[T20]#AddRightItem[T19]#AddRightItem[T18]#AddRightItem[T17]#AddRightItem[
       T16
   ]#AddRightItem[T15]#AddRightItem[T14]#AddRightItem[T13]#AddRightItem[T12]#AddRightItem[T11]#AddRightItem[T10]#AddRightItem[T9]#AddRightItem[T8]#AddRightItem[T7]#AddRightItem[
@@ -19,8 +19,8 @@ class Item2XyyReverse22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, 
 ) extends AnyVal
     with XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] {
   override def leftHead: T1 = item.dropRightItem
-  override def leftTail: Item2XyyReverse21[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] =
-    new Item2XyyReverse21(item.dropRight)
+  override def leftTail: ReverseTreeItem21[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] =
+    new ReverseTreeItem21(item.dropRight)
   def i1: T1   = item.item.i2.i1.i2.i1.i2
   def i2: T2   = item.item.i2.i1.i2.i1.i1
   def i3: T3   = item.item.i2.i1.i1.i2.i2
