@@ -6,7 +6,7 @@ import org.scalax.asuna.mapper.item.impl._
 
 class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: org.scalax.asuna.mapper.item.ItemTag , M@{ii} <: org.scalax.asuna.mapper.item.Message @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
-    override type XyyItemType = XyyItem@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#XyyItemType @if(ii < tagNum) { , } }]
+    override type XyyItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#XyyItemType @if(ii < tagNum) { , } }]
     override type M[M <: org.scalax.asuna.mapper.item.Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {

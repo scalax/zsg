@@ -21,7 +21,7 @@ class NodeTag9[
   M9 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
   override type XyyItemType =
-    XyyItem9[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType, T7#XyyItemType, T8#XyyItemType, T9#XyyItemType]
+    Item9[T1#XyyItemType, T2#XyyItemType, T3#XyyItemType, T4#XyyItemType, T5#XyyItemType, T6#XyyItemType, T7#XyyItemType, T8#XyyItemType, T9#XyyItemType]
   override type M[M <: org.scalax.asuna.mapper.item.Message] =
     NodeTag9[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7, T8, M :-<>-: M8, T9, M :-<>-: M9]
   def find0: T1#M[Asuna.`Number: 0`] = throw new Exception("debugging...")

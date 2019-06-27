@@ -26,7 +26,7 @@ class ItemTag12[
   T12,
   M12 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type XyyItemType = XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
+  override type XyyItemType = Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]
   override type M[M <: org.scalax.asuna.mapper.item.Message] = ItemTag12[
     T1,
     M :-<>-: M1,

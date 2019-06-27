@@ -4,7 +4,7 @@ package org.scalax.asuna.mapper.item
 
 import shapeless._
 
-class ReverseHListItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](val head: @for(ii <- 1 to tagNum) { E@{ii} :: } HNil) extends AnyVal with XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] {
+class ReverseHListItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](val head: @for(ii <- 1 to tagNum) { E@{ii} :: } HNil) extends AnyVal with Item@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] {
 
     override def pudao[T](xyy: T): ReverseHListItem@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = new ReverseHListItem@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} } ](xyy :: head)
 

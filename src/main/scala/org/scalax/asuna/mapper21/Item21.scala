@@ -1,5 +1,5 @@
 package org.scalax.asuna.mapper.item
-trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] extends Any {
+trait Item21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] extends Any {
   self =>
   def i1: E1
   def i2: E2
@@ -21,15 +21,16 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def i18: E18
   def i19: E19
   def i20: E20
-  def leftHead: E1                                                                                               = throw new Exception("Can not use this method.")
-  def leftTail: XyyItem19[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] = throw new Exception("Can not use this method.")
-  def rightHead: E20                                                                                             = throw new Exception("Can not use this method.")
-  def rightTail: XyyItem19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] = throw new Exception("Can not use this method.")
-  def eat[T](xyy: T): XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, T] =
+  def i21: E21
+  def leftHead: E1                                                                                                 = throw new Exception("Can not use this method.")
+  def leftTail: Item20[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] = throw new Exception("Can not use this method.")
+  def rightHead: E21                                                                                               = throw new Exception("Can not use this method.")
+  def rightTail: Item20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] = throw new Exception("Can not use this method.")
+  def eat[T](xyy: T): Item22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, T] =
     throw new Exception("Can not use this method.")
-  def pudao[T](xyy: T): XyyItem21[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] =
+  def pudao[T](xyy: T): Item22[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
     throw new Exception("Can not use this method.")
-  def eatToTuple[T](xyy: T): Tuple21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, T] =
+  def eatToTuple[T](xyy: T): Tuple22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, T] =
     (
       self.i1,
       self.i2,
@@ -51,9 +52,10 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       self.i18,
       self.i19,
       self.i20,
+      self.i21,
       xyy
     )
-  def pudaoToTuple[T](xyy: T): Tuple21[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] =
+  def pudaoToTuple[T](xyy: T): Tuple22[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
     (
       xyy,
       self.i1,
@@ -75,10 +77,11 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       self.i17,
       self.i18,
       self.i19,
-      self.i20
+      self.i20,
+      self.i21
     )
-  def leftTuple: Tuple19[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] =
-    Tuple19(
+  def leftTuple: Tuple20[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
+    Tuple20(
         self.i2
       , self.i3
       , self.i4
@@ -98,9 +101,10 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       , self.i18
       , self.i19
       , self.i20
+      , self.i21
     )
-  def rightTuple: Tuple19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19] =
-    Tuple19(
+  def rightTuple: Tuple20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20] =
+    Tuple20(
         self.i1
       , self.i2
       , self.i3
@@ -120,5 +124,6 @@ trait XyyItem20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
       , self.i17
       , self.i18
       , self.i19
+      , self.i20
     )
 }

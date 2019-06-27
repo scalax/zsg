@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.item
 import org.scalax.asuna.mapper.item.impl._
 
 class NodeTag1[T1 <: org.scalax.asuna.mapper.item.ItemTag, M1 <: org.scalax.asuna.mapper.item.Message] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type XyyItemType                                  = XyyItem1[T1#XyyItemType]
+  override type XyyItemType                                  = Item1[T1#XyyItemType]
   override type M[M <: org.scalax.asuna.mapper.item.Message] = NodeTag1[T1, M :-<>-: M1]
 
   def debug[K <: org.scalax.asuna.mapper.KindContext, I1 <: org.scalax.asuna.mapper.TypeParam](c: org.scalax.asuna.mapper.Context[K])(

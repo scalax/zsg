@@ -8,7 +8,7 @@ class EncoderContent[A, Poly](val encoder: Encoder[A]) extends AnyVal
 trait PolyContent[Poly] {
   type CirceEncoder[A] = EncoderContent[A, Poly]
   implicit def circeEncoderImplicit[A](implicit encoder: CirceEncoder[A]): Encoder[A] = encoder.encoder
-  def toEncoderContent[A](encoder: Encoder[A]): EncoderContent[A, Poly] = new EncoderContent[A, Poly](encoder)
+  def toEncoderContent[A](encoder: Encoder[A]): EncoderContent[A, Poly]               = new EncoderContent[A, Poly](encoder)
 }
 
 trait Getter[Poly] {

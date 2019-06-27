@@ -4,7 +4,7 @@ class TreeItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T1
     T8
   ]#AddRightItem[T9]#AddRightItem[T10]#AddRightItem[T11]#AddRightItem[T12]#AddRightItem[T13]#AddRightItem[T14]#AddRightItem[T15]#AddRightItem[T16]#AddRightItem[T17]
 ) extends AnyVal
-    with XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] {
+    with Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] {
   override def eat[T](xyy: T): TreeItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T] =
     new TreeItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T](item.addRightItem(xyy))
   override def rightHead: T17                                                                               = item.dropRightItem
@@ -34,7 +34,7 @@ class ReverseTreeItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, 
     T1
   ]
 ) extends AnyVal
-    with XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] {
+    with Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] {
   override def pudao[T](xyy: T): ReverseTreeItem18[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] =
     new ReverseTreeItem18[T, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17](item.addRightItem(xyy))
   override def leftHead: T1                                                                                        = item.dropRightItem

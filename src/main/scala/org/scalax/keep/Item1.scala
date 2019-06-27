@@ -1,24 +1,24 @@
 package org.scalax.asuna.mapper.item
-trait XyyItem0 extends Any {
-  def eat[T](xyy: T): XyyItem1[T]        = throw new Exception("Can not use this method.")
-  def pudao[T](xyy: T): XyyItem1[T]      = throw new Exception("Can not use this method.")
+trait Item0 extends Any {
+  def eat[T](xyy: T): Item1[T]           = throw new Exception("Can not use this method.")
+  def pudao[T](xyy: T): Item1[T]         = throw new Exception("Can not use this method.")
   def eatToTuple[T](xyy: T): Tuple1[T]   = Tuple1(xyy)
   def pudaoToTuple[T](xyy: T): Tuple1[T] = Tuple1(xyy)
 }
-object XyyItem0 extends XyyItem0
-trait XyyItem1[E1] extends Any {
+object Item0 extends Item0
+trait Item1[E1] extends Any {
   self =>
   def i1: E1
   def leftHead: E1                           = throw new Exception("Can not use this method.")
-  def leftTail: XyyItem0                     = throw new Exception("Can not use this method.")
+  def leftTail: Item0                        = throw new Exception("Can not use this method.")
   def rightHead: E1                          = throw new Exception("Can not use this method.")
-  def rightTail: XyyItem0                    = throw new Exception("Can not use this method.")
-  def eat[T](xyy: T): XyyItem2[E1, T]        = throw new Exception("Can not use this method.")
-  def pudao[T](xyy: T): XyyItem2[T, E1]      = throw new Exception("Can not use this method.")
+  def rightTail: Item0                       = throw new Exception("Can not use this method.")
+  def eat[T](xyy: T): Item2[E1, T]           = throw new Exception("Can not use this method.")
+  def pudao[T](xyy: T): Item2[T, E1]         = throw new Exception("Can not use this method.")
   def eatToTuple[T](xyy: T): Tuple2[E1, T]   = (self.i1, xyy)
   def pudaoToTuple[T](xyy: T): Tuple2[T, E1] = (xyy, self.i1)
 }
-trait XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] extends Any {
+trait Item22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] extends Any {
   self =>
   def i1: E1
   def i2: E2
@@ -43,10 +43,10 @@ trait XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def i21: E21
   def i22: E22
   def leftHead: E1 = throw new Exception("Can not use this method.")
-  def leftTail: XyyItem21[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] =
+  def leftTail: Item21[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] =
     throw new Exception("Can not use this method.")
   def rightHead: E22 = throw new Exception("Can not use this method.")
-  def rightTail: XyyItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
+  def rightTail: Item21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] =
     throw new Exception("Can not use this method.")
   def leftTuple: Tuple21[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] =
     (

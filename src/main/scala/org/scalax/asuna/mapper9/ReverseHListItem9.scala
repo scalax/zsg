@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.item
 import shapeless._
 class ReverseHListItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9](val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: HNil)
     extends AnyVal
-    with XyyItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9] {
+    with Item9[E1, E2, E3, E4, E5, E6, E7, E8, E9] {
   override def pudao[T](xyy: T): ReverseHListItem10[T, E1, E2, E3, E4, E5, E6, E7, E8, E9] = new ReverseHListItem10[T, E1, E2, E3, E4, E5, E6, E7, E8, E9](xyy :: head)
   override def leftHead: E1                                                                = head.head
   override def leftTail: ReverseHListItem8[E2, E3, E4, E5, E6, E7, E8, E9]                 = new ReverseHListItem8(head.tail)

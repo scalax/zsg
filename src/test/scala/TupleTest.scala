@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.debug
 
-import org.scalax.asuna.mapper.item.{AppendTuple, XyyItem0}
+import org.scalax.asuna.mapper.item.{AppendTuple, Item0}
 import org.scalax.asuna.mapper._
 
 object TupleTest {
@@ -66,9 +66,9 @@ object TupleTest {
       })
     }
 
-    override def start: (TupleEncoder[XyyItem0], XyyItem0 => XyyItem0) =
-      (new TupleEncoder2[XyyItem0] {
-        override def body(t: List[String], i: XyyItem0) = t
+    override def start: (TupleEncoder[Item0], Item0 => Item0) =
+      (new TupleEncoder2[Item0] {
+        override def body(t: List[String], i: Item0) = t
       }, identity)
 
   }

@@ -1,9 +1,9 @@
 package org.scalax.asuna.mapper.item
-trait ReverseTreeItem0 extends Any with XyyItem0 {
+trait ReverseTreeItem0 extends Any with Item0 {
   override def pudao[T](xyy: T): ReverseTreeItem1[T] = new ReverseTreeItem1(org.scalax.asuna.mapper.item.EatValue0.addRightItem(xyy))
 }
 object ReverseTreeItem0 extends ReverseTreeItem0
-class ReverseTreeItem1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with XyyItem1[T1] {
+class ReverseTreeItem1[T1](val item: org.scalax.asuna.mapper.item.EatValue0#AddRightItem[T1]) extends AnyVal with Item1[T1] {
   override def pudao[T](xyy: T): ReverseTreeItem2[T, T1] = new ReverseTreeItem2[T, T1](item.addRightItem(xyy))
   override def leftHead: T1                              = item.dropRightItem
   override def leftTail: ReverseTreeItem0                = ReverseTreeItem0
@@ -17,7 +17,7 @@ class ReverseTreeItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, 
       T6
   ]#AddRightItem[T5]#AddRightItem[T4]#AddRightItem[T3]#AddRightItem[T2]#AddRightItem[T1]
 ) extends AnyVal
-    with XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] {
+    with Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] {
   override def leftHead: T1 = item.dropRightItem
   override def leftTail: ReverseTreeItem21[T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] =
     new ReverseTreeItem21(item.dropRight)

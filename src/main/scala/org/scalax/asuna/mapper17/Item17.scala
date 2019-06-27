@@ -1,5 +1,5 @@
 package org.scalax.asuna.mapper.item
-trait XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] extends Any {
+trait Item17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] extends Any {
   self =>
   def i1: E1
   def i2: E2
@@ -18,12 +18,12 @@ trait XyyItem17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15
   def i15: E15
   def i16: E16
   def i17: E17
-  def leftHead: E1                                                                                               = throw new Exception("Can not use this method.")
-  def leftTail: XyyItem16[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]                = throw new Exception("Can not use this method.")
-  def rightHead: E17                                                                                             = throw new Exception("Can not use this method.")
-  def rightTail: XyyItem16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]                = throw new Exception("Can not use this method.")
-  def eat[T](xyy: T): XyyItem18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, T]   = throw new Exception("Can not use this method.")
-  def pudao[T](xyy: T): XyyItem18[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] = throw new Exception("Can not use this method.")
+  def leftHead: E1                                                                                            = throw new Exception("Can not use this method.")
+  def leftTail: Item16[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]                = throw new Exception("Can not use this method.")
+  def rightHead: E17                                                                                          = throw new Exception("Can not use this method.")
+  def rightTail: Item16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]                = throw new Exception("Can not use this method.")
+  def eat[T](xyy: T): Item18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, T]   = throw new Exception("Can not use this method.")
+  def pudao[T](xyy: T): Item18[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] = throw new Exception("Can not use this method.")
   def eatToTuple[T](xyy: T): Tuple18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, T] =
     (self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9, self.i10, self.i11, self.i12, self.i13, self.i14, self.i15, self.i16, self.i17, xyy)
   def pudaoToTuple[T](xyy: T): Tuple18[T, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17] =

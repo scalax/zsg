@@ -1,10 +1,10 @@
 package org.scalax.asuna.mapper.item
 import shapeless._
-trait HListItem0 extends Any with XyyItem0 {
+trait HListItem0 extends Any with Item0 {
   override def eat[T](xyy: T): HListItem1[T] = new HListItem1(xyy :: HNil)
 }
 object HListItem0 extends HListItem0
-class HListItem1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
+class HListItem1[E1](val head: E1 :: HNil) extends AnyVal with Item1[E1] {
   override def eat[T](xyy: T): HListItem2[E1, T] = new HListItem2[E1, T](xyy :: head)
   override def rightHead: E1                     = head.head
   override def rightTail: HListItem0             = HListItem0
@@ -14,7 +14,7 @@ class HListItem1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
 class HListItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22](
     val head: E22 :: E21 :: E20 :: E19 :: E18 :: E17 :: E16 :: E15 :: E14 :: E13 :: E12 :: E11 :: E10 :: E9 :: E8 :: E7 :: E6 :: E5 :: E4 :: E3 :: E2 :: E1 :: HNil
 ) extends AnyVal
-    with XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
+    with Item22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
   override def rightHead: E22                                                                                                         = head.head
   override def rightTail: HListItem21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21] = new HListItem21(head.tail)
   override def i1: E1                                                                                                                 = head.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.tail.head

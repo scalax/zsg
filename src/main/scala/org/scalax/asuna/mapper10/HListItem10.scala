@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.item
 import shapeless._
 class HListItem10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10](val head: E10 :: E9 :: E8 :: E7 :: E6 :: E5 :: E4 :: E3 :: E2 :: E1 :: HNil)
     extends AnyVal
-    with XyyItem10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] {
+    with Item10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10] {
   override def eat[T](xyy: T): HListItem11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, T] = new HListItem11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, T](xyy :: head)
   override def rightHead: E10                                                          = head.head
   override def rightTail: HListItem9[E1, E2, E3, E4, E5, E6, E7, E8, E9]               = new HListItem9(head.tail)

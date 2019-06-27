@@ -1,10 +1,10 @@
 package org.scalax.asuna.mapper.item
 import shapeless._
-trait ReverseHListItem0 extends Any with XyyItem0 {
+trait ReverseHListItem0 extends Any with Item0 {
   override def pudao[T](xyy: T): ReverseHListItem1[T] = new ReverseHListItem1(xyy :: HNil)
 }
 object ReverseHListItem0 extends ReverseHListItem0
-class ReverseHListItem1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E1] {
+class ReverseHListItem1[E1](val head: E1 :: HNil) extends AnyVal with Item1[E1] {
   override def pudao[T](xyy: T): ReverseHListItem2[T, E1] = new ReverseHListItem2[T, E1](xyy :: head)
   override def leftHead: E1                               = head.head
   override def leftTail: ReverseHListItem0                = ReverseHListItem0
@@ -14,7 +14,7 @@ class ReverseHListItem1[E1](val head: E1 :: HNil) extends AnyVal with XyyItem1[E
 class ReverseHListItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22](
     val head: E1 :: E2 :: E3 :: E4 :: E5 :: E6 :: E7 :: E8 :: E9 :: E10 :: E11 :: E12 :: E13 :: E14 :: E15 :: E16 :: E17 :: E18 :: E19 :: E20 :: E21 :: E22 :: HNil
 ) extends AnyVal
-    with XyyItem22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
+    with Item22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] {
   override def leftHead: E1 = head.head
   override def leftTail: ReverseHListItem21[E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22] =
     new ReverseHListItem21(head.tail)

@@ -75,8 +75,8 @@ object EncoderTest {
         x.p(plus.sub.takeTail(obj), plus.takeTail(name), y.p(plus.sub.takeHead(obj), plus.takeHead(name), m))
     }
 
-    override def start: JsonEncoder[XyyItem0, XyyItem0] = new JsonEncoder[XyyItem0, XyyItem0] {
-      override def p(name: XyyItem0, obj: XyyItem0, m: List[(String, Json)]): List[(String, Json)] = m
+    override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
+      override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
     }
   }
 

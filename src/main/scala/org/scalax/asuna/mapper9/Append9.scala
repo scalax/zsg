@@ -20,7 +20,7 @@ class ItemTag9[
   T9,
   M9 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type XyyItemType = XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
+  override type XyyItemType = Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9]
   override type M[M <: org.scalax.asuna.mapper.item.Message] =
     ItemTag9[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7, T8, M :-<>-: M8, T9, M :-<>-: M9]
   def debug[

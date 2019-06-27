@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.slick
 
-import org.scalax.asuna.mapper.item.{AppendTuple, XyyItem0}
+import org.scalax.asuna.mapper.item.{AppendTuple, Item0}
 import org.scalax.asuna.mapper._
 import slick.ast.{BaseTypedType, Library, LiteralNode, ProductNode}
 import slick.util.ConstArray
@@ -80,10 +80,10 @@ object TupleTest3 {
       }
     }
 
-    override def start: TupleEncoder[XyyItem0, XyyItem0] = new TupleEncoder[XyyItem0, XyyItem0] {
-      override def rep(rep: XyyItem0, r: List[slick.ast.Node]): List[slick.ast.Node]                  = r
-      override def dataNode(dataType: XyyItem0, node: List[slick.ast.Node]): List[slick.ast.Node]     = node
-      override def bindDataNode(dataType: XyyItem0, node: List[slick.ast.Node]): List[slick.ast.Node] = node
+    override def start: TupleEncoder[Item0, Item0] = new TupleEncoder[Item0, Item0] {
+      override def rep(rep: Item0, r: List[slick.ast.Node]): List[slick.ast.Node]                  = r
+      override def dataNode(dataType: Item0, node: List[slick.ast.Node]): List[slick.ast.Node]     = node
+      override def bindDataNode(dataType: Item0, node: List[slick.ast.Node]): List[slick.ast.Node] = node
     }
 
   }

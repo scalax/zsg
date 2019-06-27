@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.test
 
 import io.circe._
-import org.scalax.asuna.mapper.item.{ItemTag, XyyItem0}
+import org.scalax.asuna.mapper.item.{Item0, ItemTag}
 import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
 
@@ -45,9 +45,9 @@ object DecoderTest {
       }
     }
 
-    override def start: JsonPro[XyyItem0, XyyItem0] = {
-      new JsonPro[XyyItem0, XyyItem0] {
-        override def d(j: JsonObject, name: XyyItem0): Either[String, XyyItem0] = Right(new XyyItem0 {})
+    override def start: JsonPro[Item0, Item0] = {
+      new JsonPro[Item0, Item0] {
+        override def d(j: JsonObject, name: Item0): Either[String, Item0] = Right(Item0)
       }
     }
   }

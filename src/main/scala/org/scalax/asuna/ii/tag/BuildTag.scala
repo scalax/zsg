@@ -8,9 +8,9 @@ trait BuildTagContect {
     t1: org.scalax.asuna.mapper.AppendTag[T1]
   ): org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag1[T1, Asuna.`Number: 1`]] =
     new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag1[T1, Asuna.`Number: 1`]]
-  def item1[T1](t1: T1): ContextContent[org.scalax.asuna.mapper.item.XyyItem1[T1]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem1[T1]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem1[T1] = {
+  def item1[T1](t1: T1): ContextContent[org.scalax.asuna.mapper.item.Item1[T1]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item1[T1]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item1[T1] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem1(t1 :: HNil)
@@ -26,9 +26,9 @@ trait BuildTagContect {
         }
       }
     }
-  def nodeItem1[T1](t1: ContextContent[T1]): ContextContent[org.scalax.asuna.mapper.item.XyyItem1[T1]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem1[T1]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem1[T1] = {
+  def nodeItem1[T1](t1: ContextContent[T1]): ContextContent[org.scalax.asuna.mapper.item.Item1[T1]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item1[T1]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item1[T1] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem1(t1.withContext(c) :: HNil)
@@ -54,9 +54,9 @@ trait BuildTagContect {
     t2: org.scalax.asuna.mapper.AppendTag[T2]
   ): org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag2[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`]] =
     new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag2[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`]]
-  def item2[T1, T2](t1: T1, t2: T2): ContextContent[org.scalax.asuna.mapper.item.XyyItem2[T1, T2]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem2[T1, T2]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem2[T1, T2] = {
+  def item2[T1, T2](t1: T1, t2: T2): ContextContent[org.scalax.asuna.mapper.item.Item2[T1, T2]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item2[T1, T2]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item2[T1, T2] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem2(t1 :: t2 :: HNil)
@@ -72,9 +72,9 @@ trait BuildTagContect {
         }
       }
     }
-  def nodeItem2[T1, T2](t1: ContextContent[T1], t2: ContextContent[T2]): ContextContent[org.scalax.asuna.mapper.item.XyyItem2[T1, T2]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem2[T1, T2]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem2[T1, T2] = {
+  def nodeItem2[T1, T2](t1: ContextContent[T1], t2: ContextContent[T2]): ContextContent[org.scalax.asuna.mapper.item.Item2[T1, T2]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item2[T1, T2]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item2[T1, T2] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem2(t1.withContext(c) :: t2.withContext(c) :: HNil)
@@ -102,9 +102,9 @@ trait BuildTagContect {
     t3: org.scalax.asuna.mapper.AppendTag[T3]
   ): org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag3[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`, T3, Asuna.`Number: 3`]] =
     new org.scalax.asuna.mapper.AppendTag[org.scalax.asuna.mapper.item.NodeTag3[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`, T3, Asuna.`Number: 3`]]
-  def item3[T1, T2, T3](t1: T1, t2: T2, t3: T3): ContextContent[org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3] = {
+  def item3[T1, T2, T3](t1: T1, t2: T2, t3: T3): ContextContent[org.scalax.asuna.mapper.item.Item3[T1, T2, T3]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item3[T1, T2, T3]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item3[T1, T2, T3] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem3(t1 :: t2 :: t3 :: HNil)
@@ -120,9 +120,9 @@ trait BuildTagContect {
         }
       }
     }
-  def nodeItem3[T1, T2, T3](t1: ContextContent[T1], t2: ContextContent[T2], t3: ContextContent[T3]): ContextContent[org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem3[T1, T2, T3] = {
+  def nodeItem3[T1, T2, T3](t1: ContextContent[T1], t2: ContextContent[T2], t3: ContextContent[T3]): ContextContent[org.scalax.asuna.mapper.item.Item3[T1, T2, T3]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item3[T1, T2, T3]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item3[T1, T2, T3] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem3(t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: HNil)
@@ -165,9 +165,9 @@ trait BuildTagContect {
     new org.scalax.asuna.mapper.AppendTag[
       org.scalax.asuna.mapper.item.NodeTag4[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`, T3, Asuna.`Number: 3`, T4, Asuna.`Number: 4`]
     ]
-  def item4[T1, T2, T3, T4](t1: T1, t2: T2, t3: T3, t4: T4): ContextContent[org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4] = {
+  def item4[T1, T2, T3, T4](t1: T1, t2: T2, t3: T3, t4: T4): ContextContent[org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem4(t1 :: t2 :: t3 :: t4 :: HNil)
@@ -188,9 +188,9 @@ trait BuildTagContect {
     t2: ContextContent[T2],
     t3: ContextContent[T3],
     t4: ContextContent[T4]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4]] {
-      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.XyyItem4[T1, T2, T3, T4] = {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4]] {
+      override def withContext[K <: org.scalax.asuna.mapper.KindContext](c: org.scalax.asuna.mapper.Context[K]): org.scalax.asuna.mapper.item.Item4[T1, T2, T3, T4] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem4(t1.withContext(c) :: t2.withContext(c) :: t3.withContext(c) :: t4.withContext(c) :: HNil)
@@ -240,11 +240,11 @@ trait BuildTagContect {
     new org.scalax.asuna.mapper.AppendTag[
       org.scalax.asuna.mapper.item.NodeTag5[T1, Asuna.`Number: 1`, T2, Asuna.`Number: 2`, T3, Asuna.`Number: 3`, T4, Asuna.`Number: 4`, T5, Asuna.`Number: 5`]
     ]
-  def item5[T1, T2, T3, T4, T5](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): ContextContent[org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5]] {
+  def item5[T1, T2, T3, T4, T5](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): ContextContent[org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5] = {
+      ): org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem5(t1 :: t2 :: t3 :: t4 :: t5 :: HNil)
@@ -266,11 +266,11 @@ trait BuildTagContect {
     t3: ContextContent[T3],
     t4: ContextContent[T4],
     t5: ContextContent[T5]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem5[T1, T2, T3, T4, T5] = {
+      ): org.scalax.asuna.mapper.item.Item5[T1, T2, T3, T4, T5] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem5(
@@ -379,11 +379,11 @@ trait BuildTagContect {
       T6,
       Asuna.`Number: 6`
     ]]
-  def item6[T1, T2, T3, T4, T5, T6](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): ContextContent[org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6]] {
+  def item6[T1, T2, T3, T4, T5, T6](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): ContextContent[org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6] = {
+      ): org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem6(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: HNil)
@@ -408,11 +408,11 @@ trait BuildTagContect {
     t4: ContextContent[T4],
     t5: ContextContent[T5],
     t6: ContextContent[T6]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem6[T1, T2, T3, T4, T5, T6] = {
+      ): org.scalax.asuna.mapper.item.Item6[T1, T2, T3, T4, T5, T6] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem6(
@@ -544,11 +544,11 @@ trait BuildTagContect {
     t5: T5,
     t6: T6,
     t7: T7
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7] = {
+      ): org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem7(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: HNil)
@@ -576,11 +576,11 @@ trait BuildTagContect {
     t5: ContextContent[T5],
     t6: ContextContent[T6],
     t7: ContextContent[T7]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem7[T1, T2, T3, T4, T5, T6, T7] = {
+      ): org.scalax.asuna.mapper.item.Item7[T1, T2, T3, T4, T5, T6, T7] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem7(
@@ -718,11 +718,11 @@ trait BuildTagContect {
       Asuna.`Number: 8`
     ]]
   def item8[T1, T2, T3, T4, T5, T6, T7, T8](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8)
-    : ContextContent[org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8]] {
+    : ContextContent[org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8] = {
+      ): org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem8(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: HNil)
@@ -751,11 +751,11 @@ trait BuildTagContect {
     t6: ContextContent[T6],
     t7: ContextContent[T7],
     t8: ContextContent[T8]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem8[T1, T2, T3, T4, T5, T6, T7, T8] = {
+      ): org.scalax.asuna.mapper.item.Item8[T1, T2, T3, T4, T5, T6, T7, T8] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem8(
@@ -908,11 +908,11 @@ trait BuildTagContect {
       Asuna.`Number: 9`
     ]]
   def item9[T1, T2, T3, T4, T5, T6, T7, T8, T9](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9)
-    : ContextContent[org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
+    : ContextContent[org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9] = {
+      ): org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem9(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: HNil)
@@ -960,11 +960,11 @@ trait BuildTagContect {
     t7: ContextContent[T7],
     t8: ContextContent[T8],
     t9: ContextContent[T9]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem9[T1, T2, T3, T4, T5, T6, T7, T8, T9] = {
+      ): org.scalax.asuna.mapper.item.Item9[T1, T2, T3, T4, T5, T6, T7, T8, T9] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem9(
@@ -1130,11 +1130,11 @@ trait BuildTagContect {
       Asuna.`Number: 10`
     ]]
   def item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9, t10: T10)
-    : ContextContent[org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
+    : ContextContent[org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = {
+      ): org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem10(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: HNil)
@@ -1185,11 +1185,11 @@ trait BuildTagContect {
     t8: ContextContent[T8],
     t9: ContextContent[T9],
     t10: ContextContent[T10]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = {
+      ): org.scalax.asuna.mapper.item.Item10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem10(
@@ -1368,11 +1368,11 @@ trait BuildTagContect {
       Asuna.`Number: 11`
     ]]
   def item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9, t10: T10, t11: T11)
-    : ContextContent[org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
+    : ContextContent[org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] = {
+      ): org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem11(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: HNil)
@@ -1426,11 +1426,11 @@ trait BuildTagContect {
     t9: ContextContent[T9],
     t10: ContextContent[T10],
     t11: ContextContent[T11]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] = {
+      ): org.scalax.asuna.mapper.item.Item11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem11(
@@ -1622,11 +1622,11 @@ trait BuildTagContect {
       Asuna.`Number: 12`
     ]]
   def item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9, t10: T10, t11: T11, t12: T12)
-    : ContextContent[org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
+    : ContextContent[org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] = {
+      ): org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem12(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: HNil)
@@ -1683,11 +1683,11 @@ trait BuildTagContect {
     t10: ContextContent[T10],
     t11: ContextContent[T11],
     t12: ContextContent[T12]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] = {
+      ): org.scalax.asuna.mapper.item.Item12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem12(
@@ -1905,11 +1905,11 @@ trait BuildTagContect {
     t11: T11,
     t12: T12,
     t13: T13
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13] = {
+      ): org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem13(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: HNil)
@@ -1969,11 +1969,11 @@ trait BuildTagContect {
     t11: ContextContent[T11],
     t12: ContextContent[T12],
     t13: ContextContent[T13]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13] = {
+      ): org.scalax.asuna.mapper.item.Item13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem13(
@@ -2205,11 +2205,11 @@ trait BuildTagContect {
     t12: T12,
     t13: T13,
     t14: T14
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14] = {
+      ): org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem14(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: HNil)
@@ -2272,11 +2272,11 @@ trait BuildTagContect {
     t12: ContextContent[T12],
     t13: ContextContent[T13],
     t14: ContextContent[T14]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14] = {
+      ): org.scalax.asuna.mapper.item.Item14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem14(
@@ -2522,11 +2522,11 @@ trait BuildTagContect {
     t13: T13,
     t14: T14,
     t15: T15
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15] = {
+      ): org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem15(t1 :: t2 :: t3 :: t4 :: t5 :: t6 :: t7 :: t8 :: t9 :: t10 :: t11 :: t12 :: t13 :: t14 :: t15 :: HNil)
@@ -2592,11 +2592,11 @@ trait BuildTagContect {
     t13: ContextContent[T13],
     t14: ContextContent[T14],
     t15: ContextContent[T15]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15] = {
+      ): org.scalax.asuna.mapper.item.Item15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem15(
@@ -2858,11 +2858,11 @@ trait BuildTagContect {
     t14: T14,
     t15: T15,
     t16: T16
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16] = {
+      ): org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem16(
@@ -2933,11 +2933,11 @@ trait BuildTagContect {
     t14: ContextContent[T14],
     t15: ContextContent[T15],
     t16: ContextContent[T16]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16] = {
+      ): org.scalax.asuna.mapper.item.Item16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem16(
@@ -3213,11 +3213,11 @@ trait BuildTagContect {
     t15: T15,
     t16: T16,
     t17: T17
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] = {
+      ): org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem17(
@@ -3293,11 +3293,11 @@ trait BuildTagContect {
     t15: ContextContent[T15],
     t16: ContextContent[T16],
     t17: ContextContent[T17]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] = {
+      ): org.scalax.asuna.mapper.item.Item17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem17(
@@ -3587,11 +3587,11 @@ trait BuildTagContect {
     t16: T16,
     t17: T17,
     t18: T18
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18] = {
+      ): org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem18(
@@ -3670,11 +3670,11 @@ trait BuildTagContect {
     t16: ContextContent[T16],
     t17: ContextContent[T17],
     t18: ContextContent[T18]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18] = {
+      ): org.scalax.asuna.mapper.item.Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem18(
@@ -3978,11 +3978,11 @@ trait BuildTagContect {
     t17: T17,
     t18: T18,
     t19: T19
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19] = {
+      ): org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem19(
@@ -4064,11 +4064,11 @@ trait BuildTagContect {
     t17: ContextContent[T17],
     t18: ContextContent[T18],
     t19: ContextContent[T19]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19] = {
+      ): org.scalax.asuna.mapper.item.Item19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem19(
@@ -4386,11 +4386,11 @@ trait BuildTagContect {
     t18: T18,
     t19: T19,
     t20: T20
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20] = {
+      ): org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem20(
@@ -4475,11 +4475,11 @@ trait BuildTagContect {
     t18: ContextContent[T18],
     t19: ContextContent[T19],
     t20: ContextContent[T20]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20] = {
+      ): org.scalax.asuna.mapper.item.Item20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem20(
@@ -4811,11 +4811,11 @@ trait BuildTagContect {
     t19: T19,
     t20: T20,
     t21: T21
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = {
+      ): org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem21(
@@ -4903,11 +4903,11 @@ trait BuildTagContect {
     t19: ContextContent[T19],
     t20: ContextContent[T20],
     t21: ContextContent[T21]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = {
+      ): org.scalax.asuna.mapper.item.Item21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem21(
@@ -5255,11 +5255,11 @@ trait BuildTagContect {
     t20: T20,
     t21: T21,
     t22: T22
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] = {
+      ): org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem22(
@@ -5350,11 +5350,11 @@ trait BuildTagContect {
     t20: ContextContent[T20],
     t21: ContextContent[T21],
     t22: ContextContent[T22]
-  ): ContextContent[org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] =
-    new ContextContent[org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] {
+  ): ContextContent[org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] =
+    new ContextContent[org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] {
       override def withContext[K <: org.scalax.asuna.mapper.KindContext](
         c: org.scalax.asuna.mapper.Context[K]
-      ): org.scalax.asuna.mapper.item.XyyItem22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] = {
+      ): org.scalax.asuna.mapper.item.Item22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22] = {
         if (c.isReverse) {
           if (c.useHList) {
             new org.scalax.asuna.mapper.item.ReverseHListItem22(
