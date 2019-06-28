@@ -1,64 +1,66 @@
-import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.item._
-
 object Test01 extends App {
 
-  class IK extends KindContext {
-    type M[I <: TypeParam] = (String => (String, I#H), (String, I#T#H) => String)
+  trait Space {
+    type Current
+    type Sub <: Space
+    def current: Current
+    def sub: Sub
   }
 
-  val c = new Context[IK] {
-
-    override def isReverse: Boolean = false
-    override def useHList: Boolean  = true
-
-    override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
-        x: (String => (String, X#H), (String, X#T#H) => String)
-      , y: (String => (String, Y#H), (String, Y#T#H) => String)
-      , p: Plus[X, Y, Z]
-    ): (String => (String, Z#H), (String, Z#T#H) => String) = {
-      ({ str: String =>
-        val (i1Str, xh) = x._1(str)
-        val (i2Str, yh) = y._1(i1Str)
-        (i2Str, p.plus(xh, yh))
-      }, { (str: String, i: Z#T#H) =>
-        x._2(y._2(str, p.sub.takeHead(i)), p.sub.takeTail(i))
-      })
-    }
-
-    override def start: (String => (String, XyyItem0), (String, XyyItem0) => String) = ((n: String) => (n, ArticleXyy0), (n, _: XyyItem0) => (n))
-
+  class `黄土` extends Space {
+    self =>
+    override val current: String = "黄土"
+    override type Current = String
+    override type Sub     = `黄土`
+    override def sub: `黄土` = self
   }
 
-  implicit def implicit1: Application[IK, String, TypeParam2[String, String]] = new Application[IK, String, TypeParam2[String, String]] {
-    override def application(context: Context[IK]): (String => (String, String), (String, String) => String) = {
-      ({ n: String =>
-        val i = n.split(",")
-        (i.tail.mkString, i.head)
-      }, { (n1: String, n2: String) =>
-        n2 + n1
-      })
-    }
+  class `地面` extends Space {
+    self =>
+    override val current: String = "地狱"
+    override type Current = String
+    override type Sub     = `地狱`
+    override def sub: `地狱` = new `地狱`
   }
 
-  implicit def implicit2: Application[IK, Int, TypeParam2[Int, Int]] = new Application[IK, Int, TypeParam2[Int, Int]] {
-    override def application(context: Context[IK]): (String => (String, Int), (String, Int) => String) = {
-      ({ n: String =>
-        val i = n.split(",")
-        (i.tail.mkString, i.head.toInt)
-      }, { (n1: String, n2: Int) =>
-        n2 + n1
-      })
-    }
+  class `地狱` extends Space {
+    self =>
+    override val current: String = "地狱"
+    override type Current = String
+    override type Sub     = `地狱`
+    override def sub: `地狱` = self
   }
 
-  val bar = c.lift(BuildTagContect.nodeTag(BuildTagContect.tag(new AppendTag[String], new AppendTag[Int]), BuildTagContect.tag(new AppendTag[Int])))
+  class `你自己1` extends Space {
+    self =>
+    override val current: String = "相信黄泉的我自己"
+    override type Current = String
+    override type Sub     = `黄土`
+    override def sub: `黄土` = new `黄土`
+  }
 
-  val foo: Test01.IK#M[EatXyyType2[EatXyyType2[TypeParam2[String, String], TypeParam2[Int, Int]], EatXyyType1[TypeParam2[Int, Int]]]] = bar
+  class `你自己2` extends Space {
+    self =>
+    override val current: String = "相信地狱的我自己"
+    override type Current = String
+    override type Sub     = `地面`
+    override def sub: `地面` = new `地面`
+  }
 
-  val (bar1, bar2): (String => (String, XyyItem2[XyyItem2[String, Int], XyyItem1[Int]]), (String, XyyItem2[XyyItem2[String, Int], XyyItem1[Int]]) => String) = bar
+  class `天空1` extends Space {
+    self =>
+    override val current: String = "天空1"
+    override type Current = String
+    override type Sub     = `你自己1`
+    override def sub: `你自己1` = new `你自己1`
+  }
 
-  val i0: XyyItem0 = ArticleXyy0
-  println(bar2("", i0.eat(i0.eat("8").eat(2)).eat(i0.eat(2)))) //822
+  class `天空2` extends Space {
+    self =>
+    override val current: String = "天空2"
+    override type Current = String
+    override type Sub     = `你自己2`
+    override def sub: `你自己2` = new `你自己2`
+  }
 
 }

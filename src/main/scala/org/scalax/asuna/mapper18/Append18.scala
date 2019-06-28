@@ -38,7 +38,7 @@ class ItemTag18[
   T18,
   M18 <: org.scalax.asuna.mapper.item.Message
 ] extends org.scalax.asuna.mapper.item.ItemTag {
-  override type XyyItemType = XyyItem18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+  override type XyyItemType = Item18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
   override type M[M <: org.scalax.asuna.mapper.item.Message] = ItemTag18[
     T1,
     M :-<>-: M1,
@@ -314,15 +314,15 @@ object ItemTag18 {
       ): K#M[EatXyyType18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
         if (context.isReverse) {
           context.append(
-              ItemTag17.appendEatXyy17(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context)
-            , t1.application(context)
-            , ArticleXyyPlus18.put18
+            ItemTag17.appendEatXyy17(t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18).application(context),
+            t1.application(context),
+            ArticleXyyPlus18.put18
           )
         } else {
           context.append(
-              ItemTag17.appendEatXyy17(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-            , t18.application(context)
-            , ArticleXyyPlus18.plus18
+            ItemTag17.appendEatXyy17(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17).application(context),
+            t18.application(context),
+            ArticleXyyPlus18.plus18
           )
         }
       }

@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.item
 class XyyTupleType0 extends org.scalax.asuna.mapper.TypeParam {
-  override type H = XyyItem0
+  override type H = Item0
   override type T = XyyTupleType0
 }
 class XyyTupleType1[E1 <: org.scalax.asuna.mapper.TypeParam] extends org.scalax.asuna.mapper.TypeParam {

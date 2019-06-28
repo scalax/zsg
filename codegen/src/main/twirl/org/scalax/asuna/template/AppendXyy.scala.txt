@@ -6,7 +6,7 @@ import org.scalax.asuna.mapper.item.impl._
 
 class ItemTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, M@{ii} <: org.scalax.asuna.mapper.item.Message @if(ii < tagNum) { , } }] extends org.scalax.asuna.mapper.item.ItemTag {
 
-    override type XyyItemType = XyyItem@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
+    override type XyyItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
     override type M[M <: org.scalax.asuna.mapper.item.Message] = ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     def debug[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.TypeParam }](c: org.scalax.asuna.mapper.Context[K])(implicit @for(ii <- 1 to tagNum) {

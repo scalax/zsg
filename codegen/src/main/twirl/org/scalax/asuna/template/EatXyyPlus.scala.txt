@@ -7,18 +7,18 @@ object ArticleXyyPlus@{tagNum} {
     def plus@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < tagNum) { , } }]
     : org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
-        override def plus(p: XyyItem@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }], item: T@{tagNum}#H): XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }] = p.eat(item)
-        override def takeHead(t: XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }]): T@{tagNum}#H = t.rightHead
-        override def takeTail(t: XyyItem@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }]): XyyItem@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }] = t.rightTail
+        override def plus(p: Item@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }], item: T@{tagNum}#H): Item@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }] = p.eat(item)
+        override def takeHead(t: Item@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }]): T@{tagNum}#H = t.rightHead
+        override def takeTail(t: Item@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#H @if(ii < tagNum) { , } }]): Item@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }] = t.rightTail
         override def sub: org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }]#T, T@{tagNum}#T, EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]#T] = plus@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#T @if(ii < tagNum) { , } }]
     }
 
     def put@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < tagNum) { , } }]
     : org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, EatXyyType@{tagNum}[T@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , T@{ii} }]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, EatXyyType@{tagNum}[T@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , T@{ii} }]] {
-        override def plus(p: XyyItem@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }], item: T@{tagNum}#H): XyyItem@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }] = p.pudao(item)
-        override def takeHead(t: XyyItem@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }]): T@{tagNum}#H = t.leftHead
-        override def takeTail(t: XyyItem@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }]): XyyItem@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }] = t.leftTail
+        override def plus(p: Item@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }], item: T@{tagNum}#H): Item@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }] = p.pudao(item)
+        override def takeHead(t: Item@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }]): T@{tagNum}#H = t.leftHead
+        override def takeTail(t: Item@{tagNum}[T@{tagNum}#H @for(ii <- 1 to (tagNum - 1)) { , T@{ii}#H }]): Item@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii}#H @if(ii < (tagNum - 1)) { , } }] = t.leftTail
         override def sub: org.scalax.asuna.mapper.Plus[EatXyyType@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }]#T, T@{tagNum}#T, EatXyyType@{tagNum}[T@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , T@{ii} }]#T] = put@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}#T @if(ii < tagNum) { , } }]
     }
 
