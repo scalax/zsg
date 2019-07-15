@@ -67,7 +67,7 @@ trait DebugApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scala
 object DebugApplication {
 
   implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message](
-      implicit app: Application[K, T, I]
+    implicit app: Application[K, T, I]
   ): DebugApplication[K, T, I, Message] = {
     new DebugApplication[K, T, I, Message] {
       override def application(context: Context[K]): K#M[I] = app.application(context)
@@ -76,7 +76,7 @@ object DebugApplication {
 
 }
 @implicitNotFound(
-    msg =
+  msg =
     "\nApplication not found.\nItemType    : ${T}\nKindContext : ${K}\nColumn Index: ${Message}\n\nNumber: 3 :-<>-: Number: 2 Means index = 3 * 22 + 2 = 68(1 based)\n\n"
 )
 trait DebugItemApplication[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message] extends Application[K, T, I] {
@@ -86,7 +86,7 @@ trait DebugItemApplication[K <: KindContext, T, I <: TypeParam, Message <: org.s
 object DebugItemApplication {
 
   implicit def applicationImplicit[K <: KindContext, T, I <: TypeParam, Message <: org.scalax.asuna.mapper.item.Message](
-      implicit app: Application[K, T, I]
+    implicit app: Application[K, T, I]
   ): DebugItemApplication[K, T, I, Message] = {
     new DebugItemApplication[K, T, I, Message] {
       override def application(context: Context[K]): K#M[I] = app.application(context)

@@ -15,8 +15,9 @@ object ThirdTest extends App {
   val b: String :: String :: String :: Int :: HNil = item.hlist //检查类型
 
   //脱离实体的运算
-  val ii: ZeroHListM#Add[Int]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String] = throw new Exception("abc")
-  val iiii: ZeroHListM#Add[Int]#Add[String]#Add[String]#Add[String] = ii
+  type Zero = HListM[HNil, Manyi#Add#Add#Add#Add]
+  val ii: Zero#Add[Int]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String] = throw new Exception("abc")
+  val iiii: Zero#Add[Int]#Add[String]#Add[String]#Add[String] = ii
   val iiiiii: String :: String :: String :: Int :: HNil = iiii.hlist
 
 }

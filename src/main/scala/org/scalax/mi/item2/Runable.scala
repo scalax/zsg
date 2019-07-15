@@ -24,7 +24,7 @@ object App11 extends App {
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6").toString + "\n\n\n\n")
   println(E.item0.addRightItem("1").addRightItem("2").addRightItem(3).addRightItem("4").addRightItem(5).addRightItem("6").addRightItem("7").toString + "\n\n\n\n")
   println(
-      E.item0
+    E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -36,7 +36,7 @@ object App11 extends App {
       .toString + "\n\n\n\n"
   )
   println(
-      E.item0
+    E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -49,7 +49,7 @@ object App11 extends App {
       .toString + "\n\n\n\n"
   )
   println(
-      E.item0
+    E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)
@@ -63,7 +63,7 @@ object App11 extends App {
       .toString + "\n\n\n\n"
   )
   println(
-      E.item0
+    E.item0
       .addRightItem("1")
       .addRightItem("2")
       .addRightItem(3)

@@ -129,8 +129,8 @@ trait 黑22 extends 白12 {
   override type Append[TT <: 白1] = 白11实现[TT, 白11实现[白11实现[I1#I1, I1#I2], 白11实现[I2#I1, I2#I2]]]
   override def append[TT <: 白1](i: TT): 白11实现[TT, 白11实现[白11实现[I1#I1, I1#I2], 白11实现[I2#I1, I2#I2]]] =
     new 白11实现[TT, 白11实现[白11实现[I1#I1, I1#I2], 白11实现[I2#I1, I2#I2]]](
-        i
-      , new 白11实现[白11实现[I1#I1, I1#I2], 白11实现[I2#I1, I2#I2]](new 白11实现[I1#I1, I1#I2](self.i1.i1, self.i1.i2), new 白11实现[I2#I1, I2#I2](self.i2.i1, self.i2.i2))
+      i,
+      new 白11实现[白11实现[I1#I1, I1#I2], 白11实现[I2#I1, I2#I2]](new 白11实现[I1#I1, I1#I2](self.i1.i1, self.i1.i2), new 白11实现[I2#I1, I2#I2](self.i2.i1, self.i2.i2))
     )
 
   override def toString: String = {

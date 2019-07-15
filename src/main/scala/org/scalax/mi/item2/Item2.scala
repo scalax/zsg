@@ -135,10 +135,10 @@ trait PItem1[T1 <: EatItem] extends Any with EatItem {
   override type UpToPlusItem[T] = T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]]
   override def upToP: T1#UpToP#UpToDone = self.i1.upToP.upToDone
   override def upToPlusItem[T](t: T): T1#UpToP#Current[PItem1[T1#UpToPlusItem[T]], PlusItem[T]] = self.i1.upToP.current(
-      new PItem1[T1#UpToPlusItem[T]] {
+    new PItem1[T1#UpToPlusItem[T]] {
       override val i1 = self.i1.upToPlusItem(t)
-    }
-    , self.plusItem(t)
+    },
+    self.plusItem(t)
   )
 
   override type RightSub                   = T1
@@ -182,11 +182,11 @@ trait PItem2[T1 <: EatItem, T2 <: EatItem] extends Any with EatItem {
   override type UpToPlusItem[T] = T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]]
   override def upToP: T2#UpToP#UpToNotDone = self.i2.upToP.upToNotDone
   override def upToPlusItem[T](t: T): T2#UpToP#Current[PItem2[T1, T2#UpToPlusItem[T]], PlusItem[T]] = self.i2.upToP.current(
-      new PItem2[T1, T2#UpToPlusItem[T]] {
+    new PItem2[T1, T2#UpToPlusItem[T]] {
       override val i1 = self.i1
       override val i2 = self.i2.upToPlusItem(t)
-    }
-    , self.plusItem(t)
+    },
+    self.plusItem(t)
   )
 
   override type RightSub                   = T2
@@ -236,11 +236,11 @@ trait E[I <: EatItem, P <: AddItemPlus] extends EatItem {
   override type UpToPlusItem[T] = I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]]
   override def upToP: I#UpToP = self.item.upToP
   override def upToPlusItem[T](t: T): I#UpToP#Current[E[I#UpToPlusItem[T], P#Change], E[PItem2[I, I#UpToPlusItem[T]], P#Change]] = self.upToP.current(
-      new E[I#UpToPlusItem[T], P#Change] {
+    new E[I#UpToPlusItem[T], P#Change] {
       override val item        = self.item.upToPlusItem(t)
       override val addItemPlus = self.addItemPlus.change
-    }
-    , new E[PItem2[I, I#UpToPlusItem[T]], P#Change] {
+    },
+    new E[PItem2[I, I#UpToPlusItem[T]], P#Change] {
       override val item = new PItem2[I, I#UpToPlusItem[T]] {
         override val i1 = self.item
         override val i2 = self.item.upToPlusItem(t)
