@@ -20,6 +20,6 @@ object ThirdTest extends App {
   val ii: ZeroType#Add[Int]#Add[Date]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String]#Add[String] = throw new Exception("abc")
   val iiii: ZeroType#Add[Int]#Add[Date]#Add[String]#Add[String]#Add[String]                                   = ii
   val iiiiii: ZeroType#Add[Int]#Add[Date]#Add[String]#Add[String]                                             = ii
-  val iiiiiiii: HNil#Add[Int]#Add[Date]#Add[String]#Add[String]                                                 = ii.hlist
+  val iiiiiiii: HNil#Add[Int]#Add[Date]#Add[String]#Add[String]                                               = ii.hlist
 
 }
