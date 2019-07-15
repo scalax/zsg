@@ -40,14 +40,12 @@ object TwoTest extends App {
 
   }
 
-  val a1: Bit2Impl[Bit2Impl[Zero]] = Zero.next
-  val a2: Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Zero]]]] = a1.next
+  val a1: Bit2Impl[Bit2Impl[Zero]]                                                             = Zero.next
+  val a2: Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Zero]]]]                                         = a1.next
   val a3: Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Zero]]]]]]]] = a2.next
-  val a4: Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Bit2Impl[Zero]]]]]]]]]]]]]]]] = a3.next
 
   println(a1)
   println(a2)
   println(a3)
-  println(a4)
 
 }

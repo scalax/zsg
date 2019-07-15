@@ -50,9 +50,9 @@ object TupleTest {
     override def isReverse: Boolean = true
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](
-        x: (TupleEncoder[X#H], X#H => X#T#H)
-      , y: (TupleEncoder[Y#H], Y#H => Y#T#H)
-      , p: Plus[X, Y, Z]
+      x: (TupleEncoder[X#H], X#H => X#T#H),
+      y: (TupleEncoder[Y#H], Y#H => Y#T#H),
+      p: Plus[X, Y, Z]
     ): (TupleEncoder[Z#H], Z#H => Z#T#H) = {
 
       val aa = y._1.++(x._1)
