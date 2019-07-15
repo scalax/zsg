@@ -28,9 +28,7 @@ trait CircePoly[Poly] {
     new Application[DecoderTest.KM, T, TypeParam2[String, T]] {
       override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String] = {
         new DecoderTest.JsonPro[T, String] {
-          override def d(j: JsonObject, name: String): Either[String, T] = {
-            j(name).map(jj => dd.value.decodeJson(jj).left.map(_.message)).getOrElse(Left(s"找不到属性:${name}"))
-          }
+          override def to(name: String): Decoder[T] = Decoder.instance(j => j.get(name)(dd.value))
         }
       }
     }

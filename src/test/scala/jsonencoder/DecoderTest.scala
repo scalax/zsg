@@ -10,10 +10,10 @@ class DecoderContent[A, Poly](val decoder: Decoder[A]) extends AnyVal
 object DecoderTest {
 
   def implicitDecoder[T, Poly, R <: ItemTag, I <: TypeParam](
-      implicit ll: AsunaGeneric.Aux[T, R]
-    , app: Application[KM, R, I]
-    , cv1: AsunaNameGeneric.Aux[T, I#H]
-    , cv3: AsunaSetterGeneric.Aux[T, I#T#H]
+    implicit ll: AsunaGeneric.Aux[T, R],
+    app: Application[KM, R, I],
+    cv1: AsunaNameGeneric.Aux[T, I#H],
+    cv3: AsunaSetterGeneric.Aux[T, I#T#H]
   ): DecoderContent[T, Poly] = {
     new DecoderContent[T, Poly](app.application(ii).to(cv1.names.withContext(ii)).map(mm => cv3.setter(mm)))
   }
@@ -23,9 +23,7 @@ object DecoderTest {
   }
 
   trait JsonPro[T, II] {
-    self =>
-    def d(j: JsonObject, name: II): Either[String, T]
-    def to(name: II): Decoder[T] = Decoder.decodeJsonObject.emap(j => d(j, name))
+    def to(name: II): Decoder[T]
   }
 
   object ii extends Context[KM] {
@@ -34,12 +32,14 @@ object DecoderTest {
 
     override def append[X <: TypeParam, Y <: TypeParam, Z <: TypeParam](x: JsonPro[X#T#H, X#H], y: JsonPro[Y#T#H, Y#H], plus: Plus[X, Y, Z]): JsonPro[Z#T#H, Z#H] = {
       new JsonPro[Z#T#H, Z#H] {
-        override def d(j: JsonObject, name: Z#H): Either[String, Z#T#H] = {
-          val (xx1, yy1) = (plus.takeHead(name), plus.takeTail(name))
-          x.d(j, yy1).right.flatMap { x1 =>
-            y.d(j, xx1).right.map { y1 =>
-              plus.sub.plus(x1, y1)
-            }
+        override def to(name: Z#H): Decoder[Z#T#H] = {
+          val xx1 = plus.takeTail(name)
+          val yy1 = plus.takeHead(name)
+          for {
+            x1 <- x.to(xx1)
+            y1 <- y.to(yy1)
+          } yield {
+            plus.sub.plus(x1, y1)
           }
         }
       }
@@ -47,7 +47,9 @@ object DecoderTest {
 
     override def start: JsonPro[Item0, Item0] = {
       new JsonPro[Item0, Item0] {
-        override def d(j: JsonObject, name: Item0): Either[String, Item0] = Right(Item0)
+        override def to(name: Item0): Decoder[Item0] = Decoder.instance { j =>
+          Right(Item0)
+        }
       }
     }
   }
