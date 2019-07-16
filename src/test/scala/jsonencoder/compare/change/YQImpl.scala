@@ -1,17 +1,19 @@
-class YQImpl[YY <: HListYuan, QQ <: HListYuan, CC, Con <: Convert](
-  override val yueyuan: YY,
-  override val yueque: QQ,
-  override val current: CC,
-  override val currentC: Con
+class YQImpl[YY <: HListYuan, QQ <: HListYuan](
+  override val source: YY,
+  override val target: QQ
 ) extends HListYQ {
   self =>
 
-  override type Yueyuan = YY
-  override type Yueque  = QQ
-  override type Current = CC
-  override type C       = Con
+  override type Source = YY
+  override type Target = QQ
 
-  override type Next = Con#M[YQImpl[YY, QQ, CC, Con]]
-  override def next: Con#M[YQImpl[YY, QQ, CC, Con]] = currentC.convert(self)
+  override type CanReverse = Target#C#M[YQImpl[YY, QQ]]
+  override def canReverse: Target#C#M[YQImpl[YY, QQ]] = target.c.convert(self)
+
+  override type NextNext = YQImpl[YY#Add[QQ#Head], QQ#Tail]
+  override def nextNext: YQImpl[YY#Add[QQ#Head], QQ#Tail] = new YQImpl(source.add(target.head), target.tail)
+
+  override type Next = CanReverse#NextNext
+  override def next: CanReverse#NextNext = canReverse.nextNext
 
 }

@@ -16,26 +16,24 @@ trait HListYuan {
 
 }
 
-trait Convert {
-  type M[I <: HListYQ] <: HListYQ
-  def convert[I <: HListYQ](i: I): M[I]
-}
-
 trait HListYQ {
 
-  type Yueyuan <: HListYuan
-  def yueyuan: Yueyuan
+  type Source <: HListYuan
+  def source: Source
 
-  type Yueque <: HListYuan
-  def yueque: Yueque
+  type Target <: HListYuan
+  def target: Target
 
-  type Current
-  def current: Current
+  type Current = Source#Head
+  def current: Source#Head = source.head
 
-  type C <: Convert
-  def currentC: C
+  type CanReverse
+  def canReverse: CanReverse
 
-  type Next <: HListYQ
+  type NextNext
+  def nextNext: NextNext
+
+  type Next
   def next: Next
 
 }
