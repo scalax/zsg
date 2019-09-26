@@ -50,6 +50,31 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.KindContext, H1, T1 <: org.scalax
 
 }
 
+/*@for(i <- 9 to 17) {
+
+    implicit def xyy@{i}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
+    (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
+    : org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+            if (context.useHList) {
+                if (context.isReverse) {
+                    context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut@{i})
+                } else {
+                    context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyTuplePlus.hlistPlus@{i})
+                }
+            } else {
+                if (context.isReverse) {
+                    context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put@{i})
+                } else {
+                    context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyTuplePlus.item2Plus@{i})
+                }
+            }
+        }
+    }
+
+}*/
+
 }
 
 object AppendTuple extends AppendTuple

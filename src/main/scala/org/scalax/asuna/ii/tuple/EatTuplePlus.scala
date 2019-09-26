@@ -400,4 +400,84 @@ object ArticleXyyTuplePlus {
       override def sub: org.scalax.asuna.mapper.Plus[EatXyyType7[T1, T2, T3, T4, T5, T6, T7]#T, T8#T, XyyTupleType8[T8, T1, T2, T3, T4, T5, T6, T7]#T] =
         item2Put8[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T]
     }
+  def hlistPlus9[
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam,
+    T5 <: org.scalax.asuna.mapper.TypeParam,
+    T6 <: org.scalax.asuna.mapper.TypeParam,
+    T7 <: org.scalax.asuna.mapper.TypeParam,
+    T8 <: org.scalax.asuna.mapper.TypeParam,
+    T9 <: org.scalax.asuna.mapper.TypeParam
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
+    new org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
+      override def plus(p: Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H] =
+        p.eatToTuple(item)
+      override def takeHead(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): T9#H = t._9
+      override def takeTail(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        HListItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8)
+      override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]#T] =
+        hlistPlus9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
+    }
+  def hlistPut9[
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam,
+    T5 <: org.scalax.asuna.mapper.TypeParam,
+    T6 <: org.scalax.asuna.mapper.TypeParam,
+    T7 <: org.scalax.asuna.mapper.TypeParam,
+    T8 <: org.scalax.asuna.mapper.TypeParam,
+    T9 <: org.scalax.asuna.mapper.TypeParam
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] =
+    new org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] {
+      override def plus(p: Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        p.pudaoToTuple(item)
+      override def takeHead(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): T9#H = t._1
+      override def takeTail(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        ReverseHListItem0.pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+      override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]#T] =
+        hlistPut9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
+    }
+  def item2Plus9[
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam,
+    T5 <: org.scalax.asuna.mapper.TypeParam,
+    T6 <: org.scalax.asuna.mapper.TypeParam,
+    T7 <: org.scalax.asuna.mapper.TypeParam,
+    T8 <: org.scalax.asuna.mapper.TypeParam,
+    T9 <: org.scalax.asuna.mapper.TypeParam
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
+    new org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
+      override def plus(p: Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H] =
+        p.eatToTuple(item)
+      override def takeHead(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): T9#H = t._9
+      override def takeTail(t: Tuple9[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H, T9#H]): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        TreeItem0.eat(t._1).eat(t._2).eat(t._3).eat(t._4).eat(t._5).eat(t._6).eat(t._7).eat(t._8)
+      override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]#T] =
+        item2Plus9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
+    }
+  def item2Put9[
+    T1 <: org.scalax.asuna.mapper.TypeParam,
+    T2 <: org.scalax.asuna.mapper.TypeParam,
+    T3 <: org.scalax.asuna.mapper.TypeParam,
+    T4 <: org.scalax.asuna.mapper.TypeParam,
+    T5 <: org.scalax.asuna.mapper.TypeParam,
+    T6 <: org.scalax.asuna.mapper.TypeParam,
+    T7 <: org.scalax.asuna.mapper.TypeParam,
+    T8 <: org.scalax.asuna.mapper.TypeParam,
+    T9 <: org.scalax.asuna.mapper.TypeParam
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] =
+    new org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8], T9, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]] {
+      override def plus(p: Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], item: T9#H): Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        p.pudaoToTuple(item)
+      override def takeHead(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): T9#H = t._1
+      override def takeTail(t: Tuple9[T9#H, T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H] =
+        ReverseTreeItem0.pudao(t._9).pudao(t._8).pudao(t._7).pudao(t._6).pudao(t._5).pudao(t._4).pudao(t._3).pudao(t._2)
+      override def sub: org.scalax.asuna.mapper.Plus[EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8]#T, T9#T, XyyTupleType9[T9, T1, T2, T3, T4, T5, T6, T7, T8]#T] =
+        item2Put9[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T]
+    }
 }

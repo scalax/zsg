@@ -28,10 +28,12 @@ trait Item8[E1, E2, E3, E4, E5, E6, E7, E8] extends Any {
   def i6: E6
   def i7: E7
   def i8: E8
-  def leftHead: E1                                   = throw new Exception("Can not use this method.")
-  def leftTail: Item7[E2, E3, E4, E5, E6, E7, E8]    = throw new Exception("Can not use this method.")
-  def rightHead: E8                                  = throw new Exception("Can not use this method.")
-  def rightTail: Item7[E1, E2, E3, E4, E5, E6, E7]   = throw new Exception("Can not use this method.")
-  def leftTuple: Tuple7[E2, E3, E4, E5, E6, E7, E8]  = (self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
-  def rightTuple: Tuple7[E1, E2, E3, E4, E5, E6, E7] = (self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7)
+  def leftHead: E1                                                       = throw new Exception("Can not use this method.")
+  def leftTail: Item7[E2, E3, E4, E5, E6, E7, E8]                        = throw new Exception("Can not use this method.")
+  def rightHead: E8                                                      = throw new Exception("Can not use this method.")
+  def rightTail: Item7[E1, E2, E3, E4, E5, E6, E7]                       = throw new Exception("Can not use this method.")
+  def leftTuple: Tuple7[E2, E3, E4, E5, E6, E7, E8]                      = (self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
+  def rightTuple: Tuple7[E1, E2, E3, E4, E5, E6, E7]                     = (self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7)
+  def eatToTuple[T](xyy: T): Tuple9[E1, E2, E3, E4, E5, E6, E7, E8, T]   = (self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, xyy)
+  def pudaoToTuple[T](xyy: T): Tuple9[T, E1, E2, E3, E4, E5, E6, E7, E8] = (xyy, self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8)
 }

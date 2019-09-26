@@ -266,5 +266,187 @@ trait AppendTuple {
         }
       }
     }
+  /*
+implicit def xyy9[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ), XyyTupleType9[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ), XyyTupleType9[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType9[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag8.appendEatXyy8( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut9)
+} else {
+context.append(ItemTag8.appendEatXyy8( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ).application(context), t9.application(context), ArticleXyyTuplePlus.hlistPlus9)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag8.appendEatXyy8( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put9)
+} else {
+context.append(ItemTag8.appendEatXyy8( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ).application(context), t9.application(context), ArticleXyyTuplePlus.item2Plus9)
+}
+}
+}
+}
+implicit def xyy10[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ), XyyTupleType10[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ), XyyTupleType10[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType10[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag9.appendEatXyy9( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut10)
+} else {
+context.append(ItemTag9.appendEatXyy9( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ).application(context), t10.application(context), ArticleXyyTuplePlus.hlistPlus10)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag9.appendEatXyy9( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put10)
+} else {
+context.append(ItemTag9.appendEatXyy9( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ).application(context), t10.application(context), ArticleXyyTuplePlus.item2Plus10)
+}
+}
+}
+}
+implicit def xyy11[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ), XyyTupleType11[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ), XyyTupleType11[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType11[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag10.appendEatXyy10( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut11)
+} else {
+context.append(ItemTag10.appendEatXyy10( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ).application(context), t11.application(context), ArticleXyyTuplePlus.hlistPlus11)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag10.appendEatXyy10( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put11)
+} else {
+context.append(ItemTag10.appendEatXyy10( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ).application(context), t11.application(context), ArticleXyyTuplePlus.item2Plus11)
+}
+}
+}
+}
+implicit def xyy12[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ), XyyTupleType12[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ), XyyTupleType12[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType12[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag11.appendEatXyy11( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut12)
+} else {
+context.append(ItemTag11.appendEatXyy11( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ).application(context), t12.application(context), ArticleXyyTuplePlus.hlistPlus12)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag11.appendEatXyy11( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put12)
+} else {
+context.append(ItemTag11.appendEatXyy11( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ).application(context), t12.application(context), ArticleXyyTuplePlus.item2Plus12)
+}
+}
+}
+}
+implicit def xyy13[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam  , T13 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  ,   t13: org.scalax.asuna.mapper.Application[K, H13, T13]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ), XyyTupleType13[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ), XyyTupleType13[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType13[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag12.appendEatXyy12( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut13)
+} else {
+context.append(ItemTag12.appendEatXyy12( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ).application(context), t13.application(context), ArticleXyyTuplePlus.hlistPlus13)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag12.appendEatXyy12( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put13)
+} else {
+context.append(ItemTag12.appendEatXyy12( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ).application(context), t13.application(context), ArticleXyyTuplePlus.item2Plus13)
+}
+}
+}
+}
+implicit def xyy14[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam  , T13 <: org.scalax.asuna.mapper.TypeParam  , T14 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  ,   t13: org.scalax.asuna.mapper.Application[K, H13, T13]  ,   t14: org.scalax.asuna.mapper.Application[K, H14, T14]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ), XyyTupleType14[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ), XyyTupleType14[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType14[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag13.appendEatXyy13( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut14)
+} else {
+context.append(ItemTag13.appendEatXyy13( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ).application(context), t14.application(context), ArticleXyyTuplePlus.hlistPlus14)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag13.appendEatXyy13( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put14)
+} else {
+context.append(ItemTag13.appendEatXyy13( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ).application(context), t14.application(context), ArticleXyyTuplePlus.item2Plus14)
+}
+}
+}
+}
+implicit def xyy15[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14  , H15   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam  , T13 <: org.scalax.asuna.mapper.TypeParam  , T14 <: org.scalax.asuna.mapper.TypeParam  , T15 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  ,   t13: org.scalax.asuna.mapper.Application[K, H13, T13]  ,   t14: org.scalax.asuna.mapper.Application[K, H14, T14]  ,   t15: org.scalax.asuna.mapper.Application[K, H15, T15]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ), XyyTupleType15[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ), XyyTupleType15[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType15[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag14.appendEatXyy14( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut15)
+} else {
+context.append(ItemTag14.appendEatXyy14( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ).application(context), t15.application(context), ArticleXyyTuplePlus.hlistPlus15)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag14.appendEatXyy14( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put15)
+} else {
+context.append(ItemTag14.appendEatXyy14( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ).application(context), t15.application(context), ArticleXyyTuplePlus.item2Plus15)
+}
+}
+}
+}
+implicit def xyy16[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14  , H15  , H16   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam  , T13 <: org.scalax.asuna.mapper.TypeParam  , T14 <: org.scalax.asuna.mapper.TypeParam  , T15 <: org.scalax.asuna.mapper.TypeParam  , T16 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  ,   t13: org.scalax.asuna.mapper.Application[K, H13, T13]  ,   t14: org.scalax.asuna.mapper.Application[K, H14, T14]  ,   t15: org.scalax.asuna.mapper.Application[K, H15, T15]  ,   t16: org.scalax.asuna.mapper.Application[K, H16, T16]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ,   H16  ), XyyTupleType16[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ,   H16  ), XyyTupleType16[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType16[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag15.appendEatXyy15( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut16)
+} else {
+context.append(ItemTag15.appendEatXyy15( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ).application(context), t16.application(context), ArticleXyyTuplePlus.hlistPlus16)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag15.appendEatXyy15( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put16)
+} else {
+context.append(ItemTag15.appendEatXyy15( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ).application(context), t16.application(context), ArticleXyyTuplePlus.item2Plus16)
+}
+}
+}
+}
+implicit def xyy17[K <: org.scalax.asuna.mapper.KindContext  , H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14  , H15  , H16  , H17   , T1 <: org.scalax.asuna.mapper.TypeParam  , T2 <: org.scalax.asuna.mapper.TypeParam  , T3 <: org.scalax.asuna.mapper.TypeParam  , T4 <: org.scalax.asuna.mapper.TypeParam  , T5 <: org.scalax.asuna.mapper.TypeParam  , T6 <: org.scalax.asuna.mapper.TypeParam  , T7 <: org.scalax.asuna.mapper.TypeParam  , T8 <: org.scalax.asuna.mapper.TypeParam  , T9 <: org.scalax.asuna.mapper.TypeParam  , T10 <: org.scalax.asuna.mapper.TypeParam  , T11 <: org.scalax.asuna.mapper.TypeParam  , T12 <: org.scalax.asuna.mapper.TypeParam  , T13 <: org.scalax.asuna.mapper.TypeParam  , T14 <: org.scalax.asuna.mapper.TypeParam  , T15 <: org.scalax.asuna.mapper.TypeParam  , T16 <: org.scalax.asuna.mapper.TypeParam  , T17 <: org.scalax.asuna.mapper.TypeParam ]
+(implicit  t1: org.scalax.asuna.mapper.Application[K, H1, T1]  ,   t2: org.scalax.asuna.mapper.Application[K, H2, T2]  ,   t3: org.scalax.asuna.mapper.Application[K, H3, T3]  ,   t4: org.scalax.asuna.mapper.Application[K, H4, T4]  ,   t5: org.scalax.asuna.mapper.Application[K, H5, T5]  ,   t6: org.scalax.asuna.mapper.Application[K, H6, T6]  ,   t7: org.scalax.asuna.mapper.Application[K, H7, T7]  ,   t8: org.scalax.asuna.mapper.Application[K, H8, T8]  ,   t9: org.scalax.asuna.mapper.Application[K, H9, T9]  ,   t10: org.scalax.asuna.mapper.Application[K, H10, T10]  ,   t11: org.scalax.asuna.mapper.Application[K, H11, T11]  ,   t12: org.scalax.asuna.mapper.Application[K, H12, T12]  ,   t13: org.scalax.asuna.mapper.Application[K, H13, T13]  ,   t14: org.scalax.asuna.mapper.Application[K, H14, T14]  ,   t15: org.scalax.asuna.mapper.Application[K, H15, T15]  ,   t16: org.scalax.asuna.mapper.Application[K, H16, T16]  ,   t17: org.scalax.asuna.mapper.Application[K, H17, T17]  )
+: org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ,   H16  ,   H17  ), XyyTupleType17[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ,   T17  ]] =
+new org.scalax.asuna.mapper.Application[K, ( H1  ,   H2  ,   H3  ,   H4  ,   H5  ,   H6  ,   H7  ,   H8  ,   H9  ,   H10  ,   H11  ,   H12  ,   H13  ,   H14  ,   H15  ,   H16  ,   H17  ), XyyTupleType17[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ,   T17  ]] {
+override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType17[ T1  ,   T2  ,   T3  ,   T4  ,   T5  ,   T6  ,   T7  ,   T8  ,   T9  ,   T10  ,   T11  ,   T12  ,   T13  ,   T14  ,   T15  ,   T16  ,   T17  ]] = {
+if (context.useHList) {
+if (context.isReverse) {
+context.append(ItemTag16.appendEatXyy16( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ,   t17  ).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut17)
+} else {
+context.append(ItemTag16.appendEatXyy16( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ).application(context), t17.application(context), ArticleXyyTuplePlus.hlistPlus17)
+}
+} else {
+if (context.isReverse) {
+context.append(ItemTag16.appendEatXyy16( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ,   t17  ).application(context), t1.application(context), ArticleXyyTuplePlus.item2Put17)
+} else {
+context.append(ItemTag16.appendEatXyy16( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ,   t10  ,   t11  ,   t12  ,   t13  ,   t14  ,   t15  ,   t16  ).application(context), t17.application(context), ArticleXyyTuplePlus.item2Plus17)
+}
+}
+}
+}
+ */
 }
 object AppendTuple extends AppendTuple

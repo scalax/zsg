@@ -1,5 +1,3 @@
-@(maxItem: Int)
-
 package org.scalax.asuna.mapper.item
 
 object ArticleXyyTuplePlus {
@@ -38,7 +36,7 @@ def hlistPut1[T1 <: org.scalax.asuna.mapper.TypeParam] = miaomiaomiao2[EatXyyTyp
 def item2Plus1[T1 <: org.scalax.asuna.mapper.TypeParam] = miaomiaomiao3[EatXyyType0, T1]
 def item2Put1[T1 <: org.scalax.asuna.mapper.TypeParam] = miaomiaomiao4[EatXyyType0, T1]
 
-@for(i <- 2 to maxItem) {
+@for(i <- 2 to 9) {
     def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < i) { , } }]
     : org.scalax.asuna.mapper.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType@{i - 1}[@for(ii <- 1 to (i - 1)) { T@{ii} @if(ii < (i - 1)) { , } }], T@{i}, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {

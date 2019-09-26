@@ -117,7 +117,7 @@ object CaseClassHelperGen1 extends App {
   Files.createDirectories(path9.getParent)
 
   val writer9   = new PrintWriter(path9.toFile)
-  val content91 = Source.fromString(org.scalax.asuna.template11.tuple.txt.EatTuplePlus(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content91 = Source.fromString(org.scalax.asuna.template11.tuple.txt.EatTuplePlus().body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content92 = content91.mkString(System.lineSeparator)
   writer9.println(content92)
   writer9.close()
@@ -128,7 +128,7 @@ object CaseClassHelperGen1 extends App {
 
   val writer10 = new PrintWriter(path10.toFile)
   val content101 =
-    Source.fromString(org.scalax.asuna.template11.tuple.txt.EatXyyType(maxItem = maxPropertyNum + 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.template11.tuple.txt.EatXyyType(maxItem = 22).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content102 = content101.mkString(System.lineSeparator)
   writer10.println(content102)
   writer10.close()
@@ -154,5 +154,23 @@ object CaseClassHelperGen1 extends App {
   val content182 = content181.mkString(System.lineSeparator)
   writer18.println(content182)
   writer18.close()
+
+  val path19 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus22.scala")
+
+  Files.createDirectories(path19.getParent)
+  val writer19   = new PrintWriter(path19.toFile)
+  val content191 = Source.fromString(org.scalax.asuna.template11.tuple.txt.EatTuplePlus22().body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content192 = content191.mkString(System.lineSeparator)
+  writer19.println(content192)
+  writer19.close()
+
+  val path20 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus222.scala")
+
+  Files.createDirectories(path20.getParent)
+  val writer20   = new PrintWriter(path20.toFile)
+  val content201 = Source.fromString(org.scalax.asuna.template11.tuple.txt.EatTuplePlus222().body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val content202 = content201.mkString(System.lineSeparator)
+  writer20.println(content202)
+  writer20.close()
 
 }
