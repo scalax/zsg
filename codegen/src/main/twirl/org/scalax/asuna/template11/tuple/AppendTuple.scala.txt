@@ -50,7 +50,7 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.KindContext, H1, T1 <: org.scalax
 
 }
 
-@for(i <- 10 to 10) {
+@for(i <- 10 to 17) {
 
     implicit def xyy@{i}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
     (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
@@ -61,7 +61,7 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.KindContext, H1, T1 <: org.scalax
                 if (context.isReverse) {
                     val i1 = ItemTag@{i - 9}.appendEatXyy@{i - 9}(@for(ii <- 10 to i) { t@{ii} @if(ii < i) { , } }).application(context)
                     val i2 = ItemTag8.appendEatXyy8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
-                    val i3 = context.append(i1, i2, ArticleXyyTuplePlus.hlistPut2)
+                    val i3 = context.append(i1, i2, org.scalax.asuna.mapper.item.Tuple2Plus.hlistPut2)
                     context.append(i3, t1.application(context), ArticleXyyTuplePlus22.hlistPut@{i})
                 } else {
                     //context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), ArticleXyyTuplePlus.hlistPlus@{i})
@@ -78,6 +78,16 @@ implicit def xyy1[K <: org.scalax.asuna.mapper.KindContext, H1, T1 <: org.scalax
             }
         }
     }
+
+    /*val i1 = ItemTag1.appendEatXyy1(t10).application(context)
+    val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+    val i3 =
+      context.append[EatXyyType1[T10], EatXyyType8[T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType2[EatXyyType8[T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType1[T10]]](
+        i1,
+        i2,
+        org.scalax.asuna.mapper.item.Tuple2Plus.hlistPut2
+      )
+    context.append(i3, t1.application(context), org.scalax.asuna.mapper.item.ArticleXyyTuplePlus22.hlistPut10)*/
 
 }
 

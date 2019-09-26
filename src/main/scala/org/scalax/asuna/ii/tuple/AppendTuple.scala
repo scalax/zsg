@@ -1,4 +1,5 @@
 package org.scalax.asuna.mapper.item
+
 trait AppendTuple {
   implicit def xyy1[K <: org.scalax.asuna.mapper.KindContext, H1, T1 <: org.scalax.asuna.mapper.TypeParam](
     implicit t1: org.scalax.asuna.mapper.Application[K, H1, T1]
@@ -352,10 +353,15 @@ trait AppendTuple {
       override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
         if (context.useHList) {
           if (context.isReverse) {
-            val i1: K#M[EatXyyType1[T10]] = ItemTag1.appendEatXyy1(t10).application(context)
+            val i1 = ItemTag1.appendEatXyy1(t10).application(context)
             val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
-            val i3 = context.append(i1, i2, ArticleXyyTuplePlus.hlistPut2)
-            context.append(i3, t1.application(context), ArticleXyyTuplePlus22.hlistPut10)
+            val i3 =
+              context.append[EatXyyType1[T10], EatXyyType8[T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType2[EatXyyType8[T2, T3, T4, T5, T6, T7, T8, T9], EatXyyType1[T10]]](
+                i1,
+                i2,
+                org.scalax.asuna.mapper.item.Tuple2Plus.hlistPut2
+              )
+            context.append(i3, t1.application(context), org.scalax.asuna.mapper.item.ArticleXyyTuplePlus22.hlistPut10)
           } else {
 //context.append(ItemTag9.appendEatXyy9( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ,   t8  ,   t9  ).application(context), t10.application(context), ArticleXyyTuplePlus.hlistPlus10)
             throw new Exception()
