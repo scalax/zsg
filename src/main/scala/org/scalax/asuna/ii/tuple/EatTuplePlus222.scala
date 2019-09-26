@@ -859,12 +859,11 @@ object ArticleXyyTuplePlus222 {
     T18 <: org.scalax.asuna.mapper.TypeParam,
     T19 <: org.scalax.asuna.mapper.TypeParam,
     T20 <: org.scalax.asuna.mapper.TypeParam
-  ]
-    : org.scalax.asuna.mapper.Plus[EatXyyType3[
-      EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
-      EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
-      EatXyyType3[T17, T18, T19]
-    ], T20, XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType3[
+    EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
+    EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
+    EatXyyType3[T17, T18, T19]
+  ], T20, XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType3[
       EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
       EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
@@ -944,12 +943,11 @@ object ArticleXyyTuplePlus222 {
     T18 <: org.scalax.asuna.mapper.TypeParam,
     T19 <: org.scalax.asuna.mapper.TypeParam,
     T20 <: org.scalax.asuna.mapper.TypeParam
-  ]
-    : org.scalax.asuna.mapper.Plus[EatXyyType3[
-      EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
-      EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
-      EatXyyType3[T17, T18, T19]
-    ], T20, XyyTupleType20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType3[
+    EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
+    EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
+    EatXyyType3[T17, T18, T19]
+  ], T20, XyyTupleType20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType3[
       EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
       EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
@@ -1039,12 +1037,11 @@ object ArticleXyyTuplePlus222 {
     T18 <: org.scalax.asuna.mapper.TypeParam,
     T19 <: org.scalax.asuna.mapper.TypeParam,
     T20 <: org.scalax.asuna.mapper.TypeParam
-  ]
-    : org.scalax.asuna.mapper.Plus[EatXyyType3[
-      EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
-      EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
-      EatXyyType3[T17, T18, T19]
-    ], T20, XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType3[
+    EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
+    EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
+    EatXyyType3[T17, T18, T19]
+  ], T20, XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType3[
       EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
       EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
@@ -1116,12 +1113,11 @@ object ArticleXyyTuplePlus222 {
     T18 <: org.scalax.asuna.mapper.TypeParam,
     T19 <: org.scalax.asuna.mapper.TypeParam,
     T20 <: org.scalax.asuna.mapper.TypeParam
-  ]
-    : org.scalax.asuna.mapper.Plus[EatXyyType3[
-      EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
-      EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
-      EatXyyType3[T17, T18, T19]
-    ], T20, XyyTupleType20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
+  ]: org.scalax.asuna.mapper.Plus[EatXyyType3[
+    EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
+    EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
+    EatXyyType3[T17, T18, T19]
+  ], T20, XyyTupleType20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] =
     new org.scalax.asuna.mapper.Plus[EatXyyType3[
       EatXyyType8[T1, T2, T3, T4, T5, T6, T7, T8],
       EatXyyType8[T9, T10, T11, T12, T13, T14, T15, T16],
