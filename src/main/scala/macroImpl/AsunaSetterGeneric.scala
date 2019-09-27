@@ -55,14 +55,7 @@ object AsunaSetterGenericMacroApply {
           .grouped(8)
           .toList
           .map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${s})""")
-        /*val typeTag = if (proTypeTag.length <= 22) {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.tag(..${proTypeTag}))"""
-        } else {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${proTypeTag
-            .grouped(22)
-            .toList
-            .map(i => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${i})""")}))"""
-        }*/
+
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(..${tree})"""
@@ -73,56 +66,43 @@ object AsunaSetterGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
           }
 
-        val proSize = props.size
-
-        def inputItem: List[(String, Tree)] = {
-          if (proSize < 22) {
-            props.zipWithIndex.map {
-              case (r, index) =>
-                (r, q"""item.${TermName("i" + (index + 1))}""")
-            }
-          } else {
-            props
-              .grouped(22)
-              .zipWithIndex
-              .map {
-                case (item, index) =>
-                  item.zipWithIndex.map { case (item1, index1) => (item1, q"""item.${TermName("i" + (index + 1))}.${TermName("i" + (index1 + 1))}""") }
+        def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] = {
+          if (max == 1) {
+            val i = initList
+              .grouped(8)
+              .map { list =>
+                list.zipWithIndex.map {
+                  case ((str, t), index) =>
+                    (str, { t1: Tree =>
+                      t(q"""${t1}.${TermName("i" + (index + 1))}""")
+                    })
+                }
               }
               .flatten
               .toList
-          }
+            toItemImpl(max * 8, i)
+          } else if (initList.size > max) {
+            val i = initList
+              .grouped(max)
+              .zipWithIndex
+              .map {
+                case (list, index) =>
+                  list.map {
+                    case (str, t) =>
+                      (str, { t1: Tree =>
+                        t(q"""${t1}.${TermName("i" + (index % 8 + 1))}""")
+                      })
+                  }
+              }
+              .flatten
+              .toList
+            toItemImpl(max * 8, i)
+          } else initList
         }
 
-        try {
-          def toItemImpl(max: Int, initList: List[Tree => Tree]): List[Tree => Tree] = {
-            if (initList.size > max) {
-              val i = initList
-                .grouped(8)
-                .zipWithIndex
-                .map {
-                  case (list, index) =>
-                    list.map { t =>
-                      { t1: Tree =>
-                        t(q"""${t1}.${TermName("i" + index)}""")
-                      }
-                    }
-                }
-                .flatten
-                .toList
-              toItemImpl(max * 8, i)
-            } else
-              initList
-          }
+        val casei = toItemImpl(1, props.map(s => (s, identity[Tree] _)))
 
-          println(toItemImpl(8, props.map(s => { t: Tree =>
-            t
-          })).map(s => s(q"""item""")).mkString("\n"))
-        } catch {
-          case e: Exception => e.printStackTrace()
-        }
-
-        val inputFunc = q"""{ item => ${hType.companion}.apply(..${inputItem.map { case (item, m) => q"""${TermName(item)} = ${m}""" }}) }"""
+        val inputFunc = q"""{ item => ${hType.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 
         c.Expr[AsunaSetterGeneric.Aux[H, M]] {
           q"""org.scalax.asuna.mapper.append.macroImpl.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
