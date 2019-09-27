@@ -44,7 +44,7 @@ Item3[Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }], Item8[@for(ii <-
 
 object ArticleXyyTuplePlus222 {
 
-@for(i <- 18 to 21) {
+@for(i <- 18 to 22) {
 
     def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < i) { , } }]
     : org.scalax.asuna.mapper.Plus[@typeName1(i), T@{i}, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =

@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.item
 
-object Tuple2Plus {
+object EatXyy2OnlyPlus {
   def hlistPlus2[T1 <: org.scalax.asuna.mapper.TypeParam, T2 <: org.scalax.asuna.mapper.TypeParam]: org.scalax.asuna.mapper.Plus[T1, T2, EatXyyType2[T1, T2]] =
     new org.scalax.asuna.mapper.Plus[T1, T2, EatXyyType2[T1, T2]] {
       override def plus(p: T1#H, item: T2#H): Item2[T1#H, T2#H]                         = HListItem0.eat(p).eat(item)
