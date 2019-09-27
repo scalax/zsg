@@ -36,6 +36,9 @@ object EncoderTest {
     ): EncoderContent[H, P]
 
     def toR: R = throw new Exception("123")
+    def toIH[I <: TypeParam](
+      implicit
+      app: Application[KContext, R, I]): I#H = throw new Exception("123")
   }
 
   def implicitEncoder[H, Poly, R <: ItemTag, I <: TypeParam](

@@ -6,8 +6,8 @@ object LargeModelTest extends App {
 
   trait LargeModelPoly extends CircePoly[LargeModelPoly] {
 
-    implicit lazy val largeModel_1_en: CirceEncoder[CirceLargeModel.LargeModel_1] = EncoderTest.initEncoder[CirceLargeModel.LargeModel_1, LargeModelPoly].encoder
-    //implicit lazy val largeModel_2_en: CirceEncoder[CirceLargeModel.LargeModel_2] = EncoderTest.implicitEncoder
+    implicit lazy val largeModel_1_en: CirceEncoder[CirceLargeModel.LargeModel_1] = EncoderTest.implicitEncoder
+    implicit lazy val largeModel_2_en: CirceEncoder[CirceLargeModel.LargeModel_2] = EncoderTest.implicitEncoder
     /*implicit lazy val largeModel_1_de: CirceDecoder[CirceLargeModel.LargeModel_1] = DecoderTest.implicitDecoder
     implicit lazy val largeModel_2_de: CirceDecoder[CirceLargeModel.LargeModel_2] = DecoderTest.implicitDecoder*/
 
@@ -17,7 +17,7 @@ object LargeModelTest extends App {
 
   object JsonLarge extends CircePolyGetter[LargeModelPoly]
 
-  //val i1 = JsonLarge.toJson(CirceLargeModel.largeModel_2)
+  val i1 = JsonLarge.toJson(CirceLargeModel.largeModel_2)
   //val i2 = JsonLarge.fromJson[CirceLargeModel.LargeModel_2](i1)
 
   println(i1.noSpaces)
@@ -156,25 +156,5 @@ object LargeModelTest extends App {
       )
     )
   ))
-
-  org.scalax.asuna.mapper.item.BuildTagContect.item2(
-    org.scalax.asuna.mapper.item.BuildTagContect.item8(
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao1", "miaomiao2", "miaomiao3", "miaomiao4", "miaomiao5", "miaomiao6", "miaomiao7", "miaomiao8"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao9", "miaomiao10", "miaomiao11", "miaomiao12", "miaomiao13", "miaomiao14", "miaomiao15", "miaomiao16"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao17", "miaomiao18", "miaomiao19", "miaomiao20", "miaomiao21", "miaomiao22", "miaomiao23", "miaomiao24"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao25", "miaomiao26", "miaomiao27", "miaomiao28", "miaomiao29", "miaomiao30", "miaomiao31", "miaomiao32"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao33", "miaomiao34", "miaomiao35", "miaomiao36", "miaomiao37", "miaomiao38", "miaomiao39", "miaomiao40"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao41", "miaomiao42", "miaomiao43", "miaomiao44", "miaomiao45", "miaomiao46", "miaomiao47", "miaomiao48"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao49", "miaomiao50", "miaomiao51", "miaomiao52", "miaomiao53", "miaomiao54", "miaomiao55", "miaomiao56"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao57", "miaomiao58", "miaomiao59", "miaomiao60", "miaomiao61", "miaomiao62", "miaomiao63", "miaomiao64")
-    ),
-    org.scalax.asuna.mapper.item.BuildTagContect.item5(
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao65", "miaomiao66", "miaomiao67", "miaomiao68", "miaomiao69", "miaomiao70", "miaomiao71", "miaomiao72"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao73", "miaomiao74", "miaomiao75", "miaomiao76", "miaomiao77", "miaomiao78", "miaomiao79", "miaomiao80"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao81", "miaomiao82", "miaomiao83", "miaomiao84", "miaomiao85", "miaomiao86", "miaomiao87", "miaomiao88"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item8("miaomiao89", "miaomiao90", "miaomiao91", "miaomiao92", "miaomiao93", "miaomiao94", "miaomiao95", "miaomiao96"),
-      org.scalax.asuna.mapper.item.BuildTagContect.item4("miaomiao97", "miaomiao98", "miaomiao99", "miaomiao100")
-    )
-  )
 
 }

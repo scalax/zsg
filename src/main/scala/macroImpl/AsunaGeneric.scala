@@ -60,14 +60,6 @@ object AsunaGenericMacroApply {
           .reverse
 
         val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
-        /*val typeTag = if (proTypeTag.length <= 22) {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.tag(..${proTypeTag}))"""
-        } else {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${proTypeTag
-            .grouped(22)
-            .toList
-            .map(i => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${i})""")}))"""
-        }*/
 
         val typeTag = proTypeTag.grouped(8).toList.map(i => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
@@ -77,11 +69,10 @@ object AsunaGenericMacroApply {
             q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s =>q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
           }
 
         //println(typeTagGen(typeTag))
-
 
         c.Expr[AsunaGeneric.Aux[H, M]] {
           q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
