@@ -50,18 +50,25 @@ object AsunaNameGenericMacroApply {
           }
           .reverse
 
-        val nameProTag = if (props.length <= 22) {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + props.length)}(..${props.map(s => q"""${Literal(Constant(s))}""")})"""
-        } else {
-          q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("nodeItem" + props.grouped(22).length)}(..${props.grouped(22).toList.map { ii =>
-            q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + ii.length)}(..${ii.map { p =>
-              q"""${Literal(Constant(p))}"""
-            }})"""
-          }})"""
-        }
+        val nameTag = props
+          .map { name =>
+            q"""${Literal(Constant(name))}"""
+          }
+          .grouped(8)
+          .toList
+          .map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("item" + s.length)}(..${s})""")
+        def nameTagGen(tree: List[Tree]): Tree =
+          if (tree.length == 1) {
+            q"""..${tree}"""
+          } else if (tree.length < 8) {
+            q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("nodeItem" + tree.length)}(..${tree})"""
+          } else {
+            val groupedTree = tree.grouped(8).toList
+            nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.${TermName("nodeItem" + s.length)}(..${s})"""))
+          }
 
         c.Expr[AsunaNameGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaNameGeneric.init[${hType}].name(${nameProTag})"""
+          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaNameGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {
