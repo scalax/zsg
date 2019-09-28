@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.debug
 
-import org.scalax.asuna.mapper.item.{AppendTuple, Item0}
+import org.scalax.asuna.mapper.item.{AppendTuple, Item0, TypeParam2}
 import org.scalax.asuna.mapper._
 
 object TupleTest {
@@ -80,20 +80,9 @@ object TupleTest {
     }
   }
 
-  class PU extends TypeParam {
-    override type H = List[String]
-    override type T = EndParam
-  }
+  class Type1 extends TypeParam2[String, List[String]]
 
-  class Type1 extends TypeParam {
-    override type H = String
-    override type T = PU
-  }
-
-  class Type2 extends TypeParam {
-    override type H = Int
-    override type T = PU
-  }
+  class Type2 extends TypeParam2[Int, List[String]]
 
 }
 
