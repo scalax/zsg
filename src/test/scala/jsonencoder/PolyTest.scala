@@ -1,47 +1,57 @@
 package org.scalax.asuna.mapper.test
 
-trait Poly1 extends CircePoly[(Poly1, Poly2)] {
+import io.circe.{Decoder, Encoder}
 
-  implicit def implicit2: CirceEncoder[Test02]  = EncoderTest.implicitEncoder
-  implicit def implicit4: CirceEncoder[Test04]  = EncoderTest.implicitEncoder
-  implicit def implicit8: CirceEncoder[Test08]  = EncoderTest.implicitEncoder
-  implicit def implicit10: CirceEncoder[Test10] = EncoderTest.implicitEncoder
+trait Poly1 {
 
-  implicit def implicit6: CirceEncoder[Test06]    = EncoderTest.implicitEncoder
-  implicit def implicit_d_6: CirceDecoder[Test06] = DecoderTest.implicitDecoder
+  import Poly2._
+  import CircePoly._
+
+  implicit def poly1Implicit2: Encoder[Test02]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit4: Encoder[Test04]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit8: Encoder[Test08]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit10: Encoder[Test10] = EncoderTest.implicitEncoder
+
+  implicit def poly1Implicit6: Encoder[Test06]    = EncoderTest.implicitEncoder
+  implicit def poly1Implicit_d_6: Decoder[Test06] = DecoderTest.implicitDecoder
 
 }
 
 object Poly1 extends Poly1
 
-trait Poly2 extends CircePoly[(Poly1, Poly2)] {
+trait Poly2 {
 
-  implicit def implicit2: CirceDecoder[Test02]  = DecoderTest.implicitDecoder
-  implicit def implicit3: CirceDecoder[Test03]  = DecoderTest.implicitDecoder
-  implicit def implicit5: CirceDecoder[Test05]  = DecoderTest.implicitDecoder
-  implicit def implicit9: CirceDecoder[Test09]  = DecoderTest.implicitDecoder
-  implicit def implicit11: CirceDecoder[Test11] = DecoderTest.implicitDecoder
+  import Poly1._
+  import CircePoly._
 
-  implicit def implicit7: CirceDecoder[Test07] = DecoderTest.implicitDecoder
+  implicit def poly2Implicit2: Decoder[Test02]  = DecoderTest.implicitDecoder
+  implicit def poly2Implicit3: Decoder[Test03]  = DecoderTest.implicitDecoder
+  implicit def poly2Implicit5: Decoder[Test05]  = DecoderTest.implicitDecoder
+  implicit def poly2Implicit9: Decoder[Test09]  = DecoderTest.implicitDecoder
+  implicit def poly2Implicit11: Decoder[Test11] = DecoderTest.implicitDecoder
 
-  implicit def implicit_e_7: CirceEncoder[Test07] = EncoderTest.implicitEncoder
+  implicit def poly2Implicit7: Decoder[Test07] = DecoderTest.implicitDecoder
+
+  implicit def poly2Implicit_e_7: Encoder[Test07] = EncoderTest.implicitEncoder
 
 }
 
 object Poly2 extends Poly2
 
-object Json1 extends CircePolyGetter[(Poly1, Poly2)]
-
+import io.circe.syntax._
 object Runner extends App {
 
-  val i1 = Json1.toJson(Test02("test02", 123))
+  import Poly1._
+  import Poly2._
+
+  val i1 = Test02("test02", 123).asJson
   println("message1:" + i1.noSpaces)
-  val i2 = Json1.fromJson[Test02](i1)
+  val i2 = i1.as[Test02]
   println("message2:" + i2)
 
-  val i3 = Json1.toJson(Test06("test06", 123, Option(Test07("test07", 789, List(Test06("test06", 456, Option.empty))))))
+  val i3 = Test06("test06", 123, Option(Test07("test07", 789, List(Test06("test06", 456, Option.empty))))).asJson
   println("message3:" + i3.noSpaces)
-  val i4 = Json1.fromJson[Test07](io.circe.parser.parse("""{"i3":"test07","i4":123,"gf":[]}""").right.get)
+  val i4 = io.circe.parser.parse("""{"i3":"test07","i4":123,"gf":[]}""").right.get.as[Test07]
   println("message4:" + i4)
 
   //Json1.toJson(Test03("Test03", 1234)) //not compiled

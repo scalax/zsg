@@ -66,22 +66,8 @@ object AsunaSetterGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
           }
 
-        def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] = {
-          if (max == 1) {
-            val i = initList
-              .grouped(8)
-              .map { list =>
-                list.zipWithIndex.map {
-                  case ((str, t), index) =>
-                    (str, { t1: Tree =>
-                      t(q"""${t1}.${TermName("i" + (index + 1))}""")
-                    })
-                }
-              }
-              .flatten
-              .toList
-            toItemImpl(max * 8, i)
-          } else if (initList.size > max) {
+        def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
+          if (initList.size > max) {
             val i = initList
               .grouped(max)
               .zipWithIndex
@@ -98,9 +84,8 @@ object AsunaSetterGenericMacroApply {
               .toList
             toItemImpl(max * 8, i)
           } else initList
-        }
 
-        val casei = toItemImpl(1, props.map(s => (s, identity[Tree] _)))
+        val casei = toItemImpl(1, props.map(s => (s, (t: Tree) => t)))
 
         val inputFunc = q"""{ item => ${hType.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 

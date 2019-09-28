@@ -72,8 +72,6 @@ object AsunaGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
           }
 
-        //println(typeTagGen(typeTag))
-
         c.Expr[AsunaGeneric.Aux[H, M]] {
           q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }

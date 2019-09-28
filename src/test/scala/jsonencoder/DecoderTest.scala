@@ -5,17 +5,15 @@ import org.scalax.asuna.mapper.item.{Item0, ItemTag}
 import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
 
-class DecoderContent[A, Poly](val decoder: Decoder[A]) extends AnyVal
-
 object DecoderTest {
 
-  def implicitDecoder[T, Poly, R <: ItemTag, I <: TypeParam](
+  def implicitDecoder[T, R <: ItemTag, I <: TypeParam](
     implicit ll: AsunaGeneric.Aux[T, R],
     app: Application[KM, R, I],
     cv1: AsunaNameGeneric.Aux[T, I#H],
     cv3: AsunaSetterGeneric.Aux[T, I#T#H]
-  ): DecoderContent[T, Poly] = {
-    new DecoderContent[T, Poly](app.application(ii).to(cv1.names.withContext(ii)).map(mm => cv3.setter(mm)))
+  ): Decoder[T] = {
+    app.application(ii).to(cv1.names.withContext(ii)).map(mm => cv3.setter(mm))
   }
 
   class KM extends KindContext {
