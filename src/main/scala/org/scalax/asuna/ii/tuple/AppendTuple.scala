@@ -123,7 +123,7 @@ trait AppendTuple {
     t4: org.scalax.asuna.mapper.Application[K, H4, T4],
     t5: org.scalax.asuna.mapper.Application[K, H5, T5]
   ): org.scalax.asuna.mapper.Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T3, T4, T5]] =
-    new org.scalax.asuna.mapper.Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T31, T4, T5]] {
+    new org.scalax.asuna.mapper.Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T3, T4, T5]] {
       override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType5[T1, T2, T3, T4, T5]] = {
         if (context.useHList) {
           if (context.isReverse) {
