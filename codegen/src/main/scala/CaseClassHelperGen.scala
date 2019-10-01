@@ -8,7 +8,7 @@ import scala.io.Source
 object CaseClassHelperGen1 extends App {
 
   val maxPropertyNum = 8
-  val rootDir        = Paths.get(".").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna")
+  val rootDir        = Paths.get("../").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna")
 
   for (i <- 2 to maxPropertyNum) yield {
     val path19 = rootDir.resolve("mapper" + i).resolve("Append" + i + ".scala")
@@ -112,7 +112,7 @@ object CaseClassHelperGen1 extends App {
     writer19.close()
   }
 
-  val path9 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus.scala")
+  /*val path9 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus.scala")
 
   Files.createDirectories(path9.getParent)
 
@@ -142,7 +142,7 @@ object CaseClassHelperGen1 extends App {
     Source.fromString(org.scalax.asuna.tuple.template.txt.AppendTuple(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content112 = content111.mkString(System.lineSeparator)
   writer11.println(content112)
-  writer11.close()
+  writer11.close()*/
 
   val path18 = rootDir.resolve("ii").resolve("tag").resolve("BuildTag.scala")
 
@@ -155,7 +155,7 @@ object CaseClassHelperGen1 extends App {
   writer18.println(content182)
   writer18.close()
 
-  val path19 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus22.scala")
+  /*val path19 = rootDir.resolve("ii").resolve("tuple").resolve("EatTuplePlus22.scala")
 
   Files.createDirectories(path19.getParent)
   val writer19   = new PrintWriter(path19.toFile)
@@ -171,6 +171,6 @@ object CaseClassHelperGen1 extends App {
   val content201 = Source.fromString(org.scalax.asuna.tuple.template.txt.EatTuplePlus222().body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content202 = content201.mkString(System.lineSeparator)
   writer20.println(content202)
-  writer20.close()
+  writer20.close()*/
 
 }
