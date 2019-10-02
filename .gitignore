@@ -1,7 +1,8 @@
 *target
 sample/.idea
+*/.idea
 /.idea
 /logs
 /sbt
-/sbt.bat
-/sbt-launch.jar
+/core/sbt.bat
+/core/sbt-launch.jar

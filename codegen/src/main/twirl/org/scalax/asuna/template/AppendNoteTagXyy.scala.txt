@@ -10,11 +10,11 @@ class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: org.scalax.asuna.mappe
     override type M[M <: org.scalax.asuna.mapper.item.Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {
-        def find@{ii - 1}: T@{ii}#M[Asuna.`Number: @{ii - 1}`] = throw new Exception("debugging...")
+        def find@{ii - 1}: T@{ii}#M[Asuna.`Number： @{ii - 1}`] = throw new Exception("debugging...")
     }
 
     def debug[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: org.scalax.asuna.mapper.TypeParam }](c: org.scalax.asuna.mapper.Context[K])(implicit @for(ii <- 1 to tagNum) {
-        dapp@{ii}: org.scalax.asuna.mapper.DebugApplication[K, T@{ii}, I@{ii}, Asuna.`Message: Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
+        dapp@{ii}: org.scalax.asuna.mapper.DebugApplication[K, T@{ii}, I@{ii}, Asuna.`Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
     }): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], EatXyyType@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
     NodeTag@{tagNum}.appendNodeTagEatXyy@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
 
