@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.sangria-graphql:macro-visit_2.12:0.1.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.sangria-graphql/macro-visit_2.12/jars/macro-visit_2.12-0.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.sangria-graphql/macro-visit_2.12/srcs/macro-visit_2.12-0.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

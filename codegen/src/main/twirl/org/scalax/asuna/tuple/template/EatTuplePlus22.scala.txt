@@ -1,0 +1,54 @@
+package org.scalax.asuna.mapper.item
+
+@typeName1(index: Int) = {
+EatXyyType2[EatXyyType8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
+    EatXyyType@{index - 9}[@for(ii <- 1 to (index - 9)) { T@{ii + 8} @if(ii < (index - 9)) { , } }]]
+}
+
+@typeName2(index: Int) = {
+Item2[Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }],
+    Item@{index - 9}[@for(ii <- 1 to (index - 9)) { T@{ii + 8}#H @if(ii < (index - 9)) { , } }]]
+}
+
+@code3(index: Int) = {
+(@for(ii <- 1 to 8) { p.i1.i@{ii} , } @for(ii <- 1 to (index - 9)) { p.i2.i@{ii} , } item)
+}
+
+@code4(index: Int) = {
+    HListItem0.eat(HListItem0 @for(ii <- 1 to 8) { .eat(t._@{ii}) }: Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }])
+    .eat(HListItem0 @for(ii <- 9 to index - 1) { .eat(t._@{ii}) }: Item@{index - 9}[@for(ii <- 9 to index - 1) { T@{ii}#H @if(ii < index - 1) { , } }])
+}
+
+@code6(index: Int) = {
+    ReverseHListItem0.pudao(ReverseHListItem0 @for(ii <- index to 10 by - 1) { .pudao(t._@{ii}) }: Item@{index - 9}[@for(ii <- 9 to index - 1) { T@{ii}#H @if(ii < index - 1) { , } }])
+    .pudao(ReverseHListItem0 @for(ii <- 9 to 2 by - 1) { .pudao(t._@{ii}) }: Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }])
+}
+
+@code8(index: Int) = {
+    (item @for(ii <- 1 to 8) { , p.i1.i@{ii} } @for(ii <- 1 to (index - 9)) { , p.i2.i@{ii} })
+}
+
+object ArticleXyyTuplePlus22 {
+
+@for(i <- 10 to 17) {
+
+    def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < i) { , } }]
+    : org.scalax.asuna.mapper.Plus[@typeName1(i), T@{i}, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new org.scalax.asuna.mapper.Plus[@typeName1(i), T@{i}, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def plus(p: @typeName2(i), item: T@{i}#H): (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }) = @code3(i)
+        override def takeHead(t: (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } })): T@{i}#H = t._@{i}
+        override def takeTail(t: (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } })): @typeName2(i) = @code4(i)
+        override def sub: org.scalax.asuna.mapper.Plus[@typeName1(i)#T, T@{i}#T, XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]#T] = hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
+    }
+
+    def hlistPut@{i}[@for(ii <- 1 to i) { T@{ii} <: org.scalax.asuna.mapper.TypeParam @if(ii < i) { , } }]
+    : org.scalax.asuna.mapper.Plus[@typeName1(i), T@{i}, XyyTupleType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] =
+    new org.scalax.asuna.mapper.Plus[@typeName1(i), T@{i}, XyyTupleType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] {
+        override def plus(p: @typeName2(i), item: T@{i}#H): (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H }) = @code8(i)
+        override def takeHead(t: (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H })): T@{i}#H = t._1
+        override def takeTail(t: (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H })): @typeName2(i) = @code6(i)
+        override def sub: org.scalax.asuna.mapper.Plus[@typeName1(i)#T, T@{i}#T, XyyTupleType@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]#T] = hlistPut@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
+    }
+}
+
+}

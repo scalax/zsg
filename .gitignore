@@ -1,6 +1,6 @@
 *target
 sample/.idea
-/.idea
+*/.idea
 /logs
 /sbt
 /core/sbt.bat

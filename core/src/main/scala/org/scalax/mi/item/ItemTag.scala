@@ -1,8 +1,6 @@
 package org.scalax.asuna.mapper.item {
   import org.scalax.asuna.mapper.{Context, KindContext}
 
-  import scala.language.higherKinds
-
   trait ItemTag {
     type XyyItemType
     type M[M <: org.scalax.asuna.mapper.item.Message] <: ItemTag

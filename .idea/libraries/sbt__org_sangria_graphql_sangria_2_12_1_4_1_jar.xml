@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.sangria-graphql:sangria_2.12:1.4.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.sangria-graphql/sangria_2.12/jars/sangria_2.12-1.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.sangria-graphql/sangria_2.12/srcs/sangria_2.12-1.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

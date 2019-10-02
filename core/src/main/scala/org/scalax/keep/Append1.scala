@@ -18,19 +18,19 @@ object ItemTag1 {
   ): org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag1[H1, M1], EatXyyType1[T1]] =
     new org.scalax.asuna.mapper.Application[K, org.scalax.asuna.mapper.item.ItemTag1[H1, M1], EatXyyType1[T1]] {
       override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[EatXyyType1[T1]] = {
-        if (context.useHList) {
-          if (context.isReverse) {
-            context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)
-          } else {
-            context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPlus1)
-          }
+        //if (context.useHList) {
+        if (context.isReverse) {
+          context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPut1)
         } else {
+          context.append(context.start, t1.application(context), ArticleXyyPlus.hlistPlus1)
+        }
+        /*} else {
           if (context.isReverse) {
             context.append(context.start, t1.application(context), ArticleXyyPlus.item2Put1)
           } else {
             context.append(context.start, t1.application(context), ArticleXyyPlus.item2Plus1)
           }
-        }
+        }*/
       }
     }
 }
