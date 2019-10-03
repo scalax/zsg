@@ -33,7 +33,7 @@ object Test {
   implicit val implicit8: ListEncoder[Foo] = encoder
 
   def main(arr: Array[String]): Unit = {
-    println(implicit8.encode(value).mkString("|"))
+    println(implicit8.encode(value).mkString("|")) //(i1,i1)|(i2,i2)|(3,i3)|(4,i4)|(5,i5)|(i6,i6)|(i7,i7)|(i8,i8)|(9,i9)|(10,i10)
   }
 
 }
