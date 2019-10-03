@@ -18,11 +18,11 @@ object AsunaGetterGeneric {
 
   type Aux[H, WW] = AsunaGetterGeneric[H] { type GenericType = WW }
 
-  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric.Aux[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  //implicit def appendMacroImpl[H, M]: AsunaGetterGeneric.Aux[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
 
 }
 
-object AsunaGetterGenericMacroApply {
+/*object AsunaGetterGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
     self =>
@@ -75,4 +75,4 @@ object AsunaGetterGenericMacroApply {
     }
   }
 
-}
+}*/
