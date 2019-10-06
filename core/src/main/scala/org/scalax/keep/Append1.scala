@@ -34,6 +34,4 @@ object ItemTag1 {
       }
     }
 
-  type TL1 = [+A] =>> List[A]
-  type TL2 = [-A] =>> List[A]
 }
