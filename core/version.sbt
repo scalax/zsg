@@ -1,1 +1,1 @@
-Common.versionSetting
+version := "0.0.2-SNAP20181211.1"

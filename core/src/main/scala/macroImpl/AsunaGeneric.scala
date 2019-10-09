@@ -16,7 +16,7 @@ trait AsunaGeneric[H] {
 
 object AsunaGeneric {
 
-  def init[M] = new GenericApply[M] {}
+  def init[M]: GenericApply[M] = new GenericApply[M] {}
 
   trait GenericApply[M] {
     def generic[WW <: ItemTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
@@ -31,11 +31,11 @@ object AsunaGeneric {
 
   type Aux[H, II <: ItemTag] = AsunaGeneric[H] { type WT = II }
 
-  //implicit def appendMacroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
-/*object AsunaGenericMacroApply {
+object AsunaGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
     self =>
@@ -84,4 +84,4 @@ object AsunaGeneric {
     }
   }
 
-}*/
+}
