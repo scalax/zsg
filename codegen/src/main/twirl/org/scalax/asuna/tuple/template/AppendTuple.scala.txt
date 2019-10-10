@@ -1,16 +1,16 @@
 @(maxItem: Int)
 
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 
 trait AppendTuple {
 
 @for(i <- 2 to maxItem + 1) {
 
-    implicit def xyy@{i}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
-    (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
+    (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut@{i})
             } else {
@@ -23,11 +23,11 @@ trait AppendTuple {
 
 @for(i <- 10 to 17) {
 
-    implicit def xyy@{i}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
-    (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
+    (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 val i1 = ItemTag@{i - 9}.appendEatXyy@{i - 9}(@for(ii <- 10 to i) { t@{ii} @if(ii < i) { , } }).application(context)
                 val i2 = ItemTag8.appendEatXyy8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
@@ -37,7 +37,7 @@ trait AppendTuple {
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 2 to 9) { T@{ii} @if(ii < 9) { , } }],
                         EatXyyType@{i - 9}[@for(ii <- 10 to i) { T@{ii} @if(ii < i) { , } }]
-                ]](i1, i2, org.scalax.asuna.mapper.item.EatXyy2OnlyPlus.hlistPut2)
+                ]](i1, i2, EatXyy2OnlyPlus.hlistPut2)
                 context.append(i3, t1.application(context), ArticleXyyTuplePlus22.hlistPut@{i})
             } else {
                 val i1 = ItemTag8.appendEatXyy8(@for(ii <- 1 to 8) { t@{ii} @if(ii < 8) { , } }).application(context)
@@ -48,7 +48,7 @@ trait AppendTuple {
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
                         EatXyyType@{i - 9}[@for(ii <- 9 to i - 1) { T@{ii} @if(ii < i - 1) { , } }]
-                ]](i1, i2, org.scalax.asuna.mapper.item.EatXyy2OnlyPlus.hlistPlus2)
+                ]](i1, i2, EatXyy2OnlyPlus.hlistPlus2)
                 context.append(i3, t@{i}.application(context), ArticleXyyTuplePlus22.hlistPlus@{i})
             }
         }
@@ -58,11 +58,11 @@ trait AppendTuple {
 
 @for(i <- 18 to 22) {
 
-    implicit def xyy@{i}[K <: org.scalax.asuna.mapper.KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: org.scalax.asuna.mapper.TypeParam }]
-    (implicit @for(ii <- 1 to i) { t@{ii}: org.scalax.asuna.mapper.Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new org.scalax.asuna.mapper.Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: org.scalax.asuna.mapper.Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
+    (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 val i1 = ItemTag@{i - 17}.appendEatXyy@{i - 17}(@for(ii <- 18 to i) { t@{ii} @if(ii < i) { , } }).application(context)
                 val i2 = ItemTag8.appendEatXyy8(@for(ii <- 2 to 9) { t@{ii + 8} @if(ii < 9) { , } }).application(context)
@@ -73,7 +73,7 @@ trait AppendTuple {
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 2 to 9) { T@{ii + 8} @if(ii < 9) { , } }],
                         EatXyyType@{i - 17}[@for(ii <- 18 to i) { T@{ii} @if(ii < i) { , } }]
-                    ]](i1, i2, org.scalax.asuna.mapper.item.EatXyy2OnlyPlus.hlistPut2)
+                    ]](i1, i2, EatXyy2OnlyPlus.hlistPut2)
                 val i5 = context.append[
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 2 to 9) { T@{ii + 8} @if(ii < 9) { , } }],
@@ -97,7 +97,7 @@ trait AppendTuple {
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
                         EatXyyType8[@for(ii <- 9 to 16) { T@{ii} @if(ii < 16) { , } }]
-                ]](i1, i2, org.scalax.asuna.mapper.item.EatXyy2OnlyPlus.hlistPlus2)
+                ]](i1, i2, EatXyy2OnlyPlus.hlistPlus2)
                 val i5 = context.append[
                     EatXyyType2[
                         EatXyyType8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],

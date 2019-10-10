@@ -1,9 +1,7 @@
-package org.scalax.asuna.mapper.item {
-  import org.scalax.asuna.mapper.{Context, KindContext}
-
+package org.scalax.asuna.mapper {
   trait ItemTag {
     type XyyItemType
-    type M[M <: org.scalax.asuna.mapper.item.Message] <: ItemTag
+    type M[M <: org.scalax.asuna.mapper.Message] <: ItemTag
   }
 
   class EndItemTag extends ItemTag

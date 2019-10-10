@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
 import org.scalax.asuna.mapper.AppendTag
-import org.scalax.asuna.mapper.item.ItemTag
+import org.scalax.asuna.mapper.ItemTag
 
 import scala.language.experimental.macros
 

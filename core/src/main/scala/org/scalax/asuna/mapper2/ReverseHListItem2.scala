@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 class ReverseHListItem2[E1, E2](val head: E1 :: E2 :: HNil) extends AnyVal with Item2[E1, E2] {
   override def pudao[T](xyy: T): ReverseHListItem3[T, E1, E2] = new ReverseHListItem3[T, E1, E2](xyy :: head)
   override def leftHead: E1                                   = head.head

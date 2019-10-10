@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 trait ReverseHListItem0 extends Any with Item0 {
   override def pudao[T](xyy: T): ReverseHListItem1[T] = new ReverseHListItem1(xyy :: HNil)
 }

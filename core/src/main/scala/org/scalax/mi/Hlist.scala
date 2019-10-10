@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 
 trait HList {
 

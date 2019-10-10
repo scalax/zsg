@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
-import org.scalax.asuna.mapper.item.ContextContent
+import org.scalax.asuna.mapper.ContextContent
 
 import scala.language.experimental.macros
 

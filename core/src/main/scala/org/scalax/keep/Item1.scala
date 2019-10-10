@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 trait Item0 extends Any {
   def eat[T](xyy: T): Item1[T]   = throw new Exception("Can not use this method.")
   def pudao[T](xyy: T): Item1[T] = throw new Exception("Can not use this method.")

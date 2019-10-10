@@ -1,8 +1,5 @@
 @(tagNum: Int)
 
-
 package Asuna {
-
-class `Number： @{tagNum}` extends org.scalax.asuna.mapper.item.Message
-
+    class `Number： @{tagNum}` extends org.scalax.asuna.mapper.Message
 }

@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 trait HListItem0 extends Any with Item0 {
   override def eat[T](xyy: T): HListItem1[T] = new HListItem1(xyy :: HNil)
 }
@@ -10,7 +10,9 @@ class HListItem1[E1](val head: E1 :: HNil) extends AnyVal with Item1[E1] {
   override def i1: E1                            = head.head
 }
 
-class HListItem8[E1, E2, E3, E4, E5, E6, E7, E8](val head: E8 :: E7 :: E6 :: E5 :: E4 :: E3 :: E2 :: E1 :: HNil) extends AnyVal with Item8[E1, E2, E3, E4, E5, E6, E7, E8] {
+class HListItem8[E1, E2, E3, E4, E5, E6, E7, E8](val head: E8 :: E7 :: E6 :: E5 :: E4 :: E3 :: E2 :: E1 :: HNil)
+    extends AnyVal
+    with Item8[E1, E2, E3, E4, E5, E6, E7, E8] {
   override def rightHead: E8                                     = head.head
   override def rightTail: HListItem7[E1, E2, E3, E4, E5, E6, E7] = new HListItem7(head.tail)
   override def i1: E1                                            = head.tail.tail.tail.tail.tail.tail.tail.head

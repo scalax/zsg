@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.item
+package org.scalax.asuna.mapper
 trait Item4[E1, E2, E3, E4] extends Any {
   self =>
   def i1: E1
