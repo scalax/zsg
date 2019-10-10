@@ -1,5 +1,7 @@
 package org.scalax.asuna.mapper
 
+import scala.language.higherKinds
+
 trait HList {
 
   type Head

@@ -1,7 +1,10 @@
 package org.scalax.asuna.mapper {
+
+  import scala.language.higherKinds
+
   trait ItemTag {
     type XyyItemType
-    type M[M <: org.scalax.asuna.mapper.Message] <: ItemTag
+    type M[M <: Message] <: ItemTag
   }
 
   class EndItemTag extends ItemTag

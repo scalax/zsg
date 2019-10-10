@@ -8,9 +8,9 @@ trait AppendTuple {
 
     implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
     (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 context.append(ItemTag@{i - 1}.appendEatXyy@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut@{i})
             } else {
@@ -25,9 +25,9 @@ trait AppendTuple {
 
     implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
     (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 val i1 = ItemTag@{i - 9}.appendEatXyy@{i - 9}(@for(ii <- 10 to i) { t@{ii} @if(ii < i) { , } }).application(context)
                 val i2 = ItemTag8.appendEatXyy8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
@@ -60,9 +60,9 @@ trait AppendTuple {
 
     implicit def xyy@{i}[K <: KindContext @for(ii <- 1 to i) { , H@{ii} } @for(ii <- 1 to i) { , T@{ii} <: TypeParameter }]
     (implicit @for(ii <- 1 to i) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < i) { , } })
-    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
-        override def application(context: Context[K]): K#M[XyyTupleType@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
+    : Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+        override def application(context: Context[K]): K#M[TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
                 val i1 = ItemTag@{i - 17}.appendEatXyy@{i - 17}(@for(ii <- 18 to i) { t@{ii} @if(ii < i) { , } }).application(context)
                 val i2 = ItemTag8.appendEatXyy8(@for(ii <- 2 to 9) { t@{ii + 8} @if(ii < 9) { , } }).application(context)

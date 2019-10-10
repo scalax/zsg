@@ -1,9 +1,8 @@
 package org.scalax.asuna.mapper
 
-import impl._
-
 class ItemTag1[T1, M1 <: Message] extends ItemTag {
-  override type XyyItemType     = Item1[T1]
+  override type XyyItemType = Item1[T1]
+  import impl._
   override type M[M <: Message] = ItemTag1[T1, M :-<>-: M1]
 
   def debug[K <: KindContext, I1 <: TypeParameter](c: Context[K])(

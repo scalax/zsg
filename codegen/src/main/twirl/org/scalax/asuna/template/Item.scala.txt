@@ -14,11 +14,11 @@ trait Item@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] e
     def rightHead: E@{tagNum} = throw new Exception("Can not use this method.")
     def rightTail: Item@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }] = throw new Exception("Can not use this method.")
 
-    def eat[T](xyy: T): Item@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T] = throw new Exception("Can not use this method.")
-    def pudao[T](xyy: T): Item@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = throw new Exception("Can not use this method.")
+    def add[T](xyy: T): Item@{tagNum + 1}[@for(ii <- 1 to tagNum) { E@{ii}, } T] = throw new Exception("Can not use this method.")
+    def pull[T](xyy: T): Item@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }] = throw new Exception("Can not use this method.")
 
-    def eatToTuple[T](xyy: T): (@for(ii <- 1 to tagNum) { E@{ii}, } T) = (@for(ii <- 1 to tagNum) { self.i@{ii}, } xyy)
-    def pudaoToTuple[T](xyy: T): (T @for(ii <- 1 to tagNum) { , E@{ii} }) = (xyy @for(ii <- 1 to tagNum) { , self.i@{ii} })
+    def addToTuple[T](xyy: T): (@for(ii <- 1 to tagNum) { E@{ii}, } T) = (@for(ii <- 1 to tagNum) { self.i@{ii}, } xyy)
+    def pullToTuple[T](xyy: T): (T @for(ii <- 1 to tagNum) { , E@{ii} }) = (xyy @for(ii <- 1 to tagNum) { , self.i@{ii} })
 
     def leftTuple: (@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }) = (@for(ii <- 2 to tagNum) { self.i@{ii} @if(ii < tagNum) { , } })
     def rightTuple: (@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }) = (@for(ii <- 2 to tagNum) { self.i@{ii - 1} @if(ii < tagNum) { , } })

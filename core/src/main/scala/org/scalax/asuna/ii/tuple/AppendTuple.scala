@@ -3,9 +3,9 @@ trait AppendTuple {
   implicit def xyy2[K <: KindContext, H1, H2, T1 <: TypeParameter, T2 <: TypeParameter](
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2]
-  ): Application[K, (H1, H2), XyyTupleType2[T1, T2]] =
-    new Application[K, (H1, H2), XyyTupleType2[T1, T2]] {
-      override def application(context: Context[K]): K#M[XyyTupleType2[T1, T2]] = {
+  ): Application[K, (H1, H2), TupleTypeParameter2[T1, T2]] =
+    new Application[K, (H1, H2), TupleTypeParameter2[T1, T2]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter2[T1, T2]] = {
         if (context.isReverse) {
           context.append(ItemTag1.appendEatXyy1(t2).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut2)
         } else {
@@ -17,9 +17,9 @@ trait AppendTuple {
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2],
     t3: Application[K, H3, T3]
-  ): Application[K, (H1, H2, H3), XyyTupleType3[T1, T2, T3]] =
-    new Application[K, (H1, H2, H3), XyyTupleType3[T1, T2, T3]] {
-      override def application(context: Context[K]): K#M[XyyTupleType3[T1, T2, T3]] = {
+  ): Application[K, (H1, H2, H3), TupleTypeParameter3[T1, T2, T3]] =
+    new Application[K, (H1, H2, H3), TupleTypeParameter3[T1, T2, T3]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter3[T1, T2, T3]] = {
         if (context.isReverse) {
           context.append(ItemTag2.appendEatXyy2(t2, t3).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut3)
         } else {
@@ -32,9 +32,9 @@ trait AppendTuple {
     t2: Application[K, H2, T2],
     t3: Application[K, H3, T3],
     t4: Application[K, H4, T4]
-  ): Application[K, (H1, H2, H3, H4), XyyTupleType4[T1, T2, T3, T4]] =
-    new Application[K, (H1, H2, H3, H4), XyyTupleType4[T1, T2, T3, T4]] {
-      override def application(context: Context[K]): K#M[XyyTupleType4[T1, T2, T3, T4]] = {
+  ): Application[K, (H1, H2, H3, H4), TupleTypeParameter4[T1, T2, T3, T4]] =
+    new Application[K, (H1, H2, H3, H4), TupleTypeParameter4[T1, T2, T3, T4]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter4[T1, T2, T3, T4]] = {
         if (context.isReverse) {
           context.append(ItemTag3.appendEatXyy3(t2, t3, t4).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut4)
         } else {
@@ -48,9 +48,9 @@ trait AppendTuple {
     t3: Application[K, H3, T3],
     t4: Application[K, H4, T4],
     t5: Application[K, H5, T5]
-  ): Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T3, T4, T5]] =
-    new Application[K, (H1, H2, H3, H4, H5), XyyTupleType5[T1, T2, T3, T4, T5]] {
-      override def application(context: Context[K]): K#M[XyyTupleType5[T1, T2, T3, T4, T5]] = {
+  ): Application[K, (H1, H2, H3, H4, H5), TupleTypeParameter5[T1, T2, T3, T4, T5]] =
+    new Application[K, (H1, H2, H3, H4, H5), TupleTypeParameter5[T1, T2, T3, T4, T5]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter5[T1, T2, T3, T4, T5]] = {
         if (context.isReverse) {
           context.append(ItemTag4.appendEatXyy4(t2, t3, t4, t5).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut5)
         } else {
@@ -79,9 +79,9 @@ trait AppendTuple {
     t4: Application[K, H4, T4],
     t5: Application[K, H5, T5],
     t6: Application[K, H6, T6]
-  ): Application[K, (H1, H2, H3, H4, H5, H6), XyyTupleType6[T1, T2, T3, T4, T5, T6]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6), XyyTupleType6[T1, T2, T3, T4, T5, T6]] {
-      override def application(context: Context[K]): K#M[XyyTupleType6[T1, T2, T3, T4, T5, T6]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6), TupleTypeParameter6[T1, T2, T3, T4, T5, T6]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6), TupleTypeParameter6[T1, T2, T3, T4, T5, T6]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter6[T1, T2, T3, T4, T5, T6]] = {
         if (context.isReverse) {
           context.append(ItemTag5.appendEatXyy5(t2, t3, t4, t5, t6).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut6)
         } else {
@@ -113,9 +113,9 @@ trait AppendTuple {
     t5: Application[K, H5, T5],
     t6: Application[K, H6, T6],
     t7: Application[K, H7, T7]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7), XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7), XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]] {
-      override def application(context: Context[K]): K#M[XyyTupleType7[T1, T2, T3, T4, T5, T6, T7]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7), TupleTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7), TupleTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] = {
         if (context.isReverse) {
           context.append(ItemTag6.appendEatXyy6(t2, t3, t4, t5, t6, t7).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut7)
         } else {
@@ -150,9 +150,9 @@ trait AppendTuple {
     t6: Application[K, H6, T6],
     t7: Application[K, H7, T7],
     t8: Application[K, H8, T8]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8), XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8), XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]] {
-      override def application(context: Context[K]): K#M[XyyTupleType8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8), TupleTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8), TupleTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
         if (context.isReverse) {
           context.append(ItemTag7.appendEatXyy7(t2, t3, t4, t5, t6, t7, t8).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut8)
         } else {
@@ -190,9 +190,9 @@ trait AppendTuple {
     t7: Application[K, H7, T7],
     t8: Application[K, H8, T8],
     t9: Application[K, H9, T9]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9), XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9), XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
-      override def application(context: Context[K]): K#M[XyyTupleType9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9), TupleTypeParameter9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9), TupleTypeParameter9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
         if (context.isReverse) {
           context.append(ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context), t1.application(context), ArticleXyyTuplePlus.hlistPut9)
         } else {
@@ -233,9 +233,9 @@ trait AppendTuple {
     t8: Application[K, H8, T8],
     t9: Application[K, H9, T9],
     t10: Application[K, H10, T10]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
-      override def application(context: Context[K]): K#M[XyyTupleType10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), TupleTypeParameter10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), TupleTypeParameter10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
         if (context.isReverse) {
           val i1 = ItemTag1.appendEatXyy1(t10).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -291,9 +291,9 @@ trait AppendTuple {
     t9: Application[K, H9, T9],
     t10: Application[K, H10, T10],
     t11: Application[K, H11, T11]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
-      override def application(context: Context[K]): K#M[XyyTupleType11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), TupleTypeParameter11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), TupleTypeParameter11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
         if (context.isReverse) {
           val i1 = ItemTag2.appendEatXyy2(t10, t11).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -352,9 +352,9 @@ trait AppendTuple {
     t10: Application[K, H10, T10],
     t11: Application[K, H11, T11],
     t12: Application[K, H12, T12]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12), XyyTupleType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12), XyyTupleType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
-      override def application(context: Context[K]): K#M[XyyTupleType12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12), TupleTypeParameter12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12), TupleTypeParameter12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
         if (context.isReverse) {
           val i1 = ItemTag3.appendEatXyy3(t10, t11, t12).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -416,9 +416,9 @@ trait AppendTuple {
     t11: Application[K, H11, T11],
     t12: Application[K, H12, T12],
     t13: Application[K, H13, T13]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13), XyyTupleType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13), XyyTupleType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
-      override def application(context: Context[K]): K#M[XyyTupleType13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13), TupleTypeParameter13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13), TupleTypeParameter13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] = {
         if (context.isReverse) {
           val i1 = ItemTag4.appendEatXyy4(t10, t11, t12, t13).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -483,9 +483,9 @@ trait AppendTuple {
     t12: Application[K, H12, T12],
     t13: Application[K, H13, T13],
     t14: Application[K, H14, T14]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14), XyyTupleType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
-    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14), XyyTupleType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
-      override def application(context: Context[K]): K#M[XyyTupleType14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] = {
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14), TupleTypeParameter14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] =
+    new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14), TupleTypeParameter14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
+      override def application(context: Context[K]): K#M[TupleTypeParameter14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] = {
         if (context.isReverse) {
           val i1 = ItemTag5.appendEatXyy5(t10, t11, t12, t13, t14).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -553,7 +553,7 @@ trait AppendTuple {
     t13: Application[K, H13, T13],
     t14: Application[K, H14, T14],
     t15: Application[K, H15, T15]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15), XyyTupleType15[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15), TupleTypeParameter15[
     T1,
     T2,
     T3,
@@ -573,9 +573,9 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15),
-      XyyTupleType15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
+      TupleTypeParameter15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] = {
+      override def application(context: Context[K]): K#M[TupleTypeParameter15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] = {
         if (context.isReverse) {
           val i1 = ItemTag6.appendEatXyy6(t10, t11, t12, t13, t14, t15).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -646,7 +646,7 @@ trait AppendTuple {
     t14: Application[K, H14, T14],
     t15: Application[K, H15, T15],
     t16: Application[K, H16, T16]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16), XyyTupleType16[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16), TupleTypeParameter16[
     T1,
     T2,
     T3,
@@ -667,9 +667,9 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16),
-      XyyTupleType16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
+      TupleTypeParameter16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] = {
+      override def application(context: Context[K]): K#M[TupleTypeParameter16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] = {
         if (context.isReverse) {
           val i1 = ItemTag7.appendEatXyy7(t10, t11, t12, t13, t14, t15, t16).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -743,7 +743,7 @@ trait AppendTuple {
     t15: Application[K, H15, T15],
     t16: Application[K, H16, T16],
     t17: Application[K, H17, T17]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17), XyyTupleType17[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17), TupleTypeParameter17[
     T1,
     T2,
     T3,
@@ -765,9 +765,9 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17),
-      XyyTupleType17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
+      TupleTypeParameter17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
+      override def application(context: Context[K]): K#M[TupleTypeParameter17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
         if (context.isReverse) {
           val i1 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
           val i2 = ItemTag8.appendEatXyy8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
@@ -844,7 +844,7 @@ trait AppendTuple {
     t16: Application[K, H16, T16],
     t17: Application[K, H17, T17],
     t18: Application[K, H18, T18]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18), XyyTupleType18[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18), TupleTypeParameter18[
     T1,
     T2,
     T3,
@@ -867,9 +867,9 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18),
-      XyyTupleType18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+      TupleTypeParameter18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
+      override def application(context: Context[K]): K#M[TupleTypeParameter18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
         if (context.isReverse) {
           val i1 = ItemTag1.appendEatXyy1(t18).application(context)
           val i2 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
@@ -967,7 +967,7 @@ trait AppendTuple {
     t17: Application[K, H17, T17],
     t18: Application[K, H18, T18],
     t19: Application[K, H19, T19]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19), XyyTupleType19[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19), TupleTypeParameter19[
     T1,
     T2,
     T3,
@@ -991,9 +991,9 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19),
-      XyyTupleType19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+      TupleTypeParameter19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
+      override def application(context: Context[K]): K#M[TupleTypeParameter19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
         if (context.isReverse) {
           val i1 = ItemTag2.appendEatXyy2(t18, t19).application(context)
           val i2 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
@@ -1094,7 +1094,7 @@ trait AppendTuple {
     t18: Application[K, H18, T18],
     t19: Application[K, H19, T19],
     t20: Application[K, H20, T20]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20), XyyTupleType20[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20), TupleTypeParameter20[
     T1,
     T2,
     T3,
@@ -1119,9 +1119,11 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20),
-      XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+      TupleTypeParameter20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
     ] {
-      override def application(context: Context[K]): K#M[XyyTupleType20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] = {
+      override def application(
+        context: Context[K]
+      ): K#M[TupleTypeParameter20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] = {
         if (context.isReverse) {
           val i1 = ItemTag3.appendEatXyy3(t18, t19, t20).application(context)
           val i2 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
@@ -1225,7 +1227,7 @@ trait AppendTuple {
     t19: Application[K, H19, T19],
     t20: Application[K, H20, T20],
     t21: Application[K, H21, T21]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21), XyyTupleType21[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21), TupleTypeParameter21[
     T1,
     T2,
     T3,
@@ -1251,11 +1253,11 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21),
-      XyyTupleType21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+      TupleTypeParameter21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
     ] {
       override def application(
         context: Context[K]
-      ): K#M[XyyTupleType21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] = {
+      ): K#M[TupleTypeParameter21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] = {
         if (context.isReverse) {
           val i1 = ItemTag4.appendEatXyy4(t18, t19, t20, t21).application(context)
           val i2 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
@@ -1362,7 +1364,7 @@ trait AppendTuple {
     t20: Application[K, H20, T20],
     t21: Application[K, H21, T21],
     t22: Application[K, H22, T22]
-  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21, H22), XyyTupleType22[
+  ): Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21, H22), TupleTypeParameter22[
     T1,
     T2,
     T3,
@@ -1389,11 +1391,11 @@ trait AppendTuple {
     new Application[
       K,
       (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15, H16, H17, H18, H19, H20, H21, H22),
-      XyyTupleType22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
+      TupleTypeParameter22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
     ] {
       override def application(
         context: Context[K]
-      ): K#M[XyyTupleType22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] = {
+      ): K#M[TupleTypeParameter22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] = {
         if (context.isReverse) {
           val i1 = ItemTag5.appendEatXyy5(t18, t19, t20, t21, t22).application(context)
           val i2 = ItemTag8.appendEatXyy8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)

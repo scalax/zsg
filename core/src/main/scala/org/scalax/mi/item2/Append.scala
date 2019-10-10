@@ -1,6 +1,7 @@
 package org.scalax.asuna.mapper
 
 import scala.annotation.implicitNotFound
+import scala.language.higherKinds
 
 trait TypeParameter {
   type H
