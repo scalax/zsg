@@ -6,19 +6,21 @@ import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneri
 
 object EncoderTest {
 
-  def initEncoder[H]: ImplicitApply1[H] =
-    new ImplicitApply1[H] {
-      def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
-        override def encoder[I <: TypeParameter](
-          implicit
-          app: Application[KContext, R, I],
-          cv1: AsunaNameGeneric.Aux[H, I#H],
-          cv2: AsunaGetterGeneric.Aux[H, I#T#H]
-        ): Encoder[H] = {
-          app.application(ii).addName(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii))
+  //debug 辅助函数开始
+  def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
+    def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
+      override def encoder[I <: TypeParameter](
+        implicit
+        app: Application[KContext, R, I],
+        cv1: AsunaNameGeneric.Aux[H, I#H],
+        cv2: AsunaGetterGeneric.Aux[H, I#T#H]
+      ): Encoder.AsObject[H] = {
+        Encoder.AsObject.instance { o: H =>
+          JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
         }
       }
     }
+  }
 
   trait ImplicitApply1[H] {
     def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
@@ -38,25 +40,21 @@ object EncoderTest {
       app: Application[KContext, R, I]
     ): I#H = throw new Exception("123")
   }
+  //debug 辅助函数结束
 
   def implicitEncoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[H, R],
     app: Application[KContext, R, I],
     cv1: AsunaNameGeneric.Aux[H, I#H],
     cv2: AsunaGetterGeneric.Aux[H, I#T#H]
-  ): Encoder[H] = {
-    app.application(ii).addName(cv1.names.withContext(ii)).contramapObject(mm => cv2.getter(mm).withContext(ii))
+  ): Encoder.AsObject[H] = {
+    Encoder.AsObject.instance { o: H =>
+      JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
+    }
   }
 
   trait JsonEncoder[T, II] {
-    self =>
-
     def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
-
-    def addName(name: II): Encoder.AsObject[T] = Encoder.AsObject.instance { i =>
-      JsonObject.fromIterable(self.p(i, name, List.empty))
-    }
-
   }
 
   class KContext extends KindContext {
@@ -79,12 +77,6 @@ object EncoderTest {
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
       override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
     }
-  }
-
-  def mm[T] = new MP[T] {}
-
-  trait MP[I] {
-    def iii[H](implicit g: AsunaGetterGeneric.Aux[I, H]): I => ContextContent[H] = g.getter
   }
 
 }
