@@ -43,4 +43,40 @@ object EncoderTest {
     }
   }
 
+  //编译期调试辅助函数开始
+  def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
+    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
+      override def encoder[I <: TypeParameter](
+        implicit
+        app: Application[KContext, R, I],
+        cv1: AsunaNameGeneric.Aux[H, I#H],
+        cv2: AsunaGetterGeneric.Aux[H, I#T#H]
+      ): Encoder.AsObject[H] = {
+        Encoder.AsObject.instance { o: H =>
+          JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
+        }
+      }
+    }
+  }
+
+  trait ImplicitApply1[H] {
+    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
+  }
+
+  trait ImplicitApply2[H, R <: ItemTag] {
+    def encoder[I <: TypeParameter](
+      implicit
+      app: Application[KContext, R, I],
+      cv1: AsunaNameGeneric.Aux[H, I#H],
+      cv2: AsunaGetterGeneric.Aux[H, I#T#H]
+    ): Encoder[H]
+
+    def toTag: R = throw new Exception("123")
+    def toIH[I <: TypeParameter](
+      implicit
+      app: Application[KContext, R, I]
+    ): I#H = throw new Exception("123")
+  }
+  //编译期调试辅助函数结束
+
 }
