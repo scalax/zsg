@@ -8,7 +8,7 @@ object EncoderTest {
 
   //debug 辅助函数开始
   def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
-    def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
+    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
       override def encoder[I <: TypeParameter](
         implicit
         app: Application[KContext, R, I],
@@ -23,7 +23,7 @@ object EncoderTest {
   }
 
   trait ImplicitApply1[H] {
-    def encoder[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
+    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
   }
 
   trait ImplicitApply2[H, R <: ItemTag] {
@@ -34,7 +34,7 @@ object EncoderTest {
       cv2: AsunaGetterGeneric.Aux[H, I#T#H]
     ): Encoder[H]
 
-    def toR: R = throw new Exception("123")
+    def toTag: R = throw new Exception("123")
     def toIH[I <: TypeParameter](
       implicit
       app: Application[KContext, R, I]
