@@ -8,6 +8,11 @@ trait TypeParameter {
   type T <: TypeParameter
 }
 
+class AnyTypeParameter extends TypeParameter {
+  override type H = Any
+  override type T = AnyTypeParameter
+}
+
 class NoData
 
 object NoData {
