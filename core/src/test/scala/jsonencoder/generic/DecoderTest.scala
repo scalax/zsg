@@ -27,7 +27,11 @@ object DecoderTest {
     override def isReverse: Boolean = false
     override def useHList: Boolean  = true
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: JsonPro[X#T#H, X#H], y: JsonPro[Y#T#H, Y#H], plus: Plus[X, Y, Z]): JsonPro[Z#T#H, Z#H] = {
+    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+      x: JsonPro[X#T#H, X#H],
+      y: JsonPro[Y#T#H, Y#H],
+      plus: Plus[X, Y, Z]
+    ): JsonPro[Z#T#H, Z#H] = {
       new JsonPro[Z#T#H, Z#H] {
         override def to(name: Z#H): Decoder[Z#T#H] = {
           val xx1 = plus.takeHead(name)
