@@ -1,20 +1,19 @@
 package org.scalax.asuna.mapper.test
 
 import io.circe.{Decoder, Encoder}
-import org.scalax.asuna.mapper.test.EncoderTest.ii
 
 trait Poly1 {
 
   import Poly2._
   import CircePoly._
 
-  implicit def poly1Implicit2: Encoder[Test02]  = EncoderTest.implicitEncoder
-  implicit def poly1Implicit4: Encoder[Test04]  = EncoderTest.implicitEncoder
-  implicit def poly1Implicit8: Encoder[Test08]  = EncoderTest.implicitEncoder
-  implicit def poly1Implicit10: Encoder[Test10] = EncoderTest.implicitEncoder
+  implicit def poly1Implicit2: Encoder.AsObject[Test02]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit4: Encoder.AsObject[Test04]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit8: Encoder.AsObject[Test08]  = EncoderTest.implicitEncoder
+  implicit def poly1Implicit10: Encoder.AsObject[Test10] = EncoderTest.implicitEncoder
 
-  implicit def poly1Implicit6: Encoder[Test06]    = EncoderTest.implicitEncoder
-  implicit def poly1Implicit_d_6: Decoder[Test06] = DecoderTest.implicitDecoder
+  implicit def poly1Implicit6: Encoder.AsObject[Test06] = EncoderTest.implicitEncoder
+  implicit def poly1Implicit_d_6: Decoder[Test06]       = DecoderTest.implicitDecoder
 
 }
 
@@ -33,7 +32,7 @@ trait Poly2 {
 
   implicit def poly2Implicit7: Decoder[Test07] = DecoderTest.implicitDecoder
 
-  implicit def poly2Implicit_e_7: Encoder[Test07] = EncoderTest.implicitEncoder
+  implicit def poly2Implicit_e_7: Encoder.AsObject[Test07] = EncoderTest.implicitEncoder
 
 }
 

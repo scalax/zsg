@@ -1,9 +1,8 @@
 package org.scalax.asuna.mapper.test
 
 import io.circe._
-import jsonencoder.LazyImplicit
 import org.scalax.asuna.mapper._
-import shapeless._
+import org.scalax.asuna.mapper.append.macroImpl.LazyImplicit
 
 trait CircePoly {
 
