@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
 import org.scalax.asuna.mapper.AppendTag
-import org.scalax.asuna.mapper.item.ItemTag
+import org.scalax.asuna.mapper.ItemTag
 
 import scala.language.experimental.macros
 
@@ -14,19 +14,19 @@ object AsunaSetterGeneric {
 
   def init[T1]: AsunaSetterApply1[T1] = new AsunaSetterApply1[T1] {}
   trait AsunaSetterApply1[T1] {
-    def to[T2 <: ItemTag](appendTag: AppendTag[T2])(c: T2#XyyItemType => T1): AsunaSetterGeneric.Aux[T1, T2#XyyItemType] = new AsunaSetterGeneric[T1] {
-      override type GenericType = T2#XyyItemType
-      override def setter: T2#XyyItemType => T1 = c
+    def to[T2 <: ItemTag](appendTag: AppendTag[T2])(c: T2#ItemType => T1): AsunaSetterGeneric.Aux[T1, T2#ItemType] = new AsunaSetterGeneric[T1] {
+      override type GenericType = T2#ItemType
+      override def setter: T2#ItemType => T1 = c
     }
   }
 
   type Aux[H, WW] = AsunaSetterGeneric[H] { type GenericType = WW }
 
-  //implicit def appendMacroImpl[H, M]: AsunaSetterGeneric.Aux[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def appendMacroImpl[H, M]: AsunaSetterGeneric.Aux[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
 
 }
 
-/*object AsunaSetterGenericMacroApply {
+object AsunaSetterGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
     self =>
@@ -101,4 +101,4 @@ object AsunaSetterGeneric {
     }
   }
 
-}*/
+}

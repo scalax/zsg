@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper.append.macroImpl
 
-import org.scalax.asuna.mapper.item.ContextContent
+import org.scalax.asuna.mapper.ContextContent
 
 import scala.language.experimental.macros
 
@@ -13,16 +13,16 @@ object AsunaGetterGeneric {
 
   def init[M, R](i: M => ContextContent[R]): AsunaGetterGeneric.Aux[M, R] = new AsunaGetterGeneric[M] {
     override type GenericType = R
-    override def getter = i
+    override def getter: M => ContextContent[R] = i
   }
 
   type Aux[H, WW] = AsunaGetterGeneric[H] { type GenericType = WW }
 
-  //implicit def appendMacroImpl[H, M]: AsunaGetterGeneric.Aux[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric.Aux[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
 
 }
 
-/*object AsunaGetterGenericMacroApply {
+object AsunaGetterGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
     self =>
@@ -75,4 +75,4 @@ object AsunaGetterGeneric {
     }
   }
 
-}*/
+}
