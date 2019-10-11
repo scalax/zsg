@@ -101,4 +101,6 @@ object DebugItemApplication {
 
 }
 
-class AppendTag[T]
+class AppendTag[T] {
+  def tag: T = throw new Exception("debuging...")
+}

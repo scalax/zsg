@@ -54,16 +54,16 @@ object AsunaSetterGenericMacroApply {
           .map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
           .grouped(8)
           .toList
-          .map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.tag(..${s})""")
+          .map(s => q"""org.scalax.asuna.mapper.BuildContent.tag(..${s})""")
 
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(..${tree})"""
+            q"""org.scalax.asuna.mapper.BuildContent.lift(..${tree})"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.item.BuildTagContect.lift(org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${tree}))"""
+            q"""org.scalax.asuna.mapper.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.item.BuildTagContect.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.nodeTag(..${s})"""))
           }
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =

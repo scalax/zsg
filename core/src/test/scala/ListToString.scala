@@ -24,9 +24,11 @@ object i extends Context[IContext] {
 
   override def useHList: Boolean = true
 
-  override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: (X#H, X#T#H) => ListToString,
-                                                                      y: (Y#H, Y#T#H) => ListToString,
-                                                                      p: Plus[X, Y, Z]): (Z#H, Z#T#H) => ListToString = {
+  override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    x: (X#H, X#T#H) => ListToString,
+    y: (Y#H, Y#T#H) => ListToString,
+    p: Plus[X, Y, Z]
+  ): (Z#H, Z#T#H) => ListToString = {
     { (i1: Z#H, i2: Z#T#H) =>
       val t1 = x(p.takeHead(i1), p.sub.takeHead(i2))
       val t2 = y(p.takeTail(i1), p.sub.takeTail(i2))
@@ -40,15 +42,17 @@ object i extends Context[IContext] {
     (i1: Item0, i2: Item0) =>
       new ListToString {
         override def init(i: List[(String, String)]): List[(String, String)] = i
-    }
+      }
 }
 
 object in {
 
-  def encoder[I1, I2 <: ItemTag, I3 <: TypeParameter](implicit ii: AsunaGeneric.Aux[I1, I2],
-                                                  pp: Application[IContext, I2, I3],
-                                                  asunaGetterGeneric: AsunaGetterGeneric.Aux[I1, I3#H],
-                                                  asunaNameGeneric: AsunaNameGeneric.Aux[I1, I3#T#H]) = {
+  def encoder[I1, I2 <: ItemTag, I3 <: TypeParameter](
+    implicit ii: AsunaGeneric.Aux[I1, I2],
+    pp: Application[IContext, I2, I3],
+    asunaGetterGeneric: AsunaGetterGeneric.Aux[I1, I3#H],
+    asunaNameGeneric: AsunaNameGeneric.Aux[I1, I3#T#H]
+  ) = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(String, String)] = {
         pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaNameGeneric.names.withContext(i)).init(List.empty)

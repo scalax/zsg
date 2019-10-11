@@ -17,7 +17,8 @@ object Test {
       BuildContent.nodeTag(
         BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4), ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
         BuildContent.tag(ap.to(_.i9), ap.to(_.i10))
-      ))
+      )
+    )
 
   implicit val implicit4 =
     AsunaNameGeneric.init[Foo].name(BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
