@@ -30,9 +30,9 @@ object LargeModelTest extends App {
     implicit def largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = ShapelessTest.EncodeImplicit.encodeGeneric
     implicit def largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = ShapelessTest.EncodeImplicit.encodeGeneric
 
-    val i1 = CirceLargeModel.largeModel_2.asJson
     println("==================== line ====================")
 
+    val i1 = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
   }

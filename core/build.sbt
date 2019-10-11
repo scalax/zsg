@@ -1,4 +1,4 @@
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.1"
 
 scalacOptions ++= Seq("-feature", "-deprecation", /*"-language:Scala2",*/ "-encoding", "utf-8" /*"-Ywarn-unused-import", "-Xlog-implicits"*/)
 org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
