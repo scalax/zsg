@@ -3,7 +3,7 @@ package org.scalax.asuna.mapper {
   import scala.language.higherKinds
 
   trait ItemTag {
-    type XyyItemType
+    type ItemType
     type M[M <: Message] <: ItemTag
   }
 

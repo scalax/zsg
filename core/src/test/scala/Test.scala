@@ -1,7 +1,7 @@
 package org.scalax.asuna
 
+import org.scalax.asuna.mapper.BuildContent
 import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, ModelApply}
-import org.scalax.asuna.mapper.item.BuildTagContect
 
 object Test {
 
@@ -11,22 +11,20 @@ object Test {
 
   val ap = new ModelApply[Foo]
 
-  val implicit2 = AsunaGeneric
+  implicit val implicit2 = AsunaGeneric
     .init[Foo]
     .init1(
-      BuildTagContect.nodeTag(
-        BuildTagContect.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4), ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
-        BuildTagContect.tag(ap.to(_.i9), ap.to(_.i10))
+      BuildContent.nodeTag(
+        BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4), ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
+        BuildContent.tag(ap.to(_.i9), ap.to(_.i10))
       ))
-  implicit val implicit3: implicit2.type = implicit2
 
-  val implicit4                          = AsunaNameGeneric.init[Foo].name(BuildTagContect.nodeItem2(BuildTagContect.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildTagContect.item2("i9", "i10")))
-  implicit val implicit5: implicit4.type = implicit4
+  implicit val implicit4 =
+    AsunaNameGeneric.init[Foo].name(BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
 
-  val implicit6 = AsunaGetterGeneric.init((foo: Foo) => {
-    BuildTagContect.nodeItem2(BuildTagContect.item8(foo.i1, foo.i2, foo.i3, foo.i4, foo.i5, foo.i6, foo.i7, foo.i8), BuildTagContect.item2(foo.i9, foo.i10))
+  implicit val implicit6 = AsunaGetterGeneric.init((foo: Foo) => {
+    BuildContent.nodeItem2(BuildContent.item8(foo.i1, foo.i2, foo.i3, foo.i4, foo.i5, foo.i6, foo.i7, foo.i8), BuildContent.item2(foo.i9, foo.i10))
   })
-  implicit val implicit7: implicit6.type = implicit6
 
   import in._
 

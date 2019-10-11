@@ -28,7 +28,7 @@ Item2[Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }],
     (item @for(ii <- 1 to 8) { , p.i1.i@{ii} } @for(ii <- 1 to (index - 9)) { , p.i2.i@{ii} })
 }
 
-object ArticleXyyTuplePlus22 {
+trait TupleTypeParameterPlus2 {
 
 @for(i <- 10 to 17) {
 
@@ -52,3 +52,5 @@ object ArticleXyyTuplePlus22 {
 }
 
 }
+
+object TupleTypeParameterPlus2 extends TupleTypeParameterPlus2

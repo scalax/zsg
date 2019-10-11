@@ -13,7 +13,7 @@ object AsunaGetterGeneric {
 
   def init[M, R](i: M => ContextContent[R]): AsunaGetterGeneric.Aux[M, R] = new AsunaGetterGeneric[M] {
     override type GenericType = R
-    override def getter = i
+    override def getter: M => ContextContent[R] = i
   }
 
   type Aux[H, WW] = AsunaGetterGeneric[H] { type GenericType = WW }

@@ -1,6 +1,6 @@
 package org.scalax.asuna.mapper
 
-object ArticleXyyTuplePlus {
+trait TupleTypeParameterPlus1 {
 
 @for(i <- 2 to 9) {
     def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeParameter @if(ii < i) { , } }]
@@ -23,3 +23,5 @@ object ArticleXyyTuplePlus {
 }
 
 }
+
+object TupleTypeParameterPlus1 extends TupleTypeParameterPlus1

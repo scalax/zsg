@@ -6,7 +6,7 @@ import impl._
 
 class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: ItemTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends ItemTag {
 
-    override type XyyItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#XyyItemType @if(ii < tagNum) { , } }]
+    override type ItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#ItemType @if(ii < tagNum) { , } }]
     override type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {
