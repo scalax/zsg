@@ -1,8 +1,8 @@
 package org.scalax.asuna.mapper
 
 @typeName1(index: Int) = {
-EatXyyType2[EatXyyType8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
-    EatXyyType@{index - 9}[@for(ii <- 1 to (index - 9)) { T@{ii + 8} @if(ii < (index - 9)) { , } }]]
+ItemTypeParameter2[ItemTypeParameter8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
+    ItemTypeParameter@{index - 9}[@for(ii <- 1 to (index - 9)) { T@{ii + 8} @if(ii < (index - 9)) { , } }]]
 }
 
 @typeName2(index: Int) = {

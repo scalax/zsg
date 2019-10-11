@@ -1,0 +1,38 @@
+@(tagNum: Int)
+
+package org.scalax.asuna.mapper
+
+import impl._
+
+class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: ItemTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends ItemTag {
+
+    override type XyyItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#XyyItemType @if(ii < tagNum) { , } }]
+    override type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
+
+    @for(ii <- 1 to tagNum) {
+        def find@{ii - 1}: T@{ii}#M[Asuna.`Number： @{ii - 1}`] = throw new Exception("debugging...")
+    }
+
+    def debug[K <: KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: TypeParameter }](c: Context[K])(implicit @for(ii <- 1 to tagNum) {
+        dapp@{ii}: DebugApplication[K, T@{ii}, I@{ii}, Asuna.`Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
+    }): Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
+    NodeTag@{tagNum}.noteTagApplicationImplicit@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
+
+}
+
+object NodeTag@{tagNum} {
+
+    implicit def noteTagApplicationImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} <: ItemTag } @for(ii <- 1 to tagNum) { , T@{ii} <: TypeParameter, M@{ii} <: Message }]
+    (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
+    : Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+    new Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
+        override def application(context: Context[K]): K#M[ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
+            if (context.isReverse) {
+                context.append(NodeTag@{tagNum - 1}.noteTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ItemTypeParameterPlus@{tagNum}.put@{tagNum})
+            } else {
+                context.append(NodeTag@{tagNum - 1}.noteTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ItemTypeParameterPlus@{tagNum}.plus@{tagNum})
+            }
+        }
+    }
+
+}
