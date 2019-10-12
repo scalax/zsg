@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.test
 
 import io.circe.{Encoder, Json, JsonObject}
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
 
 object EncoderTest {
 
@@ -68,7 +68,7 @@ object EncoderTest {
       app: Application[KContext, R, I],
       cv1: AsunaNameGeneric.Aux[H, I#H],
       cv2: AsunaGetterGeneric.Aux[H, I#T#H]
-    ): Encoder[H]
+    ): Encoder.AsObject[H]
 
     def toTag: R = throw new Exception("123")
     def toIH[I <: TypeParameter](

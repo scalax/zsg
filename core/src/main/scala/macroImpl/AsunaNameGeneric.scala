@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.append.macroImpl
+package org.scalax.asuna.mapper.macroImpl
 
 import org.scalax.asuna.mapper.ContextContent
 
@@ -36,9 +36,9 @@ object AsunaNameGenericMacroApply {
     def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaNameGeneric.Aux[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
-        val hType = h.typeSymbol
+        val hType = h.resultType
 
-        val props = h.members.toList
+        val props = hType.members.toList
           .filter { s =>
             s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
           }
@@ -68,7 +68,7 @@ object AsunaNameGenericMacroApply {
           }
 
         c.Expr[AsunaNameGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaNameGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaNameGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {

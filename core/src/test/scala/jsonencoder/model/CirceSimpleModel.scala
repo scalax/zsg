@@ -3,9 +3,9 @@ package org.scalax.asuna.mapper.test
 import java.util.Date
 
 case class Test01(i1: String, i2: Date)
-case class Test02(i3: String, i4: Int)
+case class Test02[T](ii:T, i3: String, i4: Int)
 case class Test03(i3: String, i4: Int)
-case class Test04(i3: String, i4: Int)
+case class Test04[T](ii: T, i3: String, i4: Int)
 case class Test05(i3: String, i4: Int)
 case class Test06(i3: String, i4: Int, fg: Option[Test07])
 case class Test07(i3: String, i4: Int, gf: List[Test06])
