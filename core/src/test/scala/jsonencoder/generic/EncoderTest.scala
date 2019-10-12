@@ -2,7 +2,7 @@ package org.scalax.asuna.mapper.test
 
 import io.circe.{Encoder, Json, JsonObject}
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
 
 object EncoderTest {
 

@@ -1,6 +1,6 @@
 package org.scalax.asuna
 
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
 import org.scalax.asuna.mapper.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter2}
 
 trait ListToString {
