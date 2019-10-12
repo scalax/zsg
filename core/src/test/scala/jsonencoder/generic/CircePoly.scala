@@ -2,6 +2,7 @@ package org.scalax.asuna.mapper.test
 
 import io.circe._
 import org.scalax.asuna.mapper._
+import org.scalax.asuna.mapper.macroImpl.DefaultValue
 
 trait CircePoly {
 
@@ -16,11 +17,16 @@ trait CircePoly {
       }
     }
 
-  implicit def imDecoder[T](implicit dd: => Decoder[T]): Application[DecoderTest.KM, T, TypeParameter2[String, T]] =
-    new Application[DecoderTest.KM, T, TypeParameter2[String, T]] {
-      override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String] = {
-        new DecoderTest.JsonPro[T, String] {
-          override def to(name: String): Decoder[T] = Decoder.instance(j => j.get(name)(dd))
+  implicit def imDecoder[T](implicit dd: => Decoder[T]): Application[DecoderTest.KM, T, TypeParameter3[String, T, DefaultValue[T]]] =
+    new Application[DecoderTest.KM, T, TypeParameter3[String, T, DefaultValue[T]]] {
+      override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String, DefaultValue[T]] = {
+        new DecoderTest.JsonPro[T, String, DefaultValue[T]] {
+          override def to(name: String, d: DefaultValue[T]): Decoder[T] = Decoder.instance { j =>
+            d.value match {
+              case Some(s) => Right(s)
+              case _ => j.get(name)(dd)
+            }
+          }
         }
       }
     }

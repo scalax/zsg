@@ -1,7 +1,7 @@
 package org.scalax.asuna
 
 import org.scalax.asuna.mapper.BuildContent
-import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, ModelApply}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, ModelApply}
 
 object Test {
 
@@ -21,7 +21,7 @@ object Test {
     )
 
   implicit val implicit4 =
-    AsunaNameGeneric.init[Foo].name(BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
+    AsunaLabelledGeneric.init[Foo].name(BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
 
   implicit val implicit6 = AsunaGetterGeneric.init((foo: Foo) => {
     BuildContent.nodeItem2(BuildContent.item8(foo.i1, foo.i2, foo.i3, foo.i4, foo.i5, foo.i6, foo.i7, foo.i8), BuildContent.item2(foo.i9, foo.i10))

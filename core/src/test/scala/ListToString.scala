@@ -1,6 +1,6 @@
 package org.scalax.asuna
 
-import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import org.scalax.asuna.mapper.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter2}
 
 trait ListToString {
@@ -41,7 +41,7 @@ object i extends Context[IContext] {
     (i1: Item0, i2: Item0) =>
       new ListToString {
         override def init(i: List[(String, String)]): List[(String, String)] = i
-    }
+      }
 
 }
 
@@ -51,7 +51,7 @@ object in {
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application[IContext, I2, I3],
     asunaGetterGeneric: AsunaGetterGeneric.Aux[I1, I3#H],
-    asunaNameGeneric: AsunaNameGeneric.Aux[I1, I3#T#H]
+    asunaNameGeneric: AsunaLabelledGeneric.Aux[I1, I3#T#H]
   ) = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(String, String)] = {
