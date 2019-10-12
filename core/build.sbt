@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
-).map(_ % circeVersion)
+).map(_ % circeVersion % Test)
+
+libraryDependencies += "com.lihaoyi" %% "upickle" % "0.8.0" % Test
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
