@@ -25,7 +25,6 @@ object DecoderTest {
 
   object ii extends Context[KM] {
     override def isReverse: Boolean = false
-    override def useHList: Boolean  = true
 
     override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
       x: JsonPro[X#T#H, X#H],

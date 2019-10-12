@@ -27,7 +27,6 @@ object EncoderTest {
 
   object ii extends Context[KContext] {
     override def isReverse: Boolean = false
-    override def useHList: Boolean  = false
 
     override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
       x: JsonEncoder[X#T#H, X#H],

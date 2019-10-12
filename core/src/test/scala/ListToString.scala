@@ -20,9 +20,8 @@ class IContext extends KindContext {
 }
 
 object i extends Context[IContext] {
-  override def isReverse: Boolean = true
 
-  override def useHList: Boolean = true
+  override def isReverse: Boolean = true
 
   override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
     x: (X#H, X#T#H) => ListToString,
@@ -42,7 +41,8 @@ object i extends Context[IContext] {
     (i1: Item0, i2: Item0) =>
       new ListToString {
         override def init(i: List[(String, String)]): List[(String, String)] = i
-      }
+    }
+
 }
 
 object in {
