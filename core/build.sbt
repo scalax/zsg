@@ -1,4 +1,4 @@
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.1"
 
 scalacOptions ++= Seq("-feature", "-deprecation", /*"-language:Scala2",*/ "-encoding", "utf-8" /*"-Ywarn-unused-import", "-Xlog-implicits"*/)
 org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
-).map(_ % circeVersion)
+).map(_ % circeVersion % Test)
+
+libraryDependencies += "com.lihaoyi" %% "upickle" % "0.8.0" % Test
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value

@@ -36,9 +36,35 @@ object ItemTag4 {
     new Application[K, ItemTag4[H1, M1, H2, M2, H3, M3, H4, M4], ItemTypeParameter4[T1, T2, T3, T4]] {
       override def application(context: Context[K]): K#M[ItemTypeParameter4[T1, T2, T3, T4]] = {
         if (context.isReverse) {
-          context.append(ItemTag3.itemTagApplicationImplicit3(t2, t3, t4).application(context), t1.application(context), ItemTypeParameterPlus4.put4)
+          context.append[ItemTypeParameter3[T2, T3, T4], T1, ItemTypeParameter4[T1, T2, T3, T4]](
+            context.append[ItemTypeParameter2[T3, T4], T2, ItemTypeParameter3[T2, T3, T4]](
+              context.append[ItemTypeParameter1[T4], T3, ItemTypeParameter2[T3, T4]](
+                context.append[ItemTypeParameter0, T4, ItemTypeParameter1[T4]](context.start, t4.application(context), ItemTypeParameterPlus1.hlistPlus1),
+                t3.application(context),
+                ItemTypeParameterPlus2.put2
+              ),
+              t2.application(context),
+              ItemTypeParameterPlus3.put3
+            ),
+            t1.application(context),
+            ItemTypeParameterPlus4.put4
+          )
+//context.append(ItemTag3.itemTagApplicationImplicit3( t2  ,   t3  ,   t4  ).application(context), t1.application(context), ItemTypeParameterPlus4.put4)
         } else {
-          context.append(ItemTag3.itemTagApplicationImplicit3(t1, t2, t3).application(context), t4.application(context), ItemTypeParameterPlus4.plus4)
+          context.append[ItemTypeParameter3[T1, T2, T3], T4, ItemTypeParameter4[T1, T2, T3, T4]](
+            context.append[ItemTypeParameter2[T1, T2], T3, ItemTypeParameter3[T1, T2, T3]](
+              context.append[ItemTypeParameter1[T1], T2, ItemTypeParameter2[T1, T2]](
+                context.append[ItemTypeParameter0, T1, ItemTypeParameter1[T1]](context.start, t1.application(context), ItemTypeParameterPlus1.hlistPlus1),
+                t2.application(context),
+                ItemTypeParameterPlus2.plus2
+              ),
+              t3.application(context),
+              ItemTypeParameterPlus3.plus3
+            ),
+            t4.application(context),
+            ItemTypeParameterPlus4.plus4
+          )
+//context.append(ItemTag3.itemTagApplicationImplicit3( t1  ,   t2  ,   t3  ).application(context), t4.application(context), ItemTypeParameterPlus4.plus4)
         }
       }
     }

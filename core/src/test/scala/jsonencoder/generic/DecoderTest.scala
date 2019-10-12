@@ -1,7 +1,7 @@
 package org.scalax.asuna.mapper.test
 
 import io.circe._
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaNameGeneric, AsunaSetterGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaNameGeneric, AsunaSetterGeneric}
 import org.scalax.asuna.mapper._
 
 object DecoderTest {
@@ -25,7 +25,6 @@ object DecoderTest {
 
   object ii extends Context[KM] {
     override def isReverse: Boolean = false
-    override def useHList: Boolean  = true
 
     override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
       x: JsonPro[X#T#H, X#H],

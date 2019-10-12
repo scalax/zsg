@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.append.macroImpl
+package org.scalax.asuna.mapper.macroImpl
 
 import org.scalax.asuna.mapper.ContextContent
 
@@ -64,7 +64,7 @@ object AsunaGetterGenericMacroApply {
           }
 
         c.Expr[AsunaGetterGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGetterGeneric.init(${nameTagGen(nameTag)})"""
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaGetterGeneric.init(${nameTagGen(nameTag)})"""
         }
 
       } catch {

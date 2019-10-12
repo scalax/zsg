@@ -34,9 +34,27 @@ object NodeTag3 {
     new Application[K, NodeTag3[H1, M1, H2, M2, H3, M3], ItemTypeParameter3[T1, T2, T3]] {
       override def application(context: Context[K]): K#M[ItemTypeParameter3[T1, T2, T3]] = {
         if (context.isReverse) {
-          context.append(NodeTag2.noteTagApplicationImplicit2(t2, t3).application(context), t1.application(context), ItemTypeParameterPlus3.put3)
+          context.append[ItemTypeParameter2[T2, T3], T1, ItemTypeParameter3[T1, T2, T3]](
+            context.append[ItemTypeParameter1[T3], T2, ItemTypeParameter2[T2, T3]](
+              context.append[ItemTypeParameter0, T3, ItemTypeParameter1[T3]](context.start, t3.application(context), ItemTypeParameterPlus1.hlistPlus1),
+              t2.application(context),
+              ItemTypeParameterPlus2.put2
+            ),
+            t1.application(context),
+            ItemTypeParameterPlus3.put3
+          )
+//context.append(NodeTag2.noteTagApplicationImplicit2( t2  ,   t3  ).application(context), t1.application(context), ItemTypeParameterPlus3.put3)
         } else {
-          context.append(NodeTag2.noteTagApplicationImplicit2(t1, t2).application(context), t3.application(context), ItemTypeParameterPlus3.plus3)
+          context.append[ItemTypeParameter2[T1, T2], T3, ItemTypeParameter3[T1, T2, T3]](
+            context.append[ItemTypeParameter1[T1], T2, ItemTypeParameter2[T1, T2]](
+              context.append[ItemTypeParameter0, T1, ItemTypeParameter1[T1]](context.start, t1.application(context), ItemTypeParameterPlus1.hlistPlus1),
+              t2.application(context),
+              ItemTypeParameterPlus2.plus2
+            ),
+            t3.application(context),
+            ItemTypeParameterPlus3.plus3
+          )
+//context.append(NodeTag2.noteTagApplicationImplicit2( t1  ,   t2  ).application(context), t3.application(context), ItemTypeParameterPlus3.plus3)
         }
       }
     }

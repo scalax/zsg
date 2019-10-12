@@ -8,6 +8,11 @@ trait TypeParameter {
   type T <: TypeParameter
 }
 
+class AnyTypeParameter extends TypeParameter {
+  override type H = Any
+  override type T = AnyTypeParameter
+}
+
 class NoData
 
 object NoData {
@@ -34,28 +39,12 @@ trait Context[K <: KindContext] {
   self =>
 
   def isReverse: Boolean
-  def useHList: Boolean
   def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[ItemTypeParameter0]
-  def lift[T, I <: TypeParameter](i: AppendTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(self)
+  //def lift[T, I <: TypeParameter](i: AppendTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(self)
 
   def reverse: Context[K] = new Context[K] {
     override def isReverse                                                                                                          = !self.isReverse
-    override def useHList                                                                                                           = self.useHList
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
-    override def start: K#M[ItemTypeParameter0]                                                                                     = self.start
-  }
-
-  def touseHList: Context[K] = new Context[K] {
-    override def isReverse                                                                                                          = self.isReverse
-    override def useHList                                                                                                           = true
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
-    override def start: K#M[ItemTypeParameter0]                                                                                     = self.start
-  }
-
-  def notTouseHList: Context[K] = new Context[K] {
-    override def isReverse                                                                                                          = self.isReverse
-    override def useHList                                                                                                           = false
     override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
     override def start: K#M[ItemTypeParameter0]                                                                                     = self.start
   }

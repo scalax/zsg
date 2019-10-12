@@ -1,7 +1,6 @@
 package org.scalax.asuna.mapper.append
 
 import io.circe._
-import org.scalax.asuna.mapper.append.macroImpl.LazyImplicit
 import shapeless._
 import shapeless.labelled.FieldType
 
@@ -14,10 +13,10 @@ object ShapelessTest {
     implicit def encodeHCons[K <: Symbol, H, T <: HList](
       implicit
       key: Witness.Aux[K],
-      encodeH: LazyImplicit[Encoder[H]],
+      encodeH: => Encoder[H],
       encodeT: Encoder.AsObject[T]
     ): Encoder.AsObject[FieldType[K, H] :: T] = Encoder.AsObject.instance {
-      case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
+      case h :: t => ((key.value.name, encodeH(h))) +: encodeT.encodeObject(t)
     }
 
     def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: Encoder.AsObject[R]): Encoder.AsObject[A] =

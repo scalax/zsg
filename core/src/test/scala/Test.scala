@@ -1,7 +1,7 @@
 package org.scalax.asuna
 
 import org.scalax.asuna.mapper.BuildContent
-import org.scalax.asuna.mapper.append.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, ModelApply}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric, ModelApply}
 
 object Test {
 

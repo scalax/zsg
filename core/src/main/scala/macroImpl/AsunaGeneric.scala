@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.append.macroImpl
+package org.scalax.asuna.mapper.macroImpl
 
 import org.scalax.asuna.mapper.AppendTag
 import org.scalax.asuna.mapper.ItemTag
@@ -44,10 +44,10 @@ object AsunaGenericMacroApply {
 
     def generic[H: c.WeakTypeTag, M <: ItemTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
       try {
-        val h     = c.weakTypeOf[H]
-        val hType = h.typeSymbol
+        val h     = weakTypeOf[H]
+        val hType = h.resultType
 
-        val props = h.members.toList
+        val props = hType.members.toList
           .filter { s =>
             s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
           }
@@ -59,7 +59,7 @@ object AsunaGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
 
         val typeTag = proTypeTag.grouped(8).toList.map(i => q"""org.scalax.asuna.mapper.BuildContent.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
@@ -73,7 +73,7 @@ object AsunaGenericMacroApply {
           }
 
         c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {
