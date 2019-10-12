@@ -12,8 +12,9 @@ object EncoderTest {
     cv1: AsunaNameGeneric.Aux[H, I#H],
     cv2: AsunaGetterGeneric.Aux[H, I#T#H]
   ): Encoder.AsObject[H] = {
+    val names = cv1.names.withContext(ii)
     Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
+      JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), names, List.empty))
     }
   }
 

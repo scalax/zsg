@@ -24,7 +24,7 @@ object LargeModelTest extends App {
 
   }*/
 
-  val a2 = {
+  /*val a2 = {
 
     import upickle.default._
     import upickle.default.{ReadWriter => RW, macroRW}
@@ -37,9 +37,9 @@ object LargeModelTest extends App {
     val i2 = read[CirceLargeModel.LargeModel_1](ujson.Readable.fromString(i1))
     println(i2)
 
-  }
+  }*/
 
-  /*val a3 = {
+  val a3 = {
 
     import ShapelessTest.EncodeImplicit._
     implicit def largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = ShapelessTest.EncodeImplicit.encodeGeneric
@@ -50,6 +50,6 @@ object LargeModelTest extends App {
     val i1 = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
-  }*/
+  }
 
 }

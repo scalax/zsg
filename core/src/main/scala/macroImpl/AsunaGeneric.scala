@@ -46,7 +46,6 @@ object AsunaGenericMacroApply {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType
-        println(q"""${hType}""")
 
         val props = hType.members.toList
           .filter { s =>
@@ -73,7 +72,6 @@ object AsunaGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.nodeTag(..${s})"""))
           }
 
-        println(q"""org.scalax.asuna.mapper.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})""")
         c.Expr[AsunaGeneric.Aux[H, M]] {
           q"""org.scalax.asuna.mapper.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
