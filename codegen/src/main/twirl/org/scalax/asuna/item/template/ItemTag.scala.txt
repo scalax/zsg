@@ -26,9 +26,11 @@ object ItemTag@{tagNum} {
         new Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
             override def application(context: Context[K]): K#M[ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
                 if (context.isReverse) {
-                    context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ItemTypeParameterPlus@{tagNum}.put@{tagNum})
+                    @org.scalax.asuna.item.template.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
+                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ItemTypeParameterPlus@{tagNum}.put@{tagNum})
                 } else {
-                    context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ItemTypeParameterPlus@{tagNum}.plus@{tagNum})
+                    @org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem = tagNum)
+                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ItemTypeParameterPlus@{tagNum}.plus@{tagNum})
                 }
             }
         }

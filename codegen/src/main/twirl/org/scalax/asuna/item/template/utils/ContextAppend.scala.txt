@@ -1,0 +1,10 @@
+@(currentItem: Int)
+@if(currentItem == 1) { context.append[ItemTypeParameter0, T1, ItemTypeParameter1[T1]]
+(context.start, t1.application(context), ItemTypeParameterPlus1.hlistPlus1) }
+@if(currentItem > 1) { context.append[ItemTypeParameter@{currentItem - 1}
+[@for(i <- 1 to currentItem - 1) {T@{i} @if(i < (currentItem - 1)) { , }}],
+T@{currentItem},
+ItemTypeParameter@{currentItem}
+[@for(i <- 1 to currentItem) {T@{i} @if(i < currentItem) { , }}]
+](@org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem - 1),
+t@{currentItem}.application(context), ItemTypeParameterPlus@{currentItem}.plus@{currentItem})}

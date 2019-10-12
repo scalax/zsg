@@ -67,9 +67,51 @@ object NodeTag6 {
     new Application[K, NodeTag6[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6], ItemTypeParameter6[T1, T2, T3, T4, T5, T6]] {
       override def application(context: Context[K]): K#M[ItemTypeParameter6[T1, T2, T3, T4, T5, T6]] = {
         if (context.isReverse) {
-          context.append(NodeTag5.noteTagApplicationImplicit5(t2, t3, t4, t5, t6).application(context), t1.application(context), ItemTypeParameterPlus6.put6)
+          context.append[ItemTypeParameter5[T2, T3, T4, T5, T6], T1, ItemTypeParameter6[T1, T2, T3, T4, T5, T6]](
+            context.append[ItemTypeParameter4[T3, T4, T5, T6], T2, ItemTypeParameter5[T2, T3, T4, T5, T6]](
+              context.append[ItemTypeParameter3[T4, T5, T6], T3, ItemTypeParameter4[T3, T4, T5, T6]](
+                context.append[ItemTypeParameter2[T5, T6], T4, ItemTypeParameter3[T4, T5, T6]](
+                  context.append[ItemTypeParameter1[T6], T5, ItemTypeParameter2[T5, T6]](
+                    context.append[ItemTypeParameter0, T6, ItemTypeParameter1[T6]](context.start, t6.application(context), ItemTypeParameterPlus1.hlistPlus1),
+                    t5.application(context),
+                    ItemTypeParameterPlus2.put2
+                  ),
+                  t4.application(context),
+                  ItemTypeParameterPlus3.put3
+                ),
+                t3.application(context),
+                ItemTypeParameterPlus4.put4
+              ),
+              t2.application(context),
+              ItemTypeParameterPlus5.put5
+            ),
+            t1.application(context),
+            ItemTypeParameterPlus6.put6
+          )
+//context.append(NodeTag5.noteTagApplicationImplicit5( t2  ,   t3  ,   t4  ,   t5  ,   t6  ).application(context), t1.application(context), ItemTypeParameterPlus6.put6)
         } else {
-          context.append(NodeTag5.noteTagApplicationImplicit5(t1, t2, t3, t4, t5).application(context), t6.application(context), ItemTypeParameterPlus6.plus6)
+          context.append[ItemTypeParameter5[T1, T2, T3, T4, T5], T6, ItemTypeParameter6[T1, T2, T3, T4, T5, T6]](
+            context.append[ItemTypeParameter4[T1, T2, T3, T4], T5, ItemTypeParameter5[T1, T2, T3, T4, T5]](
+              context.append[ItemTypeParameter3[T1, T2, T3], T4, ItemTypeParameter4[T1, T2, T3, T4]](
+                context.append[ItemTypeParameter2[T1, T2], T3, ItemTypeParameter3[T1, T2, T3]](
+                  context.append[ItemTypeParameter1[T1], T2, ItemTypeParameter2[T1, T2]](
+                    context.append[ItemTypeParameter0, T1, ItemTypeParameter1[T1]](context.start, t1.application(context), ItemTypeParameterPlus1.hlistPlus1),
+                    t2.application(context),
+                    ItemTypeParameterPlus2.plus2
+                  ),
+                  t3.application(context),
+                  ItemTypeParameterPlus3.plus3
+                ),
+                t4.application(context),
+                ItemTypeParameterPlus4.plus4
+              ),
+              t5.application(context),
+              ItemTypeParameterPlus5.plus5
+            ),
+            t6.application(context),
+            ItemTypeParameterPlus6.plus6
+          )
+//context.append(NodeTag5.noteTagApplicationImplicit5( t1  ,   t2  ,   t3  ,   t4  ,   t5  ).application(context), t6.application(context), ItemTypeParameterPlus6.plus6)
         }
       }
     }
