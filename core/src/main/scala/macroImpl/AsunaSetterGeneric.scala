@@ -36,7 +36,7 @@ object AsunaSetterGenericMacroApply {
     def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSetterGeneric.Aux[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
-        val hType = h.typeSymbol
+        val hType = h.resultType
 
         val props = h.members.toList
           .filter { s =>
@@ -51,7 +51,7 @@ object AsunaSetterGenericMacroApply {
           .reverse
 
         val proTypeTag = props
-          .map(s => q"""new org.scalax.asuna.mapper.append.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
+          .map(s => q"""new org.scalax.asuna.mapper.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
           .grouped(8)
           .toList
           .map(s => q"""org.scalax.asuna.mapper.BuildContent.tag(..${s})""")
@@ -87,10 +87,10 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(1, props.map(s => (s, (t: Tree) => t)))
 
-        val inputFunc = q"""{ item => ${hType.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
+        val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 
         c.Expr[AsunaSetterGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.append.macroImpl.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
         }
 
       } catch {
