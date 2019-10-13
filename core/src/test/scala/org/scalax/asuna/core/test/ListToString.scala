@@ -3,25 +3,25 @@ package org.scalax.asuna.core.test
 import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import org.scalax.asuna.mapper._
 
-sealed trait PropretyItem
-case class IntProperty(i: Int) extends PropretyItem {
+sealed trait PropertyItem
+case class IntProperty(i: Int) extends PropertyItem {
   override def toString = s"Int(${i})"
 }
-case class StringProperty(i: String) extends PropretyItem {
+case class StringProperty(i: String) extends PropertyItem {
   override def toString = s"String(${i})"
 }
-case class LongProperty(i: Long) extends PropretyItem {
+case class LongProperty(i: Long) extends PropertyItem {
   override def toString = s"Long(${i})"
 }
 
 trait ListToString {
 
-  def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)]
+  def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)]
 
 }
 
 trait ListEncoder[E] {
-  def encode(i: E): List[(PropretyItem, String)]
+  def encode(i: E): List[(PropertyItem, String)]
 }
 
 class IContext extends KindContext {
@@ -43,7 +43,7 @@ object i extends Context[IContext] {
       val t1 = x(p.takeHead(i1), p.sub.takeHead(i2))
       val t2 = y(p.takeTail(i1), p.sub.takeTail(i2))
       new ListToString {
-        override def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)] = t2.init(t1.init(i))
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = t2.init(t1.init(i))
       }
     }
   }
@@ -51,7 +51,7 @@ object i extends Context[IContext] {
   override def start: (Item0, Item0) => ListToString =
     (i1: Item0, i2: Item0) =>
       new ListToString {
-        override def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)] = i
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = i
       }
 
 }
@@ -65,7 +65,7 @@ object in {
     asunaNameGeneric: AsunaLabelledGeneric.Aux[I1, I3#T#H]
   ) = {
     new ListEncoder[I1] {
-      override def encode(ii: I1): List[(PropretyItem, String)] = {
+      override def encode(ii: I1): List[(PropertyItem, String)] = {
         pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaNameGeneric.names.withContext(i)).init(List.empty)
       }
     }
@@ -82,7 +82,7 @@ object in {
   trait ToStringApply3[I2 <: ItemTag, I3 <: TypeParameter] {
     def app: Application[IContext, I2, I3]
     def encode[Model](ii: Model => I3#H, name: I3#T#H): ListEncoder[Model] = new ListEncoder[Model] {
-      override def encode(model: Model): List[(PropretyItem, String)] = {
+      override def encode(model: Model): List[(PropertyItem, String)] = {
         app.application(i)(ii(model), name).init(List.empty)
       }
     }
@@ -91,7 +91,7 @@ object in {
   implicit val pp1: Application[IContext, String, TypeParameter2[String, String]] = new Application[IContext, String, TypeParameter2[String, String]] {
     override def application(context: Context[IContext]): (String, String) => ListToString = (t, r) => {
       new ListToString {
-        override def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)] = (StringProperty(t), r) :: i
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
       }
     }
   }
@@ -99,7 +99,7 @@ object in {
   implicit val pp2: Application[IContext, Int, TypeParameter2[Int, String]] = new Application[IContext, Int, TypeParameter2[Int, String]] {
     override def application(context: Context[IContext]): (Int, String) => ListToString = (t, r) => {
       new ListToString {
-        override def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)] = (IntProperty(t), r) :: i
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), r) :: i
       }
     }
   }
@@ -107,7 +107,7 @@ object in {
   implicit val pp3: Application[IContext, Long, TypeParameter2[Long, String]] = new Application[IContext, Long, TypeParameter2[Long, String]] {
     override def application(context: Context[IContext]): (Long, String) => ListToString = (t, r) => {
       new ListToString {
-        override def init(i: List[(PropretyItem, String)]): List[(PropretyItem, String)] = (LongProperty(t), r) :: i
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), r) :: i
       }
     }
   }
