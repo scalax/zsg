@@ -1,3 +1,5 @@
+val scalaTestVersion = "3.1.0-RC3"
+
 scalaVersion := "2.13.1"
 
 scalacOptions ++= Seq("-feature", "-deprecation", /*"-language:Scala2",*/ "-encoding", "utf-8" /*"-Ywarn-unused-import", "-Xlog-implicits"*/)
@@ -16,4 +18,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "com.lihaoyi" %% "upickle" % "0.8.0" % Test
 
+libraryDependencies += "org.scalatest" %% "scalatest" % scalaTestVersion % Test
+
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+

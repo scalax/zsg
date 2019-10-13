@@ -6,30 +6,30 @@ import org.scalax.asuna.mapper.{Context, ContextContent, KindContext}
 
 import scala.language.experimental.macros
 
-trait AsunaCachedNameGeneric[H] {
+trait AsunaCachedLabelledGeneric[H] {
   type NameType
   val className: String
-  def names: ContextContent[NameType]
+  protected def names: ContextContent[NameType]
   def getName[K <: KindContext](context: Context[K]): NameType = {
     if (context.isReverse) {
-      val value1 = AsunaCachedNameGeneric.reverseNameHashMap.get(className)
+      val value1 = AsunaCachedLabelledGeneric.reverseNameHashMap.get(className)
       if (value1 == null) {
-        AsunaCachedNameGeneric.reverseNameHashMap.put(className, names.withContext(context))
-        AsunaCachedNameGeneric.reverseNameHashMap.get(className).asInstanceOf[NameType]
+        AsunaCachedLabelledGeneric.reverseNameHashMap.put(className, names.withContext(context))
+        AsunaCachedLabelledGeneric.reverseNameHashMap.get(className).asInstanceOf[NameType]
       } else
         value1.asInstanceOf[NameType]
     } else {
-      val value1 = AsunaCachedNameGeneric.nameHashMap.get(className)
+      val value1 = AsunaCachedLabelledGeneric.nameHashMap.get(className)
       if (value1 == null) {
-        AsunaCachedNameGeneric.nameHashMap.put(className, names.withContext(context))
-        AsunaCachedNameGeneric.nameHashMap.get(className).asInstanceOf[NameType]
+        AsunaCachedLabelledGeneric.nameHashMap.put(className, names.withContext(context))
+        AsunaCachedLabelledGeneric.nameHashMap.get(className).asInstanceOf[NameType]
       } else
         value1.asInstanceOf[NameType]
     }
   }
 }
 
-object AsunaCachedNameGeneric {
+object AsunaCachedLabelledGeneric {
 
   val nameHashMap: util.HashMap[String, Any]        = new util.HashMap[String, Any]()
   val reverseNameHashMap: util.HashMap[String, Any] = new util.HashMap[String, Any]()
@@ -37,27 +37,27 @@ object AsunaCachedNameGeneric {
   def init[M]: CachedNameGenericApply[M] = new CachedNameGenericApply[M] {}
 
   trait CachedNameGenericApply[M] {
-    def name[N](className1: String, names1: => ContextContent[N]): Aux[M, N] = new AsunaCachedNameGeneric[M] {
+    def name[N](className1: String, names1: => ContextContent[N]): Aux[M, N] = new AsunaCachedLabelledGeneric[M] {
       override type NameType = N
-      override val className                = className1
-      override def names: ContextContent[N] = names1
+      override val className                          = className1
+      override protected def names: ContextContent[N] = names1
     }
   }
 
-  type Aux[H, WW] = AsunaCachedNameGeneric[H] { type NameType = WW }
+  type Aux[H, WW] = AsunaCachedLabelledGeneric[H] { type NameType = WW }
 
-  implicit def appendMacroImpl[H, II]: AsunaCachedNameGeneric.Aux[H, II] = macro AsunaCachedNameGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II]: AsunaCachedLabelledGeneric.Aux[H, II] = macro AsunaCachedLabelledGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
-object AsunaCachedNameGenericMacroApply {
+object AsunaCachedLabelledGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaCachedNameGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaCachedLabelledGeneric.Aux[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -91,8 +91,8 @@ object AsunaCachedNameGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaCachedNameGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.CachedNameGeneric.init[${hType}].name(classOf[${hType}].getCanonicalName, ${nameTagGen(nameTag)})"""
+        c.Expr[AsunaCachedLabelledGeneric.Aux[H, M]] {
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaCachedLabelledGeneric.init[${hType}].name(classOf[${hType}].getCanonicalName, ${nameTagGen(nameTag)})"""
         }
 
       } catch {

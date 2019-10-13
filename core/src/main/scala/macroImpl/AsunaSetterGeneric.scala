@@ -68,24 +68,23 @@ object AsunaSetterGenericMacroApply {
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
           if (initList.size > max) {
-            val i = initList
-              .grouped(max)
-              .zipWithIndex
-              .map {
-                case (list, index) =>
-                  list.map {
-                    case (str, t) =>
-                      (str, { t1: Tree =>
-                        t(q"""${t1}.${TermName("i" + (index % 8 + 1))}""")
-                      })
-                  }
-              }
-              .flatten
-              .toList
+            val i = initList.zipWithIndex.map {
+              case ((str, t), index) =>
+                (str, { t1: Tree =>
+                  t(q"""${t1}.${TermName("i" + (index / max + 1).toString)}""")
+                })
+            }
             toItemImpl(max * 8, i)
           } else initList
 
-        val casei = toItemImpl(1, props.map(s => (s, (t: Tree) => t)))
+        val preList = props.zipWithIndex.map {
+          case (str, index) =>
+            (str, { t1: Tree =>
+              q"""${t1}.${TermName("i" + (index % 8 + 1).toString)}"""
+            })
+        }
+
+        val casei = toItemImpl(8, preList)
 
         val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 

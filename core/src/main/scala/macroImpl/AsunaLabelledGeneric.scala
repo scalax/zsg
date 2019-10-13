@@ -4,36 +4,36 @@ import org.scalax.asuna.mapper.ContextContent
 
 import scala.language.experimental.macros
 
-trait AsunaNameGeneric[H] {
+trait AsunaLabelledGeneric[H] {
   type NameType
   def names: ContextContent[NameType]
 }
 
-object AsunaNameGeneric {
+object AsunaLabelledGeneric {
 
   def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M] {}
 
   trait AsunaNameGenericApply[M] {
-    def name[N](names1: ContextContent[N]): Aux[M, N] = new AsunaNameGeneric[M] {
+    def name[N](names1: ContextContent[N]): Aux[M, N] = new AsunaLabelledGeneric[M] {
       override type NameType = N
       override def names: ContextContent[N] = names1
     }
   }
 
-  type Aux[H, WW] = AsunaNameGeneric[H] { type NameType = WW }
+  type Aux[H, WW] = AsunaLabelledGeneric[H] { type NameType = WW }
 
-  implicit def appendMacroImpl[H, II]: AsunaNameGeneric.Aux[H, II] = macro AsunaNameGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II]: AsunaLabelledGeneric.Aux[H, II] = macro AsunaLabelledGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
-object AsunaNameGenericMacroApply {
+object AsunaLabelledGenericMacroApply {
 
   class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaNameGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaLabelledGeneric.Aux[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -67,8 +67,8 @@ object AsunaNameGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaNameGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaNameGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+        c.Expr[AsunaLabelledGeneric.Aux[H, M]] {
+          q"""org.scalax.asuna.mapper.macroImpl.AsunaLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {

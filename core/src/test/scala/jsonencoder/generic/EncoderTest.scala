@@ -2,14 +2,14 @@ package org.scalax.asuna.mapper.test
 
 import io.circe.{Encoder, Json, JsonObject}
 import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaNameGeneric}
+import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 
 object EncoderTest {
 
   def implicitEncoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[H, R],
     app: Application[KContext, R, I],
-    cv1: AsunaNameGeneric.Aux[H, I#H],
+    cv1: AsunaLabelledGeneric.Aux[H, I#H],
     cv2: AsunaGetterGeneric.Aux[H, I#T#H]
   ): Encoder.AsObject[H] = {
     val names = cv1.names.withContext(ii)
@@ -49,7 +49,7 @@ object EncoderTest {
       override def encoder[I <: TypeParameter](
         implicit
         app: Application[KContext, R, I],
-        cv1: AsunaNameGeneric.Aux[H, I#H],
+        cv1: AsunaLabelledGeneric.Aux[H, I#H],
         cv2: AsunaGetterGeneric.Aux[H, I#T#H]
       ): Encoder.AsObject[H] = {
         Encoder.AsObject.instance { o: H =>
@@ -67,7 +67,7 @@ object EncoderTest {
     def encoder[I <: TypeParameter](
       implicit
       app: Application[KContext, R, I],
-      cv1: AsunaNameGeneric.Aux[H, I#H],
+      cv1: AsunaLabelledGeneric.Aux[H, I#H],
       cv2: AsunaGetterGeneric.Aux[H, I#T#H]
     ): Encoder.AsObject[H]
 
