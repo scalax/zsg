@@ -1,18 +1,18 @@
 package asuna.test
 
 import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
-import asuna.macros.{AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToabsGeneric}
-import io.circe.{Decoder, Encoder, Json, JsonObject}
+import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToabsGeneric}
+import io.circe.Decoder
 
-object AsunaSealedEncoder {
+object AsunaSealedDecoder {
 
-  def sealedEncoder[H, R <: ItemTag, I <: TypeParameter](
+  def sealedDecoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application[KContext, R, I],
+    app: Application[KContext[H], R, I],
     cv1: AsunaSealedLabelledGeneric[H, I#H],
     cv2: AsunaSealedToabsGeneric[H, I#T#H]
   ): Decoder[H] = {
-    val ii    = new ii
+    val ii    = new ii[H]
     val names = cv1.names.withContext(ii)
     app.application(ii).to(names, cv2.names.withContext(ii))
   }
@@ -22,18 +22,18 @@ object AsunaSealedEncoder {
   }
 
   class KContext[H] extends KindContext {
-    override type M[P <: TypeParameter] = JsonPro[P#H, P#T#H, P#T#T#H]
+    override type M[P <: TypeParameter] = JsonPro[P#H, P#T#H, H]
   }
 
-  class ii extends Context[KContext] {
+  class ii[H] extends Context[KContext[H]] {
     override def isReverse: Boolean = false
 
     override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
-      x: JsonPro[X#H, X#T#H, X#T#T#H],
-      y: JsonPro[Y#H, Y#T#H, Y#T#T#H],
+      x: JsonPro[X#H, X#T#H, H],
+      y: JsonPro[Y#H, Y#T#H, H],
       plus: Plus[X, Y, Z]
-    ): JsonPro[Z#H, Z#T#H, Z#T#T#H] = new JsonPro[Z#H, Z#T#H, Z#T#T#H] {
-      override def to(name: Z#H, toAbs: Z#T#H): Decoder[Z#T#T#H] = {
+    ): JsonPro[Z#H, Z#T#H, H] = new JsonPro[Z#H, Z#T#H, H] {
+      override def to(name: Z#H, toAbs: Z#T#H): Decoder[H] = {
         val a1       = plus.takeHead(name)
         val y1       = plus.takeTail(name)
         val a2       = plus.sub.takeHead(toAbs)
@@ -44,9 +44,9 @@ object AsunaSealedEncoder {
       }
     }
 
-    override def start: JsonPro[H, Item0, Item0] = new JsonPro[H, Item0, Item0] {
+    override def start: JsonPro[Item0, Item0, H] = new JsonPro[Item0, Item0, H] {
       override def to(name: Item0, toAbs: Item0): Decoder[H] = {
-        Decoder.instance(h => Right(Item0))
+        Decoder.failedWithMessage("Your sealed trait have no sub class")
       }
     }
   }
@@ -54,16 +54,15 @@ object AsunaSealedEncoder {
   //编译期调试辅助函数开始
   def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
     def asunaGeneric[R <: ItemTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
-      override def encoder[I <: TypeParameter](
+      override def decoder[I <: TypeParameter](
         implicit
         app: Application[KContext[H], R, I],
         cv1: AsunaSealedLabelledGeneric[H, I#H],
-        cv2: AsunaSealedClassGeneric[H, I#T#H]
-      ): Encoder.AsObject[H] = {
-        val ii = new ii[H]
-        Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(app.application(ii).p(o, cv2.names.withContext(ii), cv1.names.withContext(ii)))
-        }
+        cv2: AsunaSealedToabsGeneric[H, I#T#H]
+      ): Decoder[H] = {
+        val ii    = new ii[H]
+        val names = cv1.names.withContext(ii)
+        app.application(ii).to(names, cv2.names.withContext(ii))
       }
     }
   }
@@ -73,12 +72,12 @@ object AsunaSealedEncoder {
   }
 
   trait ImplicitApply2[H, R <: ItemTag] {
-    def encoder[I <: TypeParameter](
+    def decoder[I <: TypeParameter](
       implicit
       app: Application[KContext[H], R, I],
       cv1: AsunaSealedLabelledGeneric[H, I#H],
-      cv2: AsunaSealedClassGeneric[H, I#T#H]
-    ): Encoder.AsObject[H]
+      cv2: AsunaSealedToabsGeneric[H, I#T#H]
+    ): Decoder[H]
 
     def toTag: R = throw new Exception("123")
     def toIH[I <: TypeParameter](

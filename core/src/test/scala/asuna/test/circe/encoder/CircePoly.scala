@@ -1,13 +1,13 @@
 package asuna.test.circe
 
 import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
-import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedEncoder}
+import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder}
 import asuna.{Application, Context, TypeParameter2, TypeParameter3}
 import io.circe._
 
 trait CircePoly {
 
-  implicit def sealedEncoder[T, R](implicit t: LazyImplicit[Encoder[R]]): Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeParameter2[String, Class[R]]] =
+  implicit def asunaCirceSealedEncoder[T, R](implicit t: LazyImplicit[Encoder[R]]): Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeParameter2[String, Class[R]]] =
     new Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeParameter2[String, Class[R]]] {
       override def application(context: Context[AsunaSealedEncoder.KContext[T]]): AsunaSealedEncoder.JsonEncoder[T, Class[R], String] = {
         new AsunaSealedEncoder.JsonEncoder[T, Class[R], String] {
@@ -22,7 +22,17 @@ trait CircePoly {
       }
     }
 
-  implicit def imEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] =
+  implicit def asunaCirceSealedDecoder[T, R](implicit t: LazyImplicit[Decoder[R]]): Application[AsunaSealedDecoder.KContext[T], SealedTag[R], TypeParameter2[String, R => T]] =
+    new Application[AsunaSealedDecoder.KContext[T], SealedTag[R], TypeParameter2[String, R => T]] {
+      override def application(context: Context[AsunaSealedDecoder.KContext[T]]): AsunaSealedDecoder.JsonPro[String, R => T, T] = new AsunaSealedDecoder.JsonPro[String, R => T, T]{
+        override def to(name: String, tran: R => T): Decoder[T] = {
+          Decoder.instance(j => j.get(name)(t.value).map(tran))
+        }
+      }
+    }
+
+
+  implicit def asunaCirceEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] =
     new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] {
       override def application(context: Context[AsunaCirceEncoder.KContext]): AsunaCirceEncoder.JsonEncoder[T, String] = {
         new AsunaCirceEncoder.JsonEncoder[T, String] {
@@ -33,7 +43,7 @@ trait CircePoly {
       }
     }
 
-  implicit def imDecoder[T](implicit dd: LazyImplicit[Decoder[T]]): Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] =
+  implicit def asunaCirceDecoder[T](implicit dd: LazyImplicit[Decoder[T]]): Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] =
     new Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] {
       override def application(context: Context[AsunaCirceDecoder.KM]): AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] = {
         new AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] {
