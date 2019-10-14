@@ -63,7 +63,6 @@ object AsunaSealedGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
           }
 
-        println(q"""asuna.macros.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})""")
         c.Expr[AsunaSealedGeneric.Aux[H, M]] {
           q"""asuna.macros.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }

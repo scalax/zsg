@@ -56,7 +56,6 @@ object AsunaSealedLabelledGenericMacroApply {
             val groupedTree = tree.grouped(8).toList
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
-        println(q"""asuna.macros.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})""")
 
         c.Expr[AsunaSealedLabelledGeneric.Aux[H, M]] {
           q"""asuna.macros.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""

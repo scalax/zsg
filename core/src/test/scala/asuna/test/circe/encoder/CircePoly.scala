@@ -1,21 +1,25 @@
 package asuna.test
 
-import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag}
+import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
 import asuna.{Application, Context, TypeParameter2, TypeParameter3}
 import io.circe._
 
 trait CircePoly {
 
-  /*implicit def sealedEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] =
-    new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] {
-      override def application(context: Context[AsunaCirceEncoder.KContext]): AsunaCirceEncoder.JsonEncoder[T, String] = {
-        new AsunaCirceEncoder.JsonEncoder[T, String] {
-          override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
+  implicit def sealedEncoder[T, R](implicit t: LazyImplicit[Encoder[R]]): Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeParameter2[String, Class[R]]] =
+    new Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeParameter2[String, Class[R]]] {
+      override def application(context: Context[AsunaSealedEncoder.KContext[T]]): AsunaSealedEncoder.JsonEncoder[T, Class[R], String] = {
+        new AsunaSealedEncoder.JsonEncoder[T, Class[R], String] {
+          override def p(model: T, classTags: Class[R], labelled: String): Option[(String, Json)] = {
+            if (classTags.isInstance(model)) {
+              Some((labelled, t.value(classTags.cast(model))))
+            } else {
+              Option.empty
+            }
           }
         }
       }
-    }*/
+    }
 
   implicit def imEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] =
     new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeParameter2[String, T]] {
