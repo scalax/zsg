@@ -1,6 +1,6 @@
 package asuna.test.circe.test2
 
-import asuna.test.model.{Test06, Test07, Test08}
+import asuna.test.model._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -24,18 +24,27 @@ class AsunaWithDecoderEncoderTest extends AnyFunSpec with Matchers {
       Asuna.i6FromJson.isRight shouldBe true
       Asuna.i7FromJson.isRight shouldBe true
       Asuna.i8FromJson.isRight shouldBe true
+      Asuna.i9FromJson.isRight shouldBe true
 
       Circe.i6FromJson.isRight shouldBe true
       Circe.i7FromJson.isRight shouldBe true
       Circe.i8FromJson.isRight shouldBe true
+      Circe.i9FromJson.isRight shouldBe true
 
       Asuna.i6FromJson shouldBe Circe.i6FromJson
       Asuna.i7FromJson shouldBe Circe.i7FromJson
       Asuna.i8FromJson shouldBe Circe.i8FromJson
+      Asuna.i9FromJson shouldBe Circe.i9FromJson
 
-      Circe.i6FromJson.right.get.isInstanceOf[Test06[_]] shouldBe true
-      Circe.i7FromJson.right.get.isInstanceOf[Test07[_]] shouldBe true
-      Circe.i8FromJson.right.get.isInstanceOf[Test08] shouldBe true
+      Asuna.i6FromJson.right.get.isInstanceOf[Test06[_]] shouldBe true
+      Asuna.i7FromJson.right.get.isInstanceOf[Test07[_]] shouldBe true
+      Asuna.i8FromJson.right.get.isInstanceOf[Test08] shouldBe true
+      Asuna.i9FromJson.right.get.isInstanceOf[Test09.type] shouldBe true
+
+      Asuna.i6FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i7FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i8FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i9FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
     }
   }
 

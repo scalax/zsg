@@ -6,7 +6,7 @@ import io.circe.{Encoder, Json, JsonObject}
 
 object AsunaCirceEncoder {
 
-  def implicitEncoder[H, R <: ItemTag, I <: TypeParameter](
+  def encoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[H, R],
     app: Application[KContext, R, I],
     cv1: AsunaLabelledGeneric[H, I#H],
@@ -17,6 +17,8 @@ object AsunaCirceEncoder {
       JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), names, List.empty))
     }
   }
+
+  def caseObjectEncoder[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(f => JsonObject.empty)
 
   trait JsonEncoder[T, II] {
     def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]

@@ -6,7 +6,7 @@ import io.circe.{Encoder, Json, JsonObject}
 
 object AsunaSealedEncoder {
 
-  def sealedEncoder[H, R <: ItemTag, I <: TypeParameter](
+  def encoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
     app: Application[KContext[H], R, I],
     cv1: AsunaSealedLabelledGeneric[H, I#H],

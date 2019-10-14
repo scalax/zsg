@@ -10,15 +10,15 @@ object LargeModelTest extends App {
 
     import asuna.test.circe.CircePoly._
 
-    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.implicitEncoder
-    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.implicitEncoder
+    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.encoder
+    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.encoder
     val i1                                                                            = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.implicitDecoder
-    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = AsunaCirceDecoder.implicitDecoder
+    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.decoder
+    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = AsunaCirceDecoder.decoder
     val i2                                                                   = i1.as[CirceLargeModel.LargeModel_2]
     println(i2)
 
