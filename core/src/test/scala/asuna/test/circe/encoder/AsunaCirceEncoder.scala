@@ -4,7 +4,7 @@ import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParam
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject}
 
-object EncoderTest {
+object AsunaCirceEncoder {
 
   def implicitEncoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[H, R],

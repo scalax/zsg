@@ -10,8 +10,8 @@ object LargeModelTest extends App {
 
     import CircePoly._
 
-    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = EncoderTest.implicitEncoder
-    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = EncoderTest.implicitEncoder
+    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.implicitEncoder
+    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.implicitEncoder
     val i1                                                                            = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
