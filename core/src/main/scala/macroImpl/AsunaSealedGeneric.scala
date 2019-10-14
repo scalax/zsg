@@ -33,40 +33,17 @@ object AsunaSealedGeneric {
 
 object AsunaSealedGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
+  class AppendMacroImpl1(override val c: scala.reflect.macros.whitebox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
-
-    /**
-      * If a super-type is generic, find all the subtypes, but at the same time
-      * fill in all the generic type parameters that are based on the super-type's
-      * concrete type
-      * Created by lihaoyi
-      */
-    def fleshedOutSubtypes(tpe: Type): Set[Type] = {
-      for {
-        subtypeSym <- tpe.typeSymbol.asClass.knownDirectSubclasses.filter(!_.toString.contains("<local child>"))
-        if subtypeSym.isType
-        st          = subtypeSym.asType.toType
-        baseClsArgs = st.baseType(tpe.typeSymbol).asInstanceOf[TypeRef].args
-      } yield {
-        tpe match {
-          case ExistentialType(_, TypeRef(pre, sym, args)) =>
-            st.substituteTypes(baseClsArgs.map(_.typeSymbol), args)
-          case ExistentialType(_, _) => st
-          case TypeRef(pre, sym, args) =>
-            st.substituteTypes(baseClsArgs.map(_.typeSymbol), args)
-        }
-      }
-    }
 
     def generic[H: c.WeakTypeTag, M <: ItemTag: c.WeakTypeTag]: c.Expr[AsunaSealedGeneric.Aux[H, M]] = {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType
 
-        val props = fleshedOutSubtypes(hType)
+        val props = fleshedOutSubtypes(hType).toList
 
         val proTypeTag = props.map(s => q"""org.scalax.asuna.mapper.AppendTag[${s}]""")
 
