@@ -4,7 +4,7 @@ import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneri
 import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
 import io.circe._
 
-object DecoderTest {
+object AsunaCirceDecoder {
 
   def implicitDecoder[T, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[T, R],
@@ -57,6 +57,7 @@ object DecoderTest {
     }
   }
 
+  //debug 辅助部分代码开始
   def init[T] = new GenericApply2[T]
 
   class GenericApply2[T] {
@@ -73,5 +74,6 @@ object DecoderTest {
       app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
     }
   }
+  //debug 辅助部分代码结束
 
 }

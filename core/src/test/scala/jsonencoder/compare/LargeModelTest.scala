@@ -8,7 +8,7 @@ object LargeModelTest extends App {
 
   val a1 = {
 
-    import CircePoly._
+    import asuna.test.circe.CircePoly._
 
     implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.implicitEncoder
     implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.implicitEncoder
@@ -17,8 +17,8 @@ object LargeModelTest extends App {
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = DecoderTest.implicitDecoder
-    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = DecoderTest.implicitDecoder
+    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.implicitDecoder
+    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = AsunaCirceDecoder.implicitDecoder
     val i2                                                                   = i1.as[CirceLargeModel.LargeModel_2]
     println(i2)
 

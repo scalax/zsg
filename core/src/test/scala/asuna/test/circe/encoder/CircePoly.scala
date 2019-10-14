@@ -1,6 +1,7 @@
-package asuna.test
+package asuna.test.circe
 
 import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
+import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedEncoder}
 import asuna.{Application, Context, TypeParameter2, TypeParameter3}
 import io.circe._
 
@@ -32,10 +33,10 @@ trait CircePoly {
       }
     }
 
-  implicit def imDecoder[T](implicit dd: LazyImplicit[Decoder[T]]): Application[DecoderTest.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] =
-    new Application[DecoderTest.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] {
-      override def application(context: Context[DecoderTest.KM]): DecoderTest.JsonPro[T, String, DefaultValue[T]] = {
-        new DecoderTest.JsonPro[T, String, DefaultValue[T]] {
+  implicit def imDecoder[T](implicit dd: LazyImplicit[Decoder[T]]): Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] =
+    new Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeParameter3[String, T, DefaultValue[T]]] {
+      override def application(context: Context[AsunaCirceDecoder.KM]): AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] = {
+        new AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] {
           override def to(name: String, d: DefaultValue[T]): Decoder[T] = Decoder.instance { j =>
             d.value match {
               case Some(s) => Right(s)
