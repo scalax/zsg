@@ -9,9 +9,9 @@ object DecoderTest {
   def implicitDecoder[T, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[T, R],
     app: Application[KM, R, I],
-    cv1: AsunaLabelledGeneric.Aux[T, I#H],
-    cv3: AsunaSetterGeneric.Aux[T, I#T#H],
-    cv4: AsunaDefaultValueGeneric.Aux[T, I#T#T#H]
+    cv1: AsunaLabelledGeneric[T, I#H],
+    cv3: AsunaSetterGeneric[T, I#T#H],
+    cv4: AsunaDefaultValueGeneric[T, I#T#T#H]
   ): Decoder[T] = {
     app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
   }
@@ -54,6 +54,23 @@ object DecoderTest {
           Right(Item0)
         }
       }
+    }
+  }
+
+  def init[T] = new GenericApply2[T]
+
+  class GenericApply2[T] {
+    def i[R <: ItemTag](
+      implicit ll: AsunaGeneric.Aux[T, R],
+    ) = new GenericApply1[T, R]
+  }
+
+  class GenericApply1[T, R <: ItemTag] {
+    def ir[I <: TypeParameter](implicit app: Application[KM, R, I],
+                               cv1: AsunaLabelledGeneric[T, I#H],
+                               cv3: AsunaSetterGeneric[T, I#T#H],
+                               cv4: AsunaDefaultValueGeneric[T, I#T#T#H]) = {
+      app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
     }
   }
 

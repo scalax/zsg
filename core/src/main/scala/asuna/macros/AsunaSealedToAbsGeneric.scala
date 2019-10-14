@@ -1,39 +1,36 @@
 package asuna.macros
 
 import asuna.ContextContent
+import asuna.macros.utils.SealedHelper
 
 import scala.language.experimental.macros
 
-trait AsunaSealedClassGeneric[H] {
-  type NameType
+trait AsunaSealedToabsGeneric[H, NameType] {
   def names: ContextContent[NameType]
 }
 
-object AsunaSealedClassGeneric {
+object AsunaSealedToabsGeneric {
 
-  def init[M]: AsunaSealedClassGenericApply[M] = new AsunaSealedClassGenericApply[M] {}
+  def init[M]: AsunaSealedToabsGenericApply[M] = new AsunaSealedToabsGenericApply[M] {}
 
-  trait AsunaSealedClassGenericApply[M] {
-    def name[N](names1: ContextContent[N]): Aux[M, N] = new AsunaSealedClassGeneric[M] {
-      override type NameType = N
+  trait AsunaSealedToabsGenericApply[M] {
+    def name[N](names1: ContextContent[N]): AsunaSealedToabsGeneric[M, N] = new AsunaSealedToabsGeneric[M, N] {
       override def names: ContextContent[N] = names1
     }
   }
 
-  type Aux[H, WW] = AsunaSealedClassGeneric[H] { type NameType = WW }
-
-  implicit def appendMacroImpl[H, II]: AsunaSealedClassGeneric.Aux[H, II] = macro AsunaSealedClassGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II]: AsunaSealedToabsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
-object AsunaSealedClassGenericMacroApply {
+object AsunaSealedToabsGenericMacroApply {
 
   class AppendMacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedClassGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedToabsGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -42,7 +39,7 @@ object AsunaSealedClassGenericMacroApply {
 
         val nameTag = props
           .map { subType =>
-            q"""classOf[${subType}]"""
+            q"""{ i: ${subType} => i }: (${subType} => ${hType})"""
           }
           .grouped(8)
           .toList
@@ -57,8 +54,8 @@ object AsunaSealedClassGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaSealedClassGeneric.Aux[H, M]] {
-          q"""asuna.macros.AsunaSealedClassGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+        c.Expr[AsunaSealedToabsGeneric[H, M]] {
+          q"""asuna.macros.AsunaSealedToabsGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {

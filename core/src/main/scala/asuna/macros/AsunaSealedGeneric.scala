@@ -1,5 +1,6 @@
 package asuna.macros
 
+import asuna.macros.utils.SealedHelper
 import asuna.{AppendTag, ItemTag}
 
 import scala.language.experimental.macros

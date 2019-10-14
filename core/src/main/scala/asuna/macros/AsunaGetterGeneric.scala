@@ -4,21 +4,17 @@ import asuna.ContextContent
 
 import scala.language.experimental.macros
 
-trait AsunaGetterGeneric[H] {
-  type GenericType
+trait AsunaGetterGeneric[H, GenericType] {
   def getter: H => ContextContent[GenericType]
 }
 
 object AsunaGetterGeneric {
 
-  def init[M, R](i: M => ContextContent[R]): AsunaGetterGeneric.Aux[M, R] = new AsunaGetterGeneric[M] {
-    override type GenericType = R
+  def init[M, R](i: M => ContextContent[R]): AsunaGetterGeneric[M, R] = new AsunaGetterGeneric[M, R] {
     override def getter: M => ContextContent[R] = i
   }
 
-  type Aux[H, WW] = AsunaGetterGeneric[H] { type GenericType = WW }
-
-  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric.Aux[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
 
 }
 
@@ -29,7 +25,7 @@ object AsunaGetterGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaGetterGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaGetterGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.typeSymbol
@@ -63,7 +59,7 @@ object AsunaGetterGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaGetterGeneric.Aux[H, M]] {
+        c.Expr[AsunaGetterGeneric[H, M]] {
           q"""asuna.macros.AsunaGetterGeneric.init(${nameTagGen(nameTag)})"""
         }
 

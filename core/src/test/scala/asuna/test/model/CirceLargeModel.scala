@@ -66,7 +66,7 @@ object CirceLargeModel {
     miaomiao61: String,
     miaomiao62: String,
     miaomiao63: String,
-    miaomiao64: String/*,
+    miaomiao64: String,
     miaomiao65: String,
     miaomiao66: String,
     miaomiao67: String,
@@ -102,7 +102,7 @@ object CirceLargeModel {
     miaomiao97: String,
     miaomiao98: String,
     miaomiao99: String,
-    miaomiao100: String*/
+    miaomiao100: String
   )
 
   case class LargeModel_2(
@@ -169,7 +169,7 @@ object CirceLargeModel {
     miaomiao61: String,
     miaomiao62: String,
     miaomiao63: String,
-    miaomiao64: String/*,
+    miaomiao64: String,
     miaomiao65: String,
     miaomiao66: String,
     miaomiao67: String,
@@ -205,7 +205,7 @@ object CirceLargeModel {
     miaomiao97: String,
     miaomiao98: String,
     miaomiao99: String,
-    miaomiao100: String*/
+    miaomiao100: String
   )
 
   def largeModel_1 = LargeModel_1(
@@ -272,7 +272,7 @@ object CirceLargeModel {
     miaomiao61 = "init string",
     miaomiao62 = "init string",
     miaomiao63 = "init string",
-    miaomiao64 = "init string"/*,
+    miaomiao64 = "init string",
     miaomiao65 = "init string",
     miaomiao66 = "init string",
     miaomiao67 = "init string",
@@ -308,7 +308,7 @@ object CirceLargeModel {
     miaomiao97 = "结束",
     miaomiao98 = "init string",
     miaomiao99 = "init string",
-    miaomiao100 = "init string"*/
+    miaomiao100 = "init string"
   )
 
   val largeModel_2 = LargeModel_2(
@@ -375,7 +375,7 @@ object CirceLargeModel {
     miaomiao61 = "init string",
     miaomiao62 = "init string",
     miaomiao63 = "init string",
-    miaomiao64 = "init string"/*,
+    miaomiao64 = "init string",
     miaomiao65 = "init string",
     miaomiao66 = "init string",
     miaomiao67 = "init string",
@@ -411,7 +411,7 @@ object CirceLargeModel {
     miaomiao97 = "init string",
     miaomiao98 = "init string",
     miaomiao99 = "init string",
-    miaomiao100 = "init string"*/
+    miaomiao100 = "init string"
   )
 
 }

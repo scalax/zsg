@@ -4,8 +4,7 @@ import asuna.{AppendTag, ItemTag}
 
 import scala.language.experimental.macros
 
-trait AsunaSetterGeneric[H] {
-  type GenericType
+trait AsunaSetterGeneric[H, GenericType] {
   def setter: GenericType => H
 }
 
@@ -20,15 +19,12 @@ object AsunaSetterGeneric {
 
   def init[T1]: AsunaSetterApply1[T1] = new AsunaSetterApply1[T1] {}
   trait AsunaSetterApply1[T1] {
-    def to[T2 <: ItemTag](appendTag: AppendTag[T2])(c: T2#ItemType => T1): AsunaSetterGeneric.Aux[T1, T2#ItemType] = new AsunaSetterGeneric[T1] {
-      override type GenericType = T2#ItemType
+    def to[T2 <: ItemTag](appendTag: AppendTag[T2])(c: T2#ItemType => T1): AsunaSetterGeneric[T1, T2#ItemType] = new AsunaSetterGeneric[T1, T2#ItemType] {
       override def setter: T2#ItemType => T1 = c
     }
   }
 
-  type Aux[H, WW] = AsunaSetterGeneric[H] { type GenericType = WW }
-
-  implicit def appendMacroImpl[H, M]: AsunaSetterGeneric.Aux[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def appendMacroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
 
 }
 
@@ -39,7 +35,7 @@ object AsunaSetterGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSetterGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSetterGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -74,7 +70,7 @@ object AsunaSetterGenericMacroApply {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
                 (str, { t1: Tree =>
-                  t(q"""${t1}.${TermName("i" + (index / max + 1).toString)}""")
+                  t(q"""${t1}.${TermName("i" + ((index / max % 8) + 1).toString)}""")
                 })
             }
             toItemImpl(max * 8, i)
@@ -91,7 +87,7 @@ object AsunaSetterGenericMacroApply {
 
         val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 
-        c.Expr[AsunaSetterGeneric.Aux[H, M]] {
+        c.Expr[AsunaSetterGeneric[H, M]] {
           q"""asuna.macros.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
         }
 

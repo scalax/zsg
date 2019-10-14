@@ -9,8 +9,8 @@ object AsunaSealedEncoder {
   def sealedEncoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
     app: Application[KContext[H], R, I],
-    cv1: AsunaSealedLabelledGeneric.Aux[H, I#H],
-    cv2: AsunaSealedClassGeneric.Aux[H, I#T#H]
+    cv1: AsunaSealedLabelledGeneric[H, I#H],
+    cv2: AsunaSealedClassGeneric[H, I#T#H]
   ): Encoder.AsObject[H] = {
     val ii    = new ii[H]
     val names = cv1.names.withContext(ii)
@@ -52,8 +52,8 @@ object AsunaSealedEncoder {
       override def encoder[I <: TypeParameter](
         implicit
         app: Application[KContext[H], R, I],
-        cv1: AsunaSealedLabelledGeneric.Aux[H, I#H],
-        cv2: AsunaSealedClassGeneric.Aux[H, I#T#H]
+        cv1: AsunaSealedLabelledGeneric[H, I#H],
+        cv2: AsunaSealedClassGeneric[H, I#T#H]
       ): Encoder.AsObject[H] = {
         val ii = new ii[H]
         Encoder.AsObject.instance { o: H =>
@@ -71,8 +71,8 @@ object AsunaSealedEncoder {
     def encoder[I <: TypeParameter](
       implicit
       app: Application[KContext[H], R, I],
-      cv1: AsunaSealedLabelledGeneric.Aux[H, I#H],
-      cv2: AsunaSealedClassGeneric.Aux[H, I#T#H]
+      cv1: AsunaSealedLabelledGeneric[H, I#H],
+      cv2: AsunaSealedClassGeneric[H, I#T#H]
     ): Encoder.AsObject[H]
 
     def toTag: R = throw new Exception("123")

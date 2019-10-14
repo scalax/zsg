@@ -13,7 +13,7 @@ object SealedTraitTest extends App {
   def init[H]: GenericApply1[H] = new GenericApply1[H]
 
   class GenericApply1[H] {
-    def generic[T](implicit asunaSealedGeneric: AsunaSealedLabelledGeneric.Aux[H, T]): AsunaSealedLabelledGeneric.Aux[H, T] = asunaSealedGeneric
+    def generic[T](implicit asunaSealedGeneric: AsunaSealedLabelledGeneric[H, T]): AsunaSealedLabelledGeneric[H, T] = asunaSealedGeneric
     def encode1[T <: ItemTag, TT <: TypeParameter](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
       throw new Exception()
   }
@@ -25,7 +25,7 @@ object SealedTraitTest extends App {
 
   def encode[H, T <: ItemTag, TT <: TypeParameter](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
                                                    app: Application[KC, T, TT],
-                                                   labelled: AsunaSealedLabelledGeneric.Aux[H, TT#H]): ListEncode[H] = new ListEncode[H] {
+                                                   labelled: AsunaSealedLabelledGeneric[H, TT#H]): ListEncode[H] = new ListEncode[H] {
     override def str: List[String] = app.application(i)(labelled.names.withContext(i))(List.empty)
   }
 

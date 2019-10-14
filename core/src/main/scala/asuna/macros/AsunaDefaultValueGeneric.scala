@@ -20,8 +20,7 @@ object DefaultValue {
   }
 }
 
-trait AsunaDefaultValueGeneric[H] {
-  type DefaultValueType
+trait AsunaDefaultValueGeneric[H,DefaultValueType] {
   def defaultValues: ContextContent[DefaultValueType]
 }
 
@@ -30,15 +29,12 @@ object AsunaDefaultValueGeneric {
   def init[M]: AsunaDefaultValueGenericApply[M] = new AsunaDefaultValueGenericApply[M] {}
 
   trait AsunaDefaultValueGenericApply[M] {
-    def defaultValue[N](dfv: ContextContent[N]): Aux[M, N] = new AsunaDefaultValueGeneric[M] {
-      override type DefaultValueType = N
+    def defaultValue[N](dfv: ContextContent[N]): AsunaDefaultValueGeneric[M,N] = new AsunaDefaultValueGeneric[M,N] {
       override def defaultValues: ContextContent[N] = dfv
     }
   }
 
-  type Aux[H, WW] = AsunaDefaultValueGeneric[H] { type DefaultValueType = WW }
-
-  implicit def appendMacroImpl[H, II]: AsunaDefaultValueGeneric.Aux[H, II] = macro AsunaDefaultValueGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def appendMacroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.AppendMacroImpl1.generic[H, II]
 
 }
 
@@ -49,7 +45,7 @@ object AsunaDefaultValueGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaDefaultValueGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaDefaultValueGeneric[H, M]] = {
       try {
         val h           = c.weakTypeOf[H]
         val hType       = h.resultType
@@ -90,7 +86,7 @@ object AsunaDefaultValueGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaDefaultValueGeneric.Aux[H, M]] {
+        c.Expr[AsunaDefaultValueGeneric[H, M]] {
           q"""asuna.macros.AsunaDefaultValueGeneric.init[${hType}].defaultValue(${nameTagGen(nameTag)})"""
         }
 

@@ -61,8 +61,8 @@ object in {
   def encoder[I1, I2 <: ItemTag, I3 <: TypeParameter](
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application[IContext, I2, I3],
-    asunaGetterGeneric: AsunaGetterGeneric.Aux[I1, I3#H],
-    asunaNameGeneric: AsunaLabelledGeneric.Aux[I1, I3#T#H]
+    asunaGetterGeneric: AsunaGetterGeneric[I1, I3#H],
+    asunaNameGeneric: AsunaLabelledGeneric[I1, I3#T#H]
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
