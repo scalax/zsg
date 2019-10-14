@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 
 trait TupleTypeParameterPlus1 {
 

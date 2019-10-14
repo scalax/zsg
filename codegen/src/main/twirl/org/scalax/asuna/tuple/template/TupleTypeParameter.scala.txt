@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-package org.scalax.asuna.mapper
+package asuna
 
 @for(i <- 2 to maxItem) {
     class TupleTypeParameter@{i}[@for(ii <- 1 to i) { E@{ii} <: TypeParameter @if(ii < i) { , } }] extends TypeParameter {

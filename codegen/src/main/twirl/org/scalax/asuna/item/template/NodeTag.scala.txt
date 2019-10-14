@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.mapper
+package asuna
 
 import impl._
 
@@ -10,11 +10,11 @@ class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: ItemTag , M@{ii} <: Me
     override type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {
-        def find@{ii - 1}: T@{ii}#M[Asuna.`Number： @{ii - 1}`] = throw new Exception("debugging...")
+        def find@{ii - 1}: T@{ii}#M[`Number： @{ii - 1}`] = throw new Exception("debugging...")
     }
 
     def debug[K <: KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: TypeParameter }](c: Context[K])(implicit @for(ii <- 1 to tagNum) {
-        dapp@{ii}: DebugApplication[K, T@{ii}, I@{ii}, Asuna.`Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
+        dapp@{ii}: DebugApplication[K, T@{ii}, I@{ii}, `Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
     }): Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
     NodeTag@{tagNum}.noteTagApplicationImplicit@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
 

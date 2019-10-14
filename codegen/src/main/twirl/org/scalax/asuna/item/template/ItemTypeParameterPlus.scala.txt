@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.mapper
+package asuna
 
 trait ItemTypeParameterPlus@{tagNum} {
 

@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.mapper
+package asuna
 
 class HListItem@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](val head: @for(ii <- tagNum to 1 by (- 1)) { E@{ii} :: } HNil) extends AnyVal with Item@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] {
 

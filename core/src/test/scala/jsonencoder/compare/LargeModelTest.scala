@@ -1,24 +1,24 @@
-package org.scalax.asuna.mapper.test
+package asuna.test
 
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
-import org.scalax.asuna.mapper.append.ShapelessTest
+import asuna.test.ShapelessTest
 
 object LargeModelTest extends App {
 
   val a1 = {
 
-    import CircePoly._
+    import asuna.test.circe.CircePoly._
 
-    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = EncoderTest.implicitEncoder
-    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = EncoderTest.implicitEncoder
+    implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.implicitEncoder
+    implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.implicitEncoder
     val i1                                                                            = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = DecoderTest.implicitDecoder
-    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = DecoderTest.implicitDecoder
+    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.implicitDecoder
+    implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = AsunaCirceDecoder.implicitDecoder
     val i2                                                                   = i1.as[CirceLargeModel.LargeModel_2]
     println(i2)
 
