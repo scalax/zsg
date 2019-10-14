@@ -9,7 +9,7 @@ object CaseClassHelperGen1 extends App {
 
   val maxPropertyNum = 8
   val rootDir =
-    Paths.get("./").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("org").resolve("scalax").resolve("asuna").resolve("mapper").resolve("codegen")
+    Paths.get("./").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
   val tupleDir = rootDir.resolve("tuple")
   val buildDir = rootDir.resolve("build")
 

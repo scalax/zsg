@@ -5,7 +5,7 @@ import asuna.macros.utils.SealedHelper
 
 import scala.language.experimental.macros
 
-trait AsunaSealedLabelledGeneric[H,NameType] {
+trait AsunaSealedLabelledGeneric[H, NameType] {
   def names: ContextContent[NameType]
 }
 
@@ -14,7 +14,7 @@ object AsunaSealedLabelledGeneric {
   def init[M]: AsunaSealedLabelledGenericApply[M] = new AsunaSealedLabelledGenericApply[M] {}
 
   trait AsunaSealedLabelledGenericApply[M] {
-    def name[N](names1: ContextContent[N]): AsunaSealedLabelledGeneric[M, N] = new AsunaSealedLabelledGeneric[M,N] {
+    def name[N](names1: ContextContent[N]): AsunaSealedLabelledGeneric[M, N] = new AsunaSealedLabelledGeneric[M, N] {
       override def names: ContextContent[N] = names1
     }
   }

@@ -20,7 +20,7 @@ object DefaultValue {
   }
 }
 
-trait AsunaDefaultValueGeneric[H,DefaultValueType] {
+trait AsunaDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues: ContextContent[DefaultValueType]
 }
 
@@ -29,7 +29,7 @@ object AsunaDefaultValueGeneric {
   def init[M]: AsunaDefaultValueGenericApply[M] = new AsunaDefaultValueGenericApply[M] {}
 
   trait AsunaDefaultValueGenericApply[M] {
-    def defaultValue[N](dfv: ContextContent[N]): AsunaDefaultValueGeneric[M,N] = new AsunaDefaultValueGeneric[M,N] {
+    def defaultValue[N](dfv: ContextContent[N]): AsunaDefaultValueGeneric[M, N] = new AsunaDefaultValueGeneric[M, N] {
       override def defaultValues: ContextContent[N] = dfv
     }
   }
