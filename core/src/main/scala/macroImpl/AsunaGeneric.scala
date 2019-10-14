@@ -1,12 +1,15 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.AppendTag
-import org.scalax.asuna.mapper.ItemTag
+import asuna.{AppendTag, ItemTag}
 
 import scala.language.experimental.macros
 
-class ModelApply[I] {
-  def to[R](m: I => R): AppendTag[R] = new AppendTag[R]
+class PropertyTag[T]
+class PropertyApply[I] {
+  def to[R](m: I => R): AppendTag[PropertyTag[R]] = new AppendTag[PropertyTag[R]]
+}
+object PropertyApply {
+  def apply[R]: PropertyApply[R] = new PropertyApply[R]
 }
 
 trait AsunaGeneric[H] {
@@ -59,21 +62,21 @@ object AsunaGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props.map(s => q"""new org.scalax.asuna.mapper.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""asuna.macros.PropertyApply[${hType}].to(_.${TermName(s)})""")
 
-        val typeTag = proTypeTag.grouped(8).toList.map(i => q"""org.scalax.asuna.mapper.BuildContent.tag(..${i})""")
+        val typeTag = proTypeTag.grouped(8).toList.map(i => q"""asuna.BuildContent.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(..${tree})"""
+            q"""asuna.BuildContent.lift(..${tree})"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
+            q"""asuna.BuildContent.lift(asuna.BuildContent.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
           }
 
         c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""asuna.macros.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

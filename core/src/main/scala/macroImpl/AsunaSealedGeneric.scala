@@ -1,13 +1,18 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.AppendTag
-import org.scalax.asuna.mapper.ItemTag
+import asuna.{AppendTag, ItemTag}
 
 import scala.language.experimental.macros
 
 trait AsunaSealedGeneric[H] {
   type Sealed <: ItemTag
   def tag: Sealed
+}
+
+class SealedTag[T]
+
+object SealedTag {
+  def apply[T]: AppendTag[SealedTag[T]] = new AppendTag[SealedTag[T]]
 }
 
 object AsunaSealedGeneric {
@@ -45,22 +50,22 @@ object AsunaSealedGenericMacroApply {
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val proTypeTag = props.map(s => q"""org.scalax.asuna.mapper.AppendTag[${s}]""")
+        val proTypeTag = props.map(s => q"""asuna.macros.SealedTag[${s}]""")
 
-        val typeTag = proTypeTag.grouped(8).toList.map(i => q"""org.scalax.asuna.mapper.BuildContent.tag(..${i})""")
+        val typeTag = proTypeTag.grouped(8).toList.map(i => q"""asuna.BuildContent.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(..${tree})"""
+            q"""asuna.BuildContent.lift(..${tree})"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
+            q"""asuna.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
           }
 
-        println(q"""org.scalax.asuna.mapper.macroImpl.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})""")
+        println(q"""asuna.macros.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})""")
         c.Expr[AsunaSealedGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""asuna.macros.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

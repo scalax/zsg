@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait ReverseHListItem0 extends Any with Item0 {
   override def pull[T](xyy: T): ReverseHListItem1[T] = new ReverseHListItem1(xyy :: HNil)
 }

@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-package Asuna
+package asuna
 @for(tagNum <- 0 to maxItem) {
-    class `Message： Please change .debug(context) to .find@{tagNum}.debug(context).` extends org.scalax.asuna.mapper.Message
+    class `Message： Please change .debug(context) to .find@{tagNum}.debug(context).` extends Message
 }

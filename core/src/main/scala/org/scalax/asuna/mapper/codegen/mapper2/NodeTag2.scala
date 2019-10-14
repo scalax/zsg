@@ -1,14 +1,14 @@
-package org.scalax.asuna.mapper
+package asuna
 import impl._
 class NodeTag2[T1 <: ItemTag, M1 <: Message, T2 <: ItemTag, M2 <: Message] extends ItemTag {
   override type ItemType        = Item2[T1#ItemType, T2#ItemType]
   override type M[M <: Message] = NodeTag2[T1, M :-<>-: M1, T2, M :-<>-: M2]
-  def find0: T1#M[Asuna.`Number： 0`] = throw new Exception("debugging...")
-  def find1: T2#M[Asuna.`Number： 1`] = throw new Exception("debugging...")
+  def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
+  def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
   def debug[K <: KindContext, I1 <: TypeParameter, I2 <: TypeParameter](c: Context[K])(
     implicit
-    dapp1: DebugApplication[K, T1, I1, Asuna.`Message： Please change .debug(context) to .find0.debug(context).`],
-    dapp2: DebugApplication[K, T2, I2, Asuna.`Message： Please change .debug(context) to .find1.debug(context).`]
+    dapp1: DebugApplication[K, T1, I1, `Message： Please change .debug(context) to .find0.debug(context).`],
+    dapp2: DebugApplication[K, T2, I2, `Message： Please change .debug(context) to .find1.debug(context).`]
   ): Application[K, NodeTag2[T1, M1, T2, M2], ItemTypeParameter2[I1, I2]] =
     NodeTag2.noteTagApplicationImplicit2(dapp1, dapp2)
 }

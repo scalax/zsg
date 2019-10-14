@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 class TupleTypeParameter2[E1 <: TypeParameter, E2 <: TypeParameter] extends TypeParameter {
   override type H = (E1#H, E2#H)
   override type T = TupleTypeParameter2[E1#T, E2#T]

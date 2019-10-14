@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait TupleTypeParameterPlus3 {
   def hlistPlus18[
     T1 <: TypeParameter,

@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.test
+package asuna.test
 
 import java.util.Date
 

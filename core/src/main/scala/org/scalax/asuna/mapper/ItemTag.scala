@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper {
+package asuna {
 
   import scala.language.higherKinds
 

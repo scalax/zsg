@@ -1,6 +1,6 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.ContextContent
+import asuna.ContextContent
 
 import scala.language.experimental.macros
 
@@ -24,7 +24,7 @@ object AsunaGetterGeneric {
 
 object AsunaGetterGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
+  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._
@@ -52,19 +52,19 @@ object AsunaGetterGenericMacroApply {
           }
           .grouped(8)
           .toList
-          .map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("item" + s.length)}(..${s})""")
+          .map(s => q"""asuna.BuildContent.${TermName("item" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""(s: ${h}) => { ..${tree} }"""
           } else if (tree.length < 8) {
-            q"""(s: ${h}) => { org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree}) }"""
+            q"""(s: ${h}) => { asuna.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree}) }"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaGetterGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaGetterGeneric.init(${nameTagGen(nameTag)})"""
+          q"""asuna.macros.AsunaGetterGeneric.init(${nameTagGen(nameTag)})"""
         }
 
       } catch {

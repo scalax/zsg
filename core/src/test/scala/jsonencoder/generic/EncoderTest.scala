@@ -1,8 +1,8 @@
-package org.scalax.asuna.mapper.test
+package asuna.test
 
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
+import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject}
-import org.scalax.asuna.mapper._
-import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 
 object EncoderTest {
 

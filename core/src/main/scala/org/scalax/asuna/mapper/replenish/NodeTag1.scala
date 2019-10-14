@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 import impl._
 
 class NodeTag1[T1 <: ItemTag, M1 <: Message] extends ItemTag {
@@ -7,7 +7,7 @@ class NodeTag1[T1 <: ItemTag, M1 <: Message] extends ItemTag {
 
   def debug[K <: KindContext, I1 <: TypeParameter](c: Context[K])(
     implicit
-    dapp1: DebugApplication[K, T1, I1, Asuna.`Message： Please change .debug(context) to .find0.debug(context).`]
+    dapp1: DebugApplication[K, T1, I1, `Message： Please change .debug(context) to .find0.debug(context).`]
   ): Application[K, NodeTag1[T1, M1], ItemTypeParameter1[I1]] =
     NodeTag1.noteTagApplicationImplicit1(dapp1)
 }

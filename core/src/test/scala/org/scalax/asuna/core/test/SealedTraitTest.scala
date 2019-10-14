@@ -1,7 +1,7 @@
-package org.scalax.asuna.core.test
+package asuna.test
 
-import org.scalax.asuna.mapper.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter1}
-import org.scalax.asuna.mapper.macroImpl.{AsunaSealedGeneric, AsunaSealedLabelledGeneric}
+import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter1}
 
 sealed trait Abc[T]
 class AA[T](ii: T, iiii: String) extends Abc[T]
@@ -53,7 +53,7 @@ object SealedTraitTest extends App {
     }
   }
 
-  implicit def stringImplicit1[T <: Abc[R], R]: Application[KC, T, TypeParameter1[String]] = new Application[KC, T, TypeParameter1[String]] {
+  implicit def stringImplicit1[T  , R]: Application[KC, SealedTag[T], TypeParameter1[String]] = new Application[KC, SealedTag[T], TypeParameter1[String]] {
     override def application(context: Context[KC]): String => List[String] => List[String] = { str: String =>
       { list: List[String] =>
         str :: list

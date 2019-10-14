@@ -1,10 +1,10 @@
-package Asuna
-class `Number： 0` extends org.scalax.asuna.mapper.Message
-class `Number： 1` extends org.scalax.asuna.mapper.Message
-class `Number： 2` extends org.scalax.asuna.mapper.Message
-class `Number： 3` extends org.scalax.asuna.mapper.Message
-class `Number： 4` extends org.scalax.asuna.mapper.Message
-class `Number： 5` extends org.scalax.asuna.mapper.Message
-class `Number： 6` extends org.scalax.asuna.mapper.Message
-class `Number： 7` extends org.scalax.asuna.mapper.Message
-class `Number： 8` extends org.scalax.asuna.mapper.Message
+package asuna
+class `Number： 0` extends Message
+class `Number： 1` extends Message
+class `Number： 2` extends Message
+class `Number： 3` extends Message
+class `Number： 4` extends Message
+class `Number： 5` extends Message
+class `Number： 6` extends Message
+class `Number： 7` extends Message
+class `Number： 8` extends Message

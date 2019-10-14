@@ -1,7 +1,7 @@
-package org.scalax.asuna.core.test
+package asuna.test
 
-import org.scalax.asuna.mapper.macroImpl.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import org.scalax.asuna.mapper._
+import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
+import asuna.{AppendTag, Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter2}
 
 sealed trait PropertyItem
 case class IntProperty(i: Int) extends PropertyItem {
@@ -63,7 +63,7 @@ object in {
     pp: Application[IContext, I2, I3],
     asunaGetterGeneric: AsunaGetterGeneric.Aux[I1, I3#H],
     asunaNameGeneric: AsunaLabelledGeneric.Aux[I1, I3#T#H]
-  ) = {
+  ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
         pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaNameGeneric.names.withContext(i)).init(List.empty)
@@ -88,15 +88,16 @@ object in {
     }
   }
 
-  implicit val pp1: Application[IContext, String, TypeParameter2[String, String]] = new Application[IContext, String, TypeParameter2[String, String]] {
-    override def application(context: Context[IContext]): (String, String) => ListToString = (t, r) => {
-      new ListToString {
-        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
+  implicit val pp1: Application[IContext, PropertyTag[String], TypeParameter2[String, String]] =
+    new Application[IContext, PropertyTag[String], TypeParameter2[String, String]] {
+      override def application(context: Context[IContext]): (String, String) => ListToString = (t, r) => {
+        new ListToString {
+          override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
+        }
       }
     }
-  }
 
-  implicit val pp2: Application[IContext, Int, TypeParameter2[Int, String]] = new Application[IContext, Int, TypeParameter2[Int, String]] {
+  implicit val pp2: Application[IContext, PropertyTag[Int], TypeParameter2[Int, String]] = new Application[IContext, PropertyTag[Int], TypeParameter2[Int, String]] {
     override def application(context: Context[IContext]): (Int, String) => ListToString = (t, r) => {
       new ListToString {
         override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), r) :: i
@@ -104,7 +105,7 @@ object in {
     }
   }
 
-  implicit val pp3: Application[IContext, Long, TypeParameter2[Long, String]] = new Application[IContext, Long, TypeParameter2[Long, String]] {
+  implicit val pp3: Application[IContext, PropertyTag[Long], TypeParameter2[Long, String]] = new Application[IContext, PropertyTag[Long], TypeParameter2[Long, String]] {
     override def application(context: Context[IContext]): (Long, String) => ListToString = (t, r) => {
       new ListToString {
         override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), r) :: i

@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 import impl._
 class ItemTag2[T1, M1 <: Message, T2, M2 <: Message] extends ItemTag {
   override type ItemType        = Item2[T1, T2]

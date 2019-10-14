@@ -1,6 +1,6 @@
 @(tagNum: Int)
 
-package org.scalax.asuna.mapper
+package asuna
 
 trait Item@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] extends Any {
     self =>

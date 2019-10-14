@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait Item0 extends Any {
   def add[T](xyy: T): Item1[T]  = throw new Exception("Can not use this method.")
   def pull[T](xyy: T): Item1[T] = throw new Exception("Can not use this method.")

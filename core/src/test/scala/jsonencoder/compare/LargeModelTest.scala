@@ -1,8 +1,8 @@
-package org.scalax.asuna.mapper.test
+package asuna.test
 
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
-import org.scalax.asuna.mapper.append.ShapelessTest
+import asuna.test.ShapelessTest
 
 object LargeModelTest extends App {
 

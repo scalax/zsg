@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 class HListItem5[E1, E2, E3, E4, E5](val head: E5 :: E4 :: E3 :: E2 :: E1 :: HNil) extends AnyVal with Item5[E1, E2, E3, E4, E5] {
   override def add[T](xyy: T): HListItem6[E1, E2, E3, E4, E5, T] = new HListItem6[E1, E2, E3, E4, E5, T](xyy :: head)
   override def rightHead: E5                                     = head.head

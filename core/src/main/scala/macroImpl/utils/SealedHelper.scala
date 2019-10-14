@@ -1,6 +1,4 @@
-package org.scalax.asuna.mapper.macroImpl
-
-import org.scalax.asuna.mapper.ItemTag
+package asuna.macros
 
 import scala.language.experimental.macros
 
@@ -10,11 +8,11 @@ trait SealedHelper {
   import c.universe._
 
   /**
-   * If a super-type is generic, find all the subtypes, but at the same time
-   * fill in all the generic type parameters that are based on the super-type's
-   * concrete type
-   * @author lihaoyi
-   */
+    * If a super-type is generic, find all the subtypes, but at the same time
+    * fill in all the generic type parameters that are based on the super-type's
+    * concrete type
+    * @author lihaoyi
+    */
   def fleshedOutSubtypes(tpe: Type): Set[Type] = {
     for {
       subtypeSym <- tpe.typeSymbol.asClass.knownDirectSubclasses.filter(!_.toString.contains("<local child>"))
@@ -33,5 +31,3 @@ trait SealedHelper {
   }
 
 }
-
-

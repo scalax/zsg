@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 
 trait Only2Plus {
   @inline def hlistPlus2[T1 <: TypeParameter, T2 <: TypeParameter]: Plus[T1, T2, ItemTypeParameter2[T1, T2]] =

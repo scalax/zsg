@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 import impl._
 class ItemTag8[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message, T7, M7 <: Message, T8, M8 <: Message]
     extends ItemTag {

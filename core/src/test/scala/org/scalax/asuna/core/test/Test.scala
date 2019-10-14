@@ -1,9 +1,9 @@
-package org.scalax.asuna.core.test
+package asuna.test
 
+import asuna.BuildContent
+import asuna.macros.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
-import org.scalax.asuna.mapper.BuildContent
-import org.scalax.asuna.mapper.macroImpl.ModelApply
 
 class Test extends AnyFunSpec with Matchers {
 
@@ -11,7 +11,7 @@ class Test extends AnyFunSpec with Matchers {
 
   val fooValue = Foo(i1 = "i1", i2 = "i2", i3 = 3, i4 = 4, i5 = 5L, i6 = "i6", i7 = "i7", i8 = "i8", i9 = 9, i10 = 10)
 
-  val ap = new ModelApply[Foo]
+  val ap = PropertyApply[Foo]
 
   val fooPropertyTag = BuildContent.nodeTag(
     BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)),

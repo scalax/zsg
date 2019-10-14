@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait ItemTypeParameterPlus5 {
   val plus5Any: Plus[ItemTypeParameter4[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter], AnyTypeParameter, ItemTypeParameter5[
     AnyTypeParameter,

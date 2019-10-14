@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.append
+package asuna.test
 
 import io.circe._
 import shapeless._

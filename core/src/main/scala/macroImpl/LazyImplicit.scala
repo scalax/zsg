@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
 import scala.reflect.macros.blackbox
 

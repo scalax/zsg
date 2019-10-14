@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 class ItemTypeParameter0 extends TypeParameter {
   override type H = Item0
   override type T = ItemTypeParameter0

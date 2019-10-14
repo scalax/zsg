@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait TupleApplicationImplicits {
   implicit def tupleApplicationImplicits2[K <: KindContext, H1, H2, T1 <: TypeParameter, T2 <: TypeParameter](
     implicit t1: Application[K, H1, T1],

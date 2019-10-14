@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 
 object ItemTypeParameterPlus1 {
 

@@ -1,6 +1,6 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.ContextContent
+import asuna.ContextContent
 
 import scala.language.experimental.macros
 
@@ -28,7 +28,7 @@ object AsunaSealedLabelledGeneric {
 
 object AsunaSealedLabelledGenericMacroApply {
 
-  class AppendMacroImpl1(override val c: scala.reflect.macros.whitebox.Context) extends SealedHelper {
+  class AppendMacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
@@ -46,20 +46,20 @@ object AsunaSealedLabelledGenericMacroApply {
           }
           .grouped(8)
           .toList
-          .map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("item" + s.length)}(..${s})""")
+          .map(s => q"""asuna.BuildContent.${TermName("item" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""..${tree}"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree})"""
+            q"""asuna.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
-        println(q"""org.scalax.asuna.mapper.macroImpl.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})""")
+        println(q"""asuna.macros.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})""")
 
         c.Expr[AsunaSealedLabelledGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+          q"""asuna.macros.AsunaSealedLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {

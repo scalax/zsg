@@ -1,6 +1,6 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.{Context, ContextContent, KindContext}
+import asuna.ContextContent
 
 import scala.language.experimental.macros
 
@@ -9,9 +9,9 @@ trait DefaultValue[T] {
 }
 
 object DefaultValue {
-  def model[Model]: ModelApply[Model] = new ModelApply[Model]
+  def model[Model]: DefaultValueApply[Model] = new DefaultValueApply[Model]
 
-  class ModelApply[Model] {
+  class DefaultValueApply[Model] {
     def to[R](m: Model => R)(o: => Option[R]): DefaultValue[R] = {
       new DefaultValue[R] {
         override def value: Option[R] = o
@@ -44,7 +44,7 @@ object AsunaDefaultValueGeneric {
 
 object AsunaDefaultValueGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
+  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._
@@ -72,26 +72,26 @@ object AsunaDefaultValueGenericMacroApply {
         val proTypeTag =
           apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
             case (p, i) =>
-              if (!p.isParamWithDefault) q"""org.scalax.asuna.mapper.macroImpl.DefaultValue.model[${hType}].to(_.${p.name})(Option.empty)"""
+              if (!p.isParamWithDefault) q"""asuna.macros.DefaultValue.model[${hType}].to(_.${p.name})(Option.empty)"""
               else {
                 val getterName = TermName("apply$default$" + (i + 1))
-                q"""org.scalax.asuna.mapper.macroImpl.DefaultValue.model[${hType}].to(_.${p.name})(Some($hCompanion.$getterName))"""
+                q"""asuna.macros.DefaultValue.model[${hType}].to(_.${p.name})(Some($hCompanion.$getterName))"""
               }
           }
 
-        val nameTag = proTypeTag.grouped(8).toList.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("item" + s.length)}(..${s})""")
+        val nameTag = proTypeTag.grouped(8).toList.map(s => q"""asuna.BuildContent.${TermName("item" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""..${tree}"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree})"""
+            q"""asuna.BuildContent.${TermName("nodeItem" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaDefaultValueGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaDefaultValueGeneric.init[${hType}].defaultValue(${nameTagGen(nameTag)})"""
+          q"""asuna.macros.AsunaDefaultValueGeneric.init[${hType}].defaultValue(${nameTagGen(nameTag)})"""
         }
 
       } catch {

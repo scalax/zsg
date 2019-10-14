@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait TupleTypeParameterPlus1 {
   def hlistPlus2[T1 <: TypeParameter, T2 <: TypeParameter]: Plus[ItemTypeParameter1[T1], T2, TupleTypeParameter2[T1, T2]] =
     new Plus[ItemTypeParameter1[T1], T2, TupleTypeParameter2[T1, T2]] {

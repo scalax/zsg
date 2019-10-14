@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 import impl._
 class NodeTag8[
   T1 <: ItemTag,
@@ -21,14 +21,14 @@ class NodeTag8[
   override type ItemType = Item8[T1#ItemType, T2#ItemType, T3#ItemType, T4#ItemType, T5#ItemType, T6#ItemType, T7#ItemType, T8#ItemType]
   override type M[M <: Message] =
     NodeTag8[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7, T8, M :-<>-: M8]
-  def find0: T1#M[Asuna.`Number： 0`] = throw new Exception("debugging...")
-  def find1: T2#M[Asuna.`Number： 1`] = throw new Exception("debugging...")
-  def find2: T3#M[Asuna.`Number： 2`] = throw new Exception("debugging...")
-  def find3: T4#M[Asuna.`Number： 3`] = throw new Exception("debugging...")
-  def find4: T5#M[Asuna.`Number： 4`] = throw new Exception("debugging...")
-  def find5: T6#M[Asuna.`Number： 5`] = throw new Exception("debugging...")
-  def find6: T7#M[Asuna.`Number： 6`] = throw new Exception("debugging...")
-  def find7: T8#M[Asuna.`Number： 7`] = throw new Exception("debugging...")
+  def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
+  def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
+  def find2: T3#M[`Number： 2`] = throw new Exception("debugging...")
+  def find3: T4#M[`Number： 3`] = throw new Exception("debugging...")
+  def find4: T5#M[`Number： 4`] = throw new Exception("debugging...")
+  def find5: T6#M[`Number： 5`] = throw new Exception("debugging...")
+  def find6: T7#M[`Number： 6`] = throw new Exception("debugging...")
+  def find7: T8#M[`Number： 7`] = throw new Exception("debugging...")
   def debug[
     K <: KindContext,
     I1 <: TypeParameter,
@@ -41,14 +41,14 @@ class NodeTag8[
     I8 <: TypeParameter
   ](c: Context[K])(
     implicit
-    dapp1: DebugApplication[K, T1, I1, Asuna.`Message： Please change .debug(context) to .find0.debug(context).`],
-    dapp2: DebugApplication[K, T2, I2, Asuna.`Message： Please change .debug(context) to .find1.debug(context).`],
-    dapp3: DebugApplication[K, T3, I3, Asuna.`Message： Please change .debug(context) to .find2.debug(context).`],
-    dapp4: DebugApplication[K, T4, I4, Asuna.`Message： Please change .debug(context) to .find3.debug(context).`],
-    dapp5: DebugApplication[K, T5, I5, Asuna.`Message： Please change .debug(context) to .find4.debug(context).`],
-    dapp6: DebugApplication[K, T6, I6, Asuna.`Message： Please change .debug(context) to .find5.debug(context).`],
-    dapp7: DebugApplication[K, T7, I7, Asuna.`Message： Please change .debug(context) to .find6.debug(context).`],
-    dapp8: DebugApplication[K, T8, I8, Asuna.`Message： Please change .debug(context) to .find7.debug(context).`]
+    dapp1: DebugApplication[K, T1, I1, `Message： Please change .debug(context) to .find0.debug(context).`],
+    dapp2: DebugApplication[K, T2, I2, `Message： Please change .debug(context) to .find1.debug(context).`],
+    dapp3: DebugApplication[K, T3, I3, `Message： Please change .debug(context) to .find2.debug(context).`],
+    dapp4: DebugApplication[K, T4, I4, `Message： Please change .debug(context) to .find3.debug(context).`],
+    dapp5: DebugApplication[K, T5, I5, `Message： Please change .debug(context) to .find4.debug(context).`],
+    dapp6: DebugApplication[K, T6, I6, `Message： Please change .debug(context) to .find5.debug(context).`],
+    dapp7: DebugApplication[K, T7, I7, `Message： Please change .debug(context) to .find6.debug(context).`],
+    dapp8: DebugApplication[K, T8, I8, `Message： Please change .debug(context) to .find7.debug(context).`]
   ): Application[K, NodeTag8[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7, T8, M8], ItemTypeParameter8[I1, I2, I3, I4, I5, I6, I7, I8]] =
     NodeTag8.noteTagApplicationImplicit8(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7, dapp8)
 }

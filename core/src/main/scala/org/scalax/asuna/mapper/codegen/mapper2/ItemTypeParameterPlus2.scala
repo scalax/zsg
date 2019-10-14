@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait ItemTypeParameterPlus2 {
   val plus2Any: Plus[ItemTypeParameter1[AnyTypeParameter], AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] =
     new Plus[ItemTypeParameter1[AnyTypeParameter], AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] {

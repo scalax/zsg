@@ -1,8 +1,8 @@
-package org.scalax.asuna.mapper.test
+package asuna.test
 
+import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
 import io.circe._
-import org.scalax.asuna.mapper.macroImpl.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
-import org.scalax.asuna.mapper._
 
 object DecoderTest {
 

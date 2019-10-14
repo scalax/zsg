@@ -1,4 +1,4 @@
-package org.scalax.asuna.mapper
+package asuna
 trait HListItem0 extends Any with Item0 {
   override def add[T](xyy: T): HListItem1[T] = new HListItem1(xyy :: HNil)
 }

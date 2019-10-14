@@ -1,13 +1,19 @@
-package org.scalax.asuna.mapper.macroImpl
+package asuna.macros
 
-import org.scalax.asuna.mapper.AppendTag
-import org.scalax.asuna.mapper.ItemTag
+import asuna.{AppendTag, ItemTag}
 
 import scala.language.experimental.macros
 
 trait AsunaSetterGeneric[H] {
   type GenericType
   def setter: GenericType => H
+}
+
+class PropertySetter[T] {
+  def to[R](i: T => R): AppendTag[R] = new AppendTag[R]
+}
+object PropertySetter {
+  def apply[T]: PropertySetter[T] = new PropertySetter[T]
 }
 
 object AsunaSetterGeneric {
@@ -50,20 +56,17 @@ object AsunaSetterGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props
-          .map(s => q"""new org.scalax.asuna.mapper.macroImpl.ModelApply[${hType}].to(_.${TermName(s)})""")
-          .grouped(8)
-          .toList
-          .map(s => q"""org.scalax.asuna.mapper.BuildContent.tag(..${s})""")
+        val proTypeTag =
+          props.map(s => q"""asuna.macros.PropertySetter[${hType}].to(_.${TermName(s)})""").grouped(8).toList.map(s => q"""asuna.BuildContent.tag(..${s})""")
 
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(..${tree})"""
+            q"""asuna.BuildContent.lift(..${tree})"""
           } else if (tree.length < 8) {
-            q"""org.scalax.asuna.mapper.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
+            q"""asuna.BuildContent.lift(asuna.BuildContent.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s => q"""org.scalax.asuna.mapper.BuildContent.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
           }
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
@@ -89,7 +92,7 @@ object AsunaSetterGenericMacroApply {
         val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 
         c.Expr[AsunaSetterGeneric.Aux[H, M]] {
-          q"""org.scalax.asuna.mapper.macroImpl.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
+          q"""asuna.macros.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
         }
 
       } catch {
