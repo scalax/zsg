@@ -14,7 +14,8 @@ This document will be written in English for a period of Chinese
 因为我的英语十分差，这份文档会以一段英文一段中文的形式撰写。欢迎大家提交任何文档更改到
 asuna。
 
-###What's asuna?
+### What's asuna?
+
 Asuna is an abstraction of data transformation. Now it's a subset
 of [shapeless](https://github.com/milessabin/shapeless "shapeless"). Which
 only handle case class generic and sealed trait generic problems.  
@@ -22,7 +23,8 @@ Asuna 是一个数据转换的抽象。目前而言它是
 [shapeless](https://github.com/milessabin/shapeless "shapeless")
 的子集，只针对 case class 和 sealed trait 的 generic 问题作出一个解决方案。
 
-###Why type projection?
+### Why type projection?
+
 Type projection will be removed in Scala3, but why we have used type projection?  
 Type Projection 将会在 Scala3 被移除，但我们为什么使用了 Type Projectoin？
 
