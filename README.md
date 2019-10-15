@@ -23,7 +23,7 @@ Asuna 是一个数据转换的抽象。目前而言它是
 [shapeless](https://github.com/milessabin/shapeless "shapeless")
 的子集，只针对 case class 和 sealed trait 的 generic 问题作出一个解决方案。
 
-### Why type projection?
+### Why Type Projection?
 
 Asuna is a project that deeply dependent on Type Projection.
 Type Projection will be removed in Scala3, but why we still used Type Projection?  
