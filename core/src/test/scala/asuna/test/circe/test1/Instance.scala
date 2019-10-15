@@ -12,5 +12,6 @@ object Instance {
   val i6: Test05[String] = Test06("test06", 2)
   val i7: Test05[String] = Test07("7", 2)
   val i8: Test05[String] = Test08("test08", 2)
+  val i9: Test05[String] = Test09
 
 }

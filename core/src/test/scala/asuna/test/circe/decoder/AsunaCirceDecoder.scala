@@ -6,7 +6,7 @@ import io.circe._
 
 object AsunaCirceDecoder {
 
-  def implicitDecoder[T, R <: ItemTag, I <: TypeParameter](
+  def decoder[T, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaGeneric.Aux[T, R],
     app: Application[KM, R, I],
     cv1: AsunaLabelledGeneric[T, I#H],
@@ -62,15 +62,17 @@ object AsunaCirceDecoder {
 
   class GenericApply2[T] {
     def i[R <: ItemTag](
-      implicit ll: AsunaGeneric.Aux[T, R],
+      implicit ll: AsunaGeneric.Aux[T, R]
     ) = new GenericApply1[T, R]
   }
 
   class GenericApply1[T, R <: ItemTag] {
-    def ir[I <: TypeParameter](implicit app: Application[KM, R, I],
-                               cv1: AsunaLabelledGeneric[T, I#H],
-                               cv3: AsunaSetterGeneric[T, I#T#H],
-                               cv4: AsunaDefaultValueGeneric[T, I#T#T#H]) = {
+    def ir[I <: TypeParameter](
+      implicit app: Application[KM, R, I],
+      cv1: AsunaLabelledGeneric[T, I#H],
+      cv3: AsunaSetterGeneric[T, I#T#H],
+      cv4: AsunaDefaultValueGeneric[T, I#T#T#H]
+    ) = {
       app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
     }
   }

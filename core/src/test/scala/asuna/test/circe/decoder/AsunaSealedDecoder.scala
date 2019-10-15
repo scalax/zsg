@@ -6,7 +6,7 @@ import io.circe.Decoder
 
 object AsunaSealedDecoder {
 
-  def sealedDecoder[H, R <: ItemTag, I <: TypeParameter](
+  def decoder[H, R <: ItemTag, I <: TypeParameter](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
     app: Application[KContext[H], R, I],
     cv1: AsunaSealedLabelledGeneric[H, I#H],

@@ -12,5 +12,6 @@ object Circe {
   val i6Json = Instance.i6.asJson
   val i7Json = Instance.i7.asJson
   val i8Json = Instance.i8.asJson
+  val i9Json = Instance.i9.asJson
 
 }

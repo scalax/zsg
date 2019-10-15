@@ -9,11 +9,11 @@ trait Poly1 {
   import Poly2._
   import asuna.test.circe.CircePoly._
 
-  implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = AsunaCirceEncoder.implicitEncoder
-  implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = AsunaCirceEncoder.implicitEncoder
-  implicit def test03_en_implicit: Encoder.AsObject[Test03]                               = AsunaCirceEncoder.implicitEncoder
+  implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = AsunaCirceEncoder.encoder
+  implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = AsunaCirceEncoder.encoder
+  implicit def test03_en_implicit: Encoder.AsObject[Test03]                               = AsunaCirceEncoder.encoder
 
-  implicit def test05_en_implicit: Encoder.AsObject[Test05[String]] = AsunaSealedEncoder.sealedEncoder
+  implicit def test05_en_implicit: Encoder.AsObject[Test05[String]] = AsunaSealedEncoder.encoder
 
 }
 
@@ -24,11 +24,12 @@ trait Poly2 {
   import Poly1._
   import asuna.test.circe.CircePoly._
 
-  implicit def test04_en_implicit: Encoder.AsObject[Test04] = AsunaCirceEncoder.implicitEncoder
+  implicit def test04_en_implicit: Encoder.AsObject[Test04] = AsunaCirceEncoder.encoder
 
-  implicit def test06_en_implicit: Encoder.AsObject[Test06[String]] = AsunaCirceEncoder.implicitEncoder
-  implicit def test07_en_implicit: Encoder.AsObject[Test07[String]] = AsunaCirceEncoder.implicitEncoder
-  implicit def test08_en_implicit: Encoder.AsObject[Test08]         = AsunaCirceEncoder.implicitEncoder
+  implicit def test06_en_implicit: Encoder.AsObject[Test06[String]] = AsunaCirceEncoder.encoder
+  implicit def test07_en_implicit: Encoder.AsObject[Test07[String]] = AsunaCirceEncoder.encoder
+  implicit def test08_en_implicit: Encoder.AsObject[Test08]         = AsunaCirceEncoder.encoder
+  implicit def test09_en_implicit: Encoder.AsObject[Test09.type]    = AsunaCirceEncoder.caseObjectEncoder
 
 }
 
@@ -47,6 +48,6 @@ object Asuna {
   val i6Json = Instance.i6.asJson
   val i7Json = Instance.i7.asJson
   val i8Json = Instance.i8.asJson
-
+  val i9Json = Instance.i9.asJson
 
 }
