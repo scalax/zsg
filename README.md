@@ -11,7 +11,7 @@ An abstraction of data transformation
 This document will be written in English for a period of Chinese
  since my poor English. Welcome to create any typo pull request
  to asuna.  
-因为我的英语十分差，这份文档会以一段英文一段中文的形式撰写。欢迎大家提交任何文档更改到
+因为我的英语水平比较不堪，这份文档会以一段英文一段中文的形式撰写。欢迎大家提交任何文档更改到
 asuna。
 
 ### What's asuna?
@@ -75,7 +75,92 @@ class EndParameter extends TypeParameter {
 }
 ```
 
+In theory it can store unlimited types of parameters.  
 理论上它可以存储无限个类型参数。
+
 ```scala
-aa
+class TypeInstance1 extends TypeParameter {
+  override type H = String
+  override type T = EndParameter
+}
+
+class TypeInstance2 extends TypeParameter {
+  override type H = Int
+  override type T = TypeInstance1
+}
+
+val a1: Int = (throw new Exception()): TypeInstance2#H
+val a2: String = (throw new Exception()): TypeInstance2#T#H
+val a3: NoData = (throw new Exception()): TypeInstance2#T#T#H
 ```
+
+Of course we can use code generation to simplify some operations,
+since this project is based on code generation.  
+当然我们可以用代码生成来简化一些操作，毕竟这个仓库本身就是基于代码生成的。
+
+```scala
+class TypeParameter1[T1] extends TypeParameter {
+  override type H = T1
+  override type T = EndParameter
+}
+class TypeParameter2[T1, T2] extends TypeParameter {
+  override type H = T1
+  override type T = TypeParameter1[T2]
+}
+
+type TypeInstance3 = TypeParameter2[Int, String]
+
+val a1: Int = (throw new Exception()): TypeInstance3#H
+val a2: String = (throw new Exception()): TypeInstance3#T#H
+val a3: NoData = (throw new Exception()): TypeInstance3#T#T#H
+```
+
+Although the upper limit of code generation is TypeParameter8,
+in asuna simply because the amount of other code generation's number
+is 8, you can still write a TypeParameter greater than 8 type
+parameters according to your own preferences.  
+虽然代码生成的上限是 TypeParameter8，但在 asuna 中仅仅是因为其他代码生成数量是
+8，你依然可以根据自己的喜好自己构造类型参数超过 8 的 TypeParameter。
+
+So we can introduce the first knowledge point of asuna.
+An abstraction of any number of higher order type.  
+于是我们可以介绍 asuna 的第一个知识点，对任意数量的高阶函数进行抽象：
+
+```scala
+trait KindContext {
+  type M[P <: TypeParameter]
+}
+```
+
+Let's try to explain the entire generic process with circe's
+Json Encoder.  
+我们尝试以 circe 的 Json Encoder 来说明一下整个 Generic 的过程。
+
+We create a trait to make the type simpler.  
+我们构造一个类来简化类型表达：
+
+```scala
+trait JsonEncoder[T, II] {
+  def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+}
+```
+
+Then we can implement the KindContext.  
+然后我们可以实例化 KindContext。
+
+```scala
+class KContext extends KindContext {
+  override type M[P <: TypeParameter] = JsonEncoder[P#T#H, P#H]
+}
+```
+
+Then we can get:  
+于是有：
+
+```scala
+val a1: JsonEncoder[Int, String] = (throw new Exception()): KContext#M[TypeParameter2[Int, String]]
+val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypeParameter2[Long, String]]
+val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeParameter2[Item2[Int, Long], Item2[String, String]]]
+```
+
+#### 2.Orthogonal between Type Projection and ItemX
