@@ -1,6 +1,6 @@
 val scalaTestVersion = "3.1.0-RC3"
 
-scalaVersion := "2.13.0"
+AsunaSettings.scalaVersionSettings
 
 scalacOptions ++= Seq("-feature", "-deprecation", /*"-language:Scala2",*/ "-encoding", "utf-8" /*"-Ywarn-unused-import", "-Xlog-implicits"*/)
 org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
