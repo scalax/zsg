@@ -189,7 +189,8 @@ trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, St
 ```scala
 val getter = { test04: Test04 => new Item4(test04.i1, test04.i2, test04.i3, test04.i4) }
 val names = new Item4("i1", "i2", "i3", "i4")
-Encoder.AsObject.instance { o: H =>
+implicit val encoderTest04: Encoder.AsObject[Test04] =
+Encoder.AsObject.instance { o: Test04 =>
   JsonObject.fromIterable(en1.p(getter(o), names, List.empty))
 }
 ```
