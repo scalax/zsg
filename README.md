@@ -200,10 +200,26 @@ getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 �
 提供一个 JsonEncoder，则我们能获得
 
 ```scala
-val a1: JsonEncoder[String, String] = throw new Exception()
-val a2: JsonEncoder[Int, String] = throw new Exception()
-val a3: JsonEncoder[Long, String] = throw new Exception()
-val a4: JsonEncoder[Long, String] = throw new Exception()
+val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
+  override def p(obj: String, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+    (name, Json.fromString(obj)) :: m
+  }
+}
+val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
+  override def p(obj: Int, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+    (name, Json.fromInt(obj)) :: m
+  }
+}
+val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
+  override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+    (name, Json.fromLong(obj)) :: m
+  }
+}
+val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
+  override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+    (name, Json.fromLong(obj)) :: m
+  }
+}
 ```
 
 于是我们需要做一个转换，也就是 asuna 最重要的转换：
