@@ -227,7 +227,7 @@ val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
 }
 ```
 
-So we need to do a conversion, also the most important conversion of asuna:
+So we need to do a conversion, also the most important conversion of asuna:  
 于是我们需要做一个转换，也是 asuna 最重要的转换：
 
 ```scala
@@ -243,11 +243,11 @@ JsonEncoder[
 ]
 ```
 
-This is a very symmetrical transformation.
+This is a very symmetrical transformation.  
 这是一个很对称的转换，也是 asuna 的美丽所在。
 
 Now we turn this transformation into an abstraction so
-that this abstraction can handle any similar situation.
+that this abstraction can handle any similar situation.  
 现在我们把这个转换转化成抽象，使得这个抽象能应对任何类似的情况。
 
 ```scala
@@ -258,7 +258,7 @@ class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypePar
 ```
 
 Inside asuna, there are some methods that help you with the transpose.
-Then there is the following superposition process.
+Then there is the following superposition process.  
 在 asuna 内部，提供了这样一些帮助你完成转置操作的函数。于是便有了以下叠加过程
 
 Property to be superposition  
@@ -281,18 +281,18 @@ Line by line merger
 |KContext#M[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
 |KContext#M[ItemTypeParameter4[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String], TypeParameter2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
 
-So as long as we provide a
+So as long as we provide a  
 所以只要我们提供一个
 
 ```scala
 def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y]): KContext#M[Z]
 ```
 
-we can do all the above.
+we can do all the above.  
 即可完成上面所有操作。
 
 But this method can't be implemented, we also need a Plus to assist
-with this implemented process. The abstraction of Plus is as follows:
+with this implemented process. The abstraction of Plus is as follows:  
 但这个函数式无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
 
 ```scala
@@ -304,7 +304,7 @@ trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
 }
 ```
 
-So the full version of `append` is
+So the full version of `append` is  
 所以完整版本的 append 是
 
 ```scala
@@ -312,7 +312,7 @@ def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KConte
 ```
 
 The `Item0 - Item7` Plus has been prepared inside asuna, so the process
-is completed smoothly. The complete Context implementation is as follows:
+is completed smoothly. The complete Context implementation is as follows:  
 而 Item0 - Item7 的 Plus 已经在 asuna 的内部准备好了，所以叠加过程得以顺利完成。完整的 Context 实现如下：
 
 ```scala
@@ -335,8 +335,8 @@ object ii extends Context[KContext] {
 ```
 
 It can be noticed that there is not much skill in the implementation of Context.
-Once type modeling is determined, it is just a simple filling work.
+Once type modeling is determined, it is just a simple filling work.  
 可以留意到 Context 的实现并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
 
-Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")
+Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")  
 完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")
