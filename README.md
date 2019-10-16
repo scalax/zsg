@@ -176,7 +176,8 @@ Now we introduce a scene. We have a 4-field case class to be encode.
 case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 ```
 
-我们要制作这样一个 Circe Encoder，需要准备一个
+To implement this Circe Encoder, we need a instance of:
+要制作这样一个 Circe Encoder，我们需要一个
 
 ```scala
 trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, String]] {
@@ -184,7 +185,8 @@ trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, St
 }
 ```
 
-的实例，假设它被命名为为 en1。我们可以轻易根据现有信息得出`Encoder.AsObject[Test04]`。
+Suppose it is named `en1`. We can easily derive `Encoder.AsObject[Test04]` based on the existing information.
+的实例，假设它被命名为为 `en1`。我们可以轻易根据现有信息得出`Encoder.AsObject[Test04]`。
 
 ```scala
 val getter = { test04: Test04 => new Item4(test04.i1, test04.i2, test04.i3, test04.i4) }
@@ -195,6 +197,7 @@ Encoder.AsObject.instance { o: Test04 =>
 }
 ```
 
+The way to get `getter` and `names` will be explained later. Now only the way to get the `en1` will be discussed here.
 getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 的获取方法。我们先拟定
 可提供的资源。假定每个字段都能根据 circe 的 implicit
 提供一个 JsonEncoder，则我们能获得
