@@ -173,7 +173,7 @@ Now we introduce a scene. We have a 4-field case class to be encode.
 现在我们引入一个场景，我们有一个 4 个字段的 case class 需要 encode。
 
 ```scala
-case class Test04(i1: Sting, i2: Int, i3: Long, i4: Long)
+case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 ```
 
 我们要制作这样一个 Circe Encoder，需要准备一个
@@ -317,3 +317,4 @@ object ii extends Context[KContext] {
 ```
 
 可以留意到 Context 的实现只是对叠加过程的体现，并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
+完整地例子在[这里](sfsfksfjslgjlegj)
