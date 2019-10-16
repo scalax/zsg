@@ -334,5 +334,9 @@ object ii extends Context[KContext] {
 }
 ```
 
-可以留意到 Context 的实现只是对叠加过程的体现，并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
+It can be noticed that there is not much skill in the implementation of Context.
+Once type modeling is determined, it is just a simple filling work.
+可以留意到 Context 的实现并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
+
+Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")
 完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")
