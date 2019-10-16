@@ -411,7 +411,7 @@ The macro system allows you to save all your code generation time.
 And the design of the macro system is quite discrete, following the
 principle of on-demand acquisition. The rules of the code generated
 by the macro system will be hard coded in the current macro file to
-save time in developing the search.
+save time in developing the search.  
 For more information, please find the [sample](https://github.com/scalax/asuna/tree/master/sample "sample") we provide.
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
 宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。
