@@ -250,6 +250,20 @@ class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypePar
 
 在 asuna 内部，提供了这样一些帮助你完成转置操作的函数。于是便有了以下叠加过程
 
-|dfsfsd|sdfeerrhrthrt|dghsdgrgr|
--:|:-:|:-
-|grtjtykj|ykyukyuk|htdfyttfj|
+Property to be superposition
+
+|Input Type|Final Result Type|
+:-:|:-:
+|KContext#M[TypeParameter2[String, String]]|JsonEncoder[String, String]|
+|KContext#M[TypeParameter2[Int, String]]|JsonEncoder[Int, String]|
+|KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
+|KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
+
+Line by line merger
+
+|Output Type|Final Result Type|
+:-:|:-:
+|KContext#M[ItemTypeParameter1[TypeParameter2[String, String]]]|JsonEncoder[Item1[String], Item1[String]]|
+|KContext#M[ItemTypeParameter2[TypeParameter2[String, String], TypeParameter2[Int, String]]]|JsonEncoder[Item2[Int, String], Item2[String, String]]|
+|KContext#M[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
+|KContext#M[ItemTypeParameter4[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String], TypeParameter2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
