@@ -304,12 +304,15 @@ trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
 }
 ```
 
+So the full version of `append` is
 所以完整版本的 append 是
 
 ```scala
 def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y], p: Plus[X, Y, Z]): KContext#M[Z]
 ```
 
+The `Item0 - Item7` Plus has been prepared inside asuna, so the process
+is completed smoothly. The complete Context implementation is as follows:
 而 Item0 - Item7 的 Plus 已经在 asuna 的内部准备好了，所以叠加过程得以顺利完成。完整的 Context 实现如下：
 
 ```scala
