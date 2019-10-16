@@ -21,7 +21,7 @@ of [shapeless](https://github.com/milessabin/shapeless "shapeless"). Which
 only handle case class generic and sealed trait generic problems.  
 Asuna 是一个数据转换的抽象。目前而言它是
 [shapeless](https://github.com/milessabin/shapeless "shapeless")
-的子集，只针对 case class 和 sealed trait 的 generic 问题作出一个解决方案。
+的一个子集，只针对 case class 和 sealed trait 的 generic 问题作出一个解决方案。
 
 ### Why Type Projection?
 
@@ -352,5 +352,43 @@ Application 的获取是由纯 Tag Type 开始的。由这里开始我们将更�
 我们根据 Test04 生成第一段代码：
 
 ```scala
-BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
+val ap = PropertyApply[Test04]
+
+val test04PropertyTag
+  : AppendTag[ItemTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
+  BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 ```
+
+由于这只是一个 Tag，别忘记使用 BuildContent.lift 来消除所有装箱消耗。其中，`Number：1` 等类型会被用于 debug，将在后面介绍。
+
+在这里，我们得到了 4 个引导类型：
+
+```scala
+PropertyTag[String]
+PropertyTag[Int]
+PropertyTag[Long]
+PropertyTag[Long]
+```
+
+asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 ItemX 的 `Application[KContext, PropertyTag[ItemX[...]], ItemTypeParameterX[...]]`
+
+这里可以依赖于 circe 作如下编码：
+
+```scala
+implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeParameter2[T, String]] =
+  new Application[KContext, PropertyTag[T], TypeParameter2[T, String]] {
+    override def application(context: Context[KContext]): JsonEncoder[T, String] = {
+      new JsonEncoder[T, String] {
+        override def p(obj: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+          ((name, encoder.value(obj))) :: m
+        }
+      }
+    }
+  }
+```
+
+然后完成整个 Circe Json Object Encoder 的代码在 [这里](dfgshtryrter "Test02")
+
+### 4.Implicit macro system
+
+宏系统可以让你节省所有硬编码的时间。并且由于 asuna 设计的关系，宏系统的设计相当离散，遵循按需获取的原则。宏系统生成的内容的规律将会硬编码在当前宏文件中以节省开发查找的时间。更多信息请查找我们提供的[例子](sgfjoejorejtoijret "sample")
