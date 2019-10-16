@@ -403,7 +403,7 @@ In the merged `Application[KContext, SumTag, SumI]`, `SumI#H` is `Item4[String, 
 `SumI#T#H` 为 `Item4[String, String, String, String]`.
 
 Complete Circe Json Object Encoder's sample is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02").  
-完整的 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")
+完整的 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")。
 
 ### 4.Implicit macro system
 
@@ -415,4 +415,4 @@ save time in developing the search.
 For more information, please find the [sample](https://github.com/scalax/asuna/tree/master/sample "sample") we provide.
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
 宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。
-更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")
+更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")。
