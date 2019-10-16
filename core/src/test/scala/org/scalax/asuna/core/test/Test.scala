@@ -13,7 +13,7 @@ class Test extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val test04PropertyTag = BuildContent.lift(
+  val fooPropertyTag = BuildContent.lift(
     BuildContent.nodeTag(
       BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)),
       BuildContent.tag(ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
