@@ -293,7 +293,7 @@ we can do all the above.
 
 But this method can't be implemented, we also need a Plus to assist
 with this implemented process. The abstraction of Plus is as follows:  
-但这个函数式无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
+但这个函数式是无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
 
 ```scala
 trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
