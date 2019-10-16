@@ -154,7 +154,7 @@ Then we can implement the KindContext.
 
 ```scala
 class KContext extends KindContext {
-  override type M[P <: TypeParameter] = JsonEncoder[P#T#H, P#H]
+  override type M[P <: TypeParameter] = JsonEncoder[P#H, P#T#H]
 }
 ```
 
