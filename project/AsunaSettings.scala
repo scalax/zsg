@@ -9,4 +9,12 @@ object AsunaSettings {
 
   val scalaVersionSettings = Seq(setting1, setting2)
 
+  val circeVersion = "0.12.2"
+
+  val circeDependencies = Seq(
+    "io.circe" %% "circe-core",
+    "io.circe" %% "circe-generic",
+    "io.circe" %% "circe-parser"
+  ).map(_ % circeVersion)
+
 }
