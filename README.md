@@ -14,7 +14,7 @@ This document will be written in English for a period of Chinese
 因为我的英语水平比较不堪，这份文档会以一段英文一段中文的形式撰写。欢迎大家提交任何文档更改到
 asuna。
 
-### What's asuna?
+## What's asuna?
 
 Asuna is an abstraction of data transformation. Now it's a subset
 of [shapeless](https://github.com/milessabin/shapeless "shapeless"). Which
@@ -49,9 +49,9 @@ IntelliJ IDEA and then populated based on type hints.
 - No similar type style is found in [dotty](https://github.com/lampepfl/dotty "dotty").  
 在 dotty 中找不到类似的类型风格。
 
-### Tutorial
+## Tutorial
 
-#### 1.Type Projection Model
+### 1.Type Projection Model
 
 Look at such a Trait.  
 观察这样一个 Trait。
@@ -167,7 +167,7 @@ val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypePara
 val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeParameter2[Item2[Int, Long], Item2[String, String]]]
 ```
 
-#### 2.Transpose use Type Projection and ItemX
+### 2.Transpose use Type Projection and ItemX
 
 Now we introduce a scene. We have a 4-field case class to be encode.  
 现在我们引入一个场景，我们有一个 4 个字段的 case class 需要 encode。
@@ -341,8 +341,16 @@ Once type modeling is determined, it is just a simple filling work.
 Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01").  
 完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")。
 
-#### 3.Implicit system
+### 3.Implicit system
 
 Now let's use asuna's `Application` to do an example
 that is closer to the real scene.  
 现在我们使用 asuna 的 `Application` 来做一个更接近真实场景的例子。
+
+Application 的获取是由纯 Tag Type 开始的。由这里开始我们将更多地使用 BuildContent 的函数以简化代码。
+
+我们根据 Test04 生成第一段代码：
+
+```scala
+BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
+```
