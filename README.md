@@ -344,5 +344,5 @@ Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/sr
 #### 3.Implicit system
 
 Now let's use asuna's `Application` to do an example
-that is closer to the real scene.
+that is closer to the real scene.  
 现在我们使用 asuna 的 `Application` 来做一个更接近真实场景的例子。
