@@ -269,3 +269,51 @@ Line by line merger
 |KContext#M[ItemTypeParameter2[TypeParameter2[String, String], TypeParameter2[Int, String]]]|JsonEncoder[Item2[Int, String], Item2[String, String]]|
 |KContext#M[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
 |KContext#M[ItemTypeParameter4[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String], TypeParameter2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
+
+所以只要我们提供一个
+
+```scala
+def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y]): KContext#M[Z]
+```
+
+即可完成上面所有操作。
+
+但这个函数式无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
+
+```scala
+trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
+  def plus(p: X#H, item: Y#H): Z#H
+  def takeHead(t: Z#H): X#H
+  def takeTail(t: Z#H): Y#H
+  def sub: Plus[X#T, Y#T, Z#T]
+}
+```
+
+所以完整版本的 append 是
+
+```scala
+def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y], p: Plus[X, Y, Z]): KContext#M[Z]
+```
+
+而 Item0 - Item7 的 Plus 已经在 asuna 的内部准备好了，所以叠加过程得以顺利完成。完整的 Context 实现如下：
+
+```scala
+object ii extends Context[KContext] {
+  override def isReverse: Boolean = false
+
+  override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    x: JsonEncoder[X#T#H, X#H],
+    y: JsonEncoder[Y#T#H, Y#H],
+    plus: Plus[X, Y, Z]
+  ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
+    override def p(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
+      x.p(plus.sub.takeHead(obj), plus.takeHead(name), y.p(plus.sub.takeTail(obj), plus.takeTail(name), m))
+  }
+
+  override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
+    override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+  }
+}
+```
+
+可以留意到 Context 的实现只是对叠加过程的体现，并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
