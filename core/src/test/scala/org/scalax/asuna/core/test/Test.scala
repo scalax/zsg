@@ -13,11 +13,12 @@ class Test extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = BuildContent.nodeTag(
-    BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)),
-    BuildContent.tag(ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
-    BuildContent.tag(ap.to(_.i9), ap.to(_.i10))
-  )
+  val test04PropertyTag = BuildContent.lift(
+    BuildContent.nodeTag(
+      BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)),
+      BuildContent.tag(ap.to(_.i5), ap.to(_.i6), ap.to(_.i7), ap.to(_.i8)),
+      BuildContent.tag(ap.to(_.i9), ap.to(_.i10))
+    ))
 
   val fooGetter = (foo: Foo) => {
     BuildContent.nodeItem3(BuildContent.item4(foo.i1, foo.i2, foo.i3, foo.i4), BuildContent.item4(foo.i5, foo.i6, foo.i7, foo.i8), BuildContent.item2(foo.i9, foo.i10))
