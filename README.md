@@ -346,3 +346,11 @@ Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/sr
 Now let's use asuna's `Application` to do an example
 that is closer to the real scene.  
 现在我们使用 asuna 的 `Application` 来做一个更接近真实场景的例子。
+
+Application 的获取是由纯 Tag Type 开始的。由这里开始我们将更多地使用 BuildContent 的函数以简化代码。
+
+我们根据 Test04 生成第一段代码：
+
+```scala
+BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
+```
