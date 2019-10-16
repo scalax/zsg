@@ -338,7 +338,7 @@ It can be noticed that there is not much skill in the implementation of Context.
 Once type modeling is determined, it is just a simple filling work.  
 可以留意到 Context 的实现并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
 
-Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample01_append "Sample01").  
+Complete sample is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample01_append "Sample01").  
 完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample01_append "Sample01")。
 
 ### 3.Implicit system
@@ -347,8 +347,11 @@ Now let's use asuna's `Application` to do an example
 that is closer to the real scene.  
 现在我们使用 asuna 的 `Application` 来做一个更接近真实场景的例子。
 
+The acquisition of Application starts with a pure Tag Type. From here on,
+we will use the BuildContent function more to simplify the code.  
 Application 的获取是由纯 Tag Type 开始的。由这里开始我们将更多地使用 BuildContent 的函数以简化代码。
 
+We generate the first code based on Test04 case class:  
 我们根据 Test04 生成第一段代码：
 
 ```scala
@@ -359,8 +362,12 @@ val test04PropertyTag
   BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 ```
 
+Since this is just a Tag, don't forget to use `BuildContent.lift`
+to eliminate all boxing costs. `Number:X` will be used for debugging,
+which will be introduced later.  
 由于这只是一个 Tag，别忘记使用 BuildContent.lift 来消除所有装箱消耗。其中，`Number：1` 等类型会被用于 debug，将在后面介绍。
 
+Here we got 4 boot types:  
 在这里，我们得到了 4 个引导类型：
 
 ```scala
@@ -370,8 +377,11 @@ PropertyTag[Long]
 PropertyTag[Long]
 ```
 
+Asuna will find 4 `Application[KContext, PropertyTag[T], I]` according
+to KContext and these 4 boot types, and then merge them into one with ItemX.  
 asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 ItemX 的 `Application[KContext, PropertyTag[ItemX[...]], ItemTypeParameterX[...]]`
 
+Here you can get this code by circe:  
 这里可以依赖于 circe 作如下编码：
 
 ```scala
@@ -387,8 +397,22 @@ implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]])
   }
 ```
 
-然后完成整个 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")
+In the merged `Application[KContext, SumTag, SumI]`, `SumI#H` is `Item4[String, Int, Long, Long]`,
+`SumI#T#H` is `Item4[String, String, String, String]`.  
+合并后的`Application[KContext, SumTag, SumI]` 中，`SumI#H` 为 `Item4[String, Int, Long, Long]`,
+`SumI#T#H` 为 `Item4[String, String, String, String]`.
+
+Complete Circe Json Object Encoder's sample is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02").  
+完整的 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")
 
 ### 4.Implicit macro system
 
-宏系统可以让你节省所有硬编码的时间。并且由于 asuna 设计的关系，宏系统的设计相当离散，遵循按需获取的原则。宏系统生成的内容的规律将会硬编码在当前宏文件中以节省开发查找的时间。更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")
+The macro system allows you to save all your code generation time.
+And the design of the macro system is quite discrete, following the
+principle of on-demand acquisition. The rules of the code generated
+by the macro system will be hard coded in the current macro file to
+save time in developing the search.
+For more information, please find the [sample](https://github.com/scalax/asuna/tree/master/sample "sample") we provide.
+宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
+宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。
+更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")
