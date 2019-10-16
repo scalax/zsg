@@ -167,7 +167,7 @@ val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypePara
 val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeParameter2[Item2[Int, Long], Item2[String, String]]]
 ```
 
-#### 2.Orthogonal between Type Projection and ItemX
+#### 2.Transpose use Type Projection and ItemX
 
 Now we introduce a scene. We have a 4-field case class to be encode.  
 现在我们引入一个场景，我们有一个 4 个字段的 case class 需要 encode。
@@ -340,3 +340,9 @@ Once type modeling is determined, it is just a simple filling work.
 
 Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01").  
 完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")。
+
+#### 3.Implicit system
+
+Now let's use asuna's `Application` to do an example
+that is closer to the real scene.
+现在我们使用 asuna 的 `Application` 来做一个更接近真实场景的例子。
