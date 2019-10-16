@@ -78,7 +78,7 @@ object Test01 {
                 TypeParameter2[Long, String]
               ]](b2, a3, ItemTypeParameterPlus3.plus3)
 
-  val b4: JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]] =
+  val en1: JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]] =
     ii.append[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]],
               TypeParameter2[Long, String],
               ItemTypeParameter4[
@@ -91,7 +91,7 @@ object Test01 {
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
       Encoder.AsObject.instance { o: Test04 =>
-        JsonObject.fromIterable(b4.p(getter(o), names, List.empty))
+        JsonObject.fromIterable(en1.p(getter(o), names, List.empty))
       }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
