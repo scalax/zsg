@@ -7,7 +7,7 @@ import shapeless.labelled.FieldType
 
 object ShapelessTest {
 
-  object EncodeImplicit extends EncodeImplicit3 {
+  object EncodeImplicit extends EncodeImplicit4 {
 
     implicit val encodeHNil: Encoder.AsObject[HNil] = Encoder.AsObject.instance((_: HNil) => JsonObject.empty)
 
@@ -22,6 +22,28 @@ object ShapelessTest {
 
     def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: Encoder.AsObject[R]): Encoder.AsObject[A] =
       Encoder.AsObject.instance(a => encodeR.encodeObject(gen.to(a)))
+
+  }
+
+  trait EncodeImplicit4 extends EncodeImplicit3 {
+
+    implicit def encodeHCons4[K1 <: Symbol, H1, K2 <: Symbol, H2, K3 <: Symbol, H3, K4 <: Symbol, H4, T <: HList](
+      implicit
+      key1: Witness.Aux[K1],
+      encodeH1: LazyImplicit[Encoder[H1]],
+      key2: Witness.Aux[K2],
+      encodeH2: LazyImplicit[Encoder[H2]],
+      key3: Witness.Aux[K3],
+      encodeH3: LazyImplicit[Encoder[H3]],
+      key4: Witness.Aux[K4],
+      encodeH4: LazyImplicit[Encoder[H4]],
+      encodeT: Encoder.AsObject[T]
+    ): Encoder.AsObject[FieldType[K1, H1] :: FieldType[K2, H2] :: FieldType[K3, H3] :: FieldType[K4, H4] :: T] = Encoder.AsObject.instance {
+      case h1 :: h2 :: h3 :: h4 :: t =>
+        ((key4.value.name, encodeH4.value(h4))) +: ((key3.value.name, encodeH3.value(h3))) +: ((key2.value.name, encodeH2.value(h2))) +: ((key1.value.name,
+                                                                                                                                           encodeH1.value(h1))) +: encodeT
+          .encodeObject(t)
+    }
 
   }
 
