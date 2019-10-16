@@ -240,3 +240,15 @@ JsonEncoder[
 这是一个很对称的转换，也是 asuna 的美丽所在。
 
 现在我们把这个转换转化成抽象，使得这个抽象能应对任何类似的情况。
+
+```scala
+class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypeParameter] extends TypeParameter {
+  override type H = Item3[E1#H, E2#H, E3#H]
+  override type T = ItemTypeParameter3[E1#T, E2#T, E3#T]
+}
+```
+
+在 asuna 内部，提供了这样一些帮助你完成转置操作的函数。于是便有了以下叠加过程
+
+|dfsfsd|sdfeerrhrthrt|dghsdgrgr|
+|grtjtykj|ykyukyuk|htdfyttfj|
