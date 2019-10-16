@@ -250,7 +250,8 @@ class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypePar
 
 在 asuna 内部，提供了这样一些帮助你完成转置操作的函数。于是便有了以下叠加过程
 
-Property to be superposition
+Property to be superposition  
+被叠加元素
 
 |Input Type|Final Result Type|
 :-:|:-:
@@ -259,7 +260,8 @@ Property to be superposition
 |KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
 |KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
 
-Line by line merger
+Line by line merger  
+逐行合并
 
 |Output Type|Final Result Type|
 :-:|:-:
