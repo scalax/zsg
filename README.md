@@ -317,4 +317,4 @@ object ii extends Context[KContext] {
 ```
 
 可以留意到 Context 的实现只是对叠加过程的体现，并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
-完整地例子在[这里](sfsfksfjslgjlegj)
+完整地例子在[这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")
