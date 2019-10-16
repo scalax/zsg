@@ -338,8 +338,8 @@ It can be noticed that there is not much skill in the implementation of Context.
 Once type modeling is determined, it is just a simple filling work.  
 可以留意到 Context 的实现并没有太多的技巧，类型建模一旦被确定，就只是简单的填充工作。
 
-Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01").  
-完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/test01 "Test01")。
+Complete example is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample01_append "Sample01").  
+完整地例子在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample01_append "Sample01")。
 
 ### 3.Implicit system
 
@@ -387,8 +387,8 @@ implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]])
   }
 ```
 
-然后完成整个 Circe Json Object Encoder 的代码在 [这里](dfgshtryrter "Test02")
+然后完成整个 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")
 
 ### 4.Implicit macro system
 
-宏系统可以让你节省所有硬编码的时间。并且由于 asuna 设计的关系，宏系统的设计相当离散，遵循按需获取的原则。宏系统生成的内容的规律将会硬编码在当前宏文件中以节省开发查找的时间。更多信息请查找我们提供的[例子](sgfjoejorejtoijret "sample")
+宏系统可以让你节省所有硬编码的时间。并且由于 asuna 设计的关系，宏系统的设计相当离散，遵循按需获取的原则。宏系统生成的内容的规律将会硬编码在当前宏文件中以节省开发查找的时间。更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")
