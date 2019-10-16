@@ -176,7 +176,7 @@ Now we introduce a scene. We have a 4-field case class to be encode.
 case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 ```
 
-To implement this Circe Encoder, we need a instance of:
+To implement this Circe Encoder, we need a instance of:  
 要制作这样一个 Circe Encoder，我们需要一个
 
 ```scala
@@ -185,7 +185,8 @@ trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, St
 }
 ```
 
-Suppose it is named `en1`. We can easily derive `Encoder.AsObject[Test04]` based on the existing information.
+Suppose it is named `en1`. We can easily derive `Encoder.AsObject[Test04]`
+based on the existing information.  
 的实例，假设它被命名为为 `en1`。我们可以轻易根据现有信息得出`Encoder.AsObject[Test04]`。
 
 ```scala
@@ -197,10 +198,11 @@ Encoder.AsObject.instance { o: Test04 =>
 }
 ```
 
-The way to get `getter` and `names` will be explained later. Now only the way to get the `en1` will be discussed here.
-getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 的获取方法。我们先拟定
-可提供的资源。假定每个字段都能根据 circe 的 implicit
-提供一个 JsonEncoder，则我们能获得
+The way to get `getter` and `names` will be explained later. Now only
+the way to get the `en1` will be discussed here. Assuming that each field
+can provide a Json Encoder based on the implicit of circe, we can get:  
+getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 的获取方法。
+假定每个字段都能根据 circe 的 implicit 提供一个 Json Encoder，则我们能获得
 
 ```scala
 val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
@@ -225,7 +227,8 @@ val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
 }
 ```
 
-于是我们需要做一个转换，也就是 asuna 最重要的转换：
+So we need to do a conversion, also the most important conversion of asuna:
+于是我们需要做一个转换，也是 asuna 最重要的转换：
 
 ```scala
 Item4[
@@ -240,8 +243,11 @@ JsonEncoder[
 ]
 ```
 
+This is a very symmetrical transformation.
 这是一个很对称的转换，也是 asuna 的美丽所在。
 
+Now we turn this transformation into an abstraction so
+that this abstraction can handle any similar situation.
 现在我们把这个转换转化成抽象，使得这个抽象能应对任何类似的情况。
 
 ```scala
@@ -251,6 +257,8 @@ class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypePar
 }
 ```
 
+Inside asuna, there are some methods that help you with the transpose.
+Then there is the following superposition process.
 在 asuna 内部，提供了这样一些帮助你完成转置操作的函数。于是便有了以下叠加过程
 
 Property to be superposition  
@@ -273,14 +281,18 @@ Line by line merger
 |KContext#M[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
 |KContext#M[ItemTypeParameter4[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String], TypeParameter2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
 
+So as long as we provide a
 所以只要我们提供一个
 
 ```scala
 def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y]): KContext#M[Z]
 ```
 
+we can do all the above.
 即可完成上面所有操作。
 
+But this method can't be implemented, we also need a Plus to assist
+with this implemented process. The abstraction of Plus is as follows:
 但这个函数式无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
 
 ```scala
