@@ -419,4 +419,4 @@ Complete asuna sample is WIP. Or you can find test case in [circe test](https://
 宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。  
 更多信息请查找我们提供的 [例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
 关于宏生成的代码样例在 [这里](https://github.com/scalax/asuna/tree/master/sample "sample")。  
-敬请期待更多样例的推出，或者你可以先看看测试用例里面的完整 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。
+敬请期待更多完整样例的推出，或者你可以先查看测试用例里面的 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。
