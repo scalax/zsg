@@ -87,8 +87,9 @@ object CaseClassHelperGen1 extends App {
 
   val path22 = buildDir.resolve("TypeHList.scala")
   Files.createDirectories(path22.getParent)
-  val writer22   = new PrintWriter(path22.toFile, "utf-8")
-  val content221 = Source.fromString(org.scalax.asuna.item.template.build.txt.TypeHList(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val writer22 = new PrintWriter(path22.toFile, "utf-8")
+  val content221 =
+    Source.fromString(org.scalax.asuna.item.template.build.txt.TypeHList(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content222 = content221.mkString(System.lineSeparator)
   writer22.println(content222)
   writer22.close()
@@ -115,7 +116,7 @@ object CaseClassHelperGen1 extends App {
   Files.createDirectories(path18.getParent)
   val writer18 = new PrintWriter(path18.toFile, "utf-8")
   val content181 =
-    Source.fromString(org.scalax.asuna.item.template.txt.BuildContent(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.BuildContent(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content182 = content181.mkString(System.lineSeparator)
   writer18.println(content182)
   writer18.close()
