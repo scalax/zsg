@@ -40,7 +40,7 @@ trait CircePoly {
     new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] {
       override def application(context: Context[AsunaCirceEncoder.KContext]): AsunaCirceEncoder.JsonEncoder[T, String] = {
         new AsunaCirceEncoder.JsonEncoder[T, String] {
-          override def p(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+          override def appendField(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
             ((name, t.value(tt))) :: m
           }
         }

@@ -14,14 +14,14 @@ object AsunaCirceEncoder {
   ): Encoder.AsObject[H] = {
     val names = cv1.names.withContext(ii)
     Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), names, List.empty))
+      JsonObject.fromIterable(app.application(ii).appendField(cv2.getter(o).withContext(ii), names, List.empty))
     }
   }
 
   def caseObjectEncoder[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(f => JsonObject.empty)
 
   trait JsonEncoder[T, II] {
-    def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+    def appendField(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
   }
 
   class KContext extends KindContext {
@@ -36,12 +36,12 @@ object AsunaCirceEncoder {
       y: JsonEncoder[Y#T#H, Y#H],
       plus: Plus[X, Y, Z]
     ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
-      override def p(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
-        x.p(plus.sub.takeHead(obj), plus.takeHead(name), y.p(plus.sub.takeTail(obj), plus.takeTail(name), m))
+      override def appendField(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
+        x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
     }
 
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+      override def appendField(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
     }
   }
 
@@ -55,7 +55,7 @@ object AsunaCirceEncoder {
         cv2: AsunaGetterGeneric[H, I#T#H]
       ): Encoder.AsObject[H] = {
         Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(app.application(ii).p(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
+          JsonObject.fromIterable(app.application(ii).appendField(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
         }
       }
     }
