@@ -1,4 +1,4 @@
-package asuna.test02
+package asuna.sample03_macros
 
 import asuna._
 import asuna.macros.{AsunaDefaultValueGeneric, DefaultValue}
@@ -31,18 +31,9 @@ object AsunaDefaultValueGenericCodeGenSample {
 
   sameType(
     implicitly[
-      AsunaDefaultValueGeneric[Sample10,
-                               Item2[Item8[DefaultValue[String],
-                                           DefaultValue[Int],
-                                           DefaultValue[Int],
-                                           DefaultValue[Long],
-                                           DefaultValue[String],
-                                           DefaultValue[
-                                             List[String]
-                                           ],
-                                           DefaultValue[Long],
-                                           DefaultValue[Option[Long]]],
-                                     Item2[DefaultValue[List[Long]], DefaultValue[String]]]]
+      AsunaDefaultValueGeneric[Sample10, Item2[Item8[DefaultValue[String], DefaultValue[Int], DefaultValue[Int], DefaultValue[Long], DefaultValue[String], DefaultValue[
+        List[String]
+      ], DefaultValue[Long], DefaultValue[Option[Long]]], Item2[DefaultValue[List[Long]], DefaultValue[String]]]]
     ],
     genResult
   )

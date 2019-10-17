@@ -1,4 +1,4 @@
-package asuna.test02
+package asuna.sample03_macros
 
 case class Sample10(
   i1: String,

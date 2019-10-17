@@ -1,4 +1,4 @@
-package asuna.test02
+package asuna.sample03_macros
 
 import asuna._
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaSetterGeneric, DefaultValue, PropertySetter}

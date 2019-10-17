@@ -5,21 +5,21 @@ import asuna.macros.utils.SealedHelper
 
 import scala.language.experimental.macros
 
-trait AsunaSealedToabsGeneric[H, NameType] {
+trait AsunaSealedToAbsGeneric[H, NameType] {
   def names: ContextContent[NameType]
 }
 
-object AsunaSealedToabsGeneric {
+object AsunaSealedToAbsGeneric {
 
-  def init[M]: AsunaSealedToabsGenericApply[M] = new AsunaSealedToabsGenericApply[M] {}
+  def init[M]: AsunaSealedToAbsGenericApply[M] = new AsunaSealedToAbsGenericApply[M] {}
 
-  trait AsunaSealedToabsGenericApply[M] {
-    def name[N](names1: ContextContent[N]): AsunaSealedToabsGeneric[M, N] = new AsunaSealedToabsGeneric[M, N] {
+  trait AsunaSealedToAbsGenericApply[M] {
+    def name[N](names1: ContextContent[N]): AsunaSealedToAbsGeneric[M, N] = new AsunaSealedToAbsGeneric[M, N] {
       override def names: ContextContent[N] = names1
     }
   }
 
-  implicit def macroImpl[H, II]: AsunaSealedToabsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaSealedToAbsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
@@ -30,7 +30,7 @@ object AsunaSealedToabsGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedToabsGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedToAbsGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -54,8 +54,8 @@ object AsunaSealedToabsGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaSealedToabsGeneric[H, M]] {
-          q"""asuna.macros.AsunaSealedToabsGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+        c.Expr[AsunaSealedToAbsGeneric[H, M]] {
+          q"""asuna.macros.AsunaSealedToAbsGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
         }
 
       } catch {
