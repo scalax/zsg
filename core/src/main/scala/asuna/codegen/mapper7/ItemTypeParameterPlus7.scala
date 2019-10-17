@@ -1,62 +1,76 @@
 package asuna
-trait ItemTypeParameterPlus7 {
-  val plus7Any: Plus[
-    ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter],
-    AnyTypeParameter,
-    ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]
-  ] =
+trait ItemTypeHListPlus7 {
+  val plus7Any: Plus[ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList], AnyTypeHList, ItemTypeHList7[
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList
+  ]] =
     new Plus[
-      ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter],
-      AnyTypeParameter,
-      ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]
+      ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList],
+      AnyTypeHList,
+      ItemTypeHList7[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList]
     ] {
       override def plus(
-        p: Item6[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H],
-        item: AnyTypeParameter#H
-      ): Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H] = p.add(item)
-      override def takeTail(
-        t: Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H]
-      ): AnyTypeParameter#H = t.rightHead
+        p: Item6[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H],
+        item: AnyTypeHList#H
+      ): Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H] = p.add(item)
+      override def takeTail(t: Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H =
+        t.rightHead
       override def takeHead(
-        t: Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H]
-      ): Item6[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H] = t.rightTail
-      override def sub: Plus[
-        ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]#T,
-        AnyTypeParameter#T,
-        ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]#T
-      ] = plus7Any
+        t: Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H]
+      ): Item6[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H] = t.rightTail
+      override def sub: Plus[ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList]#T, AnyTypeHList#T, ItemTypeHList7[
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList
+      ]#T] = plus7Any
     }
-  val put7Any: Plus[
-    ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter],
-    AnyTypeParameter,
-    ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]
-  ] =
+  val put7Any: Plus[ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList], AnyTypeHList, ItemTypeHList7[
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList,
+    AnyTypeHList
+  ]] =
     new Plus[
-      ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter],
-      AnyTypeParameter,
-      ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]
+      ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList],
+      AnyTypeHList,
+      ItemTypeHList7[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList]
     ] {
       override def plus(
-        p: Item6[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H],
-        item: AnyTypeParameter#H
-      ): Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H] = p.pull(item)
-      override def takeTail(
-        t: Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H]
-      ): AnyTypeParameter#H = t.leftHead
+        p: Item6[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H],
+        item: AnyTypeHList#H
+      ): Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H] = p.pull(item)
+      override def takeTail(t: Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H =
+        t.leftHead
       override def takeHead(
-        t: Item7[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H]
-      ): Item6[AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H, AnyTypeParameter#H] = t.leftTail
-      override def sub: Plus[
-        ItemTypeParameter6[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]#T,
-        AnyTypeParameter#T,
-        ItemTypeParameter7[AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter, AnyTypeParameter]#T
-      ] = put7Any
+        t: Item7[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H]
+      ): Item6[AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H, AnyTypeHList#H] = t.leftTail
+      override def sub: Plus[ItemTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList]#T, AnyTypeHList#T, ItemTypeHList7[
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList,
+        AnyTypeHList
+      ]#T] = put7Any
     }
-  @inline def plus7[T1 <: TypeParameter, T2 <: TypeParameter, T3 <: TypeParameter, T4 <: TypeParameter, T5 <: TypeParameter, T6 <: TypeParameter, T7 <: TypeParameter]
-    : Plus[ItemTypeParameter6[T1, T2, T3, T4, T5, T6], T7, ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] =
-    plus7Any.asInstanceOf[Plus[ItemTypeParameter6[T1, T2, T3, T4, T5, T6], T7, ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]]]
-  @inline def put7[T1 <: TypeParameter, T2 <: TypeParameter, T3 <: TypeParameter, T4 <: TypeParameter, T5 <: TypeParameter, T6 <: TypeParameter, T7 <: TypeParameter]
-    : Plus[ItemTypeParameter6[T1, T2, T3, T4, T5, T6], T7, ItemTypeParameter7[T7, T1, T2, T3, T4, T5, T6]] =
-    put7Any.asInstanceOf[Plus[ItemTypeParameter6[T1, T2, T3, T4, T5, T6], T7, ItemTypeParameter7[T7, T1, T2, T3, T4, T5, T6]]]
+  @inline def plus7[T1 <: TypeHList, T2 <: TypeHList, T3 <: TypeHList, T4 <: TypeHList, T5 <: TypeHList, T6 <: TypeHList, T7 <: TypeHList]
+    : Plus[ItemTypeHList6[T1, T2, T3, T4, T5, T6], T7, ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]] =
+    plus7Any.asInstanceOf[Plus[ItemTypeHList6[T1, T2, T3, T4, T5, T6], T7, ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]]]
+  @inline def put7[T1 <: TypeHList, T2 <: TypeHList, T3 <: TypeHList, T4 <: TypeHList, T5 <: TypeHList, T6 <: TypeHList, T7 <: TypeHList]
+    : Plus[ItemTypeHList6[T1, T2, T3, T4, T5, T6], T7, ItemTypeHList7[T7, T1, T2, T3, T4, T5, T6]] =
+    put7Any.asInstanceOf[Plus[ItemTypeHList6[T1, T2, T3, T4, T5, T6], T7, ItemTypeHList7[T7, T1, T2, T3, T4, T5, T6]]]
 }
-object ItemTypeParameterPlus7 extends ItemTypeParameterPlus7
+object ItemTypeHListPlus7 extends ItemTypeHListPlus7

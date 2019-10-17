@@ -18,13 +18,13 @@ object Test01 {
   }
 
   class KContext extends KindContext {
-    override type M[P <: TypeParameter] = JsonEncoder[P#H, P#T#H]
+    override type M[P <: TypeHList] = JsonEncoder[P#H, P#T#H]
   }
 
   object ii extends Context[KContext] {
     override def isReverse: Boolean = false
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonEncoder[X#H, X#T#H],
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
@@ -60,33 +60,27 @@ object Test01 {
   }
 
   val b1: JsonEncoder[Item1[String], Item1[String]] =
-    ii.append[ItemTypeParameter0, TypeParameter2[String, String], ItemTypeParameter1[TypeParameter2[String, String]]](ii.start, a1, ItemTypeParameterPlus1.hlistPlus1)
+    ii.append[ItemTypeHList0, TypeHList2[String, String], ItemTypeHList1[TypeHList2[String, String]]](ii.start, a1, ItemTypeHListPlus1.hlistPlus1)
   val b2: JsonEncoder[Item2[String, Int], Item2[String, String]] =
-    ii.append[ItemTypeParameter1[TypeParameter2[String, String]],
-              TypeParameter2[Int, String],
-              ItemTypeParameter2[
-                TypeParameter2[String, String],
-                TypeParameter2[Int, String]
-              ]](b1, a2, ItemTypeParameterPlus2.plus2)
+    ii.append[ItemTypeHList1[TypeHList2[String, String]], TypeHList2[Int, String], ItemTypeHList2[
+      TypeHList2[String, String],
+      TypeHList2[Int, String]
+    ]](b1, a2, ItemTypeHListPlus2.plus2)
 
   val b3: JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]] =
-    ii.append[ItemTypeParameter2[TypeParameter2[String, String], TypeParameter2[Int, String]],
-              TypeParameter2[Long, String],
-              ItemTypeParameter3[
-                TypeParameter2[String, String],
-                TypeParameter2[Int, String],
-                TypeParameter2[Long, String]
-              ]](b2, a3, ItemTypeParameterPlus3.plus3)
+    ii.append[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]], TypeHList2[Long, String], ItemTypeHList3[
+      TypeHList2[String, String],
+      TypeHList2[Int, String],
+      TypeHList2[Long, String]
+    ]](b2, a3, ItemTypeHListPlus3.plus3)
 
   val en1: JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]] =
-    ii.append[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]],
-              TypeParameter2[Long, String],
-              ItemTypeParameter4[
-                TypeParameter2[String, String],
-                TypeParameter2[Int, String],
-                TypeParameter2[Long, String],
-                TypeParameter2[Long, String]
-              ]](b3, a4, ItemTypeParameterPlus4.plus4)
+    ii.append[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]], TypeHList2[Long, String], ItemTypeHList4[
+      TypeHList2[String, String],
+      TypeHList2[Int, String],
+      TypeHList2[Long, String],
+      TypeHList2[Long, String]
+    ]](b3, a4, ItemTypeHListPlus4.plus4)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =

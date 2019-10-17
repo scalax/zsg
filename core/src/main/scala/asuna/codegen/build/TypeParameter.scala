@@ -1,33 +1,33 @@
 package asuna
-class TypeParameter1[T1] extends TypeParameter {
+class TypeHList1[T1] extends TypeHList {
   override type H = T1
-  override type T = EndParameter
+  override type T = TypeHNil
 }
-class TypeParameter2[T1, T2] extends TypeParameter {
+class TypeHList2[T1, T2] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter1[T2]
+  override type T = TypeHList1[T2]
 }
-class TypeParameter3[T1, T2, T3] extends TypeParameter {
+class TypeHList3[T1, T2, T3] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter2[T2, T3]
+  override type T = TypeHList2[T2, T3]
 }
-class TypeParameter4[T1, T2, T3, T4] extends TypeParameter {
+class TypeHList4[T1, T2, T3, T4] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter3[T2, T3, T4]
+  override type T = TypeHList3[T2, T3, T4]
 }
-class TypeParameter5[T1, T2, T3, T4, T5] extends TypeParameter {
+class TypeHList5[T1, T2, T3, T4, T5] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter4[T2, T3, T4, T5]
+  override type T = TypeHList4[T2, T3, T4, T5]
 }
-class TypeParameter6[T1, T2, T3, T4, T5, T6] extends TypeParameter {
+class TypeHList6[T1, T2, T3, T4, T5, T6] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter5[T2, T3, T4, T5, T6]
+  override type T = TypeHList5[T2, T3, T4, T5, T6]
 }
-class TypeParameter7[T1, T2, T3, T4, T5, T6, T7] extends TypeParameter {
+class TypeHList7[T1, T2, T3, T4, T5, T6, T7] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter6[T2, T3, T4, T5, T6, T7]
+  override type T = TypeHList6[T2, T3, T4, T5, T6, T7]
 }
-class TypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8] extends TypeParameter {
+class TypeHList8[T1, T2, T3, T4, T5, T6, T7, T8] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter7[T2, T3, T4, T5, T6, T7, T8]
+  override type T = TypeHList7[T2, T3, T4, T5, T6, T7, T8]
 }

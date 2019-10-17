@@ -2,14 +2,14 @@
 
 package asuna
 
-class ItemTypeParameter0 extends TypeParameter {
+class ItemTypeHList0 extends TypeHList {
   override type H = Item0
-  override type T = ItemTypeParameter0
+  override type T = ItemTypeHList0
 }
 
 @for(tagNum <- 1 to maxItem) {
-    class ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeParameter @if(ii < tagNum) { , } }] extends TypeParameter {
+    class ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }] extends TypeHList {
         override type H = Item@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } }]
-        override type T = ItemTypeParameter@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
+        override type T = ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
     }
 }

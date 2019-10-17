@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter, TypeParameter1}
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList, TypeHList1}
 
 sealed trait Abc[T]
 class AA[T](ii: T, iiii: String) extends Abc[T]
@@ -14,7 +14,7 @@ object SealedTraitTest extends App {
 
   class GenericApply1[H] {
     def generic[T](implicit asunaSealedGeneric: AsunaSealedLabelledGeneric[H, T]): AsunaSealedLabelledGeneric[H, T] = asunaSealedGeneric
-    def encode1[T <: ItemTag, TT <: TypeParameter](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
+    def encode1[T <: ItemTag, TT <: TypeHList](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
       throw new Exception()
   }
   //调试代码结束
@@ -23,7 +23,7 @@ object SealedTraitTest extends App {
     def str: List[String]
   }
 
-  def encode[H, T <: ItemTag, TT <: TypeParameter](
+  def encode[H, T <: ItemTag, TT <: TypeHList](
     implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
     app: Application[KC, T, TT],
     labelled: AsunaSealedLabelledGeneric[H, TT#H]
@@ -32,13 +32,13 @@ object SealedTraitTest extends App {
   }
 
   class KC extends KindContext {
-    override type M[T <: TypeParameter] = T#H => List[String] => List[String]
+    override type M[T <: TypeHList] = T#H => List[String] => List[String]
   }
 
   object i extends Context[KC] {
     override def isReverse: Boolean = false
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: X#H => List[String] => List[String],
       y: Y#H => List[String] => List[String],
       p: Plus[X, Y, Z]
@@ -57,7 +57,7 @@ object SealedTraitTest extends App {
     }
   }
 
-  implicit def stringImplicit1[T, R]: Application[KC, SealedTag[T], TypeParameter1[String]] = new Application[KC, SealedTag[T], TypeParameter1[String]] {
+  implicit def stringImplicit1[T, R]: Application[KC, SealedTag[T], TypeHList1[String]] = new Application[KC, SealedTag[T], TypeHList1[String]] {
     override def application(context: Context[KC]): String => List[String] => List[String] = {
       str: String =>
         { list: List[String] =>

@@ -40,9 +40,12 @@ object ShapelessTest {
       encodeT: Encoder.AsObject[T]
     ): Encoder.AsObject[FieldType[K1, H1] :: FieldType[K2, H2] :: FieldType[K3, H3] :: FieldType[K4, H4] :: T] = Encoder.AsObject.instance {
       case h1 :: h2 :: h3 :: h4 :: t =>
-        ((key4.value.name, encodeH4.value(h4))) +: ((key3.value.name, encodeH3.value(h3))) +: ((key2.value.name, encodeH2.value(h2))) +: ((key1.value.name,
-                                                                                                                                           encodeH1.value(h1))) +: encodeT
-          .encodeObject(t)
+        ((key4.value.name, encodeH4.value(h4))) +: ((key3.value.name, encodeH3.value(h3))) +: ((key2.value.name, encodeH2.value(h2))) +: (
+          (
+            key1.value.name,
+            encodeH1.value(h1)
+          )
+        ) +: encodeT.encodeObject(t)
     }
 
   }

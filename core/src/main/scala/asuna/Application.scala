@@ -3,14 +3,14 @@ package asuna
 import scala.annotation.implicitNotFound
 import scala.language.higherKinds
 
-trait TypeParameter {
+trait TypeHList {
   type H
-  type T <: TypeParameter
+  type T <: TypeHList
 }
 
-class AnyTypeParameter extends TypeParameter {
+class AnyTypeHList extends TypeHList {
   override type H = Any
-  override type T = AnyTypeParameter
+  override type T = AnyTypeHList
 }
 
 class NoData
@@ -19,16 +19,16 @@ object NoData {
   val value: NoData = new NoData
 }
 
-class EndParameter extends TypeParameter {
+class TypeHNil extends TypeHList {
   override type H = NoData
-  override type T = EndParameter
+  override type T = TypeHNil
 }
 
 trait KindContext {
-  type M[P <: TypeParameter]
+  type M[P <: TypeHList]
 }
 
-trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
+trait Plus[X <: TypeHList, Y <: TypeHList, Z <: TypeHList] {
   def plus(p: X#H, item: Y#H): Z#H
   def takeHead(t: Z#H): X#H
   def takeTail(t: Z#H): Y#H
@@ -39,29 +39,29 @@ trait Context[K <: KindContext] {
   self =>
 
   def isReverse: Boolean
-  def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
-  def start: K#M[ItemTypeParameter0]
+  def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
+  def start: K#M[ItemTypeHList0]
   //def lift[T, I <: TypeParameter](i: AppendTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(self)
 
   def reverse: Context[K] = new Context[K] {
-    override def isReverse                                                                                                          = !self.isReverse
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
-    override def start: K#M[ItemTypeParameter0]                                                                                     = self.start
+    override def isReverse                                                                                              = !self.isReverse
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z] = self.append(x, y, p)
+    override def start: K#M[ItemTypeHList0]                                                                             = self.start
   }
 
 }
 
-trait Application[K <: KindContext, T, I <: TypeParameter] {
+trait Application[K <: KindContext, T, I <: TypeHList] {
   def application(context: Context[K]): K#M[I]
 }
 @implicitNotFound(msg = "\nApplication not found.\nKindContext: ${K}\nMessage    : ${M}")
-trait DebugApplication[K <: KindContext, T, I <: TypeParameter, M <: Message] extends Application[K, T, I] {
+trait DebugApplication[K <: KindContext, T, I <: TypeHList, M <: Message] extends Application[K, T, I] {
   override def application(context: Context[K]): K#M[I]
 }
 
 object DebugApplication {
 
-  implicit def applicationImplicit[K <: KindContext, T, I <: TypeParameter, M <: Message](
+  implicit def applicationImplicit[K <: KindContext, T, I <: TypeHList, M <: Message](
     implicit app: Application[K, T, I]
   ): DebugApplication[K, T, I, M] = {
     new DebugApplication[K, T, I, M] {
@@ -73,13 +73,13 @@ object DebugApplication {
 @implicitNotFound(
   msg = "\nApplication not found.\nItemType    : ${T}\nKindContext : ${K}\nColumn Index: ${M}\n\nNumber: 3 :-<>-: Number: 2 Means index = 3 * 8 + 2 = 26(1 based)\n\n"
 )
-trait DebugItemApplication[K <: KindContext, T, I <: TypeParameter, M <: Message] extends Application[K, T, I] {
+trait DebugItemApplication[K <: KindContext, T, I <: TypeHList, M <: Message] extends Application[K, T, I] {
   override def application(context: Context[K]): K#M[I]
 }
 
 object DebugItemApplication {
 
-  implicit def applicationImplicit[K <: KindContext, T, I <: TypeParameter, M <: Message](
+  implicit def applicationImplicit[K <: KindContext, T, I <: TypeHList, M <: Message](
     implicit app: Application[K, T, I]
   ): DebugItemApplication[K, T, I, M] = {
     new DebugItemApplication[K, T, I, M] {

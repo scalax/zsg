@@ -1,10 +1,10 @@
 @(max: Int)(currentItem: Int)
-@if(currentItem == 1) { context.append[ItemTypeParameter0, T@{max}, ItemTypeParameter1[T@{max}]]
-(context.start, t@{max}.application(context), ItemTypeParameterPlus1.hlistPlus1) }
-@if(currentItem > 1) { context.append[ItemTypeParameter@{currentItem - 1}
+@if(currentItem == 1) { context.append[ItemTypeHList0, T@{max}, ItemTypeHList1[T@{max}]]
+(context.start, t@{max}.application(context), ItemTypeHListPlus1.hlistPlus1) }
+@if(currentItem > 1) { context.append[ItemTypeHList@{currentItem - 1}
 [@for(i <- max - currentItem + 2 to max) {T@{i} @if(i < (max)) { , }}],
 T@{max - currentItem + 1},
-ItemTypeParameter@{currentItem}
+ItemTypeHList@{currentItem}
 [@for(i <- max - currentItem + 1 to max) {T@{i} @if(i < max) { , }}]
 ](@org.scalax.asuna.item.template.utils.txt.ContextAppend2(max)(currentItem - 1),
-t@{max - currentItem + 1}.application(context), ItemTypeParameterPlus@{currentItem}.put@{currentItem})}
+t@{max - currentItem + 1}.application(context), ItemTypeHListPlus@{currentItem}.put@{currentItem})}

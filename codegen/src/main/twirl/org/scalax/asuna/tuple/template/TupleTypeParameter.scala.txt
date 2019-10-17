@@ -3,8 +3,8 @@
 package asuna
 
 @for(i <- 2 to maxItem) {
-    class TupleTypeParameter@{i}[@for(ii <- 1 to i) { E@{ii} <: TypeParameter @if(ii < i) { , } }] extends TypeParameter {
+    class TupleTypeHList@{i}[@for(ii <- 1 to i) { E@{ii} <: TypeHList @if(ii < i) { , } }] extends TypeHList {
         override type H = (@for(ii <- 1 to i) { E@{ii}#H @if(ii < i) { , } })
-        override type T = TupleTypeParameter@{i}[@for(ii <- 1 to i) { E@{ii}#T @if(ii < i) { , } }]
+        override type T = TupleTypeHList@{i}[@for(ii <- 1 to i) { E@{ii}#T @if(ii < i) { , } }]
     }
 }
