@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.ContextContent
+import asuna._
 
 import scala.language.experimental.macros
 
@@ -35,6 +35,48 @@ object AsunaDefaultValueGeneric {
   }
 
   implicit def appendMacroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.AppendMacroImpl1.generic[H, II]
+
+}
+
+object AsunaDefaultValueGenericCodeGenSample {
+
+  case class Test10(
+    i1: String,
+    i2: Int,
+    i3: Int,
+    i4: Long,
+    i5: String = "Test10-i5",
+    i6: List[String] = List.empty,
+    i7: Long,
+    i8: Option[Long],
+    i9: List[Long],
+    i10: String
+  )
+
+  val genResult
+    : AsunaDefaultValueGeneric[Test10, Item2[Item8[DefaultValue[String], DefaultValue[Int], DefaultValue[Int], DefaultValue[Long], DefaultValue[String], DefaultValue[
+      List[String]
+    ], DefaultValue[Long], DefaultValue[Option[Long]]], Item2[DefaultValue[List[Long]], DefaultValue[String]]]] = {
+    val defaultValue = DefaultValue.model[Test10]
+
+    AsunaDefaultValueGeneric
+      .init[Test10]
+      .defaultValue(
+        BuildContent.nodeItem2(
+          BuildContent.item8(
+            defaultValue.to(_.i1)(Option.empty),
+            defaultValue.to(_.i2)(Option.empty),
+            defaultValue.to(_.i3)(Option.empty),
+            defaultValue.to(_.i4)(Option.empty),
+            defaultValue.to(_.i5)(Some(Test10.apply$default$5: String)),
+            defaultValue.to(_.i6)(Some(Test10.apply$default$6: List[String])),
+            defaultValue.to(_.i7)(Option.empty),
+            defaultValue.to(_.i8)(Option.empty)
+          ),
+          BuildContent.item2(defaultValue.to(_.i9)(Option.empty), defaultValue.to(_.i10)(Option.empty))
+        )
+      )
+  }
 
 }
 

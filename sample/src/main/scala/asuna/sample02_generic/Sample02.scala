@@ -33,7 +33,7 @@ object Test02 {
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 
   trait JsonEncoder[T, II] {
-    def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+    def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
   }
 
   class KContext extends KindContext {
@@ -48,12 +48,12 @@ object Test02 {
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
     ): JsonEncoder[Z#H, Z#T#H] = new JsonEncoder[Z#H, Z#T#H] {
-      override def p(obj: Z#H, name: Z#T#H, m: List[(String, Json)]): List[(String, Json)] =
-        x.p(plus.takeHead(obj), plus.sub.takeHead(name), y.p(plus.takeTail(obj), plus.sub.takeTail(name), m))
+      override def appendProperty(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
+        x.appendProperty(plus.takeHead(obj), plus.sub.takeHead(name), y.appendProperty(plus.takeTail(obj), plus.sub.takeTail(name), m))
     }
 
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+      override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
     }
   }
 
@@ -68,25 +68,25 @@ object Test02 {
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
       override def application(context: Context[KContext]): JsonEncoder[T, String] = {
         new JsonEncoder[T, String] {
-          override def p(obj: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, encoder.value(obj))) :: m
+          override def appendProperty(obj: T, name: String, m: JsonObject): JsonObject = {
+            ((name, encoder.value(obj))) +: m
           }
         }
       }
     }
 
-  def circeObjectEncoder[H, T <: ItemTag, I <: TypeHList](
+  def circeJsonObjectEncoder[H, T <: ItemTag, I <: TypeHList](
     implicit generic: AsunaTestGeneric.Aux[H, T],
     app: Application[KContext, T, I],
     i1: H => I#H,
     i2: I#T#H
   ): Encoder.AsObject[H] = {
     Encoder.AsObject.instance { f: H =>
-      JsonObject.fromIterable(app.application(ii).p(i1(f), i2, List.empty))
+      app.application(ii).appendProperty(i1(f), i2, JsonObject.empty)
     }
   }
 
-  implicit val test04Encoder: Encoder.AsObject[Test04] = circeObjectEncoder
+  implicit val test04Encoder: Encoder.AsObject[Test04] = circeJsonObjectEncoder
 
   def main(i: Array[String]): Unit = {
     println("Test02 Result")

@@ -6,7 +6,7 @@ import asuna.test.ShapelessTest
 
 object LargeModelTest extends App {
 
-  /*val a1 = {
+  val a1 = {
 
     import asuna.test.circe.CircePoly._
 
@@ -22,7 +22,7 @@ object LargeModelTest extends App {
     val i2                                                                   = i1.as[CirceLargeModel.LargeModel_2]
     println(i2)
 
-  }*/
+  }
 
   /*val a2 = {
 
@@ -39,7 +39,7 @@ object LargeModelTest extends App {
 
   }*/
 
-  val a3 = {
+  /*val a3 = {
 
     import ShapelessTest.EncodeImplicit._
     implicit def largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = ShapelessTest.EncodeImplicit.encodeGeneric
@@ -50,6 +50,6 @@ object LargeModelTest extends App {
     val i1 = CirceLargeModel.largeModel_2.asJson
     println(i1.noSpaces)
 
-  }
+  }*/
 
 }

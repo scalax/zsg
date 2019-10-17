@@ -2,12 +2,11 @@ package asuna.macros
 
 import java.util
 
-import asuna.{Context, ContextContent, KindContext}
+import asuna.{BuildContent, Context, ContextContent, Item2, Item8, KindContext}
 
 import scala.language.experimental.macros
 
-trait AsunaCachedLabelledGeneric[H] {
-  type NameType
+trait AsunaCachedLabelledGeneric[H, NameType] {
   val className: String
   protected def names: ContextContent[NameType]
   def getName[K <: KindContext](context: Context[K]): NameType = {
@@ -37,27 +36,34 @@ object AsunaCachedLabelledGeneric {
   def init[M]: CachedNameGenericApply[M] = new CachedNameGenericApply[M] {}
 
   trait CachedNameGenericApply[M] {
-    def name[N](className1: String, names1: => ContextContent[N]): Aux[M, N] = new AsunaCachedLabelledGeneric[M] {
-      override type NameType = N
+    def name[N](className1: String, names1: => ContextContent[N]): AsunaCachedLabelledGeneric[M, N] = new AsunaCachedLabelledGeneric[M, N] {
       override val className                          = className1
       override protected def names: ContextContent[N] = names1
     }
   }
 
-  type Aux[H, WW] = AsunaCachedLabelledGeneric[H] { type NameType = WW }
+  implicit def appendMacroImpl[H, II]: AsunaCachedLabelledGeneric[H, II] = macro AsunaCachedLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
-  implicit def appendMacroImpl[H, II]: AsunaCachedLabelledGeneric.Aux[H, II] = macro AsunaCachedLabelledGenericMacroApply.AppendMacroImpl1.generic[H, II]
+}
+
+object AsunaCachedLabelledGenericCodeGenSample {
+
+  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
+  val genResult: AsunaCachedLabelledGeneric[Test10, Item2[Item8[String, String, String, String, String, String, String, String], Item2[String, String]]] =
+    AsunaCachedLabelledGeneric
+      .init[Test10]
+      .name(classOf[Test10].getCanonicalName, BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
 
 }
 
 object AsunaCachedLabelledGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaCachedLabelledGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaCachedLabelledGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -91,7 +97,7 @@ object AsunaCachedLabelledGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""org.asuna.BuildContent.${TermName("nodeItem" + s.length)}(..${s})"""))
           }
 
-        c.Expr[AsunaCachedLabelledGeneric.Aux[H, M]] {
+        c.Expr[AsunaCachedLabelledGeneric[H, M]] {
           q"""asuna.macros.AsunaCachedLabelledGeneric.init[${hType}].name(classOf[${hType}].getCanonicalName, ${nameTagGen(nameTag)})"""
         }
 

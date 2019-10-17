@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.ContextContent
+import asuna.{BuildContent, ContextContent, Item2, Item8}
 
 import scala.language.experimental.macros
 
@@ -14,13 +14,23 @@ object AsunaGetterGeneric {
     override def getter: M => ContextContent[R] = i
   }
 
-  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl.generic[H, M]
+
+}
+
+object AsunaGetterGenericCodeGenSample {
+
+  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
+  val genResult: AsunaGetterGeneric[Test10, Item2[Item8[String, Int, Int, Long, String, List[String], Long, Option[Long]], Item2[List[Long], String]]] =
+    AsunaGetterGeneric.init { i: Test10 =>
+      BuildContent.nodeItem2(BuildContent.item8(i.i1, i.i2, i.i3, i.i4, i.i5, i.i6, i.i7, i.i8), BuildContent.item2(i.i9, i.i10))
+    }
 
 }
 
 object AsunaGetterGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class AppendMacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._
