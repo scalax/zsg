@@ -409,13 +409,13 @@ Complete Circe Json Object Encoder's sample is [here](https://github.com/scalax/
 The macro system allows you to save all your code generation time.
 And the design of the macro system is quite discrete, following the
 principle of on-demand acquisition. The rules of the code generated
-by the macro system will be hard coded in the current macro file to
-save time in developing the search.  
+by the macro system will be hard coded in [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation")
+to save search time.  
 For more information, please find the [sample](https://github.com/scalax/asuna/tree/master/sample "sample") we provide.  
-Code for what macros is generation is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation").  
 Complete asuna sample is WIP. Or you can find test case in [circe test](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test").  
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
-宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。  
+宏系统生成代码的规则将会硬编码在
+[sample](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation")
+中以节省开发的时间。  
 更多信息请查找我们提供的 [例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
-关于宏生成的代码样例在 [这里](https://github.com/scalax/asuna/tree/master/sample "sample")。  
 敬请期待更多完整样例的推出，或者你可以先查看测试用例里面的 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。
