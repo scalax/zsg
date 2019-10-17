@@ -1,4 +1,4 @@
-package asuna.test01
+package asuna.sample01_append
 
 import asuna._
 import io.circe._
