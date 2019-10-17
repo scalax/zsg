@@ -205,22 +205,22 @@ getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 �
 
 ```scala
 val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
-  override def p(obj: String, name: String, m: JsonObject): JsonObject = {
+  override def appendProperty(obj: String, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromString(obj)) +: m
   }
 }
 val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
-  override def p(obj: Int, name: String, m: JsonObject): JsonObject = {
+  override def appendProperty(obj: Int, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromInt(obj)) +: m
   }
 }
 val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def p(obj: Long, name: String, m: JsonObject): JsonObject = {
+  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
 }
 val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def p(obj: Long, name: String, m: JsonObject): JsonObject = {
+  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
 }
