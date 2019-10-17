@@ -46,16 +46,6 @@ object AsunaCachedLabelledGeneric {
 
 }
 
-object AsunaCachedLabelledGenericCodeGenSample {
-
-  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
-  val genResult: AsunaCachedLabelledGeneric[Test10, Item2[Item8[String, String, String, String, String, String, String, String], Item2[String, String]]] =
-    AsunaCachedLabelledGeneric
-      .init[Test10]
-      .name(classOf[Test10].getCanonicalName, BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
-
-}
-
 object AsunaCachedLabelledGenericMacroApply {
 
   class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {

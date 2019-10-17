@@ -28,27 +28,6 @@ object AsunaSetterGeneric {
 
 }
 
-object AsunaSetterGenericCodeGenSample {
-
-  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
-  val genResult: AsunaSetterGeneric[Test10, Item2[Item8[String, Int, Int, Long, String, List[String], Long, Option[Long]], Item2[List[Long], String]]] = {
-    val pro = PropertySetter[Test10]
-    AsunaSetterGeneric
-      .init[Test10]
-      .to(
-        BuildContent.lift(
-          BuildContent.nodeTag(
-            BuildContent.tag(pro.to(_.i1), pro.to(_.i2), pro.to(_.i3), pro.to(_.i4), pro.to(_.i5), pro.to(_.i6), pro.to(_.i7), pro.to(_.i8)),
-            BuildContent.tag(pro.to(_.i9), pro.to(_.i10))
-          )
-        )
-      ) { i =>
-        Test10(i.i1.i1, i.i1.i2, i.i1.i3, i.i1.i4, i.i1.i5, i.i1.i6, i.i1.i7, i.i1.i8, i.i2.i1, i.i2.i2)
-      }
-  }
-
-}
-
 object AsunaSetterGenericMacroApply {
 
   class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {

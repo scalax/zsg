@@ -10,23 +10,15 @@ trait AsunaLabelledGeneric[H, NameType] {
 
 object AsunaLabelledGeneric {
 
-  def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M] {}
+  def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M]
 
-  trait AsunaNameGenericApply[M] {
+  class AsunaNameGenericApply[M] {
     def name[N](names1: ContextContent[N]): AsunaLabelledGeneric[M, N] = new AsunaLabelledGeneric[M, N] {
       override def names: ContextContent[N] = names1
     }
   }
 
   implicit def macroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.MacroImpl.generic[H, II]
-
-}
-
-object AsunaLabelledGenericCodeGenSample {
-
-  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
-  val genResult: AsunaLabelledGeneric[Test10, Item2[Item8[String, String, String, String, String, String, String, String], Item2[String, String]]] =
-    AsunaLabelledGeneric.init[Test10].name(BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
 
 }
 

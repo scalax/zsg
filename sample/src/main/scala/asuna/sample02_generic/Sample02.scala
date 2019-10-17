@@ -4,7 +4,7 @@ import asuna._
 import asuna.macros.{LazyImplicit, PropertyApply, PropertyTag}
 import io.circe.{Encoder, Json, JsonObject}
 
-object Test02 {
+object Sample02 {
 
   trait AsunaTestGeneric[C] {
     type Gen <: ItemTag

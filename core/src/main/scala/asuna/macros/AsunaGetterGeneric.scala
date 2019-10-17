@@ -18,16 +18,6 @@ object AsunaGetterGeneric {
 
 }
 
-object AsunaGetterGenericCodeGenSample {
-
-  case class Test10(i1: String, i2: Int, i3: Int, i4: Long, i5: String, i6: List[String], i7: Long, i8: Option[Long], i9: List[Long], i10: String)
-  val genResult: AsunaGetterGeneric[Test10, Item2[Item8[String, Int, Int, Long, String, List[String], Long, Option[Long]], Item2[List[Long], String]]] =
-    AsunaGetterGeneric.init { i: Test10 =>
-      BuildContent.nodeItem2(BuildContent.item8(i.i1, i.i2, i.i3, i.i4, i.i5, i.i6, i.i7, i.i8), BuildContent.item2(i.i9, i.i10))
-    }
-
-}
-
 object AsunaGetterGenericMacroApply {
 
   class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {

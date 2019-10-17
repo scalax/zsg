@@ -4,7 +4,7 @@ import asuna._
 import io.circe._
 import io.circe.syntax._
 
-object Test01 {
+object Sample01 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
@@ -63,31 +63,25 @@ object Test01 {
     ii.append[ItemTypeHList0, TypeHList2[String, String], ItemTypeHList1[TypeHList2[String, String]]](ii.start, a1, ItemTypeHListPlus1.hlistPlus1)
 
   val b2: JsonEncoder[Item2[String, Int], Item2[String, String]] =
-    ii.append[ItemTypeHList1[TypeHList2[String, String]],
-              TypeHList2[Int, String],
-              ItemTypeHList2[
-                TypeHList2[String, String],
-                TypeHList2[Int, String]
-              ]](b1, a2, ItemTypeHListPlus2.plus2)
+    ii.append[ItemTypeHList1[TypeHList2[String, String]], TypeHList2[Int, String], ItemTypeHList2[
+      TypeHList2[String, String],
+      TypeHList2[Int, String]
+    ]](b1, a2, ItemTypeHListPlus2.plus2)
 
   val b3: JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]] =
-    ii.append[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]],
-              TypeHList2[Long, String],
-              ItemTypeHList3[
-                TypeHList2[String, String],
-                TypeHList2[Int, String],
-                TypeHList2[Long, String]
-              ]](b2, a3, ItemTypeHListPlus3.plus3)
+    ii.append[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]], TypeHList2[Long, String], ItemTypeHList3[
+      TypeHList2[String, String],
+      TypeHList2[Int, String],
+      TypeHList2[Long, String]
+    ]](b2, a3, ItemTypeHListPlus3.plus3)
 
   val en1: JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]] =
-    ii.append[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]],
-              TypeHList2[Long, String],
-              ItemTypeHList4[
-                TypeHList2[String, String],
-                TypeHList2[Int, String],
-                TypeHList2[Long, String],
-                TypeHList2[Long, String]
-              ]](b3, a4, ItemTypeHListPlus4.plus4)
+    ii.append[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]], TypeHList2[Long, String], ItemTypeHList4[
+      TypeHList2[String, String],
+      TypeHList2[Int, String],
+      TypeHList2[Long, String],
+      TypeHList2[Long, String]
+    ]](b3, a4, ItemTypeHListPlus4.plus4)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
