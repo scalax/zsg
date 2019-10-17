@@ -2,7 +2,7 @@ package asuna.sample02_generic
 
 import asuna._
 import asuna.macros.{LazyImplicit, PropertyApply, PropertyTag}
-import io.circe.{Encoder,  JsonObject}
+import io.circe.{Encoder, JsonObject}
 
 object Sample02 {
 
