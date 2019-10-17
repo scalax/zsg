@@ -145,7 +145,7 @@ First create a trait to make the type simpler.
 
 ```scala
 trait JsonEncoder[T, II] {
-  def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+  def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
 }
 ```
 
@@ -181,7 +181,7 @@ To implement this Circe Encoder, we need a instance of:
 
 ```scala
 trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, String]] {
-  def p(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: List[(String, Json)]): List[(String, Json)]
+  def appendProperty(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: JsonObject): JsonObject
 }
 ```
 
@@ -192,9 +192,8 @@ based on the existing information.
 ```scala
 val getter = { test04: Test04 => new Item4(test04.i1, test04.i2, test04.i3, test04.i4) }
 val names = new Item4("i1", "i2", "i3", "i4")
-implicit val encoderTest04: Encoder.AsObject[Test04] =
-Encoder.AsObject.instance { o: Test04 =>
-  JsonObject.fromIterable(en1.p(getter(o), names, List.empty))
+implicit val encoderTest04: Encoder.AsObject[Test04] = Encoder.AsObject.instance { o: Test04 =>
+  en1.appendProperty(getter(o), names, JsonObject.empty)
 }
 ```
 
@@ -206,23 +205,23 @@ getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 �
 
 ```scala
 val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
-  override def p(obj: String, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-    (name, Json.fromString(obj)) :: m
+  override def appendProperty(obj: String, name: String, m: JsonObject): JsonObject = {
+    (name, Json.fromString(obj)) +: m
   }
 }
 val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
-  override def p(obj: Int, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-    (name, Json.fromInt(obj)) :: m
+  override def appendProperty(obj: Int, name: String, m: JsonObject): JsonObject = {
+    (name, Json.fromInt(obj)) +: m
   }
 }
 val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-    (name, Json.fromLong(obj)) :: m
+  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+    (name, Json.fromLong(obj)) +: m
   }
 }
 val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-    (name, Json.fromLong(obj)) :: m
+  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+    (name, Json.fromLong(obj)) +: m
   }
 }
 ```
@@ -324,12 +323,12 @@ object ii extends Context[KContext] {
     y: JsonEncoder[Y#T#H, Y#H],
     plus: Plus[X, Y, Z]
   ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
-    override def p(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
-      x.p(plus.sub.takeHead(obj), plus.takeHead(name), y.p(plus.sub.takeTail(obj), plus.takeTail(name), m))
+    override def appendProperty(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
+      x.appendProperty(plus.sub.takeHead(obj), plus.takeHead(name), y.appendProperty(plus.sub.takeTail(obj), plus.takeTail(name), m))
   }
 
   override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-    override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+    override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
   }
 }
 ```
@@ -389,8 +388,8 @@ implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]])
   new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
     override def application(context: Context[KContext]): JsonEncoder[T, String] = {
       new JsonEncoder[T, String] {
-        override def p(obj: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-          ((name, encoder.value(obj))) :: m
+        override def appendProperty(obj: T, name: String, m: JsonObject): JsonObject = {
+          ((name, encoder.value(obj))) +: m
         }
       }
     }
@@ -410,13 +409,13 @@ Complete Circe Json Object Encoder's sample is [here](https://github.com/scalax/
 The macro system allows you to save all your code generation time.
 And the design of the macro system is quite discrete, following the
 principle of on-demand acquisition. The rules of the code generated
-by the macro system will be hard coded in the current macro file to
-save time in developing the search.  
+by the macro system will be hard coded in [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation")
+to save search time.  
 For more information, please find the [sample](https://github.com/scalax/asuna/tree/master/sample "sample") we provide.  
-Code for what macros is generation is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation").  
-Complete asuna sample is WIP. Or you can find test case in [circe test](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test").  
+Complete asuna sample is WIP. Or you can find the test case in [circe test](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test").  
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
-宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。  
+宏系统生成代码的规则将会硬编码在
+[sample](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation")
+中以节省开发的时间。  
 更多信息请查找我们提供的 [例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
-关于宏生成的代码样例在 [这里](https://github.com/scalax/asuna/tree/master/sample "sample")。  
 敬请期待更多完整样例的推出，或者你可以先查看测试用例里面的 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。
