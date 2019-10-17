@@ -323,7 +323,7 @@ object ii extends Context[KContext] {
     y: JsonEncoder[Y#T#H, Y#H],
     plus: Plus[X, Y, Z]
   ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
-    override def p(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
+    override def appendProperty(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
       x.appendProperty(plus.sub.takeHead(obj), plus.takeHead(name), y.appendProperty(plus.sub.takeTail(obj), plus.takeTail(name), m))
   }
 
