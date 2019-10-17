@@ -417,6 +417,6 @@ Code for what macros is generation is [here](https://github.com/scalax/asuna/tre
 Complete asuna sample is WIP or you can find test case in [circe test](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test").  
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
 宏系统生成代码的规则将会硬编码在当前宏文件中以节省开发查找的时间。  
-更多信息请查找我们提供的[例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
-关于宏生成的代码样例在[这里](https://github.com/scalax/asuna/tree/master/sample "sample")。  
+更多信息请查找我们提供的 [例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
+关于宏生成的代码样例在 [这里](https://github.com/scalax/asuna/tree/master/sample "sample")。  
 敬请期待更多样例的推出，或者你可以先看看测试用例里面的完整 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。
