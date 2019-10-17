@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.{AppendTag, ItemTag}
+import asuna._
 
 import scala.language.experimental.macros
 
@@ -34,13 +34,13 @@ object AsunaGeneric {
 
   type Aux[H, II <: ItemTag] = AsunaGeneric[H] { type WT = II }
 
-  implicit def appendMacroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
 object AsunaGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.whitebox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.whitebox.Context) {
     self =>
 
     import c.universe._

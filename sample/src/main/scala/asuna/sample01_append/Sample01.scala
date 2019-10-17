@@ -4,7 +4,7 @@ import asuna._
 import io.circe._
 import io.circe.syntax._
 
-object Test01 {
+object Sample01 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
@@ -14,7 +14,7 @@ object Test01 {
   val names = BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
 
   trait JsonEncoder[T, II] {
-    def p(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+    def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
   }
 
   class KContext extends KindContext {
@@ -29,38 +29,39 @@ object Test01 {
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
     ): JsonEncoder[Z#H, Z#T#H] = new JsonEncoder[Z#H, Z#T#H] {
-      override def p(obj: Z#H, name: Z#T#H, m: List[(String, Json)]): List[(String, Json)] =
-        x.p(plus.takeHead(obj), plus.sub.takeHead(name), y.p(plus.takeTail(obj), plus.sub.takeTail(name), m))
+      override def appendProperty(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
+        x.appendProperty(plus.takeHead(obj), plus.sub.takeHead(name), y.appendProperty(plus.takeTail(obj), plus.sub.takeTail(name), m))
     }
 
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def p(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+      override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
     }
   }
 
   val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
-    override def p(obj: String, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-      (name, Json.fromString(obj)) :: m
+    override def appendProperty(obj: String, name: String, m: JsonObject): JsonObject = {
+      (name, Json.fromString(obj)) +: m
     }
   }
   val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
-    override def p(obj: Int, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-      (name, Json.fromInt(obj)) :: m
+    override def appendProperty(obj: Int, name: String, m: JsonObject): JsonObject = {
+      (name, Json.fromInt(obj)) +: m
     }
   }
   val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-    override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-      (name, Json.fromLong(obj)) :: m
+    override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+      (name, Json.fromLong(obj)) +: m
     }
   }
   val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-    override def p(obj: Long, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-      (name, Json.fromLong(obj)) :: m
+    override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+      (name, Json.fromLong(obj)) +: m
     }
   }
 
   val b1: JsonEncoder[Item1[String], Item1[String]] =
     ii.append[ItemTypeHList0, TypeHList2[String, String], ItemTypeHList1[TypeHList2[String, String]]](ii.start, a1, ItemTypeHListPlus1.hlistPlus1)
+
   val b2: JsonEncoder[Item2[String, Int], Item2[String, String]] =
     ii.append[ItemTypeHList1[TypeHList2[String, String]], TypeHList2[Int, String], ItemTypeHList2[
       TypeHList2[String, String],
@@ -85,7 +86,7 @@ object Test01 {
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
       Encoder.AsObject.instance { o: Test04 =>
-        JsonObject.fromIterable(en1.p(getter(o), names, List.empty))
+        en1.appendProperty(getter(o), names, JsonObject.empty)
       }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}

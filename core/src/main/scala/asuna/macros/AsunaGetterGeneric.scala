@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.ContextContent
+import asuna.{BuildContent, ContextContent, Item2, Item8}
 
 import scala.language.experimental.macros
 
@@ -14,13 +14,13 @@ object AsunaGetterGeneric {
     override def getter: M => ContextContent[R] = i
   }
 
-  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }
 
 object AsunaGetterGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

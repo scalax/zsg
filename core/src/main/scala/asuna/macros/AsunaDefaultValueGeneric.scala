@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.ContextContent
+import asuna._
 
 import scala.language.experimental.macros
 
@@ -34,13 +34,13 @@ object AsunaDefaultValueGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
 object AsunaDefaultValueGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

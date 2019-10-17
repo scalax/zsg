@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
-import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToabsGeneric}
+import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToAbsGeneric}
 import io.circe.Decoder
 
 object AsunaSealedDecoder {
@@ -10,7 +10,7 @@ object AsunaSealedDecoder {
     implicit ll: AsunaSealedGeneric.Aux[H, R],
     app: Application[KContext[H], R, I],
     cv1: AsunaSealedLabelledGeneric[H, I#H],
-    cv2: AsunaSealedToabsGeneric[H, I#T#H]
+    cv2: AsunaSealedToAbsGeneric[H, I#T#H]
   ): Decoder[H] = {
     val ii    = new ii[H]
     val names = cv1.names.withContext(ii)
@@ -58,7 +58,7 @@ object AsunaSealedDecoder {
         implicit
         app: Application[KContext[H], R, I],
         cv1: AsunaSealedLabelledGeneric[H, I#H],
-        cv2: AsunaSealedToabsGeneric[H, I#T#H]
+        cv2: AsunaSealedToAbsGeneric[H, I#T#H]
       ): Decoder[H] = {
         val ii    = new ii[H]
         val names = cv1.names.withContext(ii)
@@ -76,7 +76,7 @@ object AsunaSealedDecoder {
       implicit
       app: Application[KContext[H], R, I],
       cv1: AsunaSealedLabelledGeneric[H, I#H],
-      cv2: AsunaSealedToabsGeneric[H, I#T#H]
+      cv2: AsunaSealedToAbsGeneric[H, I#T#H]
     ): Decoder[H]
 
     def toTag: R = throw new Exception("123")

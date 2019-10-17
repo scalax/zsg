@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.ContextContent
+import asuna.{BuildContent, ContextContent, Item2, Item8}
 
 import scala.language.experimental.macros
 
@@ -10,21 +10,21 @@ trait AsunaLabelledGeneric[H, NameType] {
 
 object AsunaLabelledGeneric {
 
-  def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M] {}
+  def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M]
 
-  trait AsunaNameGenericApply[M] {
+  class AsunaNameGenericApply[M] {
     def name[N](names1: ContextContent[N]): AsunaLabelledGeneric[M, N] = new AsunaLabelledGeneric[M, N] {
       override def names: ContextContent[N] = names1
     }
   }
 
-  implicit def appendMacroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
 object AsunaLabelledGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

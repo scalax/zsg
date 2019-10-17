@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.{AppendTag, ItemTag}
+import asuna._
 
 import scala.language.experimental.macros
 
@@ -24,13 +24,13 @@ object AsunaSetterGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }
 
 object AsunaSetterGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._
