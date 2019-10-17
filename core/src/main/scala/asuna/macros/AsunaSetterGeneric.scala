@@ -24,7 +24,7 @@ object AsunaSetterGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.AppendMacroImpl1.generic[H, M]
+  implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }
 
@@ -35,10 +35,14 @@ object AsunaSetterGenericCodeGenSample {
     val pro = PropertySetter[Test10]
     AsunaSetterGeneric
       .init[Test10]
-      .to(BuildContent.lift(BuildContent.nodeTag(
-        BuildContent.tag(pro.to(_.i1), pro.to(_.i2), pro.to(_.i3), pro.to(_.i4), pro.to(_.i5), pro.to(_.i6), pro.to(_.i7), pro.to(_.i8)),
-        BuildContent.tag(pro.to(_.i9), pro.to(_.i10))
-      ))) { i =>
+      .to(
+        BuildContent.lift(
+          BuildContent.nodeTag(
+            BuildContent.tag(pro.to(_.i1), pro.to(_.i2), pro.to(_.i3), pro.to(_.i4), pro.to(_.i5), pro.to(_.i6), pro.to(_.i7), pro.to(_.i8)),
+            BuildContent.tag(pro.to(_.i9), pro.to(_.i10))
+          )
+        )
+      ) { i =>
         Test10(i.i1.i1, i.i1.i2, i.i1.i3, i.i1.i4, i.i1.i5, i.i1.i6, i.i1.i7, i.i1.i8, i.i2.i1, i.i2.i2)
       }
   }
@@ -47,7 +51,7 @@ object AsunaSetterGenericCodeGenSample {
 
 object AsunaSetterGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

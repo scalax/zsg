@@ -18,7 +18,7 @@ object AsunaLabelledGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
@@ -32,7 +32,7 @@ object AsunaLabelledGenericCodeGenSample {
 
 object AsunaLabelledGenericMacroApply {
 
-  class AppendMacroImpl1(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

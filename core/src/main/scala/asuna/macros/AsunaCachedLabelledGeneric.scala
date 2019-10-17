@@ -42,7 +42,7 @@ object AsunaCachedLabelledGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, II]: AsunaCachedLabelledGeneric[H, II] = macro AsunaCachedLabelledGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaCachedLabelledGeneric[H, II] = macro AsunaCachedLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 

@@ -14,7 +14,7 @@ object AsunaGetterGeneric {
     override def getter: M => ContextContent[R] = i
   }
 
-  implicit def appendMacroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.AppendMacroImpl.generic[H, M]
+  implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }
 
@@ -30,7 +30,7 @@ object AsunaGetterGenericCodeGenSample {
 
 object AsunaGetterGenericMacroApply {
 
-  class AppendMacroImpl(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     self =>
 
     import c.universe._

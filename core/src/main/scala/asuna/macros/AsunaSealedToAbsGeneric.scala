@@ -19,13 +19,13 @@ object AsunaSealedToabsGeneric {
     }
   }
 
-  implicit def appendMacroImpl[H, II]: AsunaSealedToabsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.AppendMacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: AsunaSealedToabsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
 object AsunaSealedToabsGenericMacroApply {
 
-  class AppendMacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
+  class MacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
