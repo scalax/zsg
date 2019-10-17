@@ -57,9 +57,9 @@ Look at such a Trait.
 观察这样一个 Trait。
 
 ```scala
-trait TypeParameter {
+trait TypeHList {
   type H
-  type T <: TypeParameter
+  type T <: TypeHList
 }
 ```
 
@@ -69,7 +69,7 @@ We give it an end type.
 ```scala
 class NoData
 
-class EndParameter extends TypeParameter {
+class EndParameter extends TypeHList {
   override type H = NoData
   override type T = EndParameter
 }
@@ -79,12 +79,12 @@ In theory it can store unlimited types of parameters.
 理论上它可以存储无限个类型参数。
 
 ```scala
-class TypeInstance1 extends TypeParameter {
+class TypeInstance1 extends TypeHList {
   override type H = String
   override type T = EndParameter
 }
 
-class TypeInstance2 extends TypeParameter {
+class TypeInstance2 extends TypeHList {
   override type H = Int
   override type T = TypeInstance1
 }
@@ -101,17 +101,17 @@ since this project is based on code generation.
 
 ```scala
 //code generation start
-class TypeParameter1[T1] extends TypeParameter {
+class TypeHList1[T1] extends TypeHList {
   override type H = T1
   override type T = EndParameter
 }
-class TypeParameter2[T1, T2] extends TypeParameter {
+class TypeHList2[T1, T2] extends TypeHList {
   override type H = T1
-  override type T = TypeParameter1[T2]
+  override type T = TypeHList1[T2]
 }
 //code generation ended
 
-type TypeInstance3 = TypeParameter2[Int, String]
+type TypeInstance3 = TypeHList2[Int, String]
 
 val a1: Int = (throw new Exception()): TypeInstance3#H
 val a2: String = (throw new Exception()): TypeInstance3#T#H
@@ -119,12 +119,12 @@ val a3: NoData = (throw new Exception()): TypeInstance3#T#T#H
 val a4: NoData = (throw new Exception()): TypeInstance3#T#T#T#H
 ```
 
-Although the upper limit of code generation is TypeParameter8,
+Although the upper limit of code generation is TypeHList8,
 simply because the amount of other code generation's number
-is 8 in asuna, you can still write a TypeParameter greater than 8 type
+is 8 in asuna, you can still write a TypeHList greater than 8 type
 parameters according to your own preferences.  
-虽然代码生成的上限是 TypeParameter8，但这仅仅是因为其他代码生成数量是
-8，你依然可以根据自己的喜好自己构造类型参数超过 8 的 TypeParameter。
+虽然代码生成的上限是 TypeHList8，但这仅仅是因为其他代码生成数量是
+8，你依然可以根据自己的喜好自己构造类型参数超过 8 的 TypeHList。
 
 So we can introduce the first knowledge point of asuna.
 Abstracting high order types of any number of arguments.  
@@ -132,7 +132,7 @@ Abstracting high order types of any number of arguments.
 
 ```scala
 trait KindContext {
-  type M[P <: TypeParameter]
+  type M[P <: TypeHList]
 }
 ```
 
@@ -154,7 +154,7 @@ Then we can implement the KindContext.
 
 ```scala
 class KContext extends KindContext {
-  override type M[P <: TypeParameter] = JsonEncoder[P#H, P#T#H]
+  override type M[P <: TypeHList] = JsonEncoder[P#H, P#T#H]
 }
 ```
 
@@ -162,9 +162,9 @@ Then we can get:
 于是有：
 
 ```scala
-val a1: JsonEncoder[Int, String] = (throw new Exception()): KContext#M[TypeParameter2[Int, String]]
-val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypeParameter2[Long, String]]
-val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeParameter2[Item2[Int, Long], Item2[String, String]]]
+val a1: JsonEncoder[Int, String] = (throw new Exception()): KContext#M[TypeHList2[Int, String]]
+val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypeHList2[Long, String]]
+val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeHList2[Item2[Int, Long], Item2[String, String]]]
 ```
 
 ### 2.Transpose use Type Projection and ItemX
@@ -251,9 +251,9 @@ that this abstraction can handle any similar situation.
 现在我们把这个转换转化成抽象，使得这个抽象能应对任何类似的情况。
 
 ```scala
-class ItemTypeParameter3[E1 <: TypeParameter, E2 <: TypeParameter, E3 <: TypeParameter] extends TypeParameter {
+class ItemTypeHList3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList] extends TypeHList {
   override type H = Item3[E1#H, E2#H, E3#H]
-  override type T = ItemTypeParameter3[E1#T, E2#T, E3#T]
+  override type T = ItemTypeHList3[E1#T, E2#T, E3#T]
 }
 ```
 
@@ -266,26 +266,26 @@ Property to be superposition
 
 |Input Type|Final Result Type|
 :-:|:-:
-|KContext#M[TypeParameter2[String, String]]|JsonEncoder[String, String]|
-|KContext#M[TypeParameter2[Int, String]]|JsonEncoder[Int, String]|
-|KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
-|KContext#M[TypeParameter2[Long, String]]|JsonEncoder[Long, String]|
+|KContext#M[TypeHList2[String, String]]|JsonEncoder[String, String]|
+|KContext#M[TypeHList2[Int, String]]|JsonEncoder[Int, String]|
+|KContext#M[TypeHList2[Long, String]]|JsonEncoder[Long, String]|
+|KContext#M[TypeHList2[Long, String]]|JsonEncoder[Long, String]|
 
 Line by line merger  
 逐行合并
 
 |Output Type|Final Result Type|
 :-:|:-:
-|KContext#M[ItemTypeParameter1[TypeParameter2[String, String]]]|JsonEncoder[Item1[String], Item1[String]]|
-|KContext#M[ItemTypeParameter2[TypeParameter2[String, String], TypeParameter2[Int, String]]]|JsonEncoder[Item2[Int, String], Item2[String, String]]|
-|KContext#M[ItemTypeParameter3[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
-|KContext#M[ItemTypeParameter4[TypeParameter2[String, String], TypeParameter2[Int, String], TypeParameter2[Long, String], TypeParameter2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
+|KContext#M[ItemTypeHList1[TypeHList2[String, String]]]|JsonEncoder[Item1[String], Item1[String]]|
+|KContext#M[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]]]|JsonEncoder[Item2[Int, String], Item2[String, String]]|
+|KContext#M[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
+|KContext#M[ItemTypeHList4[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
 
 So as long as we provide a  
 所以只要我们提供一个
 
 ```scala
-def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y]): KContext#M[Z]
+def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: KContext#M[X], y: KContext#M[Y]): KContext#M[Z]
 ```
 
 we can do all the above.  
@@ -296,7 +296,7 @@ with this implemented process. The abstraction of Plus is as follows:
 但这个函数式是无法实现的，我们还需要一个 Plus 来协助这个填充的过程。Plus 的抽象如下：
 
 ```scala
-trait Plus[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter] {
+trait Plus[X <: TypeHList, Y <: TypeHList, Z <: TypeHList] {
   def plus(p: X#H, item: Y#H): Z#H
   def takeHead(t: Z#H): X#H
   def takeTail(t: Z#H): Y#H
@@ -308,7 +308,7 @@ So the full version of `append` is
 所以完整版本的 append 是
 
 ```scala
-def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](x: KContext#M[X], y: KContext#M[Y], p: Plus[X, Y, Z]): KContext#M[Z]
+def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: KContext#M[X], y: KContext#M[Y], p: Plus[X, Y, Z]): KContext#M[Z]
 ```
 
 The `Item0 - Item7` Plus has been prepared inside asuna, so the process
@@ -319,7 +319,7 @@ is completed smoothly. The complete Context implementation is as follows:
 object ii extends Context[KContext] {
   override def isReverse: Boolean = false
 
-  override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: JsonEncoder[X#T#H, X#H],
     y: JsonEncoder[Y#T#H, Y#H],
     plus: Plus[X, Y, Z]
@@ -379,14 +379,14 @@ PropertyTag[Long]
 
 Asuna will find 4 `Application[KContext, PropertyTag[T], I]` according
 to KContext and these 4 boot types, and then merge them into one with ItemX.  
-asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 ItemX 的 `Application[KContext, PropertyTag[ItemX[...]], ItemTypeParameterX[...]]`
+asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 ItemX 的 `Application[KContext, PropertyTag[ItemX[...]], ItemTypeHListX[...]]`
 
 Here you can get this code by circe:  
 这里可以依赖于 circe 作如下编码：
 
 ```scala
-implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeParameter2[T, String]] =
-  new Application[KContext, PropertyTag[T], TypeParameter2[T, String]] {
+implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
+  new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
     override def application(context: Context[KContext]): JsonEncoder[T, String] = {
       new JsonEncoder[T, String] {
         override def p(obj: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {

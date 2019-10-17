@@ -1,8 +1,8 @@
 package asuna
 
 @typeName1(index: Int) = {
-ItemTypeParameter3[ItemTypeParameter8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }], ItemTypeParameter8[@for(ii <- 9 to 16) { T@{ii} @if(ii < 16) { , } }],
-    ItemTypeParameter@{index - 17}[@for(ii <- 1 to (index - 17)) { T@{ii + 16} @if(ii < (index - 17)) { , } }]]
+ItemTypeHList3[ItemTypeHList8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }], ItemTypeHList8[@for(ii <- 9 to 16) { T@{ii} @if(ii < 16) { , } }],
+    ItemTypeHList@{index - 17}[@for(ii <- 1 to (index - 17)) { T@{ii + 16} @if(ii < (index - 17)) { , } }]]
 }
 
 @typeName2(index: Int) = {
@@ -30,29 +30,29 @@ Item3[Item8[@for(ii <- 1 to 8) { T@{ii}#H @if(ii < 8) { , } }], Item8[@for(ii <-
     (item @for(ii <- 1 to 8) { , p.i1.i@{ii} } @for(ii <- 1 to 8) { , p.i2.i@{ii} } @for(ii <- 1 to (index - 17)) { , p.i3.i@{ii} })
 }
 
-trait TupleTypeParameterPlus3 {
+trait TupleTypeHListPlus3 {
 
 @for(i <- 18 to 22) {
 
-    def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeParameter @if(ii < i) { , } }]
-    : Plus[@typeName1(i), T@{i}, TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
-    new Plus[@typeName1(i), T@{i}, TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
+    def hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeHList @if(ii < i) { , } }]
+    : Plus[@typeName1(i), T@{i}, TupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] =
+    new Plus[@typeName1(i), T@{i}, TupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def plus(p: @typeName2(i), item: T@{i}#H): (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } }) = @code3(i)
         override def takeTail(t: (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } })): T@{i}#H = t._@{i}
         override def takeHead(t: (@for(ii <- 1 to i) { T@{ii}#H @if(ii < i) { , } })): @typeName2(i) = @code4(i)
-        override def sub: Plus[@typeName1(i)#T, T@{i}#T, TupleTypeParameter@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]#T] = hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
+        override def sub: Plus[@typeName1(i)#T, T@{i}#T, TupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]#T] = hlistPlus@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
     }
 
-    def hlistPut@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeParameter @if(ii < i) { , } }]
-    : Plus[@typeName1(i), T@{i}, TupleTypeParameter@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] =
-    new Plus[@typeName1(i), T@{i}, TupleTypeParameter@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] {
+    def hlistPut@{i}[@for(ii <- 1 to i) { T@{ii} <: TypeHList @if(ii < i) { , } }]
+    : Plus[@typeName1(i), T@{i}, TupleTypeHList@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] =
+    new Plus[@typeName1(i), T@{i}, TupleTypeHList@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]] {
         override def plus(p: @typeName2(i), item: T@{i}#H): (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H }) = @code8(i)
         override def takeTail(t: (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H })): T@{i}#H = t._1
         override def takeHead(t: (T@{i}#H @for(ii <- 1 to (i - 1)) { , T@{ii}#H })): @typeName2(i) = @code6(i)
-        override def sub: Plus[@typeName1(i)#T, T@{i}#T, TupleTypeParameter@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]#T] = hlistPut@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
+        override def sub: Plus[@typeName1(i)#T, T@{i}#T, TupleTypeHList@{i}[T@{i} @for(ii <- 1 to (i - 1)) { , T@{ii} }]#T] = hlistPut@{i}[@for(ii <- 1 to i) { T@{ii}#T @if(ii < i) { , } }]
     }
 }
 
 }
 
-object TupleTypeParameterPlus3 extends TupleTypeParameterPlus3
+object TupleTypeHListPlus3 extends TupleTypeHListPlus3

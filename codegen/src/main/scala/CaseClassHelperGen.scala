@@ -67,28 +67,29 @@ object CaseClassHelperGen1 extends App {
 
   for (i <- 2 to maxPropertyNum) yield {
     val path19 =
-      rootDir.resolve("mapper" + i).resolve("ItemTypeParameterPlus" + i + ".scala")
+      rootDir.resolve("mapper" + i).resolve("ItemTypeHListPlus" + i + ".scala")
     Files.createDirectories(path19.getParent)
     val writer19   = new PrintWriter(path19.toFile, "utf-8")
-    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.ItemTypeParameterPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.ItemTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()
   }
 
-  val path21 = buildDir.resolve("ItemTypeParameter.scala")
+  val path21 = buildDir.resolve("ItemTypeHList.scala")
   Files.createDirectories(path21.getParent)
   val writer21 = new PrintWriter(path21.toFile, "utf-8")
   val content211 =
-    Source.fromString(org.scalax.asuna.item.template.txt.ItemTypeParameter(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.ItemTypeHList(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content212 = content211.mkString(System.lineSeparator)
   writer21.println(content212)
   writer21.close()
 
-  val path22 = buildDir.resolve("TypeParameter.scala")
+  val path22 = buildDir.resolve("TypeHList.scala")
   Files.createDirectories(path22.getParent)
-  val writer22   = new PrintWriter(path22.toFile, "utf-8")
-  val content221 = Source.fromString(org.scalax.asuna.item.template.txt.TypeParameter(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+  val writer22 = new PrintWriter(path22.toFile, "utf-8")
+  val content221 =
+    Source.fromString(org.scalax.asuna.item.template.build.txt.TypeHList(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content222 = content221.mkString(System.lineSeparator)
   writer22.println(content222)
   writer22.close()
@@ -97,7 +98,7 @@ object CaseClassHelperGen1 extends App {
   Files.createDirectories(path23.getParent)
   val writer23 = new PrintWriter(path23.toFile, "utf-8")
   val content231 =
-    Source.fromString(org.scalax.asuna.item.template.txt.NoteNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.NoteNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content232 = content231.mkString(System.lineSeparator)
   writer23.println(content232)
   writer23.close()
@@ -106,7 +107,7 @@ object CaseClassHelperGen1 extends App {
   Files.createDirectories(path24.getParent)
   val writer24 = new PrintWriter(path24.toFile, "utf-8")
   val content241 =
-    Source.fromString(org.scalax.asuna.item.template.txt.ItemNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.ItemNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content242 = content241.mkString(System.lineSeparator)
   writer24.println(content242)
   writer24.close()
@@ -115,7 +116,7 @@ object CaseClassHelperGen1 extends App {
   Files.createDirectories(path18.getParent)
   val writer18 = new PrintWriter(path18.toFile, "utf-8")
   val content181 =
-    Source.fromString(org.scalax.asuna.item.template.txt.BuildContent(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.BuildContent(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content182 = content181.mkString(System.lineSeparator)
   writer18.println(content182)
   writer18.close()

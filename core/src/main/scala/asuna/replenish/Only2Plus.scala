@@ -1,24 +1,24 @@
 package asuna
 
 trait Only2Plus {
-  @inline def hlistPlus2[T1 <: TypeParameter, T2 <: TypeParameter]: Plus[T1, T2, ItemTypeParameter2[T1, T2]] =
-    hlistPlus2Any.asInstanceOf[Plus[T1, T2, ItemTypeParameter2[T1, T2]]]
-  @inline def hlistPut2[T1 <: TypeParameter, T2 <: TypeParameter]: Plus[T1, T2, ItemTypeParameter2[T2, T1]] =
-    hlistPut2Any.asInstanceOf[Plus[T1, T2, ItemTypeParameter2[T2, T1]]]
+  @inline def hlistPlus2[T1 <: TypeHList, T2 <: TypeHList]: Plus[T1, T2, ItemTypeHList2[T1, T2]] =
+    hlistPlus2Any.asInstanceOf[Plus[T1, T2, ItemTypeHList2[T1, T2]]]
+  @inline def hlistPut2[T1 <: TypeHList, T2 <: TypeHList]: Plus[T1, T2, ItemTypeHList2[T2, T1]] =
+    hlistPut2Any.asInstanceOf[Plus[T1, T2, ItemTypeHList2[T2, T1]]]
 
-  val hlistPlus2Any: Plus[AnyTypeParameter, AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] =
-    new Plus[AnyTypeParameter, AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] {
-      override def plus(p: AnyTypeParameter#H, item: AnyTypeParameter#H): Item2[AnyTypeParameter#H, AnyTypeParameter#H]        = HListItem0.add(p).add(item)
-      override def takeTail(t: Item2[AnyTypeParameter#H, AnyTypeParameter#H]): AnyTypeParameter#H                              = t.i2
-      override def takeHead(t: Item2[AnyTypeParameter#H, AnyTypeParameter#H]): AnyTypeParameter#H                              = t.i1
-      override def sub: Plus[AnyTypeParameter#T, AnyTypeParameter#T, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]#T] = hlistPlus2Any
+  val hlistPlus2Any: Plus[AnyTypeHList, AnyTypeHList, ItemTypeHList2[AnyTypeHList, AnyTypeHList]] =
+    new Plus[AnyTypeHList, AnyTypeHList, ItemTypeHList2[AnyTypeHList, AnyTypeHList]] {
+      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): Item2[AnyTypeHList#H, AnyTypeHList#H]    = HListItem0.add(p).add(item)
+      override def takeTail(t: Item2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                      = t.i2
+      override def takeHead(t: Item2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                      = t.i1
+      override def sub: Plus[AnyTypeHList#T, AnyTypeHList#T, ItemTypeHList2[AnyTypeHList, AnyTypeHList]#T] = hlistPlus2Any
     }
-  val hlistPut2Any: Plus[AnyTypeParameter, AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] =
-    new Plus[AnyTypeParameter, AnyTypeParameter, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]] {
-      override def plus(p: AnyTypeParameter#H, item: AnyTypeParameter#H): Item2[AnyTypeParameter#H, AnyTypeParameter#H]        = ReverseHListItem0.pull(p).pull(item)
-      override def takeTail(t: Item2[AnyTypeParameter#H, AnyTypeParameter#H]): AnyTypeParameter#H                              = t.i1
-      override def takeHead(t: Item2[AnyTypeParameter#H, AnyTypeParameter#H]): AnyTypeParameter#H                              = t.i2
-      override def sub: Plus[AnyTypeParameter#T, AnyTypeParameter#T, ItemTypeParameter2[AnyTypeParameter, AnyTypeParameter]#T] = hlistPut2Any
+  val hlistPut2Any: Plus[AnyTypeHList, AnyTypeHList, ItemTypeHList2[AnyTypeHList, AnyTypeHList]] =
+    new Plus[AnyTypeHList, AnyTypeHList, ItemTypeHList2[AnyTypeHList, AnyTypeHList]] {
+      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): Item2[AnyTypeHList#H, AnyTypeHList#H]    = ReverseHListItem0.pull(p).pull(item)
+      override def takeTail(t: Item2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                      = t.i1
+      override def takeHead(t: Item2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                      = t.i2
+      override def sub: Plus[AnyTypeHList#T, AnyTypeHList#T, ItemTypeHList2[AnyTypeHList, AnyTypeHList]#T] = hlistPut2Any
     }
 }
 

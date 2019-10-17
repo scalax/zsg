@@ -1,33 +1,33 @@
 package asuna
-trait TupleTypeParameterPlus3 {
+trait TupleTypeHListPlus3 {
   def hlistPlus18[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]],
     T18,
-    TupleTypeParameter18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+    TupleTypeHList18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
   ] =
     new Plus[
-      ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]],
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]],
       T18,
-      TupleTypeParameter18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+      TupleTypeHList18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
     ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item1[T17#H]],
@@ -53,39 +53,39 @@ trait TupleTypeParameterPlus3 {
           )
           .add(HListItem0.add(t._17): Item1[T17#H])
       override def sub: Plus[
-        ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]]#T,
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]]#T,
         T18#T,
-        TupleTypeParameter18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]#T
+        TupleTypeHList18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]#T
       ] = hlistPlus18[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T]
     }
   def hlistPut18[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]],
     T18,
-    TupleTypeParameter18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
+    TupleTypeHList18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
   ] =
     new Plus[
-      ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]],
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]],
       T18,
-      TupleTypeParameter18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
+      TupleTypeHList18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]
     ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item1[T17#H]],
@@ -121,40 +121,40 @@ trait TupleTypeParameterPlus3 {
               .pull(t._2): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]
           )
       override def sub: Plus[
-        ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter1[T17]]#T,
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList1[T17]]#T,
         T18#T,
-        TupleTypeParameter18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]#T
+        TupleTypeHList18[T18, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]#T
       ] = hlistPut18[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T]
     }
   def hlistPlus19[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]],
     T19,
-    TupleTypeParameter19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+    TupleTypeHList19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
   ] =
     new Plus[
-      ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]],
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]],
       T19,
-      TupleTypeParameter19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+      TupleTypeHList19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
     ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item2[T17#H, T18#H]],
@@ -201,40 +201,40 @@ trait TupleTypeParameterPlus3 {
           )
           .add(HListItem0.add(t._17).add(t._18): Item2[T17#H, T18#H])
       override def sub: Plus[
-        ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]]#T,
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]]#T,
         T19#T,
-        TupleTypeParameter19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]#T
+        TupleTypeHList19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]#T
       ] = hlistPlus19[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T]
     }
   def hlistPut19[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]],
     T19,
-    TupleTypeParameter19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+    TupleTypeHList19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
   ] =
     new Plus[
-      ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]],
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]],
       T19,
-      TupleTypeParameter19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
+      TupleTypeHList19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]
     ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item2[T17#H, T18#H]],
@@ -290,42 +290,42 @@ trait TupleTypeParameterPlus3 {
               .pull(t._2): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]
           )
       override def sub: Plus[
-        ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter2[T17, T18]]#T,
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList2[T17, T18]]#T,
         T19#T,
-        TupleTypeParameter19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]#T
+        TupleTypeHList19[T19, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]#T
       ] = hlistPut19[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T]
     }
   def hlistPlus20[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter3[T17, T18, T19]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]],
     T20,
-    TupleTypeParameter20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+    TupleTypeHList20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
   ] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter3[T17, T18, T19]
-    ], T20, TupleTypeParameter20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]],
+      T20,
+      TupleTypeHList20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+    ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item3[T17#H, T18#H, T19#H]],
         item: T20#H
@@ -372,44 +372,43 @@ trait TupleTypeParameterPlus3 {
               .add(t._16): Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H]
           )
           .add(HListItem0.add(t._17).add(t._18).add(t._19): Item3[T17#H, T18#H, T19#H])
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter3[T17, T18, T19]
-      ]#T, T20#T, TupleTypeParameter20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]#T] =
-        hlistPlus20[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]]#T,
+        T20#T,
+        TupleTypeHList20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]#T
+      ] = hlistPlus20[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T]
     }
   def hlistPut20[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList
   ]: Plus[
-    ItemTypeParameter3[ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeParameter3[T17, T18, T19]],
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]],
     T20,
-    TupleTypeParameter20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+    TupleTypeHList20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
   ] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter3[T17, T18, T19]
-    ], T20, TupleTypeParameter20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] {
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]],
+      T20,
+      TupleTypeHList20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]
+    ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item3[T17#H, T18#H, T19#H]],
         item: T20#H
@@ -466,45 +465,44 @@ trait TupleTypeParameterPlus3 {
               .pull(t._3)
               .pull(t._2): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]
           )
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter3[T17, T18, T19]
-      ]#T, T20#T, TupleTypeParameter20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]#T] =
-        hlistPut20[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList3[T17, T18, T19]]#T,
+        T20#T,
+        TupleTypeHList20[T20, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]#T
+      ] = hlistPut20[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T]
     }
   def hlistPlus21[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter,
-    T21 <: TypeParameter
-  ]: Plus[ItemTypeParameter3[
-    ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-    ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-    ItemTypeParameter4[T17, T18, T19, T20]
-  ], T21, TupleTypeParameter21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter4[T17, T18, T19, T20]
-    ], T21, TupleTypeParameter21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList,
+    T21 <: TypeHList
+  ]: Plus[
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]],
+    T21,
+    TupleTypeHList21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+  ] =
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]],
+      T21,
+      TupleTypeHList21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+    ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item4[T17#H, T18#H, T19#H, T20#H]],
         item: T21#H
@@ -552,45 +550,44 @@ trait TupleTypeParameterPlus3 {
               .add(t._16): Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H]
           )
           .add(HListItem0.add(t._17).add(t._18).add(t._19).add(t._20): Item4[T17#H, T18#H, T19#H, T20#H])
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter4[T17, T18, T19, T20]
-      ]#T, T21#T, TupleTypeParameter21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]#T] =
-        hlistPlus21[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]]#T,
+        T21#T,
+        TupleTypeHList21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]#T
+      ] = hlistPlus21[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T]
     }
   def hlistPut21[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter,
-    T21 <: TypeParameter
-  ]: Plus[ItemTypeParameter3[
-    ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-    ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-    ItemTypeParameter4[T17, T18, T19, T20]
-  ], T21, TupleTypeParameter21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter4[T17, T18, T19, T20]
-    ], T21, TupleTypeParameter21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] {
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList,
+    T21 <: TypeHList
+  ]: Plus[
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]],
+    T21,
+    TupleTypeHList21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+  ] =
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]],
+      T21,
+      TupleTypeHList21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]
+    ] {
       override def plus(
         p: Item3[Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H], Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H], Item4[T17#H, T18#H, T19#H, T20#H]],
         item: T21#H
@@ -648,46 +645,45 @@ trait TupleTypeParameterPlus3 {
               .pull(t._3)
               .pull(t._2): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]
           )
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter4[T17, T18, T19, T20]
-      ]#T, T21#T, TupleTypeParameter21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]#T] =
-        hlistPut21[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList4[T17, T18, T19, T20]]#T,
+        T21#T,
+        TupleTypeHList21[T21, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]#T
+      ] = hlistPut21[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T]
     }
   def hlistPlus22[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter,
-    T21 <: TypeParameter,
-    T22 <: TypeParameter
-  ]: Plus[ItemTypeParameter3[
-    ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-    ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-    ItemTypeParameter5[T17, T18, T19, T20, T21]
-  ], T22, TupleTypeParameter22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter5[T17, T18, T19, T20, T21]
-    ], T22, TupleTypeParameter22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] {
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList,
+    T21 <: TypeHList,
+    T22 <: TypeHList
+  ]: Plus[
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]],
+    T22,
+    TupleTypeHList22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
+  ] =
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]],
+      T22,
+      TupleTypeHList22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
+    ] {
       override def plus(
         p: Item3[
           Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H],
@@ -746,46 +742,45 @@ trait TupleTypeParameterPlus3 {
               .add(t._16): Item8[T9#H, T10#H, T11#H, T12#H, T13#H, T14#H, T15#H, T16#H]
           )
           .add(HListItem0.add(t._17).add(t._18).add(t._19).add(t._20).add(t._21): Item5[T17#H, T18#H, T19#H, T20#H, T21#H])
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter5[T17, T18, T19, T20, T21]
-      ]#T, T22#T, TupleTypeParameter22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]#T] =
-        hlistPlus22[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T, T22#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]]#T,
+        T22#T,
+        TupleTypeHList22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]#T
+      ] = hlistPlus22[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T, T22#T]
     }
   def hlistPut22[
-    T1 <: TypeParameter,
-    T2 <: TypeParameter,
-    T3 <: TypeParameter,
-    T4 <: TypeParameter,
-    T5 <: TypeParameter,
-    T6 <: TypeParameter,
-    T7 <: TypeParameter,
-    T8 <: TypeParameter,
-    T9 <: TypeParameter,
-    T10 <: TypeParameter,
-    T11 <: TypeParameter,
-    T12 <: TypeParameter,
-    T13 <: TypeParameter,
-    T14 <: TypeParameter,
-    T15 <: TypeParameter,
-    T16 <: TypeParameter,
-    T17 <: TypeParameter,
-    T18 <: TypeParameter,
-    T19 <: TypeParameter,
-    T20 <: TypeParameter,
-    T21 <: TypeParameter,
-    T22 <: TypeParameter
-  ]: Plus[ItemTypeParameter3[
-    ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-    ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-    ItemTypeParameter5[T17, T18, T19, T20, T21]
-  ], T22, TupleTypeParameter22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] =
-    new Plus[ItemTypeParameter3[
-      ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-      ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-      ItemTypeParameter5[T17, T18, T19, T20, T21]
-    ], T22, TupleTypeParameter22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] {
+    T1 <: TypeHList,
+    T2 <: TypeHList,
+    T3 <: TypeHList,
+    T4 <: TypeHList,
+    T5 <: TypeHList,
+    T6 <: TypeHList,
+    T7 <: TypeHList,
+    T8 <: TypeHList,
+    T9 <: TypeHList,
+    T10 <: TypeHList,
+    T11 <: TypeHList,
+    T12 <: TypeHList,
+    T13 <: TypeHList,
+    T14 <: TypeHList,
+    T15 <: TypeHList,
+    T16 <: TypeHList,
+    T17 <: TypeHList,
+    T18 <: TypeHList,
+    T19 <: TypeHList,
+    T20 <: TypeHList,
+    T21 <: TypeHList,
+    T22 <: TypeHList
+  ]: Plus[
+    ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]],
+    T22,
+    TupleTypeHList22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+  ] =
+    new Plus[
+      ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]],
+      T22,
+      TupleTypeHList22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]
+    ] {
       override def plus(
         p: Item3[
           Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H],
@@ -854,12 +849,11 @@ trait TupleTypeParameterPlus3 {
               .pull(t._3)
               .pull(t._2): Item8[T1#H, T2#H, T3#H, T4#H, T5#H, T6#H, T7#H, T8#H]
           )
-      override def sub: Plus[ItemTypeParameter3[
-        ItemTypeParameter8[T1, T2, T3, T4, T5, T6, T7, T8],
-        ItemTypeParameter8[T9, T10, T11, T12, T13, T14, T15, T16],
-        ItemTypeParameter5[T17, T18, T19, T20, T21]
-      ]#T, T22#T, TupleTypeParameter22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]#T] =
-        hlistPut22[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T, T22#T]
+      override def sub: Plus[
+        ItemTypeHList3[ItemTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], ItemTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], ItemTypeHList5[T17, T18, T19, T20, T21]]#T,
+        T22#T,
+        TupleTypeHList22[T22, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]#T
+      ] = hlistPut22[T1#T, T2#T, T3#T, T4#T, T5#T, T6#T, T7#T, T8#T, T9#T, T10#T, T11#T, T12#T, T13#T, T14#T, T15#T, T16#T, T17#T, T18#T, T19#T, T20#T, T21#T, T22#T]
     }
 }
-object TupleTypeParameterPlus3 extends TupleTypeParameterPlus3
+object TupleTypeHListPlus3 extends TupleTypeHListPlus3

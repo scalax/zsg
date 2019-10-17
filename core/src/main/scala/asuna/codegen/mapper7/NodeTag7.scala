@@ -25,16 +25,7 @@ class NodeTag7[
   def find4: T5#M[`Number： 4`] = throw new Exception("debugging...")
   def find5: T6#M[`Number： 5`] = throw new Exception("debugging...")
   def find6: T7#M[`Number： 6`] = throw new Exception("debugging...")
-  def debug[
-    K <: KindContext,
-    I1 <: TypeParameter,
-    I2 <: TypeParameter,
-    I3 <: TypeParameter,
-    I4 <: TypeParameter,
-    I5 <: TypeParameter,
-    I6 <: TypeParameter,
-    I7 <: TypeParameter
-  ](c: Context[K])(
+  def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList, I5 <: TypeHList, I6 <: TypeHList, I7 <: TypeHList](c: Context[K])(
     implicit
     dapp1: DebugApplication[K, T1, I1, `Message： Please change .debug(context) to .find0.debug(context).`],
     dapp2: DebugApplication[K, T2, I2, `Message： Please change .debug(context) to .find1.debug(context).`],
@@ -43,7 +34,7 @@ class NodeTag7[
     dapp5: DebugApplication[K, T5, I5, `Message： Please change .debug(context) to .find4.debug(context).`],
     dapp6: DebugApplication[K, T6, I6, `Message： Please change .debug(context) to .find5.debug(context).`],
     dapp7: DebugApplication[K, T7, I7, `Message： Please change .debug(context) to .find6.debug(context).`]
-  ): Application[K, NodeTag7[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7], ItemTypeParameter7[I1, I2, I3, I4, I5, I6, I7]] =
+  ): Application[K, NodeTag7[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7], ItemTypeHList7[I1, I2, I3, I4, I5, I6, I7]] =
     NodeTag7.noteTagApplicationImplicit7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
 }
 object NodeTag7 {
@@ -56,19 +47,19 @@ object NodeTag7 {
     H5 <: ItemTag,
     H6 <: ItemTag,
     H7 <: ItemTag,
-    T1 <: TypeParameter,
+    T1 <: TypeHList,
     M1 <: Message,
-    T2 <: TypeParameter,
+    T2 <: TypeHList,
     M2 <: Message,
-    T3 <: TypeParameter,
+    T3 <: TypeHList,
     M3 <: Message,
-    T4 <: TypeParameter,
+    T4 <: TypeHList,
     M4 <: Message,
-    T5 <: TypeParameter,
+    T5 <: TypeHList,
     M5 <: Message,
-    T6 <: TypeParameter,
+    T6 <: TypeHList,
     M6 <: Message,
-    T7 <: TypeParameter,
+    T7 <: TypeHList,
     M7 <: Message
   ](
     implicit t1: Application[K, H1, T1],
@@ -78,63 +69,63 @@ object NodeTag7 {
     t5: Application[K, H5, T5],
     t6: Application[K, H6, T6],
     t7: Application[K, H7, T7]
-  ): Application[K, NodeTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] =
-    new Application[K, NodeTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] {
-      override def application(context: Context[K]): K#M[ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]] = {
+  ): Application[K, NodeTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]] =
+    new Application[K, NodeTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]] {
+      override def application(context: Context[K]): K#M[ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]] = {
         if (context.isReverse) {
-          context.append[ItemTypeParameter6[T2, T3, T4, T5, T6, T7], T1, ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]](
-            context.append[ItemTypeParameter5[T3, T4, T5, T6, T7], T2, ItemTypeParameter6[T2, T3, T4, T5, T6, T7]](
-              context.append[ItemTypeParameter4[T4, T5, T6, T7], T3, ItemTypeParameter5[T3, T4, T5, T6, T7]](
-                context.append[ItemTypeParameter3[T5, T6, T7], T4, ItemTypeParameter4[T4, T5, T6, T7]](
-                  context.append[ItemTypeParameter2[T6, T7], T5, ItemTypeParameter3[T5, T6, T7]](
-                    context.append[ItemTypeParameter1[T7], T6, ItemTypeParameter2[T6, T7]](
-                      context.append[ItemTypeParameter0, T7, ItemTypeParameter1[T7]](context.start, t7.application(context), ItemTypeParameterPlus1.hlistPlus1),
+          context.append[ItemTypeHList6[T2, T3, T4, T5, T6, T7], T1, ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]](
+            context.append[ItemTypeHList5[T3, T4, T5, T6, T7], T2, ItemTypeHList6[T2, T3, T4, T5, T6, T7]](
+              context.append[ItemTypeHList4[T4, T5, T6, T7], T3, ItemTypeHList5[T3, T4, T5, T6, T7]](
+                context.append[ItemTypeHList3[T5, T6, T7], T4, ItemTypeHList4[T4, T5, T6, T7]](
+                  context.append[ItemTypeHList2[T6, T7], T5, ItemTypeHList3[T5, T6, T7]](
+                    context.append[ItemTypeHList1[T7], T6, ItemTypeHList2[T6, T7]](
+                      context.append[ItemTypeHList0, T7, ItemTypeHList1[T7]](context.start, t7.application(context), ItemTypeHListPlus1.hlistPlus1),
                       t6.application(context),
-                      ItemTypeParameterPlus2.put2
+                      ItemTypeHListPlus2.put2
                     ),
                     t5.application(context),
-                    ItemTypeParameterPlus3.put3
+                    ItemTypeHListPlus3.put3
                   ),
                   t4.application(context),
-                  ItemTypeParameterPlus4.put4
+                  ItemTypeHListPlus4.put4
                 ),
                 t3.application(context),
-                ItemTypeParameterPlus5.put5
+                ItemTypeHListPlus5.put5
               ),
               t2.application(context),
-              ItemTypeParameterPlus6.put6
+              ItemTypeHListPlus6.put6
             ),
             t1.application(context),
-            ItemTypeParameterPlus7.put7
+            ItemTypeHListPlus7.put7
           )
-//context.append(NodeTag6.noteTagApplicationImplicit6( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ).application(context), t1.application(context), ItemTypeParameterPlus7.put7)
+//context.append(NodeTag6.noteTagApplicationImplicit6( t2  ,   t3  ,   t4  ,   t5  ,   t6  ,   t7  ).application(context), t1.application(context), ItemTypeHListPlus7.put7)
         } else {
-          context.append[ItemTypeParameter6[T1, T2, T3, T4, T5, T6], T7, ItemTypeParameter7[T1, T2, T3, T4, T5, T6, T7]](
-            context.append[ItemTypeParameter5[T1, T2, T3, T4, T5], T6, ItemTypeParameter6[T1, T2, T3, T4, T5, T6]](
-              context.append[ItemTypeParameter4[T1, T2, T3, T4], T5, ItemTypeParameter5[T1, T2, T3, T4, T5]](
-                context.append[ItemTypeParameter3[T1, T2, T3], T4, ItemTypeParameter4[T1, T2, T3, T4]](
-                  context.append[ItemTypeParameter2[T1, T2], T3, ItemTypeParameter3[T1, T2, T3]](
-                    context.append[ItemTypeParameter1[T1], T2, ItemTypeParameter2[T1, T2]](
-                      context.append[ItemTypeParameter0, T1, ItemTypeParameter1[T1]](context.start, t1.application(context), ItemTypeParameterPlus1.hlistPlus1),
+          context.append[ItemTypeHList6[T1, T2, T3, T4, T5, T6], T7, ItemTypeHList7[T1, T2, T3, T4, T5, T6, T7]](
+            context.append[ItemTypeHList5[T1, T2, T3, T4, T5], T6, ItemTypeHList6[T1, T2, T3, T4, T5, T6]](
+              context.append[ItemTypeHList4[T1, T2, T3, T4], T5, ItemTypeHList5[T1, T2, T3, T4, T5]](
+                context.append[ItemTypeHList3[T1, T2, T3], T4, ItemTypeHList4[T1, T2, T3, T4]](
+                  context.append[ItemTypeHList2[T1, T2], T3, ItemTypeHList3[T1, T2, T3]](
+                    context.append[ItemTypeHList1[T1], T2, ItemTypeHList2[T1, T2]](
+                      context.append[ItemTypeHList0, T1, ItemTypeHList1[T1]](context.start, t1.application(context), ItemTypeHListPlus1.hlistPlus1),
                       t2.application(context),
-                      ItemTypeParameterPlus2.plus2
+                      ItemTypeHListPlus2.plus2
                     ),
                     t3.application(context),
-                    ItemTypeParameterPlus3.plus3
+                    ItemTypeHListPlus3.plus3
                   ),
                   t4.application(context),
-                  ItemTypeParameterPlus4.plus4
+                  ItemTypeHListPlus4.plus4
                 ),
                 t5.application(context),
-                ItemTypeParameterPlus5.plus5
+                ItemTypeHListPlus5.plus5
               ),
               t6.application(context),
-              ItemTypeParameterPlus6.plus6
+              ItemTypeHListPlus6.plus6
             ),
             t7.application(context),
-            ItemTypeParameterPlus7.plus7
+            ItemTypeHListPlus7.plus7
           )
-//context.append(NodeTag6.noteTagApplicationImplicit6( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ).application(context), t7.application(context), ItemTypeParameterPlus7.plus7)
+//context.append(NodeTag6.noteTagApplicationImplicit6( t1  ,   t2  ,   t3  ,   t4  ,   t5  ,   t6  ).application(context), t7.application(context), ItemTypeHListPlus7.plus7)
         }
       }
     }

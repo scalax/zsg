@@ -1,12 +1,12 @@
 package asuna.test
 
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
 import io.circe._
 
 object AsunaCirceDecoder {
 
-  def decoder[T, R <: ItemTag, I <: TypeParameter](
+  def decoder[T, R <: ItemTag, I <: TypeHList](
     implicit ll: AsunaGeneric.Aux[T, R],
     app: Application[KM, R, I],
     cv1: AsunaLabelledGeneric[T, I#H],
@@ -17,7 +17,7 @@ object AsunaCirceDecoder {
   }
 
   class KM extends KindContext {
-    override type M[P <: TypeParameter] = JsonPro[P#T#H, P#H, P#T#T#H]
+    override type M[P <: TypeHList] = JsonPro[P#T#H, P#H, P#T#T#H]
   }
 
   trait JsonPro[T, II, D] {
@@ -27,7 +27,7 @@ object AsunaCirceDecoder {
   object ii extends Context[KM] {
     override def isReverse: Boolean = false
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonPro[X#T#H, X#H, X#T#T#H],
       y: JsonPro[Y#T#H, Y#H, Y#T#T#H],
       plus: Plus[X, Y, Z]
@@ -67,7 +67,7 @@ object AsunaCirceDecoder {
   }
 
   class GenericApply1[T, R <: ItemTag] {
-    def ir[I <: TypeParameter](
+    def ir[I <: TypeHList](
       implicit app: Application[KM, R, I],
       cv1: AsunaLabelledGeneric[T, I#H],
       cv3: AsunaSetterGeneric[T, I#T#H],

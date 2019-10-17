@@ -37,13 +37,13 @@ object Test02 {
   }
 
   class KContext extends KindContext {
-    override type M[P <: TypeParameter] = JsonEncoder[P#H, P#T#H]
+    override type M[P <: TypeHList] = JsonEncoder[P#H, P#T#H]
   }
 
   object ii extends Context[KContext] {
     override def isReverse: Boolean = false
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonEncoder[X#H, X#T#H],
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
@@ -64,8 +64,8 @@ object Test02 {
   implicit val test04Labelled: Item4[String, String, String, String] =
     BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
 
-  implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeParameter2[T, String]] =
-    new Application[KContext, PropertyTag[T], TypeParameter2[T, String]] {
+  implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
+    new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
       override def application(context: Context[KContext]): JsonEncoder[T, String] = {
         new JsonEncoder[T, String] {
           override def p(obj: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
@@ -75,10 +75,12 @@ object Test02 {
       }
     }
 
-  def circeObjectEncoder[H, T <: ItemTag, I <: TypeParameter](implicit generic: AsunaTestGeneric.Aux[H, T],
-                                                        app: Application[KContext, T, I],
-                                                        i1: H => I#H,
-                                                        i2: I#T#H): Encoder.AsObject[H] = {
+  def circeObjectEncoder[H, T <: ItemTag, I <: TypeHList](
+    implicit generic: AsunaTestGeneric.Aux[H, T],
+    app: Application[KContext, T, I],
+    i1: H => I#H,
+    i2: I#T#H
+  ): Encoder.AsObject[H] = {
     Encoder.AsObject.instance { f: H =>
       JsonObject.fromIterable(app.application(ii).p(i1(f), i2, List.empty))
     }

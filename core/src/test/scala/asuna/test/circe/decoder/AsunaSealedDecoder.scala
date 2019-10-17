@@ -1,12 +1,12 @@
 package asuna.test
 
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeParameter}
+import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToabsGeneric}
 import io.circe.Decoder
 
 object AsunaSealedDecoder {
 
-  def decoder[H, R <: ItemTag, I <: TypeParameter](
+  def decoder[H, R <: ItemTag, I <: TypeHList](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
     app: Application[KContext[H], R, I],
     cv1: AsunaSealedLabelledGeneric[H, I#H],
@@ -22,13 +22,13 @@ object AsunaSealedDecoder {
   }
 
   class KContext[H] extends KindContext {
-    override type M[P <: TypeParameter] = JsonPro[P#H, P#T#H, H]
+    override type M[P <: TypeHList] = JsonPro[P#H, P#T#H, H]
   }
 
   class ii[H] extends Context[KContext[H]] {
     override def isReverse: Boolean = false
 
-    override def append[X <: TypeParameter, Y <: TypeParameter, Z <: TypeParameter](
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonPro[X#H, X#T#H, H],
       y: JsonPro[Y#H, Y#T#H, H],
       plus: Plus[X, Y, Z]
@@ -54,7 +54,7 @@ object AsunaSealedDecoder {
   //编译期调试辅助函数开始
   def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
     def asunaGeneric[R <: ItemTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
-      override def decoder[I <: TypeParameter](
+      override def decoder[I <: TypeHList](
         implicit
         app: Application[KContext[H], R, I],
         cv1: AsunaSealedLabelledGeneric[H, I#H],
@@ -72,7 +72,7 @@ object AsunaSealedDecoder {
   }
 
   trait ImplicitApply2[H, R <: ItemTag] {
-    def decoder[I <: TypeParameter](
+    def decoder[I <: TypeHList](
       implicit
       app: Application[KContext[H], R, I],
       cv1: AsunaSealedLabelledGeneric[H, I#H],
@@ -80,7 +80,7 @@ object AsunaSealedDecoder {
     ): Decoder[H]
 
     def toTag: R = throw new Exception("123")
-    def toIH[I <: TypeParameter](
+    def toIH[I <: TypeHList](
       implicit
       app: Application[KContext[H], R, I]
     ): I#H = throw new Exception("123")
