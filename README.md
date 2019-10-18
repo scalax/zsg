@@ -31,7 +31,7 @@ Ausna 是一个深度依赖于 Type Projection 的项目. Type Projection
 将会在 Scala3 被移除，但我们为什么仍然使用了 Type Projectoin？
 
 - Compile very fast. A natural number structure based on iterations is
-discarded, and a finite tuple structure is used instead. Then the
+discarded, and a limited tuple structure is used instead. Then the
 compilation speed is improved qualitatively. In my test case,
 compiling two mutually dependent 100-field case classes into a
 circe encoder takes only 2 seconds. Which circe use 20s.  
@@ -48,6 +48,24 @@ IntelliJ IDEA and then populated based on type hints.
 
 - No similar type style is found in [dotty](https://github.com/lampepfl/dotty "dotty").  
 在 dotty 中找不到类似的类型风格。
+
+### Why based on limited tuple?
+
+- Compile very fast. It is also one of the reasons why the
+compilation speed is fast, and it is the main reason. It not means
+`scala.Tuple22`. In asuna we use a series of diverse tuples.
+The use of limited tuples has reduced our type of
+recursive layer to less than 3. In the above example, it only
+took 2 seconds to compile successfully or compile failed.  
+编译速度十分快。它也是编译速度快的原因之一。它并不意味着我们使用了 `scala.Tuple22`。
+在 asuna 我们使用了多样化的元组。有限元组的使用使得我们的类型运算递归层数降到了 3 以内。
+在上述例子中，无论是编译成功还是编译失败都只使用了 2 秒。
+
+- Multiple types of intermediate data structures can be used. Now asuna only
+use HList to store data.In later releases, asuna will use the variable data
+structure to store data with a very high degree of freedom.  
+可以使用多种类型的中间数据结构。目前 asuna 仅使用 HList 存放数据。在后续版本中，asuna
+将会使用对外屏蔽的可变数据结构存放数据，自由度十分高。
 
 ## Tutorial
 
@@ -145,7 +163,7 @@ First create a trait to make the type simpler.
 
 ```scala
 trait JsonEncoder[T, II] {
-  def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
+  def appendField(obj: T, name: II, m: JsonObject): JsonObject
 }
 ```
 
@@ -181,7 +199,7 @@ To implement this Circe Encoder, we need a instance of:
 
 ```scala
 trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, String]] {
-  def appendProperty(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: JsonObject): JsonObject
+  def appendField(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: JsonObject): JsonObject
 }
 ```
 
@@ -193,7 +211,7 @@ based on the existing information.
 val getter = { test04: Test04 => new Item4(test04.i1, test04.i2, test04.i3, test04.i4) }
 val names = new Item4("i1", "i2", "i3", "i4")
 implicit val encoderTest04: Encoder.AsObject[Test04] = Encoder.AsObject.instance { o: Test04 =>
-  en1.appendProperty(getter(o), names, JsonObject.empty)
+  en1.appendField(getter(o), names, JsonObject.empty)
 }
 ```
 
@@ -205,22 +223,22 @@ getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 �
 
 ```scala
 val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
-  override def appendProperty(obj: String, name: String, m: JsonObject): JsonObject = {
+  override def appendField(obj: String, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromString(obj)) +: m
   }
 }
 val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
-  override def appendProperty(obj: Int, name: String, m: JsonObject): JsonObject = {
+  override def appendField(obj: Int, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromInt(obj)) +: m
   }
 }
 val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+  override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
 }
 val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-  override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+  override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
 }
@@ -323,12 +341,12 @@ object ii extends Context[KContext] {
     y: JsonEncoder[Y#T#H, Y#H],
     plus: Plus[X, Y, Z]
   ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
-    override def appendProperty(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
-      x.appendProperty(plus.sub.takeHead(obj), plus.takeHead(name), y.appendProperty(plus.sub.takeTail(obj), plus.takeTail(name), m))
+    override def appendField(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
+      x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
   }
 
   override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-    override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
+    override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
   }
 }
 ```
@@ -362,9 +380,9 @@ val test04PropertyTag
 ```
 
 Since this is just a Tag, don't forget to use `BuildContent.lift`
-to eliminate all boxing costs. `Number:X` will be used for debugging,
+to eliminate all boxing costs. `Number： X` will be used for debugging,
 which will be introduced later.  
-由于这只是一个 Tag，别忘记使用 BuildContent.lift 来消除所有装箱消耗。其中，`Number：1` 等类型会被用于 debug，将在后面介绍。
+由于这只是一个 Tag，别忘记使用 BuildContent.lift 来消除所有装箱消耗。其中，`Number： 1` 等类型会被用于 debug，将在后面介绍。
 
 Here we got 4 boot types:  
 在这里，我们得到了 4 个引导类型：
@@ -388,7 +406,7 @@ implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]])
   new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
     override def application(context: Context[KContext]): JsonEncoder[T, String] = {
       new JsonEncoder[T, String] {
-        override def appendProperty(obj: T, name: String, m: JsonObject): JsonObject = {
+        override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
           ((name, encoder.value(obj))) +: m
         }
       }
@@ -416,6 +434,6 @@ Complete asuna sample is WIP. Or you can find the test case in [circe test](http
 宏系统可以让你节省所有的代码生成时间。宏系统的设计相当离散，遵循按需获取的原则。
 宏系统生成代码的规则将会硬编码在
 [sample](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample03_macros_code_generation "code generation")
-中以节省开发的时间。  
+中以节省你查看的时间。  
 更多信息请查找我们提供的 [例子](https://github.com/scalax/asuna/tree/master/sample "sample")。  
 敬请期待更多完整样例的推出，或者你可以先查看测试用例里面的 [circe 测试](https://github.com/scalax/asuna/tree/master/core/src/test/scala/asuna/test/circe "circe test")。

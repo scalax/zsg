@@ -14,7 +14,7 @@ object Sample01 {
   val names = BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
 
   trait JsonEncoder[T, II] {
-    def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
+    def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
   class KContext extends KindContext {
@@ -29,32 +29,32 @@ object Sample01 {
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
     ): JsonEncoder[Z#H, Z#T#H] = new JsonEncoder[Z#H, Z#T#H] {
-      override def appendProperty(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
-        x.appendProperty(plus.takeHead(obj), plus.sub.takeHead(name), y.appendProperty(plus.takeTail(obj), plus.sub.takeTail(name), m))
+      override def appendField(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
+        x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), m))
     }
 
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
+      override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
     }
   }
 
   val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
-    override def appendProperty(obj: String, name: String, m: JsonObject): JsonObject = {
+    override def appendField(obj: String, name: String, m: JsonObject): JsonObject = {
       (name, Json.fromString(obj)) +: m
     }
   }
   val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
-    override def appendProperty(obj: Int, name: String, m: JsonObject): JsonObject = {
+    override def appendField(obj: Int, name: String, m: JsonObject): JsonObject = {
       (name, Json.fromInt(obj)) +: m
     }
   }
   val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-    override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+    override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
       (name, Json.fromLong(obj)) +: m
     }
   }
   val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
-    override def appendProperty(obj: Long, name: String, m: JsonObject): JsonObject = {
+    override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
       (name, Json.fromLong(obj)) +: m
     }
   }
@@ -86,7 +86,7 @@ object Sample01 {
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
       Encoder.AsObject.instance { o: Test04 =>
-        en1.appendProperty(getter(o), names, JsonObject.empty)
+        en1.appendField(getter(o), names, JsonObject.empty)
       }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
