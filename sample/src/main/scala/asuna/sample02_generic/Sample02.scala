@@ -33,7 +33,7 @@ object Sample02 {
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 
   trait JsonEncoder[T, II] {
-    def appendProperty(obj: T, name: II, m: JsonObject): JsonObject
+    def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
   class KContext extends KindContext {
@@ -48,12 +48,12 @@ object Sample02 {
       y: JsonEncoder[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
     ): JsonEncoder[Z#H, Z#T#H] = new JsonEncoder[Z#H, Z#T#H] {
-      override def appendProperty(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
-        x.appendProperty(plus.takeHead(obj), plus.sub.takeHead(name), y.appendProperty(plus.takeTail(obj), plus.sub.takeTail(name), m))
+      override def appendField(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
+        x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), m))
     }
 
     override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def appendProperty(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
+      override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
     }
   }
 
@@ -68,7 +68,7 @@ object Sample02 {
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
       override def application(context: Context[KContext]): JsonEncoder[T, String] = {
         new JsonEncoder[T, String] {
-          override def appendProperty(obj: T, name: String, m: JsonObject): JsonObject = {
+          override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
             ((name, encoder.value(obj))) +: m
           }
         }
@@ -82,7 +82,7 @@ object Sample02 {
     i2: I#T#H
   ): Encoder.AsObject[H] = {
     Encoder.AsObject.instance { f: H =>
-      app.application(ii).appendProperty(i1(f), i2, JsonObject.empty)
+      app.application(ii).appendField(i1(f), i2, JsonObject.empty)
     }
   }
 
