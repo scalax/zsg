@@ -17,10 +17,10 @@ object LargeModelTest extends App {
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.decoder
+    /*implicit lazy val largeModel_1_de: Decoder[CirceLargeModel.LargeModel_1] = AsunaCirceDecoder.decoder
     implicit lazy val largeModel_2_de: Decoder[CirceLargeModel.LargeModel_2] = AsunaCirceDecoder.decoder
     val i2                                                                   = i1.as[CirceLargeModel.LargeModel_2]
-    println(i2)
+    println(i2)*/
 
   }
 
@@ -48,6 +48,33 @@ object LargeModelTest extends App {
     println("==================== line ====================")
 
     val i1 = CirceLargeModel.largeModel_2.asJson
+    println(i1.noSpaces)
+
+  }*/
+
+  /*val a4 = {
+
+    import io.circe.generic.semiauto._
+    implicit def largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = deriveEncoder
+    implicit def largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = deriveEncoder
+
+    println("==================== line ====================")
+
+    val i1 = CirceLargeModel.largeModel_2.asJson
+    println(i1.noSpaces)
+
+  }*/
+
+  /*val a5 = {
+
+    import io.circe.derivation._
+    implicit def largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = deriveEncoder
+    implicit def largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = deriveEncoder
+
+    println("==================== line ====================")
+
+    val i1 = CirceLargeModel.largeModel_2.asJson
+
     println(i1.noSpaces)
 
   }*/

@@ -1,0 +1,32 @@
+@(maxItem: Int)
+
+package asuna.testkit
+
+import asuna.macros.PropertyApply
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
+
+class Test@{maxItem} extends AnyFunSpec with Matchers {
+
+  case class Foo@{maxItem}(@for(i <- 1 to maxItem) { i@{i}: @if(i % 4 == 0) { String } @if(i % 4 == 1) { Long } @if(i % 4 == 2) { Int } @if(i % 4 == 3) { Int } @if(i < maxItem) { , }}) {
+    self =>
+    override def toString: String =
+      @for(i <- 1 to maxItem){s"(@if(i % 4 == 0){String}@if(i % 4 == 1){Long}@if(i % 4 == 2){Int}@if(i % 4 == 3){Int}" + s"(${self.i@{i}}),i@{i})@if(i < maxItem){|}" @if(i < maxItem) { + }}
+  }
+
+  val fooValue@{maxItem} = Foo@{maxItem}(@for(i <- 1 to maxItem) { i@{i} = @if(i % 4 == 0) { "i@{i}" } @if(i % 4 == 1) { @{i} } @if(i % 4 == 2) { @{i} } @if(i % 4 == 3) { @{i} } @if(i < maxItem) { , }})
+
+  val ap@{maxItem} = PropertyApply[Foo@{maxItem}]
+
+  import in._
+
+  val fooEncoder@{maxItem}: ListEncoder[Foo@{maxItem}] = encoder
+
+    describe("A case class by @{maxItem} length") {
+      it("should generic to a encoder") {
+        val str1 = fooEncoder@{maxItem}.encode(fooValue@{maxItem}).mkString("|")
+        str1 shouldBe fooValue@{maxItem}.toString
+      }
+    }
+
+}

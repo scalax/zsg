@@ -5,7 +5,7 @@ import java.nio.file.{Files, Paths}
 
 import scala.io.Source
 
-object CaseClassHelperGen1 extends App {
+object AsunaCoreCodeGeneration extends App {
 
   val maxPropertyNum = 8
   val rootDir =
