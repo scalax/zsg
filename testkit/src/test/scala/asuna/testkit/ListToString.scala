@@ -62,11 +62,11 @@ object in {
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application[IContext, I2, I3],
     asunaGetterGeneric: AsunaGetterGeneric[I1, I3#H],
-    asunaNameGeneric: AsunaLabelledGeneric[I1, I3#T#H]
+    asunaLabelledGeneric: AsunaLabelledGeneric[I1, I3#T#H]
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
-        pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaNameGeneric.names.withContext(i)).init(List.empty)
+        pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaLabelledGeneric.names.withContext(i)).init(List.empty)
       }
     }
   }

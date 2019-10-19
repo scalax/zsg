@@ -407,8 +407,11 @@ class Test196 extends AnyFunSpec with Matchers {
   )
   val ap196 = PropertyApply[Foo196]
   import in._
-  val fooEncoder196: ListEncoder[Foo196]        = encoder
-  val reverseFooEncoder196: ListEncoder[Foo196] = reverseEncoder
+  import out._
+  val fooEncoder196: ListEncoder[Foo196]         = encoder
+  val reverseFooEncoder196: ListEncoder[Foo196]  = reverseEncoder
+  val fooDecoder196: ModelDecoder[Foo196]        = decoder
+  val reverseFooDecoder196: ModelDecoder[Foo196] = reverseDecoder
   describe("A case class by 196 length") {
     it("should generic to a encoder") {
       val str1 = fooEncoder196.encode(fooValue196).mkString("|")
@@ -417,6 +420,14 @@ class Test196 extends AnyFunSpec with Matchers {
     it("should generic to a reverse encoder") {
       val str2 = reverseFooEncoder196.encode(fooValue196).mkString("|")
       str2 shouldBe fooValue196.reverseString
+    }
+    it("should generic to a decoder") {
+      val (_, model1) = fooDecoder196.init(fooValue196.toString)
+      model1 shouldBe fooValue196
+    }
+    it("should generic to a reverse decoder") {
+      val (_, model2) = reverseFooDecoder196.init(fooValue196.reverseString)
+      model2 shouldBe fooValue196
     }
   }
 }
