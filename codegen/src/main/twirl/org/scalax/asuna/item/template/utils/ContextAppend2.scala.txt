@@ -1,6 +1,6 @@
 @(max: Int)(currentItem: Int)
 @if(currentItem == 1) { context.append[TupleTypeHList0, T@{max}, TupleTypeHList1[T@{max}]]
-(context.start, t@{max}.application(context), TupleTypeHListPlus1.hlistPlus1) }
+(context.start, t@{max}.application(context), TupleTypeHListPlus1.hlistPut1) }
 @if(currentItem > 1) { context.append[TupleTypeHList@{currentItem - 1}
 [@for(i <- max - currentItem + 2 to max) {T@{i} @if(i < (max)) { , }}],
 T@{max - currentItem + 1},

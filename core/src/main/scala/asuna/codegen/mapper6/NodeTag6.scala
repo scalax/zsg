@@ -70,7 +70,7 @@ object NodeTag6 {
               context.append[TupleTypeHList3[T4, T5, T6], T3, TupleTypeHList4[T3, T4, T5, T6]](
                 context.append[TupleTypeHList2[T5, T6], T4, TupleTypeHList3[T4, T5, T6]](
                   context.append[TupleTypeHList1[T6], T5, TupleTypeHList2[T5, T6]](
-                    context.append[TupleTypeHList0, T6, TupleTypeHList1[T6]](context.start, t6.application(context), TupleTypeHListPlus1.hlistPlus1),
+                    context.append[TupleTypeHList0, T6, TupleTypeHList1[T6]](context.start, t6.application(context), TupleTypeHListPlus1.hlistPut1),
                     t5.application(context),
                     TupleTypeHListPlus2.put2
                   ),

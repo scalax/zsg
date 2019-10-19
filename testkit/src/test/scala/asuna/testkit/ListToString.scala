@@ -71,6 +71,20 @@ object in {
     }
   }
 
+  def reverseEncoder[I1, I2 <: TupleTag, I3 <: TypeHList](
+    implicit ii: AsunaGeneric.Aux[I1, I2],
+    pp: Application[IContext, I2, I3],
+    asunaGetterGeneric: AsunaGetterGeneric[I1, I3#H],
+    asunaNameGeneric: AsunaLabelledGeneric[I1, I3#T#H]
+  ): ListEncoder[I1] = {
+    new ListEncoder[I1] {
+      override def encode(ii: I1): List[(PropertyItem, String)] = {
+        val reverseContext = i.reverse
+        pp.application(reverseContext)(asunaGetterGeneric.getter(ii).withContext(reverseContext), asunaNameGeneric.names.withContext(reverseContext)).init(List.empty)
+      }
+    }
+  }
+
   def init1[I2 <: TupleTag](appendTag: AppendTag[I2]) = new ToStringApply2[I2]
 
   class ToStringApply2[I2 <: TupleTag] {

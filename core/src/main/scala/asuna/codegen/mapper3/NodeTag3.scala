@@ -36,7 +36,7 @@ object NodeTag3 {
         if (context.isReverse) {
           context.append[TupleTypeHList2[T2, T3], T1, TupleTypeHList3[T1, T2, T3]](
             context.append[TupleTypeHList1[T3], T2, TupleTypeHList2[T2, T3]](
-              context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TupleTypeHListPlus1.hlistPlus1),
+              context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TupleTypeHListPlus1.hlistPut1),
               t2.application(context),
               TupleTypeHListPlus2.put2
             ),
