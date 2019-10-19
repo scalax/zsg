@@ -22,7 +22,15 @@ def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
                 if (c.isReverse) {
                     new ReverseHListTuple@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
                 } else {
-                    new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                    if (c.useHList) {
+                        new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                    } else {
+                        val data = new VariableAnyTuple8
+                        @for(ii <- 1 to i) {
+                            data.t@{ii} = t@{ii}
+                        }
+                        new VariableTuple@{i}(data)
+                    }
                 }
             }
         }
@@ -34,7 +42,15 @@ def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
                 if (c.isReverse) {
                     new ReverseHListTuple@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
                 } else {
-                    new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                    if (c.useHList) {
+                        new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                    } else {
+                        val data = new VariableAnyTuple8
+                        @for(ii <- 1 to i) {
+                            data.t@{ii} = t@{ii}.withContext(c)
+                        }
+                        new VariableTuple@{i}(data)
+                    }
                 }
 
             }

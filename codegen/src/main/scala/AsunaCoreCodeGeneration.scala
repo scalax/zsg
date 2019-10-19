@@ -34,6 +34,16 @@ object AsunaCoreCodeGeneration extends App {
   }
 
   for (i <- 2 to maxPropertyNum - 1) yield {
+    val path19 = rootDir.resolve("mapper" + i).resolve("VariableTuple" + i + ".scala")
+    Files.createDirectories(path19.getParent)
+    val writer19   = new PrintWriter(path19.toFile, "utf-8")
+    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.VariableTuple(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
+  for (i <- 2 to maxPropertyNum - 1) yield {
     val path19 =
       rootDir.resolve("mapper" + i).resolve("HListTuple" + i + ".scala")
     Files.createDirectories(path19.getParent)
@@ -103,11 +113,11 @@ object AsunaCoreCodeGeneration extends App {
   writer23.println(content232)
   writer23.close()
 
-  val path24 = buildDir.resolve("ItemNumberMessage.scala")
+  val path24 = buildDir.resolve("TupleNumberMessage.scala")
   Files.createDirectories(path24.getParent)
   val writer24 = new PrintWriter(path24.toFile, "utf-8")
   val content241 =
-    Source.fromString(org.scalax.asuna.item.template.build.txt.ItemNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.item.template.build.txt.TupleNumberMessage(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content242 = content241.mkString(System.lineSeparator)
   writer24.println(content242)
   writer24.close()
@@ -121,20 +131,25 @@ object AsunaCoreCodeGeneration extends App {
   writer18.println(content182)
   writer18.close()
 
-  val path10 = tupleDir.resolve("TupleTypeParameter.scala")
+  val path10 = tupleDir.resolve("ScalaTupleTypeHList.scala")
   Files.createDirectories(path10.getParent)
   val writer10 = new PrintWriter(path10.toFile, "utf-8")
   val content101 =
-    Source.fromString(org.scalax.asuna.tuple.template.txt.TupleTypeParameter(maxItem = 22).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source.fromString(org.scalax.asuna.tuple.template.txt.ScalaTupleTypeHList(maxItem = 22).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content102 = content101.mkString(System.lineSeparator)
   writer10.println(content102)
   writer10.close()
 
-  val path11 = tupleDir.resolve("TupleApplicationImplicits.scala")
+  val path11 = tupleDir.resolve("ScalaTupleApplicationImplicits.scala")
   Files.createDirectories(path11.getParent)
   val writer11 = new PrintWriter(path11.toFile, "utf-8")
   val content111 =
-    Source.fromString(org.scalax.asuna.tuple.template.txt.TupleApplicationImplicits(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    Source
+      .fromString(org.scalax.asuna.tuple.template.txt.ScalaTupleApplicationImplicits(maxItem = maxPropertyNum).body)
+      .getLines
+      .toList
+      .map(_.trim)
+      .filter(s => !s.isEmpty)
   val content112 = content111.mkString(System.lineSeparator)
   writer11.println(content112)
   writer11.close()

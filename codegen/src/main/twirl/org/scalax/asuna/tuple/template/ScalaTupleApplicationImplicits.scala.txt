@@ -4,7 +4,7 @@ package asuna.tuple
 
 import asuna._
 
-trait TupleApplicationImplicits {
+trait ScalaTupleApplicationImplicits {
 
 @for(i <- 2 to maxItem + 1) {
 
@@ -121,4 +121,4 @@ trait TupleApplicationImplicits {
 
 }
 
-object TupleApplicationImplicits extends TupleApplicationImplicits
+object ScalaTupleApplicationImplicits extends ScalaTupleApplicationImplicits
