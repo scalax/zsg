@@ -7,13 +7,13 @@ import io.circe.{Encoder, JsonObject}
 object Sample02 {
 
   trait AsunaTestGeneric[C] {
-    type Gen <: ItemTag
+    type Gen <: TupleTag
   }
 
   object AsunaTestGeneric {
-    type Aux[C, G <: ItemTag] = AsunaTestGeneric[C] { type Gen = G }
+    type Aux[C, G <: TupleTag] = AsunaTestGeneric[C] { type Gen = G }
     class Apply1[C] {
-      def generic[G <: ItemTag](param: => AppendTag[G]): Aux[C, G] = new AsunaTestGeneric[C] {
+      def generic[G <: TupleTag](param: => AppendTag[G]): Aux[C, G] = new AsunaTestGeneric[C] {
         override type Gen = G
       }
     }
@@ -27,47 +27,47 @@ object Sample02 {
   val ap = PropertyApply[Test04]
 
   val test04PropertyTag
-    : AppendTag[ItemTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
+    : AppendTag[TupleTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
     BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 
-  trait JsonEncoder[T, II] {
+  trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
   class KContext extends KindContext {
-    override type M[P <: TypeHList] = JsonEncoder[P#H, P#T#H]
+    override type M[P <: TypeHList] = JsonObjectAppender[P#H, P#T#H]
   }
 
   object ii extends Context[KContext] {
     override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: JsonEncoder[X#H, X#T#H],
-      y: JsonEncoder[Y#H, Y#T#H],
+      x: JsonObjectAppender[X#H, X#T#H],
+      y: JsonObjectAppender[Y#H, Y#T#H],
       plus: Plus[X, Y, Z]
-    ): JsonEncoder[Z#H, Z#T#H] = new JsonEncoder[Z#H, Z#T#H] {
+    ): JsonObjectAppender[Z#H, Z#T#H] = new JsonObjectAppender[Z#H, Z#T#H] {
       override def appendField(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
         x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), m))
     }
 
-    override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
+      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: JsonObject): JsonObject = m
     }
   }
 
-  implicit val test04Getter: Test04 => Item4[String, Int, Long, Long] = (foo: Test04) => {
-    BuildContent.item4(foo.i1, foo.i2, foo.i3, foo.i4).withContext(ii)
+  implicit val test04Getter: Test04 => AsunaTuple4[String, Int, Long, Long] = (foo: Test04) => {
+    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4).withContext(ii)
   }
 
-  implicit val test04Labelled: Item4[String, String, String, String] =
-    BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
+  implicit val test04Labelled: AsunaTuple4[String, String, String, String] =
+    BuildContent.tuple4("i1", "i2", "i3", "i4").withContext(ii)
 
   implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
-      override def application(context: Context[KContext]): JsonEncoder[T, String] = {
-        new JsonEncoder[T, String] {
+      override def application(context: Context[KContext]): JsonObjectAppender[T, String] = {
+        new JsonObjectAppender[T, String] {
           override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
             ((name, encoder.value(obj))) +: m
           }
@@ -75,7 +75,7 @@ object Sample02 {
       }
     }
 
-  def circeJsonObjectEncoder[H, T <: ItemTag, I <: TypeHList](
+  def circeJsonObjectEncoder[H, T <: TupleTag, I <: TypeHList](
     implicit generic: AsunaTestGeneric.Aux[H, T],
     app: Application[KContext, T, I],
     i1: H => I#H,

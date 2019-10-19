@@ -20,7 +20,7 @@ object AsunaGenericCodeGenSample {
   }
 
   sameType(
-    implicitly[AsunaGeneric.Aux[Sample10, NodeTag2[ItemTag8[
+    implicitly[AsunaGeneric.Aux[Sample10, NodeTag2[TupleTag8[
       PropertyTag[String],
       `Number： 1`,
       PropertyTag[Int],
@@ -37,7 +37,7 @@ object AsunaGenericCodeGenSample {
       `Number： 7`,
       PropertyTag[Option[Long]],
       `Number： 8`
-    ], `Number： 1`, ItemTag2[PropertyTag[List[Long]], `Number： 1`, PropertyTag[String], `Number： 2`], `Number： 2`]]],
+    ], `Number： 1`, TupleTag2[PropertyTag[List[Long]], `Number： 1`, PropertyTag[String], `Number： 2`], `Number： 2`]]],
     genResult
   )
 

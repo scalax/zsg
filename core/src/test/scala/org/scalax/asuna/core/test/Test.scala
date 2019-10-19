@@ -22,11 +22,15 @@ class Test extends AnyFunSpec with Matchers {
   )
 
   val fooGetter = (foo: Foo) => {
-    BuildContent.nodeItem3(BuildContent.item4(foo.i1, foo.i2, foo.i3, foo.i4), BuildContent.item4(foo.i5, foo.i6, foo.i7, foo.i8), BuildContent.item2(foo.i9, foo.i10))
+    BuildContent.nodeTuple3(
+      BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4),
+      BuildContent.tuple4(foo.i5, foo.i6, foo.i7, foo.i8),
+      BuildContent.tuple2(foo.i9, foo.i10)
+    )
   }
 
   val fooLabelled =
-    BuildContent.nodeItem3(BuildContent.item4("i1", "i2", "i3", "i4"), BuildContent.item4("i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10"))
+    BuildContent.nodeTuple3(BuildContent.tuple4("i1", "i2", "i3", "i4"), BuildContent.tuple4("i5", "i6", "i7", "i8"), BuildContent.tuple2("i9", "i10"))
 
   import in._
 

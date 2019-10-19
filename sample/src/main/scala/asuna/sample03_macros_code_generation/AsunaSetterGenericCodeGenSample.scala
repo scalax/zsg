@@ -22,6 +22,9 @@ object AsunaSetterGenericCodeGenSample {
       }
   }
 
-  sameType(implicitly[AsunaSetterGeneric[Sample10, Item2[Item8[String, Int, Int, Long, String, List[String], Long, Option[Long]], Item2[List[Long], String]]]], genResult)
+  sameType(
+    implicitly[AsunaSetterGeneric[Sample10, AsunaTuple2[AsunaTuple8[String, Int, Int, Long, String, List[String], Long, Option[Long]], AsunaTuple2[List[Long], String]]]],
+    genResult
+  )
 
 }

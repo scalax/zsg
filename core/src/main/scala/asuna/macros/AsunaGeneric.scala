@@ -13,7 +13,7 @@ object PropertyApply {
 }
 
 trait AsunaGeneric[H] {
-  type WT <: ItemTag
+  type WT <: TupleTag
   def tag: WT
 }
 
@@ -22,9 +22,9 @@ object AsunaGeneric {
   def init[M]: GenericApply[M] = new GenericApply[M] {}
 
   trait GenericApply[M] {
-    def generic[WW <: ItemTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
+    def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
 
-    def init1[K <: ItemTag](i: AppendTag[K]): Aux[M, K] = {
+    def init1[K <: TupleTag](i: AppendTag[K]): Aux[M, K] = {
       new AsunaGeneric[M] {
         override type WT = K
         override def tag = throw new Exception("debugging")
@@ -32,9 +32,9 @@ object AsunaGeneric {
     }
   }
 
-  type Aux[H, II <: ItemTag] = AsunaGeneric[H] { type WT = II }
+  type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
 
-  implicit def macroImpl[H, II <: ItemTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II <: TupleTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
@@ -45,7 +45,7 @@ object AsunaGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M <: ItemTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType

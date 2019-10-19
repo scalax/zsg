@@ -9,7 +9,7 @@ object AsunaSealedToAbsGenericCodeGenSample {
 
   val genResult = AsunaSealedToAbsGeneric
     .init[Foo]
-    .name(BuildContent.item4({ i: Bar1 =>
+    .name(BuildContent.tuple4({ i: Bar1 =>
       i
     }: (Bar1 => Foo), { i: Bar2 =>
       i
@@ -19,6 +19,6 @@ object AsunaSealedToAbsGenericCodeGenSample {
       i
     }: (Bar4 => Foo)))
 
-  sameType(implicitly[AsunaSealedToAbsGeneric[Foo, Item4[Bar1 => Foo, Bar2 => Foo, Bar3 => Foo, Bar4 => Foo]]], genResult)
+  sameType(implicitly[AsunaSealedToAbsGeneric[Foo, AsunaTuple4[Bar1 => Foo, Bar2 => Foo, Bar3 => Foo, Bar4 => Foo]]], genResult)
 
 }

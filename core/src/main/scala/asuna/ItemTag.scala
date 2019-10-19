@@ -2,12 +2,12 @@ package asuna {
 
   import scala.language.higherKinds
 
-  trait ItemTag {
-    type ItemType
-    type M[M <: Message] <: ItemTag
+  trait TupleTag {
+    type AsunaTupleType
+    type M[M <: Message] <: TupleTag
   }
 
-  class EndItemTag extends ItemTag
+  class EndItemTag extends TupleTag
 
   trait Message
 

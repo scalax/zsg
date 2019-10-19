@@ -1,12 +1,15 @@
 package asuna.test
 
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject}
 
+trait JsonObjectAppender[T, II] extends Any {
+  def appendField(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+}
 object AsunaCirceEncoder {
 
-  def encoder[H, R <: ItemTag, I <: TypeHList](
+  def encoder[H, R <: TupleTag, I <: TypeHList](
     implicit ll: AsunaGeneric.Aux[H, R],
     app: Application[KContext, R, I],
     cv1: AsunaLabelledGeneric[H, I#H],
@@ -20,34 +23,30 @@ object AsunaCirceEncoder {
 
   def caseObjectEncoder[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(f => JsonObject.empty)
 
-  trait JsonEncoder[T, II] {
-    def appendField(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
-  }
-
   class KContext extends KindContext {
-    override type M[P <: TypeHList] = JsonEncoder[P#T#H, P#H]
+    override type M[P <: TypeHList] = JsonObjectAppender[P#T#H, P#H]
   }
 
   object ii extends Context[KContext] {
     override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: JsonEncoder[X#T#H, X#H],
-      y: JsonEncoder[Y#T#H, Y#H],
+      x: JsonObjectAppender[X#T#H, X#H],
+      y: JsonObjectAppender[Y#T#H, Y#H],
       plus: Plus[X, Y, Z]
-    ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
+    ): JsonObjectAppender[Z#T#H, Z#H] = new JsonObjectAppender[Z#T#H, Z#H] {
       override def appendField(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
         x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
     }
 
-    override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
-      override def appendField(name: Item0, obj: Item0, m: List[(String, Json)]): List[(String, Json)] = m
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
+      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: List[(String, Json)]): List[(String, Json)] = m
     }
   }
 
   //编译期调试辅助函数开始
   def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
-    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
+    def asunaGeneric[R <: TupleTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
       override def encoder[I <: TypeHList](
         implicit
         app: Application[KContext, R, I],
@@ -62,10 +61,10 @@ object AsunaCirceEncoder {
   }
 
   trait ImplicitApply1[H] {
-    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
+    def asunaGeneric[R <: TupleTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
   }
 
-  trait ImplicitApply2[H, R <: ItemTag] {
+  trait ImplicitApply2[H, R <: TupleTag] {
     def encoder[I <: TypeHList](
       implicit
       app: Application[KContext, R, I],

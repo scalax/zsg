@@ -19,9 +19,10 @@ object AsunaSetterGeneric {
 
   def init[T1]: AsunaSetterApply1[T1] = new AsunaSetterApply1[T1] {}
   trait AsunaSetterApply1[T1] {
-    def to[T2 <: ItemTag](appendTag: AppendTag[T2])(c: T2#ItemType => T1): AsunaSetterGeneric[T1, T2#ItemType] = new AsunaSetterGeneric[T1, T2#ItemType] {
-      override def setter: T2#ItemType => T1 = c
-    }
+    def to[T2 <: TupleTag](appendTag: AppendTag[T2])(c: T2#AsunaTupleType => T1): AsunaSetterGeneric[T1, T2#AsunaTupleType] =
+      new AsunaSetterGeneric[T1, T2#AsunaTupleType] {
+        override def setter: T2#AsunaTupleType => T1 = c
+      }
   }
 
   implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
