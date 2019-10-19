@@ -39,8 +39,6 @@ trait Context[K <: KindContext] extends Any {
   self =>
 
   def isReverse: Boolean
-  def useHList    = false
-  def useVariable = false
   def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: K#M[X], y: K#M[Y], p: Plus[X, Y, Z]): K#M[Z]
   def start: K#M[TupleTypeHList0]
   //def lift[T, I <: TypeParameter](i: AppendTag[T])(implicit ii: Application[K, T, I]): K#M[I] = ii.application(self)

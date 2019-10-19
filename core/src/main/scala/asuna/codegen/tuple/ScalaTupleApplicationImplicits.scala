@@ -1,6 +1,6 @@
 package asuna.tuple
 import asuna._
-trait TupleApplicationImplicits {
+trait ScalaTupleApplicationImplicits {
   implicit def tupleApplicationImplicits2[K <: KindContext, H1, H2, T1 <: TypeHList, T2 <: TypeHList](
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2]
@@ -1479,4 +1479,4 @@ trait TupleApplicationImplicits {
       }
     }
 }
-object TupleApplicationImplicits extends TupleApplicationImplicits
+object ScalaTupleApplicationImplicits extends ScalaTupleApplicationImplicits
