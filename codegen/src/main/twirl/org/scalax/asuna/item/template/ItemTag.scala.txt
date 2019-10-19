@@ -6,12 +6,12 @@ import impl._
 
 class ItemTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, M@{ii} <: Message @if(ii < tagNum) { , } }] extends ItemTag {
 
-    override type ItemType = Item@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
+    override type ItemType = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} @if(ii < tagNum) { , } }]
     override type M[M <: Message] = ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     def debug[K <: KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: TypeHList }](c: Context[K])(implicit @for(ii <- 1 to tagNum) {
         dapp@{ii}: DebugItemApplication[K, T@{ii}, I@{ii}, M@{ii}] @if(ii < tagNum) { , }
-        }): Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
+        }): Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
     ItemTag@{tagNum}.itemTagApplicationImplicit@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
 
 }
@@ -22,15 +22,15 @@ object ItemTag@{tagNum} {
     @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList }
     @for(ii <- 1 to tagNum) { , M@{ii} <: Message }]
     (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
-    : Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
-        new Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
-            override def application(context: Context[K]): K#M[ItemTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
+    : Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+        new Application[K, ItemTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
+            override def application(context: Context[K]): K#M[TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
                 if (context.isReverse) {
                     @org.scalax.asuna.item.template.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
-                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), ItemTypeHListPlus@{tagNum}.put@{tagNum})
+                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), TupleTypeHListPlus@{tagNum}.put@{tagNum})
                 } else {
                     @org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem = tagNum)
-                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), ItemTypeHListPlus@{tagNum}.plus@{tagNum})
+                    //context.append(ItemTag@{tagNum - 1}.itemTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), TupleTypeHListPlus@{tagNum}.plus@{tagNum})
                 }
             }
         }

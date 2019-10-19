@@ -19,6 +19,6 @@ object AsunaSealedToAbsGenericCodeGenSample {
       i
     }: (Bar4 => Foo)))
 
-  sameType(implicitly[AsunaSealedToAbsGeneric[Foo, Item4[Bar1 => Foo, Bar2 => Foo, Bar3 => Foo, Bar4 => Foo]]], genResult)
+  sameType(implicitly[AsunaSealedToAbsGeneric[Foo, AsunaTuple4[Bar1 => Foo, Bar2 => Foo, Bar3 => Foo, Bar4 => Foo]]], genResult)
 
 }

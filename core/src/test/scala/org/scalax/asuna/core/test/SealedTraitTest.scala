@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList, TypeHList1}
+import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList, TypeHList1}
 
 sealed trait Abc[T]
 class AA[T](ii: T, iiii: String) extends Abc[T]
@@ -52,7 +52,7 @@ object SealedTraitTest extends App {
       }
     }
 
-    override def start: Item0 => List[String] => List[String] = { item: Item0 => (ii: List[String]) =>
+    override def start: AsunaTuple0 => List[String] => List[String] = { item: AsunaTuple0 => (ii: List[String]) =>
       ii
     }
   }

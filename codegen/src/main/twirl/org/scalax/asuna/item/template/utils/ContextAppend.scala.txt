@@ -1,10 +1,10 @@
 @(currentItem: Int)
-@if(currentItem == 1) { context.append[ItemTypeHList0, T1, ItemTypeHList1[T1]]
-(context.start, t1.application(context), ItemTypeHListPlus1.hlistPlus1) }
-@if(currentItem > 1) { context.append[ItemTypeHList@{currentItem - 1}
+@if(currentItem == 1) { context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]]
+(context.start, t1.application(context), TupleTypeHListPlus1.hlistPlus1) }
+@if(currentItem > 1) { context.append[TupleTypeHList@{currentItem - 1}
 [@for(i <- 1 to currentItem - 1) {T@{i} @if(i < (currentItem - 1)) { , }}],
 T@{currentItem},
-ItemTypeHList@{currentItem}
+TupleTypeHList@{currentItem}
 [@for(i <- 1 to currentItem) {T@{i} @if(i < currentItem) { , }}]
 ](@org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem - 1),
-t@{currentItem}.application(context), ItemTypeHListPlus@{currentItem}.plus@{currentItem})}
+t@{currentItem}.application(context), TupleTypeHListPlus@{currentItem}.plus@{currentItem})}

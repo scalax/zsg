@@ -1,6 +1,6 @@
 package asuna.test
 
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList}
 import asuna.macros.{AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject}
 
@@ -41,8 +41,8 @@ object AsunaSealedEncoder {
       }
     }
 
-    override def start: JsonEncoder[H, Item0, Item0] = new JsonEncoder[H, Item0, Item0] {
-      override def p(model: H, name: Item0, obj: Item0): Option[(String, Json)] = Option.empty
+    override def start: JsonEncoder[H, AsunaTuple0, AsunaTuple0] = new JsonEncoder[H, AsunaTuple0, AsunaTuple0] {
+      override def p(model: H, name: AsunaTuple0, obj: AsunaTuple0): Option[(String, Json)] = Option.empty
     }
   }
 

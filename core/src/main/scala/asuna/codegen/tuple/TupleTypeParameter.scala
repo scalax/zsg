@@ -1,34 +1,35 @@
-package asuna
-class TupleTypeHList2[E1 <: TypeHList, E2 <: TypeHList] extends TypeHList {
+package asuna.tuple
+import asuna._
+class ScalaTupleTypeHList2[E1 <: TypeHList, E2 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H)
-  override type T = TupleTypeHList2[E1#T, E2#T]
+  override type T = ScalaTupleTypeHList2[E1#T, E2#T]
 }
-class TupleTypeHList3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList] extends TypeHList {
+class ScalaTupleTypeHList3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H)
-  override type T = TupleTypeHList3[E1#T, E2#T, E3#T]
+  override type T = ScalaTupleTypeHList3[E1#T, E2#T, E3#T]
 }
-class TupleTypeHList4[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList] extends TypeHList {
+class ScalaTupleTypeHList4[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H)
-  override type T = TupleTypeHList4[E1#T, E2#T, E3#T, E4#T]
+  override type T = ScalaTupleTypeHList4[E1#T, E2#T, E3#T, E4#T]
 }
-class TupleTypeHList5[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList] extends TypeHList {
+class ScalaTupleTypeHList5[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H)
-  override type T = TupleTypeHList5[E1#T, E2#T, E3#T, E4#T, E5#T]
+  override type T = ScalaTupleTypeHList5[E1#T, E2#T, E3#T, E4#T, E5#T]
 }
-class TupleTypeHList6[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList] extends TypeHList {
+class ScalaTupleTypeHList6[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H)
-  override type T = TupleTypeHList6[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T]
+  override type T = ScalaTupleTypeHList6[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T]
 }
-class TupleTypeHList7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList] extends TypeHList {
+class ScalaTupleTypeHList7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H)
-  override type T = TupleTypeHList7[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T]
+  override type T = ScalaTupleTypeHList7[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T]
 }
-class TupleTypeHList8[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList]
+class ScalaTupleTypeHList8[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList]
     extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H)
-  override type T = TupleTypeHList8[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T]
+  override type T = ScalaTupleTypeHList8[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T]
 }
-class TupleTypeHList9[
+class ScalaTupleTypeHList9[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -40,9 +41,9 @@ class TupleTypeHList9[
   E9 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H)
-  override type T = TupleTypeHList9[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T]
+  override type T = ScalaTupleTypeHList9[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T]
 }
-class TupleTypeHList10[
+class ScalaTupleTypeHList10[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -55,9 +56,9 @@ class TupleTypeHList10[
   E10 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H)
-  override type T = TupleTypeHList10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
+  override type T = ScalaTupleTypeHList10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
 }
-class TupleTypeHList11[
+class ScalaTupleTypeHList11[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -71,9 +72,9 @@ class TupleTypeHList11[
   E11 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H)
-  override type T = TupleTypeHList11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
+  override type T = ScalaTupleTypeHList11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
 }
-class TupleTypeHList12[
+class ScalaTupleTypeHList12[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -88,9 +89,9 @@ class TupleTypeHList12[
   E12 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H)
-  override type T = TupleTypeHList12[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T]
+  override type T = ScalaTupleTypeHList12[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T]
 }
-class TupleTypeHList13[
+class ScalaTupleTypeHList13[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -106,9 +107,9 @@ class TupleTypeHList13[
   E13 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H)
-  override type T = TupleTypeHList13[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T]
+  override type T = ScalaTupleTypeHList13[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T]
 }
-class TupleTypeHList14[
+class ScalaTupleTypeHList14[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -125,9 +126,9 @@ class TupleTypeHList14[
   E14 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H)
-  override type T = TupleTypeHList14[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T]
+  override type T = ScalaTupleTypeHList14[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T]
 }
-class TupleTypeHList15[
+class ScalaTupleTypeHList15[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -145,9 +146,9 @@ class TupleTypeHList15[
   E15 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H)
-  override type T = TupleTypeHList15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
+  override type T = ScalaTupleTypeHList15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
 }
-class TupleTypeHList16[
+class ScalaTupleTypeHList16[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -166,9 +167,9 @@ class TupleTypeHList16[
   E16 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H)
-  override type T = TupleTypeHList16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
+  override type T = ScalaTupleTypeHList16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
 }
-class TupleTypeHList17[
+class ScalaTupleTypeHList17[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -188,9 +189,9 @@ class TupleTypeHList17[
   E17 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H)
-  override type T = TupleTypeHList17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
+  override type T = ScalaTupleTypeHList17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
 }
-class TupleTypeHList18[
+class ScalaTupleTypeHList18[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -211,9 +212,9 @@ class TupleTypeHList18[
   E18 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H)
-  override type T = TupleTypeHList18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
+  override type T = ScalaTupleTypeHList18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
 }
-class TupleTypeHList19[
+class ScalaTupleTypeHList19[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -235,9 +236,9 @@ class TupleTypeHList19[
   E19 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H)
-  override type T = TupleTypeHList19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
+  override type T = ScalaTupleTypeHList19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
 }
-class TupleTypeHList20[
+class ScalaTupleTypeHList20[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -260,9 +261,10 @@ class TupleTypeHList20[
   E20 <: TypeHList
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H, E20#H)
-  override type T = TupleTypeHList20[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T]
+  override type T =
+    ScalaTupleTypeHList20[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T]
 }
-class TupleTypeHList21[
+class ScalaTupleTypeHList21[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -287,9 +289,9 @@ class TupleTypeHList21[
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H, E20#H, E21#H)
   override type T =
-    TupleTypeHList21[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T]
+    ScalaTupleTypeHList21[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T]
 }
-class TupleTypeHList22[
+class ScalaTupleTypeHList22[
   E1 <: TypeHList,
   E2 <: TypeHList,
   E3 <: TypeHList,
@@ -315,5 +317,5 @@ class TupleTypeHList22[
 ] extends TypeHList {
   override type H = (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H, E20#H, E21#H, E22#H)
   override type T =
-    TupleTypeHList22[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T, E22#T]
+    ScalaTupleTypeHList22[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T, E22#T]
 }

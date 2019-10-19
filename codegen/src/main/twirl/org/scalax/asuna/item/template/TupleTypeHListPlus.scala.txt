@@ -1,0 +1,35 @@
+@(tagNum: Int)
+
+package asuna
+
+trait TupleTypeHListPlus@{tagNum} {
+
+    val plus@{tagNum}Any
+    : Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }], AnyTypeHList, TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList @if(ii < tagNum) { , } }]] =
+    new Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }], AnyTypeHList, TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList @if(ii < tagNum) { , } }]] {
+        override def plus(p: AsunaTuple@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList#H @if(ii < (tagNum - 1)) { , } }], item: AnyTypeHList#H): AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList#H @if(ii < tagNum) { , } }] = p.add(item)
+        override def takeTail(t: AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList#H @if(ii < tagNum) { , } }]): AnyTypeHList#H = t.rightHead
+        override def takeHead(t: AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList#H @if(ii < tagNum) { , } }]): AsunaTuple@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList#H @if(ii < (tagNum - 1)) { , } }] = t.rightTail
+        override lazy val sub: Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }]#T, AnyTypeHList#T, TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList @if(ii < tagNum) { , } }]#T] = plus@{tagNum}Any
+    }
+
+    val put@{tagNum}Any
+    : Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }], AnyTypeHList, TupleTypeHList@{tagNum}[AnyTypeHList @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList }]] =
+    new Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }], AnyTypeHList, TupleTypeHList@{tagNum}[AnyTypeHList @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList }]] {
+        override def plus(p: AsunaTuple@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList#H @if(ii < (tagNum - 1)) { , } }], item: AnyTypeHList#H): AsunaTuple@{tagNum}[AnyTypeHList#H @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList#H }] = p.pull(item)
+        override def takeTail(t: AsunaTuple@{tagNum}[AnyTypeHList#H @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList#H }]): AnyTypeHList#H = t.leftHead
+        override def takeHead(t: AsunaTuple@{tagNum}[AnyTypeHList#H @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList#H }]): AsunaTuple@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList#H @if(ii < (tagNum - 1)) { , } }] = t.leftTail
+        override lazy val sub: Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { AnyTypeHList @if(ii < (tagNum - 1)) { , } }]#T, AnyTypeHList#T, TupleTypeHList@{tagNum}[AnyTypeHList @for(ii <- 1 to (tagNum - 1)) { , AnyTypeHList }]#T] = put@{tagNum}Any
+    }
+
+    @@inline def plus@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} <: TypeHList @if(ii < tagNum) { , } }]
+    : Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+    plus@{tagNum}Any.asInstanceOf[Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]]]
+
+    @@inline def put@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} <: TypeHList @if(ii < tagNum) { , } }]
+    : Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, TupleTypeHList@{tagNum}[T@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , T@{ii} }]] =
+    put@{tagNum}Any.asInstanceOf[Plus[TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { T@{ii} @if(ii < (tagNum - 1)) { , } }], T@{tagNum}, TupleTypeHList@{tagNum}[T@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , T@{ii} }]]]
+
+}
+
+object TupleTypeHListPlus@{tagNum} extends TupleTypeHListPlus@{tagNum}

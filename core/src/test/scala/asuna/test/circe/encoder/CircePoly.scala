@@ -1,9 +1,34 @@
 package asuna.test.circe
 
 import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
-import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder}
+import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder, JsonObjectAppender}
 import asuna.{Application, Context, TypeHList2, TypeHList3}
 import io.circe._
+
+class JsonEncoderApply[T](val t: LazyImplicit[Encoder[T]]) extends AnyVal with JsonObjectAppender[T, String] {
+  override def appendField(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
+    ((name, t.value(tt))) :: m
+  }
+}
+
+class JsonEncoderApplicationApply[T](val t: LazyImplicit[Encoder[T]]) extends AnyVal with Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] {
+  override def application(context: Context[AsunaCirceEncoder.KContext]): JsonObjectAppender[T, String] = new JsonEncoderApply(t)
+}
+
+class JsonDecoderApply[T](val dd: LazyImplicit[Decoder[T]]) extends AnyVal with AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] {
+  override def to(name: String, d: DefaultValue[T]): Decoder[T] = Decoder.instance { j =>
+    d.value match {
+      case Some(s) => Right(s)
+      case _       => j.get(name)(dd.value)
+    }
+  }
+}
+
+class JsonDecoderApplicationApply[T](val dd: LazyImplicit[Decoder[T]])
+    extends AnyVal
+    with Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeHList3[String, T, DefaultValue[T]]] {
+  override def application(context: Context[AsunaCirceDecoder.KM]): AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] = new JsonDecoderApply(dd)
+}
 
 trait CircePoly {
 
@@ -37,31 +62,10 @@ trait CircePoly {
     }
 
   implicit def asunaCirceEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] =
-    new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] {
-      override def application(context: Context[AsunaCirceEncoder.KContext]): AsunaCirceEncoder.JsonEncoder[T, String] = {
-        new AsunaCirceEncoder.JsonEncoder[T, String] {
-          override def appendField(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-            ((name, t.value(tt))) :: m
-          }
-        }
-      }
-    }
+    new JsonEncoderApplicationApply(t)
 
-  implicit def asunaCirceDecoder[T](
-    implicit dd: LazyImplicit[Decoder[T]]
-  ): Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeHList3[String, T, DefaultValue[T]]] =
-    new Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeHList3[String, T, DefaultValue[T]]] {
-      override def application(context: Context[AsunaCirceDecoder.KM]): AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] = {
-        new AsunaCirceDecoder.JsonPro[T, String, DefaultValue[T]] {
-          override def to(name: String, d: DefaultValue[T]): Decoder[T] = Decoder.instance { j =>
-            d.value match {
-              case Some(s) => Right(s)
-              case _       => j.get(name)(dd.value)
-            }
-          }
-        }
-      }
-    }
+  implicit def asunaCirceDecoder[T](implicit dd: LazyImplicit[Decoder[T]]): Application[AsunaCirceDecoder.KM, PropertyTag[T], TypeHList3[String, T, DefaultValue[T]]] =
+    new JsonDecoderApplicationApply(dd)
 
 }
 

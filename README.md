@@ -162,7 +162,7 @@ First create a trait to make the type simpler.
 我们构造一个类来简化类型表达：
 
 ```scala
-trait JsonEncoder[T, II] {
+trait JsonObjectAppender[T, II] {
   def appendField(obj: T, name: II, m: JsonObject): JsonObject
 }
 ```
@@ -172,7 +172,7 @@ Then we can implement the KindContext.
 
 ```scala
 class KContext extends KindContext {
-  override type M[P <: TypeHList] = JsonEncoder[P#H, P#T#H]
+  override type M[P <: TypeHList] = JsonObjectAppender[P#H, P#T#H]
 }
 ```
 
@@ -180,9 +180,9 @@ Then we can get:
 于是有：
 
 ```scala
-val a1: JsonEncoder[Int, String] = (throw new Exception()): KContext#M[TypeHList2[Int, String]]
-val a2: JsonEncoder[Long, String] = (throw new Exception()): KContext#M[TypeHList2[Long, String]]
-val a3: JsonEncoder[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeHList2[Item2[Int, Long], Item2[String, String]]]
+val a1: JsonObjectAppender[Int, String] = (throw new Exception()): KContext#M[TypeHList2[Int, String]]
+val a2: JsonObjectAppender[Long, String] = (throw new Exception()): KContext#M[TypeHList2[Long, String]]
+val a3: JsonObjectAppender[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeHList2[Item2[Int, Long], Item2[String, String]]]
 ```
 
 ### 2.Transpose use Type Projection and ItemX
@@ -198,7 +198,7 @@ To implement this Circe Encoder, we need a instance of:
 要制作这样一个 Circe Encoder，我们需要一个
 
 ```scala
-trait JsonEncoder[Item[String, Int, Long, Long], Item[String, String, String, String]] {
+trait JsonObjectAppender[Item[String, Int, Long, Long], Item[String, String, String, String]] {
   def appendField(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: JsonObject): JsonObject
 }
 ```
@@ -222,22 +222,22 @@ getter 和 names 的获取方式我们会在后面解释，这里只讨论 en1 �
 假定每个字段都能根据 circe 的 implicit 提供一个 Json Encoder，则我们能获得
 
 ```scala
-val a1: JsonEncoder[String, String] = new JsonEncoder[String, String] {
+val a1: JsonObjectAppender[String, String] = new JsonObjectAppender[String, String] {
   override def appendField(obj: String, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromString(obj)) +: m
   }
 }
-val a2: JsonEncoder[Int, String] = new JsonEncoder[Int, String] {
+val a2: JsonObjectAppender[Int, String] = new JsonObjectAppender[Int, String] {
   override def appendField(obj: Int, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromInt(obj)) +: m
   }
 }
-val a3: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
+val a3: JsonObjectAppender[Long, String] = new JsonObjectAppender[Long, String] {
   override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
 }
-val a4: JsonEncoder[Long, String] = new JsonEncoder[Long, String] {
+val a4: JsonObjectAppender[Long, String] = new JsonObjectAppender[Long, String] {
   override def appendField(obj: Long, name: String, m: JsonObject): JsonObject = {
     (name, Json.fromLong(obj)) +: m
   }
@@ -249,12 +249,12 @@ So we need to do a conversion, also the most important conversion of asuna:
 
 ```scala
 Item4[
-  JsonEncoder[String, String],
-  JsonEncoder[Int, String],
-  JsonEncoder[Long, String],
-  JsonEncoder[Long, String]
+  JsonObjectAppender[String, String],
+  JsonObjectAppender[Int, String],
+  JsonObjectAppender[Long, String],
+  JsonObjectAppender[Long, String]
 ] =>
-JsonEncoder[
+JsonObjectAppender[
   Item4[String, Int, Long, Long],
   Item4[String, String, String, String]
 ]
@@ -283,20 +283,20 @@ Property to be superposition
 
 |Input Type|Final Result Type|
 :-:|:-:
-|KContext#M[TypeHList2[String, String]]|JsonEncoder[String, String]|
-|KContext#M[TypeHList2[Int, String]]|JsonEncoder[Int, String]|
-|KContext#M[TypeHList2[Long, String]]|JsonEncoder[Long, String]|
-|KContext#M[TypeHList2[Long, String]]|JsonEncoder[Long, String]|
+|KContext#M[TypeHList2[String, String]]|JsonObjectAppender[String, String]|
+|KContext#M[TypeHList2[Int, String]]|JsonObjectAppender[Int, String]|
+|KContext#M[TypeHList2[Long, String]]|JsonObjectAppender[Long, String]|
+|KContext#M[TypeHList2[Long, String]]|JsonObjectAppender[Long, String]|
 
 Line by line merger  
 逐行合并
 
 |Output Type|Final Result Type|
 :-:|:-:
-|KContext#M[ItemTypeHList1[TypeHList2[String, String]]]|JsonEncoder[Item1[String], Item1[String]]|
-|KContext#M[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]]]|JsonEncoder[Item2[Int, String], Item2[String, String]]|
-|KContext#M[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]]]|JsonEncoder[Item3[String, Int, Long], Item3[String, String, String]]|
-|KContext#M[ItemTypeHList4[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]]]|JsonEncoder[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
+|KContext#M[ItemTypeHList1[TypeHList2[String, String]]]|JsonObjectAppender[Item1[String], Item1[String]]|
+|KContext#M[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]]]|JsonObjectAppender[Item2[Int, String], Item2[String, String]]|
+|KContext#M[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]]]|JsonObjectAppender[Item3[String, Int, Long], Item3[String, String, String]]|
+|KContext#M[ItemTypeHList4[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]]]|JsonObjectAppender[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
 
 So as long as we provide a  
 所以只要我们提供一个
@@ -337,15 +337,15 @@ object ii extends Context[KContext] {
   override def isReverse: Boolean = false
 
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-    x: JsonEncoder[X#T#H, X#H],
-    y: JsonEncoder[Y#T#H, Y#H],
+    x: JsonObjectAppender[X#T#H, X#H],
+    y: JsonObjectAppender[Y#T#H, Y#H],
     plus: Plus[X, Y, Z]
-  ): JsonEncoder[Z#T#H, Z#H] = new JsonEncoder[Z#T#H, Z#H] {
+  ): JsonObjectAppender[Z#T#H, Z#H] = new JsonObjectAppender[Z#T#H, Z#H] {
     override def appendField(obj: Z#T#H, name: Z#H, m: JsonObject): JsonObject =
       x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
   }
 
-  override def start: JsonEncoder[Item0, Item0] = new JsonEncoder[Item0, Item0] {
+  override def start: JsonObjectAppender[Item0, Item0] = new JsonObjectAppender[Item0, Item0] {
     override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
   }
 }
@@ -404,8 +404,8 @@ Here you can get this code by circe:
 ```scala
 implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
   new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
-    override def application(context: Context[KContext]): JsonEncoder[T, String] = {
-      new JsonEncoder[T, String] {
+    override def application(context: Context[KContext]): JsonObjectAppender[T, String] = {
+      new JsonObjectAppender[T, String] {
         override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
           ((name, encoder.value(obj))) +: m
         }

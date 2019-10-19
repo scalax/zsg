@@ -1,6 +1,6 @@
 package asuna.macros
 
-import asuna.{BuildContent, ContextContent, Item2, Item8}
+import asuna.ContextContent
 
 import scala.language.experimental.macros
 

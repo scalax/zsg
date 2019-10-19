@@ -16,25 +16,25 @@ def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
         new AppendTag[NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]]
 
     def item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : T@{ii} @if(ii < i) { , } }):
-        ContextContent[Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-        new ContextContent[Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
-            override def withContext[K <: KindContext](c: Context[K]): Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
+        ContextContent[AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+        new ContextContent[AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
+            override def withContext[K <: KindContext](c: Context[K]): AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
                 if (c.isReverse) {
-                    new ReverseHListItem@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
+                    new ReverseHListTuple@{i}(@for(ii <- 1 to i){ t@{ii} :: } HNil)
                 } else {
-                    new HListItem@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
+                    new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1} :: } HNil)
                 }
             }
         }
 
     def nodeItem@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : ContextContent[T@{ii}] @if(ii < i) { , } }):
-        ContextContent[Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
-        new ContextContent[Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
-            override def withContext[K <: KindContext](c: Context[K]): Item@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
+        ContextContent[AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] =
+        new ContextContent[AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }]] {
+            override def withContext[K <: KindContext](c: Context[K]): AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] = {
                 if (c.isReverse) {
-                    new ReverseHListItem@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
+                    new ReverseHListTuple@{i}(@for(ii <- 1 to i){ t@{ii}.withContext(c) :: } HNil)
                 } else {
-                    new HListItem@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
+                    new HListTuple@{i}(@for(ii <- 1 to i){ t@{i - ii + 1}.withContext(c) :: } HNil)
                 }
 
             }

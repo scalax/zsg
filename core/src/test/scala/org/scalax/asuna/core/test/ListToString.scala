@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
-import asuna.{AppendTag, Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList, TypeHList2}
+import asuna.{AppendTag, Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList, TypeHList2}
 
 sealed trait PropertyItem
 case class IntProperty(i: Int) extends PropertyItem {
@@ -48,8 +48,8 @@ object i extends Context[IContext] {
     }
   }
 
-  override def start: (Item0, Item0) => ListToString =
-    (i1: Item0, i2: Item0) =>
+  override def start: (AsunaTuple0, AsunaTuple0) => ListToString =
+    (i1: AsunaTuple0, i2: AsunaTuple0) =>
       new ListToString {
         override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = i
       }

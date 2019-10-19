@@ -2,7 +2,7 @@ package asuna.macros
 
 import java.util
 
-import asuna.{BuildContent, Context, ContextContent, Item2, Item8, KindContext}
+import asuna.{Context, ContextContent, KindContext}
 
 import scala.language.experimental.macros
 

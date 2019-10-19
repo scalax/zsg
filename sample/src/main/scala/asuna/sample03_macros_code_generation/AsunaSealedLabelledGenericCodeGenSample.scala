@@ -9,6 +9,6 @@ object AsunaSealedLabelledGenericCodeGenSample {
 
   val genResult = AsunaSealedLabelledGeneric.init[Foo].name(BuildContent.item4("Bar1", "Bar2", "Bar3", "Bar4"))
 
-  sameType(implicitly[AsunaSealedLabelledGeneric[Foo, Item4[String, String, String, String]]], genResult)
+  sameType(implicitly[AsunaSealedLabelledGeneric[Foo, AsunaTuple4[String, String, String, String]]], genResult)
 
 }

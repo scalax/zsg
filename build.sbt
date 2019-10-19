@@ -6,4 +6,9 @@ lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregat
 val codegen = project in file("./codegen")
 AsunaSettings.scalaVersionSettings
 
-addCommandAlias("sfmt", ";core/scalafmt;core/test:scalafmt;codegen/scalafmt;testkit/scalafmt;testkit/test:scalafmt")
+addCommandAlias("sfmt", ";core/scalafmt" +
+  ";core/test:scalafmt" +
+  ";codegen/scalafmt" +
+  ";testkit/scalafmt" +
+  ";testkit/test:scalafmt" +
+  ";sample/scalafmt")

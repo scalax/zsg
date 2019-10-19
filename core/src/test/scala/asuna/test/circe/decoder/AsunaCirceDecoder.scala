@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList}
 import io.circe._
 
 object AsunaCirceDecoder {
@@ -20,7 +20,7 @@ object AsunaCirceDecoder {
     override type M[P <: TypeHList] = JsonPro[P#T#H, P#H, P#T#T#H]
   }
 
-  trait JsonPro[T, II, D] {
+  trait JsonPro[T, II, D] extends Any {
     def to(name: II, defaultValue: D): Decoder[T]
   }
 
@@ -48,10 +48,10 @@ object AsunaCirceDecoder {
       }
     }
 
-    override def start: JsonPro[Item0, Item0, Item0] = {
-      new JsonPro[Item0, Item0, Item0] {
-        override def to(name: Item0, default: Item0): Decoder[Item0] = Decoder.instance { j =>
-          Right(Item0)
+    override def start: JsonPro[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
+      new JsonPro[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
+        override def to(name: AsunaTuple0, default: AsunaTuple0): Decoder[AsunaTuple0] = Decoder.instance { j =>
+          Right(AsunaTuple0)
         }
       }
     }

@@ -1,6 +1,6 @@
 package asuna.test
 
-import asuna.{Application, Context, Item0, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList}
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToAbsGeneric}
 import io.circe.Decoder
 
@@ -44,8 +44,8 @@ object AsunaSealedDecoder {
       }
     }
 
-    override def start: JsonPro[Item0, Item0, H] = new JsonPro[Item0, Item0, H] {
-      override def to(name: Item0, toAbs: Item0): Decoder[H] = {
+    override def start: JsonPro[AsunaTuple0, AsunaTuple0, H] = new JsonPro[AsunaTuple0, AsunaTuple0, H] {
+      override def to(name: AsunaTuple0, toAbs: AsunaTuple0): Decoder[H] = {
         Decoder.failedWithMessage("Your sealed trait have no sub class")
       }
     }
