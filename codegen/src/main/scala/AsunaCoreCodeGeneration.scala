@@ -67,7 +67,7 @@ object AsunaCoreCodeGeneration extends App {
 
   for (i <- 2 to maxPropertyNum) yield {
     val path19 =
-      rootDir.resolve("mapper" + i).resolve("ItemTypeHListPlus" + i + ".scala")
+      rootDir.resolve("mapper" + i).resolve("TupleTypeHListPlus" + i + ".scala")
     Files.createDirectories(path19.getParent)
     val writer19   = new PrintWriter(path19.toFile, "utf-8")
     val content191 = Source.fromString(org.scalax.asuna.item.template.txt.TupleTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
@@ -76,7 +76,7 @@ object AsunaCoreCodeGeneration extends App {
     writer19.close()
   }
 
-  val path21 = buildDir.resolve("ItemTypeHList.scala")
+  val path21 = buildDir.resolve("TupleTypeHList.scala")
   Files.createDirectories(path21.getParent)
   val writer21 = new PrintWriter(path21.toFile, "utf-8")
   val content211 =
