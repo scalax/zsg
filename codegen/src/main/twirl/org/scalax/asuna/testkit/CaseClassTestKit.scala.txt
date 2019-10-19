@@ -21,9 +21,12 @@ class Test@{maxItem} extends AnyFunSpec with Matchers {
   val ap@{maxItem} = PropertyApply[Foo@{maxItem}]
 
   import in._
+  import out._
 
   val fooEncoder@{maxItem}: ListEncoder[Foo@{maxItem}] = encoder
   val reverseFooEncoder@{maxItem}: ListEncoder[Foo@{maxItem}] = reverseEncoder
+  val fooDecoder@{maxItem}: ModelDecoder[Foo@{maxItem}] = decoder
+  val reverseFooDecoder@{maxItem}: ModelDecoder[Foo@{maxItem}] = reverseDecoder
 
     describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {
@@ -33,6 +36,14 @@ class Test@{maxItem} extends AnyFunSpec with Matchers {
         it("should generic to a reverse encoder") {
             val str2 = reverseFooEncoder@{maxItem}.encode(fooValue@{maxItem}).mkString("|")
             str2 shouldBe fooValue@{maxItem}.reverseString
+        }
+        it("should generic to a decoder") {
+            val (_, model1) = fooDecoder@{maxItem}.init(fooValue@{maxItem}.toString)
+            model1 shouldBe fooValue@{maxItem}
+        }
+        it("should generic to a reverse decoder") {
+            val (_, model2) = reverseFooDecoder@{maxItem}.init(fooValue@{maxItem}.reverseString)
+            model2 shouldBe fooValue@{maxItem}
         }
     }
 

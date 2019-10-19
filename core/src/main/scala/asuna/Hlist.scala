@@ -52,16 +52,3 @@ class ::[H, T <: HList](override val head: H, override val tail: T) extends HLis
   override def toString: String = s"${head} :: ${tail}"
 
 }
-
-object i {
-
-  def main(ii: Array[String]): Unit = {
-    val a1                                         = "123"
-    val a2                                         = 456
-    val a3                                         = 789
-    val a4                                         = "101112"
-    val a5: String :: Int :: Int :: String :: HNil = a4 :: a3 :: a2 :: a1 :: HNil
-    println(a5.toString)
-  }
-
-}

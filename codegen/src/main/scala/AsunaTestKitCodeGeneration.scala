@@ -7,7 +7,7 @@ import scala.io.Source
 
 object AsunaTestKitCodeGeneration extends App {
 
-  val minPropertyNum = 180
+  val minPropertyNum = 195
   val maxPropertyNum = 202
   val rootDir =
     Paths.get("./").resolve("testkit").resolve("src").resolve("test").resolve("scala").resolve("asuna").resolve("testkit").resolve("codegen")
