@@ -14,10 +14,10 @@ object AsunaCoreCodeGeneration extends App {
   val buildDir = rootDir.resolve("build")
 
   for (i <- 2 to maxPropertyNum) yield {
-    val path19 = rootDir.resolve("mapper" + i).resolve("ItemTag" + i + ".scala")
+    val path19 = rootDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
     Files.createDirectories(path19.getParent)
     val writer19   = new PrintWriter(path19.toFile, "utf-8")
-    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.ItemTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.TupleTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()

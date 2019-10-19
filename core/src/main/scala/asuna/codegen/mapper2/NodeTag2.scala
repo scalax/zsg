@@ -1,7 +1,7 @@
 package asuna
 import impl._
-class NodeTag2[T1 <: ItemTag, M1 <: Message, T2 <: ItemTag, M2 <: Message] extends ItemTag {
-  override type ItemType        = AsunaTuple2[T1#ItemType, T2#ItemType]
+class NodeTag2[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message] extends TupleTag {
+  override type AsunaTupleType  = AsunaTuple2[T1#AsunaTupleType, T2#AsunaTupleType]
   override type M[M <: Message] = NodeTag2[T1, M :-<>-: M1, T2, M :-<>-: M2]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
@@ -13,7 +13,7 @@ class NodeTag2[T1 <: ItemTag, M1 <: Message, T2 <: ItemTag, M2 <: Message] exten
     NodeTag2.noteTagApplicationImplicit2(dapp1, dapp2)
 }
 object NodeTag2 {
-  implicit def noteTagApplicationImplicit2[K <: KindContext, H1 <: ItemTag, H2 <: ItemTag, T1 <: TypeHList, M1 <: Message, T2 <: TypeHList, M2 <: Message](
+  implicit def noteTagApplicationImplicit2[K <: KindContext, H1 <: TupleTag, H2 <: TupleTag, T1 <: TypeHList, M1 <: Message, T2 <: TypeHList, M2 <: Message](
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2]
   ): Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] =

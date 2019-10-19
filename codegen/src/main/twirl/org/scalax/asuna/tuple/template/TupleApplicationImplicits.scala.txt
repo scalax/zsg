@@ -14,9 +14,9 @@ trait TupleApplicationImplicits {
     new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def application(context: Context[K]): K#M[ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
-                context.append(ItemTag@{i - 1}.itemTagApplicationImplicit@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut@{i})
+                context.append(TupleTag@{i - 1}.tupleTagApplicationImplicit@{i - 1}(@for(ii <- 2 to i) { t@{ii} @if(ii < i) { , } }).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut@{i})
             } else {
-                context.append(ItemTag@{i - 1}.itemTagApplicationImplicit@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus@{i})
+                context.append(TupleTag@{i - 1}.tupleTagApplicationImplicit@{i - 1}(@for(ii <- 2 to i) { t@{ii - 1} @if(ii < i) { , } }).application(context), t@{i}.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus@{i})
             }
         }
     }
@@ -31,8 +31,8 @@ trait TupleApplicationImplicits {
     new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def application(context: Context[K]): K#M[ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
-                val i1 = ItemTag@{i - 9}.itemTagApplicationImplicit@{i - 9}(@for(ii <- 10 to i) { t@{ii} @if(ii < i) { , } }).application(context)
-                val i2 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
+                val i1 = TupleTag@{i - 9}.tupleTagApplicationImplicit@{i - 9}(@for(ii <- 10 to i) { t@{ii} @if(ii < i) { , } }).application(context)
+                val i2 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
                 val i3 = context.append[
                     TupleTypeHList@{i - 9}[@for(ii <- 10 to i) { T@{ii} @if(ii < i) { , } }],
                     TupleTypeHList8[@for(ii <- 2 to 9) { T@{ii} @if(ii < 9) { , } }],
@@ -42,8 +42,8 @@ trait TupleApplicationImplicits {
                 ]](i1, i2, Only2Plus.hlistPut2)
                 context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut@{i})
             } else {
-                val i1 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 1 to 8) { t@{ii} @if(ii < 8) { , } }).application(context)
-                val i2 = ItemTag@{i - 9}.itemTagApplicationImplicit@{i - 9}(@for(ii <- 9 to i - 1) { t@{ii} @if(ii < i - 1) { , } }).application(context)
+                val i1 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 1 to 8) { t@{ii} @if(ii < 8) { , } }).application(context)
+                val i2 = TupleTag@{i - 9}.tupleTagApplicationImplicit@{i - 9}(@for(ii <- 9 to i - 1) { t@{ii} @if(ii < i - 1) { , } }).application(context)
                 val i3 = context.append[
                     TupleTypeHList8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
                     TupleTypeHList@{i - 9}[@for(ii <- 9 to i - 1) { T@{ii} @if(ii < i - 1) { , } }],
@@ -66,9 +66,9 @@ trait TupleApplicationImplicits {
     new Application[K, (@for(ii <- 1 to i) { H@{ii} @if(ii < i) { , } }), ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] {
         override def application(context: Context[K]): K#M[ScalaTupleTypeHList@{i}[@for(ii <- 1 to i) { T@{ii} @if(ii < i) { , } }]] = {
             if (context.isReverse) {
-                val i1 = ItemTag@{i - 17}.itemTagApplicationImplicit@{i - 17}(@for(ii <- 18 to i) { t@{ii} @if(ii < i) { , } }).application(context)
-                val i2 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii + 8} @if(ii < 9) { , } }).application(context)
-                val i3 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
+                val i1 = TupleTag@{i - 17}.tupleTagApplicationImplicit@{i - 17}(@for(ii <- 18 to i) { t@{ii} @if(ii < i) { , } }).application(context)
+                val i2 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii + 8} @if(ii < 9) { , } }).application(context)
+                val i3 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 2 to 9) { t@{ii} @if(ii < 9) { , } }).application(context)
                 val i4 = context.append[
                     TupleTypeHList@{i - 17}[@for(ii <- 18 to i) { T@{ii} @if(ii < i) { , } }],
                     TupleTypeHList8[@for(ii <- 2 to 9) { T@{ii + 8} @if(ii < 9) { , } }],
@@ -90,9 +90,9 @@ trait TupleApplicationImplicits {
                 ]](i4, i3, TupleTypeHListPlus3.put3)
                 context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut@{i})
             } else {
-                val i1 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 1 to 8) { t@{ii} @if(ii < 8) { , } }).application(context)
-                val i2 = ItemTag8.itemTagApplicationImplicit8(@for(ii <- 9 to 16) { t@{ii} @if(ii < 16) { , } }).application(context)
-                val i3 = ItemTag@{i - 17}.itemTagApplicationImplicit@{i - 17}(@for(ii <- 17 to i - 1) { t@{ii} @if(ii < i - 1) { , } }).application(context)
+                val i1 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 1 to 8) { t@{ii} @if(ii < 8) { , } }).application(context)
+                val i2 = TupleTag8.tupleTagApplicationImplicit8(@for(ii <- 9 to 16) { t@{ii} @if(ii < 16) { , } }).application(context)
+                val i3 = TupleTag@{i - 17}.tupleTagApplicationImplicit@{i - 17}(@for(ii <- 17 to i - 1) { t@{ii} @if(ii < i - 1) { , } }).application(context)
                 val i4 = context.append[
                     TupleTypeHList8[@for(ii <- 1 to 8) { T@{ii} @if(ii < 8) { , } }],
                     TupleTypeHList8[@for(ii <- 9 to 16) { T@{ii} @if(ii < 16) { , } }],

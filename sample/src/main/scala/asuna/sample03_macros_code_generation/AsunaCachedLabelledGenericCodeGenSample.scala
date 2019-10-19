@@ -9,7 +9,10 @@ object AsunaCachedLabelledGenericCodeGenSample {
 
   val genResult = AsunaCachedLabelledGeneric
     .init[Sample10]
-    .name(classOf[Sample10].getCanonicalName, BuildContent.nodeItem2(BuildContent.item8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.item2("i9", "i10")))
+    .name(
+      classOf[Sample10].getCanonicalName,
+      BuildContent.nodeTuple2(BuildContent.tuple8("i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"), BuildContent.tuple2("i9", "i10"))
+    )
 
   sameType(
     implicitly[

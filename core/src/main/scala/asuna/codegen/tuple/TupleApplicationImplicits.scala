@@ -8,9 +8,9 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2), ScalaTupleTypeHList2[T1, T2]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList2[T1, T2]] = {
         if (context.isReverse) {
-          context.append(ItemTag1.itemTagApplicationImplicit1(t2).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut2)
+          context.append(TupleTag1.tupleTagApplicationImplicit1(t2).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut2)
         } else {
-          context.append(ItemTag1.itemTagApplicationImplicit1(t1).application(context), t2.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus2)
+          context.append(TupleTag1.tupleTagApplicationImplicit1(t1).application(context), t2.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus2)
         }
       }
     }
@@ -22,9 +22,9 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3), ScalaTupleTypeHList3[T1, T2, T3]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList3[T1, T2, T3]] = {
         if (context.isReverse) {
-          context.append(ItemTag2.itemTagApplicationImplicit2(t2, t3).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut3)
+          context.append(TupleTag2.tupleTagApplicationImplicit2(t2, t3).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut3)
         } else {
-          context.append(ItemTag2.itemTagApplicationImplicit2(t1, t2).application(context), t3.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus3)
+          context.append(TupleTag2.tupleTagApplicationImplicit2(t1, t2).application(context), t3.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus3)
         }
       }
     }
@@ -37,9 +37,13 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4), ScalaTupleTypeHList4[T1, T2, T3, T4]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList4[T1, T2, T3, T4]] = {
         if (context.isReverse) {
-          context.append(ItemTag3.itemTagApplicationImplicit3(t2, t3, t4).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut4)
+          context.append(TupleTag3.tupleTagApplicationImplicit3(t2, t3, t4).application(context), t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut4)
         } else {
-          context.append(ItemTag3.itemTagApplicationImplicit3(t1, t2, t3).application(context), t4.application(context), asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus4)
+          context.append(
+            TupleTag3.tupleTagApplicationImplicit3(t1, t2, t3).application(context),
+            t4.application(context),
+            asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus4
+          )
         }
       }
     }
@@ -54,13 +58,13 @@ trait TupleApplicationImplicits {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList5[T1, T2, T3, T4, T5]] = {
         if (context.isReverse) {
           context.append(
-            ItemTag4.itemTagApplicationImplicit4(t2, t3, t4, t5).application(context),
+            TupleTag4.tupleTagApplicationImplicit4(t2, t3, t4, t5).application(context),
             t1.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut5
           )
         } else {
           context.append(
-            ItemTag4.itemTagApplicationImplicit4(t1, t2, t3, t4).application(context),
+            TupleTag4.tupleTagApplicationImplicit4(t1, t2, t3, t4).application(context),
             t5.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus5
           )
@@ -93,13 +97,13 @@ trait TupleApplicationImplicits {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList6[T1, T2, T3, T4, T5, T6]] = {
         if (context.isReverse) {
           context.append(
-            ItemTag5.itemTagApplicationImplicit5(t2, t3, t4, t5, t6).application(context),
+            TupleTag5.tupleTagApplicationImplicit5(t2, t3, t4, t5, t6).application(context),
             t1.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut6
           )
         } else {
           context.append(
-            ItemTag5.itemTagApplicationImplicit5(t1, t2, t3, t4, t5).application(context),
+            TupleTag5.tupleTagApplicationImplicit5(t1, t2, t3, t4, t5).application(context),
             t6.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus6
           )
@@ -135,13 +139,13 @@ trait TupleApplicationImplicits {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList7[T1, T2, T3, T4, T5, T6, T7]] = {
         if (context.isReverse) {
           context.append(
-            ItemTag6.itemTagApplicationImplicit6(t2, t3, t4, t5, t6, t7).application(context),
+            TupleTag6.tupleTagApplicationImplicit6(t2, t3, t4, t5, t6, t7).application(context),
             t1.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut7
           )
         } else {
           context.append(
-            ItemTag6.itemTagApplicationImplicit6(t1, t2, t3, t4, t5, t6).application(context),
+            TupleTag6.tupleTagApplicationImplicit6(t1, t2, t3, t4, t5, t6).application(context),
             t7.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus7
           )
@@ -180,13 +184,13 @@ trait TupleApplicationImplicits {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
         if (context.isReverse) {
           context.append(
-            ItemTag7.itemTagApplicationImplicit7(t2, t3, t4, t5, t6, t7, t8).application(context),
+            TupleTag7.tupleTagApplicationImplicit7(t2, t3, t4, t5, t6, t7, t8).application(context),
             t1.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut8
           )
         } else {
           context.append(
-            ItemTag7.itemTagApplicationImplicit7(t1, t2, t3, t4, t5, t6, t7).application(context),
+            TupleTag7.tupleTagApplicationImplicit7(t1, t2, t3, t4, t5, t6, t7).application(context),
             t8.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus8
           )
@@ -228,13 +232,13 @@ trait TupleApplicationImplicits {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList9[T1, T2, T3, T4, T5, T6, T7, T8, T9]] = {
         if (context.isReverse) {
           context.append(
-            ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context),
+            TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context),
             t1.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPut9
           )
         } else {
           context.append(
-            ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context),
+            TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context),
             t9.application(context),
             asuna.tuple.ScalaTupleTypeHListPlus1.hlistPlus9
           )
@@ -278,16 +282,16 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10), ScalaTupleTypeHList10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList10[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]] = {
         if (context.isReverse) {
-          val i1 = ItemTag1.itemTagApplicationImplicit1(t10).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag1.tupleTagApplicationImplicit1(t10).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList1[T10], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList1[T10]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut10)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag1.itemTagApplicationImplicit1(t9).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag1.tupleTagApplicationImplicit1(t9).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList1[T9], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList1[T9]
@@ -336,16 +340,16 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11), ScalaTupleTypeHList11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11]] = {
         if (context.isReverse) {
-          val i1 = ItemTag2.itemTagApplicationImplicit2(t10, t11).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag2.tupleTagApplicationImplicit2(t10, t11).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList2[T10, T11], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList2[T10, T11]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut11)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag2.itemTagApplicationImplicit2(t9, t10).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag2.tupleTagApplicationImplicit2(t9, t10).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList2[T9, T10], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList2[T9, T10]
@@ -397,16 +401,16 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12), ScalaTupleTypeHList12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList12[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12]] = {
         if (context.isReverse) {
-          val i1 = ItemTag3.itemTagApplicationImplicit3(t10, t11, t12).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag3.tupleTagApplicationImplicit3(t10, t11, t12).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList3[T10, T11, T12], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList3[T10, T11, T12]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut12)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag3.itemTagApplicationImplicit3(t9, t10, t11).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag3.tupleTagApplicationImplicit3(t9, t10, t11).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList3[T9, T10, T11], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList3[T9, T10, T11]
@@ -461,16 +465,16 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13), ScalaTupleTypeHList13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList13[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13]] = {
         if (context.isReverse) {
-          val i1 = ItemTag4.itemTagApplicationImplicit4(t10, t11, t12, t13).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag4.tupleTagApplicationImplicit4(t10, t11, t12, t13).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList4[T10, T11, T12, T13], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList4[T10, T11, T12, T13]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut13)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag4.itemTagApplicationImplicit4(t9, t10, t11, t12).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag4.tupleTagApplicationImplicit4(t9, t10, t11, t12).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList4[T9, T10, T11, T12], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList4[T9, T10, T11, T12]
@@ -528,16 +532,16 @@ trait TupleApplicationImplicits {
     new Application[K, (H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14), ScalaTupleTypeHList14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList14[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]] = {
         if (context.isReverse) {
-          val i1 = ItemTag5.itemTagApplicationImplicit5(t10, t11, t12, t13, t14).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag5.tupleTagApplicationImplicit5(t10, t11, t12, t13, t14).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList5[T10, T11, T12, T13, T14], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList5[T10, T11, T12, T13, T14]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut14)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag5.itemTagApplicationImplicit5(t9, t10, t11, t12, t13).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag5.tupleTagApplicationImplicit5(t9, t10, t11, t12, t13).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList5[T9, T10, T11, T12, T13], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList5[T9, T10, T11, T12, T13]
@@ -618,16 +622,16 @@ trait TupleApplicationImplicits {
     ] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList15[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15]] = {
         if (context.isReverse) {
-          val i1 = ItemTag6.itemTagApplicationImplicit6(t10, t11, t12, t13, t14, t15).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag6.tupleTagApplicationImplicit6(t10, t11, t12, t13, t14, t15).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList6[T10, T11, T12, T13, T14, T15], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList6[T10, T11, T12, T13, T14, T15]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut15)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag6.itemTagApplicationImplicit6(t9, t10, t11, t12, t13, t14).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag6.tupleTagApplicationImplicit6(t9, t10, t11, t12, t13, t14).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList6[T9, T10, T11, T12, T13, T14], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList6[T9, T10, T11, T12, T13, T14]
@@ -712,16 +716,16 @@ trait TupleApplicationImplicits {
     ] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList16[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16]] = {
         if (context.isReverse) {
-          val i1 = ItemTag7.itemTagApplicationImplicit7(t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag7.tupleTagApplicationImplicit7(t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList7[T10, T11, T12, T13, T14, T15, T16], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList7[T10, T11, T12, T13, T14, T15, T16]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut16)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag7.itemTagApplicationImplicit7(t9, t10, t11, t12, t13, t14, t15).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag7.tupleTagApplicationImplicit7(t9, t10, t11, t12, t13, t14, t15).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList7[T9, T10, T11, T12, T13, T14, T15], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList7[T9, T10, T11, T12, T13, T14, T15]
@@ -810,16 +814,16 @@ trait TupleApplicationImplicits {
     ] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList17[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17]] = {
         if (context.isReverse) {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i3 = context.append[TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9], TupleTypeHList2[
             TupleTypeHList8[T2, T3, T4, T5, T6, T7, T8, T9],
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17]
           ]](i1, i2, Only2Plus.hlistPut2)
           context.append(i3, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus2.hlistPut17)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
           val i3 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]
@@ -912,9 +916,9 @@ trait TupleApplicationImplicits {
     ] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList18[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18]] = {
         if (context.isReverse) {
-          val i1 = ItemTag1.itemTagApplicationImplicit1(t18).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i3 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag1.tupleTagApplicationImplicit1(t18).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i3 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i4 = context.append[TupleTypeHList1[T18], TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList2[
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17],
             TupleTypeHList1[T18]
@@ -929,9 +933,9 @@ trait TupleApplicationImplicits {
           ]](i4, i3, TupleTypeHListPlus3.put3)
           context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut18)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i3 = ItemTag1.itemTagApplicationImplicit1(t17).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i3 = TupleTag1.tupleTagApplicationImplicit1(t17).application(context)
           val i4 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]
@@ -1036,9 +1040,9 @@ trait TupleApplicationImplicits {
     ] {
       override def application(context: Context[K]): K#M[ScalaTupleTypeHList19[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19]] = {
         if (context.isReverse) {
-          val i1 = ItemTag2.itemTagApplicationImplicit2(t18, t19).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i3 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag2.tupleTagApplicationImplicit2(t18, t19).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i3 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i4 = context.append[TupleTypeHList2[T18, T19], TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList2[
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17],
             TupleTypeHList2[T18, T19]
@@ -1053,9 +1057,9 @@ trait TupleApplicationImplicits {
           ]](i4, i3, TupleTypeHListPlus3.put3)
           context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut19)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i3 = ItemTag2.itemTagApplicationImplicit2(t17, t18).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i3 = TupleTag2.tupleTagApplicationImplicit2(t17, t18).application(context)
           val i4 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]
@@ -1166,9 +1170,9 @@ trait TupleApplicationImplicits {
         context: Context[K]
       ): K#M[ScalaTupleTypeHList20[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20]] = {
         if (context.isReverse) {
-          val i1 = ItemTag3.itemTagApplicationImplicit3(t18, t19, t20).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i3 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag3.tupleTagApplicationImplicit3(t18, t19, t20).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i3 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i4 = context.append[TupleTypeHList3[T18, T19, T20], TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList2[
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17],
             TupleTypeHList3[T18, T19, T20]
@@ -1183,9 +1187,9 @@ trait TupleApplicationImplicits {
           ]](i4, i3, TupleTypeHListPlus3.put3)
           context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut20)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i3 = ItemTag3.itemTagApplicationImplicit3(t17, t18, t19).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i3 = TupleTag3.tupleTagApplicationImplicit3(t17, t18, t19).application(context)
           val i4 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]
@@ -1300,9 +1304,9 @@ trait TupleApplicationImplicits {
         context: Context[K]
       ): K#M[ScalaTupleTypeHList21[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21]] = {
         if (context.isReverse) {
-          val i1 = ItemTag4.itemTagApplicationImplicit4(t18, t19, t20, t21).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i3 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag4.tupleTagApplicationImplicit4(t18, t19, t20, t21).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i3 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i4 = context.append[TupleTypeHList4[T18, T19, T20, T21], TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList2[
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17],
             TupleTypeHList4[T18, T19, T20, T21]
@@ -1317,9 +1321,9 @@ trait TupleApplicationImplicits {
           ]](i4, i3, TupleTypeHListPlus3.put3)
           context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut21)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i3 = ItemTag4.itemTagApplicationImplicit4(t17, t18, t19, t20).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i3 = TupleTag4.tupleTagApplicationImplicit4(t17, t18, t19, t20).application(context)
           val i4 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]
@@ -1438,9 +1442,9 @@ trait TupleApplicationImplicits {
         context: Context[K]
       ): K#M[ScalaTupleTypeHList22[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]] = {
         if (context.isReverse) {
-          val i1 = ItemTag5.itemTagApplicationImplicit5(t18, t19, t20, t21, t22).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
-          val i3 = ItemTag8.itemTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
+          val i1 = TupleTag5.tupleTagApplicationImplicit5(t18, t19, t20, t21, t22).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t10, t11, t12, t13, t14, t15, t16, t17).application(context)
+          val i3 = TupleTag8.tupleTagApplicationImplicit8(t2, t3, t4, t5, t6, t7, t8, t9).application(context)
           val i4 = context.append[TupleTypeHList5[T18, T19, T20, T21, T22], TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17], TupleTypeHList2[
             TupleTypeHList8[T10, T11, T12, T13, T14, T15, T16, T17],
             TupleTypeHList5[T18, T19, T20, T21, T22]
@@ -1455,9 +1459,9 @@ trait TupleApplicationImplicits {
           ]](i4, i3, TupleTypeHListPlus3.put3)
           context.append(i5, t1.application(context), asuna.tuple.ScalaTupleTypeHListPlus3.hlistPut22)
         } else {
-          val i1 = ItemTag8.itemTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
-          val i2 = ItemTag8.itemTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
-          val i3 = ItemTag5.itemTagApplicationImplicit5(t17, t18, t19, t20, t21).application(context)
+          val i1 = TupleTag8.tupleTagApplicationImplicit8(t1, t2, t3, t4, t5, t6, t7, t8).application(context)
+          val i2 = TupleTag8.tupleTagApplicationImplicit8(t9, t10, t11, t12, t13, t14, t15, t16).application(context)
+          val i3 = TupleTag5.tupleTagApplicationImplicit5(t17, t18, t19, t20, t21).application(context)
           val i4 = context.append[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8], TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16], TupleTypeHList2[
             TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8],
             TupleTypeHList8[T9, T10, T11, T12, T13, T14, T15, T16]

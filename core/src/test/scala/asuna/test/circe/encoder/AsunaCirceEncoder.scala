@@ -1,6 +1,6 @@
 package asuna.test
 
-import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject}
 
@@ -9,7 +9,7 @@ trait JsonObjectAppender[T, II] extends Any {
 }
 object AsunaCirceEncoder {
 
-  def encoder[H, R <: ItemTag, I <: TypeHList](
+  def encoder[H, R <: TupleTag, I <: TypeHList](
     implicit ll: AsunaGeneric.Aux[H, R],
     app: Application[KContext, R, I],
     cv1: AsunaLabelledGeneric[H, I#H],
@@ -46,7 +46,7 @@ object AsunaCirceEncoder {
 
   //编译期调试辅助函数开始
   def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
-    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
+    def asunaGeneric[R <: TupleTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
       override def encoder[I <: TypeHList](
         implicit
         app: Application[KContext, R, I],
@@ -61,10 +61,10 @@ object AsunaCirceEncoder {
   }
 
   trait ImplicitApply1[H] {
-    def asunaGeneric[R <: ItemTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
+    def asunaGeneric[R <: TupleTag](implicit ll: AsunaGeneric.Aux[H, R]): ImplicitApply2[H, R]
   }
 
-  trait ImplicitApply2[H, R <: ItemTag] {
+  trait ImplicitApply2[H, R <: TupleTag] {
     def encoder[I <: TypeHList](
       implicit
       app: Application[KContext, R, I],

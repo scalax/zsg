@@ -7,13 +7,13 @@ import io.circe.{Encoder, JsonObject}
 object Sample02 {
 
   trait AsunaTestGeneric[C] {
-    type Gen <: ItemTag
+    type Gen <: TupleTag
   }
 
   object AsunaTestGeneric {
-    type Aux[C, G <: ItemTag] = AsunaTestGeneric[C] { type Gen = G }
+    type Aux[C, G <: TupleTag] = AsunaTestGeneric[C] { type Gen = G }
     class Apply1[C] {
-      def generic[G <: ItemTag](param: => AppendTag[G]): Aux[C, G] = new AsunaTestGeneric[C] {
+      def generic[G <: TupleTag](param: => AppendTag[G]): Aux[C, G] = new AsunaTestGeneric[C] {
         override type Gen = G
       }
     }
@@ -27,7 +27,7 @@ object Sample02 {
   val ap = PropertyApply[Test04]
 
   val test04PropertyTag
-    : AppendTag[ItemTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
+    : AppendTag[TupleTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
     BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
@@ -58,11 +58,11 @@ object Sample02 {
   }
 
   implicit val test04Getter: Test04 => AsunaTuple4[String, Int, Long, Long] = (foo: Test04) => {
-    BuildContent.item4(foo.i1, foo.i2, foo.i3, foo.i4).withContext(ii)
+    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4).withContext(ii)
   }
 
   implicit val test04Labelled: AsunaTuple4[String, String, String, String] =
-    BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
+    BuildContent.tuple4("i1", "i2", "i3", "i4").withContext(ii)
 
   implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
@@ -75,7 +75,7 @@ object Sample02 {
       }
     }
 
-  def circeJsonObjectEncoder[H, T <: ItemTag, I <: TypeHList](
+  def circeJsonObjectEncoder[H, T <: TupleTag, I <: TypeHList](
     implicit generic: AsunaTestGeneric.Aux[H, T],
     app: Application[KContext, T, I],
     i1: H => I#H,

@@ -1,22 +1,23 @@
 package asuna
 import impl._
 class NodeTag7[
-  T1 <: ItemTag,
+  T1 <: TupleTag,
   M1 <: Message,
-  T2 <: ItemTag,
+  T2 <: TupleTag,
   M2 <: Message,
-  T3 <: ItemTag,
+  T3 <: TupleTag,
   M3 <: Message,
-  T4 <: ItemTag,
+  T4 <: TupleTag,
   M4 <: Message,
-  T5 <: ItemTag,
+  T5 <: TupleTag,
   M5 <: Message,
-  T6 <: ItemTag,
+  T6 <: TupleTag,
   M6 <: Message,
-  T7 <: ItemTag,
+  T7 <: TupleTag,
   M7 <: Message
-] extends ItemTag {
-  override type ItemType        = AsunaTuple7[T1#ItemType, T2#ItemType, T3#ItemType, T4#ItemType, T5#ItemType, T6#ItemType, T7#ItemType]
+] extends TupleTag {
+  override type AsunaTupleType =
+    AsunaTuple7[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType, T4#AsunaTupleType, T5#AsunaTupleType, T6#AsunaTupleType, T7#AsunaTupleType]
   override type M[M <: Message] = NodeTag7[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
@@ -40,13 +41,13 @@ class NodeTag7[
 object NodeTag7 {
   implicit def noteTagApplicationImplicit7[
     K <: KindContext,
-    H1 <: ItemTag,
-    H2 <: ItemTag,
-    H3 <: ItemTag,
-    H4 <: ItemTag,
-    H5 <: ItemTag,
-    H6 <: ItemTag,
-    H7 <: ItemTag,
+    H1 <: TupleTag,
+    H2 <: TupleTag,
+    H3 <: TupleTag,
+    H4 <: TupleTag,
+    H5 <: TupleTag,
+    H6 <: TupleTag,
+    H7 <: TupleTag,
     T1 <: TypeHList,
     M1 <: Message,
     T2 <: TypeHList,

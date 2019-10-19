@@ -4,9 +4,9 @@ package asuna
 
 import impl._
 
-class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: ItemTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends ItemTag {
+class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: TupleTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends TupleTag {
 
-    override type ItemType = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#ItemType @if(ii < tagNum) { , } }]
+    override type AsunaTupleType = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#AsunaTupleType @if(ii < tagNum) { , } }]
     override type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {
@@ -22,7 +22,7 @@ class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: ItemTag , M@{ii} <: Me
 
 object NodeTag@{tagNum} {
 
-    implicit def noteTagApplicationImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} <: ItemTag } @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList, M@{ii} <: Message }]
+    implicit def noteTagApplicationImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} <: TupleTag } @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList, M@{ii} <: Message }]
     (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
     : Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
     new Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {

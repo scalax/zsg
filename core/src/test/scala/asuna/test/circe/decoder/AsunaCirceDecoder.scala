@@ -1,12 +1,12 @@
 package asuna.test
 
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
-import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList}
+import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import io.circe._
 
 object AsunaCirceDecoder {
 
-  def decoder[T, R <: ItemTag, I <: TypeHList](
+  def decoder[T, R <: TupleTag, I <: TypeHList](
     implicit ll: AsunaGeneric.Aux[T, R],
     app: Application[KM, R, I],
     cv1: AsunaLabelledGeneric[T, I#H],
@@ -61,12 +61,12 @@ object AsunaCirceDecoder {
   def init[T] = new GenericApply2[T]
 
   class GenericApply2[T] {
-    def i[R <: ItemTag](
+    def i[R <: TupleTag](
       implicit ll: AsunaGeneric.Aux[T, R]
     ) = new GenericApply1[T, R]
   }
 
-  class GenericApply1[T, R <: ItemTag] {
+  class GenericApply1[T, R <: TupleTag] {
     def ir[I <: TypeHList](
       implicit app: Application[KM, R, I],
       cv1: AsunaLabelledGeneric[T, I#H],

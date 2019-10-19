@@ -1,12 +1,12 @@
 package asuna.macros
 
 import asuna.macros.utils.SealedHelper
-import asuna.{AppendTag, ItemTag}
+import asuna.{AppendTag, TupleTag}
 
 import scala.language.experimental.macros
 
 trait AsunaSealedGeneric[H] {
-  type Sealed <: ItemTag
+  type Sealed <: TupleTag
   def tag: Sealed
 }
 
@@ -21,9 +21,9 @@ object AsunaSealedGeneric {
   def init[M]: GenericApply[M] = new GenericApply[M] {}
 
   trait GenericApply[M] {
-    def generic[WW <: ItemTag](implicit i: AsunaSealedGeneric.Aux[M, WW]): AsunaSealedGeneric.Aux[M, WW] = i
+    def generic[WW <: TupleTag](implicit i: AsunaSealedGeneric.Aux[M, WW]): AsunaSealedGeneric.Aux[M, WW] = i
 
-    def init1[K <: ItemTag](i: AppendTag[K]): Aux[M, K] = {
+    def init1[K <: TupleTag](i: AppendTag[K]): Aux[M, K] = {
       new AsunaSealedGeneric[M] {
         override type Sealed = K
         override def tag = throw new Exception("debugging")
@@ -31,9 +31,9 @@ object AsunaSealedGeneric {
     }
   }
 
-  type Aux[H, II <: ItemTag] = AsunaSealedGeneric[H] { type Sealed = II }
+  type Aux[H, II <: TupleTag] = AsunaSealedGeneric[H] { type Sealed = II }
 
-  implicit def macroImpl[H, II <: ItemTag]: AsunaSealedGeneric.Aux[H, II] = macro AsunaSealedGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II <: TupleTag]: AsunaSealedGeneric.Aux[H, II] = macro AsunaSealedGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
@@ -44,7 +44,7 @@ object AsunaSealedGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M <: ItemTag: c.WeakTypeTag]: c.Expr[AsunaSealedGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaSealedGeneric.Aux[H, M]] = {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType

@@ -9,9 +9,9 @@ object Sample01 {
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
   val getter = { test04: Test04 =>
-    BuildContent.item4(test04.i1, test04.i2, test04.i3, test04.i4).withContext(ii)
+    BuildContent.tuple4(test04.i1, test04.i2, test04.i3, test04.i4).withContext(ii)
   }
-  val names = BuildContent.item4("i1", "i2", "i3", "i4").withContext(ii)
+  val names = BuildContent.tuple4("i1", "i2", "i3", "i4").withContext(ii)
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject

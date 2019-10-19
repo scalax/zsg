@@ -1,7 +1,7 @@
 package asuna.test
 
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList, TypeHList1}
+import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList1}
 
 sealed trait Abc[T]
 class AA[T](ii: T, iiii: String) extends Abc[T]
@@ -14,7 +14,7 @@ object SealedTraitTest extends App {
 
   class GenericApply1[H] {
     def generic[T](implicit asunaSealedGeneric: AsunaSealedLabelledGeneric[H, T]): AsunaSealedLabelledGeneric[H, T] = asunaSealedGeneric
-    def encode1[T <: ItemTag, TT <: TypeHList](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
+    def encode1[T <: TupleTag, TT <: TypeHList](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
       throw new Exception()
   }
   //调试代码结束
@@ -23,7 +23,7 @@ object SealedTraitTest extends App {
     def str: List[String]
   }
 
-  def encode[H, T <: ItemTag, TT <: TypeHList](
+  def encode[H, T <: TupleTag, TT <: TypeHList](
     implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
     app: Application[KC, T, TT],
     labelled: AsunaSealedLabelledGeneric[H, TT#H]

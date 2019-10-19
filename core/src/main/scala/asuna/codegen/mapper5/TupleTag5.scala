@@ -1,8 +1,8 @@
 package asuna
 import impl._
-class ItemTag5[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message] extends ItemTag {
-  override type ItemType        = AsunaTuple5[T1, T2, T3, T4, T5]
-  override type M[M <: Message] = ItemTag5[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5]
+class TupleTag5[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message] extends TupleTag {
+  override type AsunaTupleType  = AsunaTuple5[T1, T2, T3, T4, T5]
+  override type M[M <: Message] = TupleTag5[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5]
   def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList, I5 <: TypeHList](c: Context[K])(
     implicit
     dapp1: DebugItemApplication[K, T1, I1, M1],
@@ -10,11 +10,11 @@ class ItemTag5[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <
     dapp3: DebugItemApplication[K, T3, I3, M3],
     dapp4: DebugItemApplication[K, T4, I4, M4],
     dapp5: DebugItemApplication[K, T5, I5, M5]
-  ): Application[K, ItemTag5[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5], TupleTypeHList5[I1, I2, I3, I4, I5]] =
-    ItemTag5.itemTagApplicationImplicit5(dapp1, dapp2, dapp3, dapp4, dapp5)
+  ): Application[K, TupleTag5[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5], TupleTypeHList5[I1, I2, I3, I4, I5]] =
+    TupleTag5.tupleTagApplicationImplicit5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
-object ItemTag5 {
-  implicit def itemTagApplicationImplicit5[
+object TupleTag5 {
+  implicit def tupleTagApplicationImplicit5[
     K <: KindContext,
     H1,
     H2,
@@ -37,8 +37,8 @@ object ItemTag5 {
     t3: Application[K, H3, T3],
     t4: Application[K, H4, T4],
     t5: Application[K, H5, T5]
-  ): Application[K, ItemTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] =
-    new Application[K, ItemTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] {
+  ): Application[K, TupleTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] =
+    new Application[K, TupleTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] {
       override def application(context: Context[K]): K#M[TupleTypeHList5[T1, T2, T3, T4, T5]] = {
         if (context.isReverse) {
           context.append[TupleTypeHList4[T2, T3, T4, T5], T1, TupleTypeHList5[T1, T2, T3, T4, T5]](
@@ -58,7 +58,7 @@ object ItemTag5 {
             t1.application(context),
             TupleTypeHListPlus5.put5
           )
-//context.append(ItemTag4.itemTagApplicationImplicit4( t2  ,   t3  ,   t4  ,   t5  ).application(context), t1.application(context), TupleTypeHListPlus5.put5)
+//context.append(TupleTag4.itemTagApplicationImplicit4( t2  ,   t3  ,   t4  ,   t5  ).application(context), t1.application(context), TupleTypeHListPlus5.put5)
         } else {
           context.append[TupleTypeHList4[T1, T2, T3, T4], T5, TupleTypeHList5[T1, T2, T3, T4, T5]](
             context.append[TupleTypeHList3[T1, T2, T3], T4, TupleTypeHList4[T1, T2, T3, T4]](
@@ -77,7 +77,7 @@ object ItemTag5 {
             t5.application(context),
             TupleTypeHListPlus5.plus5
           )
-//context.append(ItemTag4.itemTagApplicationImplicit4( t1  ,   t2  ,   t3  ,   t4  ).application(context), t5.application(context), TupleTypeHListPlus5.plus5)
+//context.append(TupleTag4.itemTagApplicationImplicit4( t1  ,   t2  ,   t3  ,   t4  ).application(context), t5.application(context), TupleTypeHListPlus5.plus5)
         }
       }
     }

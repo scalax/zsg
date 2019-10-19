@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
-import asuna.{AppendTag, Application, AsunaTuple0, Context, ItemTag, KindContext, Plus, TypeHList, TypeHList2}
+import asuna.{AppendTag, Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList2}
 
 sealed trait PropertyItem
 case class IntProperty(i: Int) extends PropertyItem {
@@ -58,7 +58,7 @@ object i extends Context[IContext] {
 
 object in {
 
-  def encoder[I1, I2 <: ItemTag, I3 <: TypeHList](
+  def encoder[I1, I2 <: TupleTag, I3 <: TypeHList](
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application[IContext, I2, I3],
     asunaGetterGeneric: AsunaGetterGeneric[I1, I3#H],
@@ -71,15 +71,15 @@ object in {
     }
   }
 
-  def init1[I2 <: ItemTag](appendTag: AppendTag[I2]) = new ToStringApply2[I2]
+  def init1[I2 <: TupleTag](appendTag: AppendTag[I2]) = new ToStringApply2[I2]
 
-  class ToStringApply2[I2 <: ItemTag] {
+  class ToStringApply2[I2 <: TupleTag] {
     def init2[I3 <: TypeHList](implicit app1: Application[IContext, I2, I3]) = new ToStringApply3[I2, I3] {
       override def app: Application[IContext, I2, I3] = app1
     }
   }
 
-  trait ToStringApply3[I2 <: ItemTag, I3 <: TypeHList] {
+  trait ToStringApply3[I2 <: TupleTag, I3 <: TypeHList] {
     def app: Application[IContext, I2, I3]
     def encode[Model](ii: Model => I3#H, name: I3#T#H): ListEncoder[Model] = new ListEncoder[Model] {
       override def encode(model: Model): List[(PropertyItem, String)] = {
