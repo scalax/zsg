@@ -45,7 +45,7 @@ object TupleTag5 {
             context.append[TupleTypeHList3[T3, T4, T5], T2, TupleTypeHList4[T2, T3, T4, T5]](
               context.append[TupleTypeHList2[T4, T5], T3, TupleTypeHList3[T3, T4, T5]](
                 context.append[TupleTypeHList1[T5], T4, TupleTypeHList2[T4, T5]](
-                  context.append[TupleTypeHList0, T5, TupleTypeHList1[T5]](context.start, t5.application(context), TupleTypeHListPlus1.hlistPlus1),
+                  context.append[TupleTypeHList0, T5, TupleTypeHList1[T5]](context.start, t5.application(context), TupleTypeHListPlus1.hlistPut1),
                   t4.application(context),
                   TupleTypeHListPlus2.put2
                 ),

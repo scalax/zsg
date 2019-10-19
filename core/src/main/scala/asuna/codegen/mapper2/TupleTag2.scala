@@ -19,7 +19,7 @@ object TupleTag2 {
       override def application(context: Context[K]): K#M[TupleTypeHList2[T1, T2]] = {
         if (context.isReverse) {
           context.append[TupleTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
-            context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), TupleTypeHListPlus1.hlistPlus1),
+            context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), TupleTypeHListPlus1.hlistPut1),
             t1.application(context),
             TupleTypeHListPlus2.put2
           )
