@@ -2,10 +2,10 @@ package asuna.test
 
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import io.circe.{Encoder, Json, JsonObject}
+import io.circe.{Encoder, Json, JsonObject, Utils}
 
 trait JsonObjectAppender[T, II] extends Any {
-  def appendField(obj: T, name: II, m: List[(String, Json)]): List[(String, Json)]
+  def appendField(tt: T, name: II, m: java.util.LinkedHashMap[String, Json]): Unit
 }
 object AsunaCirceEncoder {
 
@@ -15,9 +15,11 @@ object AsunaCirceEncoder {
     cv1: AsunaLabelledGeneric[H, I#H],
     cv2: AsunaGetterGeneric[H, I#T#H]
   ): Encoder.AsObject[H] = {
-    val names = cv1.names.withContext(ii)
+    val names     = cv1.names.withContext(ii)
+    val linkedMap = new java.util.LinkedHashMap[String, Json]
     Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(app.application(ii).appendField(cv2.getter(o).withContext(ii), names, List.empty))
+      app.application(ii).appendField(cv2.getter(o).withContext(ii), names, linkedMap)
+      Utils.jsonObjectFromMap(linkedMap)
     }
   }
 
@@ -28,19 +30,21 @@ object AsunaCirceEncoder {
   }
 
   object ii extends Context[KContext] {
-    override def isReverse: Boolean = false
+    override def isReverse: Boolean = true
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonObjectAppender[X#T#H, X#H],
       y: JsonObjectAppender[Y#T#H, Y#H],
       plus: Plus[X, Y, Z]
     ): JsonObjectAppender[Z#T#H, Z#H] = new JsonObjectAppender[Z#T#H, Z#H] {
-      override def appendField(obj: Z#T#H, name: Z#H, m: List[(String, Json)]): List[(String, Json)] =
-        x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
+      override def appendField(obj: Z#T#H, name: Z#H, m: java.util.LinkedHashMap[String, Json]): Unit = {
+        y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m)
+        x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), m)
+      }
     }
 
     override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: List[(String, Json)]): List[(String, Json)] = m
+      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: java.util.LinkedHashMap[String, Json]): Unit = ()
     }
   }
 
@@ -53,8 +57,11 @@ object AsunaCirceEncoder {
         cv1: AsunaLabelledGeneric[H, I#H],
         cv2: AsunaGetterGeneric[H, I#T#H]
       ): Encoder.AsObject[H] = {
+        val names     = cv1.names.withContext(ii)
+        val linkedMap = new java.util.LinkedHashMap[String, Json]
         Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(app.application(ii).appendField(cv2.getter(o).withContext(ii), cv1.names.withContext(ii), List.empty))
+          app.application(ii).appendField(cv2.getter(o).withContext(ii), names, linkedMap)
+          Utils.jsonObjectFromMap(linkedMap)
         }
       }
     }
