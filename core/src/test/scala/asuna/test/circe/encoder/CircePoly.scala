@@ -1,13 +1,15 @@
 package asuna.test.circe
 
+import java.util
+
 import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
 import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder, JsonObjectAppender}
 import asuna.{Application, Context, TypeHList2, TypeHList3}
 import io.circe._
 
 class JsonEncoderApply[T](val t: LazyImplicit[Encoder[T]]) extends AnyVal with JsonObjectAppender[T, String] {
-  override def appendField(tt: T, name: String, m: List[(String, Json)]): List[(String, Json)] = {
-    ((name, t.value(tt))) :: m
+  override def appendField(tt: T, name: String, m: util.LinkedHashMap[String, Json]): Unit = {
+    m.put(name, t.value(tt))
   }
 }
 
