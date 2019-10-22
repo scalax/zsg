@@ -64,11 +64,11 @@ class Test17 extends AnyFunSpec with Matchers {
       str2 shouldBe fooValue17.reverseString
     }
     it("should generic to a decoder") {
-      val (_, model1) = fooDecoder17.init(fooValue17.toString)
+      val (_, model1) = fooDecoder17.getData(fooValue17.toString)
       model1 shouldBe fooValue17
     }
     it("should generic to a reverse decoder") {
-      val (_, model2) = reverseFooDecoder17.init(fooValue17.reverseString)
+      val (_, model2) = reverseFooDecoder17.getData(fooValue17.reverseString)
       model2 shouldBe fooValue17
     }
   }
