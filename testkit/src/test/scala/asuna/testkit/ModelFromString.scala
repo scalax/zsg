@@ -108,6 +108,7 @@ object out {
   implicit val outImplicit3: Application[MContext, PropertyTag[Long], TypeHList1[Long]] = new Application[MContext, PropertyTag[Long], TypeHList1[Long]] {
     override def application(context: Context[MContext]): ModelDecoder[Long] = {
       new ModelDecoder[Long] {
+
         override def getData(str: String): (String, Long) = {
           val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
           val str2 = str1.takeWhile(s => s != ')')
