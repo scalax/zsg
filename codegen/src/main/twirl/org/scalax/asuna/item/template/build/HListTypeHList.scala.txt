@@ -1,0 +1,15 @@
+@(maxItem: Int)
+
+package asuna
+
+class HListTypeHList0 extends TypeHList {
+  override type H = HNil
+  override type T = HListTypeHList0
+}
+
+@for(tagNum <- 1 to maxItem) {
+    class HListTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }] extends TypeHList {
+        override type H = @for(ii <- tagNum to 1 by - 1) { E@{ii}#H :: } HNil
+        override type T = HListTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
+    }
+}
