@@ -256,8 +256,8 @@ Item4[
   JsonObjectAppender[Long, String]
 ] =>
 JsonObjectAppender[
-  Item4[String, Int, Long, Long],
-  Item4[String, String, String, String]
+  AsunaTuple4[String, Int, Long, Long],
+  AsunaTuple4[String, String, String, String]
 ]
 ```
 
@@ -269,9 +269,9 @@ that this abstraction can handle any similar situation.
 现在我们把这个转换转化成抽象，使得这个抽象能应对任何类似的情况。
 
 ```scala
-class ItemTypeHList3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList] extends TypeHList {
-  override type H = Item3[E1#H, E2#H, E3#H]
-  override type T = ItemTypeHList3[E1#T, E2#T, E3#T]
+class TupleTypeHList3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList] extends TypeHList {
+  override type H = AsunaTuple3[E1#H, E2#H, E3#H]
+  override type T = TupleTypeHList3[E1#T, E2#T, E3#T]
 }
 ```
 
@@ -294,10 +294,10 @@ Line by line merger
 
 |Output Type|Final Result Type|
 :-:|:-:
-|KContext#M[ItemTypeHList1[TypeHList2[String, String]]]|JsonObjectAppender[Item1[String], Item1[String]]|
-|KContext#M[ItemTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]]]|JsonObjectAppender[Item2[Int, String], Item2[String, String]]|
-|KContext#M[ItemTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]]]|JsonObjectAppender[Item3[String, Int, Long], Item3[String, String, String]]|
-|KContext#M[ItemTypeHList4[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]]]|JsonObjectAppender[Item4[String, Int, Long, Long], Item4[String, String, String, String]]|
+|KContext#M[TupleTypeHList1[TypeHList2[String, String]]]|JsonObjectAppender[AsunaTuple1[String], AsunaTuple1[String]]|
+|KContext#M[TupleTypeHList2[TypeHList2[String, String], TypeHList2[Int, String]]]|JsonObjectAppender[AsunaTuple2[Int, String], AsunaTuple2[String, String]]|
+|KContext#M[TupleTypeHList3[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String]]]|JsonObjectAppender[AsunaTuple3[String, Int, Long], AsunaTuple3[String, String, String]]|
+|KContext#M[TupleTypeHList4[TypeHList2[String, String], TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]]]|JsonObjectAppender[AsunaTuple4[String, Int, Long, Long], AsunaTuple4[String, String, String, String]]|
 
 So as long as we provide a  
 所以只要我们提供一个
@@ -346,8 +346,8 @@ object ii extends Context[KContext] {
       x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m))
   }
 
-  override def start: JsonObjectAppender[Item0, Item0] = new JsonObjectAppender[Item0, Item0] {
-    override def appendField(name: Item0, obj: Item0, m: JsonObject): JsonObject = m
+  override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
+    override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: JsonObject): JsonObject = m
   }
 }
 ```
@@ -376,7 +376,7 @@ We generate the first code based on Test04 case class:
 val ap = PropertyApply[Test04]
 
 val test04PropertyTag
-  : AppendTag[ItemTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
+  : AppendTag[TupleTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
   BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 ```
 
@@ -415,10 +415,10 @@ implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]])
   }
 ```
 
-In the merged `Application[KContext, SumTag, SumI]`, `SumI#H` is `Item4[String, Int, Long, Long]`,
-`SumI#T#H` is `Item4[String, String, String, String]`.  
-合并后的`Application[KContext, SumTag, SumI]` 中，`SumI#H` 为 `Item4[String, Int, Long, Long]`,
-`SumI#T#H` 为 `Item4[String, String, String, String]`.
+In the merged `Application[KContext, SumTag, SumI]`, `SumI#H` is `AsunaTuple4[String, Int, Long, Long]`,
+`SumI#T#H` is `AsunaTuple4[String, String, String, String]`.  
+合并后的`Application[KContext, SumTag, SumI]` 中，`SumI#H` 为 `AsunaTuple4[String, Int, Long, Long]`,
+`SumI#T#H` 为 `AsunaTuple4[String, String, String, String]`.
 
 Complete Circe Json Object Encoder's sample is [here](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02").  
 完整的 Circe Json Object Encoder 的代码在 [这里](https://github.com/scalax/asuna/tree/master/sample/src/main/scala/asuna/sample02_generic "Sample02")。
