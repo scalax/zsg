@@ -12,7 +12,7 @@ object AsunaTestKitCodeGeneration extends App {
   val rootDir =
     Paths.get("./").resolve("testkit").resolve("src").resolve("test").resolve("scala").resolve("asuna").resolve("testkit").resolve("codegen")
 
-  for (i <- (2 to 100 by 8).toList ::: (minPropertyNum to maxPropertyNum).toList) yield {
+  for (i <- (1 to 100 by 8).toList ::: (minPropertyNum to maxPropertyNum).toList) yield {
     val path1 = rootDir.resolve("CaseClassTest" + i + ".scala")
     Files.createDirectories(path1.getParent)
     val writer1          = new PrintWriter(path1.toFile, "utf-8")

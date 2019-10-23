@@ -57,7 +57,7 @@ object AsunaSealedGenericMacroApply {
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""asuna.BuildContent.lift(..${tree})"""
-          } else if (tree.length < 8) {
+          } else if (tree.length <= 8) {
             q"""asuna.BuildContent.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(8).toList
