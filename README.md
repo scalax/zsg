@@ -183,10 +183,10 @@ Then we can get:
 ```scala
 val a1: JsonObjectAppender[Int, String] = (throw new Exception()): KContext#M[TypeHList2[Int, String]]
 val a2: JsonObjectAppender[Long, String] = (throw new Exception()): KContext#M[TypeHList2[Long, String]]
-val a3: JsonObjectAppender[Item2[Int, Long], Item2[String, String]] = (throw new Exception()): KContext#M[TypeHList2[Item2[Int, Long], Item2[String, String]]]
+val a3: JsonObjectAppender[AsunaTuple2[Int, Long], AsunaTuple2[String, String]] = (throw new Exception()): KContext#M[TypeHList2[AsunaTuple2[Int, Long], AsunaTuple2[String, String]]]
 ```
 
-### 2.Transpose use Type Projection and ItemX
+### 2.Transpose use Type Projection and AsunaTupleX
 
 Now we introduce a scene. We have a 4-field case class to be encode.  
 现在我们引入一个场景，我们有一个 4 个字段的 case class 需要 encode。
@@ -199,8 +199,8 @@ To implement this Circe Encoder, we need a instance of:
 要制作这样一个 Circe Encoder，我们需要一个
 
 ```scala
-trait JsonObjectAppender[Item[String, Int, Long, Long], Item[String, String, String, String]] {
-  def appendField(obj: Item[String, Int, Long, Long], name: Item[String, String, String, String], m: JsonObject): JsonObject
+trait JsonObjectAppender[AsunaTuple4[String, Int, Long, Long], AsunaTuple4[String, String, String, String]] {
+  def appendField(obj: AsunaTuple4[String, Int, Long, Long], name: AsunaTuple4[String, String, String, String], m: JsonObject): JsonObject
 }
 ```
 
@@ -209,8 +209,8 @@ based on the existing information.
 的实例，假设它被命名为为 `en1`。我们可以轻易根据现有信息得出`Encoder.AsObject[Test04]`。
 
 ```scala
-val getter = { test04: Test04 => new Item4(test04.i1, test04.i2, test04.i3, test04.i4) }
-val names = new Item4("i1", "i2", "i3", "i4")
+val getter = { test04: Test04 => new AsunaTuple4(test04.i1, test04.i2, test04.i3, test04.i4) }
+val names = new AsunaTuple4("i1", "i2", "i3", "i4")
 implicit val encoderTest04: Encoder.AsObject[Test04] = Encoder.AsObject.instance { o: Test04 =>
   en1.appendField(getter(o), names, JsonObject.empty)
 }
@@ -249,7 +249,7 @@ So we need to do a conversion, also the most important conversion of asuna:
 于是我们需要做一个转换，也是 asuna 最重要的转换：
 
 ```scala
-Item4[
+AsunaTuple4[
   JsonObjectAppender[String, String],
   JsonObjectAppender[Int, String],
   JsonObjectAppender[Long, String],
@@ -329,9 +329,9 @@ So the full version of `append` is
 def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: KContext#M[X], y: KContext#M[Y], p: Plus[X, Y, Z]): KContext#M[Z]
 ```
 
-The `Item0 - Item7` Plus has been prepared inside asuna, so the process
+The `AsunaTuple0 - AsunaTuple7` Plus has been prepared inside asuna, so the process
 is completed smoothly. The complete Context implementation is as follows:  
-而 Item0 - Item7 的 Plus 已经在 asuna 的内部准备好了，所以叠加过程得以顺利完成。完整的 Context 实现如下：
+而 AsunaTuple0 - AsunaTuple7 的 Plus 已经在 asuna 的内部准备好了，所以叠加过程得以顺利完成。完整的 Context 实现如下：
 
 ```scala
 object ii extends Context[KContext] {
@@ -396,8 +396,8 @@ PropertyTag[Long]
 ```
 
 Asuna will find 4 `Application[KContext, PropertyTag[T], I]` according
-to KContext and these 4 boot types, and then merge them into one with ItemX.  
-asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 ItemX 的 `Application[KContext, PropertyTag[ItemX[...]], ItemTypeHListX[...]]`
+to KContext and these 4 boot types, and then merge them into a `Application[KContext, AsunaTupleX[PropertyTag[...]], TupleTypeHListX[...]]` with AsunaTupleX.  
+asuna 将根据 KContext 和这 4 个引导类型分别找出 4 个 `Application[KContext, PropertyTag[T], I]`，然后合并成一个带有 AsunaTupleX 的 `Application[KContext, AsunaTupleX[PropertyTag[...]], TupleTypeHListX[...]]`
 
 Here you can get this code by circe:  
 这里可以依赖于 circe 作如下编码：
