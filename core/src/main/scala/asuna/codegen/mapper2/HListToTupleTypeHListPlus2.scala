@@ -12,7 +12,6 @@ trait HListToTupleTypeHListPlus2 {
     ] {
       override def plus(p: HListTypeHList1[AnyTypeHList]#H, item: AnyTypeHList#H): TupleTypeHList2[AnyTypeHList, AnyTypeHList]#H = {
         val ii1 = p.head
-        val tt1 = p.tail
         new AsunaValueTuple2(i1 = ii1, i2 = item)
       }
       override def takeTail(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                                       = t.i2
@@ -41,7 +40,6 @@ trait HListToTupleTypeHListPlus2 {
     ] {
       override def plus(p: HListTypeHList1[AnyTypeHList]#H, item: AnyTypeHList#H): TupleTypeHList2[AnyTypeHList, AnyTypeHList]#H = {
         val ii1 = p.head
-        val tt1 = p.tail
         new AsunaValueTuple2(i1 = item, i2 = ii1)
       }
       override def takeTail(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                                       = t.i1
