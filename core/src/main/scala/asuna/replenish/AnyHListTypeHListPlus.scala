@@ -1,7 +1,5 @@
 package asuna
 
-import scala.language.higherKinds
-
 trait AnyHListTypeHListPlus {
   self =>
 
