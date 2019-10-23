@@ -31,7 +31,7 @@ object NodeTag@{tagNum} {
                 @org.scalax.asuna.item.template.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
                 //context.append(NodeTag@{tagNum - 1}.noteTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii} @if(ii < tagNum) { , } }).application(context), t1.application(context), TupleTypeHListPlus@{tagNum}.put@{tagNum})
             } else {
-                @org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem = tagNum)
+                @org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem = tagNum)(maxItem = tagNum)
                 //context.append(NodeTag@{tagNum - 1}.noteTagApplicationImplicit@{tagNum - 1}(@for(ii <- 2 to tagNum) { t@{ii - 1} @if(ii < tagNum) { , } }).application(context), t@{tagNum}.application(context), TupleTypeHListPlus@{tagNum}.plus@{tagNum})
             }
         }

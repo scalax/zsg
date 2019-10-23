@@ -20,17 +20,17 @@ object NodeTag2 {
     new Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] {
       override def application(context: Context[K]): K#M[TupleTypeHList2[T1, T2]] = {
         if (context.isReverse) {
-          context.append[TupleTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
-            context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), TupleTypeHListPlus1.hlistPut1),
+          context.append[HListTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
+            context.append[TupleTypeHList0, T2, HListTypeHList1[T2]](context.start, t2.application(context), AnyHListTypeHListPlus.hlistPlus1),
             t1.application(context),
-            TupleTypeHListPlus2.put2
+            HListToTupleTypeHListPlus2.put2
           )
 //context.append(NodeTag1.noteTagApplicationImplicit1( t2  ).application(context), t1.application(context), TupleTypeHListPlus2.put2)
         } else {
-          context.append[TupleTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
-            context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TupleTypeHListPlus1.hlistPlus1),
+          context.append[HListTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
+            context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), AnyHListTypeHListPlus.hlistPlus1),
             t2.application(context),
-            TupleTypeHListPlus2.plus2
+            HListToTupleTypeHListPlus2.plus2
           )
 //context.append(NodeTag1.noteTagApplicationImplicit1( t1  ).application(context), t2.application(context), TupleTypeHListPlus2.plus2)
         }

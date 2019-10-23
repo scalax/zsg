@@ -1,12 +1,11 @@
 package asuna.macros
 
-import asuna.ContextContent
 import asuna.macros.utils.SealedHelper
 
 import scala.language.experimental.macros
 
 trait AsunaSealedClassGeneric[H, NameType] {
-  def names: ContextContent[NameType]
+  def names: NameType
 }
 
 object AsunaSealedClassGeneric {
@@ -14,8 +13,8 @@ object AsunaSealedClassGeneric {
   def init[M]: AsunaSealedClassGenericApply[M] = new AsunaSealedClassGenericApply[M] {}
 
   trait AsunaSealedClassGenericApply[M] {
-    def name[N](names1: ContextContent[N]): AsunaSealedClassGeneric[M, N] = new AsunaSealedClassGeneric[M, N] {
-      override def names: ContextContent[N] = names1
+    def name[N](names1: N): AsunaSealedClassGeneric[M, N] = new AsunaSealedClassGeneric[M, N] {
+      override def names: N = names1
     }
   }
 
@@ -37,21 +36,20 @@ object AsunaSealedClassGenericMacroApply {
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val nameTag = props
-          .map { subType =>
-            q"""classOf[${subType}]"""
-          }
-          .grouped(8)
-          .toList
-          .map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
+        val nameTag = props.map { subType =>
+          q"""classOf[${subType}]"""
+        }
+        //.grouped(8)
+        //.toList
+        //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""..${tree}"""
           } else if (tree.length < 8) {
-            q"""asuna.BuildContent.${TermName("nodeTuple" + tree.length)}(..${tree})"""
+            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaSealedClassGeneric[H, M]] {

@@ -2,25 +2,25 @@ package asuna.macros
 
 import java.util
 
-import asuna.{Context, ContextContent, KindContext}
+import asuna.{Context, KindContext}
 
 import scala.language.experimental.macros
 
 trait AsunaCachedLabelledGeneric[H, NameType] {
   val className: String
-  protected def names: ContextContent[NameType]
+  protected def names: NameType
   def getName[K <: KindContext](context: Context[K]): NameType = {
     if (context.isReverse) {
       val value1 = AsunaCachedLabelledGeneric.reverseNameHashMap.get(className)
       if (value1 == null) {
-        AsunaCachedLabelledGeneric.reverseNameHashMap.put(className, names.withContext(context))
+        AsunaCachedLabelledGeneric.reverseNameHashMap.put(className, names)
         AsunaCachedLabelledGeneric.reverseNameHashMap.get(className).asInstanceOf[NameType]
       } else
         value1.asInstanceOf[NameType]
     } else {
       val value1 = AsunaCachedLabelledGeneric.nameHashMap.get(className)
       if (value1 == null) {
-        AsunaCachedLabelledGeneric.nameHashMap.put(className, names.withContext(context))
+        AsunaCachedLabelledGeneric.nameHashMap.put(className, names)
         AsunaCachedLabelledGeneric.nameHashMap.get(className).asInstanceOf[NameType]
       } else
         value1.asInstanceOf[NameType]
@@ -36,9 +36,9 @@ object AsunaCachedLabelledGeneric {
   def init[M]: CachedNameGenericApply[M] = new CachedNameGenericApply[M] {}
 
   trait CachedNameGenericApply[M] {
-    def name[N](className1: String, names1: => ContextContent[N]): AsunaCachedLabelledGeneric[M, N] = new AsunaCachedLabelledGeneric[M, N] {
-      override val className                          = className1
-      override protected def names: ContextContent[N] = names1
+    def name[N](className1: String, names1: => N): AsunaCachedLabelledGeneric[M, N] = new AsunaCachedLabelledGeneric[M, N] {
+      override val className          = className1
+      override protected def names: N = names1
     }
   }
 
@@ -70,21 +70,20 @@ object AsunaCachedLabelledGenericMacroApply {
           }
           .reverse
 
-        val nameTag = props
-          .map { name =>
-            q"""${Literal(Constant(name))}"""
-          }
-          .grouped(8)
-          .toList
-          .map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
+        val nameTag = props.map { name =>
+          q"""${Literal(Constant(name))}"""
+        }
+        //.grouped(8)
+        //.toList
+        //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""..${tree}"""
           } else if (tree.length < 8) {
-            q"""asuna.BuildContent.${TermName("nodeTuple" + tree.length)}(..${tree})"""
+            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""org.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaCachedLabelledGeneric[H, M]] {

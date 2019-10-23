@@ -33,6 +33,16 @@ object AsunaCoreCodeGeneration extends App {
     writer19.close()
   }
 
+  for (i <- 2 to maxPropertyNum) yield {
+    val path19 = rootDir.resolve("mapper" + i).resolve("HListToTupleTypeHListPlus" + i + ".scala")
+    Files.createDirectories(path19.getParent)
+    val writer19   = new PrintWriter(path19.toFile, "utf-8")
+    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.HListToTupleTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+    val content192 = content191.mkString(System.lineSeparator)
+    writer19.println(content192)
+    writer19.close()
+  }
+
   for (i <- 2 to maxPropertyNum - 1) yield {
     val path19 =
       rootDir.resolve("mapper" + i).resolve("HListTuple" + i + ".scala")

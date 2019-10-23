@@ -65,7 +65,7 @@ object in {
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
-        pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaLabelledGeneric.names.withContext(i)).appendField(List.empty)
+        pp.application(i)(asunaGetterGeneric.getter(ii), asunaLabelledGeneric.names).appendField(List.empty)
       }
     }
   }
@@ -79,8 +79,7 @@ object in {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
         val reverseContext = i.reverse
-        pp.application(reverseContext)(asunaGetterGeneric.getter(ii).withContext(reverseContext), asunaNameGeneric.names.withContext(reverseContext))
-          .appendField(List.empty)
+        pp.application(reverseContext)(asunaGetterGeneric.getter(ii), asunaNameGeneric.names).appendField(List.empty)
       }
     }
   }

@@ -58,11 +58,11 @@ object Sample02 {
   }
 
   implicit val test04Getter: Test04 => AsunaTuple4[String, Int, Long, Long] = (foo: Test04) => {
-    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4).withContext(ii)
+    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4)
   }
 
   implicit val test04Labelled: AsunaTuple4[String, String, String, String] =
-    BuildContent.tuple4("i1", "i2", "i3", "i4").withContext(ii)
+    BuildContent.tuple4("i1", "i2", "i3", "i4")
 
   implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {

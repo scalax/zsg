@@ -28,7 +28,7 @@ object SealedTraitTest extends App {
     app: Application[KC, T, TT],
     labelled: AsunaSealedLabelledGeneric[H, TT#H]
   ): ListEncode[H] = new ListEncode[H] {
-    override def str: List[String] = app.application(i)(labelled.names.withContext(i))(List.empty)
+    override def str: List[String] = app.application(i)(labelled.names)(List.empty)
   }
 
   class KC extends KindContext {

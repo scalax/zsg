@@ -66,7 +66,7 @@ object in {
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
-        pp.application(i)(asunaGetterGeneric.getter(ii).withContext(i), asunaNameGeneric.names.withContext(i)).init(List.empty)
+        pp.application(i)(asunaGetterGeneric.getter(ii), asunaNameGeneric.names).init(List.empty)
       }
     }
   }

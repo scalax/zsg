@@ -13,7 +13,7 @@ object AsunaDefaultValueGenericCodeGenSample {
     AsunaDefaultValueGeneric
       .init[Sample10]
       .defaultValue(
-        BuildContent.nodeTuple2(
+        BuildContent.tuple2(
           BuildContent.tuple8(
             defaultValue.to(_.i1)(Option.empty),
             defaultValue.to(_.i2)(Option.empty),

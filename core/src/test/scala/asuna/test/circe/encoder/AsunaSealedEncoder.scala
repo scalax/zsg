@@ -13,9 +13,9 @@ object AsunaSealedEncoder {
     cv2: AsunaSealedClassGeneric[H, I#T#H]
   ): Encoder.AsObject[H] = {
     val ii    = new ii[H]
-    val names = cv1.names.withContext(ii)
+    val names = cv1.names
     Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(app.application(ii).p(o, cv2.names.withContext(ii), names).toList)
+      JsonObject.fromIterable(app.application(ii).p(o, cv2.names, names).toList)
     }
   }
 
@@ -57,7 +57,7 @@ object AsunaSealedEncoder {
       ): Encoder.AsObject[H] = {
         val ii = new ii[H]
         Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(app.application(ii).p(o, cv2.names.withContext(ii), cv1.names.withContext(ii)))
+          JsonObject.fromIterable(app.application(ii).p(o, cv2.names, cv1.names))
         }
       }
     }

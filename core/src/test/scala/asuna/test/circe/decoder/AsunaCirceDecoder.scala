@@ -13,7 +13,7 @@ object AsunaCirceDecoder {
     cv3: AsunaSetterGeneric[T, I#T#H],
     cv4: AsunaDefaultValueGeneric[T, I#T#T#H]
   ): Decoder[T] = {
-    app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
+    app.application(ii).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
   }
 
   class KM extends KindContext {
@@ -73,7 +73,7 @@ object AsunaCirceDecoder {
       cv3: AsunaSetterGeneric[T, I#T#H],
       cv4: AsunaDefaultValueGeneric[T, I#T#T#H]
     ) = {
-      app.application(ii).to(cv1.names.withContext(ii), cv4.defaultValues.withContext(ii)).map(mm => cv3.setter(mm))
+      app.application(ii).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
     }
   }
   //debug 辅助部分代码结束

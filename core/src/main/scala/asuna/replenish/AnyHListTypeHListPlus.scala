@@ -15,7 +15,7 @@ trait AnyHListTypeHListPlus {
   val plus0To1: Plus[TupleTypeHList0, AnyTypeHList, AnyHListTypeHList] = new Plus[TupleTypeHList0, AnyTypeHList, AnyHListTypeHList] {
     override def plus(p: AsunaTuple0, item: Any): HList                           = item :: HNil
     override def takeHead(t: HList): AsunaTuple0                                  = AsunaTuple0
-    override def takeTail(t: HList): AsunaTuple0                                  = AsunaTuple0
+    override def takeTail(t: HList): Any                                          = t.head
     override lazy val sub: Plus[TupleTypeHList0, AnyTypeHList, AnyHListTypeHList] = self.plus0To1
   }
 

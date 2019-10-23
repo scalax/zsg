@@ -8,7 +8,7 @@ object AsunaGetterGenericCodeGenSample {
 
   val genResult =
     AsunaGetterGeneric.init { i: Sample10 =>
-      BuildContent.nodeTuple2(BuildContent.tuple8(i.i1, i.i2, i.i3, i.i4, i.i5, i.i6, i.i7, i.i8), BuildContent.tuple2(i.i9, i.i10))
+      BuildContent.tuple2(BuildContent.tuple8(i.i1, i.i2, i.i3, i.i4, i.i5, i.i6, i.i7, i.i8), BuildContent.tuple2(i.i9, i.i10))
     }
 
   sameType(

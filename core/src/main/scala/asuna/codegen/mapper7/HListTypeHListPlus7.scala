@@ -1,6 +1,6 @@
 package asuna
 class HListTypeHListPlus7 {
-  def plus7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList]: Plus[
+  @inline def plus7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList]: Plus[
     HListTypeHList6[E1, E2, E3, E4, E5, E6],
     E7,
     HListTypeHList7[E1, E2, E3, E4, E5, E6, E7]
