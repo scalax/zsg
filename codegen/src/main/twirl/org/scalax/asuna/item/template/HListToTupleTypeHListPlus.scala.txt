@@ -18,7 +18,7 @@ override def plus(p: HListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) {
 item: AnyTypeHList#H): TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList @if(ii < tagNum) { , } }]#H = {
 val ii1 = p.head
 @if(tagNum > 2) {
-val tt1 = p.tail
+    val tt1 = p.tail
 }
 @for(i <- 2 to (tagNum - 1)) {
 val ii@{i} = tt@{i - 1}.head
@@ -56,7 +56,7 @@ override def plus(p: HListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) {
 item: AnyTypeHList#H): TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { AnyTypeHList @if(ii < tagNum) { , } }]#H = {
 val ii1 = p.head
 @if(tagNum > 2) {
-val tt1 = p.tail
+    val tt1 = p.tail
 }
 @for(i <- 2 to (tagNum - 1)) {
 val ii@{i} = tt@{i - 1}.head
