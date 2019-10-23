@@ -44,17 +44,6 @@ object AsunaCoreCodeGeneration extends App {
   }
 
   for (i <- 2 to maxPropertyNum - 1) yield {
-    val path19 =
-      rootDir.resolve("mapper" + i).resolve("HListTuple" + i + ".scala")
-    Files.createDirectories(path19.getParent)
-    val writer19   = new PrintWriter(path19.toFile, "utf-8")
-    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.HListTuple(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-    val content192 = content191.mkString(System.lineSeparator)
-    writer19.println(content192)
-    writer19.close()
-  }
-
-  for (i <- 2 to maxPropertyNum - 1) yield {
     val path19 = rootDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
     Files.createDirectories(path19.getParent)
     val writer19   = new PrintWriter(path19.toFile, "utf-8")
@@ -69,28 +58,6 @@ object AsunaCoreCodeGeneration extends App {
     Files.createDirectories(path19.getParent)
     val writer19   = new PrintWriter(path19.toFile, "utf-8")
     val content191 = Source.fromString(org.scalax.asuna.item.template.txt.AsunaValueTuple(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-    val content192 = content191.mkString(System.lineSeparator)
-    writer19.println(content192)
-    writer19.close()
-  }
-
-  for (i <- 2 to maxPropertyNum - 1) yield {
-    val path19 =
-      rootDir.resolve("mapper" + i).resolve("ReverseHListTuple" + i + ".scala")
-    Files.createDirectories(path19.getParent)
-    val writer19   = new PrintWriter(path19.toFile, "utf-8")
-    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.ReverseHListTuple(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-    val content192 = content191.mkString(System.lineSeparator)
-    writer19.println(content192)
-    writer19.close()
-  }
-
-  for (i <- 2 to maxPropertyNum) yield {
-    val path19 =
-      rootDir.resolve("mapper" + i).resolve("TupleTypeHListPlus" + i + ".scala")
-    Files.createDirectories(path19.getParent)
-    val writer19   = new PrintWriter(path19.toFile, "utf-8")
-    val content191 = Source.fromString(org.scalax.asuna.item.template.txt.TupleTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
     val content192 = content191.mkString(System.lineSeparator)
     writer19.println(content192)
     writer19.close()
@@ -152,7 +119,7 @@ object AsunaCoreCodeGeneration extends App {
   writer18.println(content182)
   writer18.close()
 
-  val path10 = tupleDir.resolve("ScalaTupleTypeHList.scala")
+  /*val path10 = tupleDir.resolve("ScalaTupleTypeHList.scala")
   Files.createDirectories(path10.getParent)
   val writer10 = new PrintWriter(path10.toFile, "utf-8")
   val content101 =
@@ -197,7 +164,7 @@ object AsunaCoreCodeGeneration extends App {
   val content201 = Source.fromString(org.scalax.asuna.tuple.template.txt.ScalaTupleTypeHListPlus3().body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
   val content202 = content201.mkString(System.lineSeparator)
   writer20.println(content202)
-  writer20.close()
+  writer20.close()*/
 
   val path16 = buildDir.resolve("HListTypeHList.scala")
   Files.createDirectories(path16.getParent)

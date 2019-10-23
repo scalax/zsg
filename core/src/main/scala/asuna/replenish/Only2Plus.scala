@@ -8,14 +8,14 @@ trait Only2Plus {
 
   val hlistPlus2Any: Plus[AnyTypeHList, AnyTypeHList, TupleTypeHList2[AnyTypeHList, AnyTypeHList]] =
     new Plus[AnyTypeHList, AnyTypeHList, TupleTypeHList2[AnyTypeHList, AnyTypeHList]] {
-      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H] = HListTuple0.add(p).add(item)
+      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H] = new AsunaValueTuple2(p, item)
       override def takeTail(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                   = t.i2
       override def takeHead(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                   = t.i1
       override def sub: Plus[AnyTypeHList#T, AnyTypeHList#T, TupleTypeHList2[AnyTypeHList, AnyTypeHList]#T]   = hlistPlus2Any
     }
   val hlistPut2Any: Plus[AnyTypeHList, AnyTypeHList, TupleTypeHList2[AnyTypeHList, AnyTypeHList]] =
     new Plus[AnyTypeHList, AnyTypeHList, TupleTypeHList2[AnyTypeHList, AnyTypeHList]] {
-      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H] = ReverseHListTuple0.pull(p).pull(item)
+      override def plus(p: AnyTypeHList#H, item: AnyTypeHList#H): AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H] = new AsunaValueTuple2(item, p)
       override def takeTail(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                   = t.i1
       override def takeHead(t: AsunaTuple2[AnyTypeHList#H, AnyTypeHList#H]): AnyTypeHList#H                   = t.i2
       override def sub: Plus[AnyTypeHList#T, AnyTypeHList#T, TupleTypeHList2[AnyTypeHList, AnyTypeHList]#T]   = hlistPut2Any
