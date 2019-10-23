@@ -38,11 +38,11 @@ class Test@{maxItem} extends AnyFunSpec with Matchers {
             str2 shouldBe fooValue@{maxItem}.reverseString
         }
         it("should generic to a decoder") {
-            val (_, model1) = fooDecoder@{maxItem}.init(fooValue@{maxItem}.toString)
+            val (_, model1) = fooDecoder@{maxItem}.getData(fooValue@{maxItem}.toString)
             model1 shouldBe fooValue@{maxItem}
         }
         it("should generic to a reverse decoder") {
-            val (_, model2) = reverseFooDecoder@{maxItem}.init(fooValue@{maxItem}.reverseString)
+            val (_, model2) = reverseFooDecoder@{maxItem}.getData(fooValue@{maxItem}.reverseString)
             model2 shouldBe fooValue@{maxItem}
         }
     }

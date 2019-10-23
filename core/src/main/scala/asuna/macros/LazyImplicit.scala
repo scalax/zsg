@@ -18,8 +18,8 @@ object LazyImplicitHelper {
     import c.universe._
 
     def implicitFetch[T: c.WeakTypeTag]: c.Expr[LazyImplicit[T]] = {
-      val lazyImplicit = weakTypeOf[LazyImplicit[T]]
-      val t            = weakTypeOf[T]
+      val lazyImplicit = weakTypeOf[LazyImplicit[T]].resultType
+      val t            = weakTypeOf[T].resultType
       c.Expr[LazyImplicit[T]] {
         q"""new ${lazyImplicit} { override def value: ${t} = implicitly[${t}] }"""
       }

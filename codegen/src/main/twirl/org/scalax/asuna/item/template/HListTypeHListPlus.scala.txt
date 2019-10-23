@@ -1,0 +1,20 @@
+@(tagNum: Int)
+
+package asuna
+
+class HListTypeHListPlus@{tagNum} {
+
+@@inline def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
+    HListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
+    E@{tagNum},
+    HListTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+] =
+AnyHListTypeHListPlus.plus.asInstanceOf[Plus[
+    HListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
+    E@{tagNum},
+    HListTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+]]
+
+}
+
+object HListTypeHListPlus@{tagNum} extends HListTypeHListPlus@{tagNum}

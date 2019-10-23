@@ -13,8 +13,8 @@ object AsunaSealedDecoder {
     cv2: AsunaSealedToAbsGeneric[H, I#T#H]
   ): Decoder[H] = {
     val ii    = new ii[H]
-    val names = cv1.names.withContext(ii)
-    app.application(ii).to(names, cv2.names.withContext(ii))
+    val names = cv1.names
+    app.application(ii).to(names, cv2.names)
   }
 
   trait JsonPro[II, T, P] {
@@ -61,8 +61,8 @@ object AsunaSealedDecoder {
         cv2: AsunaSealedToAbsGeneric[H, I#T#H]
       ): Decoder[H] = {
         val ii    = new ii[H]
-        val names = cv1.names.withContext(ii)
-        app.application(ii).to(names, cv2.names.withContext(ii))
+        val names = cv1.names
+        app.application(ii).to(names, cv2.names)
       }
     }
   }

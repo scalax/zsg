@@ -36,33 +36,33 @@ object TupleTag4 {
     new Application[K, TupleTag4[H1, M1, H2, M2, H3, M3, H4, M4], TupleTypeHList4[T1, T2, T3, T4]] {
       override def application(context: Context[K]): K#M[TupleTypeHList4[T1, T2, T3, T4]] = {
         if (context.isReverse) {
-          context.append[TupleTypeHList3[T2, T3, T4], T1, TupleTypeHList4[T1, T2, T3, T4]](
-            context.append[TupleTypeHList2[T3, T4], T2, TupleTypeHList3[T2, T3, T4]](
-              context.append[TupleTypeHList1[T4], T3, TupleTypeHList2[T3, T4]](
-                context.append[TupleTypeHList0, T4, TupleTypeHList1[T4]](context.start, t4.application(context), TupleTypeHListPlus1.hlistPut1),
+          context.append[HListTypeHList3[T4, T3, T2], T1, TupleTypeHList4[T1, T2, T3, T4]](
+            context.append[HListTypeHList2[T4, T3], T2, HListTypeHList3[T4, T3, T2]](
+              context.append[HListTypeHList1[T4], T3, HListTypeHList2[T4, T3]](
+                context.append[TupleTypeHList0, T4, HListTypeHList1[T4]](context.start, t4.application(context), AnyHListTypeHListPlus.hlistPlus1),
                 t3.application(context),
-                TupleTypeHListPlus2.put2
+                HListTypeHListPlus2.plus2
               ),
               t2.application(context),
-              TupleTypeHListPlus3.put3
+              HListTypeHListPlus3.plus3
             ),
             t1.application(context),
-            TupleTypeHListPlus4.put4
+            HListToTupleTypeHListPlus4.put4
           )
 //context.append(TupleTag3.itemTagApplicationImplicit3( t2  ,   t3  ,   t4  ).application(context), t1.application(context), TupleTypeHListPlus4.put4)
         } else {
-          context.append[TupleTypeHList3[T1, T2, T3], T4, TupleTypeHList4[T1, T2, T3, T4]](
-            context.append[TupleTypeHList2[T1, T2], T3, TupleTypeHList3[T1, T2, T3]](
-              context.append[TupleTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
-                context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TupleTypeHListPlus1.hlistPlus1),
+          context.append[HListTypeHList3[T1, T2, T3], T4, TupleTypeHList4[T1, T2, T3, T4]](
+            context.append[HListTypeHList2[T1, T2], T3, HListTypeHList3[T1, T2, T3]](
+              context.append[HListTypeHList1[T1], T2, HListTypeHList2[T1, T2]](
+                context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), AnyHListTypeHListPlus.hlistPlus1),
                 t2.application(context),
-                TupleTypeHListPlus2.plus2
+                HListTypeHListPlus2.plus2
               ),
               t3.application(context),
-              TupleTypeHListPlus3.plus3
+              HListTypeHListPlus3.plus3
             ),
             t4.application(context),
-            TupleTypeHListPlus4.plus4
+            HListToTupleTypeHListPlus4.plus4
           )
 //context.append(TupleTag3.itemTagApplicationImplicit3( t1  ,   t2  ,   t3  ).application(context), t4.application(context), TupleTypeHListPlus4.plus4)
         }

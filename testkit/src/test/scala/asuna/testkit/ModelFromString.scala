@@ -4,7 +4,7 @@ import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, Asu
 import asuna.{AppendTag, Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList1, TypeHList2}
 
 trait ModelDecoder[M] {
-  def init(str: String): (String, M)
+  def getData(str: String): (String, M)
 }
 
 class MContext extends KindContext {
@@ -23,8 +23,8 @@ object decoderContext extends Context[MContext] {
     p: Plus[X, Y, Z]
   ): ModelDecoder[Z#H] = {
     { (str: String) =>
-      val (str1, d1) = x.init(str)
-      val (str2, d2) = y.init(str1)
+      val (str1, d1) = x.getData(str)
+      val (str2, d2) = y.getData(str1)
       (str2, p.plus(d1, d2))
     }
   }
@@ -44,7 +44,7 @@ object out {
   ): ModelDecoder[I1] = {
     { str: String =>
       val c         = pp.application(decoderContext)
-      val (str1, m) = c.init(str)
+      val (str1, m) = c.getData(str)
       (str1, asunaSetterGeneric.setter(m))
     }
   }
@@ -57,7 +57,7 @@ object out {
     { str: String =>
       val reverseContext = decoderContext.reverse
       val c              = pp.application(reverseContext)
-      val (str1, m)      = c.init(str)
+      val (str1, m)      = c.getData(str)
       (str1, asunaSetterGeneric.setter(m))
     }
   }
@@ -82,7 +82,7 @@ object out {
   implicit val outImplicit1: Application[MContext, PropertyTag[String], TypeHList1[String]] = new Application[MContext, PropertyTag[String], TypeHList1[String]] {
     override def application(context: Context[MContext]): ModelDecoder[String] = {
       new ModelDecoder[String] {
-        override def init(str: String): (String, String) = {
+        override def getData(str: String): (String, String) = {
           val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
           val str2 = str1.takeWhile(s => s != ')')
           val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
@@ -95,7 +95,7 @@ object out {
   implicit val outImplicit2: Application[MContext, PropertyTag[Int], TypeHList1[Int]] = new Application[MContext, PropertyTag[Int], TypeHList1[Int]] {
     override def application(context: Context[MContext]): ModelDecoder[Int] = {
       new ModelDecoder[Int] {
-        override def init(str: String): (String, Int) = {
+        override def getData(str: String): (String, Int) = {
           val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
           val str2 = str1.takeWhile(s => s != ')')
           val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
@@ -108,7 +108,8 @@ object out {
   implicit val outImplicit3: Application[MContext, PropertyTag[Long], TypeHList1[Long]] = new Application[MContext, PropertyTag[Long], TypeHList1[Long]] {
     override def application(context: Context[MContext]): ModelDecoder[Long] = {
       new ModelDecoder[Long] {
-        override def init(str: String): (String, Long) = {
+
+        override def getData(str: String): (String, Long) = {
           val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
           val str2 = str1.takeWhile(s => s != ')')
           val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)

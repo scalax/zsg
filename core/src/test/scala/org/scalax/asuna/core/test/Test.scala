@@ -22,7 +22,7 @@ class Test extends AnyFunSpec with Matchers {
   )
 
   val fooGetter = (foo: Foo) => {
-    BuildContent.nodeTuple3(
+    BuildContent.tuple3(
       BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4),
       BuildContent.tuple4(foo.i5, foo.i6, foo.i7, foo.i8),
       BuildContent.tuple2(foo.i9, foo.i10)
@@ -30,11 +30,11 @@ class Test extends AnyFunSpec with Matchers {
   }
 
   val fooLabelled =
-    BuildContent.nodeTuple3(BuildContent.tuple4("i1", "i2", "i3", "i4"), BuildContent.tuple4("i5", "i6", "i7", "i8"), BuildContent.tuple2("i9", "i10"))
+    BuildContent.tuple3(BuildContent.tuple4("i1", "i2", "i3", "i4"), BuildContent.tuple4("i5", "i6", "i7", "i8"), BuildContent.tuple2("i9", "i10"))
 
   import in._
 
-  val fooEncoder: ListEncoder[Foo]  = init1(fooPropertyTag).init2.encode(fooGetter.andThen(r => r.withContext(i)), fooLabelled.withContext(i))
+  val fooEncoder: ListEncoder[Foo]  = init1(fooPropertyTag).init2.encode(fooGetter, fooLabelled)
   val fooEncoder2: ListEncoder[Foo] = encoder
 
   val prepareResult =

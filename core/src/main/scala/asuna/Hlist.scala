@@ -12,7 +12,7 @@ trait HList {
 
   def tail: Tail
 
-  type Append[H]
+  type Append[H] <: HList
 
   def ::[H](h: H): Append[H]
 

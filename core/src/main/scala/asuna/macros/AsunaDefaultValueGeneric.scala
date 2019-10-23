@@ -1,7 +1,5 @@
 package asuna.macros
 
-import asuna._
-
 import scala.language.experimental.macros
 
 trait DefaultValue[T] {
@@ -21,7 +19,7 @@ object DefaultValue {
 }
 
 trait AsunaDefaultValueGeneric[H, DefaultValueType] {
-  def defaultValues: ContextContent[DefaultValueType]
+  def defaultValues: DefaultValueType
 }
 
 object AsunaDefaultValueGeneric {
@@ -29,8 +27,8 @@ object AsunaDefaultValueGeneric {
   def init[M]: AsunaDefaultValueGenericApply[M] = new AsunaDefaultValueGenericApply[M] {}
 
   trait AsunaDefaultValueGenericApply[M] {
-    def defaultValue[N](dfv: ContextContent[N]): AsunaDefaultValueGeneric[M, N] = new AsunaDefaultValueGeneric[M, N] {
-      override def defaultValues: ContextContent[N] = dfv
+    def defaultValue[N](dfv: N): AsunaDefaultValueGeneric[M, N] = new AsunaDefaultValueGeneric[M, N] {
+      override def defaultValues: N = dfv
     }
   }
 
@@ -75,15 +73,15 @@ object AsunaDefaultValueGenericMacroApply {
               }
           }
 
-        val nameTag = proTypeTag.grouped(8).toList.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
+        val nameTag                            = proTypeTag //.grouped(8).toList.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
-          if (tree.length == 1) {
+          /*if (tree.length == 1) {
             q"""..${tree}"""
-          } else if (tree.length < 8) {
-            q"""asuna.BuildContent.${TermName("nodeTuple" + tree.length)}(..${tree})"""
+          } else*/ if (tree.length <= 8) {
+            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
-            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaDefaultValueGeneric[H, M]] {

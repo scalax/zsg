@@ -12,6 +12,11 @@ class AnyTypeHList extends TypeHList {
   override type T = AnyTypeHList
 }
 
+class AnyHListTypeHList extends TypeHList {
+  override type H = HList
+  override type T = AnyHListTypeHList
+}
+
 class NoData
 
 object NoData {

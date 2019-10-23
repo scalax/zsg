@@ -11,7 +11,7 @@ object AsunaSettings {
 
   val circeVersion = "0.12.2"
 
-  val circeDependencies = /*("io.circe" %% "circe-derivation" % "0.12.0-M7") +:*/ Seq(
+  val circeDependencies = ("io.circe" %% "circe-derivation" % "0.12.0-M7") +: Seq(
     "io.circe" %% "circe-core",
     "io.circe" %% "circe-generic",
     "io.circe" %% "circe-parser"

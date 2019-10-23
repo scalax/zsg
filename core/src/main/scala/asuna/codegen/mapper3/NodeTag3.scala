@@ -34,25 +34,25 @@ object NodeTag3 {
     new Application[K, NodeTag3[H1, M1, H2, M2, H3, M3], TupleTypeHList3[T1, T2, T3]] {
       override def application(context: Context[K]): K#M[TupleTypeHList3[T1, T2, T3]] = {
         if (context.isReverse) {
-          context.append[TupleTypeHList2[T2, T3], T1, TupleTypeHList3[T1, T2, T3]](
-            context.append[TupleTypeHList1[T3], T2, TupleTypeHList2[T2, T3]](
-              context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TupleTypeHListPlus1.hlistPut1),
+          context.append[HListTypeHList2[T3, T2], T1, TupleTypeHList3[T1, T2, T3]](
+            context.append[HListTypeHList1[T3], T2, HListTypeHList2[T3, T2]](
+              context.append[TupleTypeHList0, T3, HListTypeHList1[T3]](context.start, t3.application(context), AnyHListTypeHListPlus.hlistPlus1),
               t2.application(context),
-              TupleTypeHListPlus2.put2
+              HListTypeHListPlus2.plus2
             ),
             t1.application(context),
-            TupleTypeHListPlus3.put3
+            HListToTupleTypeHListPlus3.put3
           )
 //context.append(NodeTag2.noteTagApplicationImplicit2( t2  ,   t3  ).application(context), t1.application(context), TupleTypeHListPlus3.put3)
         } else {
-          context.append[TupleTypeHList2[T1, T2], T3, TupleTypeHList3[T1, T2, T3]](
-            context.append[TupleTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
-              context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TupleTypeHListPlus1.hlistPlus1),
+          context.append[HListTypeHList2[T1, T2], T3, TupleTypeHList3[T1, T2, T3]](
+            context.append[HListTypeHList1[T1], T2, HListTypeHList2[T1, T2]](
+              context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), AnyHListTypeHListPlus.hlistPlus1),
               t2.application(context),
-              TupleTypeHListPlus2.plus2
+              HListTypeHListPlus2.plus2
             ),
             t3.application(context),
-            TupleTypeHListPlus3.plus3
+            HListToTupleTypeHListPlus3.plus3
           )
 //context.append(NodeTag2.noteTagApplicationImplicit2( t1  ,   t2  ).application(context), t3.application(context), TupleTypeHListPlus3.plus3)
         }
