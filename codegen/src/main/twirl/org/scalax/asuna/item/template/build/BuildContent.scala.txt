@@ -3,23 +3,21 @@
 package asuna
 
 trait BuildContent {
+    def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
 
-def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
+    @for(i <- 1 to maxItem) {
+        def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : AppendTag[T@{ii}] @if(ii < i) { , } }):
+        AppendTag[TupleTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]] =
+            new AppendTag[TupleTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]]
 
-@for(i <- 1 to maxItem) {
-    def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : AppendTag[T@{ii}] @if(ii < i) { , } }):
-    AppendTag[TupleTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]] =
-        new AppendTag[TupleTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]]
+        def nodeTag[@for(ii <- 1 to i){ T@{ii} <: TupleTag @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : AppendTag[T@{ii}] @if(ii < i) { , } }):
+        AppendTag[NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]] =
+            new AppendTag[NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]]
 
-    def nodeTag[@for(ii <- 1 to i){ T@{ii} <: TupleTag @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : AppendTag[T@{ii}] @if(ii < i) { , } }):
-    AppendTag[NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]] =
-        new AppendTag[NodeTag@{i}[@for(ii <- 1 to i){ T@{ii}, `Number： @{ii}` @if(ii < i) { , } }]]
-
-    def tuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : T@{ii} @if(ii < i) { , } }):
-    AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] =
-        new AsunaValueTuple@{i}(@for(ii <- 1 to i){ t@{ii} @if(ii < i) { , } })
-}
-
+        def tuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : T@{ii} @if(ii < i) { , } }):
+        AsunaTuple@{i}[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }] =
+            new AsunaValueTuple@{i}(@for(ii <- 1 to i){ t@{ii} @if(ii < i) { , } })
+    }
 }
 
 object BuildContent extends BuildContent
