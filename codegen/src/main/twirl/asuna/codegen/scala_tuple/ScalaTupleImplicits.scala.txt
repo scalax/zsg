@@ -1,0 +1,29 @@
+@(maxNum: Int)
+
+package asuna.tuple
+
+import asuna.tuple.support._
+import asuna._
+
+class ScalaTupleImplicits {
+
+@for(tagNum <- 2 to maxNum) {
+    implicit def scalaTupleImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} }
+    @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList }
+    ]
+    (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
+    : Application[K, (@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }), ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
+        new Application[K, (@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }), ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
+            override def application(context: Context[K]): K#M[ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
+                if (context.isReverse) {
+                    @asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
+                } else {
+                    @asuna.codegen.scala_tuple.utils.txt.ContextAppend(currentItem = tagNum)(maxItem = tagNum)
+                }
+            }
+        }
+}
+
+}
+
+object ScalaTupleImplicits extends ScalaTupleImplicits
