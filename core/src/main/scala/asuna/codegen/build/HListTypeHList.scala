@@ -1,8 +1,6 @@
-package asuna
-class HListTypeHList0 extends TypeHList {
-  override type H = HNil
-  override type T = HListTypeHList0
-}
+package asuna.support
+import asuna.support.heterogeneous._
+import asuna.TypeHList
 class HListTypeHList1[E1 <: TypeHList] extends TypeHList {
   override type H = E1#H :: HNil
   override type T = HListTypeHList1[E1#T]

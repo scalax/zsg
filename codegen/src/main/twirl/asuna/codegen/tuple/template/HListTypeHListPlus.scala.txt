@@ -1,6 +1,8 @@
 @(tagNum: Int)
 
-package asuna
+package asuna.support
+import asuna.TypeHList
+import asuna.Plus
 
 class HListTypeHListPlus@{tagNum} {
 

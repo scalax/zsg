@@ -1,94 +1,116 @@
 package asuna.tuple.support
-import asuna.tuple._
-import asuna._
+import asuna.tuple.ScalaTupleTypeHList2
+import asuna.tuple.ScalaTupleTypeHList3
+import asuna.tuple.ScalaTupleTypeHList4
+import asuna.tuple.ScalaTupleTypeHList5
+import asuna.tuple.ScalaTupleTypeHList6
+import asuna.tuple.ScalaTupleTypeHList7
+import asuna.tuple.ScalaTupleTypeHList8
+import asuna.tuple.ScalaTupleTypeHList9
+import asuna.tuple.ScalaTupleTypeHList10
+import asuna.tuple.ScalaTupleTypeHList11
+import asuna.tuple.ScalaTupleTypeHList12
+import asuna.tuple.ScalaTupleTypeHList13
+import asuna.tuple.ScalaTupleTypeHList14
+import asuna.tuple.ScalaTupleTypeHList15
+import asuna.tuple.ScalaTupleTypeHList16
+import asuna.tuple.ScalaTupleTypeHList17
+import asuna.tuple.ScalaTupleTypeHList18
+import asuna.tuple.ScalaTupleTypeHList19
+import asuna.tuple.ScalaTupleTypeHList20
+import asuna.tuple.ScalaTupleTypeHList21
+import asuna.tuple.ScalaTupleTypeHList22
+import asuna.TypeHList
+import asuna.Plus
+import asuna.support.heterogeneous._
 trait HListToScalaTupleTypeHListPlus {
   def plus2[E1 <: TypeHList, E2 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList1[E1],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1],
     E2,
     ScalaTupleTypeHList2[E1, E2]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList1[E1],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1],
       E2,
       ScalaTupleTypeHList2[E1, E2]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList1[E1]#H, item: E2#H): ScalaTupleTypeHList2[E1, E2]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1]#H, item: E2#H): ScalaTupleTypeHList2[E1, E2]#H = {
         val ii1 = p.head
         (ii1, item)
       }
-      override def takeTail(t: (E1#H, E2#H)): E2#H                                                  = t._2
-      override def takeHead(t: (E1#H, E2#H)): E1#H :: HNil                                          = t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList1[E1]#T, E2#T, ScalaTupleTypeHList2[E1, E2]#T] = plus2[E1#T, E2#T]
+      override def takeTail(t: (E1#H, E2#H)): E2#H                                                                           = t._2
+      override def takeHead(t: (E1#H, E2#H)): E1#H :: HNil                                                                   = t._1 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1]#T, E2#T, ScalaTupleTypeHList2[E1, E2]#T] = plus2[E1#T, E2#T]
     }
   def put2[E1 <: TypeHList, E2 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList1[E1],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1],
     E2,
     ScalaTupleTypeHList2[E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList1[E1],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1],
       E2,
       ScalaTupleTypeHList2[E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList1[E1]#H, item: E2#H): ScalaTupleTypeHList2[E2, E1]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1]#H, item: E2#H): ScalaTupleTypeHList2[E2, E1]#H = {
         val ii1 = p.head
         (item, ii1)
       }
-      override def takeTail(t: (E2#H, E1#H)): E2#H                                                  = t._1
-      override def takeHead(t: (E2#H, E1#H)): E1#H :: HNil                                          = t._2 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList1[E1]#T, E2#T, ScalaTupleTypeHList2[E2, E1]#T] = put2[E1#T, E2#T]
+      override def takeTail(t: (E2#H, E1#H)): E2#H                                                                           = t._1
+      override def takeHead(t: (E2#H, E1#H)): E1#H :: HNil                                                                   = t._2 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E1]#T, E2#T, ScalaTupleTypeHList2[E2, E1]#T] = put2[E1#T, E2#T]
     }
   def plus3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList2[E1, E2],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2],
     E3,
     ScalaTupleTypeHList3[E1, E2, E3]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList2[E1, E2],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2],
       E3,
       ScalaTupleTypeHList3[E1, E2, E3]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList2[E1, E2]#H, item: E3#H): ScalaTupleTypeHList3[E1, E2, E3]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2]#H, item: E3#H): ScalaTupleTypeHList3[E1, E2, E3]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
         (ii2, ii1, item)
       }
-      override def takeTail(t: (E1#H, E2#H, E3#H)): E3#H                                                    = t._3
-      override def takeHead(t: (E1#H, E2#H, E3#H)): E2#H :: E1#H :: HNil                                    = t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList2[E1, E2]#T, E3#T, ScalaTupleTypeHList3[E1, E2, E3]#T] = plus3[E1#T, E2#T, E3#T]
+      override def takeTail(t: (E1#H, E2#H, E3#H)): E3#H                                                                             = t._3
+      override def takeHead(t: (E1#H, E2#H, E3#H)): E2#H :: E1#H :: HNil                                                             = t._2 :: t._1 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2]#T, E3#T, ScalaTupleTypeHList3[E1, E2, E3]#T] = plus3[E1#T, E2#T, E3#T]
     }
   def put3[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList2[E1, E2],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2],
     E3,
     ScalaTupleTypeHList3[E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList2[E1, E2],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2],
       E3,
       ScalaTupleTypeHList3[E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList2[E1, E2]#H, item: E3#H): ScalaTupleTypeHList3[E3, E2, E1]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2]#H, item: E3#H): ScalaTupleTypeHList3[E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
         (item, ii1, ii2)
       }
-      override def takeTail(t: (E3#H, E2#H, E1#H)): E3#H                                                    = t._1
-      override def takeHead(t: (E3#H, E2#H, E1#H)): E2#H :: E1#H :: HNil                                    = t._2 :: t._3 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList2[E1, E2]#T, E3#T, ScalaTupleTypeHList3[E3, E2, E1]#T] = put3[E1#T, E2#T, E3#T]
+      override def takeTail(t: (E3#H, E2#H, E1#H)): E3#H                                                                             = t._1
+      override def takeHead(t: (E3#H, E2#H, E1#H)): E2#H :: E1#H :: HNil                                                             = t._2 :: t._3 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList2[E1, E2]#T, E3#T, ScalaTupleTypeHList3[E3, E2, E1]#T] = put3[E1#T, E2#T, E3#T]
     }
   def plus4[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList3[E1, E2, E3],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3],
     E4,
     ScalaTupleTypeHList4[E1, E2, E3, E4]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList3[E1, E2, E3],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3],
       E4,
       ScalaTupleTypeHList4[E1, E2, E3, E4]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList3[E1, E2, E3]#H, item: E4#H): ScalaTupleTypeHList4[E1, E2, E3, E4]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3]#H, item: E4#H): ScalaTupleTypeHList4[E1, E2, E3, E4]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -96,21 +118,22 @@ trait HListToScalaTupleTypeHListPlus {
         val ii3 = tt2.head
         (ii3, ii2, ii1, item)
       }
-      override def takeTail(t: (E1#H, E2#H, E3#H, E4#H)): E4#H                                                      = t._4
-      override def takeHead(t: (E1#H, E2#H, E3#H, E4#H)): E3#H :: E2#H :: E1#H :: HNil                              = t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList3[E1, E2, E3]#T, E4#T, ScalaTupleTypeHList4[E1, E2, E3, E4]#T] = plus4[E1#T, E2#T, E3#T, E4#T]
+      override def takeTail(t: (E1#H, E2#H, E3#H, E4#H)): E4#H                         = t._4
+      override def takeHead(t: (E1#H, E2#H, E3#H, E4#H)): E3#H :: E2#H :: E1#H :: HNil = t._3 :: t._2 :: t._1 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3]#T, E4#T, ScalaTupleTypeHList4[E1, E2, E3, E4]#T] =
+        plus4[E1#T, E2#T, E3#T, E4#T]
     }
   def put4[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList3[E1, E2, E3],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3],
     E4,
     ScalaTupleTypeHList4[E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList3[E1, E2, E3],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3],
       E4,
       ScalaTupleTypeHList4[E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList3[E1, E2, E3]#H, item: E4#H): ScalaTupleTypeHList4[E4, E3, E2, E1]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3]#H, item: E4#H): ScalaTupleTypeHList4[E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -118,21 +141,22 @@ trait HListToScalaTupleTypeHListPlus {
         val ii3 = tt2.head
         (item, ii1, ii2, ii3)
       }
-      override def takeTail(t: (E4#H, E3#H, E2#H, E1#H)): E4#H                                                      = t._1
-      override def takeHead(t: (E4#H, E3#H, E2#H, E1#H)): E3#H :: E2#H :: E1#H :: HNil                              = t._2 :: t._3 :: t._4 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList3[E1, E2, E3]#T, E4#T, ScalaTupleTypeHList4[E4, E3, E2, E1]#T] = put4[E1#T, E2#T, E3#T, E4#T]
+      override def takeTail(t: (E4#H, E3#H, E2#H, E1#H)): E4#H                         = t._1
+      override def takeHead(t: (E4#H, E3#H, E2#H, E1#H)): E3#H :: E2#H :: E1#H :: HNil = t._2 :: t._3 :: t._4 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList3[E1, E2, E3]#T, E4#T, ScalaTupleTypeHList4[E4, E3, E2, E1]#T] =
+        put4[E1#T, E2#T, E3#T, E4#T]
     }
   def plus5[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList4[E1, E2, E3, E4],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4],
     E5,
     ScalaTupleTypeHList5[E1, E2, E3, E4, E5]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList4[E1, E2, E3, E4],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4],
       E5,
       ScalaTupleTypeHList5[E1, E2, E3, E4, E5]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList4[E1, E2, E3, E4]#H, item: E5#H): ScalaTupleTypeHList5[E1, E2, E3, E4, E5]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4]#H, item: E5#H): ScalaTupleTypeHList5[E1, E2, E3, E4, E5]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -142,21 +166,22 @@ trait HListToScalaTupleTypeHListPlus {
         val ii4 = tt3.head
         (ii4, ii3, ii2, ii1, item)
       }
-      override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H)): E5#H                                                        = t._5
-      override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H)): E4#H :: E3#H :: E2#H :: E1#H :: HNil                        = t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList4[E1, E2, E3, E4]#T, E5#T, ScalaTupleTypeHList5[E1, E2, E3, E4, E5]#T] = plus5[E1#T, E2#T, E3#T, E4#T, E5#T]
+      override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H)): E5#H                                 = t._5
+      override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H)): E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._4 :: t._3 :: t._2 :: t._1 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4]#T, E5#T, ScalaTupleTypeHList5[E1, E2, E3, E4, E5]#T] =
+        plus5[E1#T, E2#T, E3#T, E4#T, E5#T]
     }
   def put5[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList4[E1, E2, E3, E4],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4],
     E5,
     ScalaTupleTypeHList5[E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList4[E1, E2, E3, E4],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4],
       E5,
       ScalaTupleTypeHList5[E5, E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList4[E1, E2, E3, E4]#H, item: E5#H): ScalaTupleTypeHList5[E5, E4, E3, E2, E1]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4]#H, item: E5#H): ScalaTupleTypeHList5[E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -166,21 +191,22 @@ trait HListToScalaTupleTypeHListPlus {
         val ii4 = tt3.head
         (item, ii1, ii2, ii3, ii4)
       }
-      override def takeTail(t: (E5#H, E4#H, E3#H, E2#H, E1#H)): E5#H                                                        = t._1
-      override def takeHead(t: (E5#H, E4#H, E3#H, E2#H, E1#H)): E4#H :: E3#H :: E2#H :: E1#H :: HNil                        = t._2 :: t._3 :: t._4 :: t._5 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList4[E1, E2, E3, E4]#T, E5#T, ScalaTupleTypeHList5[E5, E4, E3, E2, E1]#T] = put5[E1#T, E2#T, E3#T, E4#T, E5#T]
+      override def takeTail(t: (E5#H, E4#H, E3#H, E2#H, E1#H)): E5#H                                 = t._1
+      override def takeHead(t: (E5#H, E4#H, E3#H, E2#H, E1#H)): E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._2 :: t._3 :: t._4 :: t._5 :: HNil
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList4[E1, E2, E3, E4]#T, E5#T, ScalaTupleTypeHList5[E5, E4, E3, E2, E1]#T] =
+        put5[E1#T, E2#T, E3#T, E4#T, E5#T]
     }
   def plus6[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
     E6,
     ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
       E6,
       ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#H, item: E6#H): ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#H, item: E6#H): ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -194,20 +220,20 @@ trait HListToScalaTupleTypeHListPlus {
       }
       override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H)): E6#H                                         = t._6
       override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H)): E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#T, E6#T, ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]#T] =
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#T, E6#T, ScalaTupleTypeHList6[E1, E2, E3, E4, E5, E6]#T] =
         plus6[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T]
     }
   def put6[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
     E6,
     ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5],
       E6,
       ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#H, item: E6#H): ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]#H = {
+      override def plus(p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#H, item: E6#H): ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -221,20 +247,23 @@ trait HListToScalaTupleTypeHListPlus {
       }
       override def takeTail(t: (E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E6#H                                         = t._1
       override def takeHead(t: (E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#T, E6#T, ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]#T] =
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList5[E1, E2, E3, E4, E5]#T, E6#T, ScalaTupleTypeHList6[E6, E5, E4, E3, E2, E1]#T] =
         put6[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T]
     }
   def plus7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
     E7,
     ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
       E7,
       ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#H, item: E7#H): ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#H,
+        item: E7#H
+      ): ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -251,20 +280,23 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H)): E7#H = t._7
       override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H)): E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#T, E7#T, ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T] =
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#T, E7#T, ScalaTupleTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T] =
         plus7[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T]
     }
   def put7[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
     E7,
     ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6],
       E7,
       ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#H, item: E7#H): ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#H,
+        item: E7#H
+      ): ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -281,20 +313,23 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E7#H = t._1
       override def takeHead(t: (E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#T, E7#T, ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]#T] =
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList6[E1, E2, E3, E4, E5, E6]#T, E7#T, ScalaTupleTypeHList7[E7, E6, E5, E4, E3, E2, E1]#T] =
         put7[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T]
     }
   def plus8[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
     E8,
     ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
       E8,
       ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H, item: E8#H): ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H,
+        item: E8#H
+      ): ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -313,20 +348,24 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H)): E8#H = t._8
       override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H)): E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T, E8#T, ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T] =
+      override def sub
+        : Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T, E8#T, ScalaTupleTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T] =
         plus8[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T]
     }
   def put8[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
     E8,
     ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7],
       E8,
       ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H, item: E8#H): ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#H,
+        item: E8#H
+      ): ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -345,21 +384,25 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E8#H = t._1
       override def takeHead(t: (E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T, E8#T, ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]#T] =
+      override def sub
+        : Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList7[E1, E2, E3, E4, E5, E6, E7]#T, E8#T, ScalaTupleTypeHList8[E8, E7, E6, E5, E4, E3, E2, E1]#T] =
         put8[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T]
     }
   def plus9[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList, E9 <: TypeHList]
     : Plus[
-      ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
       E9,
       ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]
     ] =
     new Plus[
-      ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
       E9,
       ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H, item: E9#H): ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H,
+        item: E9#H
+      ): ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -380,20 +423,24 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H)): E9#H = t._9
       override def takeHead(t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H)): E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T, E9#T, ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T] =
+      override def sub
+        : Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T, E9#T, ScalaTupleTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T] =
         plus9[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T]
     }
   def put9[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList, E9 <: TypeHList]: Plus[
-    ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
     E9,
     ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8],
       E9,
       ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
-      override def plus(p: ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H, item: E9#H): ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#H,
+        item: E9#H
+      ): ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
         val tt1 = p.tail
         val ii2 = tt1.head
@@ -414,7 +461,8 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeTail(t: (E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E9#H = t._1
       override def takeHead(t: (E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)): E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T, E9#T, ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]#T] =
+      override def sub
+        : Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList8[E1, E2, E3, E4, E5, E6, E7, E8]#T, E9#T, ScalaTupleTypeHList9[E9, E8, E7, E6, E5, E4, E3, E2, E1]#T] =
         put9[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T]
     }
   def plus10[
@@ -429,17 +477,17 @@ trait HListToScalaTupleTypeHListPlus {
     E9 <: TypeHList,
     E10 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
     E10,
     ScalaTupleTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
       E10,
       ScalaTupleTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H,
         item: E10#H
       ): ScalaTupleTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#H = {
         val ii1 = p.head
@@ -465,8 +513,18 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeHead(
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H)
       ): E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T, E10#T, ScalaTupleTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#T] =
-        plus10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T, E10#T, ScalaTupleTypeHList10[
+        E1,
+        E2,
+        E3,
+        E4,
+        E5,
+        E6,
+        E7,
+        E8,
+        E9,
+        E10
+      ]#T] = plus10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
     }
   def put10[
     E1 <: TypeHList,
@@ -480,17 +538,17 @@ trait HListToScalaTupleTypeHListPlus {
     E9 <: TypeHList,
     E10 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
     E10,
     ScalaTupleTypeHList10[E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9],
       E10,
       ScalaTupleTypeHList10[E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#H,
         item: E10#H
       ): ScalaTupleTypeHList10[E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1 = p.head
@@ -516,8 +574,18 @@ trait HListToScalaTupleTypeHListPlus {
       override def takeHead(
         t: (E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil = t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T, E10#T, ScalaTupleTypeHList10[E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T] =
-        put10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList9[E1, E2, E3, E4, E5, E6, E7, E8, E9]#T, E10#T, ScalaTupleTypeHList10[
+        E10,
+        E9,
+        E8,
+        E7,
+        E6,
+        E5,
+        E4,
+        E3,
+        E2,
+        E1
+      ]#T] = put10[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T]
     }
   def plus11[
     E1 <: TypeHList,
@@ -532,17 +600,17 @@ trait HListToScalaTupleTypeHListPlus {
     E10 <: TypeHList,
     E11 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
     E11,
     ScalaTupleTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
       E11,
       ScalaTupleTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#H,
         item: E11#H
       ): ScalaTupleTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#H = {
         val ii1  = p.head
@@ -571,9 +639,19 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H)
       ): E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub
-        : Plus[ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#T, E11#T, ScalaTupleTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#T] =
-        plus11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#T, E11#T, ScalaTupleTypeHList11[
+        E1,
+        E2,
+        E3,
+        E4,
+        E5,
+        E6,
+        E7,
+        E8,
+        E9,
+        E10,
+        E11
+      ]#T] = plus11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
     }
   def put11[
     E1 <: TypeHList,
@@ -588,17 +666,17 @@ trait HListToScalaTupleTypeHListPlus {
     E10 <: TypeHList,
     E11 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
     E11,
     ScalaTupleTypeHList11[E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10],
       E11,
       ScalaTupleTypeHList11[E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#H,
         item: E11#H
       ): ScalaTupleTypeHList11[E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -627,9 +705,19 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: HNil
-      override def sub
-        : Plus[ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#T, E11#T, ScalaTupleTypeHList11[E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T] =
-        put11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList10[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10]#T, E11#T, ScalaTupleTypeHList11[
+        E11,
+        E10,
+        E9,
+        E8,
+        E7,
+        E6,
+        E5,
+        E4,
+        E3,
+        E2,
+        E1
+      ]#T] = put11[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T]
     }
   def plus12[
     E1 <: TypeHList,
@@ -645,17 +733,17 @@ trait HListToScalaTupleTypeHListPlus {
     E11 <: TypeHList,
     E12 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
     E12,
     ScalaTupleTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
       E12,
       ScalaTupleTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#H,
         item: E12#H
       ): ScalaTupleTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#H = {
         val ii1  = p.head
@@ -686,7 +774,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H)
       ): E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#T, E12#T, ScalaTupleTypeHList12[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#T, E12#T, ScalaTupleTypeHList12[
         E1,
         E2,
         E3,
@@ -715,17 +803,17 @@ trait HListToScalaTupleTypeHListPlus {
     E11 <: TypeHList,
     E12 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
     E12,
     ScalaTupleTypeHList12[E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11],
       E12,
       ScalaTupleTypeHList12[E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#H,
         item: E12#H
       ): ScalaTupleTypeHList12[E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -756,7 +844,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#T, E12#T, ScalaTupleTypeHList12[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList11[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11]#T, E12#T, ScalaTupleTypeHList12[
         E12,
         E11,
         E10,
@@ -786,17 +874,17 @@ trait HListToScalaTupleTypeHListPlus {
     E12 <: TypeHList,
     E13 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
     E13,
     ScalaTupleTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
       E13,
       ScalaTupleTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#H,
         item: E13#H
       ): ScalaTupleTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#H = {
         val ii1  = p.head
@@ -829,7 +917,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H)
       ): E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#T, E13#T, ScalaTupleTypeHList13[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#T, E13#T, ScalaTupleTypeHList13[
         E1,
         E2,
         E3,
@@ -860,17 +948,17 @@ trait HListToScalaTupleTypeHListPlus {
     E12 <: TypeHList,
     E13 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
     E13,
     ScalaTupleTypeHList13[E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12],
       E13,
       ScalaTupleTypeHList13[E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#H,
         item: E13#H
       ): ScalaTupleTypeHList13[E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -903,7 +991,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#T, E13#T, ScalaTupleTypeHList13[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList12[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12]#T, E13#T, ScalaTupleTypeHList13[
         E13,
         E12,
         E11,
@@ -935,17 +1023,17 @@ trait HListToScalaTupleTypeHListPlus {
     E13 <: TypeHList,
     E14 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
     E14,
     ScalaTupleTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
       E14,
       ScalaTupleTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#H,
         item: E14#H
       ): ScalaTupleTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#H = {
         val ii1  = p.head
@@ -980,7 +1068,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H)
       ): E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#T, E14#T, ScalaTupleTypeHList14[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#T, E14#T, ScalaTupleTypeHList14[
         E1,
         E2,
         E3,
@@ -1013,17 +1101,17 @@ trait HListToScalaTupleTypeHListPlus {
     E13 <: TypeHList,
     E14 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
     E14,
     ScalaTupleTypeHList14[E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13],
       E14,
       ScalaTupleTypeHList14[E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#H,
         item: E14#H
       ): ScalaTupleTypeHList14[E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1058,7 +1146,7 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#T, E14#T, ScalaTupleTypeHList14[
+      override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList13[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13]#T, E14#T, ScalaTupleTypeHList14[
         E14,
         E13,
         E12,
@@ -1092,17 +1180,17 @@ trait HListToScalaTupleTypeHListPlus {
     E14 <: TypeHList,
     E15 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
     E15,
     ScalaTupleTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
       E15,
       ScalaTupleTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#H,
         item: E15#H
       ): ScalaTupleTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#H = {
         val ii1  = p.head
@@ -1139,23 +1227,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H)
       ): E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#T, E15#T, ScalaTupleTypeHList15[
-        E1,
-        E2,
-        E3,
-        E4,
-        E5,
-        E6,
-        E7,
-        E8,
-        E9,
-        E10,
-        E11,
-        E12,
-        E13,
-        E14,
-        E15
-      ]#T] = plus15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#T,
+        E15#T,
+        ScalaTupleTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#T
+      ] = plus15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
     }
   def put15[
     E1 <: TypeHList,
@@ -1174,17 +1250,17 @@ trait HListToScalaTupleTypeHListPlus {
     E14 <: TypeHList,
     E15 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
     E15,
     ScalaTupleTypeHList15[E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14],
       E15,
       ScalaTupleTypeHList15[E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#H,
         item: E15#H
       ): ScalaTupleTypeHList15[E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1221,23 +1297,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#T, E15#T, ScalaTupleTypeHList15[
-        E15,
-        E14,
-        E13,
-        E12,
-        E11,
-        E10,
-        E9,
-        E8,
-        E7,
-        E6,
-        E5,
-        E4,
-        E3,
-        E2,
-        E1
-      ]#T] = put15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList14[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]#T,
+        E15#T,
+        ScalaTupleTypeHList15[E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put15[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T]
     }
   def plus16[
     E1 <: TypeHList,
@@ -1257,17 +1321,17 @@ trait HListToScalaTupleTypeHListPlus {
     E15 <: TypeHList,
     E16 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
     E16,
     ScalaTupleTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
       E16,
       ScalaTupleTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#H,
         item: E16#H
       ): ScalaTupleTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#H = {
         val ii1  = p.head
@@ -1306,24 +1370,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H)
       ): E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#T, E16#T, ScalaTupleTypeHList16[
-        E1,
-        E2,
-        E3,
-        E4,
-        E5,
-        E6,
-        E7,
-        E8,
-        E9,
-        E10,
-        E11,
-        E12,
-        E13,
-        E14,
-        E15,
-        E16
-      ]#T] = plus16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#T,
+        E16#T,
+        ScalaTupleTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#T
+      ] = plus16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
     }
   def put16[
     E1 <: TypeHList,
@@ -1343,17 +1394,17 @@ trait HListToScalaTupleTypeHListPlus {
     E15 <: TypeHList,
     E16 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
     E16,
     ScalaTupleTypeHList16[E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15],
       E16,
       ScalaTupleTypeHList16[E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#H,
         item: E16#H
       ): ScalaTupleTypeHList16[E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1392,24 +1443,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#T, E16#T, ScalaTupleTypeHList16[
-        E16,
-        E15,
-        E14,
-        E13,
-        E12,
-        E11,
-        E10,
-        E9,
-        E8,
-        E7,
-        E6,
-        E5,
-        E4,
-        E3,
-        E2,
-        E1
-      ]#T] = put16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList15[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15]#T,
+        E16#T,
+        ScalaTupleTypeHList16[E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put16[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T]
     }
   def plus17[
     E1 <: TypeHList,
@@ -1430,17 +1468,17 @@ trait HListToScalaTupleTypeHListPlus {
     E16 <: TypeHList,
     E17 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
     E17,
     ScalaTupleTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
       E17,
       ScalaTupleTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#H,
         item: E17#H
       ): ScalaTupleTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#H = {
         val ii1  = p.head
@@ -1481,25 +1519,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H)
       ): E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#T, E17#T, ScalaTupleTypeHList17[
-        E1,
-        E2,
-        E3,
-        E4,
-        E5,
-        E6,
-        E7,
-        E8,
-        E9,
-        E10,
-        E11,
-        E12,
-        E13,
-        E14,
-        E15,
-        E16,
-        E17
-      ]#T] = plus17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#T,
+        E17#T,
+        ScalaTupleTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#T
+      ] = plus17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
     }
   def put17[
     E1 <: TypeHList,
@@ -1520,17 +1544,17 @@ trait HListToScalaTupleTypeHListPlus {
     E16 <: TypeHList,
     E17 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
     E17,
     ScalaTupleTypeHList17[E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16],
       E17,
       ScalaTupleTypeHList17[E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#H,
         item: E17#H
       ): ScalaTupleTypeHList17[E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1571,25 +1595,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E17#H, E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#T, E17#T, ScalaTupleTypeHList17[
-        E17,
-        E16,
-        E15,
-        E14,
-        E13,
-        E12,
-        E11,
-        E10,
-        E9,
-        E8,
-        E7,
-        E6,
-        E5,
-        E4,
-        E3,
-        E2,
-        E1
-      ]#T] = put17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList16[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16]#T,
+        E17#T,
+        ScalaTupleTypeHList17[E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put17[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T]
     }
   def plus18[
     E1 <: TypeHList,
@@ -1611,17 +1621,17 @@ trait HListToScalaTupleTypeHListPlus {
     E17 <: TypeHList,
     E18 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
     E18,
     ScalaTupleTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
       E18,
       ScalaTupleTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#H,
         item: E18#H
       ): ScalaTupleTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#H = {
         val ii1  = p.head
@@ -1664,26 +1674,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H)
       ): E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._17 :: t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#T, E18#T, ScalaTupleTypeHList18[
-        E1,
-        E2,
-        E3,
-        E4,
-        E5,
-        E6,
-        E7,
-        E8,
-        E9,
-        E10,
-        E11,
-        E12,
-        E13,
-        E14,
-        E15,
-        E16,
-        E17,
-        E18
-      ]#T] = plus18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#T,
+        E18#T,
+        ScalaTupleTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#T
+      ] = plus18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
     }
   def put18[
     E1 <: TypeHList,
@@ -1705,17 +1700,17 @@ trait HListToScalaTupleTypeHListPlus {
     E17 <: TypeHList,
     E18 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
     E18,
     ScalaTupleTypeHList18[E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17],
       E18,
       ScalaTupleTypeHList18[E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#H,
         item: E18#H
       ): ScalaTupleTypeHList18[E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1758,26 +1753,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E18#H, E17#H, E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: t._18 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#T, E18#T, ScalaTupleTypeHList18[
-        E18,
-        E17,
-        E16,
-        E15,
-        E14,
-        E13,
-        E12,
-        E11,
-        E10,
-        E9,
-        E8,
-        E7,
-        E6,
-        E5,
-        E4,
-        E3,
-        E2,
-        E1
-      ]#T] = put18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList17[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17]#T,
+        E18#T,
+        ScalaTupleTypeHList18[E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put18[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T]
     }
   def plus19[
     E1 <: TypeHList,
@@ -1800,17 +1780,17 @@ trait HListToScalaTupleTypeHListPlus {
     E18 <: TypeHList,
     E19 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
     E19,
     ScalaTupleTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
       E19,
       ScalaTupleTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#H,
         item: E19#H
       ): ScalaTupleTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#H = {
         val ii1  = p.head
@@ -1856,27 +1836,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H)
       ): E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._18 :: t._17 :: t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#T, E19#T, ScalaTupleTypeHList19[
-        E1,
-        E2,
-        E3,
-        E4,
-        E5,
-        E6,
-        E7,
-        E8,
-        E9,
-        E10,
-        E11,
-        E12,
-        E13,
-        E14,
-        E15,
-        E16,
-        E17,
-        E18,
-        E19
-      ]#T] = plus19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#T,
+        E19#T,
+        ScalaTupleTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#T
+      ] = plus19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
     }
   def put19[
     E1 <: TypeHList,
@@ -1899,17 +1863,17 @@ trait HListToScalaTupleTypeHListPlus {
     E18 <: TypeHList,
     E19 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
     E19,
     ScalaTupleTypeHList19[E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18],
       E19,
       ScalaTupleTypeHList19[E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#H,
         item: E19#H
       ): ScalaTupleTypeHList19[E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -1954,27 +1918,11 @@ trait HListToScalaTupleTypeHListPlus {
         t: (E19#H, E18#H, E17#H, E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
       ): E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: t._18 :: t._19 :: HNil
-      override def sub: Plus[ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#T, E19#T, ScalaTupleTypeHList19[
-        E19,
-        E18,
-        E17,
-        E16,
-        E15,
-        E14,
-        E13,
-        E12,
-        E11,
-        E10,
-        E9,
-        E8,
-        E7,
-        E6,
-        E5,
-        E4,
-        E3,
-        E2,
-        E1
-      ]#T] = put19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList18[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18]#T,
+        E19#T,
+        ScalaTupleTypeHList19[E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put19[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T]
     }
   def plus20[
     E1 <: TypeHList,
@@ -1998,17 +1946,17 @@ trait HListToScalaTupleTypeHListPlus {
     E19 <: TypeHList,
     E20 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
     E20,
     ScalaTupleTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
       E20,
       ScalaTupleTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#H,
         item: E20#H
       ): ScalaTupleTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#H = {
         val ii1  = p.head
@@ -2058,7 +2006,7 @@ trait HListToScalaTupleTypeHListPlus {
       ): E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._19 :: t._18 :: t._17 :: t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
       override def sub: Plus[
-        ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#T,
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#T,
         E20#T,
         ScalaTupleTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#T
       ] = plus20[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T]
@@ -2085,17 +2033,17 @@ trait HListToScalaTupleTypeHListPlus {
     E19 <: TypeHList,
     E20 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
     E20,
     ScalaTupleTypeHList20[E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19],
       E20,
       ScalaTupleTypeHList20[E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#H,
         item: E20#H
       ): ScalaTupleTypeHList20[E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -2145,7 +2093,7 @@ trait HListToScalaTupleTypeHListPlus {
       ): E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: t._18 :: t._19 :: t._20 :: HNil
       override def sub: Plus[
-        ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#T,
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList19[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19]#T,
         E20#T,
         ScalaTupleTypeHList20[E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
       ] = put20[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T]
@@ -2173,17 +2121,17 @@ trait HListToScalaTupleTypeHListPlus {
     E20 <: TypeHList,
     E21 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
     E21,
     ScalaTupleTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
       E21,
       ScalaTupleTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#H,
         item: E21#H
       ): ScalaTupleTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#H = {
         val ii1  = p.head
@@ -2235,7 +2183,7 @@ trait HListToScalaTupleTypeHListPlus {
       ): E20#H :: E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._20 :: t._19 :: t._18 :: t._17 :: t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
       override def sub: Plus[
-        ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#T,
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#T,
         E21#T,
         ScalaTupleTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#T
       ] = plus21[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T]
@@ -2263,17 +2211,17 @@ trait HListToScalaTupleTypeHListPlus {
     E20 <: TypeHList,
     E21 <: TypeHList
   ]: Plus[
-    ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
     E21,
     ScalaTupleTypeHList21[E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
   ] =
     new Plus[
-      ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20],
       E21,
       ScalaTupleTypeHList21[E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
     ] {
       override def plus(
-        p: ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#H,
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#H,
         item: E21#H
       ): ScalaTupleTypeHList21[E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
         val ii1  = p.head
@@ -2325,10 +2273,196 @@ trait HListToScalaTupleTypeHListPlus {
       ): E20#H :: E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
         t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: t._18 :: t._19 :: t._20 :: t._21 :: HNil
       override def sub: Plus[
-        ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#T,
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList20[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20]#T,
         E21#T,
         ScalaTupleTypeHList21[E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
       ] = put21[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T]
+    }
+  def plus22[
+    E1 <: TypeHList,
+    E2 <: TypeHList,
+    E3 <: TypeHList,
+    E4 <: TypeHList,
+    E5 <: TypeHList,
+    E6 <: TypeHList,
+    E7 <: TypeHList,
+    E8 <: TypeHList,
+    E9 <: TypeHList,
+    E10 <: TypeHList,
+    E11 <: TypeHList,
+    E12 <: TypeHList,
+    E13 <: TypeHList,
+    E14 <: TypeHList,
+    E15 <: TypeHList,
+    E16 <: TypeHList,
+    E17 <: TypeHList,
+    E18 <: TypeHList,
+    E19 <: TypeHList,
+    E20 <: TypeHList,
+    E21 <: TypeHList,
+    E22 <: TypeHList
+  ]: Plus[
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21],
+    E22,
+    ScalaTupleTypeHList22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]
+  ] =
+    new Plus[
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21],
+      E22,
+      ScalaTupleTypeHList22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]
+    ] {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#H,
+        item: E22#H
+      ): ScalaTupleTypeHList22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]#H = {
+        val ii1  = p.head
+        val tt1  = p.tail
+        val ii2  = tt1.head
+        val tt2  = tt1.tail
+        val ii3  = tt2.head
+        val tt3  = tt2.tail
+        val ii4  = tt3.head
+        val tt4  = tt3.tail
+        val ii5  = tt4.head
+        val tt5  = tt4.tail
+        val ii6  = tt5.head
+        val tt6  = tt5.tail
+        val ii7  = tt6.head
+        val tt7  = tt6.tail
+        val ii8  = tt7.head
+        val tt8  = tt7.tail
+        val ii9  = tt8.head
+        val tt9  = tt8.tail
+        val ii10 = tt9.head
+        val tt10 = tt9.tail
+        val ii11 = tt10.head
+        val tt11 = tt10.tail
+        val ii12 = tt11.head
+        val tt12 = tt11.tail
+        val ii13 = tt12.head
+        val tt13 = tt12.tail
+        val ii14 = tt13.head
+        val tt14 = tt13.tail
+        val ii15 = tt14.head
+        val tt15 = tt14.tail
+        val ii16 = tt15.head
+        val tt16 = tt15.tail
+        val ii17 = tt16.head
+        val tt17 = tt16.tail
+        val ii18 = tt17.head
+        val tt18 = tt17.tail
+        val ii19 = tt18.head
+        val tt19 = tt18.tail
+        val ii20 = tt19.head
+        val tt20 = tt19.tail
+        val ii21 = tt20.head
+        (ii21, ii20, ii19, ii18, ii17, ii16, ii15, ii14, ii13, ii12, ii11, ii10, ii9, ii8, ii7, ii6, ii5, ii4, ii3, ii2, ii1, item)
+      }
+      override def takeTail(
+        t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H, E20#H, E21#H, E22#H)
+      ): E22#H = t._22
+      override def takeHead(
+        t: (E1#H, E2#H, E3#H, E4#H, E5#H, E6#H, E7#H, E8#H, E9#H, E10#H, E11#H, E12#H, E13#H, E14#H, E15#H, E16#H, E17#H, E18#H, E19#H, E20#H, E21#H, E22#H)
+      ): E21#H :: E20#H :: E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
+        t._21 :: t._20 :: t._19 :: t._18 :: t._17 :: t._16 :: t._15 :: t._14 :: t._13 :: t._12 :: t._11 :: t._10 :: t._9 :: t._8 :: t._7 :: t._6 :: t._5 :: t._4 :: t._3 :: t._2 :: t._1 :: HNil
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#T,
+        E22#T,
+        ScalaTupleTypeHList22[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21, E22]#T
+      ] = plus22[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T, E22#T]
+    }
+  def put22[
+    E1 <: TypeHList,
+    E2 <: TypeHList,
+    E3 <: TypeHList,
+    E4 <: TypeHList,
+    E5 <: TypeHList,
+    E6 <: TypeHList,
+    E7 <: TypeHList,
+    E8 <: TypeHList,
+    E9 <: TypeHList,
+    E10 <: TypeHList,
+    E11 <: TypeHList,
+    E12 <: TypeHList,
+    E13 <: TypeHList,
+    E14 <: TypeHList,
+    E15 <: TypeHList,
+    E16 <: TypeHList,
+    E17 <: TypeHList,
+    E18 <: TypeHList,
+    E19 <: TypeHList,
+    E20 <: TypeHList,
+    E21 <: TypeHList,
+    E22 <: TypeHList
+  ]: Plus[
+    ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21],
+    E22,
+    ScalaTupleTypeHList22[E22, E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
+  ] =
+    new Plus[
+      ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21],
+      E22,
+      ScalaTupleTypeHList22[E22, E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]
+    ] {
+      override def plus(
+        p: ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#H,
+        item: E22#H
+      ): ScalaTupleTypeHList22[E22, E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#H = {
+        val ii1  = p.head
+        val tt1  = p.tail
+        val ii2  = tt1.head
+        val tt2  = tt1.tail
+        val ii3  = tt2.head
+        val tt3  = tt2.tail
+        val ii4  = tt3.head
+        val tt4  = tt3.tail
+        val ii5  = tt4.head
+        val tt5  = tt4.tail
+        val ii6  = tt5.head
+        val tt6  = tt5.tail
+        val ii7  = tt6.head
+        val tt7  = tt6.tail
+        val ii8  = tt7.head
+        val tt8  = tt7.tail
+        val ii9  = tt8.head
+        val tt9  = tt8.tail
+        val ii10 = tt9.head
+        val tt10 = tt9.tail
+        val ii11 = tt10.head
+        val tt11 = tt10.tail
+        val ii12 = tt11.head
+        val tt12 = tt11.tail
+        val ii13 = tt12.head
+        val tt13 = tt12.tail
+        val ii14 = tt13.head
+        val tt14 = tt13.tail
+        val ii15 = tt14.head
+        val tt15 = tt14.tail
+        val ii16 = tt15.head
+        val tt16 = tt15.tail
+        val ii17 = tt16.head
+        val tt17 = tt16.tail
+        val ii18 = tt17.head
+        val tt18 = tt17.tail
+        val ii19 = tt18.head
+        val tt19 = tt18.tail
+        val ii20 = tt19.head
+        val tt20 = tt19.tail
+        val ii21 = tt20.head
+        (item, ii1, ii2, ii3, ii4, ii5, ii6, ii7, ii8, ii9, ii10, ii11, ii12, ii13, ii14, ii15, ii16, ii17, ii18, ii19, ii20, ii21)
+      }
+      override def takeTail(
+        t: (E22#H, E21#H, E20#H, E19#H, E18#H, E17#H, E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
+      ): E22#H = t._1
+      override def takeHead(
+        t: (E22#H, E21#H, E20#H, E19#H, E18#H, E17#H, E16#H, E15#H, E14#H, E13#H, E12#H, E11#H, E10#H, E9#H, E8#H, E7#H, E6#H, E5#H, E4#H, E3#H, E2#H, E1#H)
+      ): E21#H :: E20#H :: E19#H :: E18#H :: E17#H :: E16#H :: E15#H :: E14#H :: E13#H :: E12#H :: E11#H :: E10#H :: E9#H :: E8#H :: E7#H :: E6#H :: E5#H :: E4#H :: E3#H :: E2#H :: E1#H :: HNil =
+        t._2 :: t._3 :: t._4 :: t._5 :: t._6 :: t._7 :: t._8 :: t._9 :: t._10 :: t._11 :: t._12 :: t._13 :: t._14 :: t._15 :: t._16 :: t._17 :: t._18 :: t._19 :: t._20 :: t._21 :: t._22 :: HNil
+      override def sub: Plus[
+        ScalaTupleHListTypeHList.ScalaTupleHListTypeHList21[E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16, E17, E18, E19, E20, E21]#T,
+        E22#T,
+        ScalaTupleTypeHList22[E22, E21, E20, E19, E18, E17, E16, E15, E14, E13, E12, E11, E10, E9, E8, E7, E6, E5, E4, E3, E2, E1]#T
+      ] = put22[E1#T, E2#T, E3#T, E4#T, E5#T, E6#T, E7#T, E8#T, E9#T, E10#T, E11#T, E12#T, E13#T, E14#T, E15#T, E16#T, E17#T, E18#T, E19#T, E20#T, E21#T, E22#T]
     }
 }
 object HListToScalaTupleTypeHListPlus extends HListToScalaTupleTypeHListPlus

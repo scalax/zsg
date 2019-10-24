@@ -1,10 +1,10 @@
-package asuna
+package asuna.support
+
+import asuna.{AnyTypeHList, AsunaTuple0, AsunaTuple1, Plus, TupleTypeHList0, TupleTypeHList1, TypeHList}
 
 trait TupleTypeHListPlus1 {
 
   @inline def hlistPlus1[T1 <: TypeHList]: Plus[TupleTypeHList0, T1, TupleTypeHList1[T1]] =
-    hlistPlus1Any.asInstanceOf[Plus[TupleTypeHList0, T1, TupleTypeHList1[T1]]]
-  @inline def hlistPut1[T1 <: TypeHList]: Plus[TupleTypeHList0, T1, TupleTypeHList1[T1]] =
     hlistPlus1Any.asInstanceOf[Plus[TupleTypeHList0, T1, TupleTypeHList1[T1]]]
 
   val hlistPlus1Any: Plus[TupleTypeHList0, AnyTypeHList, TupleTypeHList1[AnyTypeHList]] =
