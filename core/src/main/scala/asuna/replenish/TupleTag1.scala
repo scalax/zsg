@@ -1,5 +1,7 @@
 package asuna
 
+import asuna.support.TupleTypeHListPlus1
+
 class TupleTag1[T1, M1 <: Message] extends TupleTag {
   override type AsunaTupleType = AsunaTuple1[T1]
   import impl._

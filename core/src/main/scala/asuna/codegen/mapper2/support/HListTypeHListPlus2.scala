@@ -1,4 +1,6 @@
-package asuna
+package asuna.support
+import asuna.TypeHList
+import asuna.Plus
 class HListTypeHListPlus2 {
   @inline def plus2[E1 <: TypeHList, E2 <: TypeHList]: Plus[
     HListTypeHList1[E1],

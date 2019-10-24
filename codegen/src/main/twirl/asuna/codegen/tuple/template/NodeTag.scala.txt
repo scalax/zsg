@@ -2,6 +2,13 @@
 
 package asuna
 
+import asuna.support.AnyHListTypeHListPlus
+@for(i <- 1 to tagNum - 1) {
+import asuna.support.HListTypeHListPlus@{i}
+import asuna.support.HListTypeHList@{i}
+}
+import asuna.support.HListToTupleTypeHListPlus@{tagNum}
+
 import impl._
 
 class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: TupleTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends TupleTag {

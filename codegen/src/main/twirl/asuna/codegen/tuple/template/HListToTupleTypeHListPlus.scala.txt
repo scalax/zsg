@@ -1,7 +1,12 @@
 @(tagNum: Int)
 
-package asuna
+package asuna.support
 
+import asuna.AnyTypeHList
+import asuna.TupleTypeHList@{tagNum}
+import asuna.AsunaTuple@{tagNum}
+import asuna.Plus
+import asuna.TypeHList
 import asuna.support.heterogeneous._
 
 trait HListToTupleTypeHListPlus@{tagNum} {

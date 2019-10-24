@@ -1,4 +1,20 @@
 package asuna
+import asuna.support.AnyHListTypeHListPlus
+import asuna.support.HListTypeHListPlus1
+import asuna.support.HListTypeHList1
+import asuna.support.HListTypeHListPlus2
+import asuna.support.HListTypeHList2
+import asuna.support.HListTypeHListPlus3
+import asuna.support.HListTypeHList3
+import asuna.support.HListTypeHListPlus4
+import asuna.support.HListTypeHList4
+import asuna.support.HListTypeHListPlus5
+import asuna.support.HListTypeHList5
+import asuna.support.HListTypeHListPlus6
+import asuna.support.HListTypeHList6
+import asuna.support.HListTypeHListPlus7
+import asuna.support.HListTypeHList7
+import asuna.support.HListToTupleTypeHListPlus8
 import impl._
 class TupleTag8[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message, T7, M7 <: Message, T8, M8 <: Message]
     extends TupleTag {
@@ -67,7 +83,7 @@ object TupleTag8 {
                   context.append[HListTypeHList3[T8, T7, T6], T5, HListTypeHList4[T8, T7, T6, T5]](
                     context.append[HListTypeHList2[T8, T7], T6, HListTypeHList3[T8, T7, T6]](
                       context.append[HListTypeHList1[T8], T7, HListTypeHList2[T8, T7]](
-                        context.append[TupleTypeHList0, T8, HListTypeHList1[T8]](context.start, t8.application(context), AnyHListTypeHListPlus.hlistPlus1),
+                        context.append[TupleTypeHList0, T8, HListTypeHList1[T8]](context.start, t8.application(context), HListTypeHListPlus1.plus1),
                         t7.application(context),
                         HListTypeHListPlus2.plus2
                       ),
@@ -97,7 +113,7 @@ object TupleTag8 {
                   context.append[HListTypeHList3[T1, T2, T3], T4, HListTypeHList4[T1, T2, T3, T4]](
                     context.append[HListTypeHList2[T1, T2], T3, HListTypeHList3[T1, T2, T3]](
                       context.append[HListTypeHList1[T1], T2, HListTypeHList2[T1, T2]](
-                        context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), AnyHListTypeHListPlus.hlistPlus1),
+                        context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), HListTypeHListPlus1.plus1),
                         t2.application(context),
                         HListTypeHListPlus2.plus2
                       ),

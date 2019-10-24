@@ -1,4 +1,12 @@
 package asuna
+import asuna.support.AsunaValueTuple1
+import asuna.support.AsunaValueTuple2
+import asuna.support.AsunaValueTuple3
+import asuna.support.AsunaValueTuple4
+import asuna.support.AsunaValueTuple5
+import asuna.support.AsunaValueTuple6
+import asuna.support.AsunaValueTuple7
+import asuna.support.AsunaValueTuple8
 trait BuildContent {
   def lift[T](tag: => AppendTag[T]): AppendTag[T] = new AppendTag[T]
   def tag[T1](t1: AppendTag[T1]): AppendTag[TupleTag1[T1, `Number： 1`]] =

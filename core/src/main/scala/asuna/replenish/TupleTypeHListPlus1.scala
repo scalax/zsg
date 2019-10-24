@@ -1,4 +1,6 @@
-package asuna
+package asuna.support
+
+import asuna.{AnyTypeHList, AsunaTuple0, AsunaTuple1, Plus, TupleTypeHList0, TupleTypeHList1, TypeHList}
 
 trait TupleTypeHListPlus1 {
 

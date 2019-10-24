@@ -1,4 +1,5 @@
 package asuna
+import asuna.support.TupleTypeHListPlus1
 import impl._
 
 class NodeTag1[T1 <: TupleTag, M1 <: Message] extends TupleTag {

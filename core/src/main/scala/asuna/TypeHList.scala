@@ -1,21 +1,8 @@
 package asuna
 
-import scala.language.higherKinds
-import asuna.support.heterogeneous._
-
 trait TypeHList {
   type H
   type T <: TypeHList
-}
-
-class AnyTypeHList extends TypeHList {
-  override type H = Any
-  override type T = AnyTypeHList
-}
-
-class AnyHListTypeHList extends TypeHList {
-  override type H = HList
-  override type T = AnyHListTypeHList
 }
 
 class NoData

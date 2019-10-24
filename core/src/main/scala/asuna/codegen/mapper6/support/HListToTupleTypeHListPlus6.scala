@@ -1,4 +1,9 @@
-package asuna
+package asuna.support
+import asuna.AnyTypeHList
+import asuna.TupleTypeHList6
+import asuna.AsunaTuple6
+import asuna.Plus
+import asuna.TypeHList
 import asuna.support.heterogeneous._
 trait HListToTupleTypeHListPlus6 {
   val plus6Any: Plus[

@@ -1,6 +1,7 @@
 @(tagNum: Int)
 
-package asuna
+package asuna.support
+import asuna.AsunaTuple@{tagNum}
 
 class AsunaValueTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }](@for(ii <- 1 to tagNum) { override val i@{ii}: E@{ii} @if(ii < tagNum) { , } })
 extends AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]

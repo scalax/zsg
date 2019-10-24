@@ -1,6 +1,9 @@
 @(maxItem: Int)
 
 package asuna
+@for(i <- 1 to maxItem) {
+import asuna.support.AsunaValueTuple@{i}
+}
 
 trait BuildContent {
     def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]

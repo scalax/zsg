@@ -1,4 +1,5 @@
-package asuna
+package asuna.support
+import asuna.AsunaTuple8
 class AsunaValueTuple8[E1, E2, E3, E4, E5, E6, E7, E8](
   override val i1: E1,
   override val i2: E2,
