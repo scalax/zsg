@@ -67,7 +67,6 @@ object TupleTag6 {
             t1.application(context),
             HListToTupleTypeHListPlus6.put6
           )
-//context.append(TupleTag5.itemTagApplicationImplicit5( t2  ,   t3  ,   t4  ,   t5  ,   t6  ).application(context), t1.application(context), TupleTypeHListPlus6.put6)
         } else {
           context.append[HListTypeHList5[T1, T2, T3, T4, T5], T6, TupleTypeHList6[T1, T2, T3, T4, T5, T6]](
             context.append[HListTypeHList4[T1, T2, T3, T4], T5, HListTypeHList5[T1, T2, T3, T4, T5]](
@@ -90,7 +89,6 @@ object TupleTag6 {
             t6.application(context),
             HListToTupleTypeHListPlus6.plus6
           )
-//context.append(TupleTag5.itemTagApplicationImplicit5( t1  ,   t2  ,   t3  ,   t4  ,   t5  ).application(context), t6.application(context), TupleTypeHListPlus6.plus6)
         }
       }
     }

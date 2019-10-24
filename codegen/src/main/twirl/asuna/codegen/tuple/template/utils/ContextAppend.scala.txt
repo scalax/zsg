@@ -11,7 +11,7 @@ context.append[HListTypeHList@{currentItem - 1}
 T@{currentItem},
 HListTypeHList@{currentItem}
 [@for(i <- 1 to currentItem) {T@{i} @if(i < currentItem) { , }}]
-](@org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem - 1)(maxItem),
+](@asuna.codegen.tuple.template.utils.txt.ContextAppend(currentItem - 1)(maxItem),
 t@{currentItem}.application(context), HListTypeHListPlus@{currentItem}.plus@{currentItem})
 }
 
@@ -21,6 +21,6 @@ context.append[HListTypeHList@{currentItem - 1}
 T@{currentItem},
 TupleTypeHList@{currentItem}
 [@for(i <- 1 to currentItem) {T@{i} @if(i < currentItem) { , }}]
-](@org.scalax.asuna.item.template.utils.txt.ContextAppend(currentItem - 1)(maxItem),
+](@asuna.codegen.tuple.template.utils.txt.ContextAppend(currentItem - 1)(maxItem),
 t@{currentItem}.application(context), HListToTupleTypeHListPlus@{currentItem}.plus@{currentItem})
 }

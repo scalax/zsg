@@ -25,14 +25,12 @@ object NodeTag2 {
             t1.application(context),
             HListToTupleTypeHListPlus2.put2
           )
-//context.append(NodeTag1.noteTagApplicationImplicit1( t2  ).application(context), t1.application(context), TupleTypeHListPlus2.put2)
         } else {
           context.append[HListTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
             context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), AnyHListTypeHListPlus.hlistPlus1),
             t2.application(context),
             HListToTupleTypeHListPlus2.plus2
           )
-//context.append(NodeTag1.noteTagApplicationImplicit1( t1  ).application(context), t2.application(context), TupleTypeHListPlus2.plus2)
         }
       }
     }

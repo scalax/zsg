@@ -43,7 +43,6 @@ object NodeTag3 {
             t1.application(context),
             HListToTupleTypeHListPlus3.put3
           )
-//context.append(NodeTag2.noteTagApplicationImplicit2( t2  ,   t3  ).application(context), t1.application(context), TupleTypeHListPlus3.put3)
         } else {
           context.append[HListTypeHList2[T1, T2], T3, TupleTypeHList3[T1, T2, T3]](
             context.append[HListTypeHList1[T1], T2, HListTypeHList2[T1, T2]](
@@ -54,7 +53,6 @@ object NodeTag3 {
             t3.application(context),
             HListToTupleTypeHListPlus3.plus3
           )
-//context.append(NodeTag2.noteTagApplicationImplicit2( t1  ,   t2  ).application(context), t3.application(context), TupleTypeHListPlus3.plus3)
         }
       }
     }
