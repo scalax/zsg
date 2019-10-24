@@ -1,5 +1,5 @@
 package asuna.tuple
-import asuna._
+import asuna.TypeHList
 class ScalaTupleTypeHList2[E1 <: TypeHList, E2 <: TypeHList] extends TypeHList {
   override type H = (E1#H, E2#H)
   override type T = ScalaTupleTypeHList2[E1#T, E2#T]

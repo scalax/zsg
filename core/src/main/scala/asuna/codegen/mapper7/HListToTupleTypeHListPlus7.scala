@@ -1,4 +1,5 @@
 package asuna
+import asuna.support.heterogeneous._
 trait HListToTupleTypeHListPlus7 {
   val plus7Any: Plus[
     HListTypeHList6[AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList, AnyTypeHList],

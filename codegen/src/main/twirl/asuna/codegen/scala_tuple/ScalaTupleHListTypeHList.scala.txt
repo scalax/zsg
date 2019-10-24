@@ -2,11 +2,16 @@
 
 package asuna.tuple.support
 
-import asuna._
+import asuna.TypeHList
+import asuna.support.heterogeneous._
 
+class ScalaTupleHListTypeHList {
 @for(i <- 1 to maxItem) {
     class ScalaTupleHListTypeHList@{i}[@for(ii <- 1 to i) { E@{ii} <: TypeHList @if(ii < i) { , } }] extends TypeHList {
         override type H = @for(ii <- i to 1 by - 1) { E@{ii}#H :: } HNil
         override type T = ScalaTupleHListTypeHList@{i}[@for(ii <- 1 to i) { E@{ii}#T @if(ii < i) { , } }]
     }
 }
+}
+
+object ScalaTupleHListTypeHList extends ScalaTupleHListTypeHList

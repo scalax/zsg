@@ -2,8 +2,14 @@
 
 package asuna.tuple
 
-import asuna.tuple.support._
-import asuna._
+import asuna.tuple.support.ScalaTupleHListTypeHList
+import asuna.tuple.support.ScalaTupleHListTypeHListPlus
+import asuna.tuple.support.HListToScalaTupleTypeHListPlus
+import asuna.TypeHList
+import asuna.Application
+import asuna.KindContext
+import asuna.Context
+import asuna.TupleTypeHList0
 
 class ScalaTupleImplicits {
 

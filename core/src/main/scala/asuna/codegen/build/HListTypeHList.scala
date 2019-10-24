@@ -1,4 +1,5 @@
 package asuna
+import asuna.support.heterogeneous._
 class HListTypeHList0 extends TypeHList {
   override type H = HNil
   override type T = HListTypeHList0

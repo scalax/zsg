@@ -1,6 +1,7 @@
 package asuna
 
 import scala.language.higherKinds
+import asuna.support.heterogeneous._
 
 trait TypeHList {
   type H

@@ -2,6 +2,8 @@
 
 package asuna
 
+import asuna.support.heterogeneous._
+
 trait HListToTupleTypeHListPlus@{tagNum} {
 
 val plus@{tagNum}Any: Plus[

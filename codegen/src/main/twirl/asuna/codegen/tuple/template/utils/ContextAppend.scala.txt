@@ -15,7 +15,7 @@ HListTypeHList@{currentItem}
 t@{currentItem}.application(context), HListTypeHListPlus@{currentItem}.plus@{currentItem})
 }
 
-@if(currentItem == maxItem) {
+@if(currentItem > 1 && currentItem == maxItem) {
 context.append[HListTypeHList@{currentItem - 1}
 [@for(i <- 1 to currentItem - 1) {T@{i} @if(i < (currentItem - 1)) { , }}],
 T@{currentItem},

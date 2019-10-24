@@ -1,5 +1,5 @@
 package asuna
-trait AsunaTuple7[E1, E2, E3, E4, E5, E6, E7] extends Any {
+trait AsunaTuple8[E1, E2, E3, E4, E5, E6, E7, E8] extends Any {
   self =>
   def i1: E1
   def i2: E2
@@ -8,4 +8,5 @@ trait AsunaTuple7[E1, E2, E3, E4, E5, E6, E7] extends Any {
   def i5: E5
   def i6: E6
   def i7: E7
+  def i8: E8
 }

@@ -50,7 +50,7 @@ object AsunaTupleCodeGeneration {
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
-        Source.fromString(asuna.codegen.scala_tuple.txt.HListToScalaTupleTypeHListPlus(maxNum = maxTupleNum - 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+        Source.fromString(asuna.codegen.scala_tuple.txt.HListToScalaTupleTypeHListPlus(maxNum = maxTupleNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val mkStringContent = content.mkString(System.lineSeparator)
       writer.println(mkStringContent)
       writer.close()
@@ -61,7 +61,7 @@ object AsunaTupleCodeGeneration {
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
-        Source.fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicits(maxNum = maxTupleNum - 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+        Source.fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicits(maxNum = maxTupleNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val mkStringContent = content.mkString(System.lineSeparator)
       writer.println(mkStringContent)
       writer.close()

@@ -1,5 +1,7 @@
 package asuna
 
+import asuna.support.heterogeneous._
+
 trait AnyHListTypeHListPlus {
   self =>
 

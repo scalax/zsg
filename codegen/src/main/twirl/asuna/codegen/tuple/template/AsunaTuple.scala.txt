@@ -9,10 +9,4 @@ trait AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , 
         def i@{ii}: E@{ii}
     }
 
-    def addToTuple[T](xyy: T): (@for(ii <- 1 to tagNum) { E@{ii}, } T) = (@for(ii <- 1 to tagNum) { self.i@{ii}, } xyy)
-    def pullToTuple[T](xyy: T): (T @for(ii <- 1 to tagNum) { , E@{ii} }) = (xyy @for(ii <- 1 to tagNum) { , self.i@{ii} })
-
-    def leftTuple: (@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }) = (@for(ii <- 2 to tagNum) { self.i@{ii} @if(ii < tagNum) { , } })
-    def rightTuple: (@for(ii <- 2 to tagNum) { E@{ii - 1} @if(ii < tagNum) { , } }) = (@for(ii <- 2 to tagNum) { self.i@{ii - 1} @if(ii < tagNum) { , } })
-
 }

@@ -1,22 +1,22 @@
 @(currentItem: Int)(maxItem: Int)
 
 @if(currentItem == 1) {
-context.append[TupleTypeHList0, T1, ScalaTupleHListTypeHList1[T1]]
+context.append[TupleTypeHList0, T1, ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[T1]]
 (context.start, t1.application(context), ScalaTupleHListTypeHListPlus.plus1)
 }
 
 @if(currentItem > 1 && currentItem < maxItem) {
-context.append[ScalaTupleHListTypeHList@{currentItem - 1}
+context.append[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem - 1}
 [@for(i <- 1 to currentItem - 1) {T@{i} @if(i < (currentItem - 1)) { , }}],
 T@{currentItem},
-ScalaTupleHListTypeHList@{currentItem}
+ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem}
 [@for(i <- 1 to currentItem) {T@{i} @if(i < currentItem) { , }}]
 ](@asuna.codegen.scala_tuple.utils.txt.ContextAppend(currentItem - 1)(maxItem),
 t@{currentItem}.application(context), ScalaTupleHListTypeHListPlus.plus@{currentItem})
 }
 
-@if(currentItem == maxItem) {
-context.append[ScalaTupleHListTypeHList@{currentItem - 1}
+@if(currentItem > 1 && currentItem == maxItem) {
+context.append[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem - 1}
 [@for(i <- 1 to currentItem - 1) {T@{i} @if(i < (currentItem - 1)) { , }}],
 T@{currentItem},
 ScalaTupleTypeHList@{currentItem}
