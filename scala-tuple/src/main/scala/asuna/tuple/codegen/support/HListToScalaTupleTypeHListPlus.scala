@@ -1,6 +1,8 @@
 package asuna.tuple.support
 import asuna.tuple._
-import asuna._
+import asuna.TypeHList
+import asuna.Plus
+import asuna.support.heterogeneous._
 trait HListToScalaTupleTypeHListPlus {
   def plus2[E1 <: TypeHList, E2 <: TypeHList]: Plus[
     ScalaTupleHListTypeHList1[E1],

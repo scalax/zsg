@@ -1,6 +1,7 @@
-package asuna
+package asuna.support.heterogeneous
 
 import scala.language.higherKinds
+import asuna.NoData
 
 trait HList {
 

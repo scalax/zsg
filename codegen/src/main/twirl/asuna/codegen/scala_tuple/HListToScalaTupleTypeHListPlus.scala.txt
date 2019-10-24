@@ -3,7 +3,9 @@
 package asuna.tuple.support
 
 import asuna.tuple._
-import asuna._
+import asuna.TypeHList
+import asuna.Plus
+import asuna.support.heterogeneous._
 
 trait HListToScalaTupleTypeHListPlus {
 
