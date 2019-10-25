@@ -1,7 +1,7 @@
 package asuna.support
 
+import asuna.support.heterogeneous.HNil
 import asuna.{AnyHListTypeHList, AnyTypeHList, AsunaTuple0, Plus, TupleTypeHList0, TypeHList}
-import asuna.support.heterogeneous._
 
 trait HListTypeHListPlus1 {
   self =>
