@@ -1,4 +1,4 @@
-package asuna.tuple.support
+package asuna.tuple.tupleSupport
 import asuna.tuple.ScalaTupleTypeHList2
 import asuna.tuple.ScalaTupleTypeHList3
 import asuna.tuple.ScalaTupleTypeHList4

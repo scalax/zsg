@@ -1,4 +1,4 @@
-package asuna.tuple.support
+package asuna.tuple.tupleSupport
 import asuna.TypeHList
 import asuna.support.heterogeneous._
 class ScalaTupleHListTypeHList {

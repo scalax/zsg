@@ -1,7 +1,7 @@
 package asuna.tuple
-import asuna.tuple.support.ScalaTupleHListTypeHList
-import asuna.tuple.support.ScalaTupleHListTypeHListPlus
-import asuna.tuple.support.HListToScalaTupleTypeHListPlus
+import asuna.tuple.tupleSupport.ScalaTupleHListTypeHList
+import asuna.tuple.tupleSupport.ScalaTupleHListTypeHListPlus
+import asuna.tuple.tupleSupport.HListToScalaTupleTypeHListPlus
 import asuna.TypeHList
 import asuna.Application
 import asuna.KindContext

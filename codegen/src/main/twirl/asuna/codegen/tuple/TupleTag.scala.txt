@@ -33,9 +33,9 @@ object TupleTag@{tagNum} {
         new Application[K, TupleTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
             override def application(context: Context[K]): K#M[TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
                 if (context.isReverse) {
-                    @asuna.codegen.tuple.template.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
+                    @asuna.codegen.tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
                 } else {
-                    @asuna.codegen.tuple.template.utils.txt.ContextAppend(currentItem = tagNum)(maxItem = tagNum)
+                    @asuna.codegen.tuple.utils.txt.ContextAppend(currentItem = tagNum)(maxItem = tagNum)
                 }
             }
         }

@@ -11,7 +11,7 @@ context.append[HListTypeHList@{currentItem - 1}
 T@{max - currentItem + 1},
 HListTypeHList@{currentItem}
 [@for(i <- max to max - currentItem + 1 by - 1) {T@{i} @if(i > max - currentItem + 1) { , }}]
-](@asuna.codegen.tuple.template.utils.txt.ContextAppend2(max)(currentItem - 1),
+](@asuna.codegen.tuple.utils.txt.ContextAppend2(max)(currentItem - 1),
 t@{max - currentItem + 1}.application(context), HListTypeHListPlus@{currentItem}.plus@{currentItem})
 }
 
@@ -21,6 +21,6 @@ context.append[HListTypeHList@{currentItem - 1}
 T@{max - currentItem + 1},
 TupleTypeHList@{currentItem}
 [@for(i <- max - currentItem + 1 to max) {T@{i} @if(i < max) { , }}]
-](@asuna.codegen.tuple.template.utils.txt.ContextAppend2(max)(currentItem - 1),
+](@asuna.codegen.tuple.utils.txt.ContextAppend2(max)(currentItem - 1),
 t@{max - currentItem + 1}.application(context), HListToTupleTypeHListPlus@{currentItem}.put@{currentItem})
 }
