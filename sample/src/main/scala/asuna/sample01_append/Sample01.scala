@@ -7,11 +7,9 @@ import asuna.support.{
   HListTypeHList1,
   HListTypeHList2,
   HListTypeHList3,
-  HListTypeHList4,
   HListTypeHListPlus1,
   HListTypeHListPlus2,
-  HListTypeHListPlus3,
-  HListTypeHListPlus4
+  HListTypeHListPlus3
 }
 import io.circe._
 import io.circe.syntax._
