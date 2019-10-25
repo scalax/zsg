@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-package asuna.tuple.support
+package asuna.tuple.tupleSupport
 
 import asuna.TypeHList
 import asuna.support.heterogeneous._

@@ -1,6 +1,6 @@
 @(maxNum: Int)
 
-package asuna.tuple.support
+package asuna.tuple.tupleSupport
 
 @for(ii <- 2 to maxNum) {
 import asuna.tuple.ScalaTupleTypeHList@{ii}
