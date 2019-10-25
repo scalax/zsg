@@ -57,7 +57,7 @@ compilation speed is fast, and it is the main reason. It not means
 The use of limited tuples has reduced our type of
 recursive layer to less than 3. In the above example, it only
 took 2 seconds to compile successfully or compile failed. 
-It's the same as writing macro directly.
+It's the same as writing macro directly.  
 编译速度十分快。它也是编译速度快的原因之一。它并不意味着我们使用了 `scala.Tuple22`。
 在 asuna 中我们使用了多样化的元组。有限元组的使用使得我们的类型运算递归层数降到了 3 以内。
 在上述例子中，无论是编译成功还是编译失败都只使用了 2 秒。跟直接写宏一样快。
