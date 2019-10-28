@@ -40,13 +40,13 @@ object reverseTupleContext extends Context[ReverseTupleContext[ScalaTupleImplici
 
 }
 
-object tuple {
+object reverseTuple {
   def asString[T, I <: TypeHList](x: T)(implicit ii: ReverseTupleEncoder[T]): String = {
     s"[${ii.stringBody(x)}]"
   }
 }
 
-trait ReverseAppendTuple {
+object ReverseAppendTuple {
   implicit val reverseTupleImplicit1: ReverseTupleEncoder[String] = new ReverseTupleEncoder[String] {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
@@ -76,4 +76,3 @@ trait ReverseAppendTuple {
 
 }
 
-object ReverseAppendTuple extends ReverseAppendTuple
