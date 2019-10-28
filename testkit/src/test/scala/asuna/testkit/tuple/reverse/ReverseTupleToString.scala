@@ -3,7 +3,7 @@ package asuna.testkit.tuple.reverse
 import asuna.tuple.ScalaTupleImplicits
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TypeHList, TypeHList1}
 
-sealed trait ReverseTupleEncoder[T] {
+trait ReverseTupleEncoder[T] {
   self =>
   def body(t: List[String], i: T): List[String]
   def stringBody(i: T): String
@@ -13,7 +13,7 @@ class ReverseTupleContext[Companion] extends KindContext {
   override type M[I <: TypeHList] = ReverseTupleEncoder[I#H]
 }
 
-object reverseTupleContext extends Context[ReverseTupleContext[ScalaTupleImplicits]] {
+object reverseScalaTupleContext extends Context[ReverseTupleContext[ScalaTupleImplicits]] {
 
   override def isReverse: Boolean = false
 
@@ -70,9 +70,8 @@ object ReverseAppendTuple {
     implicit ii: Application[ReverseTupleContext[ScalaTupleImplicits], T, I],
     c: T <:< I#H
   ): ReverseTupleEncoder[T] = new ReverseTupleEncoder[T] {
-    override def body(t: List[String], i: T): List[String] = ii.application(reverseTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
-    override def stringBody(i: T): String                  = ii.application(reverseTupleContext).body(List.empty, i).mkString("(", ",", ")")
+    override def body(t: List[String], i: T): List[String] = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
+    override def stringBody(i: T): String                  = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")")
   }
 
 }
-

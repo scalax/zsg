@@ -13,7 +13,7 @@ class TupleContext[Companion] extends KindContext {
   override type M[I <: TypeHList] = TupleEncoder[I#H]
 }
 
-object tencoderContext extends Context[TupleContext[ScalaTupleImplicits]] {
+object scalaTupleContext extends Context[TupleContext[ScalaTupleImplicits]] {
 
   override def isReverse: Boolean = true
 
@@ -70,8 +70,8 @@ trait AppendTuple {
     implicit ii: Application[TupleContext[ScalaTupleImplicits], T, I],
     c: T <:< I#H
   ): TupleEncoder[T] = new TupleEncoder[T] {
-    override def body(t: List[String], i: T): List[String] = ii.application(tencoderContext).body(List.empty, i).mkString("(", ",", ")") :: t
-    override def stringBody(i: T): String                  = ii.application(tencoderContext).body(List.empty, i).mkString("(", ",", ")")
+    override def body(t: List[String], i: T): List[String] = ii.application(scalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
+    override def stringBody(i: T): String                  = ii.application(scalaTupleContext).body(List.empty, i).mkString("(", ",", ")")
   }
 
 }
