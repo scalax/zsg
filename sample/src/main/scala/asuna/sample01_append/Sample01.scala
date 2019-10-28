@@ -2,15 +2,7 @@ package asuna.sample01_append
 
 import asuna._
 import asuna.support.heterogeneous._
-import asuna.support.{
-  HListToTupleTypeHListPlus4,
-  HListTypeHList1,
-  HListTypeHList2,
-  HListTypeHList3,
-  HListTypeHListPlus1,
-  HListTypeHListPlus2,
-  HListTypeHListPlus3
-}
+import asuna.support.{HListToTupleTypeHListPlus4, HListTypeHList1, HListTypeHList2, HListTypeHList3, HListTypeHListPlus1, HListTypeHListPlus2, HListTypeHListPlus3}
 import io.circe._
 import io.circe.syntax._
 
