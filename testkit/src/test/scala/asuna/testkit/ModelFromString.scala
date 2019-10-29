@@ -35,6 +35,28 @@ object decoderContext extends Context[MContext] {
 
 }
 
+object reverseDecoderContext extends Context[MContext] {
+
+  override def isReverse: Boolean = false
+
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+    x: ModelDecoder[X#H],
+    y: ModelDecoder[Y#H],
+    p: Plus[X, Y, Z]
+  ): ModelDecoder[Z#H] = {
+    { (str: String) =>
+      val (str1, d1) = y.getData(str)
+      val (str2, d2) = x.getData(str1)
+      (str2, p.plus(d2, d1))
+    }
+  }
+
+  override def start: ModelDecoder[AsunaTuple0] = { str: String =>
+    (str, AsunaTuple0)
+  }
+
+}
+
 object out {
 
   def decoder[I1, I2 <: TupleTag, I3 <: TypeHList](
@@ -43,7 +65,7 @@ object out {
     asunaSetterGeneric: AsunaSetterGeneric[I1, I3#H]
   ): ModelDecoder[I1] = {
     { str: String =>
-      val c         = pp.application(decoderContext)
+      val c         = pp.application(reverseDecoderContext)
       val (str1, m) = c.getData(str)
       (str1, asunaSetterGeneric.setter(m))
     }
@@ -55,9 +77,8 @@ object out {
     asunaSetterGeneric: AsunaSetterGeneric[I1, I3#H]
   ): ModelDecoder[I1] = {
     { str: String =>
-      val reverseContext = decoderContext.reverse
-      val c              = pp.application(reverseContext)
-      val (str1, m)      = c.getData(str)
+      val c         = pp.application(decoderContext)
+      val (str1, m) = c.getData(str)
       (str1, asunaSetterGeneric.setter(m))
     }
   }

@@ -9,15 +9,23 @@ import asuna.TupleTypeHList@{tagNum}
 class HListTypeHListPlus@{tagNum} {
 
 @@inline def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
-    TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
+    @if(tagNum > 1) {
+        TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
+    } else {
+        TupleTypeHList0,
+    }
     E@{tagNum},
-    TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+    TupleTypeHList@{tagNum}[E@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , E@{ii} }]
 ] =
-AnyHListTypeHListPlus.plus.asInstanceOf[Plus[
-    TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
-    E@{tagNum},
-    TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-]]
+    AnyHListTypeHListPlus.plus.asInstanceOf[Plus[
+        @if(tagNum > 1) {
+            TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
+        } else {
+            TupleTypeHList0,
+        }
+        E@{tagNum},
+        TupleTypeHList@{tagNum}[E@{tagNum} @for(ii <- 1 to (tagNum - 1)) { , E@{ii} }]
+    ]]
 
 }
 
