@@ -2,7 +2,7 @@ package asuna.support
 
 import asuna.{AnyHListTypeHList, AnyTypeHList, Plus}
 
-trait AnyHListTypeHListPlus {
+trait AnyTypeHListPlus {
   self =>
 
   val plus: Plus[AnyHListTypeHList, AnyTypeHList, AnyHListTypeHList] = new Plus[AnyHListTypeHList, AnyTypeHList, AnyHListTypeHList] {
@@ -14,4 +14,4 @@ trait AnyHListTypeHListPlus {
 
 }
 
-object AnyHListTypeHListPlus extends AnyHListTypeHListPlus
+object AnyTypeHListPlus extends AnyTypeHListPlus

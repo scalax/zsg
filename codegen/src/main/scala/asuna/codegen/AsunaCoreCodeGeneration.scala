@@ -46,10 +46,10 @@ object AsunaCoreCodeGeneration {
 
     for (i <- 1 to maxPropertyNum) yield {
       val filePath =
-        rootDir.resolve("mapper" + i).resolve("support").resolve("HListTypeHListPlus" + i + ".scala")
+        rootDir.resolve("mapper" + i).resolve("support").resolve("TypeHListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
-      val content191 = Source.fromString(asuna.codegen.tuple.support.txt.HListTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+      val content191 = Source.fromString(asuna.codegen.tuple.support.txt.TypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val content192 = content191.mkString(System.lineSeparator)
       writer19.println(content192)
       writer19.close()

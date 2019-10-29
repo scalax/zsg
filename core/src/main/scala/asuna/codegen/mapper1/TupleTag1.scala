@@ -1,5 +1,5 @@
 package asuna
-import asuna.support.HListTypeHListPlus1
+import asuna.support.TypeHListPlus1
 import impl._
 class TupleTag1[T1, M1 <: Message] extends TupleTag {
   override type AsunaTupleType  = AsunaTuple1[T1]
@@ -16,7 +16,7 @@ object TupleTag1 {
   ): Application[K, TupleTag1[H1, M1], TupleTypeHList1[T1]] =
     new Application[K, TupleTag1[H1, M1], TupleTypeHList1[T1]] {
       override def application(context: Context[K]): K#M[TupleTypeHList1[T1]] = {
-        context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), HListTypeHListPlus1.plus1)
+        context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TypeHListPlus1.plus1)
       }
     }
 }
