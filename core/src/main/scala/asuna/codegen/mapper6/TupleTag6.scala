@@ -1,10 +1,10 @@
 package asuna
-import asuna.support.HListTypeHListPlus1
-import asuna.support.HListTypeHListPlus2
-import asuna.support.HListTypeHListPlus3
-import asuna.support.HListTypeHListPlus4
-import asuna.support.HListTypeHListPlus5
-import asuna.support.HListTypeHListPlus6
+import asuna.support.TypeHListPlus1
+import asuna.support.TypeHListPlus2
+import asuna.support.TypeHListPlus3
+import asuna.support.TypeHListPlus4
+import asuna.support.TypeHListPlus5
+import asuna.support.TypeHListPlus6
 import impl._
 class TupleTag6[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message] extends TupleTag {
   override type AsunaTupleType  = AsunaTuple6[T1, T2, T3, T4, T5, T6]
@@ -56,21 +56,21 @@ object TupleTag6 {
             context.append[TupleTypeHList3[T4, T5, T6], T3, TupleTypeHList4[T3, T4, T5, T6]](
               context.append[TupleTypeHList2[T5, T6], T4, TupleTypeHList3[T4, T5, T6]](
                 context.append[TupleTypeHList1[T6], T5, TupleTypeHList2[T5, T6]](
-                  context.append[TupleTypeHList0, T6, TupleTypeHList1[T6]](context.start, t6.application(context), HListTypeHListPlus1.plus1),
+                  context.append[TupleTypeHList0, T6, TupleTypeHList1[T6]](context.start, t6.application(context), TypeHListPlus1.plus1),
                   t5.application(context),
-                  HListTypeHListPlus2.plus2
+                  TypeHListPlus2.plus2
                 ),
                 t4.application(context),
-                HListTypeHListPlus3.plus3
+                TypeHListPlus3.plus3
               ),
               t3.application(context),
-              HListTypeHListPlus4.plus4
+              TypeHListPlus4.plus4
             ),
             t2.application(context),
-            HListTypeHListPlus5.plus5
+            TypeHListPlus5.plus5
           ),
           t1.application(context),
-          HListTypeHListPlus6.plus6
+          TypeHListPlus6.plus6
         )
       }
     }

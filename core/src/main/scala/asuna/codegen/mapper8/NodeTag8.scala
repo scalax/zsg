@@ -1,12 +1,12 @@
 package asuna
-import asuna.support.HListTypeHListPlus1
-import asuna.support.HListTypeHListPlus2
-import asuna.support.HListTypeHListPlus3
-import asuna.support.HListTypeHListPlus4
-import asuna.support.HListTypeHListPlus5
-import asuna.support.HListTypeHListPlus6
-import asuna.support.HListTypeHListPlus7
-import asuna.support.HListTypeHListPlus8
+import asuna.support.TypeHListPlus1
+import asuna.support.TypeHListPlus2
+import asuna.support.TypeHListPlus3
+import asuna.support.TypeHListPlus4
+import asuna.support.TypeHListPlus5
+import asuna.support.TypeHListPlus6
+import asuna.support.TypeHListPlus7
+import asuna.support.TypeHListPlus8
 import impl._
 class NodeTag8[
   T1 <: TupleTag,
@@ -99,27 +99,27 @@ object NodeTag8 {
                 context.append[TupleTypeHList3[T6, T7, T8], T5, TupleTypeHList4[T5, T6, T7, T8]](
                   context.append[TupleTypeHList2[T7, T8], T6, TupleTypeHList3[T6, T7, T8]](
                     context.append[TupleTypeHList1[T8], T7, TupleTypeHList2[T7, T8]](
-                      context.append[TupleTypeHList0, T8, TupleTypeHList1[T8]](context.start, t8.application(context), HListTypeHListPlus1.plus1),
+                      context.append[TupleTypeHList0, T8, TupleTypeHList1[T8]](context.start, t8.application(context), TypeHListPlus1.plus1),
                       t7.application(context),
-                      HListTypeHListPlus2.plus2
+                      TypeHListPlus2.plus2
                     ),
                     t6.application(context),
-                    HListTypeHListPlus3.plus3
+                    TypeHListPlus3.plus3
                   ),
                   t5.application(context),
-                  HListTypeHListPlus4.plus4
+                  TypeHListPlus4.plus4
                 ),
                 t4.application(context),
-                HListTypeHListPlus5.plus5
+                TypeHListPlus5.plus5
               ),
               t3.application(context),
-              HListTypeHListPlus6.plus6
+              TypeHListPlus6.plus6
             ),
             t2.application(context),
-            HListTypeHListPlus7.plus7
+            TypeHListPlus7.plus7
           ),
           t1.application(context),
-          HListTypeHListPlus8.plus8
+          TypeHListPlus8.plus8
         )
       }
     }
