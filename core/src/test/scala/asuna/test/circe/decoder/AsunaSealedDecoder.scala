@@ -26,7 +26,6 @@ object AsunaSealedDecoder {
   }
 
   class ii[H] extends Context[KContext[H]] {
-    override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonPro[X#H, X#T#H, H],

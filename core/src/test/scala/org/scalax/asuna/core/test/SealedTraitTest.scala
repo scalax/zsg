@@ -36,7 +36,6 @@ object SealedTraitTest extends App {
   }
 
   object i extends Context[KC] {
-    override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: X#H => List[String] => List[String],

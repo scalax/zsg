@@ -15,8 +15,6 @@ class MContext extends KindContext {
 
 object decoderContext extends Context[MContext] {
 
-  override def isReverse: Boolean = false
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: ModelDecoder[X#H],
     y: ModelDecoder[Y#H],
@@ -36,8 +34,6 @@ object decoderContext extends Context[MContext] {
 }
 
 object reverseDecoderContext extends Context[MContext] {
-
-  override def isReverse: Boolean = false
 
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: ModelDecoder[X#H],

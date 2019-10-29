@@ -25,7 +25,6 @@ object AsunaCirceDecoder {
   }
 
   object ii extends Context[KM] {
-    override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonPro[X#T#H, X#H, X#T#T#H],

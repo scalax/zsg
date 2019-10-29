@@ -15,8 +15,6 @@ class ReverseTupleContext[Companion] extends KindContext {
 
 object reverseScalaTupleContext extends Context[ReverseTupleContext[ScalaTupleImplicits]] {
 
-  override def isReverse: Boolean = false
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: ReverseTupleEncoder[X#H],
     y: ReverseTupleEncoder[Y#H],
@@ -26,7 +24,7 @@ object reverseScalaTupleContext extends Context[ReverseTupleContext[ScalaTupleIm
       override def body(t: List[String], i: Z#H): List[String] = {
         val x1 = p.takeHead(i)
         val y1 = p.takeTail(i)
-        y.body(x.body(t, x1), y1)
+        x.body(y.body(t, y1), x1)
       }
       override def stringBody(i: Z#H): String = ""
 

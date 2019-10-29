@@ -28,7 +28,6 @@ object AsunaSealedEncoder {
   }
 
   class ii[H] extends Context[KContext[H]] {
-    override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonEncoder[H, X#T#H, X#H],

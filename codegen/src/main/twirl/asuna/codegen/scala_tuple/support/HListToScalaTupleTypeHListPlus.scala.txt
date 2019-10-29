@@ -13,7 +13,7 @@ trait HListToScalaTupleTypeHListPlus {
 
 @for(tagNum <- 2 to maxNum) {
 
-def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
+/*def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
     ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
     E@{tagNum},
     ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
@@ -38,7 +38,7 @@ val ii@{i} = tt@{i - 1}.head
 override def takeTail(t: (@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } })): E@{tagNum}#H = t._@{tagNum}
 override def takeHead(t: (@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } })): @for(ii <- (tagNum - 1) to 1 by - 1) { E@{ii}#H :: } HNil = @for(ii <- (tagNum - 1) to 1 by - 1) { t._@{ii} :: } HNil
 override def sub: Plus[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }]#T, E@{tagNum}#T, ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]#T] = plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
-}
+}*/
 
 def put@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
     ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],

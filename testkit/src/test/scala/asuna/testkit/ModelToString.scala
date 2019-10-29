@@ -31,8 +31,6 @@ class IContext extends KindContext {
 
 object i extends Context[IContext] {
 
-  override def isReverse: Boolean = true
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: (X#H, X#T#H) => ModelToString,
     y: (Y#H, Y#T#H) => ModelToString,
@@ -56,8 +54,6 @@ object i extends Context[IContext] {
 }
 
 object reverseI extends Context[IContext] {
-
-  override def isReverse: Boolean = true
 
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: (X#H, X#T#H) => ModelToString,
