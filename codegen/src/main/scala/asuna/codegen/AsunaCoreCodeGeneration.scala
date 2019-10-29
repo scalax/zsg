@@ -34,7 +34,7 @@ object AsunaCoreCodeGeneration {
       writer19.close()
     }
 
-    for (i <- 2 to maxPropertyNum) yield {
+    /*for (i <- 2 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("support").resolve("HListToTupleTypeHListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
@@ -42,9 +42,9 @@ object AsunaCoreCodeGeneration {
       val content192 = content191.mkString(System.lineSeparator)
       writer19.println(content192)
       writer19.close()
-    }
+    }*/
 
-    for (i <- 2 to maxPropertyNum) yield {
+    for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
@@ -54,7 +54,7 @@ object AsunaCoreCodeGeneration {
       writer19.close()
     }
 
-    for (i <- 1 to maxPropertyNum) yield {
+    /*for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("support").resolve("AsunaValueTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
@@ -62,9 +62,9 @@ object AsunaCoreCodeGeneration {
       val content192 = content191.mkString(System.lineSeparator)
       writer19.println(content192)
       writer19.close()
-    }
+    }*/
 
-    for (i <- 2 to maxPropertyNum - 1) yield {
+    for (i <- 2 to maxPropertyNum) yield {
       val filePath =
         rootDir.resolve("mapper" + i).resolve("support").resolve("HListTypeHListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
@@ -130,7 +130,7 @@ object AsunaCoreCodeGeneration {
       writer18.close()
     }
 
-    {
+    /*{
       val filePath = buildDir.resolve("HListTypeHList.scala")
       Files.createDirectories(filePath.getParent)
       val writer16 = new PrintWriter(filePath.toFile, "utf-8")
@@ -139,6 +139,6 @@ object AsunaCoreCodeGeneration {
       val content162 = content161.mkString(System.lineSeparator)
       writer16.println(content162)
       writer16.close()
-    }
+    }*/
   }
 }
