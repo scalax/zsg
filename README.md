@@ -72,7 +72,7 @@ structure to store data with a very high degree of freedom.
 
 ### 1.Type Projection Model
 
-Look at such a Trait.  
+Look at this Trait.  
 观察这样一个 Trait。
 
 ```scala
