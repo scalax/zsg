@@ -1,6 +1,7 @@
 val core       = project in file("./core")
 val scalaTuple = (project in file("./scala-tuple")).dependsOn(core)
 val sample     = (project in file("./sample")).dependsOn(core)
+val asunaJmh     = (project in file("./asuna-jmh")).dependsOn(core)
 val testkit    = (project in file("./testkit")).dependsOn(core, scalaTuple)
 lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregate(scalaTuple).aggregate(testkit)
 
@@ -17,7 +18,7 @@ addCommandAlias(
     ";testkit/scalafmt" +
     ";testkit/test:scalafmt" +
     ";sample/scalafmt" +
-    ";scalafmtSbt"
+    ";scalafmtSbt" + ";asunaJmh/scalafmt"
 )
 
 addCommandAlias(
@@ -28,3 +29,6 @@ addCommandAlias(
 )
 
 addCommandAlias("gen", ";codegen;sfmt;sfmt;sfmt;sfmt")
+
+addCommandAlias("jmh1", "asunaJmh/jmh:run -i 3 -wi 3 -f 1 -t 1 .*AbcTest.*")
+addCommandAlias("jmh2", "asunaJmh/jmh:run -i 3 -wi 3 -f 1 -t 1 .*DefTest.*")
