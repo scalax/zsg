@@ -48,7 +48,7 @@ object Sample02 {
       plus: Plus[X, Y, Z]
     ): JsonObjectAppender[Z#H, Z#T#H] = new JsonObjectAppender[Z#H, Z#T#H] {
       override def appendField(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
-        x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), m))
+        y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), m))
     }
 
     override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
