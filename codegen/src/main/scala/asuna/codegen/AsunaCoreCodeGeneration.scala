@@ -44,7 +44,7 @@ object AsunaCoreCodeGeneration {
       writer19.close()
     }
 
-    for (i <- 1 to maxPropertyNum) yield {
+    for (i <- 2 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")

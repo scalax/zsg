@@ -19,7 +19,7 @@ trait HList {
 
 }
 
-class HNil extends HList {
+trait HNil extends HList {
   self =>
 
   override type Head = NoData

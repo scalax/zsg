@@ -2,11 +2,15 @@
 
 package asuna
 
-trait AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] extends Any {
-    self =>
+import asuna.support.heterogeneous._
 
-    @for(ii <- 1 to tagNum) {
-        def i@{ii}: E@{ii}
+class AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+(override val head: E1, override val tail: AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }])
+extends
+(E1 :: AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]) {
+    def i1: E1 = head
+    @for(ii <- 2 to tagNum) {
+        def i@{ii}: E@{ii} = tail@for(_ <- 3 to ii) { .tail }.head
     }
 
 }
