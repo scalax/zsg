@@ -31,8 +31,6 @@ class IContext extends KindContext {
 
 object i extends Context[IContext] {
 
-  override def isReverse: Boolean = true
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: (X#H, X#T#H) => ModelToString,
     y: (Y#H, Y#T#H) => ModelToString,
@@ -43,6 +41,30 @@ object i extends Context[IContext] {
       val t2 = y(p.takeTail(i1), p.sub.takeTail(i2))
       new ModelToString {
         override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = t2.appendField(t1.appendField(i))
+      }
+    }
+  }
+
+  override def start: (AsunaTuple0, AsunaTuple0) => ModelToString =
+    (i1: AsunaTuple0, i2: AsunaTuple0) =>
+      new ModelToString {
+        override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = i
+      }
+
+}
+
+object reverseI extends Context[IContext] {
+
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+    x: (X#H, X#T#H) => ModelToString,
+    y: (Y#H, Y#T#H) => ModelToString,
+    p: Plus[X, Y, Z]
+  ): (Z#H, Z#T#H) => ModelToString = {
+    { (i1: Z#H, i2: Z#T#H) =>
+      val t1 = x(p.takeHead(i1), p.sub.takeHead(i2))
+      val t2 = y(p.takeTail(i1), p.sub.takeTail(i2))
+      new ModelToString {
+        override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = t1.appendField(t2.appendField(i))
       }
     }
   }
@@ -78,8 +100,7 @@ object in {
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
-        val reverseContext = i.reverse
-        pp.application(reverseContext)(asunaGetterGeneric.getter(ii), asunaNameGeneric.names).appendField(List.empty)
+        pp.application(reverseI)(asunaGetterGeneric.getter(ii), asunaNameGeneric.names).appendField(List.empty)
       }
     }
   }

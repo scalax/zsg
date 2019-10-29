@@ -1,8 +1,6 @@
 package asuna
-import asuna.support.AnyHListTypeHListPlus
 import asuna.support.HListTypeHListPlus1
-import asuna.support.HListTypeHList1
-import asuna.support.HListToTupleTypeHListPlus2
+import asuna.support.HListTypeHListPlus2
 import impl._
 class NodeTag2[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message] extends TupleTag {
   override type AsunaTupleType  = AsunaTuple2[T1#AsunaTupleType, T2#AsunaTupleType]
@@ -23,19 +21,11 @@ object NodeTag2 {
   ): Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] =
     new Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] {
       override def application(context: Context[K]): K#M[TupleTypeHList2[T1, T2]] = {
-        if (context.isReverse) {
-          context.append[HListTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
-            context.append[TupleTypeHList0, T2, HListTypeHList1[T2]](context.start, t2.application(context), HListTypeHListPlus1.plus1),
-            t1.application(context),
-            HListToTupleTypeHListPlus2.put2
-          )
-        } else {
-          context.append[HListTypeHList1[T1], T2, TupleTypeHList2[T1, T2]](
-            context.append[TupleTypeHList0, T1, HListTypeHList1[T1]](context.start, t1.application(context), HListTypeHListPlus1.plus1),
-            t2.application(context),
-            HListToTupleTypeHListPlus2.plus2
-          )
-        }
+        context.append[TupleTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
+          context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), HListTypeHListPlus1.plus1),
+          t1.application(context),
+          HListTypeHListPlus2.plus2
+        )
       }
     }
 }

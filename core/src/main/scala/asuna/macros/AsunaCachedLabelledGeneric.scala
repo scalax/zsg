@@ -10,28 +10,18 @@ trait AsunaCachedLabelledGeneric[H, NameType] {
   val className: String
   protected def names: NameType
   def getName[K <: KindContext](context: Context[K]): NameType = {
-    if (context.isReverse) {
-      val value1 = AsunaCachedLabelledGeneric.reverseNameHashMap.get(className)
-      if (value1 == null) {
-        AsunaCachedLabelledGeneric.reverseNameHashMap.put(className, names)
-        AsunaCachedLabelledGeneric.reverseNameHashMap.get(className).asInstanceOf[NameType]
-      } else
-        value1.asInstanceOf[NameType]
-    } else {
-      val value1 = AsunaCachedLabelledGeneric.nameHashMap.get(className)
-      if (value1 == null) {
-        AsunaCachedLabelledGeneric.nameHashMap.put(className, names)
-        AsunaCachedLabelledGeneric.nameHashMap.get(className).asInstanceOf[NameType]
-      } else
-        value1.asInstanceOf[NameType]
-    }
+    val value1 = AsunaCachedLabelledGeneric.nameHashMap.get(className)
+    if (value1 == null) {
+      AsunaCachedLabelledGeneric.nameHashMap.put(className, names)
+      AsunaCachedLabelledGeneric.nameHashMap.get(className).asInstanceOf[NameType]
+    } else
+      value1.asInstanceOf[NameType]
   }
 }
 
 object AsunaCachedLabelledGeneric {
 
-  val nameHashMap: util.HashMap[String, Any]        = new util.HashMap[String, Any]()
-  val reverseNameHashMap: util.HashMap[String, Any] = new util.HashMap[String, Any]()
+  val nameHashMap: util.HashMap[String, Any] = new util.HashMap[String, Any]()
 
   def init[M]: CachedNameGenericApply[M] = new CachedNameGenericApply[M] {}
 

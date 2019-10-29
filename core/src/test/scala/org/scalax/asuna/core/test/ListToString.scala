@@ -32,8 +32,6 @@ class IContext extends KindContext {
 
 object i extends Context[IContext] {
 
-  override def isReverse: Boolean = true
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: (X#H, X#T#H) => ListToString,
     y: (Y#H, Y#T#H) => ListToString,

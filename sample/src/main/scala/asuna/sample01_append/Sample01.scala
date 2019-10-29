@@ -24,7 +24,6 @@ object Sample01 {
   }
 
   object ii extends Context[KContext] {
-    override def isReverse: Boolean = false
 
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
       x: JsonObjectAppender[X#H, X#T#H],

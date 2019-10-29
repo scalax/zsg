@@ -15,8 +15,6 @@ class TupleContext[Companion] extends KindContext {
 
 object scalaTupleContext extends Context[TupleContext[ScalaTupleImplicits]] {
 
-  override def isReverse: Boolean = true
-
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: TupleEncoder[X#H],
     y: TupleEncoder[Y#H],

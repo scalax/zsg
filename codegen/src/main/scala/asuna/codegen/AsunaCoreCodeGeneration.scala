@@ -14,7 +14,7 @@ object AsunaCoreCodeGeneration {
     val tupleDir = rootDir.resolve("tuple")
     val buildDir = rootDir.resolve("build")
 
-    for (i <- 2 to maxPropertyNum) yield {
+    for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
@@ -24,21 +24,11 @@ object AsunaCoreCodeGeneration {
       writer19.close()
     }
 
-    for (i <- 2 to maxPropertyNum) yield {
+    for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("NodeTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
       val content191 = Source.fromString(asuna.codegen.tuple.txt.NodeTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val content192 = content191.mkString(System.lineSeparator)
-      writer19.println(content192)
-      writer19.close()
-    }
-
-    for (i <- 2 to maxPropertyNum) yield {
-      val filePath = rootDir.resolve("mapper" + i).resolve("support").resolve("HListToTupleTypeHListPlus" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer19   = new PrintWriter(filePath.toFile, "utf-8")
-      val content191 = Source.fromString(asuna.codegen.tuple.support.txt.HListToTupleTypeHListPlus(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val content192 = content191.mkString(System.lineSeparator)
       writer19.println(content192)
       writer19.close()
@@ -55,16 +45,6 @@ object AsunaCoreCodeGeneration {
     }
 
     for (i <- 1 to maxPropertyNum) yield {
-      val filePath = rootDir.resolve("mapper" + i).resolve("support").resolve("AsunaValueTuple" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer19   = new PrintWriter(filePath.toFile, "utf-8")
-      val content191 = Source.fromString(asuna.codegen.tuple.support.txt.AsunaValueTuple(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val content192 = content191.mkString(System.lineSeparator)
-      writer19.println(content192)
-      writer19.close()
-    }
-
-    for (i <- 2 to maxPropertyNum - 1) yield {
       val filePath =
         rootDir.resolve("mapper" + i).resolve("support").resolve("HListTypeHListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
@@ -130,15 +110,5 @@ object AsunaCoreCodeGeneration {
       writer18.close()
     }
 
-    {
-      val filePath = buildDir.resolve("HListTypeHList.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer16 = new PrintWriter(filePath.toFile, "utf-8")
-      val content161 =
-        Source.fromString(asuna.codegen.tuple.build.txt.HListTypeHList(maxPropertyNum - 1).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val content162 = content161.mkString(System.lineSeparator)
-      writer16.println(content162)
-      writer16.close()
-    }
   }
 }
