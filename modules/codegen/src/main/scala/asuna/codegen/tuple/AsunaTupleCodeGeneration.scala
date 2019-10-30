@@ -9,7 +9,7 @@ object AsunaTupleCodeGeneration {
   def main(i: Array[String]): Unit = {
     val maxTupleNum = 22
     val rootDir =
-      Paths.get("./").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+      Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
     val supportDir =
       rootDir.resolve("tupleSupport")
 

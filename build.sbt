@@ -1,8 +1,8 @@
-val core       = project in file("./core")
-val scalaTuple = (project in file("./scala-tuple")).dependsOn(core)
-val sample     = (project in file("./sample")).dependsOn(core)
-val testkit    = (project in file("./testkit")).dependsOn(core, scalaTuple)
-val asunaJmh   = (project in file("./asuna-jmh")).dependsOn(testkit)
+val core       = project in file("./modules/core")
+val scalaTuple = (project in file("./modules/scala-tuple")).dependsOn(core)
+val sample     = (project in file("./examples")).dependsOn(core)
+val testkit    = (project in file("./modules/testkit")).dependsOn(core, scalaTuple)
+val benchmark   = (project in file("./modules/benchmark")).dependsOn(testkit)
 lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregate(scalaTuple).aggregate(testkit)
 
 val codegen = project in file("./codegen")
@@ -18,7 +18,7 @@ addCommandAlias(
     ";testkit/scalafmt" +
     ";testkit/test:scalafmt" +
     ";sample/scalafmt" +
-    ";scalafmtSbt" + ";asunaJmh/scalafmt"
+    ";scalafmtSbt" + ";benchmark/scalafmt"
 )
 
 addCommandAlias(
@@ -30,5 +30,5 @@ addCommandAlias(
 
 addCommandAlias("gen", ";codegen;sfmt;sfmt;sfmt;sfmt")
 
-addCommandAlias("jmh1", "asunaJmh/jmh:run -i 3 -wi 3 -f 1 -t 1 .*AbcTest.*")
-addCommandAlias("jmh2", "asunaJmh/jmh:run -i 3 -wi 3 -f 1 -t 1 .*DefTest.*")
+addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*AbcTest.*")
+addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*DefTest.*")

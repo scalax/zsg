@@ -10,7 +10,7 @@ object AsunaCoreCodeGeneration {
   def main(i: Array[String]): Unit = {
     val maxPropertyNum = 8
     val rootDir =
-      Paths.get("./").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
+      Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
     val tupleDir = rootDir.resolve("tuple")
     val buildDir = rootDir.resolve("build")
 
