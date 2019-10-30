@@ -2,7 +2,7 @@ val core       = project in file("./modules/core")
 val scalaTuple = (project in file("./modules/scala-tuple")).dependsOn(core)
 val sample     = (project in file("./examples")).dependsOn(core)
 val testkit    = (project in file("./modules/testkit")).dependsOn(core, scalaTuple)
-val benchmark   = (project in file("./modules/benchmark")).dependsOn(testkit)
+val benchmark  = (project in file("./modules/benchmark")).dependsOn(testkit)
 lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregate(scalaTuple).aggregate(testkit)
 
 val codegen = project in file("./modules/codegen")

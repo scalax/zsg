@@ -15,8 +15,8 @@ object AsunaCirceEncoder {
     cv1: AsunaLabelledGeneric[H, I#H],
     cv2: AsunaGetterGeneric[H, I#T#H]
   ): Encoder.AsObject[H] = {
-    val names     = cv1.names
-    val linkedMap = new java.util.LinkedHashMap[String, Json]
+    val names              = cv1.names
+    val linkedMap          = new java.util.LinkedHashMap[String, Json]
     val applicationEncoder = app.application(ii)
     Encoder.AsObject.instance { o: H =>
       applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
@@ -57,8 +57,8 @@ object AsunaCirceEncoder {
         cv1: AsunaLabelledGeneric[H, I#H],
         cv2: AsunaGetterGeneric[H, I#T#H]
       ): Encoder.AsObject[H] = {
-        val names     = cv1.names
-        val linkedMap = new java.util.LinkedHashMap[String, Json]
+        val names              = cv1.names
+        val linkedMap          = new java.util.LinkedHashMap[String, Json]
         val applicationEncoder = app.application(ii)
         Encoder.AsObject.instance { o: H =>
           applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
