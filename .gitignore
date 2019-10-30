@@ -4,7 +4,5 @@ sample/.idea
 /.idea
 /logs
 /sbt
-/core/sbt.bat
-/core/sbt-launch.jar
 /sbt.bat
 /sbt-launch.jar
