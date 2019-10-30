@@ -1,4 +1,4 @@
-scalacOptions ++= Seq("-feature", "-deprecation",  "-encoding", "utf-8"  )
+scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8")
 
 org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
 

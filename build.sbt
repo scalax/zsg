@@ -1,24 +1,25 @@
 val core       = project in file("./modules/core")
 val scalaTuple = (project in file("./modules/scala-tuple")).dependsOn(core)
-val sample     = (project in file("./examples")).dependsOn(core)
 val testkit    = (project in file("./modules/testkit")).dependsOn(core, scalaTuple)
-val benchmark  = (project in file("./modules/benchmark")).dependsOn(testkit)
-lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregate(scalaTuple).aggregate(testkit)
+lazy val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, testkit)
 
-val codegen = project in file("./modules/codegen")
+val examples  = (project in file("./examples")).dependsOn(testkit)
+val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
+val codegen   = project in file("./modules/codegen")
+
 AsunaSettings.scalaVersionSettings
 
 addCommandAlias(
   "sfmt",
-  ";core/scalafmt" +
-    ";core/test:scalafmt" +
-    ";scalaTuple/scalafmt" +
-    ";scalaTuple/test:scalafmt" +
+  ";scalafmt" +
+    ";test:scalafmt" +
+    ";examples/scalafmt" +
+    ";benchmark/scalafmt" +
     ";codegen/scalafmt" +
-    ";testkit/scalafmt" +
-    ";testkit/test:scalafmt" +
-    ";sample/scalafmt" +
-    ";scalafmtSbt" + ";benchmark/scalafmt"
+    ";scalafmtSbt" +
+    ";examples/scalafmtSbt" +
+    ";benchmark/scalafmtSbt" +
+    ";codegen/scalafmtSbt"
 )
 
 addCommandAlias(
