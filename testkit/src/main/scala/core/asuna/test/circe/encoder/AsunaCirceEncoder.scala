@@ -17,8 +17,9 @@ object AsunaCirceEncoder {
   ): Encoder.AsObject[H] = {
     val names     = cv1.names
     val linkedMap = new java.util.LinkedHashMap[String, Json]
+    val applicationEncoder = app.application(ii)
     Encoder.AsObject.instance { o: H =>
-      app.application(ii).appendField(cv2.getter(o), names, linkedMap)
+      applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
       Utils.jsonObjectFromMap(linkedMap)
     }
   }
@@ -58,8 +59,9 @@ object AsunaCirceEncoder {
       ): Encoder.AsObject[H] = {
         val names     = cv1.names
         val linkedMap = new java.util.LinkedHashMap[String, Json]
+        val applicationEncoder = app.application(ii)
         Encoder.AsObject.instance { o: H =>
-          app.application(ii).appendField(cv2.getter(o), names, linkedMap)
+          applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
           Utils.jsonObjectFromMap(linkedMap)
         }
       }
