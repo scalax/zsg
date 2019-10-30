@@ -4,10 +4,11 @@ import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, Ty
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import io.circe.{Encoder, Json, JsonObject, Utils}
 
-trait JsonObjectAppender[T, II] extends Any {
-  def appendField(tt: T, name: II, m: java.util.LinkedHashMap[String, Json]): Unit
-}
 object AsunaCirceEncoder {
+
+  trait JsonObjectAppender[T, II] extends Any {
+    def appendField(tt: T, name: II, m: java.util.LinkedHashMap[String, Json]): Unit
+  }
 
   def encoder[H, R <: TupleTag, I <: TypeHList](
     implicit ll: AsunaGeneric.Aux[H, R],
@@ -17,14 +18,14 @@ object AsunaCirceEncoder {
   ): Encoder.AsObject[H] = {
     val names              = cv1.names
     val linkedMap          = new java.util.LinkedHashMap[String, Json]
-    val applicationEncoder = app.application(ii)
+    //val applicationEncoder = app.application(ii)
     Encoder.AsObject.instance { o: H =>
-      applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
+      app.application(ii).appendField(cv2.getter(o), names, linkedMap)
       Utils.jsonObjectFromMap(linkedMap)
     }
   }
 
-  def caseObjectEncoder[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(f => JsonObject.empty)
+  def caseObjectEncoder[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(_ => JsonObject.empty)
 
   class KContext extends KindContext {
     override type M[P <: TypeHList] = JsonObjectAppender[P#T#H, P#H]
@@ -59,9 +60,9 @@ object AsunaCirceEncoder {
       ): Encoder.AsObject[H] = {
         val names              = cv1.names
         val linkedMap          = new java.util.LinkedHashMap[String, Json]
-        val applicationEncoder = app.application(ii)
+        //val applicationEncoder = app.application(ii)
         Encoder.AsObject.instance { o: H =>
-          applicationEncoder.appendField(cv2.getter(o), names, linkedMap)
+          app.application(ii).appendField(cv2.getter(o), names, linkedMap)
           Utils.jsonObjectFromMap(linkedMap)
         }
       }

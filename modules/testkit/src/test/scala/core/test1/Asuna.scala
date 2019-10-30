@@ -7,7 +7,7 @@ import asuna.test.model._
 trait Poly1 {
 
   import Poly2._
-  import asuna.test.circe.CircePoly._
+  import asuna.test.circe.EncoderCircePoly._
 
   implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = AsunaCirceEncoder.encoder
   implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = AsunaCirceEncoder.encoder
@@ -22,7 +22,7 @@ object Poly1 extends Poly1
 trait Poly2 {
 
   import Poly1._
-  import asuna.test.circe.CircePoly._
+  import asuna.test.circe.EncoderCircePoly._
 
   implicit def test04_en_implicit: Encoder.AsObject[Test04] = AsunaCirceEncoder.encoder
 

@@ -8,7 +8,7 @@ object LargeModelTest extends App {
 
   val a1 = {
 
-    import asuna.test.circe.CircePoly._
+    import asuna.test.circe.EncoderCircePoly._
 
     implicit lazy val largeModel_1_en: Encoder.AsObject[CirceLargeModel.LargeModel_1] = AsunaCirceEncoder.encoder
     implicit lazy val largeModel_2_en: Encoder.AsObject[CirceLargeModel.LargeModel_2] = AsunaCirceEncoder.encoder

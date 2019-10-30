@@ -24,7 +24,7 @@ class AbcTest {
   }
 
   def a3 = {
-    import asuna.test.circe.CircePoly._
+    import asuna.test.circe.EncoderCircePoly._
     implicit def a1: Encoder.AsObject[Foo] = AsunaCirceEncoder.encoder
     def a2: Encoder.AsObject[Bar]          = AsunaCirceEncoder.encoder
     a2

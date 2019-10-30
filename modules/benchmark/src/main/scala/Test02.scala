@@ -73,7 +73,7 @@ class DefTest {
   }
 
   val a3 = {
-    import asuna.test.circe.CircePoly._
+    import asuna.test.circe.EncoderCircePoly._
     lazy val _w1: Encoder.AsObject[Data]          = AsunaCirceEncoder.encoder
     implicit lazy val _w2: Encoder[A]             = AsunaSealedEncoder.encoder
     implicit lazy val _w3: Encoder.AsObject[B]    = AsunaCirceEncoder.encoder
