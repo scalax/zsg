@@ -7,6 +7,6 @@ scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8")
 org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
 
 libraryDependencies ++= AsunaSettings.circeDependencies
-libraryDependencies += "com.lihaoyi"    %% "upickle"      % "0.8.0" % Test
+libraryDependencies ++= AsunaSettings.upickleDependencies
 libraryDependencies += "org.scalatest"  %% "scalatest"    % scalaTestVersion % Test
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
