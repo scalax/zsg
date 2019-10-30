@@ -57,8 +57,9 @@ object AsunaSealedEncoder {
       ): Encoder.AsObject[H] = {
         val ii                 = new ii[H]
         val applicationEncoder = app.application(ii)
+        val names              = cv2.names
         Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(applicationEncoder.p(o, cv2.names, cv1.names))
+          JsonObject.fromIterable(applicationEncoder.p(o, names, cv1.names))
         }
       }
     }
