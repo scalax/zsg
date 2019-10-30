@@ -1,8 +1,8 @@
 val core       = project in file("./core")
 val scalaTuple = (project in file("./scala-tuple")).dependsOn(core)
 val sample     = (project in file("./sample")).dependsOn(core)
-val asunaJmh     = (project in file("./asuna-jmh")).dependsOn(core)
 val testkit    = (project in file("./testkit")).dependsOn(core, scalaTuple)
+val asunaJmh   = (project in file("./asuna-jmh")).dependsOn(testkit)
 lazy val asuna = (project in file(".")).dependsOn(core).aggregate(core).aggregate(scalaTuple).aggregate(testkit)
 
 val codegen = project in file("./codegen")

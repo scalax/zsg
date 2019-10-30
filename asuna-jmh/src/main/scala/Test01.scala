@@ -14,8 +14,8 @@ class AbcTest {
   import upickle.default._
   import upickle.default.{ReadWriter => RW, macroRW}
 
-  implicit  def rw1: RW[Foo] = macroRW
-  implicit  def rw2: RW[Bar] = macroRW
+  implicit def rw1: RW[Foo] = macroRW
+  implicit def rw2: RW[Bar] = macroRW
 
   def rawCirceEncoder = {
     import io.circe.generic.semiauto._
