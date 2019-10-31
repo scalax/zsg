@@ -5,18 +5,10 @@ import asuna.macros.utils.SealedHelper
 import scala.language.experimental.macros
 
 trait AsunaSealedToAbsGeneric[H, NameType] {
-  def names: NameType
+  def names(): NameType
 }
 
 object AsunaSealedToAbsGeneric {
-
-  def init[M]: AsunaSealedToAbsGenericApply[M] = new AsunaSealedToAbsGenericApply[M] {}
-
-  trait AsunaSealedToAbsGenericApply[M] {
-    def name[N](names1: N): AsunaSealedToAbsGeneric[M, N] = new AsunaSealedToAbsGeneric[M, N] {
-      override def names: N = names1
-    }
-  }
 
   implicit def macroImpl[H, II]: AsunaSealedToAbsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
 
@@ -39,13 +31,8 @@ object AsunaSealedToabsGenericMacroApply {
         val nameTag = props.map { subType =>
           q"""{ i: ${subType} => i }: (${subType} => ${hType})"""
         }
-        //.grouped(8)
-        //.toList
-        //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
-          /*if (tree.length == 1) {
-            q"""..${tree}"""
-          } else*/ if (tree.length <= 8) {
+          if (tree.length <= 8) {
             q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
@@ -53,7 +40,7 @@ object AsunaSealedToabsGenericMacroApply {
           }
 
         c.Expr[AsunaSealedToAbsGeneric[H, M]] {
-          q"""asuna.macros.AsunaSealedToAbsGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+          q"""{ () => ${nameTagGen(nameTag)} }"""
         }
 
       } catch {

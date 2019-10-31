@@ -18,9 +18,9 @@ object SealedTag {
 
 object AsunaSealedGeneric {
 
-  def init[M]: GenericApply[M] = new GenericApply[M] {}
+  def init[M]: GenericApply[M] = new GenericApply[M]
 
-  trait GenericApply[M] {
+  class GenericApply[M] {
     def generic[WW <: TupleTag](implicit i: AsunaSealedGeneric.Aux[M, WW]): AsunaSealedGeneric.Aux[M, WW] = i
 
     def init1[K <: TupleTag](i: AppendTag[K]): Aux[M, K] = {

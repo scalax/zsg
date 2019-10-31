@@ -3,18 +3,10 @@ package asuna.macros
 import scala.language.experimental.macros
 
 trait AsunaLabelledGeneric[H, NameType] {
-  def names: NameType
+  def names(): NameType
 }
 
 object AsunaLabelledGeneric {
-
-  def init[M]: AsunaNameGenericApply[M] = new AsunaNameGenericApply[M]
-
-  class AsunaNameGenericApply[M] {
-    def name[N](names1: N): AsunaLabelledGeneric[M, N] = new AsunaLabelledGeneric[M, N] {
-      override def names: N = names1
-    }
-  }
 
   implicit def macroImpl[H, II]: AsunaLabelledGeneric[H, II] = macro AsunaLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
@@ -47,13 +39,8 @@ object AsunaLabelledGenericMacroApply {
         val nameTag = props.map { name =>
           q"""${Literal(Constant(name))}"""
         }
-        //.grouped(8)
-        //.toList
-        //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
-          /*if (tree.length == 1) {
-            q"""..${tree}"""
-          } else*/ if (tree.length <= 8) {
+          if (tree.length <= 8) {
             q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(8).toList
@@ -61,7 +48,7 @@ object AsunaLabelledGenericMacroApply {
           }
 
         c.Expr[AsunaLabelledGeneric[H, M]] {
-          q"""asuna.macros.AsunaLabelledGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+          q"""{ () => ${nameTagGen(nameTag)} }"""
         }
 
       } catch {

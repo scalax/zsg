@@ -1,32 +1,13 @@
 package asuna.macros
 
-import asuna._
-
 import scala.language.experimental.macros
 
 trait AsunaSetterGeneric[H, GenericType] {
-  def setter: GenericType => H
-}
-
-class PropertySetter[T] {
-  def to[R](i: T => R): AppendTag[R] = new AppendTag[R]
-}
-object PropertySetter {
-  def apply[T]: PropertySetter[T] = new PropertySetter[T]
+  def setter(gen: GenericType): H
 }
 
 object AsunaSetterGeneric {
-
-  def init[T1]: AsunaSetterApply1[T1] = new AsunaSetterApply1[T1] {}
-  trait AsunaSetterApply1[T1] {
-    def to[T2 <: TupleTag](appendTag: AppendTag[T2])(c: T2#AsunaTupleType => T1): AsunaSetterGeneric[T1, T2#AsunaTupleType] =
-      new AsunaSetterGeneric[T1, T2#AsunaTupleType] {
-        override def setter: T2#AsunaTupleType => T1 = c
-      }
-  }
-
   implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
-
 }
 
 object AsunaSetterGenericMacroApply {
@@ -53,7 +34,7 @@ object AsunaSetterGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag =
+        /*val proTypeTag =
           props.map(s => q"""asuna.macros.PropertySetter[${hType}].to(_.${TermName(s)})""").grouped(8).toList.map(s => q"""asuna.BuildContent.tag(..${s})""")
 
         def typeTagGen(tree: List[Tree]): Tree =
@@ -64,7 +45,7 @@ object AsunaSetterGenericMacroApply {
           } else {
             val groupedTree = tree.grouped(8).toList
             typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
-          }
+          }*/
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
           if (initList.size > max) {
@@ -89,7 +70,7 @@ object AsunaSetterGenericMacroApply {
         val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 
         c.Expr[AsunaSetterGeneric[H, M]] {
-          q"""asuna.macros.AsunaSetterGeneric.init[${hType}].to(${typeTagGen(proTypeTag)})(${inputFunc})"""
+          q"""${inputFunc}"""
         }
 
       } catch {
