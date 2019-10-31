@@ -18,14 +18,11 @@ object NodeTag2 {
   implicit def noteTagApplicationImplicit2[K <: KindContext, H1 <: TupleTag, H2 <: TupleTag, T1 <: TypeHList, M1 <: Message, T2 <: TypeHList, M2 <: Message](
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2]
-  ): Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] =
-    new Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] {
-      override def application(context: Context[K]): K#M[TupleTypeHList2[T1, T2]] = {
-        context.append[TupleTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
-          context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), TypeHListPlus1.plus1),
-          t1.application(context),
-          TypeHListPlus2.plus2
-        )
-      }
-    }
+  ): Application[K, NodeTag2[H1, M1, H2, M2], TupleTypeHList2[T1, T2]] = { context =>
+    context.append[TupleTypeHList1[T2], T1, TupleTypeHList2[T1, T2]](
+      context.append[TupleTypeHList0, T2, TupleTypeHList1[T2]](context.start, t2.application(context), TypeHListPlus1.plus1),
+      t1.application(context),
+      TypeHListPlus2.plus2
+    )
+  }
 }

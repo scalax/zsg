@@ -48,26 +48,23 @@ object NodeTag5 {
     t3: Application[K, H3, T3],
     t4: Application[K, H4, T4],
     t5: Application[K, H5, T5]
-  ): Application[K, NodeTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] =
-    new Application[K, NodeTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] {
-      override def application(context: Context[K]): K#M[TupleTypeHList5[T1, T2, T3, T4, T5]] = {
-        context.append[TupleTypeHList4[T2, T3, T4, T5], T1, TupleTypeHList5[T1, T2, T3, T4, T5]](
-          context.append[TupleTypeHList3[T3, T4, T5], T2, TupleTypeHList4[T2, T3, T4, T5]](
-            context.append[TupleTypeHList2[T4, T5], T3, TupleTypeHList3[T3, T4, T5]](
-              context.append[TupleTypeHList1[T5], T4, TupleTypeHList2[T4, T5]](
-                context.append[TupleTypeHList0, T5, TupleTypeHList1[T5]](context.start, t5.application(context), TypeHListPlus1.plus1),
-                t4.application(context),
-                TypeHListPlus2.plus2
-              ),
-              t3.application(context),
-              TypeHListPlus3.plus3
-            ),
-            t2.application(context),
-            TypeHListPlus4.plus4
+  ): Application[K, NodeTag5[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5], TupleTypeHList5[T1, T2, T3, T4, T5]] = { context =>
+    context.append[TupleTypeHList4[T2, T3, T4, T5], T1, TupleTypeHList5[T1, T2, T3, T4, T5]](
+      context.append[TupleTypeHList3[T3, T4, T5], T2, TupleTypeHList4[T2, T3, T4, T5]](
+        context.append[TupleTypeHList2[T4, T5], T3, TupleTypeHList3[T3, T4, T5]](
+          context.append[TupleTypeHList1[T5], T4, TupleTypeHList2[T4, T5]](
+            context.append[TupleTypeHList0, T5, TupleTypeHList1[T5]](context.start, t5.application(context), TypeHListPlus1.plus1),
+            t4.application(context),
+            TypeHListPlus2.plus2
           ),
-          t1.application(context),
-          TypeHListPlus5.plus5
-        )
-      }
-    }
+          t3.application(context),
+          TypeHListPlus3.plus3
+        ),
+        t2.application(context),
+        TypeHListPlus4.plus4
+      ),
+      t1.application(context),
+      TypeHListPlus5.plus5
+    )
+  }
 }

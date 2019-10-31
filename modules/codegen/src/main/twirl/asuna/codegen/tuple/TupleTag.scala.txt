@@ -27,10 +27,8 @@ object TupleTag@{tagNum} {
     @for(ii <- 1 to tagNum) { , M@{ii} <: Message }]
     (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
     : Application[K, TupleTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
-        new Application[K, TupleTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
-            override def application(context: Context[K]): K#M[TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
-                @asuna.codegen.tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
-            }
-        }
+    { context =>
+        @asuna.codegen.tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
+    }
 
 }

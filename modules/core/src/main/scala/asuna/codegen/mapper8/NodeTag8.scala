@@ -89,38 +89,35 @@ object NodeTag8 {
     t6: Application[K, H6, T6],
     t7: Application[K, H7, T7],
     t8: Application[K, H8, T8]
-  ): Application[K, NodeTag8[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7, H8, M8], TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    new Application[K, NodeTag8[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7, H8, M8], TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]] {
-      override def application(context: Context[K]): K#M[TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]] = {
-        context.append[TupleTypeHList7[T2, T3, T4, T5, T6, T7, T8], T1, TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]](
-          context.append[TupleTypeHList6[T3, T4, T5, T6, T7, T8], T2, TupleTypeHList7[T2, T3, T4, T5, T6, T7, T8]](
-            context.append[TupleTypeHList5[T4, T5, T6, T7, T8], T3, TupleTypeHList6[T3, T4, T5, T6, T7, T8]](
-              context.append[TupleTypeHList4[T5, T6, T7, T8], T4, TupleTypeHList5[T4, T5, T6, T7, T8]](
-                context.append[TupleTypeHList3[T6, T7, T8], T5, TupleTypeHList4[T5, T6, T7, T8]](
-                  context.append[TupleTypeHList2[T7, T8], T6, TupleTypeHList3[T6, T7, T8]](
-                    context.append[TupleTypeHList1[T8], T7, TupleTypeHList2[T7, T8]](
-                      context.append[TupleTypeHList0, T8, TupleTypeHList1[T8]](context.start, t8.application(context), TypeHListPlus1.plus1),
-                      t7.application(context),
-                      TypeHListPlus2.plus2
-                    ),
-                    t6.application(context),
-                    TypeHListPlus3.plus3
-                  ),
-                  t5.application(context),
-                  TypeHListPlus4.plus4
+  ): Application[K, NodeTag8[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7, H8, M8], TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]] = { context =>
+    context.append[TupleTypeHList7[T2, T3, T4, T5, T6, T7, T8], T1, TupleTypeHList8[T1, T2, T3, T4, T5, T6, T7, T8]](
+      context.append[TupleTypeHList6[T3, T4, T5, T6, T7, T8], T2, TupleTypeHList7[T2, T3, T4, T5, T6, T7, T8]](
+        context.append[TupleTypeHList5[T4, T5, T6, T7, T8], T3, TupleTypeHList6[T3, T4, T5, T6, T7, T8]](
+          context.append[TupleTypeHList4[T5, T6, T7, T8], T4, TupleTypeHList5[T4, T5, T6, T7, T8]](
+            context.append[TupleTypeHList3[T6, T7, T8], T5, TupleTypeHList4[T5, T6, T7, T8]](
+              context.append[TupleTypeHList2[T7, T8], T6, TupleTypeHList3[T6, T7, T8]](
+                context.append[TupleTypeHList1[T8], T7, TupleTypeHList2[T7, T8]](
+                  context.append[TupleTypeHList0, T8, TupleTypeHList1[T8]](context.start, t8.application(context), TypeHListPlus1.plus1),
+                  t7.application(context),
+                  TypeHListPlus2.plus2
                 ),
-                t4.application(context),
-                TypeHListPlus5.plus5
+                t6.application(context),
+                TypeHListPlus3.plus3
               ),
-              t3.application(context),
-              TypeHListPlus6.plus6
+              t5.application(context),
+              TypeHListPlus4.plus4
             ),
-            t2.application(context),
-            TypeHListPlus7.plus7
+            t4.application(context),
+            TypeHListPlus5.plus5
           ),
-          t1.application(context),
-          TypeHListPlus8.plus8
-        )
-      }
-    }
+          t3.application(context),
+          TypeHListPlus6.plus6
+        ),
+        t2.application(context),
+        TypeHListPlus7.plus7
+      ),
+      t1.application(context),
+      TypeHListPlus8.plus8
+    )
+  }
 }

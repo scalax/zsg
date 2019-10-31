@@ -19,18 +19,15 @@ object TupleTag3 {
     implicit t1: Application[K, H1, T1],
     t2: Application[K, H2, T2],
     t3: Application[K, H3, T3]
-  ): Application[K, TupleTag3[H1, M1, H2, M2, H3, M3], TupleTypeHList3[T1, T2, T3]] =
-    new Application[K, TupleTag3[H1, M1, H2, M2, H3, M3], TupleTypeHList3[T1, T2, T3]] {
-      override def application(context: Context[K]): K#M[TupleTypeHList3[T1, T2, T3]] = {
-        context.append[TupleTypeHList2[T2, T3], T1, TupleTypeHList3[T1, T2, T3]](
-          context.append[TupleTypeHList1[T3], T2, TupleTypeHList2[T2, T3]](
-            context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TypeHListPlus1.plus1),
-            t2.application(context),
-            TypeHListPlus2.plus2
-          ),
-          t1.application(context),
-          TypeHListPlus3.plus3
-        )
-      }
-    }
+  ): Application[K, TupleTag3[H1, M1, H2, M2, H3, M3], TupleTypeHList3[T1, T2, T3]] = { context =>
+    context.append[TupleTypeHList2[T2, T3], T1, TupleTypeHList3[T1, T2, T3]](
+      context.append[TupleTypeHList1[T3], T2, TupleTypeHList2[T2, T3]](
+        context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TypeHListPlus1.plus1),
+        t2.application(context),
+        TypeHListPlus2.plus2
+      ),
+      t1.application(context),
+      TypeHListPlus3.plus3
+    )
+  }
 }

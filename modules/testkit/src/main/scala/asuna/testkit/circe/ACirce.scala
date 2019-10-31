@@ -1,7 +1,8 @@
-package asuna.test
+package asuna.testkit.circe
 
 import asuna.{Application, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
+import asuna.testkit.circe.encoder.{AsunaObjectEncoder, AsunaSealedEncoder}
 import io.circe.{Encoder, Json, JsonObject, Utils}
 
 object ACirce {

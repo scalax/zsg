@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
 import upickle.default.{ReadWriter => RW}
-import asuna.test.ACirce
+import asuna.testkit.circe.ACirce
 import io.circe.Encoder
 
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间
@@ -25,7 +25,7 @@ class AbcTest {
   }
 
   lazy val asunaEncoder: Encoder.AsObject[Bar] = {
-    import asuna.test.circe.EncoderCircePoly._
+    import asuna.testkit.circe.encoder.EncoderCircePoly._
     implicit lazy val a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
     ACirce.encodeCaseClass
   }

@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit.circe.decoder
 
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
