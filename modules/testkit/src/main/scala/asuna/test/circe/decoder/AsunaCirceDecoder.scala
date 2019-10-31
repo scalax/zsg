@@ -49,8 +49,8 @@ object AsunaCirceDecoder {
 
     override def start: JsonPro[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
       new JsonPro[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-        override def to(name: AsunaTuple0, default: AsunaTuple0): Decoder[AsunaTuple0] = Decoder.instance { j =>
-          Right(AsunaTuple0)
+        override def to(name: AsunaTuple0, default: AsunaTuple0): Decoder[AsunaTuple0] = Decoder.instance { _ =>
+          Right(AsunaTuple0.value)
         }
       }
     }

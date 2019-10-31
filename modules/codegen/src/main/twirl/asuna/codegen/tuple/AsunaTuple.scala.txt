@@ -14,7 +14,7 @@ extends HList {
         override type Tail = AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
     } else {
         override type Tail = AsunaTuple0
-        override def tail: AsunaTuple0 = AsunaTuple0
+        override def tail: AsunaTuple0 = AsunaTuple0.value
     }
 
     def i1: E1 = head

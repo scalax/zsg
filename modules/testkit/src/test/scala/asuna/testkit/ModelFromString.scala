@@ -28,7 +28,7 @@ object decoderContext extends Context[MContext] {
   }
 
   override def start: ModelDecoder[AsunaTuple0] = { str: String =>
-    (str, AsunaTuple0)
+    (str, AsunaTuple0.value)
   }
 
 }
@@ -48,7 +48,7 @@ object reverseDecoderContext extends Context[MContext] {
   }
 
   override def start: ModelDecoder[AsunaTuple0] = { str: String =>
-    (str, AsunaTuple0)
+    (str, AsunaTuple0.value)
   }
 
 }
