@@ -5,5 +5,6 @@ class AppendTag[T] {
 }
 
 object AppendTag {
-  def apply[T] = new AppendTag[T]
+  val tag                            = new AppendTag[Any]
+  @inline def apply[T]: AppendTag[T] = tag.asInstanceOf[AppendTag[T]]
 }

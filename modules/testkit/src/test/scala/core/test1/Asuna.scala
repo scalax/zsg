@@ -1,6 +1,6 @@
 package asuna.test.circe.test1
 
-import asuna.test.{AsunaCirceEncoder, AsunaSealedEncoder}
+import asuna.test.ACirce
 import io.circe.Encoder
 import asuna.test.model._
 
@@ -9,11 +9,11 @@ trait Poly1 {
   import Poly2._
   import asuna.test.circe.EncoderCircePoly._
 
-  implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = AsunaCirceEncoder.encoder
-  implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = AsunaCirceEncoder.encoder
-  implicit def test03_en_implicit: Encoder.AsObject[Test03]                               = AsunaCirceEncoder.encoder
+  implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = ACirce.encodeCaseClass
+  implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = ACirce.encodeCaseClass
+  implicit def test03_en_implicit: Encoder.AsObject[Test03]                               = ACirce.encodeCaseClass
 
-  implicit def test05_en_implicit: Encoder.AsObject[Test05[String]] = AsunaSealedEncoder.encoder
+  implicit def test05_en_implicit: Encoder.AsObject[Test05[String]] = ACirce.encodeSealed
 
 }
 
@@ -24,12 +24,12 @@ trait Poly2 {
   import Poly1._
   import asuna.test.circe.EncoderCircePoly._
 
-  implicit def test04_en_implicit: Encoder.AsObject[Test04] = AsunaCirceEncoder.encoder
+  implicit def test04_en_implicit: Encoder.AsObject[Test04] = ACirce.encodeCaseClass
 
-  implicit def test06_en_implicit: Encoder.AsObject[Test06[String]] = AsunaCirceEncoder.encoder
-  implicit def test07_en_implicit: Encoder.AsObject[Test07[String]] = AsunaCirceEncoder.encoder
-  implicit def test08_en_implicit: Encoder.AsObject[Test08]         = AsunaCirceEncoder.encoder
-  implicit def test09_en_implicit: Encoder.AsObject[Test09.type]    = AsunaCirceEncoder.caseObjectEncoder
+  implicit def test06_en_implicit: Encoder.AsObject[Test06[String]] = ACirce.encodeCaseClass
+  implicit def test07_en_implicit: Encoder.AsObject[Test07[String]] = ACirce.encodeCaseClass
+  implicit def test08_en_implicit: Encoder.AsObject[Test08]         = ACirce.encodeCaseClass
+  implicit def test09_en_implicit: Encoder.AsObject[Test09.type]    = ACirce.encodeCaseObject
 
 }
 

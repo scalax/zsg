@@ -1,6 +1,6 @@
 package asuna.test
 
-import asuna.macros.LazyImplicit
+import asuna.macros.ByNameImplicit
 import io.circe._
 import shapeless._
 import shapeless.labelled.FieldType
@@ -14,7 +14,7 @@ object ShapelessTest {
     implicit def encodeHCons[K <: Symbol, H, T <: HList](
       implicit
       key: Witness.Aux[K],
-      encodeH: LazyImplicit[Encoder[H]],
+      encodeH: ByNameImplicit[Encoder[H]],
       encodeT: Encoder.AsObject[T]
     ): Encoder.AsObject[FieldType[K, H] :: T] = Encoder.AsObject.instance {
       case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)

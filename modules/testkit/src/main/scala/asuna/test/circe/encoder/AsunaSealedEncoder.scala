@@ -2,23 +2,9 @@ package asuna.test
 
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
-import io.circe.{Encoder, Json, JsonObject}
+import io.circe.{Encoder, Json}
 
 object AsunaSealedEncoder {
-
-  def encoder[H, R <: TupleTag, I <: TypeHList](
-    implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application[KContext[H], R, I],
-    cv1: AsunaSealedLabelledGeneric[H, I#H],
-    cv2: AsunaSealedClassGeneric[H, I#T#H]
-  ): Encoder.AsObject[H] = {
-    val ii                 = new ii[H]
-    val names              = cv1.names
-    //val applicationEncoder = app.application(ii)
-    Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(app.application(ii).p(o, cv2.names, names).toList)
-    }
-  }
 
   trait JsonEncoder[M, T, II] {
     def p(model: M, classTags: T, labelled: II): Option[(String, Json)]
@@ -47,26 +33,9 @@ object AsunaSealedEncoder {
   }
 
   //编译期调试辅助函数开始
-  def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
-    def asunaGeneric[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
-      override def encoder[I <: TypeHList](
-        implicit
-        app: Application[KContext[H], R, I],
-        cv1: AsunaSealedLabelledGeneric[H, I#H],
-        cv2: AsunaSealedClassGeneric[H, I#T#H]
-      ): Encoder.AsObject[H] = {
-        val ii                 = new ii[H]
-        //val applicationEncoder = app.application(ii)
-        val names              = cv2.names
-        Encoder.AsObject.instance { o: H =>
-          JsonObject.fromIterable(app.application(ii).p(o, names, cv1.names))
-        }
-      }
-    }
-  }
 
   trait ImplicitApply1[H] {
-    def asunaGeneric[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R]
+    def generic[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R]
   }
 
   trait ImplicitApply2[H, R <: TupleTag] {
@@ -77,11 +46,11 @@ object AsunaSealedEncoder {
       cv2: AsunaSealedClassGeneric[H, I#T#H]
     ): Encoder.AsObject[H]
 
-    def toTag: R = throw new Exception("123")
-    def toIH[I <: TypeHList](
+    def tag: R = throw new Exception("debuging...")
+    def fetchApplication[I <: TypeHList](
       implicit
       app: Application[KContext[H], R, I]
-    ): I#H = throw new Exception("123")
+    ): I#H = throw new Exception("debugging...")
   }
   //编译期调试辅助函数结束
 

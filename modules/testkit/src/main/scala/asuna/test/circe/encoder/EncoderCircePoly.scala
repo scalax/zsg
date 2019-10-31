@@ -2,9 +2,9 @@ package asuna.test.circe
 
 import java.util
 
-import asuna.macros.{DefaultValue, LazyImplicit, PropertyTag, SealedTag}
-import asuna.test.{AsunaCirceDecoder, AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder}
-import asuna.{Application, Context, TypeHList2, TypeHList3}
+import asuna.macros.{ByNameImplicit, PropertyTag, SealedTag}
+import asuna.test.{AsunaObjectEncoder, AsunaSealedEncoder}
+import asuna.{Application, Context, TypeHList2}
 import io.circe._
 
 /*class JsonEncoderApply[T](val t: LazyImplicit[Encoder[T]]) extends AnyVal with AsunaCirceEncoder.JsonObjectAppender[T, String] {
@@ -20,7 +20,7 @@ class JsonEncoderApplicationApply[T](val t: LazyImplicit[Encoder[T]]) extends An
 trait EncoderCircePoly {
 
   implicit def asunaCirceSealedEncoder[T, R](
-    implicit t: LazyImplicit[Encoder[R]]
+    implicit t: ByNameImplicit[Encoder[R]]
   ): Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeHList2[String, Class[R]]] =
     new Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeHList2[String, Class[R]]] {
       override def application(context: Context[AsunaSealedEncoder.KContext[T]]): AsunaSealedEncoder.JsonEncoder[T, Class[R], String] = {
@@ -36,10 +36,10 @@ trait EncoderCircePoly {
       }
     }
 
-  implicit def asunaCirceEncoder[T](implicit t: LazyImplicit[Encoder[T]]): Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] =
-    new Application[AsunaCirceEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] {
-      override def application(context: Context[AsunaCirceEncoder.KContext]): AsunaCirceEncoder.JsonObjectAppender[T, String] = {
-        new AsunaCirceEncoder.JsonObjectAppender[T, String] {
+  implicit def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application[AsunaObjectEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] =
+    new Application[AsunaObjectEncoder.KContext, PropertyTag[T], TypeHList2[String, T]] {
+      override def application(context: Context[AsunaObjectEncoder.KContext]): AsunaObjectEncoder.JsonObjectAppender[T, String] = {
+        new AsunaObjectEncoder.JsonObjectAppender[T, String] {
           override def appendField(tt: T, name: String, m: util.LinkedHashMap[String, Json]): Unit = m.put(name, t.value(tt))
         }
       }

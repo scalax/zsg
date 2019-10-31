@@ -1,7 +1,7 @@
 package asuna.sample02_generic
 
 import asuna._
-import asuna.macros.{LazyImplicit, PropertyApply, PropertyTag}
+import asuna.macros.{ByNameImplicit, PropertyApply, PropertyTag}
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {
@@ -63,7 +63,7 @@ object Sample02 {
   implicit val test04Labelled: AsunaTuple4[String, String, String, String] =
     BuildContent.tuple4("i1", "i2", "i3", "i4")
 
-  implicit def circePropertyEncoder[T](implicit encoder: LazyImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
+  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): Application[KContext, PropertyTag[T], TypeHList2[T, String]] =
     new Application[KContext, PropertyTag[T], TypeHList2[T, String]] {
       override def application(context: Context[KContext]): JsonObjectAppender[T, String] = {
         new JsonObjectAppender[T, String] {

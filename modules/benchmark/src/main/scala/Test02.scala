@@ -2,7 +2,7 @@ package org.scalax.asuna.circe
 
 import java.util.concurrent.TimeUnit
 
-import asuna.test.{AsunaCirceEncoder, AsunaSealedDecoder, AsunaSealedEncoder}
+import asuna.test.ACirce
 import org.openjdk.jmh.annotations._
 
 object Aa {
@@ -31,8 +31,8 @@ object Aa {
 @State(Scope.Thread)                   // 每个测试线程一个实例
 class DefTest {
 
-  import upickle.default._
   import upickle.default.{ReadWriter => RW, macroRW}
+  import upickle.default._
 
   import ADTs.ADT0
   import Defaults._
@@ -44,8 +44,7 @@ class DefTest {
   import io.circe._
   import io.circe.generic.semiauto._
 
-  val rawCirceEncoder = {
-    lazy val _w1: Encoder[Data]              = deriveEncoder
+  val rawCirceEncoder: Encoder[Data] = {
     implicit lazy val _w2: Encoder[A]        = deriveEncoder
     implicit lazy val _w3: Encoder[B]        = deriveEncoder
     implicit lazy val _w4: Encoder[C]        = deriveEncoder
@@ -55,11 +54,10 @@ class DefTest {
     implicit lazy val _w8: Encoder[ADTc]     = deriveEncoder
     implicit lazy val _w9: Encoder[ADT0]     = deriveEncoder
 
-    _w1
+    deriveEncoder
   }
 
-  val upickleRW = {
-    implicit lazy val _w1: RW[Data]     = macroRW
+  implicit val upickleRW: RW[Data] = {
     implicit lazy val _w2: RW[A]        = macroRW
     implicit lazy val _w3: RW[B]        = macroRW
     implicit lazy val _w4: RW[C]        = macroRW
@@ -68,33 +66,32 @@ class DefTest {
     implicit lazy val _w7: RW[End.type] = macroRW
     implicit lazy val _w8: RW[ADTc]     = macroRW
     implicit lazy val _w9: RW[ADT0]     = macroRW
-
-    _w1
+    macroRW
   }
 
-  val a3 = {
+  val asunaEncoder: Encoder[Data] = {
     import asuna.test.circe.EncoderCircePoly._
-    lazy val _w1: Encoder.AsObject[Data]          = AsunaCirceEncoder.encoder
-    implicit lazy val _w2: Encoder[A]             = AsunaSealedEncoder.encoder
-    implicit lazy val _w3: Encoder.AsObject[B]    = AsunaCirceEncoder.encoder
-    implicit lazy val _w4: Encoder.AsObject[C]    = AsunaCirceEncoder.encoder
-    implicit lazy val _w5: Encoder[LL]            = AsunaSealedEncoder.encoder
-    implicit lazy val _w6: Encoder.AsObject[Node] = AsunaCirceEncoder.encoder
-    implicit lazy val _w7: Encoder[End.type]      = AsunaCirceEncoder.caseObjectEncoder
-    implicit lazy val _w8: Encoder.AsObject[ADTc] = AsunaCirceEncoder.encoder
-    implicit lazy val _w9: Encoder.AsObject[ADT0] = AsunaCirceEncoder.encoder
+    implicit lazy val _w2: Encoder[A]        = ACirce.encodeSealed
+    implicit lazy val _w3: Encoder[B]        = ACirce.encodeCaseClass
+    implicit lazy val _w4: Encoder[C]        = ACirce.encodeCaseClass
+    implicit lazy val _w5: Encoder[LL]       = ACirce.encodeSealed
+    implicit def _w6: Encoder[Node]          = ACirce.encodeCaseClass
+    implicit lazy val _w7: Encoder[End.type] = ACirce.encodeCaseObject
+    implicit lazy val _w8: Encoder[ADTc]     = ACirce.encodeCaseClass
+    implicit lazy val _w9: Encoder[ADT0]     = ACirce.encodeCaseClass
 
-    _w1
+    ACirce.encodeCaseClass
   }
 
   @Benchmark
   def upickleTest = {
-    write(Aa.benchmarkSampleData)(upickleRW)
+    import upickle.default._
+    write(Aa.benchmarkSampleData)
   }
 
   @Benchmark
   def asunaCirceTest = {
-    a3(Aa.benchmarkSampleData).noSpaces
+    asunaEncoder(Aa.benchmarkSampleData).noSpaces
   }
 
   @Benchmark
@@ -103,15 +100,16 @@ class DefTest {
   }
 
   @TearDown
-  def after = {
-    val asunaCirceStr = a3(Aa.benchmarkSampleData).noSpaces
+  def after: Unit = {
+
+    val asunaCirceStr = asunaEncoder(Aa.benchmarkSampleData).noSpaces
     val rawCirceStr   = rawCirceEncoder(Aa.benchmarkSampleData).noSpaces
     val upickleStr    = write(Aa.benchmarkSampleData)(upickleRW)
     println(s"asuna 结果: ${asunaCirceStr}")
     println(s"circe 结果: ${rawCirceStr}")
     println(s"upickle 结果: ${upickleStr}")
-    println(asunaCirceStr == rawCirceStr)
-    println(asunaCirceStr == upickleStr)
+    println(s"asunaCirceStr == rawCirceStr: ${asunaCirceStr == rawCirceStr}")
+    println(s"asunaCirceStr == upickleStr: ${asunaCirceStr == upickleStr}")
   }
 
 }

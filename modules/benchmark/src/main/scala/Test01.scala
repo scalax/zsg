@@ -2,44 +2,45 @@ package org.scalax.asuna.circe.encoder.test
 
 import java.util.concurrent.TimeUnit
 
-import asuna.test.AsunaCirceEncoder
-import io.circe.Encoder
 import org.openjdk.jmh.annotations._
+import upickle.default.{ReadWriter => RW}
+import asuna.test.ACirce
+import io.circe.Encoder
 
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间
 @OutputTimeUnit(TimeUnit.SECONDS)      // 输出结果的时间粒度为微秒
 @State(Scope.Thread)                   // 每个测试线程一个实例
 class AbcTest {
 
-  import upickle.default._
-  import upickle.default.{ReadWriter => RW, macroRW}
-
-  implicit def rw1: RW[Foo] = macroRW
-  implicit def rw2: RW[Bar] = macroRW
-
-  def rawCirceEncoder = {
-    import io.circe.generic.semiauto._
-    implicit def a1: Encoder[Foo] = deriveEncoder
-    deriveEncoder[Bar]
+  implicit lazy val rw1: RW[Bar] = {
+    import upickle.default.macroRW
+    implicit lazy val rw2: RW[Foo] = macroRW
+    macroRW
   }
 
-  def a3 = {
+  lazy val rawCirceEncoder: Encoder.AsObject[Bar] = {
+    import io.circe.generic.semiauto._
+    implicit lazy val a1: Encoder.AsObject[Foo] = deriveEncoder
+    deriveEncoder
+  }
+
+  lazy val asunaEncoder: Encoder.AsObject[Bar] = {
     import asuna.test.circe.EncoderCircePoly._
-    implicit def a1: Encoder.AsObject[Foo] = AsunaCirceEncoder.encoder
-    def a2: Encoder.AsObject[Bar]          = AsunaCirceEncoder.encoder
-    a2
+    implicit lazy val a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
+    ACirce.encodeCaseClass
   }
 
   val model: Bar = Model.bar
 
   @Benchmark
   def upickleTest = {
+    import upickle.default._
     write(model)
   }
 
   @Benchmark
   def asunaCirceTest = {
-    a3(model).noSpaces
+    asunaEncoder(model).noSpaces
   }
 
   @Benchmark
