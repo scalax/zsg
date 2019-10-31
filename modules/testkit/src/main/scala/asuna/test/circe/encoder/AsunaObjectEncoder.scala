@@ -2,7 +2,7 @@ package asuna.test
 
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import io.circe.{Encoder, Json, JsonObject, Utils}
+import io.circe.{Encoder, Json}
 
 object AsunaObjectEncoder {
 
