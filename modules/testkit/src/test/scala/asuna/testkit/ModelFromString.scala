@@ -96,44 +96,32 @@ object out {
     }
   }*/
 
-  implicit val outImplicit1: Application[MContext, PropertyTag[String], TypeHList1[String]] = new Application[MContext, PropertyTag[String], TypeHList1[String]] {
-    override def application(context: Context[MContext]): ModelDecoder[String] = {
-      new ModelDecoder[String] {
-        override def getData(str: String): (String, String) = {
-          val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-          val str2 = str1.takeWhile(s => s != ')')
-          val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-          (str3, str2)
-        }
+  implicit val outImplicit1: Application[MContext, PropertyTag[String], TypeHList1[String]] = {
+    context =>
+      { (str: String) =>
+        val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+        val str2 = str1.takeWhile(s => s != ')')
+        val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+        (str3, str2)
       }
-    }
   }
 
-  implicit val outImplicit2: Application[MContext, PropertyTag[Int], TypeHList1[Int]] = new Application[MContext, PropertyTag[Int], TypeHList1[Int]] {
-    override def application(context: Context[MContext]): ModelDecoder[Int] = {
-      new ModelDecoder[Int] {
-        override def getData(str: String): (String, Int) = {
-          val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-          val str2 = str1.takeWhile(s => s != ')')
-          val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-          (str3, str2.toInt)
-        }
+  implicit val outImplicit2: Application[MContext, PropertyTag[Int], TypeHList1[Int]] = {
+    context =>
+      { (str: String) =>
+        val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+        val str2 = str1.takeWhile(s => s != ')')
+        val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+        (str3, str2.toInt)
       }
-    }
   }
 
-  implicit val outImplicit3: Application[MContext, PropertyTag[Long], TypeHList1[Long]] = new Application[MContext, PropertyTag[Long], TypeHList1[Long]] {
-    override def application(context: Context[MContext]): ModelDecoder[Long] = {
-      new ModelDecoder[Long] {
-
-        override def getData(str: String): (String, Long) = {
-          val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-          val str2 = str1.takeWhile(s => s != ')')
-          val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-          (str3, str2.toLong)
-        }
-      }
-    }
-  }
+  implicit val outImplicit3: Application[MContext, PropertyTag[Long], TypeHList1[Long]] = (context => {
+    (str: String) =>
+      val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+      val str2 = str1.takeWhile(s => s != ')')
+      val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+      (str3, str2.toLong)
+  })
 
 }
