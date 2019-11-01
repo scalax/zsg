@@ -19,18 +19,10 @@ object DefaultValue {
 }
 
 trait AsunaDefaultValueGeneric[H, DefaultValueType] {
-  def defaultValues: DefaultValueType
+  def defaultValues(): DefaultValueType
 }
 
 object AsunaDefaultValueGeneric {
-
-  def init[M]: AsunaDefaultValueGenericApply[M] = new AsunaDefaultValueGenericApply[M] {}
-
-  trait AsunaDefaultValueGenericApply[M] {
-    def defaultValue[N](dfv: N): AsunaDefaultValueGeneric[M, N] = new AsunaDefaultValueGeneric[M, N] {
-      override def defaultValues: N = dfv
-    }
-  }
 
   implicit def macroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
 
@@ -85,7 +77,7 @@ object AsunaDefaultValueGenericMacroApply {
           }
 
         c.Expr[AsunaDefaultValueGeneric[H, M]] {
-          q"""asuna.macros.AsunaDefaultValueGeneric.init[${hType}].defaultValue(${nameTagGen(nameTag)})"""
+          q"""{ () => ${nameTagGen(nameTag)} }"""
         }
 
       } catch {

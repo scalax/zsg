@@ -21,7 +21,7 @@ class ScalaTupleHListTypeHListPlus {
       ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[E2]
     ] {
       override def plus(i: E1#H, item: E2#H): E2#H :: HNil = item :: HNil
-      override def takeHead(i: E2#H :: HNil): E1#H         = AsunaTuple0
+      override def takeHead(i: E2#H :: HNil): E1#H         = AsunaTuple0.value
       override def takeTail(i: E2#H :: HNil): E2#H         = i.head
       override def sub: Plus[
         E1#T,

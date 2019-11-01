@@ -5,18 +5,10 @@ import asuna.macros.utils.SealedHelper
 import scala.language.experimental.macros
 
 trait AsunaSealedClassGeneric[H, NameType] {
-  def names: NameType
+  def names(): NameType
 }
 
 object AsunaSealedClassGeneric {
-
-  def init[M]: AsunaSealedClassGenericApply[M] = new AsunaSealedClassGenericApply[M] {}
-
-  trait AsunaSealedClassGenericApply[M] {
-    def name[N](names1: N): AsunaSealedClassGeneric[M, N] = new AsunaSealedClassGeneric[M, N] {
-      override def names: N = names1
-    }
-  }
 
   implicit def macroImpl[H, II]: AsunaSealedClassGeneric[H, II] = macro AsunaSealedClassGenericMacroApply.MacroImpl1.generic[H, II]
 
@@ -51,7 +43,7 @@ object AsunaSealedClassGenericMacroApply {
           }
 
         c.Expr[AsunaSealedClassGeneric[H, M]] {
-          q"""asuna.macros.AsunaSealedClassGeneric.init[${hType}].name(${nameTagGen(nameTag)})"""
+          q"""{ () => ${nameTagGen(nameTag)} }"""
         }
 
       } catch {

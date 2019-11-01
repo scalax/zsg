@@ -1,13 +1,13 @@
 package asuna.test.circe.test1
 
-import asuna.test.ACirce
 import io.circe.Encoder
 import asuna.test.model._
+import asuna.testkit.circe.ACirce
 
 trait Poly1 {
 
   import Poly2._
-  import asuna.test.circe.EncoderCircePoly._
+  import asuna.testkit.circe.encoder.EncoderCircePoly._
 
   implicit def test01_en_implicit[T](implicit i: Encoder[T]): Encoder.AsObject[Test01[T]] = ACirce.encodeCaseClass
   implicit def test02_en_implicit: Encoder.AsObject[Test02]                               = ACirce.encodeCaseClass
@@ -22,7 +22,7 @@ object Poly1 extends Poly1
 trait Poly2 {
 
   import Poly1._
-  import asuna.test.circe.EncoderCircePoly._
+  import asuna.testkit.circe.encoder.EncoderCircePoly._
 
   implicit def test04_en_implicit: Encoder.AsObject[Test04] = ACirce.encodeCaseClass
 

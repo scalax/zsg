@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit.circe.encoder
 
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
@@ -20,15 +20,13 @@ object AsunaObjectEncoder {
       x: JsonObjectAppender[X#T#H, X#H],
       y: JsonObjectAppender[Y#T#H, Y#H],
       plus: Plus[X, Y, Z]
-    ): JsonObjectAppender[Z#T#H, Z#H] = new JsonObjectAppender[Z#T#H, Z#H] {
-      override def appendField(obj: Z#T#H, name: Z#H, m: java.util.LinkedHashMap[String, Json]): Unit = {
-        y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m)
-        x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), m)
-      }
+    ): JsonObjectAppender[Z#T#H, Z#H] = { (obj: Z#T#H, name: Z#H, m: java.util.LinkedHashMap[String, Json]) =>
+      y.appendField(plus.sub.takeTail(obj), plus.takeTail(name), m)
+      x.appendField(plus.sub.takeHead(obj), plus.takeHead(name), m)
     }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: java.util.LinkedHashMap[String, Json]): Unit = ()
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (_: AsunaTuple0, _: AsunaTuple0, _: java.util.LinkedHashMap[String, Json]) =>
+      ()
     }
   }
 

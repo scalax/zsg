@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit
 
 import asuna.macros.ByNameImplicit
 import io.circe._

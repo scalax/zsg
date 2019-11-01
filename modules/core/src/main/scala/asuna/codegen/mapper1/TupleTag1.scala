@@ -13,10 +13,7 @@ class TupleTag1[T1, M1 <: Message] extends TupleTag {
 object TupleTag1 {
   implicit def tupleTagApplicationImplicit1[K <: KindContext, H1, T1 <: TypeHList, M1 <: Message](
     implicit t1: Application[K, H1, T1]
-  ): Application[K, TupleTag1[H1, M1], TupleTypeHList1[T1]] =
-    new Application[K, TupleTag1[H1, M1], TupleTypeHList1[T1]] {
-      override def application(context: Context[K]): K#M[TupleTypeHList1[T1]] = {
-        context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TypeHListPlus1.plus1)
-      }
-    }
+  ): Application[K, TupleTag1[H1, M1], TupleTypeHList1[T1]] = { context =>
+    context.append[TupleTypeHList0, T1, TupleTypeHList1[T1]](context.start, t1.application(context), TypeHListPlus1.plus1)
+  }
 }

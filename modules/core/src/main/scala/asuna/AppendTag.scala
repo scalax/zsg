@@ -1,6 +1,7 @@
 package asuna
 
 class AppendTag[T] {
+  type Tag = T
   def tag: T = throw new Exception("debuging...")
 }
 

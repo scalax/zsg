@@ -36,15 +36,15 @@ class AsunaWithDecoderEncoderTest extends AnyFunSpec with Matchers {
       Asuna.i8FromJson shouldBe Circe.i8FromJson
       Asuna.i9FromJson shouldBe Circe.i9FromJson
 
-      Asuna.i6FromJson.right.get.isInstanceOf[Test06[_]] shouldBe true
-      Asuna.i7FromJson.right.get.isInstanceOf[Test07[_]] shouldBe true
-      Asuna.i8FromJson.right.get.isInstanceOf[Test08] shouldBe true
-      Asuna.i9FromJson.right.get.isInstanceOf[Test09.type] shouldBe true
+      Asuna.i6FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test06[_]] shouldBe true
+      Asuna.i7FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test07[_]] shouldBe true
+      Asuna.i8FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test08] shouldBe true
+      Asuna.i9FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test09.type] shouldBe true
 
-      Asuna.i6FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
-      Asuna.i7FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
-      Asuna.i8FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
-      Asuna.i9FromJson.right.get.isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i6FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i7FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i8FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]] shouldBe true
+      Asuna.i9FromJson.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]] shouldBe true
     }
   }
 

@@ -1,13 +1,13 @@
 package asuna.test.circe.test2
 
-import asuna.test.{AsunaCirceDecoder, AsunaSealedDecoder}
 import io.circe.Decoder
 import asuna.test.model._
+import asuna.testkit.circe.decoder.{AsunaCirceDecoder, AsunaSealedDecoder}
 
 trait Poly1 {
 
   import Poly2._
-  import asuna.test.circe.DecoderCircePoly._
+  import asuna.testkit.circe.decoder.DecoderCircePoly._
 
   implicit def test02_de_implicit: Decoder[Test02] = AsunaCirceDecoder.decoder
   implicit def test04_de_implicit: Decoder[Test04] = AsunaCirceDecoder.decoder
@@ -19,7 +19,7 @@ object Poly1 extends Poly1
 trait Poly2 {
 
   import Poly1._
-  import asuna.test.circe.DecoderCircePoly._
+  import asuna.testkit.circe.decoder.DecoderCircePoly._
 
   implicit def test01_de_implicit[T](implicit de: Decoder[T]): Decoder[Test01[T]] = AsunaCirceDecoder.decoder
   implicit def test03_de_implicit: Decoder[Test03]                                = AsunaCirceDecoder.decoder

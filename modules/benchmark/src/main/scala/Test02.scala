@@ -2,7 +2,7 @@ package org.scalax.asuna.circe
 
 import java.util.concurrent.TimeUnit
 
-import asuna.test.ACirce
+import asuna.testkit.circe.ACirce
 import org.openjdk.jmh.annotations._
 
 object Aa {
@@ -70,7 +70,7 @@ class DefTest {
   }
 
   val asunaEncoder: Encoder[Data] = {
-    import asuna.test.circe.EncoderCircePoly._
+    import asuna.testkit.circe.encoder.EncoderCircePoly._
     implicit lazy val _w2: Encoder[A]        = ACirce.encodeSealed
     implicit lazy val _w3: Encoder[B]        = ACirce.encodeCaseClass
     implicit lazy val _w4: Encoder[C]        = ACirce.encodeCaseClass
