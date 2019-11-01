@@ -3,7 +3,7 @@
 package asuna
 
 trait BuildContent {
-    def lift[T](tag : => AppendTag[T]): AppendTag[T] = new AppendTag[T]
+    def lift[T](tag : => AppendTag[T]): AppendTag[T] = AppendTag[T]
 
     @for(i <- 1 to maxItem) {
         def tag[@for(ii <- 1 to i){ T@{ii} @if(ii < i) { , } }](@for(ii <- 1 to i){ t@{ii} : AppendTag[T@{ii}] @if(ii < i) { , } }):

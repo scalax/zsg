@@ -1,6 +1,6 @@
 package asuna
 trait BuildContent {
-  def lift[T](tag: => AppendTag[T]): AppendTag[T] = new AppendTag[T]
+  def lift[T](tag: => AppendTag[T]): AppendTag[T] = AppendTag[T]
   def tag[T1](t1: AppendTag[T1]): AppendTag[TupleTag1[T1, `Number： 1`]] =
     new AppendTag[TupleTag1[T1, `Number： 1`]]
   def nodeTag[T1 <: TupleTag](t1: AppendTag[T1]): AppendTag[NodeTag1[T1, `Number： 1`]] =
