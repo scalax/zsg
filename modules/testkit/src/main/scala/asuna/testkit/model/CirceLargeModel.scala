@@ -1,6 +1,6 @@
-package asuna.test
+package asuna.testkit.model
 
-object CirceLargeModel {
+object LargeModel {
 
   case class LargeModel_1(
     miaomiao1: Int = 123,

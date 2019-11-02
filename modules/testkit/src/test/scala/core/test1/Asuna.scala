@@ -1,7 +1,7 @@
 package asuna.test.circe.test1
 
 import io.circe.Encoder
-import asuna.test.model._
+import asuna.testkit.model._
 import asuna.testkit.circe.ACirce
 
 trait Poly1 {

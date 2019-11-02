@@ -1,30 +1,25 @@
-package asuna.testkit
+package asuna.testkit.circe
 
 import asuna.macros.ByNameImplicit
 import io.circe._
 import shapeless._
 import shapeless.labelled.FieldType
 
-object ShapelessTest {
+object ShapelessEncoderTest {
 
-  object EncodeImplicit {
+  implicit val encodeHNil: Encoder.AsObject[HNil] = Encoder.AsObject.instance((_: HNil) => JsonObject.empty)
 
-    implicit val encodeHNil: Encoder.AsObject[HNil] = Encoder.AsObject.instance((_: HNil) => JsonObject.empty)
-
-    implicit def encodeHCons[K <: Symbol, H, T <: HList](
-      implicit
-      key: Witness.Aux[K],
-      encodeH: ByNameImplicit[Encoder[H]],
-      encodeT: Encoder.AsObject[T]
-    ): Encoder.AsObject[FieldType[K, H] :: T] = Encoder.AsObject.instance {
-      case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
-    }
-
-    def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: Encoder.AsObject[R]): Encoder.AsObject[A] =
-      Encoder.AsObject.instance(a => encodeR.encodeObject(gen.to(a)))
-
+  implicit def encodeHCons[K <: Symbol, H, T <: HList](
+    implicit
+    key: Witness.Aux[K],
+    encodeH: ByNameImplicit[Encoder[H]],
+    encodeT: Encoder.AsObject[T]
+  ): Encoder.AsObject[FieldType[K, H] :: T] = Encoder.AsObject.instance {
+    case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
   }
 
+  def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: Encoder.AsObject[R]): Encoder.AsObject[A] =
+    Encoder.AsObject.instance(a => encodeR.encodeObject(gen.to(a)))
   /*trait EncodeImplicit4 extends EncodeImplicit3 {
 
     implicit def encodeHCons4[K1 <: Symbol, H1, K2 <: Symbol, H2, K3 <: Symbol, H3, K4 <: Symbol, H4, T <: HList](

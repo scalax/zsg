@@ -1,7 +1,7 @@
 package asuna.test.circe.test2
 
 import io.circe.Decoder
-import asuna.test.model._
+import asuna.testkit.model._
 import asuna.testkit.circe.decoder.{AsunaCirceDecoder, AsunaSealedDecoder}
 
 trait Poly1 {

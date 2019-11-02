@@ -1,4 +1,4 @@
-package asuna.test.model
+package asuna.testkit.model
 
 case class Test01[T](ii: T, i3: String, i4: Int)
 case class Test02(i3: String, i4: Int)

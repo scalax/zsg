@@ -1,6 +1,6 @@
 package asuna.test.circe.test2
 
-import asuna.test.model._
+import asuna.testkit.model._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
