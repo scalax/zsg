@@ -17,6 +17,8 @@ object AsunaSettings {
     "io.circe" %% "circe-parser"
   ).map(_ % circeVersion)
 
-  val projectVersionSetting = version := "0.0.2-SNAP20181211.1"
+  val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
+
+  val projectVersionSetting = version := "0.0.2-SNAP20191030.1"
 
 }
