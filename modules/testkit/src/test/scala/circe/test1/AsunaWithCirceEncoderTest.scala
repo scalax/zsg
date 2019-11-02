@@ -1,4 +1,4 @@
-package asuna.test.circe.test1
+package asuna.testkit.circe.test1
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers

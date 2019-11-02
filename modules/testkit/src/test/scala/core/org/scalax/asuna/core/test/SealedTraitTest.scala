@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit
 
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
 import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList1}
