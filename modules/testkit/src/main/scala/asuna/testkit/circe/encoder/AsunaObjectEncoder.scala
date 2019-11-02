@@ -45,11 +45,13 @@ object AsunaObjectEncoder {
     ): Encoder.AsObject[H]
 
     def tag: R = throw new Exception("debuging...")
+
     def fetchApplication[I <: TypeHList](
       implicit
       app: Application[KContext, R, I]
     ): I#H = throw new Exception("debuging...")
   }
+
   //编译期调试辅助函数结束
 
 }
