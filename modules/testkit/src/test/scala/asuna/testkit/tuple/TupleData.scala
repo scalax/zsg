@@ -1,4 +1,4 @@
-package asuna.testkit.tupleTest
+package asuna.testkit.tuple
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers

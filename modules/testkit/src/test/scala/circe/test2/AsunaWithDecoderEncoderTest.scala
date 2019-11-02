@@ -1,4 +1,4 @@
-package asuna.test.circe.test2
+package asuna.testkit.circe.test2
 
 import asuna.testkit.model._
 import org.scalatest.funspec.AnyFunSpec

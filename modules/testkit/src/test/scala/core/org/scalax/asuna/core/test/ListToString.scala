@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit.circe.test2
 
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
 import asuna.{AppendTag, Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList2}

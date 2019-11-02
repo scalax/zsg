@@ -1,4 +1,4 @@
-package asuna.test.circe.test1
+package asuna.testkit.circe.test1
 
 import asuna.testkit.model._
 import io.circe.Json

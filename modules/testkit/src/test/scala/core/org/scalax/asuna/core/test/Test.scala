@@ -1,4 +1,4 @@
-package asuna.test
+package asuna.testkit
 
 import asuna.BuildContent
 import asuna.macros.PropertyApply
