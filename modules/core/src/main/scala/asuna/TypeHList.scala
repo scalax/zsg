@@ -5,13 +5,13 @@ trait TypeHList {
   type T <: TypeHList
 }
 
-class NoData
+final class NoData
 
-object NoData {
-  val value: NoData = new NoData
+final object NoData {
+  final val value: NoData = new NoData
 }
 
-class TypeHNil extends TypeHList {
-  override type H = NoData
-  override type T = TypeHNil
+final class TypeHNil extends TypeHList {
+  override final type H = NoData
+  override final type T = TypeHNil
 }

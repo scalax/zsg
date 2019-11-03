@@ -4,7 +4,7 @@ import asuna.Plus
 import asuna.TupleTypeHList0
 import asuna.TupleTypeHList1
 class TypeHListPlus1 {
-  @inline def plus1[E1 <: TypeHList]: Plus[
+  @inline final def plus1[E1 <: TypeHList]: Plus[
     TupleTypeHList0,
     E1,
     TupleTypeHList1[E1]
@@ -15,4 +15,4 @@ class TypeHListPlus1 {
       TupleTypeHList1[E1]
     ]]
 }
-object TypeHListPlus1 extends TypeHListPlus1
+final object TypeHListPlus1 extends TypeHListPlus1

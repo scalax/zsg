@@ -5,10 +5,20 @@ import asuna.support.TypeHListPlus3
 import asuna.support.TypeHListPlus4
 import asuna.support.TypeHListPlus5
 import impl._
-class NodeTag5[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message, T4 <: TupleTag, M4 <: Message, T5 <: TupleTag, M5 <: Message]
-    extends TupleTag {
-  override type AsunaTupleType  = AsunaTuple5[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType, T4#AsunaTupleType, T5#AsunaTupleType]
-  override type M[M <: Message] = NodeTag5[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5]
+final class NodeTag5[
+  T1 <: TupleTag,
+  M1 <: Message,
+  T2 <: TupleTag,
+  M2 <: Message,
+  T3 <: TupleTag,
+  M3 <: Message,
+  T4 <: TupleTag,
+  M4 <: Message,
+  T5 <: TupleTag,
+  M5 <: Message
+] extends TupleTag {
+  override final type AsunaTupleType  = AsunaTuple5[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType, T4#AsunaTupleType, T5#AsunaTupleType]
+  override final type M[M <: Message] = NodeTag5[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
   def find2: T3#M[`Number： 2`] = throw new Exception("debugging...")
@@ -24,8 +34,8 @@ class NodeTag5[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 
   ): Application[K, NodeTag5[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5], TupleTypeHList5[I1, I2, I3, I4, I5]] =
     NodeTag5.noteTagApplicationImplicit5(dapp1, dapp2, dapp3, dapp4, dapp5)
 }
-object NodeTag5 {
-  implicit def noteTagApplicationImplicit5[
+final object NodeTag5 {
+  final implicit def noteTagApplicationImplicit5[
     K <: KindContext,
     H1 <: TupleTag,
     H2 <: TupleTag,

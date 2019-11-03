@@ -2,18 +2,18 @@ package asuna {
 
   import asuna.support.heterogeneous._
 
-  class AsunaTuple0 extends HList {
+  final class AsunaTuple0 extends HList {
     self =>
 
-    override type Head = NoData
-    override def head: NoData = NoData.value
-    override type Tail = AsunaTuple0
-    override def tail: AsunaTuple0 = self
-    override type Append[H] = AsunaTuple1[H]
-    override def ::[H](h: H): AsunaTuple1[H] = new AsunaTuple1(h)
+    override final type Head = NoData
+    override final def head: NoData = NoData.value
+    override final type Tail = AsunaTuple0
+    override final def tail: AsunaTuple0 = self
+    override final type Append[H] = AsunaTuple1[H]
+    override final def ::[H](h: H): AsunaTuple1[H] = new AsunaTuple1(h)
 
   }
-  object AsunaTuple0 {
-    val value: AsunaTuple0 = new AsunaTuple0
+  final object AsunaTuple0 {
+    final val value: AsunaTuple0 = new AsunaTuple0
   }
 }

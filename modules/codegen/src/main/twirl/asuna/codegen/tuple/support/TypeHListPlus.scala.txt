@@ -8,7 +8,7 @@ import asuna.TupleTypeHList@{tagNum}
 
 class TypeHListPlus@{tagNum} {
 
-@@inline def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
+@@inline final def plus@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }]: Plus[
     @if(tagNum > 1) {
         TupleTypeHList@{tagNum - 1}[@for(ii <- 1 to (tagNum - 1)) { E@{ii} @if(ii < (tagNum - 1)) { , } }],
     } else {
@@ -29,4 +29,4 @@ class TypeHListPlus@{tagNum} {
 
 }
 
-object TypeHListPlus@{tagNum} extends TypeHListPlus@{tagNum}
+final object TypeHListPlus@{tagNum} extends TypeHListPlus@{tagNum}
