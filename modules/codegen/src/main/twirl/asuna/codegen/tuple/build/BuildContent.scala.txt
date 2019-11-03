@@ -2,7 +2,7 @@
 
 package asuna
 
-trait BuildContent {
+final object BuildContent {
     final def lift[T](tag : => AppendTag[T]): AppendTag[T] = AppendTag[T]
 
     @for(i <- 1 to maxItem) {
@@ -19,5 +19,3 @@ trait BuildContent {
             @for(ii <- i to 1 by - 1) { new AsunaTuple@{ii}(t@{i - ii + 1} @if(ii > 1) { , } } @for(ii <- 1 to i) { ) }
     }
 }
-
-final object BuildContent extends BuildContent

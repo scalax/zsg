@@ -1,5 +1,6 @@
 package asuna.testkit.circe
 
+import asuna.testkit.circe.decoder.AsunaCirceDecoder
 import asuna.testkit.model.LargeModel
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
@@ -9,6 +10,7 @@ object LargeModelTest extends App {
   val a1 = {
 
     import asuna.testkit.circe.encoder.EncoderCircePoly._
+    import asuna.testkit.circe.decoder.DecoderCircePoly._
 
     implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
     implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass

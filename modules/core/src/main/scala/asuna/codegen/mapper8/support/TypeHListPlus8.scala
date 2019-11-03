@@ -3,7 +3,7 @@ import asuna.TypeHList
 import asuna.Plus
 import asuna.TupleTypeHList7
 import asuna.TupleTypeHList8
-class TypeHListPlus8 {
+final object TypeHListPlus8 {
   @inline final def plus8[E1 <: TypeHList, E2 <: TypeHList, E3 <: TypeHList, E4 <: TypeHList, E5 <: TypeHList, E6 <: TypeHList, E7 <: TypeHList, E8 <: TypeHList]: Plus[
     TupleTypeHList7[E1, E2, E3, E4, E5, E6, E7],
     E8,
@@ -15,4 +15,3 @@ class TypeHListPlus8 {
       TupleTypeHList8[E8, E1, E2, E3, E4, E5, E6, E7]
     ]]
 }
-final object TypeHListPlus8 extends TypeHListPlus8
