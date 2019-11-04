@@ -2,5 +2,5 @@
 
 package asuna
 @for(tagNum <- 0 to maxItem) {
-    class `Message： Please change .debug(context) to .find@{tagNum}.debug(context).` extends Message
+    final class `Message： Please change .debug(context) to .find@{tagNum}.debug(context).` extends Message
 }

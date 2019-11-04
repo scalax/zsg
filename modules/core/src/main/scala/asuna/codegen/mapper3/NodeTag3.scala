@@ -3,9 +3,9 @@ import asuna.support.TypeHListPlus1
 import asuna.support.TypeHListPlus2
 import asuna.support.TypeHListPlus3
 import impl._
-class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message] extends TupleTag {
-  override type AsunaTupleType  = AsunaTuple3[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType]
-  override type M[M <: Message] = NodeTag3[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3]
+final class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message] extends TupleTag {
+  override final type AsunaTupleType  = AsunaTuple3[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType]
+  override final type M[M <: Message] = NodeTag3[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
   def find2: T3#M[`Number： 2`] = throw new Exception("debugging...")
@@ -17,8 +17,8 @@ class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 
   ): Application[K, NodeTag3[T1, M1, T2, M2, T3, M3], TupleTypeHList3[I1, I2, I3]] =
     NodeTag3.noteTagApplicationImplicit3(dapp1, dapp2, dapp3)
 }
-object NodeTag3 {
-  implicit def noteTagApplicationImplicit3[
+final object NodeTag3 {
+  final implicit def noteTagApplicationImplicit3[
     K <: KindContext,
     H1 <: TupleTag,
     H2 <: TupleTag,

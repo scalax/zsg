@@ -2,12 +2,12 @@ package asuna
 
 import asuna.support.heterogeneous.HList
 
-class AnyTypeHList extends TypeHList {
-  override type H = Any
-  override type T = AnyTypeHList
+final class AnyTypeHList extends TypeHList {
+  override final type H = Any
+  override final type T = AnyTypeHList
 }
 
-class AnyHListTypeHList extends TypeHList {
-  override type H = HList
-  override type T = AnyHListTypeHList
+final class AnyHListTypeHList extends TypeHList {
+  override final type H = HList
+  override final type T = AnyHListTypeHList
 }

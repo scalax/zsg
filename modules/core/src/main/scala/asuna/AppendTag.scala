@@ -1,11 +1,11 @@
 package asuna
 
-class AppendTag[T] {
+final class AppendTag[T] {
   type Tag = T
   def tag: T = throw new Exception("debuging...")
 }
 
-object AppendTag {
-  val tag                            = new AppendTag[Any]
-  @inline def apply[T]: AppendTag[T] = tag.asInstanceOf[AppendTag[T]]
+final object AppendTag {
+  final val tag                            = new AppendTag[Any]
+  @inline final def apply[T]: AppendTag[T] = tag.asInstanceOf[AppendTag[T]]
 }

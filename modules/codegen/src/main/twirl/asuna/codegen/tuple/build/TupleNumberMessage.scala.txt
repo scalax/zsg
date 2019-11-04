@@ -2,5 +2,5 @@
 
 package asuna
 @for(tagNum <- 0 to maxItem) {
-    class `Number： @{tagNum}` extends Message
+    final class `Number： @{tagNum}` extends Message
 }

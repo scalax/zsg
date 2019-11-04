@@ -4,30 +4,30 @@ package asuna
 
 import asuna.support.heterogeneous._
 
-class AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-(override val head: E1
-@if(tagNum > 1) { , override val tail: AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] }
+final class AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+(override final val head: E1
+@if(tagNum > 1) { , override final val tail: AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] }
 )
 extends HList {
-    override type Head = E1
+    override final type Head = E1
     @if(tagNum > 1) {
-        override type Tail = AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
+        override final type Tail = AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
     } else {
-        override type Tail = AsunaTuple0
-        override def tail: AsunaTuple0 = AsunaTuple0.value
+        override final type Tail = AsunaTuple0
+        override final def tail: AsunaTuple0 = AsunaTuple0.value
     }
 
-    def i1: E1 = head
+    final def i1: E1 = head
     @for(ii <- 2 to tagNum) {
-        def i@{ii}: E@{ii} = tail@for(_ <- 3 to ii) { .tail }.head
+        final def i@{ii}: E@{ii} = tail@for(_ <- 3 to ii) { .tail }.head
     }
 
-    override type Append[T] = @if(tagNum < 8) {
+    override final type Append[T] = @if(tagNum < 8) {
         AsunaTuple@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }]
     } else {
         T :: AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
     }
-    override def ::[T](t: T): Append[T] = @if(tagNum < 8) {
+    override final def ::[T](t: T): Append[T] = @if(tagNum < 8) {
         new AsunaTuple@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }](t, this)
     } else {
         t :: this

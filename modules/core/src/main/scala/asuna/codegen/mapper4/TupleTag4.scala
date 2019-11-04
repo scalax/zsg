@@ -4,9 +4,9 @@ import asuna.support.TypeHListPlus2
 import asuna.support.TypeHListPlus3
 import asuna.support.TypeHListPlus4
 import impl._
-class TupleTag4[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message] extends TupleTag {
-  override type AsunaTupleType  = AsunaTuple4[T1, T2, T3, T4]
-  override type M[M <: Message] = TupleTag4[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4]
+final class TupleTag4[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message] extends TupleTag {
+  override final type AsunaTupleType  = AsunaTuple4[T1, T2, T3, T4]
+  override final type M[M <: Message] = TupleTag4[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4]
   def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList](c: Context[K])(
     implicit
     dapp1: DebugItemApplication[K, T1, I1, M1],
@@ -16,8 +16,8 @@ class TupleTag4[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 
   ): Application[K, TupleTag4[T1, M1, T2, M2, T3, M3, T4, M4], TupleTypeHList4[I1, I2, I3, I4]] =
     TupleTag4.tupleTagApplicationImplicit4(dapp1, dapp2, dapp3, dapp4)
 }
-object TupleTag4 {
-  implicit def tupleTagApplicationImplicit4[
+final object TupleTag4 {
+  final implicit def tupleTagApplicationImplicit4[
     K <: KindContext,
     H1,
     H2,

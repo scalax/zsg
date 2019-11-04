@@ -38,18 +38,18 @@ trait HNil extends HList {
 
 }
 
-object HNil extends HNil
+final object HNil extends HNil
 
-class ::[H, T <: HList](override val head: H, override val tail: T) extends HList {
+final class ::[H, T <: HList](override val head: H, override val tail: T) extends HList {
   self =>
 
-  override type Head = H
-  override type Tail = T
+  override final type Head = H
+  override final type Tail = T
 
-  override type Append[HH] = ::[HH, ::[H, T]]
+  override final type Append[HH] = ::[HH, ::[H, T]]
 
-  override def ::[HH](h: HH): ::[HH, ::[H, T]] = new ::(h, self)
+  override final def ::[HH](h: HH): ::[HH, ::[H, T]] = new ::(h, self)
 
-  override def toString: String = s"${head} :: ${tail}"
+  override final def toString: String = s"${head} :: ${tail}"
 
 }

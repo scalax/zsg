@@ -2,14 +2,14 @@
 
 package asuna
 
-class TupleTypeHList0 extends TypeHList {
-  override type H = AsunaTuple0
-  override type T = TupleTypeHList0
+final class TupleTypeHList0 extends TypeHList {
+  override final type H = AsunaTuple0
+  override final type T = TupleTypeHList0
 }
 
 @for(tagNum <- 1 to maxItem) {
-    class TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }] extends TypeHList {
-        override type H = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } }]
-        override type T = TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
+    final class TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} <: TypeHList @if(ii < tagNum) { , } }] extends TypeHList {
+        override final type H = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#H @if(ii < tagNum) { , } }]
+        override final type T = TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii}#T @if(ii < tagNum) { , } }]
     }
 }
