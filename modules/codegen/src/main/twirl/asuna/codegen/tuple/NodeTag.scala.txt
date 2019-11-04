@@ -10,7 +10,6 @@ import impl._
 
 final class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: TupleTag , M@{ii} <: Message @if(ii < tagNum) { , } }] extends TupleTag {
 
-    override final type AsunaTupleType = AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}#AsunaTupleType @if(ii < tagNum) { , } }]
     override final type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
     @for(ii <- 1 to tagNum) {

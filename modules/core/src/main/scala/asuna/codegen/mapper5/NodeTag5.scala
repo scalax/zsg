@@ -17,7 +17,6 @@ final class NodeTag5[
   T5 <: TupleTag,
   M5 <: Message
 ] extends TupleTag {
-  override final type AsunaTupleType  = AsunaTuple5[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType, T4#AsunaTupleType, T5#AsunaTupleType]
   override final type M[M <: Message] = NodeTag5[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")

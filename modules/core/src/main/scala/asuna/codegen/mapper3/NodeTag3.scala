@@ -4,7 +4,6 @@ import asuna.support.TypeHListPlus2
 import asuna.support.TypeHListPlus3
 import impl._
 final class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message] extends TupleTag {
-  override final type AsunaTupleType  = AsunaTuple3[T1#AsunaTupleType, T2#AsunaTupleType, T3#AsunaTupleType]
   override final type M[M <: Message] = NodeTag3[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")

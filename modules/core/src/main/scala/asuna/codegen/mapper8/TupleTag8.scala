@@ -26,7 +26,6 @@ final class TupleTag8[
   T8,
   M8 <: Message
 ] extends TupleTag {
-  override final type AsunaTupleType = AsunaTuple8[T1, T2, T3, T4, T5, T6, T7, T8]
   override final type M[M <: Message] =
     TupleTag8[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7, T8, M :-<>-: M8]
   def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList, I5 <: TypeHList, I6 <: TypeHList, I7 <: TypeHList, I8 <: TypeHList](

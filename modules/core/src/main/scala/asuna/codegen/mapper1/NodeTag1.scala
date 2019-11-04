@@ -2,7 +2,6 @@ package asuna
 import asuna.support.TypeHListPlus1
 import impl._
 final class NodeTag1[T1 <: TupleTag, M1 <: Message] extends TupleTag {
-  override final type AsunaTupleType  = AsunaTuple1[T1#AsunaTupleType]
   override final type M[M <: Message] = NodeTag1[T1, M :-<>-: M1]
   def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
   def debug[K <: KindContext, I1 <: TypeHList](c: Context[K])(
