@@ -7,7 +7,6 @@ import asuna.support.TypeHListPlus5
 import asuna.support.TypeHListPlus6
 import impl._
 final class TupleTag6[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message] extends TupleTag {
-  override final type AsunaTupleType  = AsunaTuple6[T1, T2, T3, T4, T5, T6]
   override final type M[M <: Message] = TupleTag6[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6]
   def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList, I5 <: TypeHList, I6 <: TypeHList](c: Context[K])(
     implicit
