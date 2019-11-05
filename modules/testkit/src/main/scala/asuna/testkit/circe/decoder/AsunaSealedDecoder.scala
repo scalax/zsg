@@ -37,7 +37,6 @@ object AsunaSealedDecoder {
     override def start: JsonPro[AsunaTuple0, AsunaTuple0, H] = { (name, tran) =>
       Decoder.failedWithMessage("Your sealed trait have no sub class")*/
     override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: JsonPro[X1, X2, X3], y: JsonPro[Y1, Y2, Y3])(p: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]): JsonPro[Z1, Z2, Z3] = {(name, toAbs) =>
-
         val a1       = p.takeHead1(name)
         val y1       = p.takeTail1(name)
         val a2       = toAbs.compose(s =>p.takeHead3(s))//.compose(s => p.takeTail3(s))
