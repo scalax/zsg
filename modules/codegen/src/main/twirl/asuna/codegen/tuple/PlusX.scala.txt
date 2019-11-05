@@ -1,0 +1,36 @@
+@(tagNum: Int, maxAsunaTupleNum: Int)
+
+package asuna
+
+trait Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }] {
+    @for(i <- 1 to tagNum) {
+        def takeHead@{i}(z: Z@{i}): X@{i}
+        def takeTail@{i}(z: Z@{i}): Y@{i}
+        def plus@{i}(x: X@{i}, y: Y@{i}): Z@{i}
+    }
+}
+
+object Plus@{tagNum} {
+    @for(caseClassNum <- 1 to (maxAsunaTupleNum - 1)) {
+        def plusWithTypeParameter@{caseClassNum}[X1_C1 @for(i <- 2 to caseClassNum) { , X1_C@{i} }
+        @for(i <- 2 to tagNum) { @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } }
+        @for(i <- 1 to tagNum) { , Y@{i} } ]:
+        Plus@{tagNum}[
+            AsunaTuple@{caseClassNum}[X1_C1 @for(ii <- 2 to caseClassNum) { , X1_C@{ii} } ]
+            @for(i <- 2 to tagNum) { , AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] }
+            @for(i <- 1 to tagNum) { , Y@{i} }
+            @for(i <- 1 to tagNum) { , AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] }
+        ] = new Plus@{tagNum}[
+            AsunaTuple@{caseClassNum}[X1_C1 @for(ii <- 2 to caseClassNum) { , X1_C@{ii} } ]
+            @for(i <- 2 to tagNum) { , AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] }
+            @for(i <- 1 to tagNum) { , Y@{i} }
+            @for(i <- 1 to tagNum) { , AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] }
+        ] {
+            @for(i <- 1 to tagNum) {
+                def takeHead@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] = z.tail
+                def takeTail@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): Y@{i} = z.head
+                def plus@{i}(x: AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ], y: Y@{i}): AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] = x.::(y)
+            }
+        }
+    }
+}
