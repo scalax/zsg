@@ -1,8 +1,7 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
-import asuna.macros.{AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
-import io.circe.{Encoder, Json}
+import asuna.{AsunaTuple0, Context2, Plus2}
+import io.circe.Json
 
 object AsunaSealedEncoder {
 
@@ -10,31 +9,21 @@ object AsunaSealedEncoder {
     def p(model: M, classTags: T, labelled: II): Option[(String, Json)]
   }
 
-  class KContext[Model] extends KindContext {
-    override type M[P <: TypeHList] = JsonEncoder[Model, P#T#H, P#H]
-  }
-
-  class ii[H] extends Context[KContext[H]] {
-
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: JsonEncoder[H, X#T#H, X#H],
-      y: JsonEncoder[H, Y#T#H, Y#H],
-      plus: Plus[X, Y, Z]
-    ): JsonEncoder[H, Z#T#H, Z#H] = new JsonEncoder[H, Z#T#H, Z#H] {
-      override def p(model: H, obj: Z#T#H, name: Z#H): Option[(String, Json)] = {
-        val a = x.p(model, plus.sub.takeHead(obj), plus.takeHead(name))
-        a.orElse(y.p(model, plus.sub.takeTail(obj), plus.takeTail(name)))
-      }
-    }
+  class ii[H] extends Context2[({ type I[A, B] = JsonEncoder[H, A, B] })#I] {
 
     override def start: JsonEncoder[H, AsunaTuple0, AsunaTuple0] = new JsonEncoder[H, AsunaTuple0, AsunaTuple0] {
       override def p(model: H, name: AsunaTuple0, obj: AsunaTuple0): Option[(String, Json)] = Option.empty
     }
-  }
 
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonEncoder[H, X1, X2], y: JsonEncoder[H, Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): JsonEncoder[H, Z1, Z2] = {
+      (model, obj, name) =>
+        val a = x.p(model, p.takeHead1(obj), p.takeHead2(name))
+        a.orElse(y.p(model, p.takeTail1(obj), p.takeTail2(name)))
+    }
+  }
   //编译期调试辅助函数开始
 
-  trait ImplicitApply1[H] {
+  /*trait ImplicitApply1[H] {
     def generic[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R]
   }
 
@@ -51,7 +40,7 @@ object AsunaSealedEncoder {
       implicit
       app: Application[KContext[H], R, I]
     ): I#H = throw new Exception("debugging...")
-  }
+  }*/
   //编译期调试辅助函数结束
 
 }

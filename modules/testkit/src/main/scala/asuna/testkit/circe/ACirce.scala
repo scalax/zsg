@@ -2,6 +2,7 @@ package asuna.testkit.circe
 
 import asuna.{Application, Application2, TupleTag, TypeHList}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
+import asuna.testkit.circe.encoder.AsunaSealedEncoder.JsonEncoder
 import asuna.testkit.circe.encoder.{AsunaObjectEncoder, AsunaSealedEncoder}
 import io.circe.{Encoder, Json, JsonObject, Utils}
 
@@ -24,11 +25,11 @@ object ACirce {
 
   def encodeCaseObject[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(_ => JsonObject.empty)
 
-  def encodeSealed[H, R <: TupleTag, I <: TypeHList](
+  def encodeSealed[H, R <: TupleTag, Cls, Lab](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application[AsunaSealedEncoder.KContext[H], R, I],
-    cv1: AsunaSealedLabelledGeneric[H, I#H],
-    cv2: AsunaSealedClassGeneric[H, I#T#H]
+    app: Application2[({ type I[A, B] = JsonEncoder[H, A, B] })#I, R, Cls, Lab],
+    cv1: AsunaSealedLabelledGeneric[H, Lab],
+    cv2: AsunaSealedClassGeneric[H, Cls]
   ): Encoder.AsObject[H] = {
     val ii                 = new AsunaSealedEncoder.ii[H]
     val name1              = cv1.names
@@ -59,7 +60,7 @@ object ACirce {
       }
   }*/
 
-  def debugSealedEncoder[H]: AsunaSealedEncoder.ImplicitApply1[H] = new AsunaSealedEncoder.ImplicitApply1[H] {
+  /*def debugSealedEncoder[H]: AsunaSealedEncoder.ImplicitApply1[H] = new AsunaSealedEncoder.ImplicitApply1[H] {
     def generic[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): AsunaSealedEncoder.ImplicitApply2[H, R] = new AsunaSealedEncoder.ImplicitApply2[H, R] {
       override def encoder[I <: TypeHList](
         implicit
@@ -76,6 +77,6 @@ object ACirce {
         }
       }
     }
-  }
+  }*/
 
 }

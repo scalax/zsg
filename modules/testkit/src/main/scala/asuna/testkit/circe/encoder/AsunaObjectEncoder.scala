@@ -1,8 +1,7 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{Application, AsunaTuple0, Context, Context2, KindContext, Plus, Plus2, TupleTag, TypeHList}
-import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import io.circe.{Encoder, Json}
+import asuna.{AsunaTuple0, Context2, Plus2}
+import io.circe.Json
 
 object AsunaObjectEncoder {
 

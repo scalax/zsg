@@ -1,16 +1,16 @@
 package asuna.testkit.circe.decoder
 
-import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList}
+import asuna.{Application2, AsunaTuple0, Context2, Plus2, TupleTag}
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, AsunaSealedToAbsGeneric}
 import io.circe.Decoder
 
 object AsunaSealedDecoder {
 
-  def decoder[H, R <: TupleTag, I <: TypeHList](
+  def decoder[H, R <: TupleTag, Nam, Tran](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application[KContext[H], R, I],
-    cv1: AsunaSealedLabelledGeneric[H, I#H],
-    cv2: AsunaSealedToAbsGeneric[H, I#T#H]
+    app: Application2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I, R, Nam, Tran],
+    cv1: AsunaSealedLabelledGeneric[H, Nam],
+    cv2: AsunaSealedToAbsGeneric[H, Tran]
   ): Decoder[H] = {
     val ii    = new ii[H]
     val names = cv1.names
@@ -21,37 +21,25 @@ object AsunaSealedDecoder {
     def to(name: II, tran: T): Decoder[P]
   }
 
-  class KContext[H] extends KindContext {
-    override type M[P <: TypeHList] = JsonPro[P#H, P#T#H, H]
-  }
-
-  class ii[H] extends Context[KContext[H]] {
-
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: JsonPro[X#H, X#T#H, H],
-      y: JsonPro[Y#H, Y#T#H, H],
-      plus: Plus[X, Y, Z]
-    ): JsonPro[Z#H, Z#T#H, H] = new JsonPro[Z#H, Z#T#H, H] {
-      override def to(name: Z#H, toAbs: Z#T#H): Decoder[H] = {
-        val a1       = plus.takeHead(name)
-        val y1       = plus.takeTail(name)
-        val a2       = plus.sub.takeHead(toAbs)
-        val y2       = plus.sub.takeTail(toAbs)
-        val decoderX = x.to(a1, a2)
-        val decoderY = y.to(y1, y2)
-        decoderX.or(decoderY)
-      }
+  class ii[H] extends Context2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I] {
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonPro[X1, X2, H], y: JsonPro[Y1, Y2, H])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): JsonPro[Z1, Z2, H] = { (name, toAbs) =>
+      val a1       = p.takeHead1(name)
+      val y1       = p.takeTail1(name)
+      val a2       = p.takeHead2(toAbs)
+      val y2       = p.takeTail2(toAbs)
+      val decoderX = x.to(a1, a2)
+      val decoderY = y.to(y1, y2)
+      decoderX.or(decoderY)
     }
 
-    override def start: JsonPro[AsunaTuple0, AsunaTuple0, H] = new JsonPro[AsunaTuple0, AsunaTuple0, H] {
-      override def to(name: AsunaTuple0, toAbs: AsunaTuple0): Decoder[H] = {
-        Decoder.failedWithMessage("Your sealed trait have no sub class")
-      }
+    override def start: JsonPro[AsunaTuple0, AsunaTuple0, H] = { (name, tran) =>
+      Decoder.failedWithMessage("Your sealed trait have no sub class")
+
     }
   }
 
   //编译期调试辅助函数开始
-  def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
+  /*def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
     def asunaGeneric[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
       override def decoder[I <: TypeHList](
         implicit
@@ -83,7 +71,7 @@ object AsunaSealedDecoder {
       implicit
       app: Application[KContext[H], R, I]
     ): I#H = throw new Exception("123")
-  }
+  }*/
   //编译期调试辅助函数结束
 
 }

@@ -1,14 +1,15 @@
 package asuna.testkit.circe.encoder
 
 import asuna.macros.{ByNameImplicit, PropertyTag, SealedTag}
-import asuna.{Application, Application2, TypeHList2}
+import asuna.testkit.circe.encoder.AsunaSealedEncoder.JsonEncoder
+import asuna.Application2
 import io.circe._
 
 trait EncoderCircePoly {
 
   implicit def asunaCirceSealedEncoder[T, R](
     implicit t: ByNameImplicit[Encoder[R]]
-  ): Application[AsunaSealedEncoder.KContext[T], SealedTag[R], TypeHList2[String, Class[R]]] = {
+  ): Application2[({ type I[A, B] = JsonEncoder[T, A, B] })#I, SealedTag[R], Class[R], String] = {
     context =>
       { (model: T, classTags: Class[R], labelled: String) =>
         if (classTags.isInstance(model))
