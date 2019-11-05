@@ -9,19 +9,21 @@ class BB[T](ii: T, iiii: String) extends Abc[T]
 
 object SealedTraitTest extends App {
 
+  type II[T] = T => List[String] => List[String]
+
   trait ListEncode[H] {
     def str: List[String]
   }
 
   def encode[H, T <: TupleTag, TT](
     implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
-    app: Application1[({ type I[T] = T => List[String] => List[String] })#I, T, TT],
+    app: Application1[II, T, TT],
     labelled: AsunaSealedLabelledGeneric[H, TT]
   ): ListEncode[H] = new ListEncode[H] {
     override def str: List[String] = app.application(i)(labelled.names)(List.empty)
   }
 
-  object i extends Context1[({ type I[T] = T => List[String] => List[String] })#I] {
+  object i extends Context1[II] {
 
     override def append[X1, Y1, Z1](x: X1 => List[String] => List[String], y: Y1 => List[String] => List[String])(
       p: Plus1[X1, Y1, Z1]
@@ -38,7 +40,7 @@ object SealedTraitTest extends App {
     }
   }
 
-  implicit def stringImplicit1[T, R]: Application1[({ type I[T] = T => List[String] => List[String] })#I, SealedTag[T], String] =
+  implicit def stringImplicit1[T, R]: Application1[II, SealedTag[T], String] =
     new Application1[({ type I[T] = T => List[String] => List[String] })#I, SealedTag[T], String] {
       override def application(context: Context1[({ type I[T] = T => List[String] => List[String] })#I]): String => List[String] => List[String] = {
         str: String =>

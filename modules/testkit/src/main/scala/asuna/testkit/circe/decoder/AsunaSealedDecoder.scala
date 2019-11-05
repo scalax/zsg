@@ -6,9 +6,11 @@ import io.circe.Decoder
 
 object AsunaSealedDecoder {
 
+  type II[H] = ({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I
+
   def decoder[H, R <: TupleTag, Nam, Tran](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I, R, Nam, Tran],
+    app: Application2[II[H], R, Nam, Tran],
     cv1: AsunaSealedLabelledGeneric[H, Nam],
     cv2: AsunaSealedToAbsGeneric[H, Tran]
   ): Decoder[H] = {
@@ -21,7 +23,7 @@ object AsunaSealedDecoder {
     def to(name: II, tran: T): Decoder[P]
   }
 
-  class ii[H] extends Context2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I] {
+  class ii[H] extends Context2[II[H]] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonPro[X1, X2, H], y: JsonPro[Y1, Y2, H])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): JsonPro[Z1, Z2, H] = { (name, toAbs) =>
       val a1       = p.takeHead1(name)
       val y1       = p.takeTail1(name)
