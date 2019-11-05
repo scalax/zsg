@@ -7,10 +7,11 @@ import scala.language.higherKinds
 trait Context@{tagNum}[F[_ @for(i <- 2 to tagNum) { , _ }]] {
 
     def append[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }](
-        x: F[X1 @for(i <- 2 to tagNum) { , X@{i} }],
-        y: F[Y1 @for(i <- 2 to tagNum) { , Y@{i} }],
-        p: Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }]
-    ): F[Z1 @for(i <- 2 to tagNum) { , Z@{i} }]
+            x: F[X1 @for(i <- 2 to tagNum) { , X@{i} }],
+            y: F[Y1 @for(i <- 2 to tagNum) { , Y@{i} }]
+        )
+        (p: Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }])
+        : F[Z1 @for(i <- 2 to tagNum) { , Z@{i} }]
 
     def start: F[AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }]
 
