@@ -1,40 +1,11 @@
 package asuna
-import asuna.support.TypeHListPlus1
-import asuna.support.TypeHListPlus2
-import asuna.support.TypeHListPlus3
 import scala.language.higherKinds
 import impl._
 final class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message] extends TupleTag {
   override final type M[M <: Message] = NodeTag3[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3]
 }
 final object NodeTag3 {
-  final implicit def noteTagApplicationImplicit3[
-    K <: KindContext,
-    H1 <: TupleTag,
-    H2 <: TupleTag,
-    H3 <: TupleTag,
-    T1 <: TypeHList,
-    M1 <: Message,
-    T2 <: TypeHList,
-    M2 <: Message,
-    T3 <: TypeHList,
-    M3 <: Message
-  ](
-    implicit t1: Application[K, H1, T1],
-    t2: Application[K, H2, T2],
-    t3: Application[K, H3, T3]
-  ): Application[K, NodeTag3[H1, M1, H2, M2, H3, M3], TupleTypeHList3[T1, T2, T3]] = { context =>
-    context.append[TupleTypeHList2[T2, T3], T1, TupleTypeHList3[T1, T2, T3]](
-      context.append[TupleTypeHList1[T3], T2, TupleTypeHList2[T2, T3]](
-        context.append[TupleTypeHList0, T3, TupleTypeHList1[T3]](context.start, t3.application(context), TypeHListPlus1.plus1),
-        t2.application(context),
-        TypeHListPlus2.plus2
-      ),
-      t1.application(context),
-      TypeHListPlus3.plus3
-    )
-  }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum1[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum1[
     F[_],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -56,7 +27,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus1.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum2[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum2[
     F[_, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -81,7 +52,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus2.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum3[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum3[
     F[_, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -110,7 +81,7 @@ final object NodeTag3 {
         t1.application(context)
       )(Plus3.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum4[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum4[
     F[_, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -145,7 +116,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus4.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum5[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum5[
     F[_, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -183,7 +154,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus5.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum6[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum6[
     F[_, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -224,7 +195,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus6.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum7[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum7[
     F[_, _, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -268,7 +239,7 @@ final object NodeTag3 {
       t1.application(context)
     )(Plus7.plusWithTypeParameter2)
   }
-  implicit def noteTagApplicationImplicit_tagNum3_typeParamNum8[
+  final implicit def noteTagApplicationImplicit_tagNum3_typeParamNum8[
     F[_, _, _, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,

@@ -1,14 +1,10 @@
 package asuna
 
+import asuna.support.heterogeneous._
+
 trait TypeHList {
   type H
   type T <: TypeHList
-}
-
-final class NoData
-
-final object NoData {
-  final val value: NoData = new NoData
 }
 
 final class TypeHNil extends TypeHList {

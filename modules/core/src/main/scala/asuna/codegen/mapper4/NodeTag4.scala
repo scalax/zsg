@@ -1,49 +1,11 @@
 package asuna
-import asuna.support.TypeHListPlus1
-import asuna.support.TypeHListPlus2
-import asuna.support.TypeHListPlus3
-import asuna.support.TypeHListPlus4
 import scala.language.higherKinds
 import impl._
 final class NodeTag4[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message, T4 <: TupleTag, M4 <: Message] extends TupleTag {
   override final type M[M <: Message] = NodeTag4[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4]
 }
 final object NodeTag4 {
-  final implicit def noteTagApplicationImplicit4[
-    K <: KindContext,
-    H1 <: TupleTag,
-    H2 <: TupleTag,
-    H3 <: TupleTag,
-    H4 <: TupleTag,
-    T1 <: TypeHList,
-    M1 <: Message,
-    T2 <: TypeHList,
-    M2 <: Message,
-    T3 <: TypeHList,
-    M3 <: Message,
-    T4 <: TypeHList,
-    M4 <: Message
-  ](
-    implicit t1: Application[K, H1, T1],
-    t2: Application[K, H2, T2],
-    t3: Application[K, H3, T3],
-    t4: Application[K, H4, T4]
-  ): Application[K, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], TupleTypeHList4[T1, T2, T3, T4]] = { context =>
-    context.append[TupleTypeHList3[T2, T3, T4], T1, TupleTypeHList4[T1, T2, T3, T4]](
-      context.append[TupleTypeHList2[T3, T4], T2, TupleTypeHList3[T2, T3, T4]](
-        context.append[TupleTypeHList1[T4], T3, TupleTypeHList2[T3, T4]](
-          context.append[TupleTypeHList0, T4, TupleTypeHList1[T4]](context.start, t4.application(context), TypeHListPlus1.plus1),
-          t3.application(context),
-          TypeHListPlus2.plus2
-        ),
-        t2.application(context),
-        TypeHListPlus3.plus3
-      ),
-      t1.application(context),
-      TypeHListPlus4.plus4
-    )
-  }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum1[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum1[
     F[_],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -72,7 +34,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus1.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum2[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum2[
     F[_, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -106,7 +68,7 @@ final object NodeTag4 {
         t1.application(context)
       )(Plus2.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum3[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum3[
     F[_, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -148,7 +110,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus3.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum4[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum4[
     F[_, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -194,7 +156,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus4.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum5[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum5[
     F[_, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -244,7 +206,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus5.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum6[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum6[
     F[_, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -298,7 +260,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus6.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum7[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum7[
     F[_, _, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,
@@ -362,7 +324,7 @@ final object NodeTag4 {
       t1.application(context)
     )(Plus7.plusWithTypeParameter3)
   }
-  implicit def noteTagApplicationImplicit_tagNum4_typeParamNum8[
+  final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum8[
     F[_, _, _, _, _, _, _, _],
     H1 <: TupleTag,
     H2 <: TupleTag,

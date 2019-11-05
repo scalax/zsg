@@ -2,10 +2,6 @@
 
 package asuna
 
-@for(i <- 1 to tagNum) {
-import asuna.support.TypeHListPlus@{i}
-}
-
 import scala.language.higherKinds
 
 import impl._
@@ -18,17 +14,8 @@ final class TupleTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii}, M@{ii} <: Message
 
 final object TupleTag@{tagNum} {
 
-    final implicit def tupleTagApplicationImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} }
-    @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList }
-    @for(ii <- 1 to tagNum) { , M@{ii} <: Message }]
-    (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
-    : Application[K, TupleTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
-    { context =>
-        @asuna.codegen.tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
-    }
-
     @for(typeParamNum <- 1 to maxAsunaTupleNum) {
-        implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+        final implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
         F[_ @for(i <- 2 to typeParamNum) { , _ }]
         @for(ii <- 1 to tagNum) { , H@{ii} }
         @for(ii <- 1 to tagNum) { , M@{ii} <: Message }

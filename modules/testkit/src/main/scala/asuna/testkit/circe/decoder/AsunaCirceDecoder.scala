@@ -1,7 +1,7 @@
 package asuna.testkit.circe.decoder
 
 import asuna.macros.{AsunaDefaultValueGeneric, AsunaGeneric, AsunaLabelledGeneric, AsunaSetterGeneric}
-import asuna.{Application3, AsunaTuple0, Context3, Plus3, TupleTag, TypeHList}
+import asuna.{Application3, AsunaTuple0, Context3, Plus3, TupleTag}
 import io.circe._
 
 object AsunaCirceDecoder {

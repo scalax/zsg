@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TupleTag, TypeHList, TypeHList1}
+import asuna.{Application1, AsunaTuple0, Context1, Plus1, TupleTag}
 
 sealed trait Abc[T]
 class AA[T](ii: T, iiii: String) extends Abc[T]
@@ -9,61 +9,44 @@ class BB[T](ii: T, iiii: String) extends Abc[T]
 
 object SealedTraitTest extends App {
 
-  //调试代码开始
-  def init[H]: GenericApply1[H] = new GenericApply1[H]
-
-  class GenericApply1[H] {
-    def generic[T](implicit asunaSealedGeneric: AsunaSealedLabelledGeneric[H, T]): AsunaSealedLabelledGeneric[H, T] = asunaSealedGeneric
-    def encode1[T <: TupleTag, TT <: TypeHList](implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T], app: Application[KC, T, TT]): TT#H =
-      throw new Exception()
-  }
-  //调试代码结束
-
   trait ListEncode[H] {
     def str: List[String]
   }
 
-  def encode[H, T <: TupleTag, TT <: TypeHList](
+  def encode[H, T <: TupleTag, TT](
     implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
-    app: Application[KC, T, TT],
-    labelled: AsunaSealedLabelledGeneric[H, TT#H]
+    app: Application1[({ type I[T] = T => List[String] => List[String] })#I, T, TT],
+    labelled: AsunaSealedLabelledGeneric[H, TT]
   ): ListEncode[H] = new ListEncode[H] {
     override def str: List[String] = app.application(i)(labelled.names)(List.empty)
   }
 
-  class KC extends KindContext {
-    override type M[T <: TypeHList] = T#H => List[String] => List[String]
-  }
+  object i extends Context1[({ type I[T] = T => List[String] => List[String] })#I] {
 
-  object i extends Context[KC] {
-
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: X#H => List[String] => List[String],
-      y: Y#H => List[String] => List[String],
-      p: Plus[X, Y, Z]
-    ): Z#H => List[String] => List[String] = {
-      { h: Z#H =>
-        val xh = x(p.takeHead(h))
-        val yh = y(p.takeTail(h));
-        { ii: List[String] =>
-          xh(yh(ii))
-        }
+    override def append[X1, Y1, Z1](x: X1 => List[String] => List[String], y: Y1 => List[String] => List[String])(
+      p: Plus1[X1, Y1, Z1]
+    ): Z1 => List[String] => List[String] = { h =>
+      val xh = x(p.takeHead1(h))
+      val yh = y(p.takeTail1(h));
+      { ii: List[String] =>
+        xh(yh(ii))
       }
     }
 
-    override def start: AsunaTuple0 => List[String] => List[String] = { item: AsunaTuple0 => (ii: List[String]) =>
+    override def start: AsunaTuple0 => List[String] => List[String] = { item => ii =>
       ii
     }
   }
 
-  implicit def stringImplicit1[T, R]: Application[KC, SealedTag[T], TypeHList1[String]] = new Application[KC, SealedTag[T], TypeHList1[String]] {
-    override def application(context: Context[KC]): String => List[String] => List[String] = {
-      str: String =>
-        { list: List[String] =>
-          str :: list
-        }
+  implicit def stringImplicit1[T, R]: Application1[({ type I[T] = T => List[String] => List[String] })#I, SealedTag[T], String] =
+    new Application1[({ type I[T] = T => List[String] => List[String] })#I, SealedTag[T], String] {
+      override def application(context: Context1[({ type I[T] = T => List[String] => List[String] })#I]): String => List[String] => List[String] = {
+        str: String =>
+          { list: List[String] =>
+            str :: list
+          }
+      }
     }
-  }
 
   implicit val implicit1: ListEncode[Abc[String]] = encode
   println(implicit1.str)

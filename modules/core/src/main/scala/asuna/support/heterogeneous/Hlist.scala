@@ -1,7 +1,12 @@
 package asuna.support.heterogeneous
 
 import scala.language.higherKinds
-import asuna.NoData
+
+final class NoData
+
+final object NoData {
+  final val value: NoData = new NoData
+}
 
 trait HList {
 
