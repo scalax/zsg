@@ -5,42 +5,39 @@ import io.circe.Json
 
 object AsunaSealedEncoder {
 
-  trait JsonEncoder[M, T, II] {
-    def p(model: M, classTags: T, labelled: II): Option[(String, Json)]
-  }
-
-  class ii[H] extends Context2[JsonEncoder[H, *, *]] {
-
-    override def start: JsonEncoder[H, AsunaTuple0, AsunaTuple0] = new JsonEncoder[H, AsunaTuple0, AsunaTuple0] {
-      override def p(model: H, name: AsunaTuple0, obj: AsunaTuple0): Option[(String, Json)] = Option.empty
-    }
-
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonEncoder[H, X1, X2], y: JsonEncoder[H, Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): JsonEncoder[H, Z1, Z2] = {
-      (model, obj, name) =>
-        val a = x.p(model, p.takeHead1(obj), p.takeHead2(name))
-        a.orElse(y.p(model, p.takeTail1(obj), p.takeTail2(name)))
+  class II[H] {
+    trait JsonEncoder[T, II] {
+      def p(model: H, classTags: T, labelled: II): Option[(String, Json)]
     }
   }
-  //编译期调试辅助函数开始
 
-  /*trait ImplicitApply1[H] {
-    def generic[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R]
+  object II {
+    val value: II[Any]  = new II[Any]
+    def apply[T]: II[T] = value.asInstanceOf[II[T]]
   }
 
-  trait ImplicitApply2[H, R <: TupleTag] {
-    def encoder[I <: TypeHList](
-      implicit
-      app: Application[KContext[H], R, I],
-      cv1: AsunaSealedLabelledGeneric[H, I#H],
-      cv2: AsunaSealedClassGeneric[H, I#T#H]
-    ): Encoder.AsObject[H]
+  class asunaSealedContext[H] extends Context2[II[H]#JsonEncoder] {
 
-    def tag: R = throw new Exception("debuging...")
-    def fetchApplication[I <: TypeHList](
-      implicit
-      app: Application[KContext[H], R, I]
-    ): I#H = throw new Exception("debugging...")
-  }*/
-  //编译期调试辅助函数结束
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: II[H]#JsonEncoder[X1, X2], y: II[H]#JsonEncoder[Y1, Y2])(
+      plus: Plus2[X1, X2, Y1, Y2, Z1, Z2]
+    ): II[H]#JsonEncoder[Z1, Z2] = {
+      val con = II[H]
+      new con.JsonEncoder[Z1, Z2] {
+        override def p(model: H, classTags: Z1, labelled: Z2): Option[(String, Json)] = {
+          val a = x.p(model, plus.takeHead1(classTags), plus.takeHead2(labelled))
+          a.orElse(y.p(model, plus.takeTail1(classTags), plus.takeTail2(labelled)))
+        }
+      }
+
+    }
+
+    override def start: II[H]#JsonEncoder[AsunaTuple0, AsunaTuple0] = {
+      val con = II[H]
+      new con.JsonEncoder[AsunaTuple0, AsunaTuple0] {
+        override def p(model: H, classTags: AsunaTuple0, labelled: AsunaTuple0): Option[(String, Json)] = Option.empty
+      }
+    }
+
+  }
 
 }

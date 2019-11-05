@@ -2,7 +2,6 @@ package asuna.testkit.circe
 
 import asuna.{Application2, TupleTag}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
-import asuna.testkit.circe.encoder.AsunaSealedEncoder.JsonEncoder
 import asuna.testkit.circe.encoder.{AsunaObjectEncoder, AsunaSealedEncoder}
 import io.circe.{Encoder, Json, JsonObject, Utils}
 
@@ -27,11 +26,11 @@ object ACirce {
 
   def encodeSealed[H, R <: TupleTag, Cls, Lab](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application2[({ type I[A, B] = JsonEncoder[H, A, B] })#I, R, Cls, Lab],
+    app: Application2[AsunaSealedEncoder.II[H]#JsonEncoder, R, Cls, Lab],
     cv1: AsunaSealedLabelledGeneric[H, Lab],
     cv2: AsunaSealedClassGeneric[H, Cls]
   ): Encoder.AsObject[H] = {
-    val ii                 = new AsunaSealedEncoder.ii[H]
+    val ii                 = new AsunaSealedEncoder.asunaSealedContext[H]
     val name1              = cv1.names
     val name2              = cv2.names
     val applicationEncoder = app.application(ii)

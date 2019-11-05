@@ -36,10 +36,6 @@ object Sample02 {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
-  class KContext extends KindContext {
-    override type M[P <: TypeHList] = JsonObjectAppender[P#H, P#T#H]
-  }
-
   object ii extends Context2[JsonObjectAppender] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]

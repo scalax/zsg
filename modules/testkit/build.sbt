@@ -10,5 +10,3 @@ libraryDependencies ++= AsunaSettings.circeDependencies
 libraryDependencies ++= AsunaSettings.upickleDependencies
 libraryDependencies += "org.scalatest"  %% "scalatest"    % scalaTestVersion % Test
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
-
-addCompilerPlugin("org.typelevel" % "kind-projector" % "0.11.0" cross CrossVersion.full)

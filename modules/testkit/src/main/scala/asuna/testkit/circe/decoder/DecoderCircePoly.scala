@@ -1,7 +1,6 @@
 package asuna.testkit.circe.decoder
 
 import asuna.macros.{ByNameImplicit, DefaultValue, PropertyTag, SealedTag}
-import asuna.testkit.circe.decoder.AsunaSealedDecoder.JsonPro
 import asuna.{Application2, Application3}
 import io.circe._
 
@@ -9,11 +8,14 @@ trait DecoderCircePoly {
 
   implicit def asunaCirceSealedDecoder[T, R](
     implicit t: ByNameImplicit[Decoder[R]]
-  ): Application2[JsonPro[*, *, T], SealedTag[R], String, R => T] = {
-    context =>
-      { (name: String, tran: R => T) =>
+  ): Application2[AsunaSealedDecoder.II[T]#JsonPro, SealedTag[R], String, R => T] = { context =>
+    val con = AsunaSealedDecoder.II[T]
+    new con.JsonPro[String, R => T] {
+      override def to(name: String, tran: R => T): Decoder[T] = {
         Decoder.instance(j => j.get(name)(t.value).map(tran))
+
       }
+    }
   }
 
   implicit def asunaCirceDecoder[T](
