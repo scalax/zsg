@@ -6,16 +6,6 @@ import scala.language.higherKinds
 import impl._
 final class NodeTag3[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message] extends TupleTag {
   override final type M[M <: Message] = NodeTag3[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3]
-  def find0: T1#M[`Number： 0`] = throw new Exception("debugging...")
-  def find1: T2#M[`Number： 1`] = throw new Exception("debugging...")
-  def find2: T3#M[`Number： 2`] = throw new Exception("debugging...")
-  def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList](c: Context[K])(
-    implicit
-    dapp1: DebugApplication[K, T1, I1, `Message： Please change .debug(context) to .find0.debug(context).`],
-    dapp2: DebugApplication[K, T2, I2, `Message： Please change .debug(context) to .find1.debug(context).`],
-    dapp3: DebugApplication[K, T3, I3, `Message： Please change .debug(context) to .find2.debug(context).`]
-  ): Application[K, NodeTag3[T1, M1, T2, M2, T3, M3], TupleTypeHList3[I1, I2, I3]] =
-    NodeTag3.noteTagApplicationImplicit3(dapp1, dapp2, dapp3)
 }
 final object NodeTag3 {
   final implicit def noteTagApplicationImplicit3[

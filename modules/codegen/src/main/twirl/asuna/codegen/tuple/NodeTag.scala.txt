@@ -14,15 +14,6 @@ final class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: TupleTag , M@{ii
 
     override final type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
-    @for(ii <- 1 to tagNum) {
-        def find@{ii - 1}: T@{ii}#M[`Number： @{ii - 1}`] = throw new Exception("debugging...")
-    }
-
-    def debug[K <: KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: TypeHList }](c: Context[K])(implicit @for(ii <- 1 to tagNum) {
-        dapp@{ii}: DebugApplication[K, T@{ii}, I@{ii}, `Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
-    }): Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
-    NodeTag@{tagNum}.noteTagApplicationImplicit@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
-
 }
 
 final object NodeTag@{tagNum} {

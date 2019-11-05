@@ -11,17 +11,6 @@ import impl._
 final class TupleTag7[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message, T7, M7 <: Message]
     extends TupleTag {
   override final type M[M <: Message] = TupleTag7[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7]
-  def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList, I5 <: TypeHList, I6 <: TypeHList, I7 <: TypeHList](c: Context[K])(
-    implicit
-    dapp1: DebugItemApplication[K, T1, I1, M1],
-    dapp2: DebugItemApplication[K, T2, I2, M2],
-    dapp3: DebugItemApplication[K, T3, I3, M3],
-    dapp4: DebugItemApplication[K, T4, I4, M4],
-    dapp5: DebugItemApplication[K, T5, I5, M5],
-    dapp6: DebugItemApplication[K, T6, I6, M6],
-    dapp7: DebugItemApplication[K, T7, I7, M7]
-  ): Application[K, TupleTag7[T1, M1, T2, M2, T3, M3, T4, M4, T5, M5, T6, M6, T7, M7], TupleTypeHList7[I1, I2, I3, I4, I5, I6, I7]] =
-    TupleTag7.tupleTagApplicationImplicit7(dapp1, dapp2, dapp3, dapp4, dapp5, dapp6, dapp7)
 }
 final object TupleTag7 {
   final implicit def tupleTagApplicationImplicit7[

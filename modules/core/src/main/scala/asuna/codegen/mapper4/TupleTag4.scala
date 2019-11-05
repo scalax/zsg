@@ -7,14 +7,6 @@ import scala.language.higherKinds
 import impl._
 final class TupleTag4[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message] extends TupleTag {
   override final type M[M <: Message] = TupleTag4[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4]
-  def debug[K <: KindContext, I1 <: TypeHList, I2 <: TypeHList, I3 <: TypeHList, I4 <: TypeHList](c: Context[K])(
-    implicit
-    dapp1: DebugItemApplication[K, T1, I1, M1],
-    dapp2: DebugItemApplication[K, T2, I2, M2],
-    dapp3: DebugItemApplication[K, T3, I3, M3],
-    dapp4: DebugItemApplication[K, T4, I4, M4]
-  ): Application[K, TupleTag4[T1, M1, T2, M2, T3, M3, T4, M4], TupleTypeHList4[I1, I2, I3, I4]] =
-    TupleTag4.tupleTagApplicationImplicit4(dapp1, dapp2, dapp3, dapp4)
 }
 final object TupleTag4 {
   final implicit def tupleTagApplicationImplicit4[
