@@ -2,6 +2,11 @@ package asuna
 
 import scala.language.higherKinds
 
+class TupleTypeHList0 extends TypeHList {
+  override type H = AsunaTuple0
+  override type T = TupleTypeHList0
+}
+
 trait KindContext {
   type M[P <: TypeHList]
 }

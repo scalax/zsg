@@ -1,8 +1,6 @@
 package asuna.sample01_append
 
 import asuna._
-import asuna.support.heterogeneous._
-import asuna.support.{TypeHListPlus1, TypeHListPlus2, TypeHListPlus3, TypeHListPlus4}
 import io.circe._
 import io.circe.syntax._
 
@@ -19,23 +17,15 @@ object Sample01 {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
-  class KContext extends KindContext {
-    override type M[P <: TypeHList] = JsonObjectAppender[P#H, P#T#H]
-  }
-
-  object ii extends Context[KContext] {
-
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-      x: JsonObjectAppender[X#H, X#T#H],
-      y: JsonObjectAppender[Y#H, Y#T#H],
-      plus: Plus[X, Y, Z]
-    ): JsonObjectAppender[Z#H, Z#T#H] = new JsonObjectAppender[Z#H, Z#T#H] {
-      override def appendField(obj: Z#H, name: Z#T#H, m: JsonObject): JsonObject =
-        y.appendField(plus.takeTail(obj), plus.sub.takeTail(name), x.appendField(plus.takeHead(obj), plus.sub.takeHead(name), m))
+  object ii extends Context2[JsonObjectAppender] {
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
+      p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
+    ): JsonObjectAppender[Z1, Z2] = { (obj, name, m) =>
+      y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
     }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-      override def appendField(name: AsunaTuple0, obj: AsunaTuple0, m: JsonObject): JsonObject = m
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (name, obj, m) =>
+      m
     }
   }
 
@@ -61,28 +51,16 @@ object Sample01 {
   }
 
   val b1: JsonObjectAppender[AsunaTuple1[Long], AsunaTuple1[String]] =
-    ii.append[TupleTypeHList0, TypeHList2[Long, String], TupleTypeHList1[TypeHList2[Long, String]]](ii.start, a4, TypeHListPlus1.plus1)
+    ii.append(ii.start, a4)(Plus2.plusWithTypeParameter0)
 
   val b2: JsonObjectAppender[AsunaTuple2[Long, Long], AsunaTuple2[String, String]] =
-    ii.append[TupleTypeHList1[TypeHList2[Long, String]], TypeHList2[Long, String], TupleTypeHList2[
-      TypeHList2[Long, String],
-      TypeHList2[Long, String]
-    ]](b1, a3, TypeHListPlus2.plus2)
+    ii.append(b1, a3)(Plus2.plusWithTypeParameter1)
 
   val b3: JsonObjectAppender[AsunaTuple3[Int, Long, Long], AsunaTuple3[String, String, String]] =
-    ii.append[TupleTypeHList2[TypeHList2[Long, String], TypeHList2[Long, String]], TypeHList2[Int, String], TupleTypeHList3[
-      TypeHList2[Int, String],
-      TypeHList2[Long, String],
-      TypeHList2[Long, String]
-    ]](b2, a2, TypeHListPlus3.plus3)
+    ii.append(b2, a2)(Plus2.plusWithTypeParameter2)
 
   val en1: JsonObjectAppender[AsunaTuple4[String, Int, Long, Long], AsunaTuple4[String, String, String, String]] =
-    ii.append[TupleTypeHList3[TypeHList2[Int, String], TypeHList2[Long, String], TypeHList2[Long, String]], TypeHList2[String, String], TupleTypeHList4[
-      TypeHList2[String, String],
-      TypeHList2[Int, String],
-      TypeHList2[Long, String],
-      TypeHList2[Long, String]
-    ]](b3, a1, TypeHListPlus4.plus4)
+    ii.append(b3, a1)(Plus2.plusWithTypeParameter3)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =

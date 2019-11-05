@@ -82,5 +82,16 @@ object AsunaTupleCodeGeneration {
       writer.close()
     }
 
+    {
+      val filePath = rootDir.resolve("TypeHList.scala")
+      Files.createDirectories(filePath.getParent)
+      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val content =
+        Source.fromString(asuna.codegen.scala_tuple.txt.TypeHList(maxItem = 8).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+      val mkStringContent = content.mkString(System.lineSeparator)
+      writer.println(mkStringContent)
+      writer.close()
+    }
+
   }
 }

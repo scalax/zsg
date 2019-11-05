@@ -1,10 +1,8 @@
-@(tagNum: Int)
+@(tagNum: Int, maxAsunaTupleNum: Int)
 
 package asuna
 
-@for(i <- 1 to tagNum) {
-import asuna.support.TypeHListPlus@{i}
-}
+import scala.language.higherKinds
 
 import impl._
 
@@ -12,24 +10,27 @@ final class NodeTag@{tagNum}[@for(ii <- 1 to tagNum){ T@{ii} <: TupleTag , M@{ii
 
     override final type M[M <: Message] = NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M :-<>-: M@{ii} @if(ii < tagNum) { , } }]
 
-    @for(ii <- 1 to tagNum) {
-        def find@{ii - 1}: T@{ii}#M[`Number： @{ii - 1}`] = throw new Exception("debugging...")
-    }
-
-    def debug[K <: KindContext @for(ii <- 1 to tagNum) { , I@{ii} <: TypeHList }](c: Context[K])(implicit @for(ii <- 1 to tagNum) {
-        dapp@{ii}: DebugApplication[K, T@{ii}, I@{ii}, `Message： Please change .debug(context) to .find@{ii - 1}.debug(context).`] @if(ii < tagNum) { , }
-    }): Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { I@{ii} @if(ii < tagNum) { , } }]] =
-    NodeTag@{tagNum}.noteTagApplicationImplicit@{tagNum}(@for(ii <- 1 to tagNum) { dapp@{ii} @if(ii < tagNum) { , } })
-
 }
 
 final object NodeTag@{tagNum} {
 
-    final implicit def noteTagApplicationImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} <: TupleTag } @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList, M@{ii} <: Message }]
-    (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
-    : Application[K, NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }], TupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
-    { context =>
-        @asuna.codegen.tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
+    @for(typeParamNum <- 1 to maxAsunaTupleNum) {
+        final implicit def noteTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+        F[_ @for(i <- 2 to typeParamNum) { , _ }]
+        @for(ii <- 1 to tagNum) { , H@{ii} <: TupleTag }
+        @for(ii <- 1 to tagNum) { , M@{ii} <: Message }
+        @for(i <- 1 to tagNum) {
+            @for(ii <- 1 to typeParamNum) { , X@{i}_C@{ii} }
+        }]
+        (implicit
+        t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
+        @for(ii <- 2 to tagNum) { , t@{ii}: Application@{typeParamNum}[F, H@{ii} @for(i <- 1 to typeParamNum) { , X@{ii}_C@{i} }] })
+        : Application@{typeParamNum}[
+        F,
+        NodeTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }] @for(i <- 1 to typeParamNum) { , AsunaTuple@{tagNum}[X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }] }] =
+        { context: Context@{typeParamNum}[F] =>
+            @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
+        }
     }
 
 }
