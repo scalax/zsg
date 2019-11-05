@@ -33,8 +33,6 @@ object reverseDecoderContext extends Context1[ModelDecoder] {
 
 object out {
 
-
-
   def decoder[I1, I2 <: TupleTag, I3](
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application1[ModelDecoder, I2, I3],

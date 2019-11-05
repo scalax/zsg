@@ -6,11 +6,9 @@ import io.circe.Decoder
 
 object AsunaSealedDecoder {
 
-  type II[H] = ({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I
-
   def decoder[H, R <: TupleTag, Nam, Tran](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application2[II[H], R, Nam, Tran],
+    app: Application2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I, R, Nam, Tran],
     cv1: AsunaSealedLabelledGeneric[H, Nam],
     cv2: AsunaSealedToAbsGeneric[H, Tran]
   ): Decoder[H] = {
@@ -23,7 +21,7 @@ object AsunaSealedDecoder {
     def to(name: II, tran: T): Decoder[P]
   }
 
-  class ii[H] extends Context2[II[H]] {
+  class ii[H] extends Context2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, H] })#I] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonPro[X1, X2, H], y: JsonPro[Y1, Y2, H])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): JsonPro[Z1, Z2, H] = { (name, toAbs) =>
       val a1       = p.takeHead1(name)
       val y1       = p.takeTail1(name)
@@ -39,41 +37,5 @@ object AsunaSealedDecoder {
 
     }
   }
-
-  //编译期调试辅助函数开始
-  /*def initEncoder[H]: ImplicitApply1[H] = new ImplicitApply1[H] {
-    def asunaGeneric[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R] = new ImplicitApply2[H, R] {
-      override def decoder[I <: TypeHList](
-        implicit
-        app: Application[KContext[H], R, I],
-        cv1: AsunaSealedLabelledGeneric[H, I#H],
-        cv2: AsunaSealedToAbsGeneric[H, I#T#H]
-      ): Decoder[H] = {
-        val ii    = new ii[H]
-        val names = cv1.names
-        app.application(ii).to(names, cv2.names)
-      }
-    }
-  }
-
-  trait ImplicitApply1[H] {
-    def asunaGeneric[R <: TupleTag](implicit ll: AsunaSealedGeneric.Aux[H, R]): ImplicitApply2[H, R]
-  }
-
-  trait ImplicitApply2[H, R <: TupleTag] {
-    def decoder[I <: TypeHList](
-      implicit
-      app: Application[KContext[H], R, I],
-      cv1: AsunaSealedLabelledGeneric[H, I#H],
-      cv2: AsunaSealedToAbsGeneric[H, I#T#H]
-    ): Decoder[H]
-
-    def toTag: R = throw new Exception("123")
-    def toIH[I <: TypeHList](
-      implicit
-      app: Application[KContext[H], R, I]
-    ): I#H = throw new Exception("123")
-  }*/
-  //编译期调试辅助函数结束
 
 }

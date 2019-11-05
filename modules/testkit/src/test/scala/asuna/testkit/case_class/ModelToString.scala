@@ -27,7 +27,6 @@ trait ListEncoder[E] {
 
 object i extends Context2[in.II] {
 
-
   override def append[X1, X2, Y1, Y2, Z1, Z2](x: (X1, X2) => ModelToString, y: (Y1, Y2) => ModelToString)(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): (Z1, Z2) => ModelToString = {
     (i1, i2) =>
       val t1 = x(p.takeHead1(i1), p.takeHead2(i2))
@@ -66,7 +65,7 @@ object reverseI extends Context2[in.II] {
 
 object in {
 
-  type II[I1,I2] = (I1, I2) => ModelToString
+  type II[I1, I2] = (I1, I2) => ModelToString
 
   def encoder[I1, I2 <: TupleTag, X, Y](
     implicit ii: AsunaGeneric.Aux[I1, I2],
