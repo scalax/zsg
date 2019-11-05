@@ -9,7 +9,7 @@ trait EncoderCircePoly {
 
   implicit def asunaCirceSealedEncoder[T, R](
     implicit t: ByNameImplicit[Encoder[R]]
-  ): Application2[({ type I[A, B] = JsonEncoder[T, A, B] })#I, SealedTag[R], Class[R], String] = {
+  ): Application2[JsonEncoder[T, *, *], SealedTag[R], Class[R], String] = {
     context =>
       { (model: T, classTags: Class[R], labelled: String) =>
         if (classTags.isInstance(model))

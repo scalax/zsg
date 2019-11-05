@@ -9,7 +9,7 @@ trait DecoderCircePoly {
 
   implicit def asunaCirceSealedDecoder[T, R](
     implicit t: ByNameImplicit[Decoder[R]]
-  ): Application2[({ type I[Nam, Tran] = JsonPro[Nam, Tran, T] })#I, SealedTag[R], String, R => T] = {
+  ): Application2[JsonPro[*, *, T], SealedTag[R], String, R => T] = {
     context =>
       { (name: String, tran: R => T) =>
         Decoder.instance(j => j.get(name)(t.value).map(tran))

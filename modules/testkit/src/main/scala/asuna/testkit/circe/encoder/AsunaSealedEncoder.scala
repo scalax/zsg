@@ -9,7 +9,7 @@ object AsunaSealedEncoder {
     def p(model: M, classTags: T, labelled: II): Option[(String, Json)]
   }
 
-  class ii[H] extends Context2[({ type I[A, B] = JsonEncoder[H, A, B] })#I] {
+  class ii[H] extends Context2[JsonEncoder[H, *, *]] {
 
     override def start: JsonEncoder[H, AsunaTuple0, AsunaTuple0] = new JsonEncoder[H, AsunaTuple0, AsunaTuple0] {
       override def p(model: H, name: AsunaTuple0, obj: AsunaTuple0): Option[(String, Json)] = Option.empty
