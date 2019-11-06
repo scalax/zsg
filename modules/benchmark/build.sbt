@@ -1,6 +1,4 @@
-scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8")
-
-org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
+AsunaSettings.commonSettings
 
 AsunaSettings.scalaVersionSettings
 

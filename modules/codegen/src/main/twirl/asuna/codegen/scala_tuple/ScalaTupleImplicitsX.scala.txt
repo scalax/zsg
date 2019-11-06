@@ -1,0 +1,25 @@
+@(tagNum: Int)(typeParamNum: Int)(maxAsunaTupleNum: Int)
+
+package asuna
+
+import scala.language.higherKinds
+
+trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
+
+        final implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+        F[_ @for(i <- 2 to typeParamNum) { , _ }]
+        @for(ii <- 1 to tagNum) { , H@{ii} }
+        @for(i <- 1 to tagNum) {
+            @for(ii <- 1 to typeParamNum) { , X@{i}_C@{ii} }
+        }]
+        (implicit
+        t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
+        @for(ii <- 2 to tagNum) { , t@{ii}: Application@{typeParamNum}[F, H@{ii} @for(i <- 1 to typeParamNum) { , X@{ii}_C@{i} }] })
+        : Application@{typeParamNum}[
+        F,
+        (H1 @for(ii <- 2 to tagNum) { , H@{ii} }) @for(i <- 1 to typeParamNum) { , (X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }) }] =
+        { context: Context@{typeParamNum}[F] =>
+            @asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
+        }
+
+}

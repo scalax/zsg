@@ -1,10 +1,7 @@
 val scalaTestVersion = "3.1.0-RC3"
 
 AsunaSettings.scalaVersionSettings
-
-scalacOptions ++= Seq("-feature", "-deprecation", /*"-language:Scala2",*/ "-encoding", "utf-8" /*"-Ywarn-unused-import", "-Xlog-implicits"*/ )
-
-org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
+AsunaSettings.commonSettings
 
 bintrayOrganization := Some("scalax")
 bintrayRepository := "asuna"

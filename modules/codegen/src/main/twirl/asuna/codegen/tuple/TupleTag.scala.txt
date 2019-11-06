@@ -27,7 +27,7 @@ final object TupleTag@{tagNum} {
         @for(ii <- 2 to tagNum) { , t@{ii}: Application@{typeParamNum}[F, H@{ii} @for(i <- 1 to typeParamNum) { , X@{ii}_C@{i} }] })
         : Application@{typeParamNum}[
         F,
-        TupleTag@{tagNum}[@for(ii <- 1 to tagNum) { H@{ii}, M@{ii} @if(ii < tagNum) { , } }] @for(i <- 1 to typeParamNum) { , AsunaTuple@{tagNum}[X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }] }] =
+        TupleTag@{tagNum}[H1, M1 @for(ii <- 2 to tagNum) { , H@{ii}, M@{ii} }] @for(i <- 1 to typeParamNum) { , AsunaTuple@{tagNum}[X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }] }] =
         { context: Context@{typeParamNum}[F] =>
             @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
         }

@@ -1,0 +1,8 @@
+@(tagNum: Int, maxTupleNum: Int)
+
+package asuna
+
+final object HListPlus@{tagNum} extends HListPlus_1_@{tagNum}
+@for(i <- 2 to maxTupleNum) {
+    with HListPlus_@{i}_@{tagNum}
+}
