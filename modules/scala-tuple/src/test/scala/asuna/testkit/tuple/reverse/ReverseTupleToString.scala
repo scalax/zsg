@@ -1,7 +1,6 @@
 package asuna.testkit.tuple.reverse
 
-import asuna.tuple.ScalaTupleImplicits
-import asuna.{Application, AsunaTuple0, Context, KindContext, Plus, TypeHList, TypeHList1}
+import asuna.{Application1, AsunaTuple0, Context1, Plus1}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -9,24 +8,16 @@ trait ReverseTupleEncoder[T] {
   def stringBody(i: T): String
 }
 
-class ReverseTupleContext[Companion] extends KindContext {
-  override type M[I <: TypeHList] = ReverseTupleEncoder[I#H]
-}
+object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 
-object reverseScalaTupleContext extends Context[ReverseTupleContext[ScalaTupleImplicits]] {
-
-  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-    x: ReverseTupleEncoder[X#H],
-    y: ReverseTupleEncoder[Y#H],
-    p: Plus[X, Y, Z]
-  ): ReverseTupleEncoder[Z#H] = {
-    new ReverseTupleEncoder[Z#H] {
-      override def body(t: List[String], i: Z#H): List[String] = {
-        val x1 = p.takeHead(i)
-        val y1 = p.takeTail(i)
+  override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
+    new ReverseTupleEncoder[Z1] {
+      override def body(t: List[String], i: Z1): List[String] = {
+        val x1 = p.takeHead1(i)
+        val y1 = p.takeTail1(i)
         x.body(y.body(t, y1), x1)
       }
-      override def stringBody(i: Z#H): String = ""
+      override def stringBody(i: Z1): String = ""
 
     }
   }
@@ -35,12 +26,12 @@ object reverseScalaTupleContext extends Context[ReverseTupleContext[ScalaTupleIm
     override def body(t: List[String], i: AsunaTuple0): List[String] = t
     override def stringBody(i: AsunaTuple0): String                  = ""
   }
-
 }
 
 object reverseTuple {
-  def asString[T, I <: TypeHList](x: T)(implicit ii: ReverseTupleEncoder[T]): String = {
-    s"[${ii.stringBody(x)}]"
+  def asString[T](x: T)(implicit ii: Application1[ReverseTupleEncoder, T, T]): String = {
+    val con = ii.application(reverseScalaTupleContext)
+    s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }
 }
 
@@ -60,16 +51,16 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[T](implicit t: ReverseTupleEncoder[T]): Application[ReverseTupleContext[ScalaTupleImplicits], T, TypeHList1[T]] = { context =>
+  implicit def reverseApplicationImplicit[T](implicit t: ReverseTupleEncoder[T]): Application1[ReverseTupleEncoder, T, T] = { context =>
     t
   }
 
-  implicit def reverseObjectTupleImplicit[T, I <: TypeHList](
-    implicit ii: Application[ReverseTupleContext[ScalaTupleImplicits], T, I],
-    c: T <:< I#H
+  /*implicit def reverseObjectTupleImplicit[T, I](
+    implicit ii: Application1[ReverseTupleEncoder, T, I],
+    c: T <:< I
   ): ReverseTupleEncoder[T] = new ReverseTupleEncoder[T] {
     override def body(t: List[String], i: T): List[String] = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
     override def stringBody(i: T): String                  = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")")
-  }
+  }*/
 
 }

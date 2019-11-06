@@ -1,31 +1,16 @@
-@(maxNum: Int)
+@(maxAsunaTupleNum: Int)(maxPropertyNum: Int)
 
-package asuna.tuple
+package asuna
 
-import asuna.tuple.tupleSupport.ScalaTupleHListTypeHList
-import asuna.tuple.tupleSupport.ScalaTupleHListTypeHListPlus
-import asuna.tuple.tupleSupport.HListToScalaTupleTypeHListPlus
-import asuna.TypeHList
-import asuna.Application
-import asuna.KindContext
-import asuna.Context
-import asuna.TupleTypeHList0
-
-class ScalaTupleImplicits {
-
-@for(tagNum <- 2 to maxNum) {
-    implicit def scalaTupleImplicit@{tagNum}[K <: KindContext @for(ii <- 1 to tagNum) { , H@{ii} }
-    @for(ii <- 1 to tagNum) { , T@{ii} <: TypeHList }
-    ]
-    (implicit @for(ii <- 1 to tagNum) { t@{ii}: Application[K, H@{ii}, T@{ii}] @if(ii < tagNum) { , } })
-    : Application[K, (@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }), ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] =
-        new Application[K, (@for(ii <- 1 to tagNum) { H@{ii} @if(ii < tagNum) { , } }), ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] {
-            override def application(context: Context[K]): K#M[ScalaTupleTypeHList@{tagNum}[@for(ii <- 1 to tagNum) { T@{ii} @if(ii < tagNum) { , } }]] = {
-                @asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = tagNum)
-            }
-        }
-}
-
+trait ScalaTupleImplicits
+    extends ScalaTupleImplicits_2_1
+    @for(proNum <- 2 to maxPropertyNum) {
+        with ScalaTupleImplicits_2_@{proNum}
+    }
+    @for(typeParamNum <- 3 to maxAsunaTupleNum) {
+        @for(proNum <- 1 to maxPropertyNum) {
+        with ScalaTupleImplicits_@{typeParamNum}_@{proNum}
+    }
 }
 
 object ScalaTupleImplicits extends ScalaTupleImplicits

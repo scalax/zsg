@@ -6,82 +6,85 @@ import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 object AsunaTupleCodeGeneration {
-  val maxPropertyNum = 8
+  val maxPropertyNum = 3
+  val maxTupleNum    = 22
 
-  def main(i: Array[String]): Unit = {
-    val maxTupleNum = 22
+  def main(arr: Array[String]): Unit = {
     val rootDir =
       Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
     val supportDir =
       rootDir.resolve("tupleSupport")
 
-    {
-      val filePath = rootDir.resolve("ScalaTupleTypeHList.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer          = new PrintWriter(filePath.toFile, "utf-8")
-      val content         = Source.fromString(asuna.codegen.scala_tuple.txt.ScalaTupleTypeHList(maxItem = maxTupleNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
-      writer.close()
+    for (i <- 1 to maxPropertyNum) yield {
+      for (ii <- 1 to maxTupleNum - 2) yield {
+        val filePath = rootDir.resolve("mapper" + i).resolve("HListPlus_" + ii + "_" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content =
+          Source.fromString(asuna.codegen.scala_tuple.txt.HListPlus(tagNum = i, caseClassNum = ii).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+        val linerContent = content.mkString(System.lineSeparator)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
-    {
-      val filePath = supportDir.resolve("ScalaTupleHListTypeHList.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(asuna.codegen.scala_tuple.support.txt.ScalaTupleHListTypeHList(maxItem = maxTupleNum - 1).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
-      writer.close()
-    }
-
-    /*{
-      val filePath = supportDir.resolve("ScalaTupleHListTypeHListPlus.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(asuna.codegen.scala_tuple.support.txt.ScalaTupleHListTypeHListPlus(maxNum = maxTupleNum - 1).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
-      writer.close()
-    }*/
-
-    for (i <- 1 to maxPropertyNum - 1) yield {
+    for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("HListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
-        Source.fromString(asuna.codegen.scala_tuple.txt.PlusX(tagNum = i, maxAsunaTupleNum = 22).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+        Source.fromString(asuna.codegen.scala_tuple.txt.HListPlusSum(tagNum = i, maxTupleNum = maxTupleNum - 2).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val linerContent = content.mkString(System.lineSeparator)
       writer.println(linerContent)
       writer.close()
     }
 
-    {
-      val filePath = supportDir.resolve("HListToScalaTupleTypeHListPlus.scala")
+    for (i <- 1 to maxPropertyNum) yield {
+
+      for (ii <- 1 to maxTupleNum - 1) yield {
+        val filePath = rootDir.resolve("mapper" + i).resolve("PlusToTuple_" + ii + "_" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content =
+          Source.fromString(asuna.codegen.scala_tuple.txt.PlusToTupleX(tagNum = i, caseClassNum = ii).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+        val linerContent = content.mkString(System.lineSeparator)
+        writer.println(linerContent)
+        writer.close()
+      }
+    }
+
+    for (i <- 1 to maxPropertyNum) yield {
+      val filePath = rootDir.resolve("mapper" + i).resolve("PlusToTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
         Source
-          .fromString(asuna.codegen.scala_tuple.support.txt.HListToScalaTupleTypeHListPlus(maxNum = maxTupleNum).body)
+          .fromString(asuna.codegen.scala_tuple.txt.PlusToTupleSum(tagNum = i, maxTupleNum = maxTupleNum - 1).body)
           .getLines
           .toList
           .map(_.trim)
           .filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
+      val linerContent = content.mkString(System.lineSeparator)
+      writer.println(linerContent)
       writer.close()
+    }
+
+    for (i <- 2 to maxTupleNum) yield {
+      for (ii <- 1 to maxPropertyNum) yield {
+        val filePath = rootDir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content =
+          Source
+            .fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = maxTupleNum).body)
+            .getLines
+            .toList
+            .map(_.trim)
+            .filter(s => !s.isEmpty)
+        val linerContent = content.mkString(System.lineSeparator)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
     {
@@ -89,20 +92,14 @@ object AsunaTupleCodeGeneration {
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
-        Source.fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicits(maxNum = maxTupleNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
-      writer.close()
-    }
-
-    {
-      val filePath = rootDir.resolve("TypeHList.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source.fromString(asuna.codegen.scala_tuple.txt.TypeHList(maxItem = 8).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val mkStringContent = content.mkString(System.lineSeparator)
-      writer.println(mkStringContent)
+        Source
+          .fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicits(maxAsunaTupleNum = maxTupleNum)(maxPropertyNum = maxPropertyNum).body)
+          .getLines
+          .toList
+          .map(_.trim)
+          .filter(s => !s.isEmpty)
+      val linerContent = content.mkString(System.lineSeparator)
+      writer.println(linerContent)
       writer.close()
     }
 

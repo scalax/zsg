@@ -1,26 +1,15 @@
-@(max: Int)(currentItem: Int)
+@(max: Int)(currentItem: Int)(plusNum: Int)
 
-@if(currentItem == 1) {
-context.append[TupleTypeHList0, T@{max}, ScalaTupleHListTypeHList.ScalaTupleHListTypeHList1[T@{max}]]
-(context.start, t@{max}.application(context), ScalaTupleHListTypeHListPlus.plus1)
-}
+@if(max == 2) {
+    context.append(t@{max}.application(context), t@{max - 1}.application(context))(PlusToTuple@{plusNum}.plusWithTypeParameter1)
+} else {
 
-@if(currentItem > 1 && currentItem < max) {
-context.append[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem - 1}
-[@for(i <- max to max - currentItem + 2 by - 1) {T@{i} @if(i > max - currentItem + 2) { , }}],
-T@{max - currentItem + 1},
-ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem}
-[@for(i <- max to max - currentItem + 1 by - 1) {T@{i} @if(i > max - currentItem + 1) { , }}]
-](@asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max)(currentItem - 1),
-t@{max - currentItem + 1}.application(context), ScalaTupleHListTypeHListPlus.plus@{currentItem})
-}
+    @if(currentItem == 1) {
+        context.append(@asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max)(currentItem + 1)(plusNum), t@{currentItem}.application(context))(PlusToTuple@{plusNum}.plusWithTypeParameter@{max - currentItem})
+    } else if(currentItem == max - 1) {
+        context.append(t@{max}.application(context), t@{max - 1}.application(context))(HListPlus@{plusNum}.plusWithTypeParameter1)
+    } else if(currentItem <= max - 1 && currentItem > 1) {
+        context.append(@asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max)(currentItem + 1)(plusNum), t@{currentItem}.application(context))(HListPlus@{plusNum}.plusWithTypeParameter@{max - currentItem})
+    }
 
-@if(currentItem > 1 && currentItem == max) {
-context.append[ScalaTupleHListTypeHList.ScalaTupleHListTypeHList@{currentItem - 1}
-[@for(i <- max to max - currentItem + 2 by - 1) {T@{i} @if(i > max - currentItem + 2) { , }}],
-T@{max - currentItem + 1},
-ScalaTupleTypeHList@{currentItem}
-[@for(i <- max - currentItem + 1 to max) {T@{i} @if(i < max) { , }}]
-](@asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max)(currentItem - 1),
-t@{max - currentItem + 1}.application(context), HListToScalaTupleTypeHListPlus.put@{currentItem})
 }

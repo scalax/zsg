@@ -8,6 +8,7 @@ val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
 val codegen   = project in file("./modules/codegen")
 
 AsunaSettings.scalaVersionSettings
+AsunaSettings.commonSettings
 
 addCommandAlias(
   "sfmt",
@@ -19,7 +20,8 @@ addCommandAlias(
     ";scalafmtSbt" +
     ";examples/scalafmtSbt" +
     ";benchmark/scalafmtSbt" +
-    ";codegen/scalafmtSbt"
+    ";codegen/scalafmtSbt" +
+    ";scalaTuple/scalafmtSbt"
 )
 
 addCommandAlias(
