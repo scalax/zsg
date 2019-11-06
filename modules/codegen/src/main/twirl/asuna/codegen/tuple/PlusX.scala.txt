@@ -11,7 +11,7 @@ trait Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum)
 }
 
 final object Plus@{tagNum} {
-    final def cachePlusWithTypeParameter0[X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
+    private final def cachePlusWithTypeParameter0[X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
     @for(i <- 1 to tagNum) { , Y@{i} } ]:
     Plus@{tagNum}[
         AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }
@@ -23,13 +23,13 @@ final object Plus@{tagNum} {
         @for(i <- 1 to tagNum) { , AsunaTuple1[Y@{i}] }
     ] {
         @for(i <- 1 to tagNum) {
-            override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = z.tail
-            override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.head
-            override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = x.::(y)
+            final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = z.tail
+            final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.head
+            final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = x.::(y)
         }
     }
 
-    final val valPlusWithTypeParameter0: Plus@{tagNum}[
+    private final val valPlusWithTypeParameter0: Plus@{tagNum}[
             AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }
             @for(i <- 1 to tagNum) { , Any }
             @for(i <- 1 to tagNum) { , AsunaTuple1[Any] }
@@ -48,7 +48,7 @@ final object Plus@{tagNum} {
     ]]
 
     @for(caseClassNum <- 1 to (maxAsunaTupleNum - 1)) {
-        final def cachePlusWithTypeParameter@{caseClassNum}[X1_C1 @for(i <- 2 to caseClassNum) { , X1_C@{i} }
+        private final def cachePlusWithTypeParameter@{caseClassNum}[X1_C1 @for(i <- 2 to caseClassNum) { , X1_C@{i} }
         @for(i <- 2 to tagNum) { @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } }
         @for(i <- 1 to tagNum) { , Y@{i} } ]:
         Plus@{tagNum}[
@@ -63,13 +63,13 @@ final object Plus@{tagNum} {
             @for(i <- 1 to tagNum) { , AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] }
         ] {
             @for(i <- 1 to tagNum) {
-                override def takeHead@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] = z.tail
-                override def takeTail@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): Y@{i} = z.head
-                override def plus@{i}(x: AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ], y: Y@{i}): AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] = x.::(y)
+                final override def takeHead@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] = z.tail
+                final override def takeTail@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): Y@{i} = z.head
+                final override def plus@{i}(x: AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ], y: Y@{i}): AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] = x.::(y)
             }
         }
 
-        final val valPlusWithTypeParameter@{caseClassNum}: Plus@{tagNum}[
+        private final val valPlusWithTypeParameter@{caseClassNum}: Plus@{tagNum}[
             AsunaTuple@{caseClassNum}[Any @for(ii <- 2 to caseClassNum) { , Any } ]
             @for(i <- 2 to tagNum) { , AsunaTuple@{caseClassNum}[Any @for(ii <- 2 to caseClassNum) { , Any } ] }
             @for(i <- 1 to tagNum) { , Any }
