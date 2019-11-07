@@ -1,1 +1,1 @@
-java -Xss300M -Xmx10000m -jar "./sbt-launch.jar"
+java -Xss300M -Xmx2000m -jar "./sbt-launch.jar"
