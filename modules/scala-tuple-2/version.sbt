@@ -1,0 +1,1 @@
+AsunaSettings.projectVersionSetting
