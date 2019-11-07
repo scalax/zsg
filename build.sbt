@@ -1,41 +1,34 @@
 val core = project in file("./modules/core")
 
-lazy val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple2)
 lazy val scalaTuple1 = (project in file("./modules/scala-tuple-1")).dependsOn(core)
 lazy val scalaTuple2 = (project in file("./modules/scala-tuple-2")).dependsOn(scalaTuple1)
+lazy val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple2)
 
-val testkit    = (project in file("./modules/testkit")).dependsOn(core)
-lazy val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, testkit)
-
+val codegen   = project in file("./modules/codegen")
+val testkit   = (project in file("./modules/testkit")).dependsOn(core)
 val examples  = (project in file("./examples")).dependsOn(testkit)
 val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
-val codegen   = project in file("./modules/codegen")
+
+val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-addCommandAlias(
-  "sfmt",
-  ";scalafmt" +
-    ";test:scalafmt" +
-    ";examples/scalafmt" +
-    ";benchmark/scalafmt" +
-    ";codegen/scalafmt" +
-    ";scalaTuple/test:scalafmtSbt" +
-    ";scalafmtSbt" +
-    ";examples/scalafmtSbt" +
-    ";benchmark/scalafmtSbt" +
-    ";codegen/scalafmtSbt" +
-    ";scalaTuple/scalafmtSbt" +
-    ";scalaTuple1/scalafmtSbt" +
-    ";scalaTuple2/scalafmtSbt"
-)
+def sfmtProject(id: String) = {
+  s";${id}/scalafmt;${id}/test:scalafmt;${id}/scalafmtSbt"
+}
 
 addCommandAlias(
-  "tupleClean",
-  ";scalaTuple/clean" +
-    ";scalaTuple1/clean" +
-    ";scalaTuple2/clean"
+  "sfmt",
+  sfmtProject(core.id) +
+    sfmtProject(scalaTuple.id) +
+    sfmtProject(scalaTuple1.id) +
+    sfmtProject(scalaTuple2.id) +
+    sfmtProject(testkit.id) +
+    sfmtProject(examples.id) +
+    sfmtProject(benchmark.id) +
+    sfmtProject(codegen.id) +
+    sfmtProject(asuna.id)
 )
 
 addCommandAlias(

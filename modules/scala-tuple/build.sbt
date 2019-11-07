@@ -6,4 +6,4 @@ AsunaSettings.commonSettings
 bintrayOrganization := Some("scalax")
 bintrayRepository := "asuna"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % scalaTestVersion % Test
+libraryDependencies ++= AsunaSettings.testDependencies.map(_ % Test)
