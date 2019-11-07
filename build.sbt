@@ -1,10 +1,11 @@
-val core             = project in file("./modules/core")
-lazy val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple3)
+val core = project in file("./modules/core")
+
+lazy val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple2)
 lazy val scalaTuple1 = (project in file("./modules/scala-tuple-1")).dependsOn(core)
 lazy val scalaTuple2 = (project in file("./modules/scala-tuple-2")).dependsOn(scalaTuple1)
-lazy val scalaTuple3 = (project in file("./modules/scala-tuple-3")).dependsOn(scalaTuple2)
-val testkit          = (project in file("./modules/testkit")).dependsOn(core)
-lazy val asuna       = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, testkit)
+
+val testkit    = (project in file("./modules/testkit")).dependsOn(core)
+lazy val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, testkit)
 
 val examples  = (project in file("./examples")).dependsOn(testkit)
 val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
@@ -27,16 +28,14 @@ addCommandAlias(
     ";codegen/scalafmtSbt" +
     ";scalaTuple/scalafmtSbt" +
     ";scalaTuple1/scalafmtSbt" +
-    ";scalaTuple2/scalafmtSbt" +
-    ";scalaTuple3/scalafmtSbt"
+    ";scalaTuple2/scalafmtSbt"
 )
 
 addCommandAlias(
   "tupleClean",
   ";scalaTuple/clean" +
     ";scalaTuple1/clean" +
-    ";scalaTuple2/clean" +
-    ";scalaTuple3/clean"
+    ";scalaTuple2/clean"
 )
 
 addCommandAlias(
