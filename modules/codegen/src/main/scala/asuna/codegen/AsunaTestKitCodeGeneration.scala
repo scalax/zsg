@@ -6,21 +6,23 @@ import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 object AsunaTestKitCodeGeneration {
+
+  val rootDir =
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("testkit")
+      .resolve("src")
+      .resolve("test")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("testkit")
+      .resolve("case_class")
+      .resolve("codegen")
+
   def main(i: Array[String]): Unit = {
     val minPropertyNum = 195
     val maxPropertyNum = 202
-    val rootDir =
-      Paths
-        .get("./")
-        .resolve("modules")
-        .resolve("testkit")
-        .resolve("src")
-        .resolve("test")
-        .resolve("scala")
-        .resolve("asuna")
-        .resolve("testkit")
-        .resolve("case_class")
-        .resolve("codegen")
 
     for (i <- (1 to 100 by 8).toList ::: (minPropertyNum to maxPropertyNum).toList) yield {
       val filePath = rootDir.resolve("CaseClassTest" + i + ".scala")

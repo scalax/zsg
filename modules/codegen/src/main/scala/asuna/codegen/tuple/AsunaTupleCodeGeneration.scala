@@ -9,13 +9,14 @@ object AsunaTupleCodeGeneration {
   val maxPropertyNum = 8
   val maxTupleNum    = 15
 
+  val rootDir =
+    Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+  val root1Dir =
+    Paths.get("./").resolve("modules").resolve("scala-tuple-1").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+  val root2Dir =
+    Paths.get("./").resolve("modules").resolve("scala-tuple-2").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+
   def main(arr: Array[String]): Unit = {
-    val rootDir =
-      Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
-    val root1Dir =
-      Paths.get("./").resolve("modules").resolve("scala-tuple-1").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
-    val root2Dir =
-      Paths.get("./").resolve("modules").resolve("scala-tuple-2").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
 
     for (i <- 1 to maxPropertyNum) yield {
       for (ii <- 1 to maxTupleNum - 2) yield {

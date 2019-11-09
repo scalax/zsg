@@ -1,3 +1,5 @@
+import scala.util.Try
+
 val core   = project in file("./modules/core")
 val macros = (project in file("./modules/macros")).dependsOn(core)
 
@@ -15,23 +17,58 @@ val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregat
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-def sfmtProject(id: String) = {
-  s";${id}/scalafmt;${id}/test:scalafmt;${id}/scalafmtSbt"
+val sfmt = taskKey[Unit]("sfmt")
+
+sfmt := {
+  (core / Compile / scalafmt).value
+  (core / Test / scalafmt).value
+  (core / Compile / scalafmtSbt).value
+
+  (macros / Compile / scalafmt).value
+  (macros / Test / scalafmt).value
+  (macros / Compile / scalafmtSbt).value
+
+  (scalaTuple / Compile / scalafmt).value
+  (scalaTuple / Test / scalafmt).value
+  (scalaTuple / Compile / scalafmtSbt).value
+
+  (scalaTuple1 / Compile / scalafmt).value
+  (scalaTuple1 / Test / scalafmt).value
+  (scalaTuple1 / Compile / scalafmtSbt).value
+
+  (scalaTuple2 / Compile / scalafmt).value
+  (scalaTuple2 / Test / scalafmt).value
+  (scalaTuple2 / Compile / scalafmtSbt).value
+
+  (testkit / Compile / scalafmt).value
+  (testkit / Test / scalafmt).value
+  (testkit / Compile / scalafmtSbt).value
+
+  (examples / Compile / scalafmt).value
+  (examples / Compile / scalafmtSbt).value
+
+  (benchmark / Compile / scalafmt).value
+  (benchmark / Compile / scalafmtSbt).value
+
+  (codegen / Compile / scalafmt).value
+  (codegen / Compile / scalafmtSbt).value
+
+  (asuna / Compile / scalafmt).value
+  (asuna / Test / scalafmtSbt).value
+  (asuna / Compile / scalafmtSbt).value
 }
 
-addCommandAlias(
-  "sfmt",
-  sfmtProject(core.id) +
-    sfmtProject(macros.id) +
-    sfmtProject(scalaTuple.id) +
-    sfmtProject(scalaTuple1.id) +
-    sfmtProject(scalaTuple2.id) +
-    sfmtProject(testkit.id) +
-    sfmtProject(examples.id) +
-    sfmtProject(benchmark.id) +
-    sfmtProject(codegen.id) +
-    sfmtProject(asuna.id)
-)
+val allUnpublish = taskKey[Unit]("allUnpublish")
+
+allUnpublish := {
+  Try { (core / bintrayUnpublish).value }
+  Try { (macros / bintrayUnpublish).value }
+  Try { (scalaTuple / bintrayUnpublish).value }
+  Try { (scalaTuple1 / bintrayUnpublish).value }
+  Try { (scalaTuple2 / bintrayUnpublish).value }
+  Try { (testkit / bintrayUnpublish).value }
+  Try { (asuna / bintrayUnpublish).value }
+}
 
 addCommandAlias(
   "codegen",
@@ -40,7 +77,7 @@ addCommandAlias(
     ";codegen/runMain asuna.codegen.tuple.AsunaTupleCodeGeneration"
 )
 
-addCommandAlias("gen", ";codegen;sfmt;sfmt;sfmt;sfmt")
+addCommandAlias("deleteTemp", ";codegen/runMain asuna.codegen.DeleteTemp")
 
 addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*AbcTest.*")
 addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*DefTest.*")
