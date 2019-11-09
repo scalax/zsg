@@ -1,15 +1,16 @@
-val core = project in file("./modules/core")
+val core   = project in file("./modules/core")
+val macros = (project in file("./modules/macros")).dependsOn(core)
 
-lazy val scalaTuple1 = (project in file("./modules/scala-tuple-1")).dependsOn(core)
-lazy val scalaTuple2 = (project in file("./modules/scala-tuple-2")).dependsOn(scalaTuple1)
-lazy val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple2)
+val scalaTuple1 = (project in file("./modules/scala-tuple-1")).dependsOn(core)
+val scalaTuple2 = (project in file("./modules/scala-tuple-2")).dependsOn(scalaTuple1)
+val scalaTuple  = (project in file("./modules/scala-tuple")).dependsOn(scalaTuple2)
 
 val codegen   = project in file("./modules/codegen")
-val testkit   = (project in file("./modules/testkit")).dependsOn(core)
+val testkit   = (project in file("./modules/testkit")).dependsOn(macros)
 val examples  = (project in file("./examples")).dependsOn(testkit)
 val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
 
-val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, scalaTuple, scalaTuple1, scalaTuple2, testkit)
+val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
@@ -21,6 +22,7 @@ def sfmtProject(id: String) = {
 addCommandAlias(
   "sfmt",
   sfmtProject(core.id) +
+    sfmtProject(macros.id) +
     sfmtProject(scalaTuple.id) +
     sfmtProject(scalaTuple1.id) +
     sfmtProject(scalaTuple2.id) +
