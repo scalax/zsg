@@ -7,12 +7,12 @@ import scala.io.Source
 
 object AsunaCoreCodeGeneration {
 
+  val rootDir =
+    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
+  val buildDir = rootDir.resolve("build")
+
   def main(i: Array[String]): Unit = {
     val maxPropertyNum = 8
-    val rootDir =
-      Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
-    val tupleDir = rootDir.resolve("tuple")
-    val buildDir = rootDir.resolve("build")
 
     for (i <- 1 to maxPropertyNum) yield {
       val filePath = rootDir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
