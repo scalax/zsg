@@ -27,10 +27,11 @@ object AsunaSettings {
 
   val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
 
-  val vSetting1             = version := "0.0.2-SNAP20191030.1"
+  val vSetting1             = version := "0.0.2-SNAP20191109.1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
-  val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4)
+  val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+  val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4, vSetting5)
 
 }
