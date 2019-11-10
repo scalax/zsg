@@ -6,9 +6,10 @@ object AsunaSettings {
 
   val scalaTestVersion    = "3.1.0-RC3"
   val currentScalaVersion = "2.12.10"
+  val scala_2_12_Version  = "2.12.10"
 
   val setting1 = scalaVersion := currentScalaVersion
-  val setting2 = crossScalaVersions := Seq("2.12.10"/*, currentScalaVersion*/)
+  val setting2 = crossScalaVersions := Seq(scala_2_12_Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
 
@@ -27,7 +28,7 @@ object AsunaSettings {
 
   val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
 
-  val vSetting1             = version := "0.0.2-SNAP20191109.1"
+  val vSetting1             = version := "0.0.2-SNAP20191110.1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
