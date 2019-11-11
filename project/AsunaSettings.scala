@@ -6,7 +6,7 @@ object AsunaSettings {
 
   val currentScalaVersion = "2.13.0"
   val scala_2_12_Version  = "2.12.10"
-  val circeVersion = "0.12.2"
+  val circeVersion        = "0.12.2"
   val scalaTestVersion    = "3.1.0-RC3"
 
   val setting1 = scalaVersion := currentScalaVersion
