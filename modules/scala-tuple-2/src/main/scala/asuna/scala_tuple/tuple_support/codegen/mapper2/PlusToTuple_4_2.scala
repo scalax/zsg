@@ -1,5 +1,4 @@
 package asuna.scala_tuple.tuple_support
-import asuna.Plus1
 import asuna.Plus2
 import asuna.support.heterogeneous._
 trait PlusToTuple_4_2 {
