@@ -19,7 +19,6 @@ object SealedTraitSelector {
     implicit t: ByNameImplicit[Encoder[R]]
   ): Application2[SealedTraitSelector[T]#JsonEncoder, SealedTag[R], Class[R], String] = { context =>
     val con = SealedTraitSelector[T]
-
     new con.JsonEncoder[Class[R], String] {
       override def p(model: T, classTags: Class[R], labelled: String): Option[(String, Json)] = {
         if (classTags.isInstance(model))
