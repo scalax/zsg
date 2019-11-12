@@ -10,10 +10,10 @@ object AsunaGenericCodeGenSample {
   val genResult = {
     val pro = PropertyApply[Sample10]
     AsunaGeneric.init[Sample10].init1 {
-      BuildContent.lift(
-        BuildContent.nodeTag(
-          BuildContent.tag(pro.to(_.i1), pro.to(_.i2), pro.to(_.i3), pro.to(_.i4), pro.to(_.i5), pro.to(_.i6), pro.to(_.i7), pro.to(_.i8)),
-          BuildContent.tag(pro.to(_.i9), pro.to(_.i10))
+      BuildTag.lift(
+        BuildTag.nodeTag(
+          BuildTag.tag(pro.to(_.i1), pro.to(_.i2), pro.to(_.i3), pro.to(_.i4), pro.to(_.i5), pro.to(_.i6), pro.to(_.i7), pro.to(_.i8)),
+          BuildTag.tag(pro.to(_.i9), pro.to(_.i10))
         )
       )
     }

@@ -1,0 +1,17 @@
+@(maxItem: Int)
+
+package asuna
+
+final object BuildTag {
+    final def lift[T](tag : => AppendTag[T]): AppendTag[T] = AppendTag[T]
+
+    @for(i <- 1 to maxItem) {
+        final def tag[T1 @for(ii <- 2 to i){ , T@{ii} }](t1 : AppendTag[T1] @for(ii <- 2 to i){ , t@{ii} : AppendTag[T@{ii}] }):
+        AppendTag[TupleTag@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }]] =
+            new AppendTag[TupleTag@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }]]
+
+        final def nodeTag[T1 <: TupleTag @for(ii <- 2 to i){ , T@{ii} <: TupleTag }](t1: AppendTag[T1] @for(ii <- 2 to i){ , t@{ii} : AppendTag[T@{ii}] }):
+        AppendTag[NodeTag@{i}[T1 @for(ii <- 2 to i){ , T@{ii}}]] =
+            new AppendTag[NodeTag@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }]]
+    }
+}
