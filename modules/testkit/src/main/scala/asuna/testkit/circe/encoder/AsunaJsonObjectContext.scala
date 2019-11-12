@@ -3,7 +3,7 @@ package asuna.testkit.circe.encoder
 import asuna.{AsunaTuple0, Context2, Plus2}
 import io.circe.Json
 
-object EncoderContext extends Context2[JsonObjectAppender] {
+object AsunaJsonObjectContext extends Context2[JsonObjectAppender] {
 
   override final def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
     p: Plus2[X1, X2, Y1, Y2, Z1, Z2]

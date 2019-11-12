@@ -13,7 +13,7 @@ object ACirce {
     cv2: AsunaGetterGeneric[H, Obj]
   ): Encoder.AsObject[H] = {
     val name1              = cv1.names()
-    val applicationEncoder = app.application(encoder.EncoderContext)
+    val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     Encoder.AsObject.instance { o: H =>
       val linkedMap = new java.util.LinkedHashMap[String, Json]
       applicationEncoder.appendField(cv2.getter(o), name1, linkedMap)
