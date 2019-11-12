@@ -70,7 +70,6 @@ class Test02 {
   }
 
   val asunaEncoder: Encoder[Data] = {
-    import asuna.testkit.circe.encoder.EncoderCircePoly._
     implicit lazy val _w2: Encoder[A]        = ACirce.encodeSealed
     implicit lazy val _w3: Encoder[B]        = ACirce.encodeCaseClass
     implicit lazy val _w4: Encoder[C]        = ACirce.encodeCaseClass
