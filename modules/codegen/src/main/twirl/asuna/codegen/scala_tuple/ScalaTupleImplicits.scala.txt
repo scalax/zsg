@@ -1,15 +1,15 @@
 @(maxAsunaTupleNum: Int)(maxPropertyNum: Int)
 
-package asuna
+package asuna.scala_tuple
 
 trait ScalaTupleImplicits
-    extends ScalaTupleImplicits_2_1
+    extends tuple_support.ScalaTupleImplicits_2_1
     @for(proNum <- 2 to maxPropertyNum) {
-        with ScalaTupleImplicits_2_@{proNum}
+        with tuple_support.ScalaTupleImplicits_2_@{proNum}
     }
     @for(typeParamNum <- 3 to maxAsunaTupleNum) {
         @for(proNum <- 1 to maxPropertyNum) {
-        with ScalaTupleImplicits_@{typeParamNum}_@{proNum}
+        with tuple_support.ScalaTupleImplicits_@{typeParamNum}_@{proNum}
     }
 }
 

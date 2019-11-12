@@ -10,17 +10,49 @@ object AsunaTupleCodeGeneration {
   val maxTupleNum    = 15
 
   val rootDir =
-    Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+    Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("scala_tuple").resolve("codegen")
   val root1Dir =
-    Paths.get("./").resolve("modules").resolve("scala-tuple-1").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
   val root2Dir =
-    Paths.get("./").resolve("modules").resolve("scala-tuple-2").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("tuple").resolve("codegen")
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple-1")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
+  val root3Dir =
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple-2")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
 
   def main(arr: Array[String]): Unit = {
 
     for (i <- 1 to maxPropertyNum) yield {
       for (ii <- 1 to maxTupleNum - 2) yield {
-        val filePath = root1Dir.resolve("mapper" + i).resolve("HListPlus_" + ii + "_" + i + ".scala")
+        val filePath = root2Dir.resolve("mapper" + i).resolve("HListPlus_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content =
@@ -32,7 +64,7 @@ object AsunaTupleCodeGeneration {
     }
 
     for (i <- 1 to maxPropertyNum) yield {
-      val filePath = root1Dir.resolve("mapper" + i).resolve("HListPlus" + i + ".scala")
+      val filePath = root2Dir.resolve("mapper" + i).resolve("HListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
@@ -45,7 +77,7 @@ object AsunaTupleCodeGeneration {
     for (i <- 1 to maxPropertyNum) yield {
 
       for (ii <- 1 to maxTupleNum - 1) yield {
-        val filePath = root2Dir.resolve("mapper" + i).resolve("PlusToTuple_" + ii + "_" + i + ".scala")
+        val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content =
@@ -57,7 +89,7 @@ object AsunaTupleCodeGeneration {
     }
 
     for (i <- 1 to maxPropertyNum) yield {
-      val filePath = root2Dir.resolve("mapper" + i).resolve("PlusToTuple" + i + ".scala")
+      val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
       val content =
@@ -74,7 +106,7 @@ object AsunaTupleCodeGeneration {
 
     for (i <- 2 to maxTupleNum) yield {
       for (ii <- 1 to maxPropertyNum) yield {
-        val filePath = rootDir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
+        val filePath = root1Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content =
