@@ -1,7 +1,4 @@
 package asuna.scala_tuple.tuple_support
-import asuna.Plus1
-import asuna.Plus2
-import asuna.Plus3
 import asuna.Plus4
 import asuna.support.heterogeneous._
 trait HListPlus_8_4 {

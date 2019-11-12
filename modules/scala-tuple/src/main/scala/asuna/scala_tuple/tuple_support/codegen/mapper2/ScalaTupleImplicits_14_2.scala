@@ -1,6 +1,4 @@
 package asuna.scala_tuple.tuple_support
-import asuna.Application1
-import asuna.Context1
 import asuna.Application2
 import asuna.Context2
 import scala.language.higherKinds

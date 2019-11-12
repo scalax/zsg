@@ -2,9 +2,7 @@
 
 package asuna.scala_tuple.tuple_support
 
-@for(i <- 1 to tagNum) {
-import asuna.Plus@{i}
-}
+import asuna.Plus@{tagNum}
 
 import asuna.support.heterogeneous._
 
