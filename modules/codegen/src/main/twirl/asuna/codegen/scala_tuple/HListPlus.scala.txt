@@ -1,6 +1,10 @@
 @(tagNum: Int, caseClassNum: Int)
 
-package asuna
+package asuna.scala_tuple.tuple_support
+
+@for(i <- 1 to tagNum) {
+import asuna.Plus@{i}
+}
 
 import asuna.support.heterogeneous._
 

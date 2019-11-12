@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 class TupleToStringTest extends AnyFunSpec with Matchers {
 
   import AppendTuple._
-  import asuna.ScalaTupleImplicits._
+  import asuna.scala_tuple.ScalaTupleImplicits._
 
   describe("A tuple") {
     it("should generic to a encoder") {

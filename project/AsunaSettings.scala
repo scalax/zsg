@@ -4,9 +4,10 @@ import bintray.BintrayKeys._
 
 object AsunaSettings {
 
-  val scalaTestVersion    = "3.1.0-RC3"
-  val currentScalaVersion = "2.12.10"
+  val currentScalaVersion = "2.13.0"
   val scala_2_12_Version  = "2.12.10"
+  val circeVersion        = "0.12.2"
+  val scalaTestVersion    = "3.1.0-RC3"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala_2_12_Version, currentScalaVersion)
@@ -15,8 +16,6 @@ object AsunaSettings {
 
   val scalaVersionSettings = Seq(setting1, setting2)
   val commonSettings       = Seq(setting3, setting4)
-
-  val circeVersion = "0.12.2"
 
   val circeDependencies = ("io.circe" %% "circe-derivation" % "0.12.0-M7") +: Seq(
     "io.circe" %% "circe-core",
@@ -33,6 +32,7 @@ object AsunaSettings {
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
   val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-  val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4, vSetting5)
+  val vSetting6             = bintrayVcsUrl := Some("https://github.com/scalax/asuna.git")
+  val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4, vSetting5, vSetting6)
 
 }

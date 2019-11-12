@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 class ReverseTupleToStringTest extends AnyFunSpec with Matchers {
 
   import ReverseAppendTuple._
-  import asuna.ScalaTupleImplicits._
+  import asuna.scala_tuple.ScalaTupleImplicits._
 
   describe("A reverse tuple") {
     it("should generic to a encoder") {
