@@ -9,11 +9,12 @@ trait JsonObjectAppender[T, II] extends Any {
 }
 
 object JsonObjectAppender {
-  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] = {
+  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] =
+    /*{
     context => (tt, name, m) =>
       m.put(name, t.value(tt))
-  }
-  //new circe_support.JsonAppenderApplication(t)
+  }*/
+    new circe_support.JsonAppenderApplication(t)
 }
 
 package circe_support {
