@@ -1,6 +1,6 @@
 package asuna
 import scala.language.higherKinds
-trait Context1[F[_]] {
+trait Context1[F[_]] extends Any {
   def append[X1, Y1, Z1](
     x: F[X1],
     y: F[Y1]

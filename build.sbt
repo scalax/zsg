@@ -79,5 +79,5 @@ addCommandAlias(
 
 addCommandAlias("deleteTemp", ";codegen/runMain asuna.codegen.DeleteTemp")
 
-addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*AbcTest.*")
-addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*DefTest.*")
+addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test01.*")
+addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test02.*")

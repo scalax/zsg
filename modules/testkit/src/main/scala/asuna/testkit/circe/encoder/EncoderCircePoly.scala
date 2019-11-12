@@ -1,6 +1,6 @@
 package asuna.testkit.circe.encoder
 
-import asuna.macros.{ByNameImplicit, PropertyTag, SealedTag}
+import asuna.macros.{ByNameImplicit, SealedTag}
 import asuna.Application2
 import io.circe._
 
@@ -19,13 +19,6 @@ trait EncoderCircePoly {
           Option.empty
       }
     }
-  }
-
-  implicit def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[AsunaObjectEncoder.JsonObjectAppender, PropertyTag[T], T, String] = {
-    context =>
-      { (tt: T, name: String, m: java.util.LinkedHashMap[String, Json]) =>
-        m.put(name, t.value(tt))
-      }
   }
 
 }

@@ -10,23 +10,22 @@ import io.circe.Encoder
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间
 @OutputTimeUnit(TimeUnit.SECONDS)      // 输出结果的时间粒度为微秒
 @State(Scope.Thread)                   // 每个测试线程一个实例
-class AbcTest {
+class Test01 {
 
-  implicit lazy val rw1: RW[Bar] = {
+  implicit def rw1: RW[Bar] = {
     import upickle.default.macroRW
-    implicit lazy val rw2: RW[Foo] = macroRW
+    implicit def rw2: RW[Foo] = macroRW
     macroRW
   }
 
-  lazy val rawCirceEncoder: Encoder.AsObject[Bar] = {
+  def rawCirceEncoder: Encoder.AsObject[Bar] = {
     import io.circe.generic.semiauto._
-    implicit lazy val a1: Encoder.AsObject[Foo] = deriveEncoder
+    implicit def a1: Encoder.AsObject[Foo] = deriveEncoder
     deriveEncoder
   }
 
-  lazy val asunaEncoder: Encoder.AsObject[Bar] = {
-    import asuna.testkit.circe.encoder.EncoderCircePoly._
-    implicit lazy val a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
+  def asunaEncoder: Encoder.AsObject[Bar] = {
+    implicit def a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
     ACirce.encodeCaseClass
   }
 

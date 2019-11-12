@@ -112,5 +112,16 @@ object AsunaCoreCodeGeneration {
       writer18.close()
     }
 
+    {
+      val filePath = buildDir.resolve("BuildTag.scala")
+      Files.createDirectories(filePath.getParent)
+      val writer18 = new PrintWriter(filePath.toFile, "utf-8")
+      val content181 =
+        Source.fromString(asuna.codegen.tuple.build.txt.BuildTag(maxItem = maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+      val content182 = content181.mkString(System.lineSeparator)
+      writer18.println(content182)
+      writer18.close()
+    }
+
   }
 }

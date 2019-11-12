@@ -2,19 +2,19 @@ package asuna.testkit.circe
 
 import asuna.{Application2, TupleTag}
 import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
-import asuna.testkit.circe.encoder.{AsunaObjectEncoder, AsunaSealedEncoder}
+import asuna.testkit.circe.encoder.{AsunaSealedEncoder, EncoderContext, JsonObjectAppender}
 import io.circe.{Encoder, Json, JsonObject, Utils}
 
 object ACirce {
 
   def encodeCaseClass[H, R <: TupleTag, Obj, Na](
     implicit ll: AsunaGeneric.Aux[H, R],
-    app: Application2[AsunaObjectEncoder.JsonObjectAppender, R, Obj, Na],
+    app: Application2[JsonObjectAppender, R, Obj, Na],
     cv1: AsunaLabelledGeneric[H, Na],
     cv2: AsunaGetterGeneric[H, Obj]
   ): Encoder.AsObject[H] = {
     val name1              = cv1.names
-    val applicationEncoder = app.application(AsunaObjectEncoder.ii)
+    val applicationEncoder = app.application(EncoderContext)
     Encoder.AsObject.instance { o: H =>
       val linkedMap = new java.util.LinkedHashMap[String, Json]
       applicationEncoder.appendField(cv2.getter(o), name1, linkedMap)
