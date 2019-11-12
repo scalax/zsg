@@ -26,8 +26,7 @@ object Sample02 {
 
   val ap = PropertyApply[Test04]
 
-  val test04PropertyTag
-    : AppendTag[TupleTag4[PropertyTag[String], `Number： 1`, PropertyTag[Int], `Number： 2`, PropertyTag[Long], `Number： 3`, PropertyTag[Long], `Number： 4`]] =
+  val test04PropertyTag: AppendTag[TupleTag4[PropertyTag[String], PropertyTag[Int], PropertyTag[Long], PropertyTag[Long]]] =
     BuildContent.lift(BuildContent.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)

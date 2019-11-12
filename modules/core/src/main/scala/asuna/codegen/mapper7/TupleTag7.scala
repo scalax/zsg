@@ -1,10 +1,7 @@
 package asuna
 import scala.language.higherKinds
 import impl._
-final class TupleTag7[T1, M1 <: Message, T2, M2 <: Message, T3, M3 <: Message, T4, M4 <: Message, T5, M5 <: Message, T6, M6 <: Message, T7, M7 <: Message]
-    extends TupleTag {
-  override final type M[M <: Message] = TupleTag7[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4, T5, M :-<>-: M5, T6, M :-<>-: M6, T7, M :-<>-: M7]
-}
+final class TupleTag7[T1, T2, T3, T4, T5, T6, T7] extends TupleTag
 final object TupleTag7 {
   final implicit def tupleTagApplicationImplicit_tagNum7_typeParamNum1[
     F[_],
@@ -15,13 +12,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X2_C1,
     X3_C1,
@@ -38,25 +28,23 @@ final object TupleTag7 {
     t5: Application1[F, H5, X5_C1],
     t6: Application1[F, H6, X6_C1],
     t7: Application1[F, H7, X7_C1]
-  ): Application1[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1]] = {
-    context: Context1[F] =>
+  ): Application1[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1]] = { context: Context1[F] =>
+    context.append(
       context.append(
         context.append(
           context.append(
             context.append(
-              context.append(
-                context
-                  .append(context.append(context.start, t7.application(context))(Plus1.plusWithTypeParameter0), t6.application(context))(Plus1.plusWithTypeParameter1),
-                t5.application(context)
-              )(Plus1.plusWithTypeParameter2),
-              t4.application(context)
-            )(Plus1.plusWithTypeParameter3),
-            t3.application(context)
-          )(Plus1.plusWithTypeParameter4),
-          t2.application(context)
-        )(Plus1.plusWithTypeParameter5),
-        t1.application(context)
-      )(Plus1.plusWithTypeParameter6)
+              context.append(context.append(context.start, t7.application(context))(Plus1.plusWithTypeParameter0), t6.application(context))(Plus1.plusWithTypeParameter1),
+              t5.application(context)
+            )(Plus1.plusWithTypeParameter2),
+            t4.application(context)
+          )(Plus1.plusWithTypeParameter3),
+          t3.application(context)
+        )(Plus1.plusWithTypeParameter4),
+        t2.application(context)
+      )(Plus1.plusWithTypeParameter5),
+      t1.application(context)
+    )(Plus1.plusWithTypeParameter6)
   }
   final implicit def tupleTagApplicationImplicit_tagNum7_typeParamNum2[
     F[_, _],
@@ -67,13 +55,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X2_C1,
@@ -97,7 +78,7 @@ final object TupleTag7 {
     t5: Application2[F, H5, X5_C1, X5_C2],
     t6: Application2[F, H6, X6_C1, X6_C2],
     t7: Application2[F, H7, X7_C1, X7_C2]
-  ): Application2[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application2[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -132,13 +113,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -169,7 +143,7 @@ final object TupleTag7 {
     t5: Application3[F, H5, X5_C1, X5_C2, X5_C3],
     t6: Application3[F, H6, X6_C1, X6_C2, X6_C3],
     t7: Application3[F, H7, X7_C1, X7_C2, X7_C3]
-  ): Application3[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application3[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -204,13 +178,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -248,7 +215,7 @@ final object TupleTag7 {
     t5: Application4[F, H5, X5_C1, X5_C2, X5_C3, X5_C4],
     t6: Application4[F, H6, X6_C1, X6_C2, X6_C3, X6_C4],
     t7: Application4[F, H7, X7_C1, X7_C2, X7_C3, X7_C4]
-  ): Application4[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application4[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -283,13 +250,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -334,7 +294,7 @@ final object TupleTag7 {
     t5: Application5[F, H5, X5_C1, X5_C2, X5_C3, X5_C4, X5_C5],
     t6: Application5[F, H6, X6_C1, X6_C2, X6_C3, X6_C4, X6_C5],
     t7: Application5[F, H7, X7_C1, X7_C2, X7_C3, X7_C4, X7_C5]
-  ): Application5[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application5[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -377,13 +337,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -435,7 +388,7 @@ final object TupleTag7 {
     t5: Application6[F, H5, X5_C1, X5_C2, X5_C3, X5_C4, X5_C5, X5_C6],
     t6: Application6[F, H6, X6_C1, X6_C2, X6_C3, X6_C4, X6_C5, X6_C6],
     t7: Application6[F, H7, X7_C1, X7_C2, X7_C3, X7_C4, X7_C5, X7_C6]
-  ): Application6[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application6[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -478,13 +431,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -543,7 +489,7 @@ final object TupleTag7 {
     t5: Application7[F, H5, X5_C1, X5_C2, X5_C3, X5_C4, X5_C5, X5_C6, X5_C7],
     t6: Application7[F, H6, X6_C1, X6_C2, X6_C3, X6_C4, X6_C5, X6_C6, X6_C7],
     t7: Application7[F, H7, X7_C1, X7_C2, X7_C3, X7_C4, X7_C5, X7_C6, X7_C7]
-  ): Application7[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application7[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
@@ -586,13 +532,6 @@ final object TupleTag7 {
     H5,
     H6,
     H7,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
-    M5 <: Message,
-    M6 <: Message,
-    M7 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -658,7 +597,7 @@ final object TupleTag7 {
     t5: Application8[F, H5, X5_C1, X5_C2, X5_C3, X5_C4, X5_C5, X5_C6, X5_C7, X5_C8],
     t6: Application8[F, H6, X6_C1, X6_C2, X6_C3, X6_C4, X6_C5, X6_C6, X6_C7, X6_C8],
     t7: Application8[F, H7, X7_C1, X7_C2, X7_C3, X7_C4, X7_C5, X7_C6, X7_C7, X7_C8]
-  ): Application8[F, TupleTag7[H1, M1, H2, M2, H3, M3, H4, M4, H5, M5, H6, M6, H7, M7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
+  ): Application8[F, TupleTag7[H1, H2, H3, H4, H5, H6, H7], AsunaTuple7[X1_C1, X2_C1, X3_C1, X4_C1, X5_C1, X6_C1, X7_C1], AsunaTuple7[
     X1_C2,
     X2_C2,
     X3_C2,
