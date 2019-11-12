@@ -2,10 +2,8 @@
 
 package asuna.scala_tuple.tuple_support
 
-@for(i <- 1 to typeParamNum) {
-import asuna.Application@{i}
-import asuna.Context@{i}
-}
+import asuna.Application@{typeParamNum}
+import asuna.Context@{typeParamNum}
 
 import scala.language.higherKinds
 
