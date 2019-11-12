@@ -22,7 +22,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
         F,
         (H1 @for(ii <- 2 to tagNum) { , H@{ii} }) @for(i <- 1 to typeParamNum) { , (X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }) }] =
         { context: Context@{typeParamNum}[F] =>
-            @asuna.codegen.scala_tuple.utils.txt.ContextAppend2(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
+            @asuna.codegen.scala_tuple.utils.txt.ScalaTupleContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
         }
 
 }

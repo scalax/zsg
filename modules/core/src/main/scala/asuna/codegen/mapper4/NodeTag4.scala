@@ -1,9 +1,7 @@
 package asuna
 import scala.language.higherKinds
 import impl._
-final class NodeTag4[T1 <: TupleTag, M1 <: Message, T2 <: TupleTag, M2 <: Message, T3 <: TupleTag, M3 <: Message, T4 <: TupleTag, M4 <: Message] extends TupleTag {
-  override final type M[M <: Message] = NodeTag4[T1, M :-<>-: M1, T2, M :-<>-: M2, T3, M :-<>-: M3, T4, M :-<>-: M4]
-}
+final class NodeTag4[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: TupleTag] extends TupleTag
 final object NodeTag4 {
   final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum1[
     F[_],
@@ -11,10 +9,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X2_C1,
     X3_C1,
@@ -25,7 +19,7 @@ final object NodeTag4 {
     t2: Application1[F, H2, X2_C1],
     t3: Application1[F, H3, X3_C1],
     t4: Application1[F, H4, X4_C1]
-  ): Application1[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1]] = { context: Context1[F] =>
+  ): Application1[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1]] = { context: Context1[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus1.plusWithTypeParameter0), t3.application(context))(Plus1.plusWithTypeParameter1),
@@ -40,10 +34,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X2_C1,
@@ -58,15 +48,14 @@ final object NodeTag4 {
     t2: Application2[F, H2, X2_C1, X2_C2],
     t3: Application2[F, H3, X3_C1, X3_C2],
     t4: Application2[F, H4, X4_C1, X4_C2]
-  ): Application2[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2]] = {
-    context: Context2[F] =>
+  ): Application2[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2]] = { context: Context2[F] =>
+    context.append(
       context.append(
-        context.append(
-          context.append(context.append(context.start, t4.application(context))(Plus2.plusWithTypeParameter0), t3.application(context))(Plus2.plusWithTypeParameter1),
-          t2.application(context)
-        )(Plus2.plusWithTypeParameter2),
-        t1.application(context)
-      )(Plus2.plusWithTypeParameter3)
+        context.append(context.append(context.start, t4.application(context))(Plus2.plusWithTypeParameter0), t3.application(context))(Plus2.plusWithTypeParameter1),
+        t2.application(context)
+      )(Plus2.plusWithTypeParameter2),
+      t1.application(context)
+    )(Plus2.plusWithTypeParameter3)
   }
   final implicit def noteTagApplicationImplicit_tagNum4_typeParamNum3[
     F[_, _, _],
@@ -74,10 +63,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -96,7 +81,7 @@ final object NodeTag4 {
     t2: Application3[F, H2, X2_C1, X2_C2, X2_C3],
     t3: Application3[F, H3, X3_C1, X3_C2, X3_C3],
     t4: Application3[F, H4, X4_C1, X4_C2, X4_C3]
-  ): Application3[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+  ): Application3[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
     X1_C3,
     X2_C3,
     X3_C3,
@@ -116,10 +101,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -142,12 +123,12 @@ final object NodeTag4 {
     t2: Application4[F, H2, X2_C1, X2_C2, X2_C3, X2_C4],
     t3: Application4[F, H3, X3_C1, X3_C2, X3_C3, X3_C4],
     t4: Application4[F, H4, X4_C1, X4_C2, X4_C3, X4_C4]
-  ): Application4[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-    X1_C3,
-    X2_C3,
-    X3_C3,
-    X4_C3
-  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4]] = { context: Context4[F] =>
+  ): Application4[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ]] = { context: Context4[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus4.plusWithTypeParameter0), t3.application(context))(Plus4.plusWithTypeParameter1),
@@ -162,10 +143,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -192,12 +169,12 @@ final object NodeTag4 {
     t2: Application5[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5],
     t3: Application5[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5],
     t4: Application5[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5]
-  ): Application5[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-    X1_C3,
-    X2_C3,
-    X3_C3,
-    X4_C3
-  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = { context: Context5[F] =>
+  ): Application5[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = { context: Context5[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus5.plusWithTypeParameter0), t3.application(context))(Plus5.plusWithTypeParameter1),
@@ -212,10 +189,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -246,12 +219,12 @@ final object NodeTag4 {
     t2: Application6[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6],
     t3: Application6[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6],
     t4: Application6[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6]
-  ): Application6[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-    X1_C3,
-    X2_C3,
-    X3_C3,
-    X4_C3
-  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = { context: Context6[F] =>
+  ): Application6[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = { context: Context6[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus6.plusWithTypeParameter0), t3.application(context))(Plus6.plusWithTypeParameter1),
@@ -266,10 +239,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -304,18 +273,12 @@ final object NodeTag4 {
     t2: Application7[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7],
     t3: Application7[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7],
     t4: Application7[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6, X4_C7]
-  )
-    : Application7[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[
-      X1_C7,
-      X2_C7,
-      X3_C7,
-      X4_C7
-    ]] = { context: Context7[F] =>
+  ): Application7[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7]] = { context: Context7[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus7.plusWithTypeParameter0), t3.application(context))(Plus7.plusWithTypeParameter1),
@@ -330,10 +293,6 @@ final object NodeTag4 {
     H2 <: TupleTag,
     H3 <: TupleTag,
     H4 <: TupleTag,
-    M1 <: Message,
-    M2 <: Message,
-    M3 <: Message,
-    M4 <: Message,
     X1_C1,
     X1_C2,
     X1_C3,
@@ -372,17 +331,18 @@ final object NodeTag4 {
     t2: Application8[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8],
     t3: Application8[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8],
     t4: Application8[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6, X4_C7, X4_C8]
-  ): Application8[F, NodeTag4[H1, M1, H2, M2, H3, M3, H4, M4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-    X1_C3,
-    X2_C3,
-    X3_C3,
-    X4_C3
-  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
-    X1_C8,
-    X2_C8,
-    X3_C8,
-    X4_C8
-  ]] = { context: Context8[F] =>
+  )
+    : Application8[F, NodeTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+      X1_C4,
+      X2_C4,
+      X3_C4,
+      X4_C4
+    ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
+      X1_C8,
+      X2_C8,
+      X3_C8,
+      X4_C8
+    ]] = { context: Context8[F] =>
     context.append(
       context.append(
         context.append(context.append(context.start, t4.application(context))(Plus8.plusWithTypeParameter0), t3.application(context))(Plus8.plusWithTypeParameter1),

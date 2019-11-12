@@ -11,7 +11,7 @@ object AsunaSealedGenericCodeGenSample {
 
   sameType(
     implicitly[
-      AsunaSealedGeneric.Aux[Foo, TupleTag4[SealedTag[Bar1], `Number： 1`, SealedTag[Bar2], `Number： 2`, SealedTag[Bar3], `Number： 3`, SealedTag[Bar4], `Number： 4`]]
+      AsunaSealedGeneric.Aux[Foo, TupleTag4[SealedTag[Bar1], SealedTag[Bar2], SealedTag[Bar3], SealedTag[Bar4]]]
     ],
     genResult
   )
