@@ -12,20 +12,20 @@ import io.circe.Encoder
 @State(Scope.Thread)                   // 每个测试线程一个实例
 class Test01 {
 
-  implicit def rw1: RW[Bar] = {
+  implicit lazy val rw1: RW[Bar] = {
     import upickle.default.macroRW
-    implicit def rw2: RW[Foo] = macroRW
+    implicit lazy val rw2: RW[Foo] = macroRW
     macroRW
   }
 
-  def rawCirceEncoder: Encoder.AsObject[Bar] = {
+  lazy val rawCirceEncoder: Encoder.AsObject[Bar] = {
     import io.circe.generic.semiauto._
-    implicit def a1: Encoder.AsObject[Foo] = deriveEncoder
+    implicit lazy val a1: Encoder.AsObject[Foo] = deriveEncoder
     deriveEncoder
   }
 
-  def asunaEncoder: Encoder.AsObject[Bar] = {
-    implicit def a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
+  lazy val asunaEncoder: Encoder.AsObject[Bar] = {
+    implicit lazy val a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
     ACirce.encodeCaseClass
   }
 
