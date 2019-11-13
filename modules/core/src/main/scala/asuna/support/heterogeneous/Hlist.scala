@@ -24,37 +24,30 @@ trait HList {
 
 }
 
-trait HNil extends HList {
+final class HNil extends HList {
   self =>
 
-  override type Head = NoData
-
-  override def head: NoData = NoData.value
-
-  override type Tail = HNil
-
-  override def tail: HNil = HNil
-
-  override type Append[H] = ::[H, HNil]
-
-  override def ::[H](h: H): ::[H, HNil] = new ::(h, self)
-
-  override def toString: String = s"HNil"
+  override final type Head = NoData
+  override final def head: NoData = NoData.value
+  override final type Tail = HNil
+  override final def tail: HNil = self
+  override final type Append[H] = ::[H, HNil]
+  override final def ::[H](h: H): ::[H, HNil] = new ::(h, self)
+  override final def toString: String         = s"HNil"
 
 }
 
-final object HNil extends HNil
+final object HNil {
+  final val value: HNil = new HNil
+}
 
 final class ::[H, T <: HList](override val head: H, override val tail: T) extends HList {
   self =>
 
-  override final type Head = H
-  override final type Tail = T
-
+  override final type Head       = H
+  override final type Tail       = T
   override final type Append[HH] = ::[HH, ::[H, T]]
-
   override final def ::[HH](h: HH): ::[HH, ::[H, T]] = new ::(h, self)
-
-  override final def toString: String = s"${head} :: ${tail}"
+  override final def toString: String                = s"${head} :: ${tail}"
 
 }
