@@ -9,13 +9,14 @@ object AsunaSettings {
   val circeVersion        = "0.12.2"
   val scalaTestVersion    = "3.1.0-RC3"
 
-  val setting1 = scalaVersion := currentScalaVersion
+  val setting1 = scalaVersion := scala_2_12_Version
   val setting2 = crossScalaVersions := Seq(scala_2_12_Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
+  val setting5 = transitiveClassifiers := Seq("sources")
 
   val scalaVersionSettings = Seq(setting1, setting2)
-  val commonSettings       = Seq(setting3, setting4)
+  val commonSettings       = Seq(setting3, setting4, setting5)
 
   val circeDependencies = ("io.circe" %% "circe-derivation" % "0.12.0-M7") +: Seq(
     "io.circe" %% "circe-core",
