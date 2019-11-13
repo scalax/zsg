@@ -12,21 +12,22 @@ import io.circe.Encoder
 @State(Scope.Thread)                   // 每个测试线程一个实例
 class Test01 {
 
-  implicit lazy val rw1: RW[Bar] = {
+  object uPickle {
     import upickle.default.macroRW
+    implicit lazy val rw1: RW[Bar] = macroRW
     implicit lazy val rw2: RW[Foo] = macroRW
-    macroRW
   }
 
-  lazy val rawCirceEncoder: Encoder.AsObject[Bar] = {
+  object rawCirceEncoder {
     import io.circe.generic.semiauto._
-    implicit lazy val a1: Encoder.AsObject[Foo] = deriveEncoder
-    deriveEncoder
+    implicit lazy val a1: Encoder.AsObject[Bar] = deriveEncoder
+    implicit lazy val a2: Encoder.AsObject[Foo] = deriveEncoder
+
   }
 
-  lazy val asunaEncoder: Encoder.AsObject[Bar] = {
-    implicit lazy val a1: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
-    ACirce.encodeCaseClass
+  object asunaEncoder {
+    implicit lazy val a1: Encoder.AsObject[Bar] = ACirce.encodeCaseClass
+    implicit lazy val a2: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
   }
 
   val model: Bar = Model.bar
@@ -34,17 +35,17 @@ class Test01 {
   @Benchmark
   def upickleTest = {
     import upickle.default._
-    write(model)
+    write(model)(uPickle.rw1)
   }
 
   @Benchmark
   def asunaCirceTest = {
-    asunaEncoder(model).noSpaces
+    asunaEncoder.a1(model).noSpaces
   }
 
   @Benchmark
   def rawCirceTest = {
-    rawCirceEncoder(model).noSpaces
+    rawCirceEncoder.a1(model).noSpaces
   }
 
 }
