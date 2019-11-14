@@ -20,7 +20,7 @@ AsunaSettings.commonSettings
 val sfmt = taskKey[Unit]("sfmt")
 
 sfmt := {
-  (core / Compile / scalafmt).value
+  //(core / Compile / scalafmt).value
   (core / Test / scalafmt).value
   (core / Compile / scalafmtSbt).value
 
