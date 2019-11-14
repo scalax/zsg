@@ -51,16 +51,16 @@ object Sample01 {
   }
 
   val b1: JsonObjectAppender[AsunaTuple1[Long], AsunaTuple1[String]] =
-    ii.append(ii.start, a4)(Plus2.plusWithTypeParameter0)
+    ii.append(ii.start, a4)(Plus2.cachePlusWithTypeParameter0)
 
   val b2: JsonObjectAppender[AsunaTuple2[Long, Long], AsunaTuple2[String, String]] =
-    ii.append(b1, a3)(Plus2.plusWithTypeParameter1)
+    ii.append(b1, a3)(Plus2.cachePlusWithTypeParameter1)
 
   val b3: JsonObjectAppender[AsunaTuple3[Int, Long, Long], AsunaTuple3[String, String, String]] =
-    ii.append(b2, a2)(Plus2.plusWithTypeParameter2)
+    ii.append(b2, a2)(Plus2.cachePlusWithTypeParameter2)
 
   val en1: JsonObjectAppender[AsunaTuple4[String, Int, Long, Long], AsunaTuple4[String, String, String, String]] =
-    ii.append(b3, a1)(Plus2.plusWithTypeParameter3)
+    ii.append(b3, a1)(Plus2.cachePlusWithTypeParameter3)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =

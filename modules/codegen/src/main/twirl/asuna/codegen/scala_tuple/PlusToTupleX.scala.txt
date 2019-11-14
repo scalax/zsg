@@ -43,7 +43,7 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
         ] {
             @for(i <- 1 to tagNum) {
                 final override def takeHead@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil =
-                @for(ii <- 1 to caseClassNum) { z._@{ii + 1} :: } HNil
+                @for(ii <- 1 to caseClassNum) { z._@{ii + 1} :: } HNil.value
                 final override def takeTail@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): Y@{i} = z._1
                 final override def plus@{i}(x: @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil, y: Y@{i}): ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) =
                 (y @for(ii <- 1 to caseClassNum) { , x @for(iii <- 2 to ii) { .tail } .head })

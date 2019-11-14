@@ -1,5 +1,7 @@
 package asuna.testkit.circe.encoder
 
+import java.util
+
 import asuna.macros.{ByNameImplicit, PropertyTag}
 import asuna.{Application2, Context2}
 import io.circe.{Encoder, Json}
@@ -9,22 +11,16 @@ trait JsonObjectAppender[T, II] extends Any {
 }
 
 object JsonObjectAppender {
-  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] =
-    /*{
-    context => (tt, name, m) =>
-      m.put(name, t.value(tt))
-  }*/
-    new circe_support.JsonAppenderApplication(t)
-}
-
-package circe_support {
-
-  final class JsonAppenderApplication[T](private val t: ByNameImplicit[Encoder[T]]) extends AnyVal with Application2[JsonObjectAppender, PropertyTag[T], T, String] {
-    override def application(context: Context2[JsonObjectAppender]): JsonAppenderImpl[T] = new JsonAppenderImpl(t)
+  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] = {
+    val appender = new JsonObjectAppender[T, String] {
+      override def appendField(tt: T, name: String, m: util.LinkedHashMap[String, Json]): Unit = {
+        m.put(name, t.value(tt))
+      }
+    }
+    new Application2[JsonObjectAppender, PropertyTag[T], T, String] {
+      override def application(context: Context2[JsonObjectAppender]): JsonObjectAppender[T, String] = {
+        appender
+      }
+    }
   }
-
-  final class JsonAppenderImpl[T](private val t: ByNameImplicit[Encoder[T]]) extends AnyVal with JsonObjectAppender[T, String] {
-    override def appendField(tt: T, name: String, m: java.util.LinkedHashMap[String, Json]): Unit = m.put(name, t.value(tt))
-  }
-
 }

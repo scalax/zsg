@@ -15,7 +15,7 @@ trait PlusToTuple_10_1 {
       final override def takeHead1(
         z: (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10)
       ): X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil =
-        z._2 :: z._3 :: z._4 :: z._5 :: z._6 :: z._7 :: z._8 :: z._9 :: z._10 :: z._11 :: HNil
+        z._2 :: z._3 :: z._4 :: z._5 :: z._6 :: z._7 :: z._8 :: z._9 :: z._10 :: z._11 :: HNil.value
       final override def takeTail1(z: (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10)): Y1 = z._1
       final override def plus1(
         x: X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil,

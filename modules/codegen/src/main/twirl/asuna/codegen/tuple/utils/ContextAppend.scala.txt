@@ -1,9 +1,9 @@
 @(max: Int)(currentItem: Int)(plusNum: Int)
 
 @if(currentItem == max) {
-context.append(context.start, t@{max}.application(context))(Plus@{plusNum}.plusWithTypeParameter0)
+context.append(context.start, t@{max}.application(context))(plus@{plusNum}_parameter0)
 }
 
 @if(currentItem < max && currentItem >= 1) {
-context.append(@asuna.codegen.tuple.utils.txt.ContextAppend(max)(currentItem + 1)(plusNum), t@{currentItem}.application(context))(Plus@{plusNum}.plusWithTypeParameter@{max - currentItem})
+context.append(@asuna.codegen.tuple.utils.txt.ContextAppend(max)(currentItem + 1)(plusNum), t@{currentItem}.application(context))(plus@{plusNum}_parameter@{max - currentItem})
 }

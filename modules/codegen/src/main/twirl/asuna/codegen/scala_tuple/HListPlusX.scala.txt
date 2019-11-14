@@ -23,7 +23,7 @@ trait HListPlus_@{caseClassNum}_@{tagNum} {
             @for(i <- 1 to tagNum) {
                 final override def takeHead@{i}(z: Y@{i} :: X@{i}_C1 :: HNil): X@{i}_C1 = z.tail.head
                 final override def takeTail@{i}(z: Y@{i} :: X@{i}_C1 :: HNil): Y@{i} = z.head
-                final override def plus@{i}(x: X@{i}_C1, y: Y@{i}): Y@{i} :: X@{i}_C1 :: HNil = y :: x :: HNil
+                final override def plus@{i}(x: X@{i}_C1, y: Y@{i}): Y@{i} :: X@{i}_C1 :: HNil = y :: x :: HNil.value
             }
         }
     } else {

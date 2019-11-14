@@ -11,12 +11,12 @@ object AsunaTestKitCodeGeneration {
     Paths
       .get("./")
       .resolve("modules")
-      .resolve("testkit")
+      .resolve("macros")
       .resolve("src")
       .resolve("test")
       .resolve("scala")
       .resolve("asuna")
-      .resolve("testkit")
+      .resolve("test")
       .resolve("case_class")
       .resolve("codegen")
 
