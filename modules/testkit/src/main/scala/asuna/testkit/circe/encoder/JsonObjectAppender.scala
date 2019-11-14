@@ -9,22 +9,8 @@ trait JsonObjectAppender[T, II] extends Any {
 }
 
 object JsonObjectAppender {
-  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] =
-    new circe_support.JsonAppenderApplication(t)
-  /*{
-     context => (tt, name, m) =>
-       m.put(name, t.value(tt))
-   }*/
-}
-
-package circe_support {
-
-  final class JsonAppenderApplication[T](private val t: ByNameImplicit[Encoder[T]]) extends AnyVal with Application2[JsonObjectAppender, PropertyTag[T], T, String] {
-    override def application(context: Context2[JsonObjectAppender]): JsonAppenderImpl[T] = new JsonAppenderImpl(t)
+  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] = {
+    context => (tt, name, m) =>
+      m.put(name, t.value(tt))
   }
-
-  final class JsonAppenderImpl[T](private val t: ByNameImplicit[Encoder[T]]) extends AnyVal with JsonObjectAppender[T, String] {
-    override def appendField(tt: T, name: String, m: java.util.LinkedHashMap[String, Json]): Unit = m.put(name, t.value(tt))
-  }
-
 }
