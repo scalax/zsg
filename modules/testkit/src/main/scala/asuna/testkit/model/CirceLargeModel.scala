@@ -1,7 +1,20 @@
 package asuna.testkit.model
 
-import asuna.TupleTag
-import asuna.macros.GenericAssemble
+import asuna.macros.GenericAssemble.GenericTypeFunc
+import asuna.{Application3, TupleTag}
+import asuna.macros.{
+  AsunaDefaultValueGeneric,
+  AsunaDefaultValueGenericMacroPoly,
+  AsunaGeneric,
+  AsunaGenericMacroPoly,
+  AsunaGetterGeneric,
+  AsunaGetterGenericMacroPoly,
+  AsunaLabelledGeneric,
+  AsunaLabelledGenericMacroPoly,
+  AsunaSetterGeneric,
+  AsunaSetterGenericMacroPoly,
+  GenericAssemble
+}
 
 object LargeModel {
 
@@ -109,19 +122,25 @@ object LargeModel {
   )
 
   object LargeModel_1 {
-    import LargeModel_1Poly._
-    implicit def iiImplicit: gen.Self = gen
-  }
-  object LargeModel_1Poly {
-    val gen = GenericAssemble[LargeModel_1].assembleImplicit
+    implicit def genericImplicit[Gen <: TupleTag, N, V, D](
+      implicit asunaGeneric: AsunaGeneric.Aux[LargeModel_1, Gen],
+      application3: =>Application3[GenericTypeFunc, Gen, N, V, D],
+      asunaLabelledGeneric: AsunaLabelledGeneric[LargeModel_1, N],
+      asunaGetterGeneric: AsunaGetterGeneric[LargeModel_1, V],
+      asunaSetterGeneric: AsunaSetterGeneric[LargeModel_1, V],
+      asunaDefaultValueGeneric: AsunaDefaultValueGeneric[LargeModel_1, D]
+    ): GenericAssemble[LargeModel_1, Gen, N, V, D] = GenericAssemble.rawImplicit
   }
 
   object LargeModel_2 {
-    import LargeModel_2Poly._
-    implicit def assemblyImplicit: gen.Self = gen
-  }
-  object LargeModel_2Poly {
-    val gen = GenericAssemble[LargeModel_2].assembleImplicit
+    implicit def genericImplicit[Gen <: TupleTag, N, V, D](
+      implicit asunaGeneric: AsunaGeneric.Aux[LargeModel_2, Gen],
+      application3: =>Application3[GenericTypeFunc, Gen, N, V, D],
+      asunaLabelledGeneric: AsunaLabelledGeneric[LargeModel_2, N],
+      asunaGetterGeneric: AsunaGetterGeneric[LargeModel_2, V],
+      asunaSetterGeneric: AsunaSetterGeneric[LargeModel_2, V],
+      asunaDefaultValueGeneric: AsunaDefaultValueGeneric[LargeModel_2, D]
+    ): GenericAssemble[LargeModel_2, Gen, N, V, D] = GenericAssemble.rawImplicit
   }
 
   case class LargeModel_2(
@@ -227,7 +246,7 @@ object LargeModel {
     miaomiao100: String
   )
 
-  def largeModel_1 = LargeModel_1(
+  def largeModel_1_value = LargeModel_1(
     miaomiao1 = 404,
     miaomiao2 = "init string",
     miaomiao3 = "init string",
@@ -330,7 +349,7 @@ object LargeModel {
     miaomiao100 = "init string"
   )
 
-  val largeModel_2 = LargeModel_2(
+  val largeModel_2_value = LargeModel_2(
     miaomiao1 = 404,
     miaomiao2 = "init string",
     miaomiao3 = "init string",
@@ -341,7 +360,7 @@ object LargeModel {
     miaomiao8 = "init string",
     miaomiao9 = "init string",
     miaomiao10 = "init string",
-    miaomiao11 = List(largeModel_1),
+    miaomiao11 = List(largeModel_1_value),
     miaomiao12 = "2333",
     miaomiao13 = "init string",
     miaomiao14 = "init string",

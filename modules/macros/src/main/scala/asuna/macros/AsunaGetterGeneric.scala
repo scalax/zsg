@@ -17,9 +17,7 @@ object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly {
 }
 
 trait AsunaGetterGenericMacroPoly {
-
   implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
-
 }
 
 object AsunaGetterGenericMacroApply {

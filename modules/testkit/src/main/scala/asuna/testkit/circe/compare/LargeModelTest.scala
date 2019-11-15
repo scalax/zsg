@@ -2,6 +2,7 @@ package asuna.testkit.circe
 
 import asuna.testkit.circe.decoder.AsunaCirceDecoder
 import asuna.testkit.model.LargeModel
+import asuna.testkit.model.LargeModel.LargeModel_1
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
 
@@ -14,41 +15,42 @@ object LargeModelTest extends App {
     {
       implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
       implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-      val i1                                                                       = LargeModel.largeModel_2.asJson
+      val i1                                                                       = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
     {
       implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
       implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-      val i1                                                                       = LargeModel.largeModel_2.asJson
+      val i1                                                                       = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
     {
       implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
       implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-      val i1                                                                       = LargeModel.largeModel_2.asJson
+      val i1                                                                       = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
     {
       implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
       implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-      val i1                                                                       = LargeModel.largeModel_2.asJson
+      val i1                                                                       = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
+
     }
 
     {
       implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
       implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-      val i1                                                                       = LargeModel.largeModel_2.asJson
+      val i1                                                                       = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
     implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
     implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-    val i1                                                                       = LargeModel.largeModel_2.asJson
+    val i1                                                                       = LargeModel.largeModel_2_value.asJson
     println(i1.noSpaces)
 
     println("==================== line ====================")
