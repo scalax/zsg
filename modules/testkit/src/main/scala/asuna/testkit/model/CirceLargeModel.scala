@@ -1,5 +1,8 @@
 package asuna.testkit.model
 
+import asuna.TupleTag
+import asuna.macros.GenericAssemble
+
 object LargeModel {
 
   case class LargeModel_1(
@@ -104,6 +107,22 @@ object LargeModel {
     miaomiao99: String,
     miaomiao100: String
   )
+
+  object LargeModel_1 {
+    import LargeModel_1Poly._
+    implicit def iiImplicit: gen.Self = gen
+  }
+  object LargeModel_1Poly {
+    val gen = GenericAssemble[LargeModel_1].assembleImplicit
+  }
+
+  object LargeModel_2 {
+    import LargeModel_2Poly._
+    implicit def assemblyImplicit: gen.Self = gen
+  }
+  object LargeModel_2Poly {
+    val gen = GenericAssemble[LargeModel_2].assembleImplicit
+  }
 
   case class LargeModel_2(
     miaomiao1: Int = 123,
