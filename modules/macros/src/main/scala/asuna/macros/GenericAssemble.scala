@@ -15,13 +15,13 @@ trait GenericAssemble[CaseClass, Generic <: TupleTag, Name, Value, Default] {
 }
 
 object GenericAssemble {
-   def rawImplicit[Case,Gen <: TupleTag, N, V, D](
-  implicit asunaGeneric: AsunaGeneric.Aux[Case, Gen],
-  application3: =>Application3[GenericTypeFunc, Gen, N, V, D],
-  asunaLabelledGeneric: AsunaLabelledGeneric[Case, N],
-  asunaGetterGeneric: AsunaGetterGeneric[Case, V],
-  asunaSetterGeneric: AsunaSetterGeneric[Case, V],
-  asunaDefaultValueGeneric: AsunaDefaultValueGeneric[Case, D]
+  /*def rawImplicit[Case, Gen <: TupleTag, N, V, D](
+    implicit asunaGeneric: AsunaGeneric.Aux[Case, Gen],
+    application3: Application3[GenericTypeFunc, Gen, N, V, D],
+    asunaLabelledGeneric: AsunaLabelledGeneric[Case, N],
+    asunaGetterGeneric: AsunaGetterGeneric[Case, V],
+    asunaSetterGeneric: AsunaSetterGeneric[Case, V],
+    asunaDefaultValueGeneric: AsunaDefaultValueGeneric[Case, D]
   ): GenericAssemble[Case, Gen, N, V, D] = new GenericAssemble[Case, Gen, N, V, D] {
     override val generic: AsunaGeneric.Aux[Case, Gen] = {
       asunaGeneric
@@ -38,9 +38,9 @@ object GenericAssemble {
     override val defaultGeneric: AsunaDefaultValueGeneric[Case, D] = {
       asunaDefaultValueGeneric
     }
-  }
+  }*/
 
-  /*class GenericAssembleApply[Case] {
+  class GenericAssembleApply[Case] {
     def assembleImplicit[Gen <: TupleTag, N, V, D](
       implicit asunaGeneric: AsunaGeneric.Aux[Case, Gen],
       application3: Application3[GenericTypeFunc, Gen, N, V, D],
@@ -50,24 +50,29 @@ object GenericAssemble {
       asunaDefaultValueGeneric: AsunaDefaultValueGeneric[Case, D]
     ): GenericAssemble[Case, Gen, N, V, D] = new GenericAssemble[Case, Gen, N, V, D] {
       override val generic: AsunaGeneric.Aux[Case, Gen] = {
+        println("11" * 100)
         asunaGeneric
       }
       override val labelledGeneric: AsunaLabelledGeneric[Case, N] = {
+        println("22" * 100)
         asunaLabelledGeneric
       }
       override val getterGeneric: AsunaGetterGeneric[Case, V] = {
+        println("33" * 100)
         asunaGetterGeneric
       }
       override val setterGeneric: AsunaSetterGeneric[Case, V] = {
+        println("44" * 100)
         asunaSetterGeneric
       }
       override val defaultGeneric: AsunaDefaultValueGeneric[Case, D] = {
+        println("66" * 100)
         asunaDefaultValueGeneric
       }
     }
   }
 
-  def apply[Case] = new GenericAssembleApply[Case]*/
+  def apply[Case] = new GenericAssembleApply[Case]
 
   class GenericTypeFunc[Name, Value, Default]
 
@@ -81,4 +86,9 @@ object GenericAssemble {
     }
   }
 
+}
+
+class GenericAssembleContent[T <: GenericAssemble[_, _ <: TupleTag, _, _, _]](val content: T) {
+  type GenericSelf = content.GenericSelf
+  def contentImplicit: GenericSelf = content.genericSelf
 }

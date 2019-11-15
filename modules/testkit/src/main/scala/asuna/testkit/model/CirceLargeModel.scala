@@ -1,20 +1,6 @@
 package asuna.testkit.model
 
-import asuna.macros.GenericAssemble.GenericTypeFunc
-import asuna.{Application3, TupleTag}
-import asuna.macros.{
-  AsunaDefaultValueGeneric,
-  AsunaDefaultValueGenericMacroPoly,
-  AsunaGeneric,
-  AsunaGenericMacroPoly,
-  AsunaGetterGeneric,
-  AsunaGetterGenericMacroPoly,
-  AsunaLabelledGeneric,
-  AsunaLabelledGenericMacroPoly,
-  AsunaSetterGeneric,
-  AsunaSetterGenericMacroPoly,
-  GenericAssemble
-}
+import asuna.macros.{GenericAssemble, GenericAssembleContent}
 
 object LargeModel {
 
@@ -121,27 +107,9 @@ object LargeModel {
     miaomiao100: String
   )
 
-  object LargeModel_1 {
-    implicit def genericImplicit[Gen <: TupleTag, N, V, D](
-      implicit asunaGeneric: AsunaGeneric.Aux[LargeModel_1, Gen],
-      application3: =>Application3[GenericTypeFunc, Gen, N, V, D],
-      asunaLabelledGeneric: AsunaLabelledGeneric[LargeModel_1, N],
-      asunaGetterGeneric: AsunaGetterGeneric[LargeModel_1, V],
-      asunaSetterGeneric: AsunaSetterGeneric[LargeModel_1, V],
-      asunaDefaultValueGeneric: AsunaDefaultValueGeneric[LargeModel_1, D]
-    ): GenericAssemble[LargeModel_1, Gen, N, V, D] = GenericAssemble.rawImplicit
-  }
+  object Large1Poly extends GenericAssembleContent(GenericAssemble[LargeModel_1].assembleImplicit)
 
-  object LargeModel_2 {
-    implicit def genericImplicit[Gen <: TupleTag, N, V, D](
-      implicit asunaGeneric: AsunaGeneric.Aux[LargeModel_2, Gen],
-      application3: =>Application3[GenericTypeFunc, Gen, N, V, D],
-      asunaLabelledGeneric: AsunaLabelledGeneric[LargeModel_2, N],
-      asunaGetterGeneric: AsunaGetterGeneric[LargeModel_2, V],
-      asunaSetterGeneric: AsunaSetterGeneric[LargeModel_2, V],
-      asunaDefaultValueGeneric: AsunaDefaultValueGeneric[LargeModel_2, D]
-    ): GenericAssemble[LargeModel_2, Gen, N, V, D] = GenericAssemble.rawImplicit
-  }
+  object LargeModel_1
 
   case class LargeModel_2(
     miaomiao1: Int = 123,
@@ -245,6 +213,9 @@ object LargeModel {
     miaomiao99: String,
     miaomiao100: String
   )
+
+  object Large2Poly extends GenericAssembleContent(GenericAssemble[LargeModel_2].assembleImplicit)
+  object LargeModel_2
 
   def largeModel_1_value = LargeModel_1(
     miaomiao1 = 404,
