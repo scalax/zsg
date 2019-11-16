@@ -1,5 +1,7 @@
 package asuna.macros
 
+import asuna.TupleTag
+
 import scala.language.experimental.macros
 
 trait DefaultValue[T] {
@@ -22,7 +24,15 @@ trait AsunaDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues(): DefaultValueType
 }
 
-object AsunaDefaultValueGeneric {
+object AsunaDefaultValueGeneric extends AsunaDefaultValueGenericMacroPoly {
+
+  implicit def genericApply[Case, Generic <: TupleTag, Name, Value, Default](
+    implicit assemble: GenericAssemble[Case, Generic, Name, Value, Default]
+  ): AsunaDefaultValueGeneric[Case, Default] = assemble.defaultGeneric
+
+}
+
+trait AsunaDefaultValueGenericMacroPoly {
 
   implicit def macroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
 

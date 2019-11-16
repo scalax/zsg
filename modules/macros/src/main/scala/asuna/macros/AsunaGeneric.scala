@@ -17,11 +17,9 @@ trait AsunaGeneric[H] {
   def tag: WT
 }
 
-object AsunaGeneric {
-
-  def init[M]: GenericApply[M] = new GenericApply[M] {}
-
-  trait GenericApply[M] {
+object AsunaGeneric extends AsunaGenericMacroPoly {
+  def init[M]: GenericApply[M] = new GenericApply[M]
+  class GenericApply[M] {
     def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
 
     def init1[K <: TupleTag](i: AppendTag[K]): Aux[M, K] = {
@@ -34,8 +32,13 @@ object AsunaGeneric {
 
   type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
 
-  implicit def macroImpl[H, II <: TupleTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def genericApply[Case, Generic <: TupleTag, Name, Value, Default](
+    implicit assemble: GenericAssemble[Case, Generic, Name, Value, Default]
+  ): AsunaGeneric.Aux[Case, Generic] = assemble.generic
+}
 
+trait AsunaGenericMacroPoly {
+  implicit def macroImpl[H, II <: TupleTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
 }
 
 object AsunaGenericMacroApply {

@@ -1,15 +1,23 @@
 package asuna.macros
 
+import asuna.TupleTag
+
 import scala.language.experimental.macros
 
 trait AsunaGetterGeneric[H, GenericType] {
   def getter(model: H): GenericType
 }
 
-object AsunaGetterGeneric {
+object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly {
 
+  implicit def genericApply[Case, Generic <: TupleTag, Name, Value, Default](
+    implicit assemble: GenericAssemble[Case, Generic, Name, Value, Default]
+  ): AsunaGetterGeneric[Case, Value] = assemble.getterGeneric
+
+}
+
+trait AsunaGetterGenericMacroPoly {
   implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
-
 }
 
 object AsunaGetterGenericMacroApply {
