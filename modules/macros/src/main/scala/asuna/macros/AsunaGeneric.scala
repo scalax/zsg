@@ -31,10 +31,6 @@ object AsunaGeneric extends AsunaGenericMacroPoly {
   }
 
   type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
-
-  implicit def genericApply[Case, Generic <: TupleTag, Name, Value, Default](
-    implicit assemble: GenericAssemble[Case, Generic, Name, Value, Default]
-  ): AsunaGeneric.Aux[Case, Generic] = assemble.generic
 }
 
 trait AsunaGenericMacroPoly {

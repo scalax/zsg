@@ -2,7 +2,6 @@ package asuna.testkit.circe
 
 import asuna.testkit.circe.decoder.AsunaCirceDecoder
 import asuna.testkit.model.LargeModel
-import asuna.testkit.model.LargeModel.LargeModel_1
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
 

@@ -1,7 +1,5 @@
 package asuna.testkit.model
 
-import asuna.macros.{GenericAssemble, GenericAssembleContent}
-
 object LargeModel {
 
   case class LargeModel_1(
@@ -107,10 +105,6 @@ object LargeModel {
     miaomiao100: String
   )
 
-  object Large1Poly extends GenericAssembleContent(GenericAssemble[LargeModel_1].assembleImplicit)
-
-  object LargeModel_1
-
   case class LargeModel_2(
     miaomiao1: Int = 123,
     miaomiao2: String,
@@ -213,9 +207,6 @@ object LargeModel {
     miaomiao99: String,
     miaomiao100: String
   )
-
-  object Large2Poly extends GenericAssembleContent(GenericAssemble[LargeModel_2].assembleImplicit)
-  object LargeModel_2
 
   def largeModel_1_value = LargeModel_1(
     miaomiao1 = 404,
