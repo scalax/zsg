@@ -1,6 +1,19 @@
 @(tagNum: Int, maxAsunaTupleNum: Int)
 
-package asuna
+package asuna.support
+
+import scala.language.higherKinds
+
+import asuna.TupleTag@{tagNum}
+
+@for(i <- 0 to tagNum) {
+import asuna.AsunaTuple@{i}
+}
+@for(i <- 1 to maxAsunaTupleNum) {
+import asuna.Application@{i}
+import asuna.Plus@{i}
+import asuna.Context@{i}
+}
 
 trait TupleTag@{tagNum}ApplicationCompanion {
 

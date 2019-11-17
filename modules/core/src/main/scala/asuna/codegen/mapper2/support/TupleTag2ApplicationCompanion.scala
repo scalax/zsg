@@ -1,4 +1,33 @@
-package asuna
+package asuna.support
+import scala.language.higherKinds
+import asuna.TupleTag2
+import asuna.AsunaTuple0
+import asuna.AsunaTuple1
+import asuna.AsunaTuple2
+import asuna.Application1
+import asuna.Plus1
+import asuna.Context1
+import asuna.Application2
+import asuna.Plus2
+import asuna.Context2
+import asuna.Application3
+import asuna.Plus3
+import asuna.Context3
+import asuna.Application4
+import asuna.Plus4
+import asuna.Context4
+import asuna.Application5
+import asuna.Plus5
+import asuna.Context5
+import asuna.Application6
+import asuna.Plus6
+import asuna.Context6
+import asuna.Application7
+import asuna.Plus7
+import asuna.Context7
+import asuna.Application8
+import asuna.Plus8
+import asuna.Context8
 trait TupleTag2ApplicationCompanion {
   final implicit def tupleTagApplicationImplicit_tagNum2_typeParamNum1[
     F[_],

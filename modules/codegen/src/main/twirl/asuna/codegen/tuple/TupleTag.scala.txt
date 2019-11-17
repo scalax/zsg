@@ -3,4 +3,4 @@
 package asuna
 
 final class TupleTag@{tagNum}[T1 @for(ii <- 2 to tagNum){ , T@{ii} }] extends TupleTag
-final object TupleTag@{tagNum} extends TupleTag@{tagNum}ApplicationCompanion
+final object TupleTag@{tagNum} extends support.TupleTag@{tagNum}ApplicationCompanion
