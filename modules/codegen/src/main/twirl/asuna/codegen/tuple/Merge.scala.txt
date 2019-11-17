@@ -1,0 +1,58 @@
+@(tagNum: Int, maxAsunaTupleNum: Int)
+
+package asuna
+
+class Merge@{tagNum}[I1 <: TupleTag @for(i <- 2 to tagNum) { , I@{i} <: TupleTag } , Target <: TupleTag]
+trait MergeProperty@{tagNum}[I1 @for(i <- 2 to tagNum) { , I@{i} }]
+
+object Merge@{tagNum} {
+
+    @for(ii <- 2 to maxAsunaTupleNum) {
+        implicit def nodetag@{ii}_merge@{tagNum}_implicit[X1_C1 <: TupleTag @for(i <- 2 to tagNum) { , X1_C@{i} <: TupleTag } @for(ii <- 2 to ii) { @for(iii <- 1 to tagNum) { , X@{ii}_C@{iii} <: TupleTag } }
+        @for(iii <- 1 to ii) { , Target@{iii} <: TupleTag }
+        ]
+        (implicit
+        nodeTagImplicit1: Merge@{tagNum}[X1_C1 @for(iii <- 2 to tagNum) { , X1_C@{iii} } , Target1 ]
+        @for(i <- 2 to ii) { , nodeTagImplicit@{i}: Merge@{tagNum}[X@{i}_C1 @for(iii <- 2 to tagNum) { , X@{i}_C@{iii} } , Target@{i} ] } ): Merge@{tagNum}[
+        NodeTag@{ii}[X1_C1 @for(iii <- 2 to ii) { , X@{iii}_C1 }]
+        @for(iiii <- 2 to tagNum) {
+            , NodeTag@{ii}[X1_C@{iiii} @for(iii <- 2 to ii) { , X@{iii}_C@{iiii} }]
+        }
+        , NodeTag@{ii}[Target1 @for(iii <- 2 to ii) { , Target@{iii} }]
+        ] = {
+            new Merge@{tagNum}[
+            NodeTag@{ii}[X1_C1 @for(iii <- 2 to ii) { , X@{iii}_C1 }]
+            @for(iiii <- 2 to tagNum) {
+                , NodeTag@{ii}[X1_C@{iiii} @for(iii <- 2 to ii) { , X@{iii}_C@{iiii} }]
+            }
+            , NodeTag@{ii}[Target1 @for(iii <- 2 to ii) { , Target@{iii} }]
+            ]
+        }
+
+        implicit def tupletag@{ii}_merge@{tagNum}_implicit[X1_C1 @for(i <- 2 to tagNum) { , X1_C@{i} } @for(ii <- 2 to ii) { @for(iii <- 1 to tagNum) { , X@{ii}_C@{iii} } }]
+        : Merge@{tagNum}[
+            TupleTag@{ii}[X1_C1 @for(iii <- 2 to ii) { , X@{iii}_C1 }]
+            @for(iiii <- 2 to tagNum) {
+                , TupleTag@{ii}[X1_C@{iiii} @for(iii <- 2 to ii) { , X@{iii}_C@{iiii} }]
+            }
+            , TupleTag@{ii}[
+                MergeProperty@{tagNum}[X1_C1
+                @for(iiii <- 2 to tagNum) { , X1_C@{iiii} }]
+                @for(iiii <- 2 to ii) { , MergeProperty@{tagNum}[X@{iiii}_C1 @for(iiiii <- 2 to tagNum) { , X@{iiii}_C@{iiiii} }] }
+            ]
+        ] = {
+            new Merge@{tagNum}[
+            TupleTag@{ii}[X1_C1 @for(iii <- 2 to ii) { , X@{iii}_C1 }]
+            @for(iiii <- 2 to tagNum) {
+                , TupleTag@{ii}[X1_C@{iiii} @for(iii <- 2 to ii) { , X@{iii}_C@{iiii} }]
+            }
+            , TupleTag@{ii}[
+            MergeProperty@{tagNum}[X1_C1
+            @for(iiii <- 2 to tagNum) { , X1_C@{iiii} }]
+            @for(iiii <- 2 to ii) { , MergeProperty@{tagNum}[X@{iiii}_C1 @for(iiiii <- 2 to tagNum) { , X@{iiii}_C@{iiiii} }] }
+            ]
+            ]
+        }
+    }
+
+}
