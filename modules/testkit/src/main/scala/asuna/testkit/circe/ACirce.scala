@@ -1,8 +1,19 @@
 package asuna.testkit.circe
 
-import asuna.{Application2, TupleTag}
-import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, AsunaSealedClassGeneric, AsunaSealedGeneric, AsunaSealedLabelledGeneric}
-import io.circe.{Encoder, Json, JsonObject, Utils}
+import asuna.{Application2, Application3, TupleTag}
+import asuna.macros.{
+  AsunaDefaultValueGeneric,
+  AsunaGeneric,
+  AsunaGetterGeneric,
+  AsunaLabelledGeneric,
+  AsunaSealedClassGeneric,
+  AsunaSealedGeneric,
+  AsunaSealedLabelledGeneric,
+  AsunaSealedToAbsGeneric,
+  AsunaSetterGeneric
+}
+import asuna.testkit.circe.decoder.AsunaCirceDecoder
+import io.circe.{Decoder, Encoder, Json, JsonObject, Utils}
 
 object ACirce {
 
@@ -36,6 +47,27 @@ object ACirce {
     Encoder.AsObject.instance { o: H =>
       JsonObject.fromIterable(applicationEncoder.p(o, name2, name1))
     }
+  }
+
+  def decodeCaseClass[T, R <: TupleTag, Model, Nam, DefVal](
+    implicit ll: AsunaGeneric.Aux[T, R],
+    app: Application3[decoder.JsonDecoderPro, R, Model, Nam, DefVal],
+    cv1: AsunaLabelledGeneric[T, Nam],
+    cv3: AsunaSetterGeneric[T, Model],
+    cv4: AsunaDefaultValueGeneric[T, DefVal]
+  ): Decoder[T] = {
+    app.application(AsunaCirceDecoder).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
+  }
+
+  def decodeSealed[H, R <: TupleTag, Nam, Tran](
+    implicit ll: AsunaSealedGeneric.Aux[H, R],
+    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam, Tran],
+    cv1: AsunaSealedLabelledGeneric[H, Nam],
+    cv2: AsunaSealedToAbsGeneric[H, Tran]
+  ): Decoder[H] = {
+    val ii    = new decoder.AsunaSealedContext[H]
+    val names = cv1.names
+    app.application(ii).to(names, cv2.names)
   }
 
 }
