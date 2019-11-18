@@ -1,16 +1,15 @@
 package asuna.testkit.circe.test2
 
+import asuna.testkit.circe.ACirce
 import io.circe.Decoder
 import asuna.testkit.model._
-import asuna.testkit.circe.decoder.{AsunaCirceDecoder, AsunaSealedDecoder}
 
 trait Poly1 {
 
   import Poly2._
-  import asuna.testkit.circe.decoder.DecoderCircePoly._
 
-  implicit def test02_de_implicit: Decoder[Test02] = AsunaCirceDecoder.decoder
-  implicit def test04_de_implicit: Decoder[Test04] = AsunaCirceDecoder.decoder
+  implicit def test02_de_implicit: Decoder[Test02] = ACirce.decodeCaseClass
+  implicit def test04_de_implicit: Decoder[Test04] = ACirce.decodeCaseClass
 
 }
 
@@ -19,15 +18,14 @@ object Poly1 extends Poly1
 trait Poly2 {
 
   import Poly1._
-  import asuna.testkit.circe.decoder.DecoderCircePoly._
 
-  implicit def test01_de_implicit[T](implicit de: Decoder[T]): Decoder[Test01[T]] = AsunaCirceDecoder.decoder
-  implicit def test03_de_implicit: Decoder[Test03]                                = AsunaCirceDecoder.decoder
+  implicit def test01_de_implicit[T](implicit de: Decoder[T]): Decoder[Test01[T]] = ACirce.decodeCaseClass
+  implicit def test03_de_implicit: Decoder[Test03]                                = ACirce.decodeCaseClass
 
-  implicit def test05_de_implicit: Decoder[Test05[String]] = AsunaSealedDecoder.decoder
-  implicit def test06_de_implicit: Decoder[Test06[String]] = AsunaCirceDecoder.decoder
-  implicit def test07_de_implicit: Decoder[Test07[String]] = AsunaCirceDecoder.decoder
-  implicit def test08_de_implicit: Decoder[Test08]         = AsunaCirceDecoder.decoder
+  implicit def test05_de_implicit: Decoder[Test05[String]] = ACirce.decodeSealed
+  implicit def test06_de_implicit: Decoder[Test06[String]] = ACirce.decodeCaseClass
+  implicit def test07_de_implicit: Decoder[Test07[String]] = ACirce.decodeCaseClass
+  implicit def test08_de_implicit: Decoder[Test08]         = ACirce.decodeCaseClass
   implicit def test09_de_implicit: Decoder[Test09.type]    = Decoder.instance(f => Right(Test09))
 
 }
