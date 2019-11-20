@@ -12,7 +12,6 @@ import asuna.macros.{
   AsunaSealedToAbsGeneric,
   AsunaSetterGeneric
 }
-import asuna.testkit.circe.decoder.AsunaCirceDecoder
 import io.circe.{Decoder, Encoder, Json, JsonObject, Utils}
 
 object ACirce {
@@ -56,7 +55,7 @@ object ACirce {
     cv3: AsunaSetterGeneric[T, Model],
     cv4: AsunaDefaultValueGeneric[T, DefVal]
   ): Decoder[T] = {
-    app.application(AsunaCirceDecoder).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
+    app.application(decoder.AsunaDecoderContext).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
   }
 
   def decodeSealed[H, R <: TupleTag, Nam, Tran](
