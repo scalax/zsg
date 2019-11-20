@@ -2,9 +2,7 @@ package asuna {
 
   import scala.language.higherKinds
 
-  trait TupleTag {
-    type M[M <: Message] <: TupleTag
-  }
+  trait TupleTag
 
   trait Message
 
