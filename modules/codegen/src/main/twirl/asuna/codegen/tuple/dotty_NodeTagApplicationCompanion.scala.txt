@@ -19,7 +19,7 @@ import asuna.Context@{i}
 trait NodeTag@{tagNum}ApplicationCompanion {
 
     @for(typeParamNum <- 1 to maxAsunaTupleNum) {
-        given noteTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+        inline given noteTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
         F[_ @for(i <- 2 to typeParamNum) { , _ }]
         @for(ii <- 1 to tagNum) { , H@{ii} <: TupleTag }
         @for(i <- 1 to tagNum) {

@@ -31,7 +31,7 @@ import asuna.Application8
 import asuna.Plus8
 import asuna.Context8
 trait NodeTag3ApplicationCompanion {
-given noteTagApplicationImplicit_tagNum3_typeParamNum1[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum1[
 F[_ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1
@@ -72,7 +72,7 @@ context.append(context.start, t3.application(context))(plus1_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum2[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum2[
 F[_  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2
@@ -116,7 +116,7 @@ context.append(context.start, t3.application(context))(plus2_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum3[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum3[
 F[_  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3
@@ -160,7 +160,7 @@ context.append(context.start, t3.application(context))(plus3_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum4[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum4[
 F[_  , _  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3  , X1_C4
@@ -204,7 +204,7 @@ context.append(context.start, t3.application(context))(plus4_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum5[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum5[
 F[_  , _  , _  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5
@@ -248,7 +248,7 @@ context.append(context.start, t3.application(context))(plus5_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum6[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum6[
 F[_  , _  , _  , _  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6
@@ -292,7 +292,7 @@ context.append(context.start, t3.application(context))(plus6_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum7[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum7[
 F[_  , _  , _  , _  , _  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7
@@ -336,7 +336,7 @@ context.append(context.start, t3.application(context))(plus7_parameter0)
 }
 }
 }
-given noteTagApplicationImplicit_tagNum3_typeParamNum8[
+inline given noteTagApplicationImplicit_tagNum3_typeParamNum8[
 F[_  , _  , _  , _  , _  , _  , _  , _ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag
 , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8
