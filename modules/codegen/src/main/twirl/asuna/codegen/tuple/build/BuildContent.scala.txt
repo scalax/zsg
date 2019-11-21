@@ -2,7 +2,7 @@
 
 package asuna
 
-final object BuildContent {
+object BuildContent {
     @for(i <- 1 to maxItem) {
         final def tuple@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }):
         AsunaTuple@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }] =

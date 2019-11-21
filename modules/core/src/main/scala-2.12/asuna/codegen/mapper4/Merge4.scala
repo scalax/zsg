@@ -1,6 +1,5 @@
 package asuna
 class Merge4[I1 <: TupleTag  , I2 <: TupleTag  , I3 <: TupleTag  , I4 <: TupleTag  , Target <: TupleTag]
-trait MergeProperty4[I1  , I2  , I3  , I4 ]
 object Merge4 {
 implicit def nodetag1_merge4_implicit[X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag
 , Target1 <: TupleTag

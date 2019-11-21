@@ -17,9 +17,10 @@ object TagTest {
     BuildTag.tag(new AppendTag[Long], new AppendTag[Test2], new AppendTag[Test3])
   )
 
-  BuildTag.mergeTag(tag1, tag2): AppendTag[NodeTag2[
+  val result = BuildTag.mergeTag(tag1, tag2)
+  val ii: AppendTag[NodeTag2[
     TupleTag4[MergeProperty2[String, Test1], MergeProperty2[Int, Int], MergeProperty2[Long, Long], MergeProperty2[String, String]],
     TupleTag3[MergeProperty2[Long, Long], MergeProperty2[Int, Test2], MergeProperty2[String, Test3]]
-  ]]
+  ]] = result
 
 }

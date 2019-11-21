@@ -1,6 +1,5 @@
 package asuna
 class Merge3[I1 <: TupleTag  , I2 <: TupleTag  , I3 <: TupleTag  , Target <: TupleTag]
-trait MergeProperty3[I1  , I2  , I3 ]
 object Merge3 {
 implicit def nodetag1_merge3_implicit[X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag
 , Target1 <: TupleTag
