@@ -1,2 +1,2 @@
-AsunaSettings.scalaVersionSettings
+AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
