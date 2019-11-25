@@ -254,10 +254,10 @@ object AsunaCoreCodeGeneration {
     }
 
     for (i <- 1 to maxPropertyNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("MergeProperty" + i + ".scala")
+      val filePath = rootAllDir.resolve("mapper" + i).resolve("PropertyTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer19   = new PrintWriter(filePath.toFile, "utf-8")
-      val content191 = Source.fromString(asuna.codegen.tuple.txt.MergeProperty(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
+      val content191 = Source.fromString(asuna.codegen.tuple.txt.PropertyTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
       val content192 = content191.mkString(System.lineSeparator)
       writer19.println(content192)
       writer19.close()

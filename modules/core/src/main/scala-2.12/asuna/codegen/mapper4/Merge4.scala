@@ -21,25 +21,25 @@ NodeTag1[X1_C1 ]
 , NodeTag1[Target1 ]
 ]
 }
-implicit def tupletag1_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4  ]
+implicit def tupletag1_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4
+, X1
+]
 : Merge4[
-TupleTag1[X1_C1 ]
-, TupleTag1[X1_C2 ]
-, TupleTag1[X1_C3 ]
-, TupleTag1[X1_C4 ]
+TupleTag1[PropertyTag1[X1_C1, X1] ]
+, TupleTag1[PropertyTag1[X1_C2, X1] ]
+, TupleTag1[PropertyTag1[X1_C3, X1] ]
+, TupleTag1[PropertyTag1[X1_C4, X1] ]
 , TupleTag1[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
 ]
 ] = {
 new Merge4[
-TupleTag1[X1_C1 ]
-, TupleTag1[X1_C2 ]
-, TupleTag1[X1_C3 ]
-, TupleTag1[X1_C4 ]
+TupleTag1[PropertyTag1[X1_C1, X1] ]
+, TupleTag1[PropertyTag1[X1_C2, X1] ]
+, TupleTag1[PropertyTag1[X1_C3, X1] ]
+, TupleTag1[PropertyTag1[X1_C4, X1] ]
 , TupleTag1[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
 ]
 ]
 }
@@ -63,27 +63,27 @@ NodeTag2[X1_C1  , X2_C1 ]
 , NodeTag2[Target1  , Target2 ]
 ]
 }
-implicit def tupletag2_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4  ]
+implicit def tupletag2_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4
+, X1  , X2
+]
 : Merge4[
-TupleTag2[X1_C1  , X2_C1 ]
-, TupleTag2[X1_C2  , X2_C2 ]
-, TupleTag2[X1_C3  , X2_C3 ]
-, TupleTag2[X1_C4  , X2_C4 ]
+TupleTag2[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2] ]
+, TupleTag2[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2] ]
+, TupleTag2[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2] ]
+, TupleTag2[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2] ]
 , TupleTag2[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]
 ]
 ] = {
 new Merge4[
-TupleTag2[X1_C1  , X2_C1 ]
-, TupleTag2[X1_C2  , X2_C2 ]
-, TupleTag2[X1_C3  , X2_C3 ]
-, TupleTag2[X1_C4  , X2_C4 ]
+TupleTag2[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2] ]
+, TupleTag2[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2] ]
+, TupleTag2[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2] ]
+, TupleTag2[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2] ]
 , TupleTag2[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]
 ]
 ]
 }
@@ -107,27 +107,27 @@ NodeTag3[X1_C1  , X2_C1  , X3_C1 ]
 , NodeTag3[Target1  , Target2  , Target3 ]
 ]
 }
-implicit def tupletag3_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4  ]
+implicit def tupletag3_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4
+, X1  , X2  , X3
+]
 : Merge4[
-TupleTag3[X1_C1  , X2_C1  , X3_C1 ]
-, TupleTag3[X1_C2  , X2_C2  , X3_C2 ]
-, TupleTag3[X1_C3  , X2_C3  , X3_C3 ]
-, TupleTag3[X1_C4  , X2_C4  , X3_C4 ]
+TupleTag3[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3] ]
+, TupleTag3[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3] ]
+, TupleTag3[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3] ]
+, TupleTag3[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3] ]
 , TupleTag3[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]
 ]
 ] = {
 new Merge4[
-TupleTag3[X1_C1  , X2_C1  , X3_C1 ]
-, TupleTag3[X1_C2  , X2_C2  , X3_C2 ]
-, TupleTag3[X1_C3  , X2_C3  , X3_C3 ]
-, TupleTag3[X1_C4  , X2_C4  , X3_C4 ]
+TupleTag3[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3] ]
+, TupleTag3[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3] ]
+, TupleTag3[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3] ]
+, TupleTag3[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3] ]
 , TupleTag3[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]
 ]
 ]
 }
@@ -151,27 +151,27 @@ NodeTag4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]
 , NodeTag4[Target1  , Target2  , Target3  , Target4 ]
 ]
 }
-implicit def tupletag4_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4  ]
+implicit def tupletag4_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4
+, X1  , X2  , X3  , X4
+]
 : Merge4[
-TupleTag4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]
-, TupleTag4[X1_C2  , X2_C2  , X3_C2  , X4_C2 ]
-, TupleTag4[X1_C3  , X2_C3  , X3_C3  , X4_C3 ]
-, TupleTag4[X1_C4  , X2_C4  , X3_C4  , X4_C4 ]
+TupleTag4[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4] ]
+, TupleTag4[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4] ]
+, TupleTag4[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4] ]
+, TupleTag4[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4] ]
 , TupleTag4[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]
 ]
 ] = {
 new Merge4[
-TupleTag4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]
-, TupleTag4[X1_C2  , X2_C2  , X3_C2  , X4_C2 ]
-, TupleTag4[X1_C3  , X2_C3  , X3_C3  , X4_C3 ]
-, TupleTag4[X1_C4  , X2_C4  , X3_C4  , X4_C4 ]
+TupleTag4[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4] ]
+, TupleTag4[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4] ]
+, TupleTag4[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4] ]
+, TupleTag4[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4] ]
 , TupleTag4[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]
 ]
 ]
 }
@@ -195,27 +195,27 @@ NodeTag5[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1 ]
 , NodeTag5[Target1  , Target2  , Target3  , Target4  , Target5 ]
 ]
 }
-implicit def tupletag5_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4  ]
+implicit def tupletag5_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4
+, X1  , X2  , X3  , X4  , X5
+]
 : Merge4[
-TupleTag5[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1 ]
-, TupleTag5[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2 ]
-, TupleTag5[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3 ]
-, TupleTag5[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4 ]
+TupleTag5[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5] ]
+, TupleTag5[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5] ]
+, TupleTag5[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5] ]
+, TupleTag5[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5] ]
 , TupleTag5[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]
 ]
 ] = {
 new Merge4[
-TupleTag5[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1 ]
-, TupleTag5[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2 ]
-, TupleTag5[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3 ]
-, TupleTag5[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4 ]
+TupleTag5[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5] ]
+, TupleTag5[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5] ]
+, TupleTag5[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5] ]
+, TupleTag5[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5] ]
 , TupleTag5[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]
 ]
 ]
 }
@@ -239,27 +239,27 @@ NodeTag6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
 , NodeTag6[Target1  , Target2  , Target3  , Target4  , Target5  , Target6 ]
 ]
 }
-implicit def tupletag6_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4  ]
+implicit def tupletag6_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4
+, X1  , X2  , X3  , X4  , X5  , X6
+]
 : Merge4[
-TupleTag6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
-, TupleTag6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]
-, TupleTag6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]
-, TupleTag6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]
+TupleTag6[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6] ]
+, TupleTag6[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6] ]
+, TupleTag6[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6] ]
+, TupleTag6[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6] ]
 , TupleTag6[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]
 ]
 ] = {
 new Merge4[
-TupleTag6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
-, TupleTag6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]
-, TupleTag6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]
-, TupleTag6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]
+TupleTag6[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6] ]
+, TupleTag6[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6] ]
+, TupleTag6[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6] ]
+, TupleTag6[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6] ]
 , TupleTag6[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]
 ]
 ]
 }
@@ -283,27 +283,27 @@ NodeTag7[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1 ]
 , NodeTag7[Target1  , Target2  , Target3  , Target4  , Target5  , Target6  , Target7 ]
 ]
 }
-implicit def tupletag7_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4    , X7_C1  , X7_C2  , X7_C3  , X7_C4  ]
+implicit def tupletag7_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4    , X7_C1  , X7_C2  , X7_C3  , X7_C4
+, X1  , X2  , X3  , X4  , X5  , X6  , X7
+]
 : Merge4[
-TupleTag7[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1 ]
-, TupleTag7[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2 ]
-, TupleTag7[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3  , X7_C3 ]
-, TupleTag7[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4  , X7_C4 ]
+TupleTag7[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6]  , PropertyTag1[X7_C1, X7] ]
+, TupleTag7[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6]  , PropertyTag1[X7_C2, X7] ]
+, TupleTag7[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6]  , PropertyTag1[X7_C3, X7] ]
+, TupleTag7[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6]  , PropertyTag1[X7_C4, X7] ]
 , TupleTag7[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]  , MergeProperty4[X7_C1  , X7_C2  , X7_C3  , X7_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]  , PropertyTag4[ X7_C1 ,  X7_C2 ,  X7_C3 ,  X7_C4 ,  X7]
 ]
 ] = {
 new Merge4[
-TupleTag7[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1 ]
-, TupleTag7[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2 ]
-, TupleTag7[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3  , X7_C3 ]
-, TupleTag7[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4  , X7_C4 ]
+TupleTag7[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6]  , PropertyTag1[X7_C1, X7] ]
+, TupleTag7[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6]  , PropertyTag1[X7_C2, X7] ]
+, TupleTag7[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6]  , PropertyTag1[X7_C3, X7] ]
+, TupleTag7[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6]  , PropertyTag1[X7_C4, X7] ]
 , TupleTag7[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]  , MergeProperty4[X7_C1  , X7_C2  , X7_C3  , X7_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]  , PropertyTag4[ X7_C1 ,  X7_C2 ,  X7_C3 ,  X7_C4 ,  X7]
 ]
 ]
 }
@@ -327,27 +327,27 @@ NodeTag8[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1 ]
 , NodeTag8[Target1  , Target2  , Target3  , Target4  , Target5  , Target6  , Target7  , Target8 ]
 ]
 }
-implicit def tupletag8_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4    , X7_C1  , X7_C2  , X7_C3  , X7_C4    , X8_C1  , X8_C2  , X8_C3  , X8_C4  ]
+implicit def tupletag8_merge4_implicit[X1_C1  , X1_C2  , X1_C3  , X1_C4    , X2_C1  , X2_C2  , X2_C3  , X2_C4    , X3_C1  , X3_C2  , X3_C3  , X3_C4    , X4_C1  , X4_C2  , X4_C3  , X4_C4    , X5_C1  , X5_C2  , X5_C3  , X5_C4    , X6_C1  , X6_C2  , X6_C3  , X6_C4    , X7_C1  , X7_C2  , X7_C3  , X7_C4    , X8_C1  , X8_C2  , X8_C3  , X8_C4
+, X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8
+]
 : Merge4[
-TupleTag8[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1 ]
-, TupleTag8[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2  , X8_C2 ]
-, TupleTag8[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3  , X7_C3  , X8_C3 ]
-, TupleTag8[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4  , X7_C4  , X8_C4 ]
+TupleTag8[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6]  , PropertyTag1[X7_C1, X7]  , PropertyTag1[X8_C1, X8] ]
+, TupleTag8[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6]  , PropertyTag1[X7_C2, X7]  , PropertyTag1[X8_C2, X8] ]
+, TupleTag8[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6]  , PropertyTag1[X7_C3, X7]  , PropertyTag1[X8_C3, X8] ]
+, TupleTag8[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6]  , PropertyTag1[X7_C4, X7]  , PropertyTag1[X8_C4, X8] ]
 , TupleTag8[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]  , MergeProperty4[X7_C1  , X7_C2  , X7_C3  , X7_C4 ]  , MergeProperty4[X8_C1  , X8_C2  , X8_C3  , X8_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]  , PropertyTag4[ X7_C1 ,  X7_C2 ,  X7_C3 ,  X7_C4 ,  X7]  , PropertyTag4[ X8_C1 ,  X8_C2 ,  X8_C3 ,  X8_C4 ,  X8]
 ]
 ] = {
 new Merge4[
-TupleTag8[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1 ]
-, TupleTag8[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2  , X8_C2 ]
-, TupleTag8[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3  , X7_C3  , X8_C3 ]
-, TupleTag8[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4  , X7_C4  , X8_C4 ]
+TupleTag8[PropertyTag1[X1_C1, X1]  , PropertyTag1[X2_C1, X2]  , PropertyTag1[X3_C1, X3]  , PropertyTag1[X4_C1, X4]  , PropertyTag1[X5_C1, X5]  , PropertyTag1[X6_C1, X6]  , PropertyTag1[X7_C1, X7]  , PropertyTag1[X8_C1, X8] ]
+, TupleTag8[PropertyTag1[X1_C2, X1]  , PropertyTag1[X2_C2, X2]  , PropertyTag1[X3_C2, X3]  , PropertyTag1[X4_C2, X4]  , PropertyTag1[X5_C2, X5]  , PropertyTag1[X6_C2, X6]  , PropertyTag1[X7_C2, X7]  , PropertyTag1[X8_C2, X8] ]
+, TupleTag8[PropertyTag1[X1_C3, X1]  , PropertyTag1[X2_C3, X2]  , PropertyTag1[X3_C3, X3]  , PropertyTag1[X4_C3, X4]  , PropertyTag1[X5_C3, X5]  , PropertyTag1[X6_C3, X6]  , PropertyTag1[X7_C3, X7]  , PropertyTag1[X8_C3, X8] ]
+, TupleTag8[PropertyTag1[X1_C4, X1]  , PropertyTag1[X2_C4, X2]  , PropertyTag1[X3_C4, X3]  , PropertyTag1[X4_C4, X4]  , PropertyTag1[X5_C4, X5]  , PropertyTag1[X6_C4, X6]  , PropertyTag1[X7_C4, X7]  , PropertyTag1[X8_C4, X8] ]
 , TupleTag8[
-MergeProperty4[X1_C1
-, X1_C2  , X1_C3  , X1_C4 ]
-, MergeProperty4[X2_C1  , X2_C2  , X2_C3  , X2_C4 ]  , MergeProperty4[X3_C1  , X3_C2  , X3_C3  , X3_C4 ]  , MergeProperty4[X4_C1  , X4_C2  , X4_C3  , X4_C4 ]  , MergeProperty4[X5_C1  , X5_C2  , X5_C3  , X5_C4 ]  , MergeProperty4[X6_C1  , X6_C2  , X6_C3  , X6_C4 ]  , MergeProperty4[X7_C1  , X7_C2  , X7_C3  , X7_C4 ]  , MergeProperty4[X8_C1  , X8_C2  , X8_C3  , X8_C4 ]
+PropertyTag4[ X1_C1 ,  X1_C2 ,  X1_C3 ,  X1_C4 ,  X1]
+, PropertyTag4[ X2_C1 ,  X2_C2 ,  X2_C3 ,  X2_C4 ,  X2]  , PropertyTag4[ X3_C1 ,  X3_C2 ,  X3_C3 ,  X3_C4 ,  X3]  , PropertyTag4[ X4_C1 ,  X4_C2 ,  X4_C3 ,  X4_C4 ,  X4]  , PropertyTag4[ X5_C1 ,  X5_C2 ,  X5_C3 ,  X5_C4 ,  X5]  , PropertyTag4[ X6_C1 ,  X6_C2 ,  X6_C3 ,  X6_C4 ,  X6]  , PropertyTag4[ X7_C1 ,  X7_C2 ,  X7_C3 ,  X7_C4 ,  X7]  , PropertyTag4[ X8_C1 ,  X8_C2 ,  X8_C3 ,  X8_C4 ,  X8]
 ]
 ]
 }
