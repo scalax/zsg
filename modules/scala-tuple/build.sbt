@@ -1,5 +1,3 @@
-val scalaTestVersion = "3.1.0-RC3"
-
 AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
 
