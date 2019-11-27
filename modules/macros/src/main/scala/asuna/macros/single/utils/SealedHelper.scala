@@ -1,4 +1,4 @@
-package asuna.macros.utils
+package asuna.macros.single.utils
 
 import scala.language.experimental.macros
 

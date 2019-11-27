@@ -1,6 +1,6 @@
-package asuna.macros
+package asuna.macros.single
 
-import asuna.macros.utils.SealedHelper
+import asuna.macros.single.utils.SealedHelper
 import asuna.{AppendTag, TupleTag}
 
 import scala.language.experimental.macros
