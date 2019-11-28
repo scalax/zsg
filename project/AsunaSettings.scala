@@ -15,7 +15,7 @@ object AsunaSettings {
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
   val setting5 = transitiveClassifiers := Seq("sources")
-  val setting6 = crossScalaVersions := Seq(/*dottyVersion,*/ scala212Version, currentScalaVersion)
+  val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, currentScalaVersion)
 
   val scalaVersionSettings = Seq(setting1, setting2)
   val commonSettings       = Seq(setting3, setting4, setting5)
