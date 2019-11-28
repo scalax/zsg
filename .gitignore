@@ -2,6 +2,7 @@
 */.idea
 /.idea
 /logs
+_site
 /sbt
 /sbt.bat
 /sbt-launch.jar
