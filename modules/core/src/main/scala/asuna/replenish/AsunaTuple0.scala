@@ -6,14 +6,14 @@ package asuna {
     self =>
 
     override final type Head = NoData
-    override final def head: NoData = NoData.value
+    override final val head: NoData = NoData.value
     override final type Tail = AsunaTuple0
     override final def tail: AsunaTuple0 = self
     override final type Append[H] = AsunaTuple1[H]
     override final def ::[H](h: H): AsunaTuple1[H] = new AsunaTuple1(h)
 
   }
-  final object AsunaTuple0 {
+  object AsunaTuple0 {
     final val value: AsunaTuple0 = new AsunaTuple0
   }
 }

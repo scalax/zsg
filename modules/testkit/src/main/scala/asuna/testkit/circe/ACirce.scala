@@ -1,7 +1,7 @@
 package asuna.testkit.circe
 
 import asuna.{Application2, Application3, TupleTag}
-import asuna.macros.{
+import asuna.macros.single.{
   AsunaDefaultValueGeneric,
   AsunaGeneric,
   AsunaGetterGeneric,

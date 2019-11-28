@@ -1,0 +1,5 @@
+@(tagNum: Int)
+
+package asuna
+
+trait PropertyTag@{tagNum}[@for(i <- 1 to tagNum) { I@{i} , } Data]

@@ -1,7 +1,8 @@
 package asuna.sample02_generic
 
 import asuna._
-import asuna.macros.{ByNameImplicit, PropertyApply, PropertyTag}
+import asuna.macros.{ByNameImplicit}
+import asuna.macros.single.{PropertyApply, PropertyTag}
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {

@@ -1,9 +1,6 @@
 package asuna.testkit.tuple.reverse
 
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
-
-object ReverseTupleData extends AnyFunSpec with Matchers {
+object ReverseTupleData {
 
   val i10 = ("i1", "i2", 3, 4, 5L, "i6", "i7", "i8", 9, 10)
   val i11 = ("i1", "i2", 3, 4, 5L, "i6", "i7", "i8", 9, 10, 11)

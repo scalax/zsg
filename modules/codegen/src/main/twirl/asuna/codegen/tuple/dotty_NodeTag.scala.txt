@@ -1,0 +1,6 @@
+@(tagNum: Int)
+
+package asuna
+
+final class NodeTag@{tagNum}[T1 <: TupleTag @for(ii <- 2 to tagNum){ , T@{ii} <: TupleTag }] extends TupleTag
+object NodeTag@{tagNum} extends support.NodeTag@{tagNum}ApplicationCompanion

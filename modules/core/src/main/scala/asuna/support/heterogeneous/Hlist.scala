@@ -4,7 +4,7 @@ import scala.language.higherKinds
 
 final class NoData
 
-final object NoData {
+object NoData {
   final val value: NoData = new NoData
 }
 
@@ -28,7 +28,7 @@ final class HNil extends HList {
   self =>
 
   override final type Head = NoData
-  override final def head: NoData = NoData.value
+  override final val head: NoData = NoData.value
   override final type Tail = HNil
   override final def tail: HNil = self
   override final type Append[H] = ::[H, HNil]
@@ -37,7 +37,7 @@ final class HNil extends HList {
 
 }
 
-final object HNil {
+object HNil {
   final val value: HNil = new HNil
 }
 

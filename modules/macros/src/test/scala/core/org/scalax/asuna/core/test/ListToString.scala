@@ -1,6 +1,6 @@
 package asuna.testkit.circe.test2
 
-import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
+import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
 import asuna.{AppendTag, Application2, AsunaTuple0, Context2, Plus2, TupleTag}
 
 sealed trait PropertyItem

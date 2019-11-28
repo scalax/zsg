@@ -1,7 +1,7 @@
 package asuna.sample03_macros_code_generation
 
 import asuna._
-import asuna.macros.{AsunaDefaultValueGeneric, DefaultValue}
+import asuna.macros.single.{AsunaDefaultValueGeneric, DefaultValue}
 
 object AsunaDefaultValueGenericCodeGenSample {
 

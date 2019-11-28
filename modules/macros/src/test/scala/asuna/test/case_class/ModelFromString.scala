@@ -1,6 +1,6 @@
 package asuna.testkit
 
-import asuna.macros.{AsunaGeneric, AsunaSetterGeneric, PropertyTag}
+import asuna.macros.single.{AsunaGeneric, AsunaSetterGeneric, PropertyTag}
 import asuna.{Application1, AsunaTuple0, Context1, Plus1, TupleTag}
 
 trait ModelDecoder[M] {
