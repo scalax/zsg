@@ -1,6 +1,7 @@
 package asuna.testkit.circe.decoder
 
-import asuna.macros.{ByNameImplicit, DefaultValue, PropertyTag}
+import asuna.macros.single.{DefaultValue, PropertyTag}
+import asuna.macros.ByNameImplicit
 import asuna.{Application3, Context3}
 import io.circe._
 

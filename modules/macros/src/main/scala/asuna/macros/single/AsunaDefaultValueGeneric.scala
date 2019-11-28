@@ -60,10 +60,10 @@ object AsunaDefaultValueGenericMacroApply {
         val proTypeTag =
           apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
             case (p, i) =>
-              if (!p.isParamWithDefault) q"""asuna.macros.DefaultValue.model[${hType}].to(_.${p.name})(Option.empty)"""
+              if (!p.isParamWithDefault) q"""asuna.macros.single.DefaultValue.model[${hType}].to(_.${p.name})(Option.empty)"""
               else {
                 val getterName = TermName("apply$default$" + (i + 1))
-                q"""asuna.macros.DefaultValue.model[${hType}].to(_.${p.name})(Some($hCompanion.$getterName))"""
+                q"""asuna.macros.single.DefaultValue.model[${hType}].to(_.${p.name})(Some($hCompanion.$getterName))"""
               }
           }
 

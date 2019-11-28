@@ -61,7 +61,7 @@ object AsunaGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props.map(s => q"""asuna.macros.PropertyApply[${hType}].to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
 
         val typeTag = proTypeTag.grouped(8).toList.map(i => q"""asuna.BuildTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
@@ -75,7 +75,7 @@ object AsunaGenericMacroApply {
           }
 
         c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""asuna.macros.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""asuna.macros.single.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

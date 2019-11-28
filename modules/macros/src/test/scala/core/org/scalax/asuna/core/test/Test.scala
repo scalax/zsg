@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.{BuildContent, BuildTag}
-import asuna.macros.PropertyApply
+import asuna.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 

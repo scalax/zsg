@@ -2,7 +2,8 @@ package asuna.testkit.circe.encoder
 
 import java.util
 
-import asuna.macros.{ByNameImplicit, PropertyTag}
+import asuna.macros.ByNameImplicit
+import asuna.macros.single.PropertyTag
 import asuna.{Application2, Context2}
 import io.circe.{Encoder, Json}
 

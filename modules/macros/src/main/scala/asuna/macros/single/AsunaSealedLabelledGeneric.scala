@@ -1,4 +1,4 @@
-package asuna.macros
+package asuna.macros.single
 
 import asuna.macros.single.utils.SealedHelper
 

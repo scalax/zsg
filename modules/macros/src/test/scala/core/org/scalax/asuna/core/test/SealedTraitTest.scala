@@ -1,6 +1,6 @@
 package asuna.testkit
 
-import asuna.macros.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
+import asuna.macros.single.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
 import asuna.{Application1, AsunaTuple0, Context1, Plus1, TupleTag}
 
 sealed trait Abc[T]

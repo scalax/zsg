@@ -51,7 +51,7 @@ object AsunaSealedGenericMacroApply {
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val proTypeTag = props.map(s => q"""asuna.macros.SealedTag[${s}]""")
+        val proTypeTag = props.map(s => q"""asuna.macros.single.SealedTag[${s}]""")
 
         val typeTag = proTypeTag.grouped(8).toList.map(i => q"""asuna.BuildTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
@@ -65,7 +65,7 @@ object AsunaSealedGenericMacroApply {
           }
 
         c.Expr[AsunaSealedGeneric.Aux[H, M]] {
-          q"""asuna.macros.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""asuna.macros.single.AsunaSealedGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

@@ -1,5 +1,5 @@
 package asuna.testkit
-import asuna.macros.PropertyApply
+import asuna.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 class Test202 extends AnyFunSpec with Matchers {
