@@ -5,9 +5,7 @@ asuna
 
 An abstraction of data transformation  
 
------------------
-
-How to use this repo:
+How to use this library:
 
 ```scala
 resolvers += Resolver.bintrayRepo("scalax", "asuna")
