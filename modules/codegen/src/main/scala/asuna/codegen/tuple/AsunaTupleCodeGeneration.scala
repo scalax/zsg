@@ -10,7 +10,17 @@ object AsunaTupleCodeGeneration {
   val maxTupleNum    = 15
 
   val root1_all_Dir =
-    Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("scala_tuple").resolve("tuple_support").resolve("codegen")
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
 
   val root1_212_Dir =
     Paths
