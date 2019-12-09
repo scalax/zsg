@@ -1,6 +1,6 @@
 @(maxContextIndex: Int, maxPropertyNum: Int)
 
-package asuna.message
+package asuna.debug
 
 @for(contextIndex <- 1 to maxContextIndex) {
     @for(nodeIndex <- 1 to maxPropertyNum) {

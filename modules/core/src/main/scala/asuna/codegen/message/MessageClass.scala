@@ -1,4 +1,4 @@
-package asuna.message
+package asuna.debug
 class `The implicit not founded property's index is 1. Please change findX(context1) to .findX.find1(context1) to continue debug.`
 class `The implicit not founded property's index is 2. Please change findX(context1) to .findX.find2(context1) to continue debug.`
 class `The implicit not founded property's index is 3. Please change findX(context1) to .findX.find3(context1) to continue debug.`
