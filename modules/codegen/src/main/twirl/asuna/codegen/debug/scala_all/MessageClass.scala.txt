@@ -1,0 +1,13 @@
+@(maxContextIndex: Int, maxPropertyNum: Int)
+
+package asuna.message
+
+@for(contextIndex <- 1 to maxContextIndex) {
+    @for(nodeIndex <- 1 to maxPropertyNum) {
+        class `The implicit not founded property with Context@{contextIndex} is in the node with index @{nodeIndex}. Please change findX(context@{contextIndex}) to .findX.find@{nodeIndex}(context@{contextIndex}) to continue debug.`
+    }
+
+    trait DebugApplication@{contextIndex}[Index, ProName, F[_ @for(_ <- 2 to contextIndex) { , _ }], Tag @for(i <- 1 to contextIndex) { , X@{i} }] extends asuna.Application@{contextIndex}[F, Tag @for(i <- 1 to contextIndex) { , X@{i} }] {
+        override def application(app: asuna.Context@{contextIndex}[F]): F[X1 @for(i <- 2 to contextIndex) { , X@{i} }]
+    }
+}
