@@ -6,7 +6,7 @@ import scala.annotation.implicitNotFound
 
 @for(contextIndex <- 1 to maxContextIndex) {
     @for(nodeIndex <- 1 to maxPropertyNum) {
-        class `The implicit not founded property's index is @{nodeIndex}. Please change findX(context@{contextIndex}) to .findX.find@{nodeIndex}(context@{contextIndex}) to continue debug.`
+        class `The implicit not founded property's index is @{nodeIndex}. Please change .find(context@{contextIndex}) to .find@{nodeIndex}.find(context@{contextIndex}) to continue debug.`
     }
 
     @@implicitNotFound(msg = "${Message}")
