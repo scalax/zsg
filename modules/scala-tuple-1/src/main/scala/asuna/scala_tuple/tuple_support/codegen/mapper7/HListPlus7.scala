@@ -1,6 +1,7 @@
 package asuna.scala_tuple.tuple_support
 object HListPlus7
-    extends HListPlus_1_7
+    extends HListPlus_0_7
+    with HListPlus_1_7
     with HListPlus_2_7
     with HListPlus_3_7
     with HListPlus_4_7

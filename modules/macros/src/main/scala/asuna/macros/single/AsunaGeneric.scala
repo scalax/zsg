@@ -4,14 +4,6 @@ import asuna._
 
 import scala.language.experimental.macros
 
-class PropertyTag[T]
-class PropertyApply[I] {
-  def to[R](m: I => R): AppendTag[PropertyTag[R]] = new AppendTag[PropertyTag[R]]
-}
-object PropertyApply {
-  def apply[R]: PropertyApply[R] = new PropertyApply[R]
-}
-
 trait AsunaGeneric[H] {
   type WT <: TupleTag
   def tag: WT

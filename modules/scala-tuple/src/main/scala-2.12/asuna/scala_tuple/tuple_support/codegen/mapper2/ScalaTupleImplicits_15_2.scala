@@ -1,6 +1,7 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Application2
 import asuna.Context2
+import asuna.support.heterogeneous._
 import scala.language.higherKinds
 trait ScalaTupleImplicits_15_2 {
 implicit def tupleTagApplicationImplicit_tagNum15_typeParamNum2[
@@ -26,33 +27,15 @@ F[_  , _ ]
 : Application2[
 F,
 (H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14  , H15 )  , (X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1  , X9_C1  , X10_C1  , X11_C1  , X12_C1  , X13_C1  , X14_C1  , X15_C1 )  , (X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2  , X8_C2  , X9_C2  , X10_C2  , X11_C2  , X12_C2  , X13_C2  , X14_C2  , X15_C2 ) ] =
-{ (context: Context2[F]) =>
+new Application2[
+F,
+(H1  , H2  , H3  , H4  , H5  , H6  , H7  , H8  , H9  , H10  , H11  , H12  , H13  , H14  , H15 )  , (X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1  , X9_C1  , X10_C1  , X11_C1  , X12_C1  , X13_C1  , X14_C1  , X15_C1 )  , (X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2  , X7_C2  , X8_C2  , X9_C2  , X10_C2  , X11_C2  , X12_C2  , X13_C2  , X14_C2  , X15_C2 ) ] {
+override def application(context: Context2[F]) = {
 context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(
-context.append(t15.application(context), t14.application(context))(HListPlus2.plusWithTypeParameter1)
-, t13.application(context))(HListPlus2.plusWithTypeParameter2)
-, t12.application(context))(HListPlus2.plusWithTypeParameter3)
-, t11.application(context))(HListPlus2.plusWithTypeParameter4)
-, t10.application(context))(HListPlus2.plusWithTypeParameter5)
-, t9.application(context))(HListPlus2.plusWithTypeParameter6)
-, t8.application(context))(HListPlus2.plusWithTypeParameter7)
-, t7.application(context))(HListPlus2.plusWithTypeParameter8)
-, t6.application(context))(HListPlus2.plusWithTypeParameter9)
-, t5.application(context))(HListPlus2.plusWithTypeParameter10)
-, t4.application(context))(HListPlus2.plusWithTypeParameter11)
-, t3.application(context))(HListPlus2.plusWithTypeParameter12)
-, t2.application(context))(HListPlus2.plusWithTypeParameter13)
-, t1.application(context))(PlusToTuple2.plusWithTypeParameter14)
+ScalaTupleImplicits_14_2.hlistTagApplicationImplicit_tagNum14_typeParamNum2(t2  , t3  , t4  , t5  , t6  , t7  , t8  , t9  , t10  , t11  , t12  , t13  , t14  , t15 ).application(context),
+t1.application(context)
+)(PlusToTuple2.plusWithTypeParameter14)
 }
 }
+}
+object ScalaTupleImplicits_15_2 extends ScalaTupleImplicits_15_2

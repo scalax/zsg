@@ -1,6 +1,7 @@
 package asuna.scala_tuple.tuple_support
 object HListPlus8
-    extends HListPlus_1_8
+    extends HListPlus_0_8
+    with HListPlus_1_8
     with HListPlus_2_8
     with HListPlus_3_8
     with HListPlus_4_8
