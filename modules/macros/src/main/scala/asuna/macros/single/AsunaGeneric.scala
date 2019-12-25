@@ -9,12 +9,13 @@ trait AsunaGeneric[H] {
   def tag: WT
 }
 
-object AsunaGeneric extends AsunaGenericMacroPoly {
+object AsunaGeneric {
+
   def init[M]: GenericApply[M] = new GenericApply[M]
   class GenericApply[M] {
     def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
 
-    def init1[K <: TupleTag](i: AppendTag[K]): Aux[M, K] = {
+    def init1[K <: TupleTag](i: AppendTag[K]): AsunaGeneric.Aux[M, K] = {
       new AsunaGeneric[M] {
         override type WT = K
         override def tag = throw new Exception("debugging")
@@ -23,10 +24,9 @@ object AsunaGeneric extends AsunaGenericMacroPoly {
   }
 
   type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
-}
 
-trait AsunaGenericMacroPoly {
   implicit def macroImpl[H, II <: TupleTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
+
 }
 
 object AsunaGenericMacroApply {
