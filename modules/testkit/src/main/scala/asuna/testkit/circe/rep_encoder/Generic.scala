@@ -1,15 +1,15 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{AsunaTuple2, TupleTag}
-import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric}
+import asuna.{AsunaTuple2, AsunaTuple3, TupleTag}
+import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
 
 trait CirceGeneric {
 
   class CirceGenericApply1[Table, Model] {
     def encoder[II <: TupleTag](table: Table)(
       implicit i: AsunaMultiplyGeneric.Aux[Table, Model, II],
-      m: AsunaMultiplyRepGeneric[Table, Model, AsunaTuple2[Int, List[String]]]
-    ): AsunaTuple2[Int, List[String]] = m.rep(table)
+      m: AsunaMultiplyRepGeneric[Table, Model, AsunaTuple3[String, List[String], Long]]
+    ): AsunaTuple3[String, List[String], Long] = m.rep(table)
   }
   def link[Table, Model]: CirceGenericApply1[Table, Model] = new CirceGenericApply1[Table, Model]
 
@@ -17,15 +17,32 @@ trait CirceGeneric {
 
 object CirceGeneric extends CirceGeneric
 
-object Abc {
-  val ab: Int          = 1
-  val cd: List[String] = List.empty
+object mmm {
+  val ef: Long = 123456789
 }
 
-case class K(ab: Long, cd: String)
+object Abc {
+  val ab: Int          = 1
+  val cd: List[String] = List("1234")
+  @RootTable val mmmab = mmm
+}
+
+trait iii {
+  @RootTable val obj: Abc.type
+  val ab: String = "miaomiaomiao"
+}
+
+case class K(ab: Long, cd: String, ef: Long)
 
 object I {
   def main(i: Array[String]): Unit = {
-    println(CirceGeneric.link[Abc.type, K].encoder(Abc).i1)
+    println(
+      CirceGeneric
+        .link[iii, K]
+        .encoder(new iii {
+          override val obj = Abc
+        })
+        .i3
+    )
   }
 }

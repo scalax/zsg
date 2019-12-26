@@ -38,20 +38,66 @@ object AsunaMultiplyRepGenericApply {
           }
           .reverse
 
-        val tableProps = tType.members.toList
+        val tableFields = tType.members.toList
           .filter(s => s.isTerm)
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
               val proName = n.trim
-              proName
+              (List(proName), s, s.typeSignatureIn(tType))
           }
           .reverse
 
+        def tablePropsGen(tables: (List[String], Symbol, Type), mapping: Map[String, List[String]]): Map[String, List[String]] = {
+          val (keys, field, rootType) = tables
+          val newRootType             = field.typeSignatureIn(rootType)
+          val TermName(n1)            = field.name
+          val fieldName               = n1.trim
+          val newMapping1             = mapping + ((fieldName, keys))
+
+          val orderOpt = field.annotations
+            .map(_.tree)
+            .collect {
+              case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+                num
+              case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+                RootTable.apply$default$1
+            }
+            .headOption
+
+          orderOpt match {
+            case Some(_) =>
+              val newMapList = newRootType.members.toList
+                .filter(_.isTerm)
+                .map(s => (s.name, s))
+                .collect {
+                  case (TermName(n), s) =>
+                    val proName = n.trim
+                    (proName, s)
+                }
+                .reverse
+                .map { case (r, s) => tablePropsGen((keys ::: r :: Nil, s, s.typeSignatureIn(newRootType)), Map.empty) }
+              newMapList.foldLeft(newMapping1) { (start, m) =>
+                start ++ m
+              }
+
+            case _ => newMapping1
+          }
+        }
+
+        val tableProps = tableFields.map(s => tablePropsGen(s, Map.empty)).foldLeft(Map.empty[String, List[String]]) { (start, path) =>
+          start ++ path
+        }
+
         def tableProperty(s: String): Tree = {
           tableProps
-            .find(t => s == t)
-            .map((fieldName) => q"""table.${TermName(fieldName)}""")
+            .get(s)
+            .map(
+              (fieldName) =>
+                fieldName.foldLeft(q"""table""": Tree) { (start, termName) =>
+                  q"""${start}.${TermName(termName)}"""
+                }
+            )
             .getOrElse(
               q"""asuna.macros.utils.PlaceHolder.value"""
             )
