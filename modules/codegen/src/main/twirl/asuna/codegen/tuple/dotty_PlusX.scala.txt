@@ -2,7 +2,7 @@
 
 package asuna
 
-trait Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }] {
+abstract class Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }] {
     @for(i <- 1 to tagNum) {
         def takeHead@{i}(z: Z@{i}): X@{i}
         def takeTail@{i}(z: Z@{i}): Y@{i}

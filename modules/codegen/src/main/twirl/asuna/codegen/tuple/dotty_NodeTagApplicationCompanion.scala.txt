@@ -16,7 +16,7 @@ import asuna.Plus@{i}
 import asuna.Context@{i}
 }
 
-trait NodeTag@{tagNum}ApplicationCompanion {
+class NodeTag@{tagNum}ApplicationCompanion {
 
     @for(typeParamNum <- 1 to maxAsunaTupleNum) {
         inline given noteTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[

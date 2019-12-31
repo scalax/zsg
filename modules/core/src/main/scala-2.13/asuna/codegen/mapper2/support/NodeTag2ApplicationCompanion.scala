@@ -29,7 +29,7 @@ import asuna.Context7
 import asuna.Application8
 import asuna.Plus8
 import asuna.Context8
-trait NodeTag2ApplicationCompanion {
+class NodeTag2ApplicationCompanion {
   final implicit def noteTagApplicationImplicit_tagNum2_typeParamNum1[
     F[_],
     H1 <: TupleTag,

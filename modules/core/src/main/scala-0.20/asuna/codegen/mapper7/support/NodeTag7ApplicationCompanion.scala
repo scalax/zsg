@@ -34,7 +34,7 @@ import asuna.Context7
 import asuna.Application8
 import asuna.Plus8
 import asuna.Context8
-trait NodeTag7ApplicationCompanion {
+class NodeTag7ApplicationCompanion {
 inline given noteTagApplicationImplicit_tagNum7_typeParamNum1[
 F[_ ]
 , H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag  , H4 <: TupleTag  , H5 <: TupleTag  , H6 <: TupleTag  , H7 <: TupleTag

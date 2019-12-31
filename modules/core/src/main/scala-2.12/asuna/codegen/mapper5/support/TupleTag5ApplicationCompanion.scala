@@ -31,7 +31,7 @@ import asuna.Context7
 import asuna.Application8
 import asuna.Plus8
 import asuna.Context8
-trait TupleTag5ApplicationCompanion {
+class TupleTag5ApplicationCompanion {
 final implicit def tupleTagApplicationImplicit_tagNum5_typeParamNum1[
 F[_ ]
 , H1  , H2  , H3  , H4  , H5

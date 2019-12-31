@@ -1,5 +1,5 @@
 package asuna
-trait Plus4[X1  , X2  , X3  , X4   , Y1  , Y2  , Y3  , Y4   , Z1  , Z2  , Z3  , Z4 ] {
+abstract class Plus4[X1  , X2  , X3  , X4   , Y1  , Y2  , Y3  , Y4   , Z1  , Z2  , Z3  , Z4 ] {
 def takeHead1(z: Z1): X1
 def takeTail1(z: Z1): Y1
 def plus1(x: X1, y: Y1): Z1

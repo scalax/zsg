@@ -7,7 +7,7 @@ import asuna.macros.single.PropertyTag
 import asuna.{Application2, Context2}
 import io.circe.{Encoder, Json}
 
-trait JsonObjectAppender[T, II] extends Any {
+abstract class JsonObjectAppender[T, II] {
   def appendField(tt: T, name: II, m: java.util.LinkedHashMap[String, Json]): Unit
 }
 
