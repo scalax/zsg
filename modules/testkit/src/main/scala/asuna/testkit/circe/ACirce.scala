@@ -24,7 +24,7 @@ object ACirce {
   ): Encoder.AsObject[H] = {
     val name1              = cv1.names()
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
-    val application2       = applicationEncoder.appendField(name1)
+    val application2       = applicationEncoder.toAppender(name1)
     Encoder.AsObject.instance { o: H =>
       JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty))
     }
