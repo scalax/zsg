@@ -4,7 +4,7 @@ import scala.reflect.macros.blackbox
 
 import scala.language.experimental.macros
 
-trait ByNameImplicit[T] {
+abstract class ByNameImplicit[T] {
   def value: T
 }
 
