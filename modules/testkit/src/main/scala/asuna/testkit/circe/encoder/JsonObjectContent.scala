@@ -1,7 +1,5 @@
 package asuna.testkit.circe.encoder
 
-import java.util
-
 import asuna.macros.ByNameImplicit
 import asuna.macros.single.PropertyTag
 import asuna.{Application2, Context2}
@@ -16,8 +14,8 @@ object JsonObjectContent {
     val appender = new JsonObjectContent[T, String] {
       override def appendField(name: String): JsonObjectAppender[T] = {
         new JsonObjectAppender[T] {
-          override def appendField(tt: T, m: util.LinkedHashMap[String, Json]): Unit = {
-            m.put(name, t.value(tt))
+          override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = {
+            (name, t.value(tt)) :: m
           }
         }
       }

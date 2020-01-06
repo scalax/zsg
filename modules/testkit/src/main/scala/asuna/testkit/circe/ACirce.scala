@@ -26,9 +26,7 @@ object ACirce {
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     val application2       = applicationEncoder.appendField(name1)
     Encoder.AsObject.instance { o: H =>
-      val linkedMap = new java.util.LinkedHashMap[String, Json]
-      application2.appendField(cv2.getter(o), linkedMap)
-      Utils.jsonObjectFromMap(linkedMap)
+      JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty))
     }
   }
 
