@@ -1,0 +1,29 @@
+package asuna.testkit.circe.encoder
+
+import java.util
+
+import asuna.macros.ByNameImplicit
+import asuna.macros.single.PropertyTag
+import asuna.{Application2, Context2}
+import io.circe.{Encoder, Json}
+
+trait JsonObjectContent[T, II] extends Any {
+  def appendField(name: II): JsonObjectAppender[T]
+}
+
+object JsonObjectContent {
+  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): Application2[JsonObjectContent, PropertyTag[T], T, String] = {
+    val appender = new JsonObjectContent[T, String] {
+      override def appendField(name: String): JsonObjectAppender[T] = {
+        new JsonObjectAppender[T] {
+          override def appendField(tt: T, m: util.LinkedHashMap[String, Json]): Unit = {
+            m.put(name, t.value(tt))
+          }
+        }
+      }
+    }
+    new Application2[JsonObjectContent, PropertyTag[T], T, String] {
+      override def application(context: Context2[JsonObjectContent]): JsonObjectContent[T, String] = appender
+    }
+  }
+}

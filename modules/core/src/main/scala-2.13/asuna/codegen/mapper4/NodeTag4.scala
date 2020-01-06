@@ -194,13 +194,12 @@ final class NodeTag4[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: Tuple
       X4_C4,
       X4_C5
     ]
-  )
-    : F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
-      X1_C4,
-      X2_C4,
-      X3_C4,
-      X4_C4
-    ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = {
+  ): F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = {
     NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum5(app1, app2, app3, app4).application(c)
   }
   def debug[F[_, _, _, _, _, _], X1_C1, X2_C1, X3_C1, X4_C1, X1_C2, X2_C2, X3_C2, X4_C2, X1_C3, X2_C3, X3_C3, X4_C3, X1_C4, X2_C4, X3_C4, X4_C4, X1_C5, X2_C5, X3_C5, X4_C5, X1_C6, X2_C6, X3_C6, X4_C6](
@@ -251,13 +250,12 @@ final class NodeTag4[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: Tuple
       X4_C5,
       X4_C6
     ]
-  )
-    : F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
-      X1_C4,
-      X2_C4,
-      X3_C4,
-      X4_C4
-    ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = {
+  ): F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = {
     NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum6(app1, app2, app3, app4).application(c)
   }
   def debug[F[_, _, _, _, _, _, _], X1_C1, X2_C1, X3_C1, X4_C1, X1_C2, X2_C2, X3_C2, X4_C2, X1_C3, X2_C3, X3_C3, X4_C3, X1_C4, X2_C4, X3_C4, X4_C4, X1_C5, X2_C5, X3_C5, X4_C5, X1_C6, X2_C6, X3_C6, X4_C6, X1_C7, X2_C7, X3_C7, X4_C7](
@@ -312,13 +310,12 @@ final class NodeTag4[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: Tuple
       X4_C6,
       X4_C7
     ]
-  )
-    : F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
-      X1_C4,
-      X2_C4,
-      X3_C4,
-      X4_C4
-    ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7]] = {
+  ): F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7]] = {
     NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum7(app1, app2, app3, app4).application(c)
   }
   def debug[F[_, _, _, _, _, _, _, _], X1_C1, X2_C1, X3_C1, X4_C1, X1_C2, X2_C2, X3_C2, X4_C2, X1_C3, X2_C3, X3_C3, X4_C3, X1_C4, X2_C4, X3_C4, X4_C4, X1_C5, X2_C5, X3_C5, X4_C5, X1_C6, X2_C6, X3_C6, X4_C6, X1_C7, X2_C7, X3_C7, X4_C7, X1_C8, X2_C8, X3_C8, X4_C8](
@@ -377,18 +374,17 @@ final class NodeTag4[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: Tuple
       X4_C7,
       X4_C8
     ]
-  )
-    : F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
-      X1_C4,
-      X2_C4,
-      X3_C4,
-      X4_C4
-    ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
-      X1_C8,
-      X2_C8,
-      X3_C8,
-      X4_C8
-    ]] = {
+  ): F[AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[X1_C3, X2_C3, X3_C3, X4_C3], AsunaTuple4[
+    X1_C4,
+    X2_C4,
+    X3_C4,
+    X4_C4
+  ], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
+    X1_C8,
+    X2_C8,
+    X3_C8,
+    X4_C8
+  ]] = {
     NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum8(app1, app2, app3, app4).application(c)
   }
 }

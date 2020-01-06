@@ -18,15 +18,16 @@ object ACirce {
 
   final def encodeCaseClass[H, R <: TupleTag, Obj, Na](
     implicit ll: AsunaGeneric.Aux[H, R],
-    app: Application2[encoder.JsonObjectAppender, R, Obj, Na],
+    app: Application2[encoder.JsonObjectContent, R, Obj, Na],
     cv1: AsunaLabelledGeneric[H, Na],
     cv2: AsunaGetterGeneric[H, Obj]
   ): Encoder.AsObject[H] = {
     val name1              = cv1.names()
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
+    val application2       = applicationEncoder.appendField(name1)
     Encoder.AsObject.instance { o: H =>
       val linkedMap = new java.util.LinkedHashMap[String, Json]
-      applicationEncoder.appendField(cv2.getter(o), name1, linkedMap)
+      application2.appendField(cv2.getter(o), linkedMap)
       Utils.jsonObjectFromMap(linkedMap)
     }
   }

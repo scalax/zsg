@@ -267,13 +267,12 @@ trait TupleTag4ApplicationCompanion {
     t2: Application4[F, H2, X2_C1, X2_C2, X2_C3, X2_C4],
     t3: Application4[F, H3, X3_C1, X3_C2, X3_C3, X3_C4],
     t4: Application4[F, H4, X4_C1, X4_C2, X4_C3, X4_C4]
-  )
-    : Application4[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4]] = {
+  ): Application4[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+    X1_C3,
+    X2_C3,
+    X3_C3,
+    X4_C3
+  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4]] = {
     val plus4_parameter0: Plus4[
       AsunaTuple0,
       AsunaTuple0,
@@ -386,13 +385,12 @@ trait TupleTag4ApplicationCompanion {
     t2: Application5[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5],
     t3: Application5[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5],
     t4: Application5[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5]
-  )
-    : Application5[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = {
+  ): Application5[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+    X1_C3,
+    X2_C3,
+    X3_C3,
+    X4_C3
+  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5]] = {
     val plus5_parameter0: Plus5[
       AsunaTuple0,
       AsunaTuple0,
@@ -522,13 +520,12 @@ trait TupleTag4ApplicationCompanion {
     t2: Application6[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6],
     t3: Application6[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6],
     t4: Application6[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6]
-  )
-    : Application6[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = {
+  ): Application6[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+    X1_C3,
+    X2_C3,
+    X3_C3,
+    X4_C3
+  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6]] = {
     val plus6_parameter0: Plus6[
       AsunaTuple0,
       AsunaTuple0,
@@ -675,18 +672,17 @@ trait TupleTag4ApplicationCompanion {
     t2: Application7[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7],
     t3: Application7[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7],
     t4: Application7[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6, X4_C7]
-  )
-    : Application7[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[
-      X1_C7,
-      X2_C7,
-      X3_C7,
-      X4_C7
-    ]] = {
+  ): Application7[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+    X1_C3,
+    X2_C3,
+    X3_C3,
+    X4_C3
+  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[
+    X1_C7,
+    X2_C7,
+    X3_C7,
+    X4_C7
+  ]] = {
     val plus7_parameter0: Plus7[
       AsunaTuple0,
       AsunaTuple0,
@@ -852,18 +848,17 @@ trait TupleTag4ApplicationCompanion {
     t2: Application8[F, H2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8],
     t3: Application8[F, H3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8],
     t4: Application8[F, H4, X4_C1, X4_C2, X4_C3, X4_C4, X4_C5, X4_C6, X4_C7, X4_C8]
-  )
-    : Application8[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
-      X1_C3,
-      X2_C3,
-      X3_C3,
-      X4_C3
-    ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
-      X1_C8,
-      X2_C8,
-      X3_C8,
-      X4_C8
-    ]] = {
+  ): Application8[F, TupleTag4[H1, H2, H3, H4], AsunaTuple4[X1_C1, X2_C1, X3_C1, X4_C1], AsunaTuple4[X1_C2, X2_C2, X3_C2, X4_C2], AsunaTuple4[
+    X1_C3,
+    X2_C3,
+    X3_C3,
+    X4_C3
+  ], AsunaTuple4[X1_C4, X2_C4, X3_C4, X4_C4], AsunaTuple4[X1_C5, X2_C5, X3_C5, X4_C5], AsunaTuple4[X1_C6, X2_C6, X3_C6, X4_C6], AsunaTuple4[X1_C7, X2_C7, X3_C7, X4_C7], AsunaTuple4[
+    X1_C8,
+    X2_C8,
+    X3_C8,
+    X4_C8
+  ]] = {
     val plus8_parameter0: Plus8[
       AsunaTuple0,
       AsunaTuple0,
