@@ -99,7 +99,6 @@ class Test02 {
 
   @TearDown
   def after: Unit = {
-
     val asunaCirceStr = asunaEncoder._wData(Aa.benchmarkSampleData).noSpaces
     val rawCirceStr   = rawCirceEncoder(Aa.benchmarkSampleData).noSpaces
     val upickleStr    = write(Aa.benchmarkSampleData)(upickleRW)
