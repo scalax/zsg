@@ -132,10 +132,11 @@ final class NodeTag2[T1 <: TupleTag, T2 <: TupleTag] extends TupleTag {
       X2_C5,
       X2_C6
     ]
-  ): F[AsunaTuple2[X1_C1, X2_C1], AsunaTuple2[X1_C2, X2_C2], AsunaTuple2[X1_C3, X2_C3], AsunaTuple2[X1_C4, X2_C4], AsunaTuple2[X1_C5, X2_C5], AsunaTuple2[
-    X1_C6,
-    X2_C6
-  ]] = {
+  )
+    : F[AsunaTuple2[X1_C1, X2_C1], AsunaTuple2[X1_C2, X2_C2], AsunaTuple2[X1_C3, X2_C3], AsunaTuple2[X1_C4, X2_C4], AsunaTuple2[X1_C5, X2_C5], AsunaTuple2[
+      X1_C6,
+      X2_C6
+    ]] = {
     NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum6(app1, app2).application(c)
   }
   def debug[F[_, _, _, _, _, _, _], X1_C1, X2_C1, X1_C2, X2_C2, X1_C3, X2_C3, X1_C4, X2_C4, X1_C5, X2_C5, X1_C6, X2_C6, X1_C7, X2_C7](c: Context7[F])(

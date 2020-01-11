@@ -320,36 +320,35 @@ object Merge2 {
       NodeTag7[Target1, Target2, Target3, Target4, Target5, Target6, Target7]
     ]
   }
-  implicit def tupletag7_merge2_implicit[X1_C1, X1_C2, X2_C1, X2_C2, X3_C1, X3_C2, X4_C1, X4_C2, X5_C1, X5_C2, X6_C1, X6_C2, X7_C1, X7_C2, X1, X2, X3, X4, X5, X6, X7]
-    : Merge2[
-      TupleTag7[
-        PropertyTag1[X1_C1, X1],
-        PropertyTag1[X2_C1, X2],
-        PropertyTag1[X3_C1, X3],
-        PropertyTag1[X4_C1, X4],
-        PropertyTag1[X5_C1, X5],
-        PropertyTag1[X6_C1, X6],
-        PropertyTag1[X7_C1, X7]
-      ],
-      TupleTag7[
-        PropertyTag1[X1_C2, X1],
-        PropertyTag1[X2_C2, X2],
-        PropertyTag1[X3_C2, X3],
-        PropertyTag1[X4_C2, X4],
-        PropertyTag1[X5_C2, X5],
-        PropertyTag1[X6_C2, X6],
-        PropertyTag1[X7_C2, X7]
-      ],
-      TupleTag7[
-        PropertyTag2[X1_C1, X1_C2, X1],
-        PropertyTag2[X2_C1, X2_C2, X2],
-        PropertyTag2[X3_C1, X3_C2, X3],
-        PropertyTag2[X4_C1, X4_C2, X4],
-        PropertyTag2[X5_C1, X5_C2, X5],
-        PropertyTag2[X6_C1, X6_C2, X6],
-        PropertyTag2[X7_C1, X7_C2, X7]
-      ]
-    ] = {
+  implicit def tupletag7_merge2_implicit[X1_C1, X1_C2, X2_C1, X2_C2, X3_C1, X3_C2, X4_C1, X4_C2, X5_C1, X5_C2, X6_C1, X6_C2, X7_C1, X7_C2, X1, X2, X3, X4, X5, X6, X7]: Merge2[
+    TupleTag7[
+      PropertyTag1[X1_C1, X1],
+      PropertyTag1[X2_C1, X2],
+      PropertyTag1[X3_C1, X3],
+      PropertyTag1[X4_C1, X4],
+      PropertyTag1[X5_C1, X5],
+      PropertyTag1[X6_C1, X6],
+      PropertyTag1[X7_C1, X7]
+    ],
+    TupleTag7[
+      PropertyTag1[X1_C2, X1],
+      PropertyTag1[X2_C2, X2],
+      PropertyTag1[X3_C2, X3],
+      PropertyTag1[X4_C2, X4],
+      PropertyTag1[X5_C2, X5],
+      PropertyTag1[X6_C2, X6],
+      PropertyTag1[X7_C2, X7]
+    ],
+    TupleTag7[
+      PropertyTag2[X1_C1, X1_C2, X1],
+      PropertyTag2[X2_C1, X2_C2, X2],
+      PropertyTag2[X3_C1, X3_C2, X3],
+      PropertyTag2[X4_C1, X4_C2, X4],
+      PropertyTag2[X5_C1, X5_C2, X5],
+      PropertyTag2[X6_C1, X6_C2, X6],
+      PropertyTag2[X7_C1, X7_C2, X7]
+    ]
+  ] = {
     new Merge2[
       TupleTag7[
         PropertyTag1[X1_C1, X1],
