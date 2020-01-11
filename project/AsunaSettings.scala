@@ -32,7 +32,7 @@ object AsunaSettings {
 
   val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
 
-  val vSetting1             = version := "0.0.3-20200108SNAP3"
+  val vSetting1             = version := "0.0.3-20200108SNAP4"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
