@@ -6,21 +6,22 @@ import io.circe.syntax._
 
 object LargeModelTest extends App {
 
-  val a1 = {
+  object a1 {
 
-    implicit lazy val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
-    implicit lazy val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-    val i1                                                                       = LargeModel.largeModel_2_value.asJson
-    println(i1.noSpaces)
+    implicit val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
+    implicit val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
+    val i1                                                                  = LargeModel.largeModel_2_value.asJson
 
     println("==================== line ====================")
 
     implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = ACirce.decodeCaseClass
     implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModel_2] = ACirce.decodeCaseClass
     val i2                                                              = i1.as[LargeModel.LargeModel_2]
-    println(i2)
 
   }
+
+  println(a1.i1.noSpaces)
+  println(a1.i2)
 
   /*val a2 = {
 

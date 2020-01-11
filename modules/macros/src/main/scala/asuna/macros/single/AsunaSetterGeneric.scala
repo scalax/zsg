@@ -1,16 +1,12 @@
 package asuna.macros.single
 
-import asuna.TupleTag
-
 import scala.language.experimental.macros
 
 trait AsunaSetterGeneric[H, GenericType] {
   def setter(gen: GenericType): H
 }
 
-object AsunaSetterGeneric extends AsunaSetterGenericMacroPoly
-
-trait AsunaSetterGenericMacroPoly {
+object AsunaSetterGeneric {
   implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
 }
 
@@ -37,19 +33,6 @@ object AsunaSetterGenericMacroApply {
               proName
           }
           .reverse
-
-        /*val proTypeTag =
-          props.map(s => q"""asuna.macros.PropertySetter[${hType}].to(_.${TermName(s)})""").grouped(8).toList.map(s => q"""asuna.BuildContent.tag(..${s})""")
-
-        def typeTagGen(tree: List[Tree]): Tree =
-          if (tree.length == 1) {
-            q"""asuna.BuildContent.lift(..${tree})"""
-          } else if (tree.length <= 8) {
-            q"""asuna.BuildContent.lift(asuna.BuildContent.nodeTag(..${tree}))"""
-          } else {
-            val groupedTree = tree.grouped(8).toList
-            typeTagGen(groupedTree.map(s => q"""asuna.BuildContent.nodeTag(..${s})"""))
-          }*/
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
           if (initList.size > max) {

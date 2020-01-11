@@ -10,7 +10,17 @@ object AsunaTupleCodeGeneration {
   val maxTupleNum    = 15
 
   val root1_all_Dir =
-    Paths.get("./").resolve("modules").resolve("scala-tuple").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("scala_tuple").resolve("tuple_support").resolve("codegen")
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
 
   val root1_212_Dir =
     Paths
@@ -80,7 +90,7 @@ object AsunaTupleCodeGeneration {
   def main(arr: Array[String]): Unit = {
 
     for (i <- 1 to maxPropertyNum) yield {
-      for (ii <- 1 to maxTupleNum - 2) yield {
+      for (ii <- 0 to maxTupleNum - 1) yield {
         val filePath = root2Dir.resolve("mapper" + i).resolve("HListPlus_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")

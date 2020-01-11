@@ -1,7 +1,7 @@
 package asuna.testkit.circe.test2
 
-import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
-import asuna.{AppendTag, Application2, AsunaTuple0, Context2, Plus2, TupleTag}
+import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
+import asuna.{AppendTag, Application2, AsunaTuple0, Context2, Plus2, PropertyTag0, TupleTag}
 
 sealed trait PropertyItem
 case class IntProperty(i: Int) extends PropertyItem {
@@ -78,8 +78,8 @@ object in {
     }
   }
 
-  implicit val pp1: Application2[LTString, PropertyTag[String], String, String] =
-    new Application2[LTString, PropertyTag[String], String, String] {
+  implicit val pp1: Application2[LTString, PropertyTag0[String], String, String] =
+    new Application2[LTString, PropertyTag0[String], String, String] {
       override def application(context: Context2[LTString]): LTString[String, String] = { (t, r) =>
         new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
@@ -87,8 +87,8 @@ object in {
       }
     }
 
-  implicit val pp2: Application2[LTString, PropertyTag[Int], Int, String] =
-    new Application2[LTString, PropertyTag[Int], Int, String] {
+  implicit val pp2: Application2[LTString, PropertyTag0[Int], Int, String] =
+    new Application2[LTString, PropertyTag0[Int], Int, String] {
       override def application(context: Context2[LTString]): LTString[Int, String] = (t, r) => {
         new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), r) :: i
@@ -96,8 +96,8 @@ object in {
       }
     }
 
-  implicit val pp3: Application2[LTString, PropertyTag[Long], Long, String] =
-    new Application2[LTString, PropertyTag[Long], Long, String] {
+  implicit val pp3: Application2[LTString, PropertyTag0[Long], Long, String] =
+    new Application2[LTString, PropertyTag0[Long], Long, String] {
       override def application(context: Context2[LTString]): LTString[Long, String] = (t, r) => {
         new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), r) :: i

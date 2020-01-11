@@ -6,3 +6,4 @@ _site
 /sbt
 /sbt.bat
 /sbt-launch.jar
+/null

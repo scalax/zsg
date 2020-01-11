@@ -384,5 +384,21 @@ object AsunaCoreCodeGeneration {
       }
     }
 
+    {
+      val filePath = rootAllDir.resolve("message").resolve("MessageClass.scala")
+      Files.createDirectories(filePath.getParent)
+      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val content =
+        Source
+          .fromString(asuna.codegen.debug.scala_all.txt.MessageClass(maxContextIndex = 8, maxPropertyNum = 8).body)
+          .getLines
+          .toList
+          .map(_.trim)
+          .filter(s => !s.isEmpty)
+      val linerContent = content.mkString(System.lineSeparator)
+      writer.println(linerContent)
+      writer.close()
+    }
+
   }
 }
