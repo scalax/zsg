@@ -21,12 +21,6 @@ import asuna.Context5
 import asuna.Application6
 import asuna.Plus6
 import asuna.Context6
-import asuna.Application7
-import asuna.Plus7
-import asuna.Context7
-import asuna.Application8
-import asuna.Plus8
-import asuna.Context8
 class TupleTag1ApplicationCompanion {
 inline given tupleTagApplicationImplicit_tagNum1_typeParamNum1[
 F[_ ]
@@ -180,58 +174,6 @@ TupleTag1[H1 ]  , AsunaTuple1[X1_C1 ]  , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C
 override def application(context: Context6[F]): F[AsunaTuple1[X1_C1 ]
 , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ] ] = {
 context.append(context.start, t1.application(context))(plus6_parameter0)
-}
-}
-}
-inline given tupleTagApplicationImplicit_tagNum1_typeParamNum7[
-F[_  , _  , _  , _  , _  , _  , _ ]
-, H1
-, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7
-](given
-t1: Application7[F, H1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ]
-)
-: Application7[
-F,
-TupleTag1[H1 ]  , AsunaTuple1[X1_C1 ]  , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ] ] = {
-val plus7_parameter0: Plus7[
-AsunaTuple0
-, AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0
-, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7
-, AsunaTuple1[X1_C1]  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5]  , AsunaTuple1[X1_C6]  , AsunaTuple1[X1_C7]
-] = Plus7.cachePlusWithTypeParameter0
-new Application7[
-F,
-TupleTag1[H1 ]  , AsunaTuple1[X1_C1 ]  , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ] ]
-{
-override def application(context: Context7[F]): F[AsunaTuple1[X1_C1 ]
-, AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ] ] = {
-context.append(context.start, t1.application(context))(plus7_parameter0)
-}
-}
-}
-inline given tupleTagApplicationImplicit_tagNum1_typeParamNum8[
-F[_  , _  , _  , _  , _  , _  , _  , _ ]
-, H1
-, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8
-](given
-t1: Application8[F, H1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ]
-)
-: Application8[
-F,
-TupleTag1[H1 ]  , AsunaTuple1[X1_C1 ]  , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ]  , AsunaTuple1[X1_C8 ] ] = {
-val plus8_parameter0: Plus8[
-AsunaTuple0
-, AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0
-, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8
-, AsunaTuple1[X1_C1]  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5]  , AsunaTuple1[X1_C6]  , AsunaTuple1[X1_C7]  , AsunaTuple1[X1_C8]
-] = Plus8.cachePlusWithTypeParameter0
-new Application8[
-F,
-TupleTag1[H1 ]  , AsunaTuple1[X1_C1 ]  , AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ]  , AsunaTuple1[X1_C8 ] ]
-{
-override def application(context: Context8[F]): F[AsunaTuple1[X1_C1 ]
-, AsunaTuple1[X1_C2 ]  , AsunaTuple1[X1_C3 ]  , AsunaTuple1[X1_C4 ]  , AsunaTuple1[X1_C5 ]  , AsunaTuple1[X1_C6 ]  , AsunaTuple1[X1_C7 ]  , AsunaTuple1[X1_C8 ] ] = {
-context.append(context.start, t1.application(context))(plus8_parameter0)
 }
 }
 }

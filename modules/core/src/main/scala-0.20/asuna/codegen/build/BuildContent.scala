@@ -18,10 +18,4 @@ new AsunaTuple5(t1  ,   new AsunaTuple4(t2  ,   new AsunaTuple3(t3  ,   new Asun
 final inline def tuple6[T1  , T2  , T3  , T4  , T5  , T6 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6 ):
 AsunaTuple6[T1  , T2  , T3  , T4  , T5  , T6 ] =
 new AsunaTuple6(t1  ,   new AsunaTuple5(t2  ,   new AsunaTuple4(t3  ,   new AsunaTuple3(t4  ,   new AsunaTuple2(t5  ,   new AsunaTuple1(t6    )  )  )  )  )  )
-final inline def tuple7[T1  , T2  , T3  , T4  , T5  , T6  , T7 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7 ):
-AsunaTuple7[T1  , T2  , T3  , T4  , T5  , T6  , T7 ] =
-new AsunaTuple7(t1  ,   new AsunaTuple6(t2  ,   new AsunaTuple5(t3  ,   new AsunaTuple4(t4  ,   new AsunaTuple3(t5  ,   new AsunaTuple2(t6  ,   new AsunaTuple1(t7    )  )  )  )  )  )  )
-final inline def tuple8[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8 ):
-AsunaTuple8[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8 ] =
-new AsunaTuple8(t1  ,   new AsunaTuple7(t2  ,   new AsunaTuple6(t3  ,   new AsunaTuple5(t4  ,   new AsunaTuple4(t5  ,   new AsunaTuple3(t6  ,   new AsunaTuple2(t7  ,   new AsunaTuple1(t8    )  )  )  )  )  )  )  )
 }

@@ -14,3 +14,4 @@ object PlusToTuple2
     with PlusToTuple_12_2
     with PlusToTuple_13_2
     with PlusToTuple_14_2
+    with PlusToTuple_15_2

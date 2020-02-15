@@ -14,3 +14,4 @@ object HListPlus6
     with HListPlus_11_6
     with HListPlus_12_6
     with HListPlus_13_6
+    with HListPlus_14_6

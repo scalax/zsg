@@ -51,21 +51,5 @@ F , T2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6 ] ):
 F[AsunaTuple2[X1_C1  , X2_C1 ]  , AsunaTuple2[X1_C2  , X2_C2 ]  , AsunaTuple2[X1_C3  , X2_C3 ]  , AsunaTuple2[X1_C4  , X2_C4 ]  , AsunaTuple2[X1_C5  , X2_C5 ]  , AsunaTuple2[X1_C6  , X2_C6 ] ] = {
 NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum6(app1  , app2 ).application(c)
 }
-def debug[F[_  , _  , _  , _  , _  , _  , _ ]   , X1_C1  , X2_C1    , X1_C2  , X2_C2    , X1_C3  , X2_C3    , X1_C4  , X2_C4    , X1_C5  , X2_C5    , X1_C6  , X2_C6    , X1_C7  , X2_C7  ](c: Context7[F])(implicit
-app1: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 1. Please change .debug(context7) to .find1.debug(context7) to continue.`,
-F, T1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ]
-, app2: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 2. Please change .debug(context7) to .find2.debug(context7) to continue.`,
-F , T2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ] ):
-F[AsunaTuple2[X1_C1  , X2_C1 ]  , AsunaTuple2[X1_C2  , X2_C2 ]  , AsunaTuple2[X1_C3  , X2_C3 ]  , AsunaTuple2[X1_C4  , X2_C4 ]  , AsunaTuple2[X1_C5  , X2_C5 ]  , AsunaTuple2[X1_C6  , X2_C6 ]  , AsunaTuple2[X1_C7  , X2_C7 ] ] = {
-NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum7(app1  , app2 ).application(c)
-}
-def debug[F[_  , _  , _  , _  , _  , _  , _  , _ ]   , X1_C1  , X2_C1    , X1_C2  , X2_C2    , X1_C3  , X2_C3    , X1_C4  , X2_C4    , X1_C5  , X2_C5    , X1_C6  , X2_C6    , X1_C7  , X2_C7    , X1_C8  , X2_C8  ](c: Context8[F])(implicit
-app1: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 1. Please change .debug(context8) to .find1.debug(context8) to continue.`,
-F, T1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ]
-, app2: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 2. Please change .debug(context8) to .find2.debug(context8) to continue.`,
-F , T2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ] ):
-F[AsunaTuple2[X1_C1  , X2_C1 ]  , AsunaTuple2[X1_C2  , X2_C2 ]  , AsunaTuple2[X1_C3  , X2_C3 ]  , AsunaTuple2[X1_C4  , X2_C4 ]  , AsunaTuple2[X1_C5  , X2_C5 ]  , AsunaTuple2[X1_C6  , X2_C6 ]  , AsunaTuple2[X1_C7  , X2_C7 ]  , AsunaTuple2[X1_C8  , X2_C8 ] ] = {
-NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum8(app1  , app2 ).application(c)
-}
 }
 final object NodeTag2 extends support.NodeTag2ApplicationCompanion

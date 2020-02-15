@@ -6,8 +6,8 @@ import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 object AsunaTupleCodeGeneration {
-  val maxPropertyNum = 8
-  val maxTupleNum    = 15
+  val maxPropertyNum = 6
+  val maxTupleNum    = 16
 
   val root1_all_Dir =
     Paths

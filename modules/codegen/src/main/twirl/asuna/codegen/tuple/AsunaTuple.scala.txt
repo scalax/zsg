@@ -1,36 +1,6 @@
-@(tagNum: Int)
+@(tagNum: Int, maxTupleNum: Int)
 
 package asuna
 
-import asuna.support.heterogeneous._
-
 final class AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-(override final val head: E1
-@if(tagNum > 1) { , override final val tail: AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }] }
-)
-extends HList {
-    override final type Head = E1
-    @if(tagNum > 1) {
-        override final type Tail = AsunaTuple@{tagNum - 1}[@for(ii <- 2 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-    } else {
-        override final type Tail = AsunaTuple0
-        override final def tail: AsunaTuple0 = AsunaTuple0.value
-    }
-
-    final def i1: E1 = head
-    @for(ii <- 2 to tagNum) {
-        final def i@{ii}: E@{ii} = tail@for(_ <- 3 to ii) { .tail }.head
-    }
-
-    override final type Append[T] = @if(tagNum < 8) {
-        AsunaTuple@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }]
-    } else {
-        T :: AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-    }
-    override final def ::[T](t: T): Append[T] = @if(tagNum < 8) {
-        new AsunaTuple@{tagNum + 1}[T @for(ii <- 1 to tagNum) { , E@{ii} }](t, this)
-    } else {
-        t :: this
-    }
-
-}
+(@for(ii <- 1 to tagNum - 1) { final val i@{ii}: E@{ii}, } final val i@{tagNum}: E@{tagNum})

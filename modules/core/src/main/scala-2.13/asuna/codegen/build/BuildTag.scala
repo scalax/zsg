@@ -56,48 +56,6 @@ final object BuildTag {
     t6: AppendTag[T6]
   ): AppendTag[NodeTag6[T1, T2, T3, T4, T5, T6]] =
     AppendTag[NodeTag6[T1, T2, T3, T4, T5, T6]]
-  final def tag[T1, T2, T3, T4, T5, T6, T7](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7]
-  ): AppendTag[TupleTag7[T1, T2, T3, T4, T5, T6, T7]] =
-    AppendTag[TupleTag7[T1, T2, T3, T4, T5, T6, T7]]
-  final def nodeTag[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: TupleTag, T5 <: TupleTag, T6 <: TupleTag, T7 <: TupleTag](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7]
-  ): AppendTag[NodeTag7[T1, T2, T3, T4, T5, T6, T7]] =
-    AppendTag[NodeTag7[T1, T2, T3, T4, T5, T6, T7]]
-  final def tag[T1, T2, T3, T4, T5, T6, T7, T8](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7],
-    t8: AppendTag[T8]
-  ): AppendTag[TupleTag8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    AppendTag[TupleTag8[T1, T2, T3, T4, T5, T6, T7, T8]]
-  final def nodeTag[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: TupleTag, T5 <: TupleTag, T6 <: TupleTag, T7 <: TupleTag, T8 <: TupleTag](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7],
-    t8: AppendTag[T8]
-  ): AppendTag[NodeTag8[T1, T2, T3, T4, T5, T6, T7, T8]] =
-    AppendTag[NodeTag8[T1, T2, T3, T4, T5, T6, T7, T8]]
   final def mergeTag[T1 <: TupleTag, T2 <: TupleTag, Target <: TupleTag](t1: AppendTag[T1], t2: AppendTag[T2])(implicit i: Merge2[T1, T2, Target]): AppendTag[Target] =
     AppendTag[Target]
   final def mergeTag[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, Target <: TupleTag](t1: AppendTag[T1], t2: AppendTag[T2], t3: AppendTag[T3])(
@@ -124,23 +82,4 @@ final object BuildTag {
     t5: AppendTag[T5],
     t6: AppendTag[T6]
   )(implicit i: Merge6[T1, T2, T3, T4, T5, T6, Target]): AppendTag[Target] = AppendTag[Target]
-  final def mergeTag[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: TupleTag, T5 <: TupleTag, T6 <: TupleTag, T7 <: TupleTag, Target <: TupleTag](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7]
-  )(implicit i: Merge7[T1, T2, T3, T4, T5, T6, T7, Target]): AppendTag[Target] = AppendTag[Target]
-  final def mergeTag[T1 <: TupleTag, T2 <: TupleTag, T3 <: TupleTag, T4 <: TupleTag, T5 <: TupleTag, T6 <: TupleTag, T7 <: TupleTag, T8 <: TupleTag, Target <: TupleTag](
-    t1: AppendTag[T1],
-    t2: AppendTag[T2],
-    t3: AppendTag[T3],
-    t4: AppendTag[T4],
-    t5: AppendTag[T5],
-    t6: AppendTag[T6],
-    t7: AppendTag[T7],
-    t8: AppendTag[T8]
-  )(implicit i: Merge8[T1, T2, T3, T4, T5, T6, T7, T8, Target]): AppendTag[Target] = AppendTag[Target]
 }

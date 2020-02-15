@@ -65,25 +65,5 @@ F , T4  , X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6 ] ):
 F[AsunaTuple4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]  , AsunaTuple4[X1_C2  , X2_C2  , X3_C2  , X4_C2 ]  , AsunaTuple4[X1_C3  , X2_C3  , X3_C3  , X4_C3 ]  , AsunaTuple4[X1_C4  , X2_C4  , X3_C4  , X4_C4 ]  , AsunaTuple4[X1_C5  , X2_C5  , X3_C5  , X4_C5 ]  , AsunaTuple4[X1_C6  , X2_C6  , X3_C6  , X4_C6 ] ] = {
 NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum6(app1  , app2  , app3  , app4 ).application(c)
 }
-def debug[F[_  , _  , _  , _  , _  , _  , _ ]   , X1_C1  , X2_C1  , X3_C1  , X4_C1    , X1_C2  , X2_C2  , X3_C2  , X4_C2    , X1_C3  , X2_C3  , X3_C3  , X4_C3    , X1_C4  , X2_C4  , X3_C4  , X4_C4    , X1_C5  , X2_C5  , X3_C5  , X4_C5    , X1_C6  , X2_C6  , X3_C6  , X4_C6    , X1_C7  , X2_C7  , X3_C7  , X4_C7  ](c: Context7[F])(implicit
-app1: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 1. Please change .debug(context7) to .find1.debug(context7) to continue.`,
-F, T1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ]
-, app2: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 2. Please change .debug(context7) to .find2.debug(context7) to continue.`,
-F , T2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ]  , app3: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 3. Please change .debug(context7) to .find3.debug(context7) to continue.`,
-F , T3  , X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7 ]  , app4: asuna.debug.NodeDebugApplication7[`The implicit not founded property's index is 4. Please change .debug(context7) to .find4.debug(context7) to continue.`,
-F , T4  , X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7 ] ):
-F[AsunaTuple4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]  , AsunaTuple4[X1_C2  , X2_C2  , X3_C2  , X4_C2 ]  , AsunaTuple4[X1_C3  , X2_C3  , X3_C3  , X4_C3 ]  , AsunaTuple4[X1_C4  , X2_C4  , X3_C4  , X4_C4 ]  , AsunaTuple4[X1_C5  , X2_C5  , X3_C5  , X4_C5 ]  , AsunaTuple4[X1_C6  , X2_C6  , X3_C6  , X4_C6 ]  , AsunaTuple4[X1_C7  , X2_C7  , X3_C7  , X4_C7 ] ] = {
-NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum7(app1  , app2  , app3  , app4 ).application(c)
-}
-def debug[F[_  , _  , _  , _  , _  , _  , _  , _ ]   , X1_C1  , X2_C1  , X3_C1  , X4_C1    , X1_C2  , X2_C2  , X3_C2  , X4_C2    , X1_C3  , X2_C3  , X3_C3  , X4_C3    , X1_C4  , X2_C4  , X3_C4  , X4_C4    , X1_C5  , X2_C5  , X3_C5  , X4_C5    , X1_C6  , X2_C6  , X3_C6  , X4_C6    , X1_C7  , X2_C7  , X3_C7  , X4_C7    , X1_C8  , X2_C8  , X3_C8  , X4_C8  ](c: Context8[F])(implicit
-app1: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 1. Please change .debug(context8) to .find1.debug(context8) to continue.`,
-F, T1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ]
-, app2: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 2. Please change .debug(context8) to .find2.debug(context8) to continue.`,
-F , T2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ]  , app3: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 3. Please change .debug(context8) to .find3.debug(context8) to continue.`,
-F , T3  , X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7  , X3_C8 ]  , app4: asuna.debug.NodeDebugApplication8[`The implicit not founded property's index is 4. Please change .debug(context8) to .find4.debug(context8) to continue.`,
-F , T4  , X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7  , X4_C8 ] ):
-F[AsunaTuple4[X1_C1  , X2_C1  , X3_C1  , X4_C1 ]  , AsunaTuple4[X1_C2  , X2_C2  , X3_C2  , X4_C2 ]  , AsunaTuple4[X1_C3  , X2_C3  , X3_C3  , X4_C3 ]  , AsunaTuple4[X1_C4  , X2_C4  , X3_C4  , X4_C4 ]  , AsunaTuple4[X1_C5  , X2_C5  , X3_C5  , X4_C5 ]  , AsunaTuple4[X1_C6  , X2_C6  , X3_C6  , X4_C6 ]  , AsunaTuple4[X1_C7  , X2_C7  , X3_C7  , X4_C7 ]  , AsunaTuple4[X1_C8  , X2_C8  , X3_C8  , X4_C8 ] ] = {
-NodeTag4.noteTagApplicationImplicit_tagNum4_typeParamNum8(app1  , app2  , app3  , app4 ).application(c)
-}
 }
 final object NodeTag4 extends support.NodeTag4ApplicationCompanion

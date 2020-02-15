@@ -1,4 +1,4 @@
-@(tagNum: Int)
+@(tagNum: Int, maxTagNum: Int)
 
 package asuna
 
@@ -8,7 +8,7 @@ final class NodeTag@{tagNum}[T1 <: TupleTag @for(ii <- 2 to tagNum){ , T@{ii} <:
     @for(ii <- 1 to tagNum) {
         def find@{ii}: T@{ii} = throw new Exception("Debuging...")
     }
-    @for(contextIndex <- 1 to 8) {
+    @for(contextIndex <- 1 to maxTagNum) {
         def debug[F[_ @for(_ <- 2 to contextIndex) { , _ }] @for(iii <- 1 to contextIndex) { @for(iiii <- 1 to tagNum) { , X@{iiii}_C@{iii} } }](c: Context@{contextIndex}[F])(implicit
         app1: asuna.debug.NodeDebugApplication@{contextIndex}[`The implicit not founded property's index is 1. Please change .debug(context@{contextIndex}) to .find1.debug(context@{contextIndex}) to continue.`,
         F, T1 @for(iii <- 1 to contextIndex) { , X1_C@{iii} }]
