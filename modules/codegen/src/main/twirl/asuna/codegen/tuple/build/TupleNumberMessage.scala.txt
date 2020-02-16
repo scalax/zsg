@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
 package asuna
-@for(tagNum <- 0 to maxItem) {
+@for(tagNum <- 1 to maxItem) {
     final class `Number： @{tagNum}` extends Message
 }

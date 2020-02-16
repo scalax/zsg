@@ -23,8 +23,10 @@ class TupleToStringTest {
     assertEquals(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int)](TupleData.i12.toString()), TupleData.i12)
     assertEquals(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int)](TupleData.i13.toString()), TupleData.i13)
     assertEquals(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int))](TupleData.i14.toString()), TupleData.i14)
-    assertEquals(tuple
-      .fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int, String), Int)](TupleData.i15.toString()), TupleData.i15)
+    assertEquals(
+      tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int, String), Int)](TupleData.i15.toString()),
+      TupleData.i15
+    )
   }
 
 }

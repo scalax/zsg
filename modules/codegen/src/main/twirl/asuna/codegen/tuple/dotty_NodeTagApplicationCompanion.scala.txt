@@ -1,4 +1,4 @@
-@(tagNum: Int, maxAsunaTupleNum: Int)
+@(tagNum: Int, maxAsunaTupleNum: Int, maxAsunaContext: Int)
 
 package asuna.support
 
@@ -10,7 +10,7 @@ import asuna.NodeTag@{tagNum}
 @for(i <- 0 to tagNum) {
 import asuna.AsunaTuple@{i}
 }
-@for(i <- 1 to maxAsunaTupleNum) {
+@for(i <- 1 to maxAsunaContext) {
 import asuna.Application@{i}
 import asuna.Plus@{i}
 import asuna.Context@{i}
@@ -18,7 +18,7 @@ import asuna.Context@{i}
 
 class NodeTag@{tagNum}ApplicationCompanion {
 
-    @for(typeParamNum <- 1 to maxAsunaTupleNum) {
+    @for(typeParamNum <- 1 to maxAsunaContext) {
         inline given noteTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
         F[_ @for(i <- 2 to typeParamNum) { , _ }]
         @for(ii <- 1 to tagNum) { , H@{ii} <: TupleTag }

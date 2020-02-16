@@ -25,7 +25,7 @@ object AsunaCoreCodeGeneration {
 
   def main(i: Array[String]): Unit = {
     {
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = root212Dir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
@@ -40,7 +40,7 @@ object AsunaCoreCodeGeneration {
         writer.println(linerContent)
         writer.close()
       }
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = root213Dir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
@@ -55,7 +55,7 @@ object AsunaCoreCodeGeneration {
         writer.println(linerContent)
         writer.close()
       }
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = rootDottyDir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
@@ -72,7 +72,7 @@ object AsunaCoreCodeGeneration {
       }
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
@@ -83,7 +83,7 @@ object AsunaCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
@@ -177,7 +177,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -192,7 +196,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -207,7 +215,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.dotty_NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .dotty_NodeTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -225,7 +237,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -240,7 +256,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -255,7 +275,11 @@ object AsunaCoreCodeGeneration {
         val writer19 = new PrintWriter(filePath.toFile, "utf-8")
         val content191 =
           Source
-            .fromString(asuna.codegen.tuple.txt.dotty_TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
+            .fromString(
+              asuna.codegen.tuple.txt
+                .dotty_TupleTagApplicationCompanion(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
+                .body
+            )
             .getLines
             .toList
             .map(_.trim)
@@ -455,7 +479,7 @@ object AsunaCoreCodeGeneration {
       val content =
         Source
           .fromString(
-            asuna.codegen.debug.scala_all.txt.MessageClass(maxContextIndex = AsunaParameters.maxPropertyNum, maxPropertyNum = AsunaParameters.maxPropertyNum).body
+            asuna.codegen.debug.scala_all.txt.MessageClass(maxContextIndex = AsunaParameters.maxContextNum, maxPropertyNum = AsunaParameters.maxPropertyNum).body
           )
           .getLines
           .toList
