@@ -59,7 +59,7 @@ object AsunaSealedGenericMacroApply {
           if (tree.length == 1) {
             q"""asuna.BuildTag.lift(..${tree})"""
           } else if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""asuna.BuildTag.lift(org.scalax.asuna.mapper.BuildContent.nodeTag(..${tree}))"""
+            q"""asuna.BuildTag.lift(asuna.BuildTag.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
             typeTagGen(groupedTree.map(s => q"""asuna.BuildTag.nodeTag(..${s})"""))
