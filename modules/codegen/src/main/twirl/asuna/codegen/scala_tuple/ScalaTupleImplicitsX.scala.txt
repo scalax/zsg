@@ -10,34 +10,6 @@ import scala.language.higherKinds
 
 trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
 
-    @if(tagNum <= maxAsunaTupleNum - 1) {
-        def hlistTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
-            F[_ @for(i <- 2 to typeParamNum) { , _ }]
-            @for(ii <- 1 to tagNum) { , H@{ii} }
-            @for(i <- 1 to tagNum) {
-                @for(ii <- 1 to typeParamNum) { , X@{i}_C@{ii} }
-            }
-        ](t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
-        @for(ii <- 2 to tagNum) { , t@{ii}: Application@{typeParamNum}[F, H@{ii} @for(i <- 1 to typeParamNum) { , X@{ii}_C@{i} }] })
-        : Application@{typeParamNum}[
-        F,
-        @for(ii <- 1 to tagNum) { H@{ii} :: } HNil @for(i <- 1 to typeParamNum) { , @for(ii <- 1 to tagNum) { X@{ii}_C@{i} :: } HNil }] =
-        new Application@{typeParamNum}[
-        F,
-        @for(ii <- 1 to tagNum) { H@{ii} :: } HNil @for(i <- 1 to typeParamNum) { , @for(ii <- 1 to tagNum) { X@{ii}_C@{i} :: } HNil }] {
-            override def application(context: Context@{typeParamNum}[F]) = {
-                context.append(
-                    @if(tagNum == 2) {
-                        context.append(context.start, t2.application(context))(HListPlus@{typeParamNum}.plusWithTypeParameter0),
-                    } else {
-                        ScalaTupleImplicits_@{tagNum - 1}_@{typeParamNum}.hlistTagApplicationImplicit_tagNum@{tagNum - 1}_typeParamNum@{typeParamNum}(t2 @for(ii <- 3 to tagNum) { , t@{ii} }).application(context),
-                    }
-                    t1.application(context)
-                )(HListPlus@{typeParamNum}.plusWithTypeParameter@{tagNum - 1})
-            }
-        }
-    }
-
     implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
         F[_ @for(i <- 2 to typeParamNum) { , _ }]
         @for(ii <- 1 to tagNum) { , H@{ii} }
@@ -53,12 +25,17 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
     F,
     (H1 @for(ii <- 2 to tagNum) { , H@{ii} }) @for(i <- 1 to typeParamNum) { , (X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }) }] {
         override def application(context: Context@{typeParamNum}[F]) = {
-            @*@asuna.codegen.scala_tuple.utils.txt.ScalaTupleContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)*@
             @if(tagNum == 2) {
                 context.append(t2.application(context), t1.application(context))(PlusToTuple@{typeParamNum}.plusWithTypeParameter1),
             } else {
                 context.append(
-                    ScalaTupleImplicits_@{tagNum - 1}_@{typeParamNum}.hlistTagApplicationImplicit_tagNum@{tagNum - 1}_typeParamNum@{typeParamNum}(t2 @for(ii <- 3 to (tagNum)) { , t@{ii} }).application(context),
+                    ScalaTupleImplicits_@{tagNum - 1}_@{typeParamNum}.tupleTagApplicationImplicit_tagNum@{tagNum - 1}_typeParamNum@{typeParamNum}[
+                        F
+                        @for(ii <- 2 to tagNum) { , H@{ii} }
+                        @for(i <- 2 to tagNum) {
+                            @for(ii <- 1 to typeParamNum) { , X@{i}_C@{ii} }
+                        }
+                    ].application(context),
                     t1.application(context)
                 )(PlusToTuple@{typeParamNum}.plusWithTypeParameter@{tagNum - 1})
             }

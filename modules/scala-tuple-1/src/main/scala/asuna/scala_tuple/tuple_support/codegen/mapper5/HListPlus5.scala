@@ -15,3 +15,9 @@ object HListPlus5
     with HListPlus_12_5
     with HListPlus_13_5
     with HListPlus_14_5
+    with HListPlus_15_5
+    with HListPlus_16_5
+    with HListPlus_17_5
+    with HListPlus_18_5
+    with HListPlus_19_5
+    with HListPlus_20_5

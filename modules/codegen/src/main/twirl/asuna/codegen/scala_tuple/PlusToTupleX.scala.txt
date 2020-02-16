@@ -31,22 +31,22 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
         @for(i <- 2 to tagNum) { @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } }
         @for(i <- 1 to tagNum) { , Y@{i} } ]:
         Plus@{tagNum}[
-            @for(ii <- 1 to caseClassNum) { X1_C@{ii} :: } HNil
-            @for(i <- 2 to tagNum) { , @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil }
+            (X1_C1 @for(ii <- 2 to caseClassNum) { , X1_C@{ii} })
+            @for(i <- 2 to tagNum) { , (X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} }) }
             @for(i <- 1 to tagNum) { , Y@{i} }
             @for(i <- 1 to tagNum) { , ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) }
         ] = new Plus@{tagNum}[
-            @for(ii <- 1 to caseClassNum) { X1_C@{ii} :: } HNil
-            @for(i <- 2 to tagNum) { , @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil }
+            (X1_C1 @for(ii <- 2 to caseClassNum) { , X1_C@{ii} })
+            @for(i <- 2 to tagNum) { , (X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} }) }
             @for(i <- 1 to tagNum) { , Y@{i} }
             @for(i <- 1 to tagNum) { , ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) }
         ] {
             @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil =
-                @for(ii <- 1 to caseClassNum) { z._@{ii + 1} :: } HNil.value
+                final override def takeHead@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): (X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} }) =
+                (z._2 @for(ii <- 2 to caseClassNum) { , z._@{ii + 1} })
                 final override def takeTail@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): Y@{i} = z._1
-                final override def plus@{i}(x: @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil, y: Y@{i}): ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) =
-                (y @for(ii <- 1 to caseClassNum) { , x @for(iii <- 2 to ii) { .tail } .head })
+                final override def plus@{i}(x: (X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} }), y: Y@{i}): ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) =
+                (y @for(ii <- 1 to caseClassNum) { , x._@{ii} })
             }
         }
     }

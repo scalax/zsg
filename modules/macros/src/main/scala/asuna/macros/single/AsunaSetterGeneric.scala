@@ -1,5 +1,7 @@
 package asuna.macros.single
 
+import asuna.macros.AsunaParameters
+
 import scala.language.experimental.macros
 
 trait AsunaSetterGeneric[H, GenericType] {
@@ -39,20 +41,20 @@ object AsunaSetterGenericMacroApply {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
                 (str, { t1: Tree =>
-                  t(q"""${t1}.${TermName("i" + ((index / max % 8) + 1).toString)}""")
+                  t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""")
                 })
             }
-            toItemImpl(max * 8, i)
+            toItemImpl(max * AsunaParameters.maxPropertyNum, i)
           } else initList
 
         val preList = props.zipWithIndex.map {
           case (str, index) =>
             (str, { t1: Tree =>
-              q"""${t1}.${TermName("i" + (index % 8 + 1).toString)}"""
+              q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}"""
             })
         }
 
-        val casei = toItemImpl(8, preList)
+        val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
         val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
 

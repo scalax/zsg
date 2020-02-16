@@ -4,27 +4,6 @@ import asuna.Context6
 import asuna.support.heterogeneous._
 import scala.language.higherKinds
 trait ScalaTupleImplicits_3_6 {
-inline def hlistTagApplicationImplicit_tagNum3_typeParamNum6[
-F[_  , _  , _  , _  , _  , _ ]
-, H1  , H2  , H3
-, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6
-, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6
-, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6
-](t1: Application6[F, H1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6 ]
-, t2: Application6[F, H2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6 ]  , t3: Application6[F, H3  , X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6 ] )
-: Application6[
-F,
-H1 ::  H2 ::  H3 ::  HNil  ,  X1_C1 ::  X2_C1 ::  X3_C1 ::  HNil  ,  X1_C2 ::  X2_C2 ::  X3_C2 ::  HNil  ,  X1_C3 ::  X2_C3 ::  X3_C3 ::  HNil  ,  X1_C4 ::  X2_C4 ::  X3_C4 ::  HNil  ,  X1_C5 ::  X2_C5 ::  X3_C5 ::  HNil  ,  X1_C6 ::  X2_C6 ::  X3_C6 ::  HNil ] =
-new Application6[
-F,
-H1 ::  H2 ::  H3 ::  HNil  ,  X1_C1 ::  X2_C1 ::  X3_C1 ::  HNil  ,  X1_C2 ::  X2_C2 ::  X3_C2 ::  HNil  ,  X1_C3 ::  X2_C3 ::  X3_C3 ::  HNil  ,  X1_C4 ::  X2_C4 ::  X3_C4 ::  HNil  ,  X1_C5 ::  X2_C5 ::  X3_C5 ::  HNil  ,  X1_C6 ::  X2_C6 ::  X3_C6 ::  HNil ] {
-override def application(context: Context6[F]) = {
-context.append(
-ScalaTupleImplicits_2_6.hlistTagApplicationImplicit_tagNum2_typeParamNum6(t2  , t3 ).application(context),
-t1.application(context)
-)(HListPlus6.plusWithTypeParameter2)
-}
-}
 given tupleTagApplicationImplicit_tagNum3_typeParamNum6[
 F[_  , _  , _  , _  , _  , _ ]
 , H1  , H2  , H3
@@ -41,7 +20,12 @@ F,
 (H1  , H2  , H3 )  , (X1_C1  , X2_C1  , X3_C1 )  , (X1_C2  , X2_C2  , X3_C2 )  , (X1_C3  , X2_C3  , X3_C3 )  , (X1_C4  , X2_C4  , X3_C4 )  , (X1_C5  , X2_C5  , X3_C5 )  , (X1_C6  , X2_C6  , X3_C6 ) ] {
 override def application(context: Context6[F]) = {
 context.append(
-ScalaTupleImplicits_2_6.hlistTagApplicationImplicit_tagNum2_typeParamNum6(t2  , t3 ).application(context),
+ScalaTupleImplicits_2_6.tupleTagApplicationImplicit_tagNum2_typeParamNum6[
+F
+, H2  , H3
+, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6
+, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6
+].application(context),
 t1.application(context)
 )(PlusToTuple6.plusWithTypeParameter2)
 }

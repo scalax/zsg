@@ -23,9 +23,9 @@ object Plus@{tagNum} {
         @for(i <- 1 to tagNum) { , AsunaTuple1[Y@{i}] }
     ] {
         @for(i <- 1 to tagNum) {
-            final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = z.tail
-            final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.head
-            final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = x.::(y)
+            final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.i1
+            final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = new AsunaTuple1(y)
         }
     }
 
@@ -45,9 +45,9 @@ object Plus@{tagNum} {
             @for(i <- 1 to tagNum) { , AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] }
         ] {
             @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] = z.tail
-                final override def takeTail@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): Y@{i} = z.head
-                final override def plus@{i}(x: AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ], y: Y@{i}): AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] = x.::(y)
+                final override def takeHead@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ] = new AsunaTuple@{caseClassNum}(z.i2 @for(ii <- 3 to caseClassNum + 1) { , z.i@{ii} })
+                final override def takeTail@{i}(z: AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ]): Y@{i} = z.i1
+                final override def plus@{i}(x: AsunaTuple@{caseClassNum}[X@{i}_C1 @for(ii <- 2 to caseClassNum) { , X@{i}_C@{ii} } ], y: Y@{i}): AsunaTuple@{caseClassNum + 1}[Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ] = new AsunaTuple@{caseClassNum + 1}(y @for(ii <- 1 to caseClassNum) { , x.i@{ii} })
             }
         }
     }

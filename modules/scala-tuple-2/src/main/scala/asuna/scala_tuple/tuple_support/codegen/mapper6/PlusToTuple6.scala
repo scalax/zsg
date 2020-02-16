@@ -15,3 +15,9 @@ object PlusToTuple6
     with PlusToTuple_13_6
     with PlusToTuple_14_6
     with PlusToTuple_15_6
+    with PlusToTuple_16_6
+    with PlusToTuple_17_6
+    with PlusToTuple_18_6
+    with PlusToTuple_19_6
+    with PlusToTuple_20_6
+    with PlusToTuple_21_6

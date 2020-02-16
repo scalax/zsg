@@ -27,6 +27,12 @@ import asuna.Context5
 import asuna.Application6
 import asuna.Plus6
 import asuna.Context6
+import asuna.Application7
+import asuna.Plus7
+import asuna.Context7
+import asuna.Application8
+import asuna.Plus8
+import asuna.Context8
 class NodeTag6ApplicationCompanion {
 final implicit def noteTagApplicationImplicit_tagNum6_typeParamNum1[
 F[_ ]
@@ -451,6 +457,150 @@ context.append(context.start, t6.application(context))(plus6_parameter0)
 , t3.application(context))(plus6_parameter3)
 , t2.application(context))(plus6_parameter4)
 , t1.application(context))(plus6_parameter5)
+}
+}
+}
+final implicit def noteTagApplicationImplicit_tagNum6_typeParamNum7[
+F[_  , _  , _  , _  , _  , _  , _ ]
+, H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag  , H4 <: TupleTag  , H5 <: TupleTag  , H6 <: TupleTag
+, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7
+, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7
+, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7
+, X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7
+, X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7
+, X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7
+]
+(implicit
+t1: Application7[F, H1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ]
+, t2: Application7[F, H2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ]  , t3: Application7[F, H3  , X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7 ]  , t4: Application7[F, H4  , X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7 ]  , t5: Application7[F, H5  , X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7 ]  , t6: Application7[F, H6  , X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7 ] )
+: Application7[
+F,
+NodeTag6[H1  , H2  , H3  , H4  , H5  , H6 ]  , AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ] ] = {
+val plus7_parameter0: Plus7[
+AsunaTuple0
+, AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0
+, X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7
+, AsunaTuple1[X6_C1]  , AsunaTuple1[X6_C2]  , AsunaTuple1[X6_C3]  , AsunaTuple1[X6_C4]  , AsunaTuple1[X6_C5]  , AsunaTuple1[X6_C6]  , AsunaTuple1[X6_C7]
+] = Plus7.cachePlusWithTypeParameter0
+val plus7_parameter1: Plus7[
+AsunaTuple1[X6_C1 ]
+, AsunaTuple1[X6_C2 ]  , AsunaTuple1[X6_C3 ]  , AsunaTuple1[X6_C4 ]  , AsunaTuple1[X6_C5 ]  , AsunaTuple1[X6_C6 ]  , AsunaTuple1[X6_C7 ]
+, X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7
+, AsunaTuple2[X5_C1  , X6_C1 ]  , AsunaTuple2[X5_C2  , X6_C2 ]  , AsunaTuple2[X5_C3  , X6_C3 ]  , AsunaTuple2[X5_C4  , X6_C4 ]  , AsunaTuple2[X5_C5  , X6_C5 ]  , AsunaTuple2[X5_C6  , X6_C6 ]  , AsunaTuple2[X5_C7  , X6_C7 ]
+] = Plus7.cachePlusWithTypeParameter1
+val plus7_parameter2: Plus7[
+AsunaTuple2[X5_C1  , X6_C1 ]
+, AsunaTuple2[X5_C2  , X6_C2 ]  , AsunaTuple2[X5_C3  , X6_C3 ]  , AsunaTuple2[X5_C4  , X6_C4 ]  , AsunaTuple2[X5_C5  , X6_C5 ]  , AsunaTuple2[X5_C6  , X6_C6 ]  , AsunaTuple2[X5_C7  , X6_C7 ]
+, X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7
+, AsunaTuple3[X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple3[X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple3[X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple3[X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple3[X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple3[X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple3[X4_C7  , X5_C7  , X6_C7 ]
+] = Plus7.cachePlusWithTypeParameter2
+val plus7_parameter3: Plus7[
+AsunaTuple3[X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple3[X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple3[X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple3[X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple3[X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple3[X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple3[X4_C7  , X5_C7  , X6_C7 ]
+, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7
+, AsunaTuple4[X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple4[X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple4[X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple4[X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple4[X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple4[X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple4[X3_C7  , X4_C7  , X5_C7  , X6_C7 ]
+] = Plus7.cachePlusWithTypeParameter3
+val plus7_parameter4: Plus7[
+AsunaTuple4[X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple4[X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple4[X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple4[X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple4[X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple4[X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple4[X3_C7  , X4_C7  , X5_C7  , X6_C7 ]
+, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7
+, AsunaTuple5[X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple5[X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple5[X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple5[X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple5[X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple5[X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple5[X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]
+] = Plus7.cachePlusWithTypeParameter4
+val plus7_parameter5: Plus7[
+AsunaTuple5[X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple5[X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple5[X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple5[X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple5[X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple5[X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple5[X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]
+, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7
+, AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]
+] = Plus7.cachePlusWithTypeParameter5
+new Application7[
+F,
+NodeTag6[H1  , H2  , H3  , H4  , H5  , H6 ]  , AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ] ]
+{
+override final def application(context: Context7[F]): F[AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ] ] = {
+context.append(
+context.append(
+context.append(
+context.append(
+context.append(
+context.append(context.start, t6.application(context))(plus7_parameter0)
+, t5.application(context))(plus7_parameter1)
+, t4.application(context))(plus7_parameter2)
+, t3.application(context))(plus7_parameter3)
+, t2.application(context))(plus7_parameter4)
+, t1.application(context))(plus7_parameter5)
+}
+}
+}
+final implicit def noteTagApplicationImplicit_tagNum6_typeParamNum8[
+F[_  , _  , _  , _  , _  , _  , _  , _ ]
+, H1 <: TupleTag  , H2 <: TupleTag  , H3 <: TupleTag  , H4 <: TupleTag  , H5 <: TupleTag  , H6 <: TupleTag
+, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8
+, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8
+, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7  , X3_C8
+, X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7  , X4_C8
+, X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7  , X5_C8
+, X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7  , X6_C8
+]
+(implicit
+t1: Application8[F, H1  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ]
+, t2: Application8[F, H2  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ]  , t3: Application8[F, H3  , X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7  , X3_C8 ]  , t4: Application8[F, H4  , X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7  , X4_C8 ]  , t5: Application8[F, H5  , X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7  , X5_C8 ]  , t6: Application8[F, H6  , X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7  , X6_C8 ] )
+: Application8[
+F,
+NodeTag6[H1  , H2  , H3  , H4  , H5  , H6 ]  , AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple6[X1_C8  , X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ] ] = {
+val plus8_parameter0: Plus8[
+AsunaTuple0
+, AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0
+, X6_C1  , X6_C2  , X6_C3  , X6_C4  , X6_C5  , X6_C6  , X6_C7  , X6_C8
+, AsunaTuple1[X6_C1]  , AsunaTuple1[X6_C2]  , AsunaTuple1[X6_C3]  , AsunaTuple1[X6_C4]  , AsunaTuple1[X6_C5]  , AsunaTuple1[X6_C6]  , AsunaTuple1[X6_C7]  , AsunaTuple1[X6_C8]
+] = Plus8.cachePlusWithTypeParameter0
+val plus8_parameter1: Plus8[
+AsunaTuple1[X6_C1 ]
+, AsunaTuple1[X6_C2 ]  , AsunaTuple1[X6_C3 ]  , AsunaTuple1[X6_C4 ]  , AsunaTuple1[X6_C5 ]  , AsunaTuple1[X6_C6 ]  , AsunaTuple1[X6_C7 ]  , AsunaTuple1[X6_C8 ]
+, X5_C1  , X5_C2  , X5_C3  , X5_C4  , X5_C5  , X5_C6  , X5_C7  , X5_C8
+, AsunaTuple2[X5_C1  , X6_C1 ]  , AsunaTuple2[X5_C2  , X6_C2 ]  , AsunaTuple2[X5_C3  , X6_C3 ]  , AsunaTuple2[X5_C4  , X6_C4 ]  , AsunaTuple2[X5_C5  , X6_C5 ]  , AsunaTuple2[X5_C6  , X6_C6 ]  , AsunaTuple2[X5_C7  , X6_C7 ]  , AsunaTuple2[X5_C8  , X6_C8 ]
+] = Plus8.cachePlusWithTypeParameter1
+val plus8_parameter2: Plus8[
+AsunaTuple2[X5_C1  , X6_C1 ]
+, AsunaTuple2[X5_C2  , X6_C2 ]  , AsunaTuple2[X5_C3  , X6_C3 ]  , AsunaTuple2[X5_C4  , X6_C4 ]  , AsunaTuple2[X5_C5  , X6_C5 ]  , AsunaTuple2[X5_C6  , X6_C6 ]  , AsunaTuple2[X5_C7  , X6_C7 ]  , AsunaTuple2[X5_C8  , X6_C8 ]
+, X4_C1  , X4_C2  , X4_C3  , X4_C4  , X4_C5  , X4_C6  , X4_C7  , X4_C8
+, AsunaTuple3[X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple3[X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple3[X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple3[X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple3[X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple3[X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple3[X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple3[X4_C8  , X5_C8  , X6_C8 ]
+] = Plus8.cachePlusWithTypeParameter2
+val plus8_parameter3: Plus8[
+AsunaTuple3[X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple3[X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple3[X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple3[X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple3[X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple3[X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple3[X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple3[X4_C8  , X5_C8  , X6_C8 ]
+, X3_C1  , X3_C2  , X3_C3  , X3_C4  , X3_C5  , X3_C6  , X3_C7  , X3_C8
+, AsunaTuple4[X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple4[X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple4[X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple4[X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple4[X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple4[X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple4[X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple4[X3_C8  , X4_C8  , X5_C8  , X6_C8 ]
+] = Plus8.cachePlusWithTypeParameter3
+val plus8_parameter4: Plus8[
+AsunaTuple4[X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple4[X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple4[X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple4[X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple4[X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple4[X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple4[X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple4[X3_C8  , X4_C8  , X5_C8  , X6_C8 ]
+, X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8
+, AsunaTuple5[X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple5[X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple5[X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple5[X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple5[X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple5[X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple5[X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple5[X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ]
+] = Plus8.cachePlusWithTypeParameter4
+val plus8_parameter5: Plus8[
+AsunaTuple5[X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple5[X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple5[X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple5[X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple5[X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple5[X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple5[X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple5[X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ]
+, X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8
+, AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple6[X1_C8  , X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ]
+] = Plus8.cachePlusWithTypeParameter5
+new Application8[
+F,
+NodeTag6[H1  , H2  , H3  , H4  , H5  , H6 ]  , AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]  , AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple6[X1_C8  , X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ] ]
+{
+override final def application(context: Context8[F]): F[AsunaTuple6[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1 ]
+, AsunaTuple6[X1_C2  , X2_C2  , X3_C2  , X4_C2  , X5_C2  , X6_C2 ]  , AsunaTuple6[X1_C3  , X2_C3  , X3_C3  , X4_C3  , X5_C3  , X6_C3 ]  , AsunaTuple6[X1_C4  , X2_C4  , X3_C4  , X4_C4  , X5_C4  , X6_C4 ]  , AsunaTuple6[X1_C5  , X2_C5  , X3_C5  , X4_C5  , X5_C5  , X6_C5 ]  , AsunaTuple6[X1_C6  , X2_C6  , X3_C6  , X4_C6  , X5_C6  , X6_C6 ]  , AsunaTuple6[X1_C7  , X2_C7  , X3_C7  , X4_C7  , X5_C7  , X6_C7 ]  , AsunaTuple6[X1_C8  , X2_C8  , X3_C8  , X4_C8  , X5_C8  , X6_C8 ] ] = {
+context.append(
+context.append(
+context.append(
+context.append(
+context.append(
+context.append(context.start, t6.application(context))(plus8_parameter0)
+, t5.application(context))(plus8_parameter1)
+, t4.application(context))(plus8_parameter2)
+, t3.application(context))(plus8_parameter3)
+, t2.application(context))(plus8_parameter4)
+, t1.application(context))(plus8_parameter5)
 }
 }
 }

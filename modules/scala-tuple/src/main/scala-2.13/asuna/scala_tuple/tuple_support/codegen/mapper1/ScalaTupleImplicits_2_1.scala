@@ -4,21 +4,6 @@ import asuna.Context1
 import asuna.support.heterogeneous._
 import scala.language.higherKinds
 trait ScalaTupleImplicits_2_1 {
-  def hlistTagApplicationImplicit_tagNum2_typeParamNum1[
-    F[_],
-    H1,
-    H2,
-    X1_C1,
-    X2_C1
-  ](t1: Application1[F, H1, X1_C1], t2: Application1[F, H2, X2_C1]): Application1[F, H1 :: H2 :: HNil, X1_C1 :: X2_C1 :: HNil] =
-    new Application1[F, H1 :: H2 :: HNil, X1_C1 :: X2_C1 :: HNil] {
-      override def application(context: Context1[F]) = {
-        context.append(
-          context.append(context.start, t2.application(context))(HListPlus1.plusWithTypeParameter0),
-          t1.application(context)
-        )(HListPlus1.plusWithTypeParameter1)
-      }
-    }
   implicit def tupleTagApplicationImplicit_tagNum2_typeParamNum1[
     F[_],
     H1,
