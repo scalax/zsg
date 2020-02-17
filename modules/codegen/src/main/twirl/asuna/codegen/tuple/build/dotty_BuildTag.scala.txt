@@ -4,7 +4,7 @@ package asuna
 
 object BuildTag {
 
-    final def lift[T](erased tag: AppendTag[T]): AppendTag[T] = AppendTag[T]
+    final inline def lift[T](tag: => AppendTag[T]): AppendTag[T] = AppendTag[T]
 
     @for(i <- 1 to maxItem) {
         final inline def tag[T1 @for(ii <- 2 to i) { , T@{ii} }](t1 : AppendTag[T1] @for(ii <- 2 to i) { , t@{ii} : AppendTag[T@{ii}] }):

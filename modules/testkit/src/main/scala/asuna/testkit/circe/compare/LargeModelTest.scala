@@ -46,7 +46,7 @@ object LargeModelTest extends App {
 
     println("==================== line ====================")
 
-    val i1 = LargeModel.largeModel_2.asJson
+    val i1 = LargeModel.largeModel_2_value.asJson
     println(i1.noSpaces)
 
   }*/
@@ -59,7 +59,7 @@ object LargeModelTest extends App {
 
     println("==================== line ====================")
 
-    val i1 = LargeModel.largeModel_2.asJson
+    val i1 = LargeModel.largeModel_2_value.asJson
     println(i1.noSpaces)
 
   }*/

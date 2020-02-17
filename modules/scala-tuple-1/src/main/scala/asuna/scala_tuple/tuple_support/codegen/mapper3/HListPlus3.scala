@@ -14,3 +14,10 @@ object HListPlus3
     with HListPlus_11_3
     with HListPlus_12_3
     with HListPlus_13_3
+    with HListPlus_14_3
+    with HListPlus_15_3
+    with HListPlus_16_3
+    with HListPlus_17_3
+    with HListPlus_18_3
+    with HListPlus_19_3
+    with HListPlus_20_3

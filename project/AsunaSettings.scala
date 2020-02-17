@@ -6,7 +6,7 @@ object AsunaSettings {
 
   val currentScalaVersion = "2.13.1"
   val scala212Version     = "2.12.10"
-  val dottyVersion        = "0.20.0-RC1"
+  val dottyVersion        = "0.22.0-RC1"
   val circeVersion        = "0.12.2"
   val scalaTestVersion    = "3.1.0-RC3"
 
@@ -32,7 +32,7 @@ object AsunaSettings {
 
   val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
 
-  val vSetting1             = version := "0.0.3-20200111SNAP1"
+  val vSetting1             = version := "0.0.3-20200217SNAP1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
