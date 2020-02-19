@@ -57,10 +57,14 @@ object LargeModelTest extends App {
     implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
     implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
 
-    println("==================== line ====================")
-
     val i1 = LargeModel.largeModel_2_value.asJson
     println(i1.noSpaces)
+
+    println("==================== line ====================")
+
+    implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = deriveDecoder
+    implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModel_2] = deriveDecoder
+    val i2                                                              = i1.as[LargeModel.LargeModel_2]
 
   }*/
 
@@ -70,38 +74,38 @@ object LargeModelTest extends App {
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
     {
       implicit def largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = deriveEncoder
       implicit def largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = deriveEncoder
-      val i1                                                                  = LargeModel.largeModel_2.asJson
+      val i1                                                                  = LargeModel.largeModel_2_value.asJson
       println(i1.noSpaces)
     }
 
