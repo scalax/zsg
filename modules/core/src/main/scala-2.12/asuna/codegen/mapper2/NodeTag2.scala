@@ -19,13 +19,5 @@ F , T2  , X2_C1  , X2_C2 ] ):
 F[AsunaTuple2[X1_C1  , X2_C1 ]  , AsunaTuple2[X1_C2  , X2_C2 ] ] = {
 NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum2(app1  , app2 ).application(c)
 }
-def debug[F[_  , _  , _ ]   , X1_C1  , X2_C1    , X1_C2  , X2_C2    , X1_C3  , X2_C3  ](c: Context3[F])(implicit
-app1: asuna.debug.NodeDebugApplication3[`The implicit not founded property's index is 1. Please change .debug(context3) to .find1.debug(context3) to continue.`,
-F, T1  , X1_C1  , X1_C2  , X1_C3 ]
-, app2: asuna.debug.NodeDebugApplication3[`The implicit not founded property's index is 2. Please change .debug(context3) to .find2.debug(context3) to continue.`,
-F , T2  , X2_C1  , X2_C2  , X2_C3 ] ):
-F[AsunaTuple2[X1_C1  , X2_C1 ]  , AsunaTuple2[X1_C2  , X2_C2 ]  , AsunaTuple2[X1_C3  , X2_C3 ] ] = {
-NodeTag2.noteTagApplicationImplicit_tagNum2_typeParamNum3(app1  , app2 ).application(c)
-}
 }
 final object NodeTag2 extends support.NodeTag2ApplicationCompanion

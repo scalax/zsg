@@ -16,31 +16,32 @@ class Test extends AnyFunSpec with Matchers {
   val fooPropertyTag = BuildTag.lift(
     BuildTag.nodeTag(
       BuildTag.nodeTag(
-        BuildTag.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3)),
-        BuildTag.tag(ap.to(_.i4), ap.to(_.i5), ap.to(_.i6)),
-        BuildTag.tag(ap.to(_.i7), ap.to(_.i8), ap.to(_.i9))
+        BuildTag.nodeTag(BuildTag.tag(ap.to(_.i1), ap.to(_.i2)), BuildTag.tag(ap.to(_.i3), ap.to(_.i4))),
+        BuildTag.nodeTag(BuildTag.tag(ap.to(_.i5), ap.to(_.i6)), BuildTag.tag(ap.to(_.i7), ap.to(_.i8)))
       ),
-      BuildTag.nodeTag(BuildTag.tag(ap.to(_.i10)))
+      BuildTag.nodeTag(BuildTag.tag(ap.to(_.i9), ap.to(_.i10)))
     )
   )
 
   val fooGetter = (foo: Foo) => {
     BuildContent.tuple2(
-      BuildContent.tuple3(
-        BuildContent.tuple3(foo.i1, foo.i2, foo.i3),
-        BuildContent.tuple3(foo.i4, foo.i5, foo.i6),
-        BuildContent.tuple3(foo.i7, foo.i8, foo.i9)
+      BuildContent.tuple2(
+        BuildContent.tuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4)),
+        BuildContent.tuple2(BuildContent.tuple2(foo.i5, foo.i6), BuildContent.tuple2(foo.i7, foo.i8))
       ),
       BuildContent.tuple1(
-        BuildContent.tuple1(foo.i10)
+        BuildContent.tuple2(foo.i9, foo.i10)
       )
     )
   }
 
   val fooLabelled =
     BuildContent.tuple2(
-      BuildContent.tuple3(BuildContent.tuple3("i1", "i2", "i3"), BuildContent.tuple3("i4", "i5", "i6"), BuildContent.tuple3("i7", "i8", "i9")),
-      BuildContent.tuple1(BuildContent.tuple1("i10"))
+      BuildContent.tuple2(
+        BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
+        BuildContent.tuple2(BuildContent.tuple2("i5", "i6"), BuildContent.tuple2("i7", "i8"))
+      ),
+      BuildContent.tuple1(BuildContent.tuple2("i9", "i10"))
     )
 
   import in._
