@@ -1,66 +1,66 @@
 package asuna.scala_tuple
 trait ScalaTupleImplicits
-    extends tuple_support.ScalaTupleImplicits_2_1
-    with tuple_support.ScalaTupleImplicits_2_2
-    with tuple_support.ScalaTupleImplicits_2_3
-    with tuple_support.ScalaTupleImplicits_3_1
-    with tuple_support.ScalaTupleImplicits_3_2
-    with tuple_support.ScalaTupleImplicits_3_3
-    with tuple_support.ScalaTupleImplicits_4_1
-    with tuple_support.ScalaTupleImplicits_4_2
-    with tuple_support.ScalaTupleImplicits_4_3
-    with tuple_support.ScalaTupleImplicits_5_1
-    with tuple_support.ScalaTupleImplicits_5_2
-    with tuple_support.ScalaTupleImplicits_5_3
-    with tuple_support.ScalaTupleImplicits_6_1
-    with tuple_support.ScalaTupleImplicits_6_2
-    with tuple_support.ScalaTupleImplicits_6_3
-    with tuple_support.ScalaTupleImplicits_7_1
-    with tuple_support.ScalaTupleImplicits_7_2
-    with tuple_support.ScalaTupleImplicits_7_3
-    with tuple_support.ScalaTupleImplicits_8_1
-    with tuple_support.ScalaTupleImplicits_8_2
-    with tuple_support.ScalaTupleImplicits_8_3
-    with tuple_support.ScalaTupleImplicits_9_1
-    with tuple_support.ScalaTupleImplicits_9_2
-    with tuple_support.ScalaTupleImplicits_9_3
-    with tuple_support.ScalaTupleImplicits_10_1
-    with tuple_support.ScalaTupleImplicits_10_2
-    with tuple_support.ScalaTupleImplicits_10_3
-    with tuple_support.ScalaTupleImplicits_11_1
-    with tuple_support.ScalaTupleImplicits_11_2
-    with tuple_support.ScalaTupleImplicits_11_3
-    with tuple_support.ScalaTupleImplicits_12_1
-    with tuple_support.ScalaTupleImplicits_12_2
-    with tuple_support.ScalaTupleImplicits_12_3
-    with tuple_support.ScalaTupleImplicits_13_1
-    with tuple_support.ScalaTupleImplicits_13_2
-    with tuple_support.ScalaTupleImplicits_13_3
-    with tuple_support.ScalaTupleImplicits_14_1
-    with tuple_support.ScalaTupleImplicits_14_2
-    with tuple_support.ScalaTupleImplicits_14_3
-    with tuple_support.ScalaTupleImplicits_15_1
-    with tuple_support.ScalaTupleImplicits_15_2
-    with tuple_support.ScalaTupleImplicits_15_3
-    with tuple_support.ScalaTupleImplicits_16_1
-    with tuple_support.ScalaTupleImplicits_16_2
-    with tuple_support.ScalaTupleImplicits_16_3
-    with tuple_support.ScalaTupleImplicits_17_1
-    with tuple_support.ScalaTupleImplicits_17_2
-    with tuple_support.ScalaTupleImplicits_17_3
-    with tuple_support.ScalaTupleImplicits_18_1
-    with tuple_support.ScalaTupleImplicits_18_2
-    with tuple_support.ScalaTupleImplicits_18_3
-    with tuple_support.ScalaTupleImplicits_19_1
-    with tuple_support.ScalaTupleImplicits_19_2
-    with tuple_support.ScalaTupleImplicits_19_3
-    with tuple_support.ScalaTupleImplicits_20_1
-    with tuple_support.ScalaTupleImplicits_20_2
-    with tuple_support.ScalaTupleImplicits_20_3
-    with tuple_support.ScalaTupleImplicits_21_1
-    with tuple_support.ScalaTupleImplicits_21_2
-    with tuple_support.ScalaTupleImplicits_21_3
-    with tuple_support.ScalaTupleImplicits_22_1
-    with tuple_support.ScalaTupleImplicits_22_2
-    with tuple_support.ScalaTupleImplicits_22_3
+extends tuple_support.ScalaTupleImplicits_2_1
+with tuple_support.ScalaTupleImplicits_2_2
+with tuple_support.ScalaTupleImplicits_2_3
+with tuple_support.ScalaTupleImplicits_3_1
+with tuple_support.ScalaTupleImplicits_3_2
+with tuple_support.ScalaTupleImplicits_3_3
+with tuple_support.ScalaTupleImplicits_4_1
+with tuple_support.ScalaTupleImplicits_4_2
+with tuple_support.ScalaTupleImplicits_4_3
+with tuple_support.ScalaTupleImplicits_5_1
+with tuple_support.ScalaTupleImplicits_5_2
+with tuple_support.ScalaTupleImplicits_5_3
+with tuple_support.ScalaTupleImplicits_6_1
+with tuple_support.ScalaTupleImplicits_6_2
+with tuple_support.ScalaTupleImplicits_6_3
+with tuple_support.ScalaTupleImplicits_7_1
+with tuple_support.ScalaTupleImplicits_7_2
+with tuple_support.ScalaTupleImplicits_7_3
+with tuple_support.ScalaTupleImplicits_8_1
+with tuple_support.ScalaTupleImplicits_8_2
+with tuple_support.ScalaTupleImplicits_8_3
+with tuple_support.ScalaTupleImplicits_9_1
+with tuple_support.ScalaTupleImplicits_9_2
+with tuple_support.ScalaTupleImplicits_9_3
+with tuple_support.ScalaTupleImplicits_10_1
+with tuple_support.ScalaTupleImplicits_10_2
+with tuple_support.ScalaTupleImplicits_10_3
+with tuple_support.ScalaTupleImplicits_11_1
+with tuple_support.ScalaTupleImplicits_11_2
+with tuple_support.ScalaTupleImplicits_11_3
+with tuple_support.ScalaTupleImplicits_12_1
+with tuple_support.ScalaTupleImplicits_12_2
+with tuple_support.ScalaTupleImplicits_12_3
+with tuple_support.ScalaTupleImplicits_13_1
+with tuple_support.ScalaTupleImplicits_13_2
+with tuple_support.ScalaTupleImplicits_13_3
+with tuple_support.ScalaTupleImplicits_14_1
+with tuple_support.ScalaTupleImplicits_14_2
+with tuple_support.ScalaTupleImplicits_14_3
+with tuple_support.ScalaTupleImplicits_15_1
+with tuple_support.ScalaTupleImplicits_15_2
+with tuple_support.ScalaTupleImplicits_15_3
+with tuple_support.ScalaTupleImplicits_16_1
+with tuple_support.ScalaTupleImplicits_16_2
+with tuple_support.ScalaTupleImplicits_16_3
+with tuple_support.ScalaTupleImplicits_17_1
+with tuple_support.ScalaTupleImplicits_17_2
+with tuple_support.ScalaTupleImplicits_17_3
+with tuple_support.ScalaTupleImplicits_18_1
+with tuple_support.ScalaTupleImplicits_18_2
+with tuple_support.ScalaTupleImplicits_18_3
+with tuple_support.ScalaTupleImplicits_19_1
+with tuple_support.ScalaTupleImplicits_19_2
+with tuple_support.ScalaTupleImplicits_19_3
+with tuple_support.ScalaTupleImplicits_20_1
+with tuple_support.ScalaTupleImplicits_20_2
+with tuple_support.ScalaTupleImplicits_20_3
+with tuple_support.ScalaTupleImplicits_21_1
+with tuple_support.ScalaTupleImplicits_21_2
+with tuple_support.ScalaTupleImplicits_21_3
+with tuple_support.ScalaTupleImplicits_22_1
+with tuple_support.ScalaTupleImplicits_22_2
+with tuple_support.ScalaTupleImplicits_22_3
 object ScalaTupleImplicits extends ScalaTupleImplicits
