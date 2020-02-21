@@ -10,6 +10,6 @@ How to use this library:
 ```scala
 resolvers += Resolver.bintrayRepo("scalax", "asuna")
 
-libraryDependencies ++= Seq("org.scalax" %% "asuna-macros"      % "0.0.2-M1")
-libraryDependencies ++= Seq("org.scalax" %% "asuna-scala-tuple" % "0.0.2-M1")
+libraryDependencies ++= Seq("org.scalax" %% "asuna-macros"      % "0.0.3-M1")
+libraryDependencies ++= Seq("org.scalax" %% "asuna-scala-tuple" % "0.0.3-M1")
 ```
