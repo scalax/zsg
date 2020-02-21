@@ -1,22 +1,25 @@
-@(tagNum: Int, maxAsunaTupleNum: Int, maxAsunaContext: Int)
+@(maxAsunaTupleNum: Int, maxAsunaContext: Int)
 
 package asuna.support
 
 import scala.language.higherKinds
 
-import asuna.TupleTag@{tagNum}
+import asuna.TupleTag1
+import asuna.TupleTag2
 
-@for(i <- 0 to tagNum) {
-import asuna.AsunaTuple@{i}
-}
+import asuna.AsunaTuple0
+import asuna.AsunaTuple1
+import asuna.AsunaTuple2
+
 @for(i <- 1 to maxAsunaContext) {
 import asuna.Application@{i}
 import asuna.Plus@{i}
 import asuna.Context@{i}
 }
 
-class TupleTag@{tagNum}ApplicationCompanion {
+class TupleTag1ApplicationCompanion {
 
+    @*
     @for(typeParamNum <- 1 to maxAsunaContext) {
         final implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
         F[_ @for(i <- 2 to typeParamNum) { , _ }]
@@ -34,7 +37,7 @@ class TupleTag@{tagNum}ApplicationCompanion {
             val plus@{typeParamNum}_parameter0: Plus@{typeParamNum}[
                 AsunaTuple0
                 @for(iiii <- 2 to typeParamNum) { , AsunaTuple0 }
-                @for(iiii <- 1 to typeParamNum) { , X@{tagNum}_C@{iiii} }
+                @for(iiii <- 1 to typeParamNum) { , X1_C@{iiii} }
                 @for(iiii <- 1 to typeParamNum) { , AsunaTuple1[X@{tagNum}_C@{iiii}] }
                 ] = Plus@{typeParamNum}.cachePlusWithTypeParameter0
 
@@ -54,6 +57,80 @@ class TupleTag@{tagNum}ApplicationCompanion {
                 override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple@{tagNum}[X1_C1 @for(ii <- 2 to tagNum) { , X@{ii}_C1 }]
                 @for(i <- 2 to typeParamNum) { , AsunaTuple@{tagNum}[X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }] }] = {
                     @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
+                }
+            }
+        }
+    }
+    *@
+
+    @for(typeParamNum <- 1 to maxAsunaContext) {
+        final implicit def tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[
+        F[_ @for(i <- 2 to typeParamNum) { , _ }],
+        H1
+        @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }
+        ](implicit
+        t1: Application@{typeParamNum}[
+        F,
+        H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }])
+        : Application@{typeParamNum}[
+        F,
+        TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+
+            val plus@{typeParamNum}_parameter0: Plus@{typeParamNum}[
+                AsunaTuple0
+                @for(iiii <- 2 to typeParamNum) { , AsunaTuple0 }
+                @for(iiii <- 1 to typeParamNum) { , X1_C@{iiii} }
+                @for(iiii <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{iiii}] }
+                ] = Plus@{typeParamNum}.cachePlusWithTypeParameter0
+
+            new Application@{typeParamNum}[
+            F,
+            TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }]
+            {
+                override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple1[X1_C1]
+                @for(i <- 2 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+                    @* @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum) *@
+                    context.append(context.start, t1.application(context))(plus@{typeParamNum}_parameter0)
+                }
+            }
+        }
+    }
+
+}
+
+class TupleTag2ApplicationCompanion {
+
+    @for(typeParamNum <- 1 to maxAsunaContext) {
+        implicit final def tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[
+            F[_ @for(i <- 2 to typeParamNum) { , _ }],
+            H1, H2
+            @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }
+            @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }
+        ](implicit
+            t1: Application@{typeParamNum}[
+            F,
+            H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }],
+            t2: Application@{typeParamNum}[
+            F,
+            H2 @for(i <- 1 to typeParamNum) { , X2_C@{i} }])
+        : Application@{typeParamNum}[
+        F,
+        TupleTag2[H1, H2] @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
+            val plus@{typeParamNum}_parameter1: Plus@{typeParamNum}[
+                X2_C1
+                @for(iiii <- 2 to typeParamNum) { , X2_C@{iiii} }
+                @for(iiii <- 1 to typeParamNum) { , X1_C@{iiii} }
+                @for(iiii <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{iiii}, X2_C@{iiii}] }
+            ] = Plus@{typeParamNum}.cachePlusWithTypeParameter1
+
+            new Application@{typeParamNum}[
+            F,
+            TupleTag2[H1, H2] @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }]
+            {
+                override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple2[X1_C1, X2_C1]
+                @for(i <- 2 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
+                    @* @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum) *@
+                    context.append(t2.application(context), t1.application(context))(plus@{typeParamNum}_parameter1)
                 }
             }
         }

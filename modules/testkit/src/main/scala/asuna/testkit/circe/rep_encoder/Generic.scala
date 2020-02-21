@@ -1,6 +1,6 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{AsunaTuple2, AsunaTuple3, TupleTag}
+import asuna.{AsunaTuple1, AsunaTuple2, TupleTag}
 import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
 
 trait CirceGeneric {
@@ -8,8 +8,8 @@ trait CirceGeneric {
   class CirceGenericApply1[Table, Model] {
     def encoder[II <: TupleTag](table: Table)(
       implicit i: AsunaMultiplyGeneric.Aux[Table, Model, II],
-      m: AsunaMultiplyRepGeneric[Table, Model, AsunaTuple3[String, List[String], Long]]
-    ): AsunaTuple3[String, List[String], Long] = m.rep(table)
+      m: AsunaMultiplyRepGeneric[Table, Model, AsunaTuple2[AsunaTuple2[String, List[String]], AsunaTuple1[Long]]]
+    ): AsunaTuple2[AsunaTuple2[String, List[String]], AsunaTuple1[Long]] = m.rep(table)
   }
   def link[Table, Model]: CirceGenericApply1[Table, Model] = new CirceGenericApply1[Table, Model]
 
@@ -42,7 +42,8 @@ object I {
         .encoder(new iii {
           override val obj = Abc
         })
-        .i3
+        .i2
+        .i1
     )
   }
 }

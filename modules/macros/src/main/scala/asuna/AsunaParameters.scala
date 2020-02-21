@@ -1,5 +1,5 @@
 package asuna.macros
 
 object AsunaParameters {
-  val maxPropertyNum = 3
+  val maxPropertyNum = 2
 }

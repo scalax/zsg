@@ -26,8 +26,7 @@ def takeTail8(z: Z8): Y8
 def plus8(x: X8, y: Y8): Z8
 }
 object Plus8 {
-final def cachePlusWithTypeParameter0[X1_C1  , X2_C1  , X3_C1  , X4_C1  , X5_C1  , X6_C1  , X7_C1  , X8_C1
-, Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  ]:
+final def cachePlusWithTypeParameter0[Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  ]:
 Plus8[
 AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0  , AsunaTuple0
 , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8
@@ -62,82 +61,40 @@ final override def takeHead8(z: AsunaTuple1[Y8]): AsunaTuple0 = AsunaTuple0.valu
 final override def takeTail8(z: AsunaTuple1[Y8]): Y8 = z.i1
 final override def plus8(x: AsunaTuple0, y: Y8): AsunaTuple1[Y8] = new AsunaTuple1(y)
 }
-final def cachePlusWithTypeParameter1[X1_C1
-, X2_C1    , X3_C1    , X4_C1    , X5_C1    , X6_C1    , X7_C1    , X8_C1
+final def cachePlusWithTypeParameter1[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8
 , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  ]:
 Plus8[
-AsunaTuple1[X1_C1  ]
-, AsunaTuple1[X2_C1  ]  , AsunaTuple1[X3_C1  ]  , AsunaTuple1[X4_C1  ]  , AsunaTuple1[X5_C1  ]  , AsunaTuple1[X6_C1  ]  , AsunaTuple1[X7_C1  ]  , AsunaTuple1[X8_C1  ]
+X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8
 , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8
-, AsunaTuple2[Y1  , X1_C1  ]  , AsunaTuple2[Y2  , X2_C1  ]  , AsunaTuple2[Y3  , X3_C1  ]  , AsunaTuple2[Y4  , X4_C1  ]  , AsunaTuple2[Y5  , X5_C1  ]  , AsunaTuple2[Y6  , X6_C1  ]  , AsunaTuple2[Y7  , X7_C1  ]  , AsunaTuple2[Y8  , X8_C1  ]
+, AsunaTuple2[Y1, X1]  , AsunaTuple2[Y2, X2]  , AsunaTuple2[Y3, X3]  , AsunaTuple2[Y4, X4]  , AsunaTuple2[Y5, X5]  , AsunaTuple2[Y6, X6]  , AsunaTuple2[Y7, X7]  , AsunaTuple2[Y8, X8]
 ] = new Plus8[
-AsunaTuple1[X1_C1  ]
-, AsunaTuple1[X2_C1  ]  , AsunaTuple1[X3_C1  ]  , AsunaTuple1[X4_C1  ]  , AsunaTuple1[X5_C1  ]  , AsunaTuple1[X6_C1  ]  , AsunaTuple1[X7_C1  ]  , AsunaTuple1[X8_C1  ]
+X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8
 , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8
-, AsunaTuple2[Y1  , X1_C1  ]  , AsunaTuple2[Y2  , X2_C1  ]  , AsunaTuple2[Y3  , X3_C1  ]  , AsunaTuple2[Y4  , X4_C1  ]  , AsunaTuple2[Y5  , X5_C1  ]  , AsunaTuple2[Y6  , X6_C1  ]  , AsunaTuple2[Y7  , X7_C1  ]  , AsunaTuple2[Y8  , X8_C1  ]
+, AsunaTuple2[Y1, X1]  , AsunaTuple2[Y2, X2]  , AsunaTuple2[Y3, X3]  , AsunaTuple2[Y4, X4]  , AsunaTuple2[Y5, X5]  , AsunaTuple2[Y6, X6]  , AsunaTuple2[Y7, X7]  , AsunaTuple2[Y8, X8]
 ] {
-final override def takeHead1(z: AsunaTuple2[Y1  , X1_C1  ]): AsunaTuple1[X1_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail1(z: AsunaTuple2[Y1  , X1_C1  ]): Y1 = z.i1
-final override def plus1(x: AsunaTuple1[X1_C1  ], y: Y1): AsunaTuple2[Y1  , X1_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead2(z: AsunaTuple2[Y2  , X2_C1  ]): AsunaTuple1[X2_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail2(z: AsunaTuple2[Y2  , X2_C1  ]): Y2 = z.i1
-final override def plus2(x: AsunaTuple1[X2_C1  ], y: Y2): AsunaTuple2[Y2  , X2_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead3(z: AsunaTuple2[Y3  , X3_C1  ]): AsunaTuple1[X3_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail3(z: AsunaTuple2[Y3  , X3_C1  ]): Y3 = z.i1
-final override def plus3(x: AsunaTuple1[X3_C1  ], y: Y3): AsunaTuple2[Y3  , X3_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead4(z: AsunaTuple2[Y4  , X4_C1  ]): AsunaTuple1[X4_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail4(z: AsunaTuple2[Y4  , X4_C1  ]): Y4 = z.i1
-final override def plus4(x: AsunaTuple1[X4_C1  ], y: Y4): AsunaTuple2[Y4  , X4_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead5(z: AsunaTuple2[Y5  , X5_C1  ]): AsunaTuple1[X5_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail5(z: AsunaTuple2[Y5  , X5_C1  ]): Y5 = z.i1
-final override def plus5(x: AsunaTuple1[X5_C1  ], y: Y5): AsunaTuple2[Y5  , X5_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead6(z: AsunaTuple2[Y6  , X6_C1  ]): AsunaTuple1[X6_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail6(z: AsunaTuple2[Y6  , X6_C1  ]): Y6 = z.i1
-final override def plus6(x: AsunaTuple1[X6_C1  ], y: Y6): AsunaTuple2[Y6  , X6_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead7(z: AsunaTuple2[Y7  , X7_C1  ]): AsunaTuple1[X7_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail7(z: AsunaTuple2[Y7  , X7_C1  ]): Y7 = z.i1
-final override def plus7(x: AsunaTuple1[X7_C1  ], y: Y7): AsunaTuple2[Y7  , X7_C1  ] = new AsunaTuple2(y  , x.i1 )
-final override def takeHead8(z: AsunaTuple2[Y8  , X8_C1  ]): AsunaTuple1[X8_C1  ] = new AsunaTuple1(z.i2 )
-final override def takeTail8(z: AsunaTuple2[Y8  , X8_C1  ]): Y8 = z.i1
-final override def plus8(x: AsunaTuple1[X8_C1  ], y: Y8): AsunaTuple2[Y8  , X8_C1  ] = new AsunaTuple2(y  , x.i1 )
-}
-final def cachePlusWithTypeParameter2[X1_C1  , X1_C2
-, X2_C1  , X2_C2    , X3_C1  , X3_C2    , X4_C1  , X4_C2    , X5_C1  , X5_C2    , X6_C1  , X6_C2    , X7_C1  , X7_C2    , X8_C1  , X8_C2
-, Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  ]:
-Plus8[
-AsunaTuple2[X1_C1  , X1_C2  ]
-, AsunaTuple2[X2_C1  , X2_C2  ]  , AsunaTuple2[X3_C1  , X3_C2  ]  , AsunaTuple2[X4_C1  , X4_C2  ]  , AsunaTuple2[X5_C1  , X5_C2  ]  , AsunaTuple2[X6_C1  , X6_C2  ]  , AsunaTuple2[X7_C1  , X7_C2  ]  , AsunaTuple2[X8_C1  , X8_C2  ]
-, Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8
-, AsunaTuple3[Y1  , X1_C1  , X1_C2  ]  , AsunaTuple3[Y2  , X2_C1  , X2_C2  ]  , AsunaTuple3[Y3  , X3_C1  , X3_C2  ]  , AsunaTuple3[Y4  , X4_C1  , X4_C2  ]  , AsunaTuple3[Y5  , X5_C1  , X5_C2  ]  , AsunaTuple3[Y6  , X6_C1  , X6_C2  ]  , AsunaTuple3[Y7  , X7_C1  , X7_C2  ]  , AsunaTuple3[Y8  , X8_C1  , X8_C2  ]
-] = new Plus8[
-AsunaTuple2[X1_C1  , X1_C2  ]
-, AsunaTuple2[X2_C1  , X2_C2  ]  , AsunaTuple2[X3_C1  , X3_C2  ]  , AsunaTuple2[X4_C1  , X4_C2  ]  , AsunaTuple2[X5_C1  , X5_C2  ]  , AsunaTuple2[X6_C1  , X6_C2  ]  , AsunaTuple2[X7_C1  , X7_C2  ]  , AsunaTuple2[X8_C1  , X8_C2  ]
-, Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8
-, AsunaTuple3[Y1  , X1_C1  , X1_C2  ]  , AsunaTuple3[Y2  , X2_C1  , X2_C2  ]  , AsunaTuple3[Y3  , X3_C1  , X3_C2  ]  , AsunaTuple3[Y4  , X4_C1  , X4_C2  ]  , AsunaTuple3[Y5  , X5_C1  , X5_C2  ]  , AsunaTuple3[Y6  , X6_C1  , X6_C2  ]  , AsunaTuple3[Y7  , X7_C1  , X7_C2  ]  , AsunaTuple3[Y8  , X8_C1  , X8_C2  ]
-] {
-final override def takeHead1(z: AsunaTuple3[Y1  , X1_C1  , X1_C2  ]): AsunaTuple2[X1_C1  , X1_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail1(z: AsunaTuple3[Y1  , X1_C1  , X1_C2  ]): Y1 = z.i1
-final override def plus1(x: AsunaTuple2[X1_C1  , X1_C2  ], y: Y1): AsunaTuple3[Y1  , X1_C1  , X1_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead2(z: AsunaTuple3[Y2  , X2_C1  , X2_C2  ]): AsunaTuple2[X2_C1  , X2_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail2(z: AsunaTuple3[Y2  , X2_C1  , X2_C2  ]): Y2 = z.i1
-final override def plus2(x: AsunaTuple2[X2_C1  , X2_C2  ], y: Y2): AsunaTuple3[Y2  , X2_C1  , X2_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead3(z: AsunaTuple3[Y3  , X3_C1  , X3_C2  ]): AsunaTuple2[X3_C1  , X3_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail3(z: AsunaTuple3[Y3  , X3_C1  , X3_C2  ]): Y3 = z.i1
-final override def plus3(x: AsunaTuple2[X3_C1  , X3_C2  ], y: Y3): AsunaTuple3[Y3  , X3_C1  , X3_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead4(z: AsunaTuple3[Y4  , X4_C1  , X4_C2  ]): AsunaTuple2[X4_C1  , X4_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail4(z: AsunaTuple3[Y4  , X4_C1  , X4_C2  ]): Y4 = z.i1
-final override def plus4(x: AsunaTuple2[X4_C1  , X4_C2  ], y: Y4): AsunaTuple3[Y4  , X4_C1  , X4_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead5(z: AsunaTuple3[Y5  , X5_C1  , X5_C2  ]): AsunaTuple2[X5_C1  , X5_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail5(z: AsunaTuple3[Y5  , X5_C1  , X5_C2  ]): Y5 = z.i1
-final override def plus5(x: AsunaTuple2[X5_C1  , X5_C2  ], y: Y5): AsunaTuple3[Y5  , X5_C1  , X5_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead6(z: AsunaTuple3[Y6  , X6_C1  , X6_C2  ]): AsunaTuple2[X6_C1  , X6_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail6(z: AsunaTuple3[Y6  , X6_C1  , X6_C2  ]): Y6 = z.i1
-final override def plus6(x: AsunaTuple2[X6_C1  , X6_C2  ], y: Y6): AsunaTuple3[Y6  , X6_C1  , X6_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead7(z: AsunaTuple3[Y7  , X7_C1  , X7_C2  ]): AsunaTuple2[X7_C1  , X7_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail7(z: AsunaTuple3[Y7  , X7_C1  , X7_C2  ]): Y7 = z.i1
-final override def plus7(x: AsunaTuple2[X7_C1  , X7_C2  ], y: Y7): AsunaTuple3[Y7  , X7_C1  , X7_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
-final override def takeHead8(z: AsunaTuple3[Y8  , X8_C1  , X8_C2  ]): AsunaTuple2[X8_C1  , X8_C2  ] = new AsunaTuple2(z.i2  , z.i3 )
-final override def takeTail8(z: AsunaTuple3[Y8  , X8_C1  , X8_C2  ]): Y8 = z.i1
-final override def plus8(x: AsunaTuple2[X8_C1  , X8_C2  ], y: Y8): AsunaTuple3[Y8  , X8_C1  , X8_C2  ] = new AsunaTuple3(y  , x.i1  , x.i2 )
+final override def takeHead1(z: AsunaTuple2[Y1, X1]): X1 = z.i2
+final override def takeTail1(z: AsunaTuple2[Y1, X1]): Y1 = z.i1
+final override def plus1(x: X1, y: Y1): AsunaTuple2[Y1, X1] = new AsunaTuple2(y, x)
+final override def takeHead2(z: AsunaTuple2[Y2, X2]): X2 = z.i2
+final override def takeTail2(z: AsunaTuple2[Y2, X2]): Y2 = z.i1
+final override def plus2(x: X2, y: Y2): AsunaTuple2[Y2, X2] = new AsunaTuple2(y, x)
+final override def takeHead3(z: AsunaTuple2[Y3, X3]): X3 = z.i2
+final override def takeTail3(z: AsunaTuple2[Y3, X3]): Y3 = z.i1
+final override def plus3(x: X3, y: Y3): AsunaTuple2[Y3, X3] = new AsunaTuple2(y, x)
+final override def takeHead4(z: AsunaTuple2[Y4, X4]): X4 = z.i2
+final override def takeTail4(z: AsunaTuple2[Y4, X4]): Y4 = z.i1
+final override def plus4(x: X4, y: Y4): AsunaTuple2[Y4, X4] = new AsunaTuple2(y, x)
+final override def takeHead5(z: AsunaTuple2[Y5, X5]): X5 = z.i2
+final override def takeTail5(z: AsunaTuple2[Y5, X5]): Y5 = z.i1
+final override def plus5(x: X5, y: Y5): AsunaTuple2[Y5, X5] = new AsunaTuple2(y, x)
+final override def takeHead6(z: AsunaTuple2[Y6, X6]): X6 = z.i2
+final override def takeTail6(z: AsunaTuple2[Y6, X6]): Y6 = z.i1
+final override def plus6(x: X6, y: Y6): AsunaTuple2[Y6, X6] = new AsunaTuple2(y, x)
+final override def takeHead7(z: AsunaTuple2[Y7, X7]): X7 = z.i2
+final override def takeTail7(z: AsunaTuple2[Y7, X7]): Y7 = z.i1
+final override def plus7(x: X7, y: Y7): AsunaTuple2[Y7, X7] = new AsunaTuple2(y, x)
+final override def takeHead8(z: AsunaTuple2[Y8, X8]): X8 = z.i2
+final override def takeTail8(z: AsunaTuple2[Y8, X8]): Y8 = z.i1
+final override def plus8(x: X8, y: Y8): AsunaTuple2[Y8, X8] = new AsunaTuple2(y, x)
 }
 }
