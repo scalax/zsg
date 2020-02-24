@@ -1,7 +1,6 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Application1
 import asuna.Context1
-import asuna.support.heterogeneous._
 import scala.language.higherKinds
 trait ScalaTupleImplicits_10_1 {
 given tupleTagApplicationImplicit_tagNum10_typeParamNum1[
