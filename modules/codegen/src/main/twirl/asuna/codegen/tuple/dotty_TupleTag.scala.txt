@@ -1,6 +1,0 @@
-@(tagNum: Int)
-
-package asuna
-
-final class TupleTag@{tagNum}[T1 @for(ii <- 2 to tagNum){ , T@{ii} }] extends TupleTag
-object TupleTag@{tagNum} extends support.TupleTag@{tagNum}ApplicationCompanion

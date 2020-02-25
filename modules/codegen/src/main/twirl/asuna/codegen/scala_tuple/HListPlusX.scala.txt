@@ -2,11 +2,11 @@
 
 package asuna.scala_tuple.tuple_support
 
-import asuna.Plus@{tagNum}
+@* import asuna.Plus@{tagNum}
 
-import asuna.support.heterogeneous._
+import asuna.support.heterogeneous._ *@
 
-trait HListPlus_@{caseClassNum}_@{tagNum} {
+trait HListPlus_@{caseClassNum}_@{tagNum} @* {
 
     @if(caseClassNum == 0) {
         final def plusWithTypeParameter0[Y1 @for(i <- 2 to tagNum) { , Y@{i} } ]:
@@ -48,4 +48,4 @@ trait HListPlus_@{caseClassNum}_@{tagNum} {
         }
     }
 
-}
+} *@

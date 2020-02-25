@@ -4,8 +4,6 @@ package asuna.scala_tuple.tuple_support
 
 import asuna.Plus@{tagNum}
 
-import asuna.support.heterogeneous._
-
 trait PlusToTuple_@{caseClassNum}_@{tagNum} {
 
     @if(caseClassNum == 1) {

@@ -4,7 +4,6 @@ package asuna.scala_tuple.tuple_support
 
 import asuna.Application@{typeParamNum}
 import asuna.Context@{typeParamNum}
-import asuna.support.heterogeneous._
 
 import scala.language.higherKinds
 

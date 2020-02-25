@@ -1,6 +1,5 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Plus2
-import asuna.support.heterogeneous._
 trait PlusToTuple_1_2 {
   final def plusWithTypeParameter1[X1_C1, X2_C1, Y1, Y2]: Plus2[
     X1_C1,
