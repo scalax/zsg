@@ -14,6 +14,8 @@ val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
 
 val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
+ThisBuild / useCoursier := false
+
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
