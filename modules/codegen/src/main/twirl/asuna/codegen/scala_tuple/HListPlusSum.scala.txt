@@ -5,6 +5,4 @@ package asuna.scala_tuple.tuple_support
 object HListPlus@{tagNum} extends HListPlus_0_@{tagNum}
 @for(i <- 1 to maxTupleNum) {
     with HListPlus_@{i}_@{tagNum}
-} {
-    override val aa: Int = 11
 }

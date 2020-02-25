@@ -20,6 +20,4 @@ object HListPlus2
     with HListPlus_17_2
     with HListPlus_18_2
     with HListPlus_19_2
-    with HListPlus_20_2 {
-  override val aa: Int = 11
-}
+    with HListPlus_20_2
