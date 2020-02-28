@@ -46,8 +46,7 @@ object AsunaCoreCodeGeneration {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val content      = Source.fromString(asuna.codegen.tuple.txt.ApplicationX(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
+      val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.ApplicationX(tagNum = i).body)
       writer.println(linerContent)
       writer.close()
     }
@@ -56,9 +55,7 @@ object AsunaCoreCodeGeneration {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source.fromString(asuna.codegen.tuple.txt.TupleTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
+      val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.TupleTag(tagNum = i).body)
       writer.println(linerContent)
       writer.close()
     }

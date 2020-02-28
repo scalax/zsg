@@ -3,8 +3,8 @@
 package asuna
 import scala.language.higherKinds
 
-abstract class Application@{tagNum}[F[_ @for(i <- 2 to tagNum) { , _ }], Tag @for(i <- 1 to tagNum) { , X@{i} }] {
+abstract class Application@{tagNum}[F[_ @for(i <- 2 to tagNum) { , _ }] , Tag @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(", ", " , ", "")}] {
 
-    def application(context: Context@{tagNum}[F]): F[X1 @for(i <- 2 to tagNum) { , X@{i} }]
+    def application(context: Context@{tagNum}[F]): F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
 
 }
