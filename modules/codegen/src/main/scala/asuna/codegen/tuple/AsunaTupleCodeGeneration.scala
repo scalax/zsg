@@ -3,7 +3,7 @@ package asuna.codegen.tuple
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
-import asuna.codegen.AsunaParameters
+import asuna.codegen.{AsunaParameters, StringUtil}
 
 import scala.io.Source
 
@@ -154,14 +154,7 @@ object AsunaTupleCodeGeneration {
           val filePath = root1_212_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
           val writer = new PrintWriter(filePath.toFile, "utf-8")
-          val content =
-            Source
-              .fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum).body)
-              .getLines
-              .toList
-              .map(_.trim)
-              .filter(s => !s.isEmpty)
-          val linerContent = content.mkString(System.lineSeparator)
+          val linerContent = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum).body)
           writer.println(linerContent)
           writer.close()
         }
@@ -172,14 +165,7 @@ object AsunaTupleCodeGeneration {
           val filePath = root1_213_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
           val writer = new PrintWriter(filePath.toFile, "utf-8")
-          val content =
-            Source
-              .fromString(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum).body)
-              .getLines
-              .toList
-              .map(_.trim)
-              .filter(s => !s.isEmpty)
-          val linerContent = content.mkString(System.lineSeparator)
+          val linerContent = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum).body)
           writer.println(linerContent)
           writer.close()
         }

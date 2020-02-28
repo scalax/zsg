@@ -2,7 +2,11 @@
 
 package asuna
 
-abstract class Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }] {
+abstract class Plus@{tagNum}[
+    @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", ",", ",")}
+    @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", ",", ",")}
+    @{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(",")}
+] {
     @for(i <- 1 to tagNum) {
         def takeHead@{i}(z: Z@{i}): X@{i}
         def takeTail@{i}(z: Z@{i}): Y@{i}
@@ -11,15 +15,15 @@ abstract class Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 t
 }
 
 object Plus@{tagNum} {
-    final def cachePlusWithTypeParameter0[Y1 @for(i <- 2 to tagNum) { , Y@{i} } ]:
+    final def cachePlusWithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(",")}]:
     Plus@{tagNum}[
-        AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }
-        @for(i <- 1 to tagNum) { , Y@{i} }
-        @for(i <- 1 to tagNum) { , AsunaTuple1[Y@{i}] }
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(",")}
     ] = new Plus@{tagNum}[
-        AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }
-        @for(i <- 1 to tagNum) { , Y@{i} }
-        @for(i <- 1 to tagNum) { , AsunaTuple1[Y@{i}] }
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(",")}
     ] {
         @for(i <- 1 to tagNum) {
             final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
@@ -51,16 +55,18 @@ object Plus@{tagNum} {
         }
     } *@
 
-    final def cachePlusWithTypeParameter1[X1 @for(i <- 2 to tagNum) { , X@{i} }, @{asuna.codegen.SnippetUtil(2 to tagNum).mkString(",")}
-    @for(i <- 1 to tagNum) { , Y@{i} } ]:
+    final def cachePlusWithTypeParameter1[
+        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(",")}
+    ]:
     Plus@{tagNum}[
-        X1 @for(i <- 2 to tagNum) { , X@{i} }
-        @for(i <- 1 to tagNum) { , Y@{i} }
-        @for(i <- 1 to tagNum) { , AsunaTuple2[Y@{i}, X@{i}] }
+        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to tagNum).mkString(",")}
     ] = new Plus@{tagNum}[
-        X1 @for(i <- 2 to tagNum) { , X@{i} }
-        @for(i <- 1 to tagNum) { , Y@{i} }
-        @for(i <- 1 to tagNum) { , AsunaTuple2[Y@{i}, X@{i}] }
+        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", ",", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to tagNum).mkString(",")}
     ] {
         @for(i <- 1 to tagNum) {
             final override def takeHead@{i}(z: AsunaTuple2[Y@{i}, X@{i}]): X@{i} = z.i2
