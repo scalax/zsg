@@ -1,8 +1,8 @@
 package asuna
 abstract class Plus5[
-     X1 , X2 , X3 , X4 , X5 ,
-     Y1 , Y2 , Y3 , Y4 , Y5 ,
-     Z1 , Z2 , Z3 , Z4 , Z5 
+    X1 , X2 , X3 , X4 , X5,
+    Y1 , Y2 , Y3 , Y4 , Y5,
+    Z1 , Z2 , Z3 , Z4 , Z5
 ] {
         def takeHead1(z: Z1): X1
         def takeTail1(z: Z1): Y1
@@ -21,15 +21,14 @@ abstract class Plus5[
         def plus5(x: X5, y: Y5): Z5
 }
 object Plus5 {
-    final def cachePlusWithTypeParameter0[ Y1 , Y2 , Y3 , Y4 , Y5 ]:
-    Plus5[
-         AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 ,
-         Y1 , Y2 , Y3 , Y4 , Y5 ,
-         AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5] 
+    final def cachePlusWithTypeParameter0Dynamic[Y1 , Y2 , Y3 , Y4 , Y5]: Plus5[
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5]
     ] = new Plus5[
-         AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 ,
-         Y1 , Y2 , Y3 , Y4 , Y5 ,
-         AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5] 
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5]
     ] {
             final override def takeHead1(z: AsunaTuple1[Y1]): AsunaTuple0 = AsunaTuple0.value
             final override def takeTail1(z: AsunaTuple1[Y1]): Y1 = z.i1
@@ -47,18 +46,51 @@ object Plus5 {
             final override def takeTail5(z: AsunaTuple1[Y5]): Y5 = z.i1
             final override def plus5(x: AsunaTuple0, y: Y5): AsunaTuple1[Y5] = new AsunaTuple1(y)
     }
-    final def cachePlusWithTypeParameter1[
-         X1 , X2 , X3 , X4 , X5 ,
-         Y1 , Y2 , Y3 , Y4 , Y5 
-    ]:
-    Plus5[
-         X1 , X2 , X3 , X4 , X5 ,
-         Y1 , Y2 , Y3 , Y4 , Y5 ,
-         AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5] 
+    final val cachePlusWithTypeParameter0Strict: Plus5[
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Any , Any , Any , Any , Any,
+        AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any]
     ] = new Plus5[
-         X1 , X2 , X3 , X4 , X5 ,
-         Y1 , Y2 , Y3 , Y4 , Y5 ,
-         AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5] 
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Any , Any , Any , Any , Any,
+        AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any] , AsunaTuple1[Any]
+    ] {
+            final override def takeHead1(z: AsunaTuple1[Any]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail1(z: AsunaTuple1[Any]): Any = z.i1
+            final override def plus1(x: AsunaTuple0, y: Any): AsunaTuple1[Any] = new AsunaTuple1(y)
+            final override def takeHead2(z: AsunaTuple1[Any]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail2(z: AsunaTuple1[Any]): Any = z.i1
+            final override def plus2(x: AsunaTuple0, y: Any): AsunaTuple1[Any] = new AsunaTuple1(y)
+            final override def takeHead3(z: AsunaTuple1[Any]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail3(z: AsunaTuple1[Any]): Any = z.i1
+            final override def plus3(x: AsunaTuple0, y: Any): AsunaTuple1[Any] = new AsunaTuple1(y)
+            final override def takeHead4(z: AsunaTuple1[Any]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail4(z: AsunaTuple1[Any]): Any = z.i1
+            final override def plus4(x: AsunaTuple0, y: Any): AsunaTuple1[Any] = new AsunaTuple1(y)
+            final override def takeHead5(z: AsunaTuple1[Any]): AsunaTuple0 = AsunaTuple0.value
+            final override def takeTail5(z: AsunaTuple1[Any]): Any = z.i1
+            final override def plus5(x: AsunaTuple0, y: Any): AsunaTuple1[Any] = new AsunaTuple1(y)
+    }
+    final def cachePlusWithTypeParameter0[Y1 , Y2 , Y3 , Y4 , Y5]: Plus5[
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5]
+    ] = cachePlusWithTypeParameter0Strict.asInstanceOf[Plus5[
+        AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple1[Y1] , AsunaTuple1[Y2] , AsunaTuple1[Y3] , AsunaTuple1[Y4] , AsunaTuple1[Y5]
+    ]]
+    final def cachePlusWithTypeParameter1Dynamic[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5
+    ]: Plus5[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5]
+    ] = new Plus5[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5]
     ] {
             final override def takeHead1(z: AsunaTuple2[Y1, X1]): X1 = z.i2
             final override def takeTail1(z: AsunaTuple2[Y1, X1]): Y1 = z.i1
@@ -76,4 +108,41 @@ object Plus5 {
             final override def takeTail5(z: AsunaTuple2[Y5, X5]): Y5 = z.i1
             final override def plus5(x: X5, y: Y5): AsunaTuple2[Y5, X5] = new AsunaTuple2(y, x)
     }
+    final val cachePlusWithTypeParameter1Strict: Plus5[
+        Any , Any , Any , Any , Any,
+        Any , Any , Any , Any , Any,
+        AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any]
+    ] = new Plus5[
+        Any , Any , Any , Any , Any,
+        Any , Any , Any , Any , Any,
+        AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any] , AsunaTuple2[Any, Any]
+    ] {
+            final override def takeHead1(z: AsunaTuple2[Any, Any]): Any = z.i2
+            final override def takeTail1(z: AsunaTuple2[Any, Any]): Any = z.i1
+            final override def plus1(x: Any, y: Any): AsunaTuple2[Any, Any] = new AsunaTuple2(y, x)
+            final override def takeHead2(z: AsunaTuple2[Any, Any]): Any = z.i2
+            final override def takeTail2(z: AsunaTuple2[Any, Any]): Any = z.i1
+            final override def plus2(x: Any, y: Any): AsunaTuple2[Any, Any] = new AsunaTuple2(y, x)
+            final override def takeHead3(z: AsunaTuple2[Any, Any]): Any = z.i2
+            final override def takeTail3(z: AsunaTuple2[Any, Any]): Any = z.i1
+            final override def plus3(x: Any, y: Any): AsunaTuple2[Any, Any] = new AsunaTuple2(y, x)
+            final override def takeHead4(z: AsunaTuple2[Any, Any]): Any = z.i2
+            final override def takeTail4(z: AsunaTuple2[Any, Any]): Any = z.i1
+            final override def plus4(x: Any, y: Any): AsunaTuple2[Any, Any] = new AsunaTuple2(y, x)
+            final override def takeHead5(z: AsunaTuple2[Any, Any]): Any = z.i2
+            final override def takeTail5(z: AsunaTuple2[Any, Any]): Any = z.i1
+            final override def plus5(x: Any, y: Any): AsunaTuple2[Any, Any] = new AsunaTuple2(y, x)
+    }
+    final def cachePlusWithTypeParameter1[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5
+    ]: Plus5[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5]
+    ] = cachePlusWithTypeParameter1Strict.asInstanceOf[Plus5[
+        X1 , X2 , X3 , X4 , X5,
+        Y1 , Y2 , Y3 , Y4 , Y5,
+        AsunaTuple2[Y1, X1] , AsunaTuple2[Y2, X2] , AsunaTuple2[Y3, X3] , AsunaTuple2[Y4, X4] , AsunaTuple2[Y5, X5]
+    ]]
 }
