@@ -118,33 +118,23 @@ object AsunaTupleCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
-
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
       for (ii <- 1 to AsunaParameters.maxTupleNum - 1) yield {
         val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val content =
-          Source.fromString(asuna.codegen.scala_tuple.txt.PlusToTupleX(tagNum = i, caseClassNum = ii).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-        val linerContent = content.mkString(System.lineSeparator)
-        writer.println(linerContent)
+        val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.PlusToTupleX(tagNum = i, caseClassNum = ii).body)
+        writer.println(content)
         writer.close()
       }
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(asuna.codegen.scala_tuple.txt.PlusToTupleSum(tagNum = i, maxTupleNum = AsunaParameters.maxTupleNum - 1).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
-      writer.println(linerContent)
+      val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.PlusToTupleSum(tagNum = i, maxTupleNum = AsunaParameters.maxTupleNum - 1).body)
+      writer.println(content)
       writer.close()
     }
 
