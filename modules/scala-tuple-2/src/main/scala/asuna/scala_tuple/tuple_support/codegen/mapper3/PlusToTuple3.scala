@@ -20,3 +20,4 @@ object PlusToTuple3 extends PlusToTuple_1_3
     with PlusToTuple_19_3
     with PlusToTuple_20_3
     with PlusToTuple_21_3
+    with PlusToTuple_22_3

@@ -1,10 +1,12 @@
-@(tagNum: Int)
+@(tagNum: Int)(isDotty: Boolean)
 
 package asuna
 import scala.language.higherKinds
 
 abstract class Application@{tagNum}[F[_ @for(i <- 2 to tagNum) { , _ }] , Tag @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(", ", " , ", "")}] {
-
     def application(context: Context@{tagNum}[F]): F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
+}
 
+object Application@{tagNum} {
+    @if(isDotty) { inline } def lift[F[@{(1 to tagNum).map(_ => "_").mkString(" , ")}], Tag, @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](appendTag: => AppendTag[Tag])(@if(isDotty) { given } else { implicit } app: Application@{tagNum}[F, Tag, @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]): Application@{tagNum}[F, Tag, @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}] = app
 }

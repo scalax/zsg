@@ -6,6 +6,7 @@ object SnippetUtil {
 
   def XI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"X${u}")
   def YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Y${u}")
+  def TagI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Tag${u}")
   def ZI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Z${u}")
   def Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Any")
 
@@ -41,6 +42,13 @@ object SnippetUtil {
   def PlusX_XI_Snippet(pluxSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[Iterable[String]] = pluxSeq.map(i => seq.map(ii => s"Plus${i}_X${ii}"))
   def single_PlusX_XI_Snippet(pluxIndex: Int)(seq: Iterable[Int]): Iterable[String] = seq.map(ii => s"Plus${pluxIndex}_X${ii}")
 
+  def ApplicationX_XI_Snippet(pluxSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[String] = {
+    seq.map{ i =>
+      val plusXIP = pluxSeq.map(ii => s"Plus${ii}_X${i}").mkString(" , ")
+      s"t${i}: Application${pluxSeq.size}[F, Tag${i}, ${plusXIP}]"
+    }
+  }
+
   def Tuple_To_AsunaTuple(item: Iterable[String])(groupSize: Int): String = {
     item.grouped(groupSize).map { i =>
       i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")")
@@ -56,32 +64,24 @@ object SnippetUtil {
     Tuple_To_AsunaTuple(seq.map(r => s"z._${r}"))(2)
   }
 
-  /*def AsunaTupleIndexToScalaTupleIndex(index: Int)(groupSize: Int)(current: List[Int]): List[Int] = {
-    def maxGroupSize(currentGroupSize: Int): Int = if ((index / currentGroupSize) >= groupSize)
-      maxGroupSize(currentGroupSize * groupSize)
-    else currentGroupSize
-
-    if (index == 0) {
-      current
-    } else if (index < groupSize) {
-      index :: current
-    } else {
-      val max = maxGroupSize(groupSize)
-      val m = index / max
-      AsunaTupleIndexToScalaTupleIndex(index - m * max)(groupSize)(m :: current)
+  def Tuple_To_AsunaTuple2(item: Iterable[String])(groupSize: Int)(init: Boolean): String = {
+    item.grouped(groupSize).map { i =>
+      if (init) {
+        i.mkString(s"BuildTag.tag(", " , ", ")")
+      } else {
+        i.mkString(s"BuildTag.nodeTag(", " , ", ")")
+      }
+    }.to(List) match {
+      case h :: Nil =>
+        h
+      case r =>
+        Tuple_To_AsunaTuple2(r)(groupSize)(false)
     }
   }
 
-  def Tuple2_Index_To_ScalaTuple_Index(groupSize: Int): String = {
-    val result = for {
-      pp <- 1 to groupSize
-    } yield {
-      AsunaTupleIndexToScalaTupleIndex(pp)(2)(List.empty)
-    }
-    val maxCount = result.map(_.size).max
-    result.map(p => (if(p.size < maxCount) { List.fill(maxCount - p.size)(0) ::: p } else p).map(p => s".i${p + 1}").mkString("x", "", ""))
-      .mkString(s"Tuple${groupSize}(", " , ", ")")
-  }*/
+  def Lift_Tuple_To_AsunaTuple2(seq: Iterable[Int]): String = {
+    Tuple_To_AsunaTuple2(seq.map(r => s"AppendTag[Tag${r}]"))(2)(true)
+  }
 
   def Tuple2Group[T](i: List[T])(groupSize: Int)(on: T => List[List[Int]]): List[List[Int]] = {
     if (i.size >= groupSize && i.size > 1) {

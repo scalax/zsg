@@ -1,33 +1,34 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Application2
 import asuna.Context2
+import asuna.AppendTag
+import asuna.BuildTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_3_2 {
-given tupleTagApplicationImplicit_tagNum3_typeParamNum2[
-F[_  , _ ]
-, H1  , H2  , H3
-, X1_C1  , X1_C2
-, X2_C1  , X2_C2
-, X3_C1  , X3_C2
-](given t1: Application2[F, H1  , X1_C1  , X1_C2 ]
-, t2: Application2[F, H2  , X2_C1  , X2_C2 ]  , t3: Application2[F, H3  , X3_C1  , X3_C2 ] )
-: Application2[
-F,
-(H1  , H2  , H3 )  , (X1_C1  , X2_C1  , X3_C1 )  , (X1_C2  , X2_C2  , X3_C2 ) ] =
-new Application2[
-F,
-(H1  , H2  , H3 )  , (X1_C1  , X2_C1  , X3_C1 )  , (X1_C2  , X2_C2  , X3_C2 ) ] {
-override def application(context: Context2[F]) = {
-context.append(
-ScalaTupleImplicits_2_2.tupleTagApplicationImplicit_tagNum2_typeParamNum2[
-F
-, H2  , H3
-, X2_C1  , X2_C2
-, X3_C1  , X3_C2
-].application(context),
-t1.application(context)
-)(PlusToTuple2.plusWithTypeParameter2)
-}
-}
+     given  tupleTagApplicationImplicit_tagNum3_typeParamNum2[
+        F[_ , _],
+        Tag1 , Tag2 , Tag3,
+        Plus1_X1 , Plus1_X2 , Plus1_X3,
+        Plus2_X1 , Plus2_X2 , Plus2_X3
+    ]( given 
+    t1: Application2[F, Tag1, Plus1_X1 , Plus2_X1] , t2: Application2[F, Tag2, Plus1_X2 , Plus2_X2] , t3: Application2[F, Tag3, Plus1_X3 , Plus2_X3]): Application2[
+        F,
+        Tuple3[Tag1 , Tag2 , Tag3],
+        Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
+        Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
+    ] = new Application2[
+        F,
+        Tuple3[Tag1 , Tag2 , Tag3],
+        Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
+        Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
+    ] {
+        override def application(context: Context2[F]): F[
+            Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
+            Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
+        ] = {
+            val asunaTuple2F = Application2.lift(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3]))).application(context)
+            context.append(asunaTuple2F, context.start)(PlusToTuple2.plus2WithTypeParameter3)
+        }
+    }
 }
 object ScalaTupleImplicits_3_2 extends ScalaTupleImplicits_3_2

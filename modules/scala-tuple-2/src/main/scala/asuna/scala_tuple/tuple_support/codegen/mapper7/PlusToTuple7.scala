@@ -20,3 +20,4 @@ object PlusToTuple7 extends PlusToTuple_1_7
     with PlusToTuple_19_7
     with PlusToTuple_20_7
     with PlusToTuple_21_7
+    with PlusToTuple_22_7

@@ -17,7 +17,7 @@ object AsunaSettings {
   val setting5 = transitiveClassifiers := Seq("sources")
   val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, currentScalaVersion)
 
-  val scalaVersionSettings = Seq(setting1, setting2 )
+  val scalaVersionSettings = Seq(setting1, setting2)
   val commonSettings       = Seq(setting3, setting4, setting5)
 
   val dottyVersionSettings = Seq(setting1, setting6)

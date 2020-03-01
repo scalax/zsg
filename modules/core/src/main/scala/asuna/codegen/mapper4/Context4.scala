@@ -1,6 +1,6 @@
 package asuna
 import scala.language.higherKinds
-abstract class Context4[F[_  , _  , _  , _ ]] {
+abstract class Context4[F[_ , _ , _ , _]] {
     def append[
         X1 , X2 , X3 , X4,
         Y1 , Y2 , Y3 , Y4,
