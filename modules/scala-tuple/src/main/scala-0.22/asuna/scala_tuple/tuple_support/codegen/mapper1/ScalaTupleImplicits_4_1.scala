@@ -1,35 +1,30 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Application1
 import asuna.Context1
+import asuna.AppendTag
+import asuna.BuildTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_4_1 {
-given tupleTagApplicationImplicit_tagNum4_typeParamNum1[
-F[_ ]
-, H1  , H2  , H3  , H4
-, X1_C1
-, X2_C1
-, X3_C1
-, X4_C1
-](given t1: Application1[F, H1  , X1_C1 ]
-, t2: Application1[F, H2  , X2_C1 ]  , t3: Application1[F, H3  , X3_C1 ]  , t4: Application1[F, H4  , X4_C1 ] )
-: Application1[
-F,
-(H1  , H2  , H3  , H4 )  , (X1_C1  , X2_C1  , X3_C1  , X4_C1 ) ] =
-new Application1[
-F,
-(H1  , H2  , H3  , H4 )  , (X1_C1  , X2_C1  , X3_C1  , X4_C1 ) ] {
-override def application(context: Context1[F]) = {
-context.append(
-ScalaTupleImplicits_3_1.tupleTagApplicationImplicit_tagNum3_typeParamNum1[
-F
-, H2  , H3  , H4
-, X2_C1
-, X3_C1
-, X4_C1
-].application(context),
-t1.application(context)
-)(PlusToTuple1.plusWithTypeParameter3)
-}
-}
+     given  tupleTagApplicationImplicit_tagNum4_typeParamNum1[
+        F[_],
+        Tag1 , Tag2 , Tag3 , Tag4,
+        Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4
+    ]( given 
+    t1: Application1[F, Tag1, Plus1_X1] , t2: Application1[F, Tag2, Plus1_X2] , t3: Application1[F, Tag3, Plus1_X3] , t4: Application1[F, Tag4, Plus1_X4]): Application1[
+        F,
+        Tuple4[Tag1 , Tag2 , Tag3 , Tag4],
+        Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]
+    ] = new Application1[
+        F,
+        Tuple4[Tag1 , Tag2 , Tag3 , Tag4],
+        Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]
+    ] {
+        override def application(context: Context1[F]): F[
+            Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]
+        ] = {
+            val asunaTuple2F = Application1.lift(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4]))).application(context)
+            context.append(asunaTuple2F, context.start)(PlusToTuple1.plus1WithTypeParameter4)
+        }
+    }
 }
 object ScalaTupleImplicits_4_1 extends ScalaTupleImplicits_4_1
