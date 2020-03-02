@@ -10,9 +10,9 @@ import asuna.BuildContent
 
 trait PlusToTuple_@{caseClassNum}_@{tagNum} {
 
-    @if(caseClassNum == 1) {
+    @* @if(caseClassNum == 1) {
 
-    } else {
+    } else { *@
         final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("", " , ", "")).mkString(",\n            ")}
         ]: Plus@{tagNum}[
@@ -32,6 +32,6 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
                     @{asuna.codegen.SnippetUtil.Tuple2_Index_To_ScalaTuple_Index(caseClassNum)}
             }
         }
-    }
+    @* } *@
 
 }
