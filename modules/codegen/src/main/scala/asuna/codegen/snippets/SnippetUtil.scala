@@ -92,9 +92,13 @@ object SnippetUtil {
   }
 
   def Tuple2_Index_To_ScalaTuple_Index(tupleSize: Int): String = {
-    val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
-    result.map(_.map(p => s".i${p + 1}").mkString("x", "", ""))
-      .mkString(s"Tuple${tupleSize}(", " , ", ")")
+    if (tupleSize == 1) {
+      s"Tuple1(x.i1)"
+    } else {
+      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
+      result.map(_.map(p => s".i${p + 1}").mkString("x", "", ""))
+        .mkString(s"Tuple${tupleSize}(", " , ", ")")
+    }
   }
 
 }

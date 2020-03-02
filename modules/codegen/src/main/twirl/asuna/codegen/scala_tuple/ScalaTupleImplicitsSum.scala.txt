@@ -2,15 +2,6 @@
 
 package asuna.scala_tuple
 
-trait ScalaTupleImplicits
-    extends tuple_support.ScalaTupleImplicits_2_1
-    @for(proNum <- 2 to maxPropertyNum) {
-        with tuple_support.ScalaTupleImplicits_2_@{proNum}
-    }
-    @for(typeParamNum <- 3 to maxAsunaTupleNum) {
-        @for(proNum <- 1 to maxPropertyNum) {
-        with tuple_support.ScalaTupleImplicits_@{typeParamNum}_@{proNum}
-    }
-}
+trait ScalaTupleImplicits extends @{(1 to maxPropertyNum).flatMap(i => (1 to maxAsunaTupleNum).map(ii => s"tuple_support.ScalaTupleImplicits_${ii}_${i}")).mkString("\n    with ")}
 
 object ScalaTupleImplicits extends ScalaTupleImplicits

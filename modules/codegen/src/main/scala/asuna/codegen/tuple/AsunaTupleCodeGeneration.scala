@@ -139,7 +139,7 @@ object AsunaTupleCodeGeneration {
     }
 
     {
-      for (i <- 2 to AsunaParameters.maxTupleNum) yield {
+      for (i <- 1 to AsunaParameters.maxTupleNum) yield {
         for (ii <- 1 to AsunaParameters.maxContextNum) yield {
           val filePath = root1_212_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
@@ -150,7 +150,7 @@ object AsunaTupleCodeGeneration {
         }
       }
 
-      for (i <- 2 to AsunaParameters.maxTupleNum) yield {
+      for (i <- 1 to AsunaParameters.maxTupleNum) yield {
         for (ii <- 1 to AsunaParameters.maxContextNum) yield {
           val filePath = root1_213_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
@@ -161,7 +161,7 @@ object AsunaTupleCodeGeneration {
         }
       }
 
-      for (i <- 2 to AsunaParameters.maxTupleNum) yield {
+      for (i <- 1 to AsunaParameters.maxTupleNum) yield {
         for (ii <- 1 to AsunaParameters.maxContextNum) yield {
           val filePath = root1_dotty_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
@@ -179,17 +179,8 @@ object AsunaTupleCodeGeneration {
       val filePath = root1_all_Dir.resolve("ScalaTupleImplicits.scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(
-            asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsSum(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(maxPropertyNum = AsunaParameters.maxPropertyNum).body
-          )
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
-      writer.println(linerContent)
+      val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsSum(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(maxPropertyNum = AsunaParameters.maxContextNum).body)
+      writer.println(content)
       writer.close()
     }
 
