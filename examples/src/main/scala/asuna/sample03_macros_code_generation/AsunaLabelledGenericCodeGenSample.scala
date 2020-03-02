@@ -1,7 +1,7 @@
 package asuna.sample03_macros_code_generation
 
 import asuna._
-import asuna.macros.AsunaLabelledGeneric
+import asuna.macros.single.AsunaLabelledGeneric
 
 object AsunaLabelledGenericCodeGenSample {
   def sameType[T](t1: T, t2: T): T = t1

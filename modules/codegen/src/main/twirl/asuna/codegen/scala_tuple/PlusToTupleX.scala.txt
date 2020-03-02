@@ -3,53 +3,35 @@
 package asuna.scala_tuple.tuple_support
 
 import asuna.Plus@{tagNum}
-
-import asuna.support.heterogeneous._
+import asuna.AsunaTuple0
+import asuna.AsunaTuple1
+import asuna.AsunaTuple2
+import asuna.BuildContent
 
 trait PlusToTuple_@{caseClassNum}_@{tagNum} {
 
-    @if(caseClassNum == 1) {
-        final def plusWithTypeParameter1[X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
-        @for(i <- 1 to tagNum) { , Y@{i} } ]:
-        Plus@{tagNum}[
-            X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
-            @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , (Y@{i} , X@{i}_C1) }
-        ] = new Plus@{tagNum}[
-            X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
-            @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , (Y@{i} , X@{i}_C1) }
-        ] {
-            @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: (Y@{i} , X@{i}_C1)): X@{i}_C1 = z._2
-                final override def takeTail@{i}(z: (Y@{i} , X@{i}_C1)): Y@{i} = z._1
-                final override def plus@{i}(x: X@{i}_C1, y: Y@{i}): (Y@{i} , X@{i}_C1) = (y, x)
-            }
-        }
-    } else {
-        final def plusWithTypeParameter@{caseClassNum}[X1_C1 @for(i <- 2 to caseClassNum) { , X1_C@{i} }
-        @for(i <- 2 to tagNum) { @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } }
-        @for(i <- 1 to tagNum) { , Y@{i} } ]:
-        Plus@{tagNum}[
-            @for(ii <- 1 to caseClassNum) { X1_C@{ii} :: } HNil
-            @for(i <- 2 to tagNum) { , @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil }
-            @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) }
-        ] = new Plus@{tagNum}[
-            @for(ii <- 1 to caseClassNum) { X1_C@{ii} :: } HNil
-            @for(i <- 2 to tagNum) { , @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil }
-            @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) }
-        ] {
-            @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil =
-                @for(ii <- 1 to caseClassNum) { z._@{ii + 1} :: } HNil.value
-                final override def takeTail@{i}(z: ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } )): Y@{i} = z._1
-                final override def plus@{i}(x: @for(ii <- 1 to caseClassNum) { X@{i}_C@{ii} :: } HNil, y: Y@{i}): ( Y@{i} @for(ii <- 1 to caseClassNum) { , X@{i}_C@{ii} } ) =
-                (y @for(ii <- 1 to caseClassNum) { , x @for(iii <- 2 to ii) { .tail } .head })
-            }
-        }
-    }
+    @* @if(caseClassNum == 1) {
 
+    } else { *@
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("", " , ", "")).mkString(",\n            ")}
+        ]: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] = new Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] {
+            @for(i <- 1 to tagNum) {
+                final override def takeHead@{i}(z: @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): @{asuna.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)} =
+                    @{asuna.codegen.SnippetUtil.single_Tuple_To_AsunaTuple(1 to caseClassNum)}
+                final override def takeTail@{i}(z: @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): AsunaTuple0 = AsunaTuple0.value
+                final override def plus@{i}(x: @{asuna.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)}, y: AsunaTuple0): @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")} =
+                    @{asuna.codegen.SnippetUtil.Tuple2_Index_To_ScalaTuple_Index(caseClassNum)}
+            }
+        }
+    @* } *@
 
 }

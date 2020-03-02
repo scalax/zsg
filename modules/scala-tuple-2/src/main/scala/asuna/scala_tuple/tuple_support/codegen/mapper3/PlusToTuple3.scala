@@ -1,6 +1,5 @@
 package asuna.scala_tuple.tuple_support
-final object PlusToTuple3
-    extends PlusToTuple_1_3
+object PlusToTuple3 extends PlusToTuple_1_3
     with PlusToTuple_2_3
     with PlusToTuple_3_3
     with PlusToTuple_4_3
@@ -14,3 +13,11 @@ final object PlusToTuple3
     with PlusToTuple_12_3
     with PlusToTuple_13_3
     with PlusToTuple_14_3
+    with PlusToTuple_15_3
+    with PlusToTuple_16_3
+    with PlusToTuple_17_3
+    with PlusToTuple_18_3
+    with PlusToTuple_19_3
+    with PlusToTuple_20_3
+    with PlusToTuple_21_3
+    with PlusToTuple_22_3

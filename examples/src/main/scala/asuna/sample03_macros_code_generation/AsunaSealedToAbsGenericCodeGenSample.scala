@@ -1,7 +1,7 @@
 package asuna.sample03_macros_code_generation
 
 import asuna._
-import asuna.macros.AsunaSealedToAbsGeneric
+import asuna.macros.single.AsunaSealedToAbsGeneric
 
 object AsunaSealedToAbsGenericCodeGenSample {
 

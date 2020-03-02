@@ -1,7 +1,8 @@
 package asuna.testkit.circe.decoder
 
 import asuna.Application2
-import asuna.macros.{ByNameImplicit, SealedTag}
+import asuna.macros.ByNameImplicit
+import asuna.macros.single.SealedTag
 import io.circe.Decoder
 
 class SealedTraitSelector[P] {

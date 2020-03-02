@@ -3,20 +3,26 @@ package asuna.testkit.circe.encoder
 import asuna.{AsunaTuple0, Context2, Plus2}
 import io.circe.Json
 
-object AsunaJsonObjectContext extends Context2[JsonObjectAppender] {
+object AsunaJsonObjectContext extends Context2[JsonObjectContent] {
 
-  override final def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
+  override final def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectContent[X1, X2], y: JsonObjectContent[Y1, Y2])(
     p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-  ): JsonObjectAppender[Z1, Z2] = new JsonObjectAppender[Z1, Z2] {
-    override def appendField(obj: Z1, name: Z2, m: java.util.LinkedHashMap[String, Json]) = {
-      y.appendField(p.takeTail1(obj), p.takeTail2(name), m)
-      x.appendField(p.takeHead1(obj), p.takeHead2(name), m)
+  ): JsonObjectContent[Z1, Z2] = new JsonObjectContent[Z1, Z2] {
+    override def toAppender(name: Z2): JsonObjectAppender[Z1] = {
+      val appender1 = x.toAppender(p.takeHead2(name))
+      val appender2 = y.toAppender(p.takeTail2(name))
+      new JsonObjectAppender[Z1] {
+        override def appendField(tt: Z1, m: List[(String, Json)]): List[(String, Json)] = {
+          val m1 = appender1.appendField(p.takeHead1(tt), m)
+          appender2.appendField(p.takeTail1(tt), m1)
+        }
+      }
     }
   }
 
-  override final val start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-    override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: java.util.LinkedHashMap[String, Json]) = {
-      ()
+  override final val start: JsonObjectContent[AsunaTuple0, AsunaTuple0] = new JsonObjectContent[AsunaTuple0, AsunaTuple0] {
+    override def toAppender(name: AsunaTuple0): JsonObjectAppender[AsunaTuple0] = new JsonObjectAppender[AsunaTuple0] {
+      override def appendField(tt: AsunaTuple0, m: List[(String, Json)]): List[(String, Json)] = m
     }
   }
 

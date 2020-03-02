@@ -1,8 +1,8 @@
 package asuna.testkit
 
-import asuna.macros.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyTag}
+import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
 import asuna.testkit.in.MTS
-import asuna.{AppendTag, Application2, AsunaTuple0, Context2, Plus2, TupleTag}
+import asuna.{AppendTag, Application2, AsunaTuple0, Context2, Plus2, PropertyTag0, TupleTag}
 
 sealed trait PropertyItem
 
@@ -113,8 +113,8 @@ object in {
     }
   }
 
-  implicit val pp1: Application2[MTS, PropertyTag[String], String, String] =
-    new Application2[MTS, PropertyTag[String], String, String] {
+  implicit val pp1: Application2[MTS, PropertyTag0[String], String, String] =
+    new Application2[MTS, PropertyTag0[String], String, String] {
       override def application(context: Context2[MTS]): MTS[String, String] = (t, r) => {
         new ModelToString {
           override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
@@ -122,8 +122,8 @@ object in {
       }
     }
 
-  implicit val pp2: Application2[MTS, PropertyTag[Int], Int, String] =
-    new Application2[MTS, PropertyTag[Int], Int, String] {
+  implicit val pp2: Application2[MTS, PropertyTag0[Int], Int, String] =
+    new Application2[MTS, PropertyTag0[Int], Int, String] {
       override def application(context: Context2[MTS]): MTS[Int, String] = { (t, r) =>
         new ModelToString {
           override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), r) :: i
@@ -131,8 +131,8 @@ object in {
       }
     }
 
-  implicit val pp3: Application2[MTS, PropertyTag[Long], Long, String] =
-    new Application2[MTS, PropertyTag[Long], Long, String] {
+  implicit val pp3: Application2[MTS, PropertyTag0[Long], Long, String] =
+    new Application2[MTS, PropertyTag0[Long], Long, String] {
       override def application(context: Context2[MTS]): MTS[Long, String] = (t, r) => {
         new ModelToString {
           override def appendField(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), r) :: i

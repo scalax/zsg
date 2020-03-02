@@ -1,128 +1,45 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Plus3
-import asuna.support.heterogeneous._
+import asuna.AsunaTuple0
+import asuna.AsunaTuple1
+import asuna.AsunaTuple2
+import asuna.BuildContent
 trait PlusToTuple_10_3 {
-  final def plusWithTypeParameter10[
-    X1_C1,
-    X1_C2,
-    X1_C3,
-    X1_C4,
-    X1_C5,
-    X1_C6,
-    X1_C7,
-    X1_C8,
-    X1_C9,
-    X1_C10,
-    X2_C1,
-    X2_C2,
-    X2_C3,
-    X2_C4,
-    X2_C5,
-    X2_C6,
-    X2_C7,
-    X2_C8,
-    X2_C9,
-    X2_C10,
-    X3_C1,
-    X3_C2,
-    X3_C3,
-    X3_C4,
-    X3_C5,
-    X3_C6,
-    X3_C7,
-    X3_C8,
-    X3_C9,
-    X3_C10,
-    Y1,
-    Y2,
-    Y3
-  ]: Plus3[
-    X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil,
-    X2_C1 :: X2_C2 :: X2_C3 :: X2_C4 :: X2_C5 :: X2_C6 :: X2_C7 :: X2_C8 :: X2_C9 :: X2_C10 :: HNil,
-    X3_C1 :: X3_C2 :: X3_C3 :: X3_C4 :: X3_C5 :: X3_C6 :: X3_C7 :: X3_C8 :: X3_C9 :: X3_C10 :: HNil,
-    Y1,
-    Y2,
-    Y3,
-    (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10),
-    (Y2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8, X2_C9, X2_C10),
-    (Y3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8, X3_C9, X3_C10)
-  ] =
-    new Plus3[
-      X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil,
-      X2_C1 :: X2_C2 :: X2_C3 :: X2_C4 :: X2_C5 :: X2_C6 :: X2_C7 :: X2_C8 :: X2_C9 :: X2_C10 :: HNil,
-      X3_C1 :: X3_C2 :: X3_C3 :: X3_C4 :: X3_C5 :: X3_C6 :: X3_C7 :: X3_C8 :: X3_C9 :: X3_C10 :: HNil,
-      Y1,
-      Y2,
-      Y3,
-      (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10),
-      (Y2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8, X2_C9, X2_C10),
-      (Y3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8, X3_C9, X3_C10)
-    ] {
-      final override def takeHead1(
-        z: (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10)
-      ): X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil =
-        z._2 :: z._3 :: z._4 :: z._5 :: z._6 :: z._7 :: z._8 :: z._9 :: z._10 :: z._11 :: HNil.value
-      final override def takeTail1(z: (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10)): Y1 = z._1
-      final override def plus1(
-        x: X1_C1 :: X1_C2 :: X1_C3 :: X1_C4 :: X1_C5 :: X1_C6 :: X1_C7 :: X1_C8 :: X1_C9 :: X1_C10 :: HNil,
-        y: Y1
-      ): (Y1, X1_C1, X1_C2, X1_C3, X1_C4, X1_C5, X1_C6, X1_C7, X1_C8, X1_C9, X1_C10) =
-        (
-          y,
-          x.head,
-          x.tail.head,
-          x.tail.tail.head,
-          x.tail.tail.tail.head,
-          x.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
-        )
-      final override def takeHead2(
-        z: (Y2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8, X2_C9, X2_C10)
-      ): X2_C1 :: X2_C2 :: X2_C3 :: X2_C4 :: X2_C5 :: X2_C6 :: X2_C7 :: X2_C8 :: X2_C9 :: X2_C10 :: HNil =
-        z._2 :: z._3 :: z._4 :: z._5 :: z._6 :: z._7 :: z._8 :: z._9 :: z._10 :: z._11 :: HNil.value
-      final override def takeTail2(z: (Y2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8, X2_C9, X2_C10)): Y2 = z._1
-      final override def plus2(
-        x: X2_C1 :: X2_C2 :: X2_C3 :: X2_C4 :: X2_C5 :: X2_C6 :: X2_C7 :: X2_C8 :: X2_C9 :: X2_C10 :: HNil,
-        y: Y2
-      ): (Y2, X2_C1, X2_C2, X2_C3, X2_C4, X2_C5, X2_C6, X2_C7, X2_C8, X2_C9, X2_C10) =
-        (
-          y,
-          x.head,
-          x.tail.head,
-          x.tail.tail.head,
-          x.tail.tail.tail.head,
-          x.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
-        )
-      final override def takeHead3(
-        z: (Y3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8, X3_C9, X3_C10)
-      ): X3_C1 :: X3_C2 :: X3_C3 :: X3_C4 :: X3_C5 :: X3_C6 :: X3_C7 :: X3_C8 :: X3_C9 :: X3_C10 :: HNil =
-        z._2 :: z._3 :: z._4 :: z._5 :: z._6 :: z._7 :: z._8 :: z._9 :: z._10 :: z._11 :: HNil.value
-      final override def takeTail3(z: (Y3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8, X3_C9, X3_C10)): Y3 = z._1
-      final override def plus3(
-        x: X3_C1 :: X3_C2 :: X3_C3 :: X3_C4 :: X3_C5 :: X3_C6 :: X3_C7 :: X3_C8 :: X3_C9 :: X3_C10 :: HNil,
-        y: Y3
-      ): (Y3, X3_C1, X3_C2, X3_C3, X3_C4, X3_C5, X3_C6, X3_C7, X3_C8, X3_C9, X3_C10) =
-        (
-          y,
-          x.head,
-          x.tail.head,
-          x.tail.tail.head,
-          x.tail.tail.tail.head,
-          x.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.head,
-          x.tail.tail.tail.tail.tail.tail.tail.tail.tail.head
-        )
-    }
+        final def plus3WithTypeParameter10[
+            Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10,
+            Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10,
+            Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10
+        ]: Plus3[
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]],
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]],
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus3_X1 , Plus3_X2] , AsunaTuple2[Plus3_X3 , Plus3_X4]] , AsunaTuple2[AsunaTuple2[Plus3_X5 , Plus3_X6] , AsunaTuple2[Plus3_X7 , Plus3_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus3_X9 , Plus3_X10]]]],
+            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10],
+            Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10],
+            Tuple10[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10]
+        ] = new Plus3[
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]],
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]],
+            AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus3_X1 , Plus3_X2] , AsunaTuple2[Plus3_X3 , Plus3_X4]] , AsunaTuple2[AsunaTuple2[Plus3_X5 , Plus3_X6] , AsunaTuple2[Plus3_X7 , Plus3_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus3_X9 , Plus3_X10]]]],
+            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10],
+            Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10],
+            Tuple10[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10]
+        ] {
+                final override def takeHead1(z: Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10]): AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]] =
+                    BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(z._1 , z._2) , BuildContent.tuple2(z._3 , z._4)) , BuildContent.tuple2(BuildContent.tuple2(z._5 , z._6) , BuildContent.tuple2(z._7 , z._8))) , BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(z._9 , z._10))))
+                final override def takeTail1(z: Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10]): AsunaTuple0 = AsunaTuple0.value
+                final override def plus1(x: AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]], y: AsunaTuple0): Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10] =
+                    Tuple10(x.i1.i1.i1.i1 , x.i1.i1.i1.i2 , x.i1.i1.i2.i1 , x.i1.i1.i2.i2 , x.i1.i2.i1.i1 , x.i1.i2.i1.i2 , x.i1.i2.i2.i1 , x.i1.i2.i2.i2 , x.i2.i1.i1.i1 , x.i2.i1.i1.i2)
+                final override def takeHead2(z: Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10]): AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]] =
+                    BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(z._1 , z._2) , BuildContent.tuple2(z._3 , z._4)) , BuildContent.tuple2(BuildContent.tuple2(z._5 , z._6) , BuildContent.tuple2(z._7 , z._8))) , BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(z._9 , z._10))))
+                final override def takeTail2(z: Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10]): AsunaTuple0 = AsunaTuple0.value
+                final override def plus2(x: AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]], y: AsunaTuple0): Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10] =
+                    Tuple10(x.i1.i1.i1.i1 , x.i1.i1.i1.i2 , x.i1.i1.i2.i1 , x.i1.i1.i2.i2 , x.i1.i2.i1.i1 , x.i1.i2.i1.i2 , x.i1.i2.i2.i1 , x.i1.i2.i2.i2 , x.i2.i1.i1.i1 , x.i2.i1.i1.i2)
+                final override def takeHead3(z: Tuple10[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10]): AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus3_X1 , Plus3_X2] , AsunaTuple2[Plus3_X3 , Plus3_X4]] , AsunaTuple2[AsunaTuple2[Plus3_X5 , Plus3_X6] , AsunaTuple2[Plus3_X7 , Plus3_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus3_X9 , Plus3_X10]]]] =
+                    BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(BuildContent.tuple2(z._1 , z._2) , BuildContent.tuple2(z._3 , z._4)) , BuildContent.tuple2(BuildContent.tuple2(z._5 , z._6) , BuildContent.tuple2(z._7 , z._8))) , BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(z._9 , z._10))))
+                final override def takeTail3(z: Tuple10[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10]): AsunaTuple0 = AsunaTuple0.value
+                final override def plus3(x: AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus3_X1 , Plus3_X2] , AsunaTuple2[Plus3_X3 , Plus3_X4]] , AsunaTuple2[AsunaTuple2[Plus3_X5 , Plus3_X6] , AsunaTuple2[Plus3_X7 , Plus3_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus3_X9 , Plus3_X10]]]], y: AsunaTuple0): Tuple10[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4 , Plus3_X5 , Plus3_X6 , Plus3_X7 , Plus3_X8 , Plus3_X9 , Plus3_X10] =
+                    Tuple10(x.i1.i1.i1.i1 , x.i1.i1.i1.i2 , x.i1.i1.i2.i1 , x.i1.i1.i2.i2 , x.i1.i2.i1.i1 , x.i1.i2.i1.i2 , x.i1.i2.i2.i1 , x.i1.i2.i2.i2 , x.i2.i1.i1.i1 , x.i2.i1.i1.i2)
+        }
 }

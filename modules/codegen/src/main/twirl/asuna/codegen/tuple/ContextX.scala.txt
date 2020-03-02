@@ -4,15 +4,21 @@ package asuna
 
 import scala.language.higherKinds
 
-trait Context@{tagNum}[F[_ @for(i <- 2 to tagNum) { , _ }]] extends Any {
+abstract class Context@{tagNum}[F[@{(1 to tagNum).map(_ => "_").mkString(" , ")}]] {
 
-    def append[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }](
-            x: F[X1 @for(i <- 2 to tagNum) { , X@{i} }],
-            y: F[Y1 @for(i <- 2 to tagNum) { , Y@{i} }]
-        )
-        (p: Plus@{tagNum}[X1 @for(i <- 2 to tagNum) { , X@{i} } @for(i <- 1 to tagNum) { , Y@{i} } @for(i <- 1 to tagNum) { , Z@{i} }])
-        : F[Z1 @for(i <- 2 to tagNum) { , Z@{i} }]
+    def append[
+        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
+    ](
+        x: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}],
+        y: F[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]
+    )(p: Plus@{tagNum}[
+        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
+    ]): F[@{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}]
 
-    def start: F[AsunaTuple0 @for(i <- 2 to tagNum) { , AsunaTuple0 }]
+    def start: F[@{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")}]
 
 }

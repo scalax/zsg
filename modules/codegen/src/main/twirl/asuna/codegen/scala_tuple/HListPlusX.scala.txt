@@ -2,28 +2,27 @@
 
 package asuna.scala_tuple.tuple_support
 
-import asuna.Plus@{tagNum}
+@* import asuna.Plus@{tagNum}
 
-import asuna.support.heterogeneous._
+import asuna.support.heterogeneous._ *@
 
-trait HListPlus_@{caseClassNum}_@{tagNum} {
+trait HListPlus_@{caseClassNum}_@{tagNum} @* {
 
-    @if(caseClassNum == 1) {
-        final def plusWithTypeParameter1[X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
-        @for(i <- 1 to tagNum) { , Y@{i} } ]:
+    @if(caseClassNum == 0) {
+        final def plusWithTypeParameter0[Y1 @for(i <- 2 to tagNum) { , Y@{i} } ]:
         Plus@{tagNum}[
-            X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
+            asuna.AsunaTuple0 @for(i <- 2 to tagNum) { , asuna.AsunaTuple0 }
             @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , Y@{i} :: X@{i}_C1 :: HNil }
+            @for(i <- 1 to tagNum) { , Y@{i} :: HNil }
         ] = new Plus@{tagNum}[
-            X1_C1 @for(i <- 2 to tagNum) { , X@{i}_C1 }
+            asuna.AsunaTuple0 @for(i <- 2 to tagNum) { , asuna.AsunaTuple0 }
             @for(i <- 1 to tagNum) { , Y@{i} }
-            @for(i <- 1 to tagNum) { , Y@{i} :: X@{i}_C1 :: HNil }
+            @for(i <- 1 to tagNum) { , Y@{i} :: HNil }
         ] {
             @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: Y@{i} :: X@{i}_C1 :: HNil): X@{i}_C1 = z.tail.head
-                final override def takeTail@{i}(z: Y@{i} :: X@{i}_C1 :: HNil): Y@{i} = z.head
-                final override def plus@{i}(x: X@{i}_C1, y: Y@{i}): Y@{i} :: X@{i}_C1 :: HNil = y :: x :: HNil.value
+                final override def takeHead@{i}(z: Y@{i} :: HNil): asuna.AsunaTuple0 = asuna.AsunaTuple0.value
+                final override def takeTail@{i}(z: Y@{i} :: HNil): Y@{i} = z.head
+                final override def plus@{i}(x: asuna.AsunaTuple0, y: Y@{i}): Y@{i} :: HNil = y :: HNil.value
             }
         }
     } else {
@@ -49,4 +48,4 @@ trait HListPlus_@{caseClassNum}_@{tagNum} {
         }
     }
 
-}
+} *@

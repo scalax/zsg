@@ -1,6 +1,5 @@
-val scalaTestVersion = "3.1.0-RC3"
-
-AsunaSettings.scalaVersionSettings
+AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
+publishArtifact in packageDoc := false
 
-libraryDependencies ++= AsunaSettings.testDependencies.map(_ % Test)
+libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"

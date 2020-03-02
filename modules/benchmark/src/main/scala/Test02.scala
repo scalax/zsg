@@ -69,17 +69,16 @@ class Test02 {
     macroRW
   }
 
-  val asunaEncoder: Encoder[Data] = {
-    implicit lazy val _w2: Encoder[A]        = ACirce.encodeSealed
-    implicit lazy val _w3: Encoder[B]        = ACirce.encodeCaseClass
-    implicit lazy val _w4: Encoder[C]        = ACirce.encodeCaseClass
-    implicit lazy val _w5: Encoder[LL]       = ACirce.encodeSealed
-    implicit def _w6: Encoder[Node]          = ACirce.encodeCaseClass
-    implicit lazy val _w7: Encoder[End.type] = ACirce.encodeCaseObject
-    implicit lazy val _w8: Encoder[ADTc]     = ACirce.encodeCaseClass
-    implicit lazy val _w9: Encoder[ADT0]     = ACirce.encodeCaseClass
-
-    ACirce.encodeCaseClass
+  object asunaEncoder {
+    implicit val _w2: Encoder[A]        = ACirce.encodeSealed
+    implicit val _w3: Encoder[B]        = ACirce.encodeCaseClass
+    implicit val _w4: Encoder[C]        = ACirce.encodeCaseClass
+    implicit val _w5: Encoder[LL]       = ACirce.encodeSealed
+    implicit val _w6: Encoder[Node]     = ACirce.encodeCaseClass
+    implicit val _w7: Encoder[End.type] = ACirce.encodeCaseObject
+    implicit val _w8: Encoder[ADTc]     = ACirce.encodeCaseClass
+    implicit val _w9: Encoder[ADT0]     = ACirce.encodeCaseClass
+    implicit val _wData: Encoder[Data]  = ACirce.encodeCaseClass
   }
 
   @Benchmark
@@ -90,7 +89,7 @@ class Test02 {
 
   @Benchmark
   def asunaCirceTest = {
-    asunaEncoder(Aa.benchmarkSampleData).noSpaces
+    asunaEncoder._wData(Aa.benchmarkSampleData).noSpaces
   }
 
   @Benchmark
@@ -100,8 +99,7 @@ class Test02 {
 
   @TearDown
   def after: Unit = {
-
-    val asunaCirceStr = asunaEncoder(Aa.benchmarkSampleData).noSpaces
+    val asunaCirceStr = asunaEncoder._wData(Aa.benchmarkSampleData).noSpaces
     val rawCirceStr   = rawCirceEncoder(Aa.benchmarkSampleData).noSpaces
     val upickleStr    = write(Aa.benchmarkSampleData)(upickleRW)
     println(s"asuna 结果: ${asunaCirceStr}")

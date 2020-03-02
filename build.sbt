@@ -17,9 +17,9 @@ val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregat
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-val sfmt = taskKey[Unit]("sfmt")
+//val sfmt = taskKey[Unit]("sfmt")
 
-sfmt := {
+/*sfmt := {
   (core / Compile / scalafmt).value
   (core / Test / scalafmt).value
   (core / Compile / scalafmtSbt).value
@@ -56,7 +56,7 @@ sfmt := {
   (asuna / Compile / scalafmt).value
   (asuna / Test / scalafmtSbt).value
   (asuna / Compile / scalafmtSbt).value
-}
+}*/
 
 val allUnpublish = taskKey[Unit]("allUnpublish")
 
@@ -77,7 +77,7 @@ addCommandAlias(
     ";codegen/runMain asuna.codegen.tuple.AsunaTupleCodeGeneration"
 )
 
-addCommandAlias("deleteTemp", ";codegen/runMain asuna.codegen.DeleteTemp")
+addCommandAlias("deleteCodegen", ";codegen/runMain asuna.codegen.DeleteTemp")
 
 addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test01.*")
 addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test02.*")

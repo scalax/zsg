@@ -1,7 +1,7 @@
 package asuna.testkit
 
-import asuna.macros.{AsunaGeneric, AsunaSetterGeneric, PropertyTag}
-import asuna.{Application1, AsunaTuple0, Context1, Plus1, TupleTag}
+import asuna.macros.single.{AsunaGeneric, AsunaSetterGeneric}
+import asuna.{Application1, AsunaTuple0, Context1, Plus1, PropertyTag0, TupleTag}
 
 trait ModelDecoder[M] {
   def getData(str: String): (String, M)
@@ -57,7 +57,7 @@ object out {
     }
   }
 
-  implicit val outImplicit1: Application1[ModelDecoder, PropertyTag[String], String] = {
+  implicit val outImplicit1: Application1[ModelDecoder, PropertyTag0[String], String] = {
     context =>
       { (str: String) =>
         val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
@@ -67,7 +67,7 @@ object out {
       }
   }
 
-  implicit val outImplicit2: Application1[ModelDecoder, PropertyTag[Int], Int] = {
+  implicit val outImplicit2: Application1[ModelDecoder, PropertyTag0[Int], Int] = {
     context =>
       { (str: String) =>
         val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
@@ -77,7 +77,7 @@ object out {
       }
   }
 
-  implicit val outImplicit3: Application1[ModelDecoder, PropertyTag[Long], Long] = (context => {
+  implicit val outImplicit3: Application1[ModelDecoder, PropertyTag0[Long], Long] = (context => {
     (str: String) =>
       val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
       val str2 = str1.takeWhile(s => s != ')')

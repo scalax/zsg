@@ -1,28 +1,39 @@
-@(tagNum: Int)(typeParamNum: Int)(maxAsunaTupleNum: Int)
+@(tagNum: Int)(typeParamNum: Int)(maxAsunaTupleNum: Int)(isDotty: Boolean)
 
 package asuna.scala_tuple.tuple_support
 
 import asuna.Application@{typeParamNum}
 import asuna.Context@{typeParamNum}
 
+import asuna.AppendTag
+import asuna.BuildTag
+
 import scala.language.higherKinds
 
 trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
 
-        final implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
-        F[_ @for(i <- 2 to typeParamNum) { , _ }]
-        @for(ii <- 1 to tagNum) { , H@{ii} }
-        @for(i <- 1 to tagNum) {
-            @for(ii <- 1 to typeParamNum) { , X@{i}_C@{ii} }
-        }]
-        (implicit
-        t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
-        @for(ii <- 2 to tagNum) { , t@{ii}: Application@{typeParamNum}[F, H@{ii} @for(i <- 1 to typeParamNum) { , X@{ii}_C@{i} }] })
-        : Application@{typeParamNum}[
+    @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+        F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
+        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
+        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n        ")}
+    ](@if(isDotty) { given } else { implicit }
+    @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
         F,
-        (H1 @for(ii <- 2 to tagNum) { , H@{ii} }) @for(i <- 1 to typeParamNum) { , (X1_C@{i} @for(ii <- 2 to tagNum) { , X@{ii}_C@{i} }) }] =
-        { context: Context@{typeParamNum}[F] =>
-            @asuna.codegen.scala_tuple.utils.txt.ScalaTupleContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum)
+        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n        ")}
+    ] = new Application@{typeParamNum}[
+        F,
+        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n        ")}
+    ] {
+        override def application(context: Context@{typeParamNum}[F]): F[
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] = {
+            val asunaTuple2F = Application@{typeParamNum}.lift(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)}).application(context)
+            context.append(asunaTuple2F, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
         }
+    }
 
 }
+
+object ScalaTupleImplicits_@{tagNum}_@{typeParamNum} extends ScalaTupleImplicits_@{tagNum}_@{typeParamNum}

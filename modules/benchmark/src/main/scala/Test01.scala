@@ -22,7 +22,6 @@ class Test01 {
     import io.circe.generic.semiauto._
     implicit lazy val a1: Encoder.AsObject[Bar] = deriveEncoder
     implicit lazy val a2: Encoder.AsObject[Foo] = deriveEncoder
-
   }
 
   object asunaEncoder {
