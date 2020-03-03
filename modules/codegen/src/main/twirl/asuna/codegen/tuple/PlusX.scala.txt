@@ -16,34 +16,34 @@ abstract class Plus@{tagNum}[
 
 object Plus@{tagNum} {
     final def cachePlusWithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
     ] = new Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
     ] {
         @for(i <- 1 to tagNum) {
-            final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
-            final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.i1
-            final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = new AsunaTuple1(y)
+            final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.i1
+            final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
+            final override def plus@{i}(y: Y@{i}, x: AsunaTuple0): AsunaTuple1[Y@{i}] = new AsunaTuple1(y)
         }
     }
 
     final val cachePlusWithTypeParameter0Strict: Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
         @{asuna.codegen.SnippetUtil.AsunaTuple1_Any_Snippet(1 to tagNum).mkString(" , ")}
     ] = cachePlusWithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}]
 
     final def cachePlusWithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
         @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
         @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
     ] = cachePlusWithTypeParameter0Strict.asInstanceOf[Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
         @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
         @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
     ]]
 

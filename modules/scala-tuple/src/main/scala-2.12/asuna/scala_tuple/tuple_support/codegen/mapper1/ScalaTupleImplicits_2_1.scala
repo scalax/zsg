@@ -5,26 +5,25 @@ import asuna.AppendTag
 import asuna.BuildTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_2_1 {
-     implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum1[
-        F[_],
-        Tag1 , Tag2,
-        Plus1_X1 , Plus1_X2
-    ]( implicit 
-    t1: Application1[F, Tag1, Plus1_X1] , t2: Application1[F, Tag2, Plus1_X2]): Application1[
-        F,
-        Tuple2[Tag1 , Tag2],
-        Tuple2[Plus1_X1 , Plus1_X2]
-    ] = new Application1[
-        F,
-        Tuple2[Tag1 , Tag2],
-        Tuple2[Plus1_X1 , Plus1_X2]
-    ] {
-        override def application(context: Context1[F]): F[
+         implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum1[
+            F[_],
+            Tag1 , Tag2,
+            Plus1_X1 , Plus1_X2
+        ]( implicit 
+        t1: Application1[F, Tag1, Plus1_X1] , t2: Application1[F, Tag2, Plus1_X2]): Application1[
+            F,
+            Tuple2[Tag1 , Tag2],
             Tuple2[Plus1_X1 , Plus1_X2]
-        ] = {
-            val asunaTuple2F = Application1.lift(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2])).application(context)
-            context.append(asunaTuple2F, context.start)(PlusToTuple1.plus1WithTypeParameter2)
+        ] = new Application1[
+            F,
+            Tuple2[Tag1 , Tag2],
+            Tuple2[Plus1_X1 , Plus1_X2]
+        ] {
+            override def application(context: Context1[F]): F[
+                Tuple2[Plus1_X1 , Plus1_X2]
+            ] = {
+                context.append(t2.application(context), t1.application(context))(PlusToTuple1.plus1WithTypeParameter2)
+            }
         }
-    }
 }
 object ScalaTupleImplicits_2_1 extends ScalaTupleImplicits_2_1
