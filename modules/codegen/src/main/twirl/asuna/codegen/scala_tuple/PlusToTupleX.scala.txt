@@ -10,9 +10,80 @@ import asuna.BuildContent
 
 trait PlusToTuple_@{caseClassNum}_@{tagNum} {
 
-    @* @if(caseClassNum == 1) {
+    @if(caseClassNum == 1) {
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] = new Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] {
+            @for(i <- 1 to tagNum) {
+                final override def takeHead@{i}(z: Tuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
+                final override def takeTail@{i}(z: Tuple1[Y@{i}]): Y@{i} = z._1
+                final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): Tuple1[Y@{i}] = Tuple1(y)
+            }
+        }
 
-    } else { *@
+        final val plus@{tagNum}WithTypeParameter@{caseClassNum}Strict: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple1_Any_Snippet(1 to tagNum).mkString(" , ")}
+        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}]
+
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Strict.asInstanceOf[Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ]]
+    } else if (caseClassNum == 2) {
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
+        ]: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] = new Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] {
+            @for(i <- 1 to tagNum) {
+                final override def takeHead@{i}(z: Tuple2[Y@{i}, X@{i}]): X@{i} = z._2
+                final override def takeTail@{i}(z: Tuple2[Y@{i}, X@{i}]): Y@{i} = z._1
+                final override def plus@{i}(x: X@{i}, y: Y@{i}): Tuple2[Y@{i}, X@{i}] = Tuple2(y, x)
+            }
+        }
+
+        final val plus@{tagNum}WithTypeParameter@{caseClassNum}Strict: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple2_Any_Any_Snippet(1 to tagNum).mkString(" , ")}
+        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[
+            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}
+        ]
+
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
+        ]: Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Strict.asInstanceOf[Plus@{tagNum}[
+            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+        ]]
+    } else {
         final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("", " , ", "")).mkString(",\n            ")}
         ]: Plus@{tagNum}[
@@ -32,6 +103,6 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
                     @{asuna.codegen.SnippetUtil.Tuple2_Index_To_ScalaTuple_Index(caseClassNum)}
             }
         }
-    @* } *@
+    }
 
 }

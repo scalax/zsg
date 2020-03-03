@@ -12,25 +12,69 @@ import scala.language.higherKinds
 
 trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
 
-    @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
-        F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
-        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
-        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n        ")}
-    ](@if(isDotty) { given } else { implicit }
-    @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
-        F,
-        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
-        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n        ")}
-    ] = new Application@{typeParamNum}[
-        F,
-        @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
-        @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n        ")}
-    ] {
-        override def application(context: Context@{typeParamNum}[F]): F[
+    @if(tagNum == 1) {
+        @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+            F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
+        ](@if(isDotty) { given } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
-        ] = {
-            val asunaTuple2F = Application@{typeParamNum}.lift(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)}).application(context)
-            context.append(asunaTuple2F, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+        ] = new Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] {
+            override def application(context: Context@{typeParamNum}[F]): F[
+                @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
+            ] = {
+                context.append(context.start, t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+            }
+        }
+    } else if(tagNum == 2) {
+        @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+            F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
+        ](@if(isDotty) { given } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] = new Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] {
+            override def application(context: Context@{typeParamNum}[F]): F[
+                @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
+            ] = {
+                context.append(t2.application(context), t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+            }
+        }
+    } else {
+        @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum}[
+            F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
+        ](@if(isDotty) { given } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] = new Application@{typeParamNum}[
+            F,
+            @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
+            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
+        ] {
+            override def application(context: Context@{typeParamNum}[F]): F[
+                @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
+            ] = {
+                val asunaTuple2F = Application@{typeParamNum}.lift(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)}).application(context)
+                context.append(asunaTuple2F, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+            }
         }
     }
 

@@ -14,8 +14,14 @@ object SnippetUtil {
   def AsunaTuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(i => s"AsunaTuple1[Y${i}]")
   def AsunaTuple1_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"AsunaTuple1[Any]")
 
+  def Tuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(i => s"Tuple1[Y${i}]")
+  def Tuple1_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Tuple1[Any]")
+
   def AsunaTuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"AsunaTuple2[Y${u}, X${u}]")
   def AsunaTuple2_Any_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"AsunaTuple2[Any, Any]")
+
+  def Tuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Tuple2[Y${u}, X${u}]")
+  def Tuple2_Any_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Tuple2[Any, Any]")
 
   @tailrec
   def groupedTupleItem(item: Iterable[String])(groupSize: Int): String = {

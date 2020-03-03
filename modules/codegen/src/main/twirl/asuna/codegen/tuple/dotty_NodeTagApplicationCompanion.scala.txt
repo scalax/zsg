@@ -37,7 +37,6 @@ class NodeTag1ApplicationCompanion {
             {
                 override final def application(context: Context@{typeParamNum}[F]): F[AsunaTuple1[X1_C1]
                 @for(i <- 2 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
-                    @* @asuna.codegen.tuple.utils.txt.ContextAppend(max = tagNum)(currentItem = 1)(plusNum = typeParamNum) *@
                     context.append(context.start, t1.application(context))(Plus@{typeParamNum}.cachePlusWithTypeParameter0)
                 }
             }
