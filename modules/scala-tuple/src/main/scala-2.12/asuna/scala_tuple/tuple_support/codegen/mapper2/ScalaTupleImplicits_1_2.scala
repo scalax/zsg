@@ -9,22 +9,22 @@ trait ScalaTupleImplicits_1_2 {
             F[_ , _],
             Tag1,
             Plus1_X1,
-        Plus2_X1
+            Plus2_X1
         ]( implicit 
         t1: Application2[F, Tag1, Plus1_X1 , Plus2_X1]): Application2[
             F,
             Tuple1[Tag1],
             Tuple1[Plus1_X1],
-        Tuple1[Plus2_X1]
+            Tuple1[Plus2_X1]
         ] = new Application2[
             F,
             Tuple1[Tag1],
             Tuple1[Plus1_X1],
-        Tuple1[Plus2_X1]
+            Tuple1[Plus2_X1]
         ] {
             override def application(context: Context2[F]): F[
                 Tuple1[Plus1_X1],
-            Tuple1[Plus2_X1]
+                Tuple1[Plus2_X1]
             ] = {
                 context.append(context.start, t1.application(context))(PlusToTuple2.plus2WithTypeParameter1)
             }
