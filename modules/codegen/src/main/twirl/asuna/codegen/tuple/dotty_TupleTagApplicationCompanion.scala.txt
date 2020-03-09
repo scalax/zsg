@@ -38,7 +38,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple1[X1_C1]
                 @for(i <- 2 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
-                    context.append(context.start, t1.application(context))(Plus@{typeParamNum}.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
                 }
             }
         }
@@ -70,7 +70,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple2[X1_C1, X2_C1]
                 @for(i <- 2 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
-                    context.append(t2.application(context), t1.application(context))(Plus@{typeParamNum}.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
                 }
             }
         }
