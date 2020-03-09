@@ -1,6 +1,86 @@
-@(tagNum: Int, maxTupleNum: Int)
+@(tagNum: Int, maxContextNum: Int)
 
 package asuna
 
-final class AsunaTuple@{tagNum}[@for(ii <- 1 to tagNum) { E@{ii} @if(ii < tagNum) { , } }]
-(@for(ii <- 1 to tagNum - 1) { final val i@{ii}: E@{ii}, } final val i@{tagNum}: E@{tagNum})
+final class AsunaTuple@{tagNum}[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](@{asuna.codegen.SnippetUtil.II_Snippet(1 to tagNum).mkString(" , ")})
+
+object AsunaTuple@{tagNum} {
+
+    @for(eachContextNum <- 1 to maxContextNum) {
+        @if(tagNum == 1) {
+            final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = new Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] {
+                @for(i <- 1 to eachContextNum) {
+                    final override def takeHead@{i}(z: AsunaTuple1[Y@{i}]): AsunaTuple0 = AsunaTuple0.value
+                    final override def takeTail@{i}(z: AsunaTuple1[Y@{i}]): Y@{i} = z.i1
+                    final override def plus@{i}(x: AsunaTuple0, y: Y@{i}): AsunaTuple1[Y@{i}] = new AsunaTuple1(y)
+                }
+            }
+
+            final val cachePlus@{eachContextNum}WithTypeParameter0Strict: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple1_Any_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")}]
+
+            final def cachePlus@{eachContextNum}WithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = cachePlus@{eachContextNum}WithTypeParameter0Strict.asInstanceOf[Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{asuna.codegen.SnippetUtil.AsunaTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ]]
+        } else {
+            final def cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ]: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = new Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] {
+                @for(i <- 1 to eachContextNum) {
+                    final override def takeHead@{i}(z: AsunaTuple2[Y@{i}, X@{i}]): X@{i} = z.i2
+                    final override def takeTail@{i}(z: AsunaTuple2[Y@{i}, X@{i}]): Y@{i} = z.i1
+                    final override def plus@{i}(x: X@{i}, y: Y@{i}): AsunaTuple2[Y@{i}, X@{i}] = new AsunaTuple2(y, x)
+                }
+            }
+
+            final val cachePlus@{eachContextNum}WithTypeParameter1Strict: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple2_Any_Any_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
+                @{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.Any_Snippet(1 to eachContextNum).mkString(" , ")}
+            ]
+
+            final def cachePlus@{eachContextNum}WithTypeParameter1[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ]: Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = cachePlus@{eachContextNum}WithTypeParameter1Strict.asInstanceOf[Plus@{eachContextNum}[
+                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            ]]
+        }
+    }
+
+}

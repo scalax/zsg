@@ -48,7 +48,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context1[F]): F[AsunaTuple1[X1_C1]
                 ] = {
-                    context.append(context.start, t1.application(context))(Plus1.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus1WithTypeParameter0)
                 }
             }
         }
@@ -70,7 +70,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context2[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2] ] = {
-                    context.append(context.start, t1.application(context))(Plus2.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus2WithTypeParameter0)
                 }
             }
         }
@@ -92,7 +92,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context3[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3] ] = {
-                    context.append(context.start, t1.application(context))(Plus3.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus3WithTypeParameter0)
                 }
             }
         }
@@ -114,7 +114,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context4[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4] ] = {
-                    context.append(context.start, t1.application(context))(Plus4.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus4WithTypeParameter0)
                 }
             }
         }
@@ -136,7 +136,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context5[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5] ] = {
-                    context.append(context.start, t1.application(context))(Plus5.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus5WithTypeParameter0)
                 }
             }
         }
@@ -158,7 +158,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context6[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5]  , AsunaTuple1[X1_C6] ] = {
-                    context.append(context.start, t1.application(context))(Plus6.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus6WithTypeParameter0)
                 }
             }
         }
@@ -180,7 +180,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context7[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5]  , AsunaTuple1[X1_C6]  , AsunaTuple1[X1_C7] ] = {
-                    context.append(context.start, t1.application(context))(Plus7.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus7WithTypeParameter0)
                 }
             }
         }
@@ -202,7 +202,7 @@ class TupleTag1ApplicationCompanion {
             ] {
                 override def application(context: Context8[F]): F[AsunaTuple1[X1_C1]
                  , AsunaTuple1[X1_C2]  , AsunaTuple1[X1_C3]  , AsunaTuple1[X1_C4]  , AsunaTuple1[X1_C5]  , AsunaTuple1[X1_C6]  , AsunaTuple1[X1_C7]  , AsunaTuple1[X1_C8] ] = {
-                    context.append(context.start, t1.application(context))(Plus8.cachePlusWithTypeParameter0)
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus8WithTypeParameter0)
                 }
             }
         }
@@ -229,7 +229,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context1[F]): F[AsunaTuple2[X1_C1, X2_C1]
                 ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus1.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus1WithTypeParameter1)
                 }
             }
         }
@@ -254,7 +254,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context2[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus2.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus2WithTypeParameter1)
                 }
             }
         }
@@ -279,7 +279,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context3[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus3.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus3WithTypeParameter1)
                 }
             }
         }
@@ -304,7 +304,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context4[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3]  , AsunaTuple2[X1_C4, X2_C4] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus4.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus4WithTypeParameter1)
                 }
             }
         }
@@ -329,7 +329,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context5[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3]  , AsunaTuple2[X1_C4, X2_C4]  , AsunaTuple2[X1_C5, X2_C5] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus5.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus5WithTypeParameter1)
                 }
             }
         }
@@ -354,7 +354,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context6[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3]  , AsunaTuple2[X1_C4, X2_C4]  , AsunaTuple2[X1_C5, X2_C5]  , AsunaTuple2[X1_C6, X2_C6] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus6.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus6WithTypeParameter1)
                 }
             }
         }
@@ -379,7 +379,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context7[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3]  , AsunaTuple2[X1_C4, X2_C4]  , AsunaTuple2[X1_C5, X2_C5]  , AsunaTuple2[X1_C6, X2_C6]  , AsunaTuple2[X1_C7, X2_C7] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus7.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus7WithTypeParameter1)
                 }
             }
         }
@@ -404,7 +404,7 @@ class TupleTag2ApplicationCompanion {
             ] {
                 override def application(context: Context8[F]): F[AsunaTuple2[X1_C1, X2_C1]
                  , AsunaTuple2[X1_C2, X2_C2]  , AsunaTuple2[X1_C3, X2_C3]  , AsunaTuple2[X1_C4, X2_C4]  , AsunaTuple2[X1_C5, X2_C5]  , AsunaTuple2[X1_C6, X2_C6]  , AsunaTuple2[X1_C7, X2_C7]  , AsunaTuple2[X1_C8, X2_C8] ] = {
-                    context.append(t2.application(context), t1.application(context))(Plus8.cachePlusWithTypeParameter1)
+                    context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus8WithTypeParameter1)
                 }
             }
         }
