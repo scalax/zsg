@@ -46,7 +46,7 @@ trait ScalaTupleImplicits_4_7 {
                 Tuple4[Plus6_X1 , Plus6_X2 , Plus6_X3 , Plus6_X4],
                 Tuple4[Plus7_X1 , Plus7_X2 , Plus7_X3 , Plus7_X4]
             ] = {
-                val asunaTuple2F = Application7.lift(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4]))).application(context)
+                val asunaTuple2F = BuildTag.liftTag7(context)(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])))
                 context.append(asunaTuple2F, context.start)(PlusToTuple7.plus7WithTypeParameter4)
             }
         }
