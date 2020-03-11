@@ -22,7 +22,7 @@ trait ScalaTupleImplicits_5_1 {
             override def application(context: Context1[F]): F[
                 Tuple5[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5]
             ] = {
-                val asunaTuple2F = Application1.lift(BuildTag.nodeTag(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag5])))).application(context)
+                val asunaTuple2F = BuildTag.liftTag1(context)(BuildTag.nodeTag(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag5]))))
                 context.append(asunaTuple2F, context.start)(PlusToTuple1.plus1WithTypeParameter5)
             }
         }

@@ -50,7 +50,7 @@ trait ScalaTupleImplicits_5_8 {
                 Tuple5[Plus7_X1 , Plus7_X2 , Plus7_X3 , Plus7_X4 , Plus7_X5],
                 Tuple5[Plus8_X1 , Plus8_X2 , Plus8_X3 , Plus8_X4 , Plus8_X5]
             ] = {
-                val asunaTuple2F = Application8.lift(BuildTag.nodeTag(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag5])))).application(context)
+                val asunaTuple2F = BuildTag.liftTag8(context)(BuildTag.nodeTag(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag5]))))
                 context.append(asunaTuple2F, context.start)(PlusToTuple8.plus8WithTypeParameter5)
             }
         }

@@ -26,7 +26,7 @@ trait ScalaTupleImplicits_3_2 {
                 Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
                 Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
             ] = {
-                val asunaTuple2F = Application2.lift(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3]))).application(context)
+                val asunaTuple2F = BuildTag.liftTag2(context)(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3])))
                 context.append(asunaTuple2F, context.start)(PlusToTuple2.plus2WithTypeParameter3)
             }
         }

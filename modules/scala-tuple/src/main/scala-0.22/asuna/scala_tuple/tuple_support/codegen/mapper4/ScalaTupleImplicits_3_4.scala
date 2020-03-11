@@ -34,7 +34,7 @@ trait ScalaTupleImplicits_3_4 {
                 Tuple3[Plus3_X1 , Plus3_X2 , Plus3_X3],
                 Tuple3[Plus4_X1 , Plus4_X2 , Plus4_X3]
             ] = {
-                val asunaTuple2F = Application4.lift(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3]))).application(context)
+                val asunaTuple2F = BuildTag.liftTag4(context)(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3])))
                 context.append(asunaTuple2F, context.start)(PlusToTuple4.plus4WithTypeParameter3)
             }
         }
