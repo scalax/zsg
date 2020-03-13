@@ -9,9 +9,9 @@ object Sample01 {
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
   val getter = { test04: Test04 =>
-    BuildContent.tuple4(test04.i1, test04.i2, test04.i3, test04.i4)
+    BuildContent.tuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4))
   }
-  val names = BuildContent.tuple4("i1", "i2", "i3", "i4")
+  val names = BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -50,22 +50,19 @@ object Sample01 {
     }
   }
 
-  val b1: JsonObjectAppender[AsunaTuple1[Long], AsunaTuple1[String]] =
-    ii.append(ii.start, a4)(Plus2.cachePlusWithTypeParameter0)
+  val b1: JsonObjectAppender[AsunaTuple2[String, Int], AsunaTuple2[String, String]] =
+    ii.append(a2, a1)(AsunaTuple2.cachePlus2WithTypeParameter1)
 
   val b2: JsonObjectAppender[AsunaTuple2[Long, Long], AsunaTuple2[String, String]] =
-    ii.append(b1, a3)(Plus2.cachePlusWithTypeParameter1)
+    ii.append(a4, a3)(AsunaTuple2.cachePlus2WithTypeParameter1)
 
-  val b3: JsonObjectAppender[AsunaTuple3[Int, Long, Long], AsunaTuple3[String, String, String]] =
-    ii.append(b2, a2)(Plus2.cachePlusWithTypeParameter2)
-
-  val en1: JsonObjectAppender[AsunaTuple4[String, Int, Long, Long], AsunaTuple4[String, String, String, String]] =
-    ii.append(b3, a1)(Plus2.cachePlusWithTypeParameter3)
+  val b3: JsonObjectAppender[AsunaTuple2[AsunaTuple2[String, Int], AsunaTuple2[Long, Long]], AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]]] =
+    ii.append(b2, b1)(AsunaTuple2.cachePlus2WithTypeParameter1)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
       Encoder.AsObject.instance { o: Test04 =>
-        en1.appendField(getter(o), names, JsonObject.empty)
+        b3.appendField(getter(o), names, JsonObject.empty)
       }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
