@@ -6,7 +6,6 @@ import asuna.Application@{typeParamNum}
 import asuna.Context@{typeParamNum}
 
 import asuna.AppendTag
-import asuna.BuildTag
 
 import scala.language.higherKinds
 
@@ -72,7 +71,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                val asunaTuple2F = BuildTag.liftTag@{typeParamNum}(context)(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)})
+                val asunaTuple2F = AppendTag.liftTag(context)(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)})
                 context.append(asunaTuple2F, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }

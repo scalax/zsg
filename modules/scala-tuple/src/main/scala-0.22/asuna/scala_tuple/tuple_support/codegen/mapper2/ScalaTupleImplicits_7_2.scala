@@ -2,7 +2,6 @@ package asuna.scala_tuple.tuple_support
 import asuna.Application2
 import asuna.Context2
 import asuna.AppendTag
-import asuna.BuildTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_7_2 {
          given  tupleTagApplicationImplicit_tagNum7_typeParamNum2[
@@ -26,7 +25,7 @@ trait ScalaTupleImplicits_7_2 {
                 Tuple7[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7],
                 Tuple7[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7]
             ] = {
-                val asunaTuple2F = BuildTag.liftTag2(context)(BuildTag.nodeTag(BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , BuildTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , BuildTag.nodeTag(BuildTag.tag(AppendTag[Tag5] , AppendTag[Tag6]) , BuildTag.tag(AppendTag[Tag7]))))
+                val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.nodeTag(AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , AppendTag.tag(AppendTag[Tag3] , AppendTag[Tag4])) , AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag5] , AppendTag[Tag6]) , AppendTag.tag(AppendTag[Tag7]))))
                 context.append(asunaTuple2F, context.start)(PlusToTuple2.plus2WithTypeParameter7)
             }
         }

@@ -74,9 +74,9 @@ object SnippetUtil {
   def Tuple_To_AsunaTuple2(item: Iterable[String])(groupSize: Int)(init: Boolean): String = {
     item.grouped(groupSize).map { i =>
       if (init) {
-        i.mkString(s"BuildTag.tag(", " , ", ")")
+        i.mkString(s"AppendTag.tag(", " , ", ")")
       } else {
-        i.mkString(s"BuildTag.nodeTag(", " , ", ")")
+        i.mkString(s"AppendTag.nodeTag(", " , ", ")")
       }
     }.to(List) match {
       case h :: Nil =>

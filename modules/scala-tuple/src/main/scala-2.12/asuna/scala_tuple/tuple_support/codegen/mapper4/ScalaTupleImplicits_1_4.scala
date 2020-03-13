@@ -2,7 +2,6 @@ package asuna.scala_tuple.tuple_support
 import asuna.Application4
 import asuna.Context4
 import asuna.AppendTag
-import asuna.BuildTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_1_4 {
          implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum4[
