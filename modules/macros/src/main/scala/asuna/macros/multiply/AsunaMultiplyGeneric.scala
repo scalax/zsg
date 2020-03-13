@@ -99,7 +99,7 @@ object AsunaMultiplyGenericApply {
             q"""asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            typeTagGen(groupedTree.map(s => q"""asuna.AppendTagnodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""asuna.AppendTag.nodeTag(..${s})"""))
           }
 
         c.Expr[AsunaMultiplyGeneric.Aux[Table, Model, M]] {
