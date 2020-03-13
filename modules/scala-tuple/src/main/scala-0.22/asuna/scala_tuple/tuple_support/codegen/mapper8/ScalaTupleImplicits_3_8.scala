@@ -49,7 +49,7 @@ trait ScalaTupleImplicits_3_8 {
                 Tuple3[Plus7_X1 , Plus7_X2 , Plus7_X3],
                 Tuple3[Plus8_X1 , Plus8_X2 , Plus8_X3]
             ] = {
-                val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , AppendTag.tag(AppendTag[Tag3])))
+                val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.lift(AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , AppendTag.tag(AppendTag[Tag3]))))
                 context.append(asunaTuple2F, context.start)(PlusToTuple8.plus8WithTypeParameter3)
             }
         }
