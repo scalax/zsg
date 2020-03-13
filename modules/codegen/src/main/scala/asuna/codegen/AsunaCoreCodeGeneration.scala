@@ -27,7 +27,7 @@ object AsunaCoreCodeGeneration {
     for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val writer       = new PrintWriter(filePath.toFile, "utf-8")
       val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.PlusX(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum).body)
       writer.println(linerContent)
       writer.close()
@@ -54,7 +54,7 @@ object AsunaCoreCodeGeneration {
     for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val writer       = new PrintWriter(filePath.toFile, "utf-8")
       val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.TupleTag(tagNum = i).body)
       writer.println(linerContent)
       writer.close()
@@ -81,11 +81,11 @@ object AsunaCoreCodeGeneration {
         val filePath = root212Dir.resolve("build").resolve("support").resolve("NodeTagApplicationCompanion.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt.NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum).body
-            )
+        val contentTrim = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = false)
+            .body
+        )
         writer.println(contentTrim)
         writer.close()
       }
@@ -94,11 +94,11 @@ object AsunaCoreCodeGeneration {
         val filePath = root213Dir.resolve("build").resolve("support").resolve("NodeTagApplicationCompanion.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt.NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum).body
-            )
+        val contentTrim = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = false)
+            .body
+        )
         writer.println(contentTrim)
         writer.close()
       }
@@ -107,13 +107,11 @@ object AsunaCoreCodeGeneration {
         val filePath = rootDottyDir.resolve("build").resolve("support").resolve("NodeTagApplicationCompanion.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt
-                .dotty_NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
-                .body
-            )
+        val contentTrim = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .NodeTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = true)
+            .body
+        )
         writer.println(contentTrim)
         writer.close()
       }
@@ -125,12 +123,11 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt
-                .TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
-                .body
-            )
+          StringUtil.trimLines(
+            asuna.codegen.tuple.txt
+              .TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = false)
+              .body
+          )
         writer.println(contentTrim)
         writer.close()
       }
@@ -140,12 +137,11 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt
-                .TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
-                .body
-            )
+          StringUtil.trimLines(
+            asuna.codegen.tuple.txt
+              .TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = false)
+              .body
+          )
         writer.println(contentTrim)
         writer.close()
       }
@@ -155,12 +151,11 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val contentTrim =
-          StringUtil
-            .trimLines(
-              asuna.codegen.tuple.txt
-                .dotty_TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)
-                .body
-            )
+          StringUtil.trimLines(
+            asuna.codegen.tuple.txt
+              .TupleTagApplicationCompanion(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(isDotty = true)
+              .body
+          )
         writer.println(contentTrim)
         writer.close()
       }
@@ -169,7 +164,7 @@ object AsunaCoreCodeGeneration {
     for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val writer  = new PrintWriter(filePath.toFile, "utf-8")
       val content = StringUtil.trimLines(asuna.codegen.tuple.txt.AsunaTuple(tagNum = i, maxContextNum = AsunaParameters.maxContextNum).body)
       writer.println(content)
       writer.close()
@@ -189,7 +184,7 @@ object AsunaCoreCodeGeneration {
       for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
         val filePath = root212Dir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
-        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
         writer.println(content)
         writer.close()
@@ -197,7 +192,7 @@ object AsunaCoreCodeGeneration {
       for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
         val filePath = root213Dir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
-        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
         writer.println(content)
         writer.close()
@@ -205,7 +200,7 @@ object AsunaCoreCodeGeneration {
       for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
         val filePath = rootDottyDir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
-        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(asuna.codegen.tuple.txt.dotty_Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
         writer.println(content)
         writer.close()
@@ -262,7 +257,13 @@ object AsunaCoreCodeGeneration {
         val filePath = root212Dir.resolve("AppendTag.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(
+              maxPropertyNum = AsunaParameters.maxPropertyNum
+            )
+            .body
+        )
         writer.println(content)
         writer.close()
       }
@@ -270,7 +271,13 @@ object AsunaCoreCodeGeneration {
         val filePath = root213Dir.resolve("AppendTag.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(
+              maxPropertyNum = AsunaParameters.maxPropertyNum
+            )
+            .body
+        )
         writer.println(content)
         writer.close()
       }
@@ -278,7 +285,13 @@ object AsunaCoreCodeGeneration {
         val filePath = rootDottyDir.resolve("AppendTag.scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = true)(maxContextNum = AsunaParameters.maxContextNum)(maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(
+          asuna.codegen.tuple.txt
+            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = true)(maxContextNum = AsunaParameters.maxContextNum)(
+              maxPropertyNum = AsunaParameters.maxPropertyNum
+            )
+            .body
+        )
         writer.println(content)
         writer.close()
       }

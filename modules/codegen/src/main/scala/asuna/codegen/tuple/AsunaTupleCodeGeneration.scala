@@ -122,7 +122,7 @@ object AsunaTupleCodeGeneration {
       for (ii <- 1 to AsunaParameters.maxTupleNum) yield {
         val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
-        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.PlusToTupleX(tagNum = i, caseClassNum = ii).body)
         writer.println(content)
         writer.close()
@@ -132,7 +132,7 @@ object AsunaTupleCodeGeneration {
     for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = root3Dir.resolve("mapper" + i).resolve("PlusToTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
+      val writer  = new PrintWriter(filePath.toFile, "utf-8")
       val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.PlusToTupleSum(tagNum = i, maxTupleNum = AsunaParameters.maxTupleNum).body)
       writer.println(content)
       writer.close()
@@ -144,7 +144,9 @@ object AsunaTupleCodeGeneration {
           val filePath = root1_212_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
           val writer = new PrintWriter(filePath.toFile, "utf-8")
-          val linerContent = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = false).body)
+          val linerContent = StringUtil.trimLines(
+            asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = false).body
+          )
           writer.println(linerContent)
           writer.close()
         }
@@ -155,7 +157,9 @@ object AsunaTupleCodeGeneration {
           val filePath = root1_213_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
           Files.createDirectories(filePath.getParent)
           val writer = new PrintWriter(filePath.toFile, "utf-8")
-          val linerContent = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = false).body)
+          val linerContent = StringUtil.trimLines(
+            asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = false).body
+          )
           writer.println(linerContent)
           writer.close()
         }
@@ -167,8 +171,9 @@ object AsunaTupleCodeGeneration {
           Files.createDirectories(filePath.getParent)
           val writer = new PrintWriter(filePath.toFile, "utf-8")
           val linerContent =
-            StringUtil
-              .trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = true).body)
+            StringUtil.trimLines(
+              asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = true).body
+            )
           writer.println(linerContent)
           writer.close()
         }
@@ -179,7 +184,9 @@ object AsunaTupleCodeGeneration {
       val filePath = root1_all_Dir.resolve("ScalaTupleImplicits.scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content = StringUtil.trimLines(asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsSum(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(maxPropertyNum = AsunaParameters.maxContextNum).body)
+      val content = StringUtil.trimLines(
+        asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsSum(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(maxPropertyNum = AsunaParameters.maxContextNum).body
+      )
       writer.println(content)
       writer.close()
     }

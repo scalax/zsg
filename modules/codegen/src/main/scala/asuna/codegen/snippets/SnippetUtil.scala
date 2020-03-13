@@ -4,31 +4,34 @@ import scala.annotation.tailrec
 
 object SnippetUtil {
 
-  def XI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"X${u}")
-  def YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Y${u}")
-  def II_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"final val i${u}: X${u}")
+  def XI_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"X${u}")
+  def YI_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"Y${u}")
+  def II_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"final val i${u}: X${u}")
   def TagI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Tag${u}")
-  def ZI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Z${u}")
-  def Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Any")
+  def ZI_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"Z${u}")
+  def Any_Snippet(seq: Iterable[Int]): Iterable[String]  = seq.map(_ => s"Any")
 
-  def AsunaTuple0_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"AsunaTuple0")
-  def AsunaTuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(i => s"AsunaTuple1[Y${i}]")
+  def AsunaTuple0_Snippet(seq: Iterable[Int]): Iterable[String]     = seq.map(_ => s"AsunaTuple0")
+  def AsunaTuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String]  = seq.map(i => s"AsunaTuple1[Y${i}]")
   def AsunaTuple1_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"AsunaTuple1[Any]")
 
-  def Tuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(i => s"Tuple1[Y${i}]")
+  def Tuple1_YI_Snippet(seq: Iterable[Int]): Iterable[String]  = seq.map(i => s"Tuple1[Y${i}]")
   def Tuple1_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Tuple1[Any]")
 
-  def AsunaTuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"AsunaTuple2[Y${u}, X${u}]")
+  def AsunaTuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"AsunaTuple2[Y${u}, X${u}]")
   def AsunaTuple2_Any_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"AsunaTuple2[Any, Any]")
 
-  def Tuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(u => s"Tuple2[Y${u}, X${u}]")
+  def Tuple2_XI_YI_Snippet(seq: Iterable[Int]): Iterable[String]   = seq.map(u => s"Tuple2[Y${u}, X${u}]")
   def Tuple2_Any_Any_Snippet(seq: Iterable[Int]): Iterable[String] = seq.map(_ => s"Tuple2[Any, Any]")
 
   @tailrec
   def groupedTupleItem(item: Iterable[String])(groupSize: Int): String = {
-    item.grouped(groupSize).map { i =>
-      i.mkString(s"AsunaTuple${i.size}[", " , ", "]")
-    }.to(List) match {
+    item
+      .grouped(groupSize)
+      .map { i =>
+        i.mkString(s"AsunaTuple${i.size}[", " , ", "]")
+      }
+      .to(List) match {
       case h :: Nil =>
         h
       case r =>
@@ -36,30 +39,34 @@ object SnippetUtil {
     }
   }
 
-  def plusX_AsunaTuple2_XI_Snippet(plusSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[String] = for {
-    plusIndex <- plusSeq
-  } yield {
-    groupedTupleItem(seq.map(r => s"Plus${plusIndex}_X${r}"))(2)
-  }
+  def plusX_AsunaTuple2_XI_Snippet(plusSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[String] =
+    for {
+      plusIndex <- plusSeq
+    } yield {
+      groupedTupleItem(seq.map(r => s"Plus${plusIndex}_X${r}"))(2)
+    }
 
   def single_plusX_AsunaTuple2_XI_Snippet(plusIndex: Int)(seq: Iterable[Int]): String = {
     groupedTupleItem(seq.map(r => s"Plus${plusIndex}_X${r}"))(2)
   }
 
   def PlusX_XI_Snippet(pluxSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[Iterable[String]] = pluxSeq.map(i => seq.map(ii => s"Plus${i}_X${ii}"))
-  def single_PlusX_XI_Snippet(pluxIndex: Int)(seq: Iterable[Int]): Iterable[String] = seq.map(ii => s"Plus${pluxIndex}_X${ii}")
+  def single_PlusX_XI_Snippet(pluxIndex: Int)(seq: Iterable[Int]): Iterable[String]            = seq.map(ii => s"Plus${pluxIndex}_X${ii}")
 
   def ApplicationX_XI_Snippet(pluxSeq: Iterable[Int])(seq: Iterable[Int]): Iterable[String] = {
-    seq.map{ i =>
+    seq.map { i =>
       val plusXIP = pluxSeq.map(ii => s"Plus${ii}_X${i}").mkString(" , ")
       s"t${i}: Application${pluxSeq.size}[F, Tag${i}, ${plusXIP}]"
     }
   }
 
   def Tuple_To_AsunaTuple(item: Iterable[String])(groupSize: Int): String = {
-    item.grouped(groupSize).map { i =>
-      i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")")
-    }.to(List) match {
+    item
+      .grouped(groupSize)
+      .map { i =>
+        i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")")
+      }
+      .to(List) match {
       case h :: Nil =>
         h
       case r =>
@@ -72,13 +79,16 @@ object SnippetUtil {
   }
 
   def Tuple_To_AsunaTuple2(item: Iterable[String])(groupSize: Int)(init: Boolean): String = {
-    item.grouped(groupSize).map { i =>
-      if (init) {
-        i.mkString(s"AppendTag.tag(", " , ", ")")
-      } else {
-        i.mkString(s"AppendTag.nodeTag(", " , ", ")")
+    item
+      .grouped(groupSize)
+      .map { i =>
+        if (init) {
+          i.mkString(s"AppendTag.tag(", " , ", ")")
+        } else {
+          i.mkString(s"AppendTag.nodeTag(", " , ", ")")
+        }
       }
-    }.to(List) match {
+      .to(List) match {
       case h :: Nil =>
         h
       case r =>
@@ -103,8 +113,7 @@ object SnippetUtil {
       s"Tuple1(x.i1)"
     } else {
       val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
-      result.map(_.map(p => s".i${p + 1}").mkString("x", "", ""))
-        .mkString(s"Tuple${tupleSize}(", " , ", ")")
+      result.map(_.map(p => s".i${p + 1}").mkString("x", "", "")).mkString(s"Tuple${tupleSize}(", " , ", ")")
     }
   }
 
