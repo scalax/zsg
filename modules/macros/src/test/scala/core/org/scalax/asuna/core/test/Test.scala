@@ -1,6 +1,6 @@
 package asuna.testkit
 
-import asuna.{BuildContent, BuildTag}
+import asuna.{AppendTag, BuildContent}
 import asuna.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
@@ -13,13 +13,13 @@ class Test extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = BuildTag.lift(
-    BuildTag.nodeTag(
-      BuildTag.nodeTag(
-        BuildTag.nodeTag(BuildTag.tag(ap.to(_.i1), ap.to(_.i2)), BuildTag.tag(ap.to(_.i3), ap.to(_.i4))),
-        BuildTag.nodeTag(BuildTag.tag(ap.to(_.i5), ap.to(_.i6)), BuildTag.tag(ap.to(_.i7), ap.to(_.i8)))
+  val fooPropertyTag = AppendTag.lift(
+    AppendTag.nodeTag(
+      AppendTag.nodeTag(
+        AppendTag.nodeTag(AppendTag.tag(ap.to(_.i1), ap.to(_.i2)), AppendTag.tag(ap.to(_.i3), ap.to(_.i4))),
+        AppendTag.nodeTag(AppendTag.tag(ap.to(_.i5), ap.to(_.i6)), AppendTag.tag(ap.to(_.i7), ap.to(_.i8)))
       ),
-      BuildTag.nodeTag(BuildTag.tag(ap.to(_.i9), ap.to(_.i10)))
+      AppendTag.nodeTag(AppendTag.tag(ap.to(_.i9), ap.to(_.i10)))
     )
   )
 

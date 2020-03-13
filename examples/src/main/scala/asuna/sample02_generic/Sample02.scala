@@ -1,8 +1,8 @@
 package asuna.sample02_generic
 
 import asuna._
-import asuna.macros.{ByNameImplicit}
-import asuna.macros.single.{PropertyApply, PropertyTag}
+import asuna.macros.ByNameImplicit
+import asuna.macros.single.PropertyApply
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {
@@ -27,8 +27,8 @@ object Sample02 {
 
   val ap = PropertyApply[Test04]
 
-  val test04PropertyTag: AppendTag[TupleTag4[PropertyTag[String], PropertyTag[Int], PropertyTag[Long], PropertyTag[Long]]] =
-    BuildTag.lift(BuildTag.tag(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4)))
+  val test04PropertyTag: AppendTag[NodeTag2[TupleTag2[PropertyTag0[String], PropertyTag0[Int]], TupleTag2[PropertyTag0[Long], PropertyTag0[Long]]]] =
+    AppendTag.lift(AppendTag.nodeTag(AppendTag.tag(ap.to(_.i1), ap.to(_.i2)), AppendTag.tag(ap.to(_.i3), ap.to(_.i4))))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 
@@ -48,15 +48,15 @@ object Sample02 {
     }
   }
 
-  implicit val test04Getter: Test04 => AsunaTuple4[String, Int, Long, Long] = (foo: Test04) => {
-    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4)
+  implicit val test04Getter: Test04 => AsunaTuple2[AsunaTuple2[String, Int], AsunaTuple2[Long, Long]] = (foo: Test04) => {
+    BuildContent.tuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4))
   }
 
-  implicit val test04Labelled: AsunaTuple4[String, String, String, String] =
-    BuildContent.tuple4("i1", "i2", "i3", "i4")
+  implicit val test04Labelled: AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]] =
+    BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
-  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag[T], T, String] =
-    new Application2[JsonObjectAppender, PropertyTag[T], T, String] {
+  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag0[T], T, String] =
+    new Application2[JsonObjectAppender, PropertyTag0[T], T, String] {
       override def application(context: Context2[JsonObjectAppender]): JsonObjectAppender[T, String] = {
         new JsonObjectAppender[T, String] {
           override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
