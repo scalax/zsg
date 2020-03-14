@@ -6,7 +6,7 @@ import asuna.macros.single.SealedTag
 import io.circe.{Encoder, Json}
 
 class SealedTraitSelector[H] {
-  trait JsonEncoder[T, II] {
+  abstract class JsonEncoder[T, II] {
     def p(model: H, classTags: T, labelled: II): Option[(String, Json)]
   }
 }
