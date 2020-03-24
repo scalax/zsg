@@ -11,7 +11,7 @@ object Round {
   type 水 = (Long, String, Int)
 
   trait 木 {
-    def function[E](i: 火星[E]): 火[E]
+    def function[T](i: 火星[T]): 火[T]
   }
 
   case class 火[T](id: Long, name: String, age: Int, birthday: T)
