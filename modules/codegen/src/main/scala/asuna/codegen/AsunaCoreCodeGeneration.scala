@@ -170,14 +170,22 @@ object AsunaCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("PropertyTag" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer19   = new PrintWriter(filePath.toFile, "utf-8")
-      val content191 = Source.fromString(asuna.codegen.tuple.txt.PropertyTag(tagNum = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val content192 = content191.mkString(System.lineSeparator)
-      writer19.println(content192)
-      writer19.close()
+      val writer  = new PrintWriter(filePath.toFile, "utf-8")
+      val content = StringUtil.trimLines(asuna.codegen.tuple.txt.PropertyTag(tagNum = i).body)
+      writer.println(content)
+      writer.close()
+    }
+
+    for (i <- 1 to AsunaParameters.maxContextNum) yield {
+      val filePath = rootAllDir.resolve("mapper" + i).resolve("EntiretyTag" + i + ".scala")
+      Files.createDirectories(filePath.getParent)
+      val writer  = new PrintWriter(filePath.toFile, "utf-8")
+      val content = StringUtil.trimLines(asuna.codegen.tuple.txt.EntiretyTag(tagNum = i).body)
+      writer.println(content)
+      writer.close()
     }
 
     {
