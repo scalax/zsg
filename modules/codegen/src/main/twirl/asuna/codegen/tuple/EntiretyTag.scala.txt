@@ -1,0 +1,5 @@
+@(tagNum: Int)
+
+package asuna
+
+trait EntiretyTag@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",") Data]

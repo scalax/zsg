@@ -2,4 +2,4 @@
 
 package asuna
 
-trait PropertyTag@{tagNum}[@for(i <- 1 to tagNum) { I@{i} , } Data]
+trait PropertyTag@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",") Data]
