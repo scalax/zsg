@@ -130,8 +130,6 @@ object Item4 {
 
 }
 
-class ItemTagWithMessage[T, Message] extends ItemTag[T]
-
 class ItemTag[T] {
   def debug: T = throw new Exception("debugging")
 }
