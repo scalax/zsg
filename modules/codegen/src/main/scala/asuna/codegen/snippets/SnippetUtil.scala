@@ -24,17 +24,6 @@ object SnippetUtil {
   def Tuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Tuple2[Y${u}, X${u}]")
   def Tuple2_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Tuple2[Any, Any]")
 
-  def XI_CI_TupleTag(xi: Seq[Int])(ci: Seq[Int]): List[String] = xi.to(List).flatMap(xii => ci.map(cii => s"X${xii}_C${cii} <: TupleTag"))
-  def TargetI_TupleTag(xi: Seq[Int]): List[String]             = xi.to(List).map(xii => s"Target${xii} <: TupleTag")
-  def MergeI_NodeTag_Implicit_Parameter(xi: Seq[Int])(ci: Seq[Int]): List[String] = {
-    xi.to(List).map { index =>
-      val ci_param = ci.map { cii =>
-        s"""X${index}_C${cii}"""
-      }
-      s"""nodeTagImplicit${index}: NodeTag${ci.size}[${ci_param.mkString(" , ")}]""".stripMargin
-    }
-  }
-
   @tailrec
   def groupedTupleItem(item: Seq[String])(groupSize: Int): String = {
     item
