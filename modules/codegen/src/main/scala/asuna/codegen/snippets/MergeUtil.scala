@@ -40,4 +40,7 @@ object MergeUtil {
     } ::: s"""TupleTag${ci.size}[${ci.map(cii => s"""Target${cii}""").mkString(" , ")}]""" :: Nil
   }
 
+  def PropertyTagI_Parameter(xi: Seq[Int]): List[String] =
+    xi.to(List).map(xii => s"PropertyTag1[X${xii}, Data]") ::: s"PropertyTag${xi.size}[${xi.map(xii => s"X${xii}").mkString(" , ")}, Data]" :: Nil
+
 }

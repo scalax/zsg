@@ -7,6 +7,7 @@ object SnippetUtil {
   def XI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"X${u}")
   def YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Y${u}")
   def II_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"final val i${u}: X${u}")
+  def TI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"T${u}")
   def TagI_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(u => s"Tag${u}")
   def ZI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Z${u}")
   def Any_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(_ => s"Any")
