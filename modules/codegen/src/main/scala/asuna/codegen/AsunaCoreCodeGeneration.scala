@@ -189,27 +189,27 @@ object AsunaCoreCodeGeneration {
     }
 
     {
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = root212Dir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(contextNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum)(isDotty = false).body)
         writer.println(content)
         writer.close()
       }
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = root213Dir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(contextNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum)(isDotty = false).body)
         writer.println(content)
         writer.close()
       }
-      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+      for (i <- 1 to AsunaParameters.maxContextNum) yield {
         val filePath = rootDottyDir.resolve("mapper" + i).resolve("Merge" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.dotty_Merge(tagNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum).body)
+        val content = StringUtil.trimLines(asuna.codegen.tuple.txt.Merge(contextNum = i, maxPropertyNum = AsunaParameters.maxPropertyNum)(isDotty = true).body)
         writer.println(content)
         writer.close()
       }
@@ -266,11 +266,7 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
-          asuna.codegen.tuple.txt
-            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(
-              maxPropertyNum = AsunaParameters.maxPropertyNum
-            )
-            .body
+          asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum).body
         )
         writer.println(content)
         writer.close()
@@ -280,11 +276,7 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
-          asuna.codegen.tuple.txt
-            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum)(
-              maxPropertyNum = AsunaParameters.maxPropertyNum
-            )
-            .body
+          asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false)(maxContextNum = AsunaParameters.maxContextNum).body
         )
         writer.println(content)
         writer.close()
@@ -294,11 +286,7 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
-          asuna.codegen.tuple.txt
-            .AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = true)(maxContextNum = AsunaParameters.maxContextNum)(
-              maxPropertyNum = AsunaParameters.maxPropertyNum
-            )
-            .body
+          asuna.codegen.tuple.txt.AppendTag(maxItem = AsunaParameters.maxPropertyNum)(isDotty = true)(maxContextNum = AsunaParameters.maxContextNum).body
         )
         writer.println(content)
         writer.close()
