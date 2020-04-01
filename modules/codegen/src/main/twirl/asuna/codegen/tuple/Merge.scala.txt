@@ -33,4 +33,10 @@ object Merge@{contextNum} {
         new Merge@{contextNum}[@asuna.codegen.MergeUtil.PropertyTagI_Parameter(1 to contextNum).mkString(" , ")]
     }
 
+    @if(isDotty) {    inline given } else {implicit def } entirety_tag_merge@{contextNum}_implicit[
+        @asuna.codegen.SnippetUtil.XI_Snippet(1 to contextNum).mkString(" , "), Data
+    ]: Merge@{contextNum}[@asuna.codegen.MergeUtil.EntiretyTagI_Parameter(1 to contextNum).mkString(" , ")] = {
+        new Merge@{contextNum}[@asuna.codegen.MergeUtil.EntiretyTagI_Parameter(1 to contextNum).mkString(" , ")]
+    }
+
 }

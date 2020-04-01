@@ -38,4 +38,9 @@ object Merge2 {
     ]: Merge2[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag2[X1 , X2, Data]] = {
         new Merge2[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag2[X1 , X2, Data]]
     }
+        inline given  entirety_tag_merge2_implicit[
+        X1 , X2, Data
+    ]: Merge2[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag2[X1 , X2, Data]] = {
+        new Merge2[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag2[X1 , X2, Data]]
+    }
 }

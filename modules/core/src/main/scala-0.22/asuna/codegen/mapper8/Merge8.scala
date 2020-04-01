@@ -38,4 +38,9 @@ object Merge8 {
     ]: Merge8[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag1[X5, Data] , PropertyTag1[X6, Data] , PropertyTag1[X7, Data] , PropertyTag1[X8, Data] , PropertyTag8[X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8, Data]] = {
         new Merge8[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag1[X5, Data] , PropertyTag1[X6, Data] , PropertyTag1[X7, Data] , PropertyTag1[X8, Data] , PropertyTag8[X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8, Data]]
     }
+        inline given  entirety_tag_merge8_implicit[
+        X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8, Data
+    ]: Merge8[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag1[X5, Data] , EntiretyTag1[X6, Data] , EntiretyTag1[X7, Data] , EntiretyTag1[X8, Data] , EntiretyTag8[X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8, Data]] = {
+        new Merge8[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag1[X5, Data] , EntiretyTag1[X6, Data] , EntiretyTag1[X7, Data] , EntiretyTag1[X8, Data] , EntiretyTag8[X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8, Data]]
+    }
 }

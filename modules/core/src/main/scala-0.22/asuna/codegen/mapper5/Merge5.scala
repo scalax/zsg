@@ -38,4 +38,9 @@ object Merge5 {
     ]: Merge5[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag1[X5, Data] , PropertyTag5[X1 , X2 , X3 , X4 , X5, Data]] = {
         new Merge5[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag1[X5, Data] , PropertyTag5[X1 , X2 , X3 , X4 , X5, Data]]
     }
+        inline given  entirety_tag_merge5_implicit[
+        X1 , X2 , X3 , X4 , X5, Data
+    ]: Merge5[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag1[X5, Data] , EntiretyTag5[X1 , X2 , X3 , X4 , X5, Data]] = {
+        new Merge5[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag1[X5, Data] , EntiretyTag5[X1 , X2 , X3 , X4 , X5, Data]]
+    }
 }

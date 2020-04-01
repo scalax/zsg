@@ -38,4 +38,9 @@ object Merge3 {
     ]: Merge3[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag3[X1 , X2 , X3, Data]] = {
         new Merge3[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag3[X1 , X2 , X3, Data]]
     }
+    implicit def  entirety_tag_merge3_implicit[
+        X1 , X2 , X3, Data
+    ]: Merge3[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag3[X1 , X2 , X3, Data]] = {
+        new Merge3[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag3[X1 , X2 , X3, Data]]
+    }
 }
