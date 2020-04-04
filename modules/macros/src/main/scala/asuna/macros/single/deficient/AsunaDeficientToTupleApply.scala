@@ -1,5 +1,7 @@
 package asuna.macros.single.deficient
 
+import java.util.UUID
+
 import asuna.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
@@ -7,12 +9,13 @@ import scala.collection.compat._
 
 trait DeficientContent
 
-trait AsunaDeficientToTupleApply[Model, TupleType] {
+trait AsunaDeficientToTupleApply[Model, PreTupleType <: TupleType, TupleType] {
   def toTuple(gen: Model): TupleType
 }
 
 object AsunaDeficientToTupleApply {
-  implicit def macroImpl[Model, TupleType]: AsunaDeficientToTupleApply[Model, TupleType] = macro AsunaDeficientToTupleApplyMacroApply.MacroImpl.generic[Model, TupleType]
+  implicit def macroImpl[Model, PreTupleType <: TupleType, TupleType]: AsunaDeficientToTupleApply[Model, PreTupleType, TupleType] =
+    macro AsunaDeficientToTupleApplyMacroApply.MacroImpl.generic[Model, PreTupleType, TupleType]
 }
 
 object AsunaDeficientToTupleApplyMacroApply {
@@ -22,7 +25,8 @@ object AsunaDeficientToTupleApplyMacroApply {
 
     import c.universe._
 
-    def generic[Model: c.WeakTypeTag, TupleType: c.WeakTypeTag]: c.Expr[AsunaDeficientToTupleApply[Model, TupleType]] = {
+    def generic[Model: c.WeakTypeTag, PreTupleType <: TupleType: c.WeakTypeTag, TupleType: c.WeakTypeTag]
+      : c.Expr[AsunaDeficientToTupleApply[Model, PreTupleType, TupleType]] = {
       try {
         val model     = c.weakTypeOf[Model]
         val modelType = model.resultType
@@ -30,50 +34,48 @@ object AsunaDeficientToTupleApplyMacroApply {
         val tuple     = c.weakTypeOf[TupleType]
         val tupleType = tuple.resultType
 
+        val preTuple     = c.weakTypeOf[PreTupleType]
+        val preTupleType = preTuple.resultType
+
         val props = caseClassMembersByType(modelType)
 
-        val tupleModelProperty: Symbol = tupleType.members
-          .to(List)
-          .filter { s =>
-            s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[ModelProperty])).isDefined
-          }
-          .head
+        val tupleModelProperty: Symbol = preTupleType.members.to(List).filter(s => s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[ModelProperty])).isDefined).head
 
-        case class SymbolWithField(symbol: Symbol, fields: List[String])
+        case class SymbolWithField(symbol: Symbol, termName: TermName, fields: List[String])
 
-        val tupleDeficientProperty: List[SymbolWithField] = tupleType.members
+        val tupleDeficientProperty: List[SymbolWithField] = preTupleType.members
           .to(List)
           .filter(s => s.annotations.find(r => r.tree.tpe.<:<(weakTypeOf[DeficientProperty])).isDefined)
-          .map(r => SymbolWithField(symbol = r, fields = caseClassMembersByType(r.typeSignatureIn(tupleType))))
+          .map(
+            r =>
+              r.name match {
+                case i: TermName => SymbolWithField(symbol = r, termName = i, fields = caseClassMembersByType(r.typeSignatureIn(preTupleType)))
+              }
+          )
+
+        val uuidSelf     = UUID.randomUUID().toString
+        val uuidSelfTerm = TermName(uuidSelf)
+        val uuidSelfVal  = q"""val $uuidSelfTerm = $EmptyTree"""
 
         def tupleDeficientSetter = tupleDeficientProperty.map { pro =>
-          q"""override def ${pro.symbol.name.asInstanceOf[TermName]} = ${pro.symbol.typeSignatureIn(tupleType).typeSymbol.companion}(..${pro.fields.map(
-            i => q"""${TermName(i)} = deficientApplySelf.${tupleModelProperty}.${TermName(i)}"""
-          )})"""
+          val argsSetter = pro.fields.map(
+            i => NamedArg(Ident(TermName(i)), Select(Select(Ident(uuidSelfTerm), tupleModelProperty.name), TermName(i)))
+          )
+          q"""override def ${pro.termName} = ${pro.symbol.typeSignatureIn(preTupleType).typeSymbol.companion}(..${argsSetter})"""
         }
 
-        println("11" * 100)
-        println("11" * 100)
-        println("11" * 100)
-        println("11" * 100)
-        println("11" * 100)
+        val uuidParameterName    = UUID.randomUUID().toString
+        val uuidParamNameTerm    = TermName(uuidParameterName)
+        val uuidParameterNameVal = q"""val $uuidParamNameTerm = $EmptyTree"""
 
-        println(q"""{ (gen) =>
-            new ${tupleType} {
-              deficientApplySelf =>
+        c.Expr[AsunaDeficientToTupleApply[Model, PreTupleType, TupleType]] {
+          q"""{ $uuidParameterNameVal =>
+            new ${preTupleType} {
+              $uuidSelfVal =>
               ..${tupleDeficientSetter}
-              override val ${tupleModelProperty.name.asInstanceOf[TermName]} = gen
+              override val ${tupleModelProperty.name.asInstanceOf[TermName]} = $uuidParamNameTerm
             }
-          }: _root_.asuna.macros.single.deficient.AsunaDeficientToTupleApply[${modelType}, ${tupleType}]""")
-
-        c.Expr[AsunaDeficientToTupleApply[Model, TupleType]] {
-          q"""{ (gen) =>
-            new ${tupleType} {
-              deficientApplySelf =>
-              ..${tupleDeficientSetter}
-              override val ${tupleModelProperty.name.asInstanceOf[TermName]} = gen
-            }
-          }: _root_.asuna.macros.single.deficient.AsunaDeficientToTupleApply[${modelType}, ${tupleType}]"""
+          }: _root_.asuna.macros.single.deficient.AsunaDeficientToTupleApply[${modelType}, ${preTupleType}, ${tupleType}]"""
         }
 
       } catch {
