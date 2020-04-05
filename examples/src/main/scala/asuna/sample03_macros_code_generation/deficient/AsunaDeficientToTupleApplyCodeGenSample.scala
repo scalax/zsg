@@ -1,6 +1,6 @@
 package asuna.sample03_macros_code_generation.deficient
 
-import asuna.macros.single.deficient.{AsunaDeficientToTupleApply, DeficientProperty, ModelProperty}
+import asuna.macros.single.deficient.{AsunaTupleDeficientApply, DeficientProperty, ModelProperty}
 
 object AsunaDeficientToTupleApplyCodeGenSample extends App {
 
@@ -15,19 +15,19 @@ object AsunaDeficientToTupleApplyCodeGenSample extends App {
   case class Model1[T](name: String, age: T, a3: Test3, a4: Long)
   trait TupleModel {
     @ModelProperty
-    def model2222: Model1[T]
+    def model: Model1[T]
     type T
     @DeficientProperty
-    def tuple1111: Model2[T]
+    def tuple: Model2[T]
   }
   trait TupleModelImpl[T1] extends TupleModel {
     override type T = T1
   }
 
-  def tupleModel[T]: AsunaDeficientToTupleApply[Model1[T], TupleModelImpl[T], TupleModel] = implicitly
+  def tupleModel[T](model1: Model1[T])(implicit i: AsunaTupleDeficientApply[Model1[T], TupleModelImpl[T], TupleModel]): TupleModel = i.toTuple(model1)
 
-  val model2 = tupleModel.toTuple(Model1("123", 456, new Test3, 123))
-  println(model2.model2222)
-  println(model2.tuple1111)
+  val model2 = tupleModel(Model1("123", 456, new Test3, 123))
+  println(model2.model)
+  println(model2.tuple)
 
 }

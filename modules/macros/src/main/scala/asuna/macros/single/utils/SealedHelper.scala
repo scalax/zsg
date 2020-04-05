@@ -1,7 +1,5 @@
 package asuna.macros.single.utils
 
-import scala.language.experimental.macros
-
 trait SealedHelper {
 
   val c: scala.reflect.macros.blackbox.Context
