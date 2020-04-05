@@ -24,18 +24,13 @@ object AsunaTupleDeficientApplyMacroApply {
     def generic[Model: c.WeakTypeTag, PreTupleType <: TupleType: c.WeakTypeTag, TupleType: c.WeakTypeTag]
       : c.Expr[AsunaTupleDeficientApply[Model, PreTupleType, TupleType]] = {
       try {
-        val model     = c.weakTypeOf[Model]
-        val modelType = model.resultType
-
-        val tuple     = c.weakTypeOf[TupleType]
-        val tupleType = tuple.resultType
 
         val preTuple     = c.weakTypeOf[PreTupleType]
         val preTupleType = preTuple.resultType
 
         val struct = tupleTypeNames[TupleType]
 
-        val shaKey    = AsunaTupleDeficientApply.getClass.getCanonicalName + c.enclosingPosition.toString + modelType.typeSymbol.name.toString + tupleType.typeSymbol.name.toString + preTupleType.typeSymbol.name.toString
+        val shaKey    = AsunaTupleDeficientApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString + preTupleType.typeSymbol.name.toString
         def freshName = toSha1(shaKey + c.freshName)
 
         val shaSelf     = freshName
@@ -43,9 +38,8 @@ object AsunaTupleDeficientApplyMacroApply {
         val shaSelfVal  = q"""val $shaSelfTerm = $EmptyTree"""
 
         def tupleDeficientSetter = struct.tupleFields.map { pro =>
-          val argsSetter = pro.caseClassFields.map(
-            i => NamedArg(Ident(i.fieldTermName), Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName))
-          )
+          val argsSetter =
+            pro.caseClassFields.map(i => q"""${Ident(i.fieldTermName)} = ${Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)}""")
           q"""override def ${pro.fieldTermName} = ${pro.fieldType.typeSymbol.companion}(..${argsSetter})"""
         }
 

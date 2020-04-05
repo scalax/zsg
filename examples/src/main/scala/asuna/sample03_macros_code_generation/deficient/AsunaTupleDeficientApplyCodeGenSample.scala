@@ -2,7 +2,7 @@ package asuna.sample03_macros_code_generation.deficient
 
 import asuna.macros.single.deficient.{AsunaTupleDeficientApply, DeficientProperty, ModelProperty}
 
-object AsunaDeficientToTupleApplyCodeGenSample extends App {
+object AsunaTupleDeficientApplyCodeGenSample extends App {
 
   class Test1
   class Test2
