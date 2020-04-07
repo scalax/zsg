@@ -1,6 +1,7 @@
 package asuna.macros.single.deficient
 
 import asuna.macros.single.utils.{Sha1Helper, TypeHelper}
+import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
 import scala.collection.compat._
@@ -16,7 +17,7 @@ object AsunaTupleApply {
 
 object AsunaTupleApplyMacroApply {
 
-  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper with Sha1Helper {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper with Sha1Helper with MacroMethods {
     self =>
 
     import c.universe._
@@ -34,8 +35,7 @@ object AsunaTupleApplyMacroApply {
         val shaSelfVal  = q"""val $shaSelfTerm = $EmptyTree"""
 
         def tupleDeficientSetter = struct.tupleFields.map { pro =>
-          val argsSetter =
-            pro.caseClassFields.map(i => q"""${Ident(i.fieldTermName)} = ${Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)}""")
+          val argsSetter = pro.caseClassFields.map(i => namedParam(i.fieldTermName, Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)))
           q"""override def ${pro.fieldTermName} = ${pro.fieldType.typeSymbol.companion}(..${argsSetter})"""
         }
 
