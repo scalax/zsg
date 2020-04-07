@@ -1,9 +1,9 @@
 package asuna.sample03_macros_code_generation.deficient
 
 import asuna.{AppendTag, NodeTag1, NodeTag2, PropertyTag0, TupleTag, TupleTag1, TupleTag2}
-import asuna.macros.single.deficient.{AsunaTupleDeficientGeneric, DeficientProperty, ModelProperty}
+import asuna.macros.single.deficient.{AsunaTupleGeneric, DeficientProperty, ModelProperty}
 
-object AsunaTupleDeficientGenericCodeGenSample extends App {
+object AsunaTupleGenericCodeGenSample extends App {
 
   class Test1
   class Test2
@@ -23,7 +23,7 @@ object AsunaTupleDeficientGenericCodeGenSample extends App {
   }
 
   class TupleModelImplicitApply[TraitType] {
-    def model[T <: TupleTag](implicit i: AsunaTupleDeficientGeneric.Aux[TupleModel, T]): AppendTag[T] = i.tag
+    def model[T <: TupleTag](implicit i: AsunaTupleGeneric.Aux[TupleModel, T]): AppendTag[T] = i.tag
   }
 
   def tupleModel[TraitType]: TupleModelImplicitApply[TraitType] = new TupleModelImplicitApply[TraitType]

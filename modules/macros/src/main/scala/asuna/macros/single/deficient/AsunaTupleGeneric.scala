@@ -7,39 +7,37 @@ import asuna.macros.single.utils.{Sha1Helper, TypeHelper}
 import scala.language.experimental.macros
 import scala.collection.compat._
 
-trait AsunaTupleDeficientGeneric[TupleType] {
+trait AsunaTupleGeneric[TupleType] {
   type WT <: TupleTag
   def tag: AppendTag[WT]
 }
 
-object AsunaTupleDeficientGeneric {
-
+object AsunaTupleGeneric {
   def init[M]: GenericApply[M] = new GenericApply[M]
   class GenericApply[M] {
-    def generic[WW <: TupleTag](implicit i: AsunaTupleDeficientGeneric.Aux[M, WW]): AsunaTupleDeficientGeneric.Aux[M, WW] = i
+    def generic[WW <: TupleTag](implicit i: AsunaTupleGeneric.Aux[M, WW]): AsunaTupleGeneric.Aux[M, WW] = i
 
-    def init1[K <: TupleTag](i: AppendTag[K]): AsunaTupleDeficientGeneric.Aux[M, K] = {
-      new AsunaTupleDeficientGeneric[M] {
+    def init1[K <: TupleTag](i: AppendTag[K]): AsunaTupleGeneric.Aux[M, K] = {
+      new AsunaTupleGeneric[M] {
         override type WT = K
         override def tag = i
       }
     }
   }
 
-  type Aux[H, II <: TupleTag] = AsunaTupleDeficientGeneric[H] { type WT = II }
+  type Aux[H, II <: TupleTag] = AsunaTupleGeneric[H] { type WT = II }
 
-  implicit def macroImpl[TupleType, T <: TupleTag]: AsunaTupleDeficientGeneric.Aux[TupleType, T] =
-    macro AsunaTupleDeficientGenericMacroApply.MacroImpl.generic[TupleType, T]
+  implicit def macroImpl[TupleType, T <: TupleTag]: AsunaTupleGeneric.Aux[TupleType, T] = macro AsunaTupleGenericMacroApply.MacroImpl.generic[TupleType, T]
 }
 
-object AsunaTupleDeficientGenericMacroApply {
+object AsunaTupleGenericMacroApply {
 
   class MacroImpl(override val c: scala.reflect.macros.whitebox.Context) extends TypeHelper with Sha1Helper {
     self =>
 
     import c.universe._
 
-    def generic[TupleType: c.WeakTypeTag, T <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaTupleDeficientGeneric.Aux[TupleType, T]] = {
+    def generic[TupleType: c.WeakTypeTag, T <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaTupleGeneric.Aux[TupleType, T]] = {
       try {
 
         val tuple     = weakTypeOf[TupleType]
@@ -62,8 +60,8 @@ object AsunaTupleDeficientGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
           }
 
-        c.Expr[AsunaTupleDeficientGeneric.Aux[TupleType, T]] {
-          q"""_root_.asuna.macros.single.deficient.AsunaTupleDeficientGeneric.init[${tupleType}].init1(${typeTagGen(typeTag)})"""
+        c.Expr[AsunaTupleGeneric.Aux[TupleType, T]] {
+          q"""_root_.asuna.macros.single.deficient.AsunaTupleGeneric.init[${tupleType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

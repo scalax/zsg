@@ -1,6 +1,6 @@
 package asuna.testkit.circe
 
-import asuna.macros.single.deficient.{AsunaTupleDeficientApply, AsunaTupleDeficientGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
+import asuna.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
 import asuna.{Application2, Application3, TupleTag}
 import asuna.macros.single.{
   AsunaDefaultValueGeneric,
@@ -18,7 +18,7 @@ import io.circe.{Decoder, Encoder, JsonObject}
 object ACirce {
 
   final def encodeTuple[H, R <: TupleTag, Obj, Na](
-    implicit ll: AsunaTupleDeficientGeneric.Aux[H, R],
+    implicit ll: AsunaTupleGeneric.Aux[H, R],
     app: Application2[encoder.JsonObjectContent, R, Obj, Na],
     cv1: AsunaTupleLabelledGeneric[H, Na],
     cv2: AsunaTupleGetterGeneric[H, Obj]
@@ -31,10 +31,8 @@ object ACirce {
     }
   }
 
-  final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](
-    implicit ll: AsunaTupleDeficientApply[Model, PreTuple],
-    objectEncoder: Encoder[TupleType]
-  ): Encoder[Model] = objectEncoder.contramap(ll.toTuple)
+  final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](ll: AsunaTupleApply[Model, PreTuple], objectEncoder: Encoder[TupleType]): Encoder[Model] =
+    objectEncoder.contramap(ll.toTuple)
 
   final def encodeCaseClass[H, R <: TupleTag, Obj, Na](
     implicit ll: AsunaGeneric.Aux[H, R],

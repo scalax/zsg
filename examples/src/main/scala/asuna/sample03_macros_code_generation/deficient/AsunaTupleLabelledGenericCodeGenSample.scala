@@ -3,7 +3,7 @@ package asuna.sample03_macros_code_generation.deficient
 import asuna.{AsunaTuple1, AsunaTuple2}
 import asuna.macros.single.deficient.{AsunaTupleLabelledGeneric, DeficientProperty, ModelProperty}
 
-object AsunaTupleDeficientLabelledGenericCodeGenSample extends App {
+object AsunaTupleLabelledGenericCodeGenSample extends App {
 
   class Test1
   class Test2

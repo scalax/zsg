@@ -5,28 +5,28 @@ import asuna.macros.single.utils.{Sha1Helper, TypeHelper}
 import scala.language.experimental.macros
 import scala.collection.compat._
 
-trait AsunaTupleDeficientApply[Model, TupleType] {
+trait AsunaTupleApply[Model, TupleType] {
   def toTuple(gen: Model): TupleType
 }
 
-object AsunaTupleDeficientApply {
-  implicit def macroImpl[Model, TupleType]: AsunaTupleDeficientApply[Model, TupleType] =
-    macro AsunaTupleDeficientApplyMacroApply.MacroImpl.generic[Model, TupleType]
+object AsunaTupleApply {
+  @inline def apply[Model, TupleType](implicit asunaTupleApply: AsunaTupleApply[Model, TupleType]): AsunaTupleApply[Model, TupleType] = asunaTupleApply
+  implicit def macroImpl[Model, TupleType]: AsunaTupleApply[Model, TupleType] = macro AsunaTupleApplyMacroApply.MacroImpl.generic[Model, TupleType]
 }
 
-object AsunaTupleDeficientApplyMacroApply {
+object AsunaTupleApplyMacroApply {
 
   class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper with Sha1Helper {
     self =>
 
     import c.universe._
 
-    def generic[Model: c.WeakTypeTag, TupleType: c.WeakTypeTag]: c.Expr[AsunaTupleDeficientApply[Model, TupleType]] = {
+    def generic[Model: c.WeakTypeTag, TupleType: c.WeakTypeTag]: c.Expr[AsunaTupleApply[Model, TupleType]] = {
       try {
 
         val struct = tupleTypeNames[TupleType]
 
-        val shaKey    = AsunaTupleDeficientApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
+        val shaKey    = AsunaTupleApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
         def freshName = toSha1(shaKey + c.freshName)
 
         val shaSelf     = freshName
@@ -43,7 +43,7 @@ object AsunaTupleDeficientApplyMacroApply {
         val shaParamNameTerm    = TermName(shaParameterName)
         val shaParameterNameVal = q"""val $shaParamNameTerm = $EmptyTree"""
 
-        c.Expr[AsunaTupleDeficientApply[Model, TupleType]] {
+        c.Expr[AsunaTupleApply[Model, TupleType]] {
           q"""{ $shaParameterNameVal =>
             new ${struct.traitType} {
               $shaSelfVal =>
