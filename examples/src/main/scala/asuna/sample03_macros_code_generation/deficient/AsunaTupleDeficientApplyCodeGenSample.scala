@@ -24,7 +24,7 @@ object AsunaTupleDeficientApplyCodeGenSample extends App {
     override type T = T1
   }
 
-  def tupleModel[T](model1: Model1[T])(implicit i: AsunaTupleDeficientApply[Model1[T], TupleModelImpl[T], TupleModel]): TupleModel = i.toTuple(model1)
+  def tupleModel[T](model1: Model1[T])(implicit i: AsunaTupleDeficientApply[Model1[T], TupleModelImpl[T]]): TupleModel = i.toTuple(model1)
 
   val model2 = tupleModel(Model1("123", 456, new Test3, 123))
   println(model2.model)

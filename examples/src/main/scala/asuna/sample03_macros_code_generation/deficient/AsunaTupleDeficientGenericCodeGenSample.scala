@@ -21,9 +21,6 @@ object AsunaTupleDeficientGenericCodeGenSample extends App {
     @DeficientProperty
     def tuple: Model2[T]
   }
-  trait TupleModelImpl[T1] extends TupleModel {
-    override type T = T1
-  }
 
   class TupleModelImplicitApply[TraitType] {
     def model[T <: TupleTag](implicit i: AsunaTupleDeficientGeneric.Aux[TupleModel, T]): AppendTag[T] = i.tag

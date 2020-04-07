@@ -5,13 +5,13 @@ import asuna.macros.single.utils.{Sha1Helper, TypeHelper}
 import scala.language.experimental.macros
 import scala.collection.compat._
 
-trait AsunaTupleDeficientApply[Model, PreTupleType <: TupleType, TupleType] {
+trait AsunaTupleDeficientApply[Model, TupleType] {
   def toTuple(gen: Model): TupleType
 }
 
 object AsunaTupleDeficientApply {
-  implicit def macroImpl[Model, PreTupleType <: TupleType, TupleType]: AsunaTupleDeficientApply[Model, PreTupleType, TupleType] =
-    macro AsunaTupleDeficientApplyMacroApply.MacroImpl.generic[Model, PreTupleType, TupleType]
+  implicit def macroImpl[Model, TupleType]: AsunaTupleDeficientApply[Model, TupleType] =
+    macro AsunaTupleDeficientApplyMacroApply.MacroImpl.generic[Model, TupleType]
 }
 
 object AsunaTupleDeficientApplyMacroApply {
@@ -21,16 +21,12 @@ object AsunaTupleDeficientApplyMacroApply {
 
     import c.universe._
 
-    def generic[Model: c.WeakTypeTag, PreTupleType <: TupleType: c.WeakTypeTag, TupleType: c.WeakTypeTag]
-      : c.Expr[AsunaTupleDeficientApply[Model, PreTupleType, TupleType]] = {
+    def generic[Model: c.WeakTypeTag, TupleType: c.WeakTypeTag]: c.Expr[AsunaTupleDeficientApply[Model, TupleType]] = {
       try {
-
-        val preTuple     = c.weakTypeOf[PreTupleType]
-        val preTupleType = preTuple.resultType
 
         val struct = tupleTypeNames[TupleType]
 
-        val shaKey    = AsunaTupleDeficientApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString + preTupleType.typeSymbol.name.toString
+        val shaKey    = AsunaTupleDeficientApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
         def freshName = toSha1(shaKey + c.freshName)
 
         val shaSelf     = freshName
@@ -47,9 +43,9 @@ object AsunaTupleDeficientApplyMacroApply {
         val shaParamNameTerm    = TermName(shaParameterName)
         val shaParameterNameVal = q"""val $shaParamNameTerm = $EmptyTree"""
 
-        c.Expr[AsunaTupleDeficientApply[Model, PreTupleType, TupleType]] {
+        c.Expr[AsunaTupleDeficientApply[Model, TupleType]] {
           q"""{ $shaParameterNameVal =>
-            new ${preTupleType} {
+            new ${struct.traitType} {
               $shaSelfVal =>
               ..${tupleDeficientSetter}
               override val ${struct.modelFieldTermName} = $shaParamNameTerm

@@ -32,7 +32,7 @@ object ACirce {
   }
 
   final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](
-    implicit ll: AsunaTupleDeficientApply[Model, PreTuple, TupleType],
+    implicit ll: AsunaTupleDeficientApply[Model, PreTuple],
     objectEncoder: Encoder[TupleType]
   ): Encoder[Model] = objectEncoder.contramap(ll.toTuple)
 

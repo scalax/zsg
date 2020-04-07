@@ -31,8 +31,8 @@ object AsunaTupleDeficientGetterGenericCodeGenSample extends App {
 
   val up = model[TupleModel, AsunaTuple2[AsunaTuple2[AsunaTuple2[String, Long], AsunaTuple2[Test4, Test1]], AsunaTuple1[AsunaTuple1[Test3]]]]
 
-  val model                                                                                                                        = Model1(name = "name", age = 1234, a3 = new Test3, a4 = 2, a5 = new Test4, a6 = new Test1, a7 = new Test2, a8 = new Test3)
-  def tupleModel[T](model1: Model1[T])(implicit i: AsunaTupleDeficientApply[Model1[T], TupleModelImpl[T], TupleModel]): TupleModel = i.toTuple(model1)
+  val model                                                                                                            = Model1(name = "name", age = 1234, a3 = new Test3, a4 = 2, a5 = new Test4, a6 = new Test1, a7 = new Test2, a8 = new Test3)
+  def tupleModel[T](model1: Model1[T])(implicit i: AsunaTupleDeficientApply[Model1[T], TupleModelImpl[T]]): TupleModel = i.toTuple(model1)
 
   val p = tupleModel(model)
 
