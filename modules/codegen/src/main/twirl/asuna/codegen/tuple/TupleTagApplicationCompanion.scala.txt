@@ -19,7 +19,7 @@ import asuna.Context@{i}
 
 class TupleTag1ApplicationCompanion {
 
-    @for(typeParamNum <- 1 to maxAsunaContext) {
+    @*@for(typeParamNum <- 1 to maxAsunaContext) {
         final @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { given } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }])
         : Application@{typeParamNum}[F,TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
             new Application@{typeParamNum}[F, TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] {
@@ -29,13 +29,20 @@ class TupleTag1ApplicationCompanion {
                 }
             }
         }
+    }*@
+
+    @for(typeParamNum <- 1 to maxAsunaContext) {
+        @if(isDotty) { final inline given } else { @@inline final implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { given } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }])
+        : Application@{typeParamNum}[F,TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = { (context) =>
+            context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
+        }
     }
 
 }
 
 class TupleTag2ApplicationCompanion {
 
-    @for(typeParamNum <- 1 to maxAsunaContext) {
+    @*@for(typeParamNum <- 1 to maxAsunaContext) {
         final @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1, H2 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }](@if(isDotty) { given } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }], t2: Application@{typeParamNum}[F, H2 @for(i <- 1 to typeParamNum) { , X2_C@{i} }])
         : Application@{typeParamNum}[F, TupleTag2[H1, H2] @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
             new Application@{typeParamNum}[F, TupleTag2[H1, H2] @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] {
@@ -44,6 +51,13 @@ class TupleTag2ApplicationCompanion {
                     context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
                 }
             }
+        }
+    }*@
+
+    @for(typeParamNum <- 1 to maxAsunaContext) {
+        @if(isDotty) { final inline given } else { @@inline final implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1, H2 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }](@if(isDotty) { given } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }], t2: Application@{typeParamNum}[F, H2 @for(i <- 1 to typeParamNum) { , X2_C@{i} }])
+        : Application@{typeParamNum}[F, TupleTag2[H1, H2] @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = { (context) =>
+            context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
         }
     }
 
