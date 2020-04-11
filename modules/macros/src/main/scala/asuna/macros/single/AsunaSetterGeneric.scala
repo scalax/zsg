@@ -1,6 +1,7 @@
 package asuna.macros.single
 
 import asuna.macros.AsunaParameters
+import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
 
@@ -14,7 +15,7 @@ object AsunaSetterGeneric {
 
 object AsunaSetterGenericMacroApply {
 
-  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods {
     self =>
 
     import c.universe._
@@ -56,10 +57,10 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
-        val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
+        val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => namedParam(TermName(item), m(Ident(TermName("item")))) }}) }"""
 
         c.Expr[AsunaSetterGeneric[H, M]] {
-          q"""${inputFunc}"""
+          inputFunc
         }
 
       } catch {
