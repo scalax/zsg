@@ -46,9 +46,7 @@ object AsunaGenericMacroApply {
 
         val props = hType.members
           .to(List)
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>

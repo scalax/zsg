@@ -27,7 +27,8 @@ object AsunaTupleApplyMacroApply {
 
         val struct = tupleTypeNames[TupleType]
 
-        val shaKey    = AsunaTupleApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
+        val shaKey =
+          AsunaTupleApply.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
         def freshName = toSha1(shaKey + c.freshName)
 
         val shaSelf     = freshName

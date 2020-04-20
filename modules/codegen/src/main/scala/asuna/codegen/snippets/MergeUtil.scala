@@ -14,9 +14,7 @@ object MergeUtil {
   }
   def MergeI_NodeTag_Type(xi: Seq[Int])(ci: Seq[Int]): List[String] = {
     xi.to(List).map { index =>
-      val xi_param = ci.map { cii =>
-        s"""X${index}_C${cii}"""
-      }
+      val xi_param = ci.map { cii => s"""X${index}_C${cii}""" }
       s"""NodeTag${ci.size}[${xi_param.mkString(" , ")}]""".stripMargin
     } ::: s"""NodeTag${ci.size}[${ci.map(cii => s"""Target${cii}""").mkString(" , ")}]""" :: Nil
   }
@@ -33,9 +31,7 @@ object MergeUtil {
   }
   def MergeI_TupleTag_Type(xi: Seq[Int])(ci: Seq[Int]): List[String] = {
     xi.to(List).map { index =>
-      val xi_param = ci.map { cii =>
-        s"""X${index}_C${cii}"""
-      }
+      val xi_param = ci.map { cii => s"""X${index}_C${cii}""" }
       s"""TupleTag${ci.size}[${xi_param.mkString(" , ")}]""".stripMargin
     } ::: s"""TupleTag${ci.size}[${ci.map(cii => s"""Target${cii}""").mkString(" , ")}]""" :: Nil
   }

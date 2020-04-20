@@ -26,9 +26,7 @@ object ACirce {
     val name1              = cv1.names()
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     val application2       = applicationEncoder.toAppender(name1)
-    Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty))
-    }
+    Encoder.AsObject.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
   }
 
   final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](ll: AsunaTupleApply[Model, PreTuple], objectEncoder: Encoder[TupleType]): Encoder[Model] =
@@ -43,9 +41,7 @@ object ACirce {
     val name1              = cv1.names()
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     val application2       = applicationEncoder.toAppender(name1)
-    Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty))
-    }
+    Encoder.AsObject.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
   }
 
   final def encodeCaseObject[T]: Encoder.AsObject[T] = Encoder.AsObject.instance(_ => JsonObject.empty)
@@ -60,9 +56,7 @@ object ACirce {
     val name1              = cv1.names()
     val name2              = cv2.names()
     val applicationEncoder = app.application(ii)
-    Encoder.AsObject.instance { o: H =>
-      JsonObject.fromIterable(applicationEncoder.p(o, name2, name1))
-    }
+    Encoder.AsObject.instance { o: H => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
   }
 
   def decodeCaseClass[T, R <: TupleTag, Model, Nam, DefVal](

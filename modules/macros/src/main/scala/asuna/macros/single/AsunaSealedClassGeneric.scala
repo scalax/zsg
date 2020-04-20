@@ -29,9 +29,7 @@ object AsunaSealedClassGenericMacroApply {
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val nameTag = props.map { subType =>
-          q"""classOf[${subType}]"""
-        }
+        val nameTag = props.map { subType => q"""classOf[${subType}]""" }
         //.grouped(8)
         //.toList
         //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")

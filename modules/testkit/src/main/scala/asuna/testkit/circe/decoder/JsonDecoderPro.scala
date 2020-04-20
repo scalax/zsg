@@ -16,9 +16,7 @@ object JsonDecoderPro {
   ): Application3[JsonDecoderPro, PropertyTag0[T], T, String, DefaultValue[T]] = new Application3[JsonDecoderPro, PropertyTag0[T], T, String, DefaultValue[T]] {
     override def application(context: Context3[JsonDecoderPro]): JsonDecoderPro[T, String, DefaultValue[T]] = new JsonDecoderPro[T, String, DefaultValue[T]] {
       override def to(name: String, defaultValue: DefaultValue[T]): Decoder[T] = {
-        Decoder.instance { j =>
-          defaultValue.value.map(s => Right(s)).getOrElse(j.get(name)(dd.value))
-        }
+        Decoder.instance { j => defaultValue.value.map(s => Right(s)).getOrElse(j.get(name)(dd.value)) }
       }
     }
   }

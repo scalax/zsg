@@ -26,9 +26,7 @@ object AsunaSetterGenericMacroApply {
         val hType = h.resultType
 
         val props = h.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -41,18 +39,14 @@ object AsunaSetterGenericMacroApply {
           if (initList.size > max) {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
-                (str, { t1: Tree =>
-                  t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""")
-                })
+                (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""") })
             }
             toItemImpl(max * AsunaParameters.maxPropertyNum, i)
           } else initList
 
         val preList = props.zipWithIndex.map {
           case (str, index) =>
-            (str, { t1: Tree =>
-              q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}"""
-            })
+            (str, { t1: Tree => q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}""" })
         }
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)

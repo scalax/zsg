@@ -38,9 +38,7 @@ trait PropertyOverrideHelper {
           }
           .reverse
           .map { case (r, s) => tablePropsGen(keys ::: r :: Nil, s, s.typeSignatureIn(newRootType), Map.empty) }
-        newMapList.foldLeft(newMapping1) { (start, m) =>
-          start ++ m
-        }
+        newMapList.foldLeft(newMapping1) { (start, m) => start ++ m }
 
       case _ => newMapping1
     }

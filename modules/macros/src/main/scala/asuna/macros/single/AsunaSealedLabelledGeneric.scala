@@ -29,9 +29,7 @@ object AsunaSealedLabelledGenericMacroApply {
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val nameTag = props.map { subType =>
-          q"""${Literal(Constant(subType.typeSymbol.name.toString))}"""
-        }
+        val nameTag = props.map { subType => q"""${Literal(Constant(subType.typeSymbol.name.toString))}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""

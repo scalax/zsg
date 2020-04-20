@@ -48,9 +48,7 @@ object AsunaDefaultValueGenericMacroApply {
         val apply       = hCompanion.typeSignature.decl(TermName("apply")).asMethod
 
         val props = hType.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>

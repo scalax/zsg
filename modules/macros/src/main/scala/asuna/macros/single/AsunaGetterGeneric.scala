@@ -27,9 +27,7 @@ object AsunaGetterGenericMacroApply {
         val hType = h.typeSymbol
 
         val props = h.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -38,9 +36,7 @@ object AsunaGetterGenericMacroApply {
           }
           .reverse
 
-        val nameTag = props.map { name =>
-          q"""s.${TermName(name)}"""
-        }
+        val nameTag = props.map { name => q"""s.${TermName(name)}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""(s: ${h}) => { asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree}) }"""

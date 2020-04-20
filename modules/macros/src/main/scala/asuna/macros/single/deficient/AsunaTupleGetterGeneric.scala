@@ -28,14 +28,13 @@ object AsunaTupleGetterGenericMacroApply {
         val allFields     = struct.tupleFields.flatMap(_.caseClassFields)
         val genericFields = struct.modelFields.filter(i => !allFields.exists(ii => ii.fieldName == i.fieldName))
 
-        val shaKey    = AsunaTupleGetterGeneric.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
+        val shaKey =
+          AsunaTupleGetterGeneric.getClass.getCanonicalName + c.enclosingPosition.toString + struct.modelType.typeSymbol.name.toString + struct.traitType.typeSymbol.name.toString
         def freshName = toSha1(shaKey + c.freshName)
 
         val modelParam = freshName
 
-        val modelFields = genericFields.map { name =>
-          Select(Select(Ident(TermName(modelParam)), struct.modelFieldTermName), name.fieldTermName)
-        }
+        val modelFields = genericFields.map { name => Select(Select(Ident(TermName(modelParam)), struct.modelFieldTermName), name.fieldTermName) }
 
         val paramName = q"""val ${TermName(modelParam)} = $EmptyTree"""
 

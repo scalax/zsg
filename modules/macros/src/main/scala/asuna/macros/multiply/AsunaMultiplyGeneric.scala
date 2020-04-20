@@ -49,9 +49,7 @@ object AsunaMultiplyGenericApply {
         val mType = m.resultType
 
         val props = mType.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -70,19 +68,12 @@ object AsunaMultiplyGenericApply {
           }
           .reverse
 
-        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) { (start, path) =>
-          start ++ path
-        }
+        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) { (start, path) => start ++ path }
 
         def tableProperty(s: String): Tree = {
           tableProps
             .get(s)
-            .map(
-              (fieldName) =>
-                fieldName.foldLeft(q"""table""": Tree) { (start, termName) =>
-                  q"""${start}.${TermName(termName)}"""
-                }
-            )
+            .map((fieldName) => fieldName.foldLeft(q"""table""": Tree) { (start, termName) => q"""${start}.${TermName(termName)}""" })
             .getOrElse(
               q"""asuna.macros.utils.PlaceHolder.value"""
             )

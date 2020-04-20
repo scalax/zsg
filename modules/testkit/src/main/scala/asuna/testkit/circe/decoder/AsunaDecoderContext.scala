@@ -22,9 +22,6 @@ object AsunaDecoderContext extends Context3[JsonDecoderPro] {
 
   override def start: JsonDecoderPro[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
     val zeroValue = Right(AsunaTuple0.value)
-    (name, default) =>
-      Decoder.instance { _ =>
-        zeroValue
-      }
+    (name, default) => Decoder.instance { _ => zeroValue }
   }
 }

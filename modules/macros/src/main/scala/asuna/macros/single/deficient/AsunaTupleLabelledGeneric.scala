@@ -28,9 +28,7 @@ object AsunaTupleLabelledGenericMacroApply {
         val allFields     = struct.tupleFields.flatMap(_.caseClassFields)
         val genericFields = struct.modelFields.filter(i => !allFields.exists(ii => ii.fieldName == i.fieldName))
 
-        val nameTag = genericFields.map { name =>
-          q"""${Literal(Constant(name.fieldName))}"""
-        }
+        val nameTag = genericFields.map { name => q"""${Literal(Constant(name.fieldName))}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""_root_.asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
