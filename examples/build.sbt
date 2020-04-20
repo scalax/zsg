@@ -1,7 +1,4 @@
-AsunaSettings.scalaVersionSettings
+AsunaSettings.scala_2_12_And_2_13_Settings
 AsunaSettings.commonSettings
-scalafmtOnCompile := true
 
-//libraryDependencies += "commons-codec" % "commons-codec" % "1.14"
-
-libraryDependencies ++= AsunaSettings.circeDependencies
+libraryDependencies ++= Dependices.circeDependencies

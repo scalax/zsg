@@ -1,3 +1,2 @@
-AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
-publishArtifact in packageDoc := false
+AsunaSettings.dottyVersionSettings

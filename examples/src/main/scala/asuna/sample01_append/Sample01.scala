@@ -8,10 +8,8 @@ object Sample01 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
-  val getter = { test04: Test04 =>
-    BuildContent.tuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4))
-  }
-  val names = BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
+  val getter = { test04: Test04 => BuildContent.tuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4)) }
+  val names  = BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -20,13 +18,9 @@ object Sample01 {
   object ii extends Context2[JsonObjectAppender] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-    ): JsonObjectAppender[Z1, Z2] = { (obj, name, m) =>
-      y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
-    }
+    ): JsonObjectAppender[Z1, Z2] = { (obj, name, m) => y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m)) }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (name, obj, m) =>
-      m
-    }
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (name, obj, m) => m }
   }
 
   val a1: JsonObjectAppender[String, String] = new JsonObjectAppender[String, String] {
@@ -61,9 +55,7 @@ object Sample01 {
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: Encoder.AsObject[Test04] =
-      Encoder.AsObject.instance { o: Test04 =>
-        b3.appendField(getter(o), names, JsonObject.empty)
-      }
+      Encoder.AsObject.instance { o: Test04 => b3.appendField(getter(o), names, JsonObject.empty) }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
   }

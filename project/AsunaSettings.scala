@@ -5,32 +5,25 @@ import bintray.BintrayKeys._
 object AsunaSettings {
 
   val currentScalaVersion = "2.13.1"
-  val scala212Version     = "2.12.10"
+  val scala212Version     = "2.12.11"
+  val scala211Version     = "2.11.12"
   val dottyVersion        = "0.22.0-RC1"
-  val circeVersion        = "0.12.2"
-  val scalaTestVersion    = "3.1.0"
 
   val setting1 = scalaVersion := currentScalaVersion
-  val setting2 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
+  val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
   val setting5 = transitiveClassifiers := Seq("sources")
-  val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, currentScalaVersion)
+  val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)
+  val setting7 = publishArtifact in packageDoc := false
+  val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
 
-  val scalaVersionSettings = Seq(setting1, setting2)
-  val commonSettings       = Seq(setting3, setting4, setting5)
+  val scalaVersionSettings         = Seq(setting1, setting2)
+  val scala_2_12_And_2_13_Settings = Seq(setting1, setting8)
+
+  val commonSettings = Seq(setting3, setting4, setting5, setting7)
 
   val dottyVersionSettings = Seq(setting1, setting6)
-
-  val circeDependencies = ("io.circe" %% "circe-derivation" % "0.12.0-M7") +: Seq(
-    "io.circe" %% "circe-core",
-    "io.circe" %% "circe-generic",
-    "io.circe" %% "circe-parser"
-  ).map(_ % circeVersion)
-
-  val testDependencies = Seq("org.scalatest" %% "scalatest" % scalaTestVersion)
-
-  val upickleDependencies = Seq("com.lihaoyi" %% "upickle" % "0.8.0")
 
   val vSetting1             = version := "0.0.3-20200325SNAP1"
   val vSetting2             = organization := "org.scalax"

@@ -1,8 +1,8 @@
 AsunaSettings.commonSettings
 
-AsunaSettings.scalaVersionSettings
+AsunaSettings.scala_2_12_And_2_13_Settings
 
-libraryDependencies ++= AsunaSettings.circeDependencies
-libraryDependencies ++= AsunaSettings.upickleDependencies
+libraryDependencies ++= Dependices.circeDependencies
+libraryDependencies ++= Dependices.upickleDependencies
 
 enablePlugins(JmhPlugin)

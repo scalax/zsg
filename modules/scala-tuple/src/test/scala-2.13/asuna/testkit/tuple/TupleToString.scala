@@ -128,9 +128,7 @@ trait AppendTuple {
     }
   }
 
-  implicit def applicationImplicit[T](implicit t: TupleEncoder[T, T]): Application2[TupleEncoder, T, T, T] = { context =>
-    t
-  }
+  implicit def applicationImplicit[T](implicit t: TupleEncoder[T, T]): Application2[TupleEncoder, T, T, T] = { context => t }
 
   /*implicit def objectTupleImplicit[T](
     implicit ii: Application2[TupleEncoder, T, T, T]
