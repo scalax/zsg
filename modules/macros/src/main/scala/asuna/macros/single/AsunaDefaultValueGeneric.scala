@@ -21,10 +21,16 @@ object DefaultValue {
 }
 
 trait AsunaDefaultValueGeneric[H, DefaultValueType] {
-  def defaultValues(): DefaultValueType
+  def defaultValues: DefaultValueType
 }
 
-object AsunaDefaultValueGeneric extends AsunaDefaultValueGenericMacroPoly
+object AsunaDefaultValueGeneric extends AsunaDefaultValueGenericMacroPoly {
+
+  @inline def value[T, Model](t: T): AsunaDefaultValueGeneric[Model, T] = new AsunaDefaultValueGeneric[Model, T] {
+    override def defaultValues: T = t
+  }
+
+}
 
 trait AsunaDefaultValueGenericMacroPoly {
 
@@ -79,7 +85,7 @@ object AsunaDefaultValueGenericMacroApply {
           }
 
         c.Expr[AsunaDefaultValueGeneric[H, M]] {
-          q"""{ () => ${nameTagGen(nameTag)} }"""
+          q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

@@ -5,10 +5,14 @@ import asuna.macros.AsunaParameters
 import scala.language.experimental.macros
 
 trait AsunaLabelledGeneric[H, NameType] {
-  def names(): NameType
+  def names: NameType
 }
 
-object AsunaLabelledGeneric extends AsunaLabelledGenericMacroPoly
+object AsunaLabelledGeneric extends AsunaLabelledGenericMacroPoly {
+  @inline def value[T, Model](name: T): AsunaLabelledGeneric[Model, T] = new AsunaLabelledGeneric[Model, T] {
+    override def names: T = name
+  }
+}
 
 trait AsunaLabelledGenericMacroPoly {
 
@@ -48,7 +52,7 @@ object AsunaLabelledGenericMacroApply {
           }
 
         c.Expr[AsunaLabelledGeneric[H, M]] {
-          q"""{ () => ${nameTagGen(nameTag)} }"""
+          q"""_root_.asuna.macros.single.AsunaLabelledGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

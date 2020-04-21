@@ -10,7 +10,13 @@ trait AsunaSetterGeneric[H, GenericType] {
 }
 
 object AsunaSetterGeneric {
+
+  def value[Model, GenericType](i: GenericType => Model): AsunaSetterGeneric[Model, GenericType] = new AsunaSetterGeneric[Model, GenericType] {
+    override def setter(gen: GenericType): Model = i(gen)
+  }
+
   implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
+
 }
 
 object AsunaSetterGenericMacroApply {
@@ -51,7 +57,9 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
-        val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => namedParam(TermName(item), m(Ident(TermName("item")))) }}) }"""
+        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${hType.typeSymbol.companion}.apply(..${casei.map {
+          case (item, m) => namedParam(TermName(item), m(Ident(TermName("item"))))
+        }}))"""
 
         c.Expr[AsunaSetterGeneric[H, M]] {
           inputFunc

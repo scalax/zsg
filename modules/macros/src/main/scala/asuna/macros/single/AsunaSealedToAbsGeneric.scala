@@ -6,10 +6,14 @@ import asuna.macros.single.utils.SealedHelper
 import scala.language.experimental.macros
 
 trait AsunaSealedToAbsGeneric[H, NameType] {
-  def names(): NameType
+  def names: NameType
 }
 
 object AsunaSealedToAbsGeneric {
+
+  def value[N, Model](name: N): AsunaSealedToAbsGeneric[Model, N] = new AsunaSealedToAbsGeneric[Model, N] {
+    override def names: N = name
+  }
 
   implicit def macroImpl[H, II]: AsunaSealedToAbsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
 
@@ -39,7 +43,7 @@ object AsunaSealedToabsGenericMacroApply {
           }
 
         c.Expr[AsunaSealedToAbsGeneric[H, M]] {
-          q"""{ () => ${nameTagGen(nameTag)} }"""
+          q"""_root_.asuna.macros.single.AsunaSealedToAbsGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

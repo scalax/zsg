@@ -8,7 +8,11 @@ trait AsunaGetterGeneric[H, GenericType] {
   def getter(model: H): GenericType
 }
 
-object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly
+object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly {
+  @inline def value[H, GenericType](i: H => GenericType): AsunaGetterGeneric[H, GenericType] = new AsunaGetterGeneric[H, GenericType] {
+    override def getter(model: H): GenericType = i(model)
+  }
+}
 
 trait AsunaGetterGenericMacroPoly {
   implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
