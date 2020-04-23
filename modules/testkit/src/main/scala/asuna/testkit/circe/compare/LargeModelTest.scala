@@ -8,9 +8,9 @@ object LargeModelTest extends App {
 
   object a1 {
 
-    implicit val largeModel_1_en: Encoder.AsObject[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
-    implicit val largeModel_2_en: Encoder.AsObject[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-    val i1                                                                  = LargeModel.largeModel_2_value.asJson
+    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
+    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
+    val i1                                                                             = LargeModel.largeModel_2_value.asJson
 
     println("==================== line ====================")
 

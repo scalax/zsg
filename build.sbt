@@ -14,7 +14,7 @@ val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
 
 val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
-AsunaSettings.setting1
+AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
 val sfmt = taskKey[Unit]("sfmt")

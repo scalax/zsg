@@ -3,14 +3,23 @@ import sbt.Keys._
 
 object Dependices {
 
-  val circeVersion     = "0.13.0"
   val scalaTestVersion = "3.1.1"
 
-  val circeDependencies = ("io.circe" %% "circe-derivation" % "0.13.0-M4") +: Seq(
-    "io.circe" %% "circe-core",
-    "io.circe" %% "circe-generic",
-    "io.circe" %% "circe-parser"
-  ).map(_ % circeVersion)
+  def circeDependencies: Def.Setting[Seq[ModuleID]] = libraryDependencies ++= {
+    if (scalaVersion.value startsWith "2.11.") {
+      ("io.circe" %% "circe-derivation" % "0.11.0-M3") +: Seq(
+        "io.circe" %% "circe-core",
+        "io.circe" %% "circe-generic",
+        "io.circe" %% "circe-parser"
+      ).map(_ % "0.11.2")
+    } else {
+      ("io.circe" %% "circe-derivation" % "0.13.0-M4") +: Seq(
+        "io.circe" %% "circe-core",
+        "io.circe" %% "circe-generic",
+        "io.circe" %% "circe-parser"
+      ).map(_ % "0.13.0")
+    }
+  }
 
   val testDependencies = Seq("org.scalatest" %% "scalatest" % scalaTestVersion)
 

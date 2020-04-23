@@ -1,5 +1,5 @@
 enablePlugins(SbtTwirl)
-AsunaSettings.scalaVersionSettings
+AsunaSettings.setting9
 AsunaSettings.commonSettings
 
 libraryDependencies += Dependices.commonsIo

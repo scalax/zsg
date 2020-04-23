@@ -1,4 +1,4 @@
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-libraryDependencies ++= Dependices.circeDependencies
+Dependices.circeDependencies

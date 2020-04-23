@@ -50,7 +50,7 @@ object AsunaGetterGenericMacroApply {
           }
 
         c.Expr[AsunaGetterGeneric[H, M]] {
-          q"""${nameTagGen(nameTag)}"""
+          q"""_root_.asuna.macros.single.AsunaGetterGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

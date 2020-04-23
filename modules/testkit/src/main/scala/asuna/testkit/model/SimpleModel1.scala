@@ -2,6 +2,8 @@ package asuna.testkit.model
 
 import asuna.macros.single.deficient.{DeficientProperty, ModelProperty}
 
+import scala.annotation.meta.getter
+
 case class Test01[T](ii: T, i3: String, i4: Int)
 case class Test02(i3: String, i4: Int)
 case class Test03(i3: String, i4: Int, fg: Option[Test04])
@@ -17,7 +19,7 @@ case class Test10[T](i1: String, name: String, i3: T, i4: Long, i5: Short)
 case class Test11[T](name: String, i3: T)
 
 trait Test12Trait {
-  @ModelProperty
+  @(ModelProperty@getter)
   val test10: Test10[T]
   @DeficientProperty
   def test11: Test11[T]

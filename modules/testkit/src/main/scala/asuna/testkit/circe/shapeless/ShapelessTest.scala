@@ -7,19 +7,19 @@ import shapeless.labelled.FieldType
 
 object ShapelessEncoderTest {
 
-  implicit val encodeHNil: Encoder.AsObject[HNil] = Encoder.AsObject.instance((_: HNil) => JsonObject.empty)
+  implicit val encodeHNil: CirceType.JsonObjectEncoder[HNil] = CirceType.JsonObjectEncoder.instance((_: HNil) => JsonObject.empty)
 
   implicit def encodeHCons[K <: Symbol, H, T <: HList](
     implicit
     key: Witness.Aux[K],
     encodeH: ByNameImplicit[Encoder[H]],
-    encodeT: Encoder.AsObject[T]
-  ): Encoder.AsObject[FieldType[K, H] :: T] = Encoder.AsObject.instance {
+    encodeT: CirceType.JsonObjectEncoder[T]
+  ): CirceType.JsonObjectEncoder[FieldType[K, H] :: T] = CirceType.JsonObjectEncoder.instance {
     case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
   }
 
-  def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: Encoder.AsObject[R]): Encoder.AsObject[A] =
-    Encoder.AsObject.instance(a => encodeR.encodeObject(gen.to(a)))
+  def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: CirceType.JsonObjectEncoder[R]): CirceType.JsonObjectEncoder[A] =
+    CirceType.JsonObjectEncoder.instance(a => encodeR.encodeObject(gen.to(a)))
   /*trait EncodeImplicit4 extends EncodeImplicit3 {
 
     implicit def encodeHCons4[K1 <: Symbol, H1, K2 <: Symbol, H2, K3 <: Symbol, H3, K4 <: Symbol, H4, T <: HList](

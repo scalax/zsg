@@ -1,8 +1,8 @@
-AsunaSettings.scala_2_12_And_2_13_Settings
+AsunaSettings.scalaVersionSettings
 
 AsunaSettings.commonSettings
 
-libraryDependencies ++= Dependices.circeDependencies
-libraryDependencies ++= Dependices.upickleDependencies
+Dependices.circeDependencies
+//libraryDependencies ++= Dependices.upickleDependencies
 libraryDependencies ++= Dependices.testDependencies.map(_ % Test)
 Dependices.scalaReflect

@@ -11,6 +11,9 @@ trait AsunaMultiplyRepGeneric[Table, Model, Rep] {
 }
 
 object AsunaMultiplyRepGeneric {
+  def value[Table, Model, Rep](i: Table => Rep): AsunaMultiplyRepGeneric[Table, Model, Rep] = new AsunaMultiplyRepGeneric[Table, Model, Rep] {
+    override def rep(table: Table): Rep = i(table)
+  }
   implicit def macroImpl[Table, Model, Rep]: AsunaMultiplyRepGeneric[Table, Model, Rep] = macro AsunaMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
 }
 
@@ -70,7 +73,7 @@ object AsunaMultiplyRepGenericApply {
           }
 
         c.Expr[AsunaMultiplyRepGeneric[Table, Model, M]] {
-          nameTagGen(proTypeTag)
+          q"""_root_.asuna.macros.multiply.AsunaMultiplyRepGeneric.value(${nameTagGen(proTypeTag)})"""
         }
 
       } catch {
