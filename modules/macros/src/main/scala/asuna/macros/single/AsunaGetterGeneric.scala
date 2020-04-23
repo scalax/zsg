@@ -8,7 +8,11 @@ trait AsunaGetterGeneric[H, GenericType] {
   def getter(model: H): GenericType
 }
 
-object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly
+object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly {
+  @inline def value[H, GenericType](i: H => GenericType): AsunaGetterGeneric[H, GenericType] = new AsunaGetterGeneric[H, GenericType] {
+    override def getter(model: H): GenericType = i(model)
+  }
+}
 
 trait AsunaGetterGenericMacroPoly {
   implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
@@ -27,9 +31,7 @@ object AsunaGetterGenericMacroApply {
         val hType = h.typeSymbol
 
         val props = h.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -38,9 +40,7 @@ object AsunaGetterGenericMacroApply {
           }
           .reverse
 
-        val nameTag = props.map { name =>
-          q"""s.${TermName(name)}"""
-        }
+        val nameTag = props.map { name => q"""s.${TermName(name)}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""(s: ${h}) => { asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree}) }"""
@@ -50,7 +50,7 @@ object AsunaGetterGenericMacroApply {
           }
 
         c.Expr[AsunaGetterGeneric[H, M]] {
-          q"""${nameTagGen(nameTag)}"""
+          q"""_root_.asuna.macros.single.AsunaGetterGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

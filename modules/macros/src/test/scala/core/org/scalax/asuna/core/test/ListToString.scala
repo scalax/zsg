@@ -30,16 +30,18 @@ trait LTString[I1, I2] {
 
 object i extends Context2[LTString] {
 
-  override def append[X1, X2, Y1, Y2, Z1, Z2](x: LTString[X1, X2], y: LTString[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): LTString[Z1, Z2] = { (i1, i2) =>
-    val t1 = x.string(p.takeHead1(i1), p.takeHead2(i2))
-    val t2 = y.string(p.takeTail1(i1), p.takeTail2(i2))
-    new ListToString {
-      override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = t2.init(t1.init(i))
+  override def append[X1, X2, Y1, Y2, Z1, Z2](x: LTString[X1, X2], y: LTString[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): LTString[Z1, Z2] = new LTString[Z1, Z2] {
+    override def string(i1: Z1, i2: Z2): ListToString = {
+      val t1 = x.string(p.takeHead1(i1), p.takeHead2(i2))
+      val t2 = y.string(p.takeTail1(i1), p.takeTail2(i2))
+      new ListToString {
+        override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = t2.init(t1.init(i))
+      }
     }
   }
 
-  override def start: LTString[AsunaTuple0, AsunaTuple0] = { (i1: AsunaTuple0, i2: AsunaTuple0) =>
-    new ListToString {
+  override def start: LTString[AsunaTuple0, AsunaTuple0] = new LTString[AsunaTuple0, AsunaTuple0] {
+    override def string(i1: AsunaTuple0, i2: AsunaTuple0): ListToString = new ListToString {
       override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = i
     }
   }
@@ -80,8 +82,8 @@ object in {
 
   implicit val pp1: Application2[LTString, PropertyTag0[String], String, String] =
     new Application2[LTString, PropertyTag0[String], String, String] {
-      override def application(context: Context2[LTString]): LTString[String, String] = { (t, r) =>
-        new ListToString {
+      override def application(context: Context2[LTString]): LTString[String, String] = new LTString[String, String] {
+        override def string(t: String, r: String): ListToString = new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), r) :: i
         }
       }
@@ -89,8 +91,8 @@ object in {
 
   implicit val pp2: Application2[LTString, PropertyTag0[Int], Int, String] =
     new Application2[LTString, PropertyTag0[Int], Int, String] {
-      override def application(context: Context2[LTString]): LTString[Int, String] = (t, r) => {
-        new ListToString {
+      override def application(context: Context2[LTString]): LTString[Int, String] = new LTString[Int, String] {
+        override def string(t: Int, r: String): ListToString = new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), r) :: i
         }
       }
@@ -98,8 +100,8 @@ object in {
 
   implicit val pp3: Application2[LTString, PropertyTag0[Long], Long, String] =
     new Application2[LTString, PropertyTag0[Long], Long, String] {
-      override def application(context: Context2[LTString]): LTString[Long, String] = (t, r) => {
-        new ListToString {
+      override def application(context: Context2[LTString]): LTString[Long, String] = new LTString[Long, String] {
+        override def string(t: Long, r: String): ListToString = new ListToString {
           override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), r) :: i
         }
       }

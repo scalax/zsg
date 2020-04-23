@@ -22,6 +22,19 @@ object AsunaTupleCodeGeneration {
       .resolve("tuple_support")
       .resolve("codegen")
 
+  val root1_211_Dir =
+    Paths
+      .get("./")
+      .resolve("modules")
+      .resolve("scala-tuple")
+      .resolve("src")
+      .resolve("main")
+      .resolve("scala-2.11")
+      .resolve("asuna")
+      .resolve("scala_tuple")
+      .resolve("tuple_support")
+      .resolve("codegen")
+
   val root1_212_Dir =
     Paths
       .get("./")
@@ -55,7 +68,7 @@ object AsunaTupleCodeGeneration {
       .resolve("scala-tuple")
       .resolve("src")
       .resolve("main")
-      .resolve("scala-0.22")
+      .resolve("scala-0.23")
       .resolve("asuna")
       .resolve("scala_tuple")
       .resolve("tuple_support")
@@ -139,6 +152,19 @@ object AsunaTupleCodeGeneration {
     }
 
     {
+      for (i <- 1 to AsunaParameters.maxTupleNum) yield {
+        for (ii <- 1 to AsunaParameters.maxContextNum) yield {
+          val filePath = root1_211_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
+          Files.createDirectories(filePath.getParent)
+          val writer = new PrintWriter(filePath.toFile, "utf-8")
+          val linerContent = StringUtil.trimLines(
+            asuna.codegen.scala_tuple.txt.ScalaTupleImplicitsX(tagNum = i)(typeParamNum = ii)(maxAsunaTupleNum = AsunaParameters.maxTupleNum)(isDotty = false).body
+          )
+          writer.println(linerContent)
+          writer.close()
+        }
+      }
+
       for (i <- 1 to AsunaParameters.maxTupleNum) yield {
         for (ii <- 1 to AsunaParameters.maxContextNum) yield {
           val filePath = root1_212_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")

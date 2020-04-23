@@ -16,7 +16,7 @@ object AsunaDefaultValueGenericCodeGenSample {
   ] = {
     val defaultValue = DefaultValue.model[Sample10]
 
-    { () =>
+    AsunaDefaultValueGeneric.value {
       BuildContent.tuple2(
         BuildContent.tuple2(
           BuildContent.tuple2(

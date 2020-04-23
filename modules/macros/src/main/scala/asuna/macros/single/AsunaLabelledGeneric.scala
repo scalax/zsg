@@ -5,10 +5,14 @@ import asuna.macros.AsunaParameters
 import scala.language.experimental.macros
 
 trait AsunaLabelledGeneric[H, NameType] {
-  def names(): NameType
+  def names: NameType
 }
 
-object AsunaLabelledGeneric extends AsunaLabelledGenericMacroPoly
+object AsunaLabelledGeneric extends AsunaLabelledGenericMacroPoly {
+  @inline def value[T, Model](name: T): AsunaLabelledGeneric[Model, T] = new AsunaLabelledGeneric[Model, T] {
+    override def names: T = name
+  }
+}
 
 trait AsunaLabelledGenericMacroPoly {
 
@@ -29,9 +33,7 @@ object AsunaLabelledGenericMacroApply {
         val hType = h.resultType
 
         val props = hType.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -40,9 +42,7 @@ object AsunaLabelledGenericMacroApply {
           }
           .reverse
 
-        val nameTag = props.map { name =>
-          q"""${Literal(Constant(name))}"""
-        }
+        val nameTag = props.map { name => q"""${Literal(Constant(name))}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
@@ -52,7 +52,7 @@ object AsunaLabelledGenericMacroApply {
           }
 
         c.Expr[AsunaLabelledGeneric[H, M]] {
-          q"""{ () => ${nameTagGen(nameTag)} }"""
+          q"""_root_.asuna.macros.single.AsunaLabelledGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

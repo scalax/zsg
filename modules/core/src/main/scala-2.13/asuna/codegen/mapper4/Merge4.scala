@@ -6,7 +6,7 @@ object Merge4 {
             Target1 <: TupleTag
         ]( implicit 
             nodeTagImplicit1: Merge4[X1_C1 , X2_C1 , X3_C1 , X4_C1 , Target1]
-        ): Merge4[NodeTag1[X1_C1] , NodeTag1[X2_C1] , NodeTag1[X3_C1] , NodeTag1[X4_C1] , NodeTag1[Target1]] = {
+        )  :  Merge4[NodeTag1[X1_C1] , NodeTag1[X2_C1] , NodeTag1[X3_C1] , NodeTag1[X4_C1] , NodeTag1[Target1]] = {
             new Merge4[NodeTag1[X1_C1] , NodeTag1[X2_C1] , NodeTag1[X3_C1] , NodeTag1[X4_C1] , NodeTag1[Target1]]
         }
         implicit def  tupletag1_merge4_implicit[
@@ -14,7 +14,7 @@ object Merge4 {
             Target1
         ]( implicit 
             tupleTagImplicit1: Merge4[X1_C1 , X2_C1 , X3_C1 , X4_C1 , Target1]
-        ): Merge4[TupleTag1[X1_C1] , TupleTag1[X2_C1] , TupleTag1[X3_C1] , TupleTag1[X4_C1] , TupleTag1[Target1]] = {
+        )  :  Merge4[TupleTag1[X1_C1] , TupleTag1[X2_C1] , TupleTag1[X3_C1] , TupleTag1[X4_C1] , TupleTag1[Target1]] = {
             new Merge4[TupleTag1[X1_C1] , TupleTag1[X2_C1] , TupleTag1[X3_C1] , TupleTag1[X4_C1] , TupleTag1[Target1]]
         }
         implicit def  nodetag2_merge4_implicit[
@@ -22,7 +22,7 @@ object Merge4 {
             Target1 <: TupleTag , Target2 <: TupleTag
         ]( implicit 
             nodeTagImplicit1: Merge4[X1_C1 , X2_C1 , X3_C1 , X4_C1 , Target1] , nodeTagImplicit2: Merge4[X1_C2 , X2_C2 , X3_C2 , X4_C2 , Target2]
-        ): Merge4[NodeTag2[X1_C1 , X1_C2] , NodeTag2[X2_C1 , X2_C2] , NodeTag2[X3_C1 , X3_C2] , NodeTag2[X4_C1 , X4_C2] , NodeTag2[Target1 , Target2]] = {
+        )  :  Merge4[NodeTag2[X1_C1 , X1_C2] , NodeTag2[X2_C1 , X2_C2] , NodeTag2[X3_C1 , X3_C2] , NodeTag2[X4_C1 , X4_C2] , NodeTag2[Target1 , Target2]] = {
             new Merge4[NodeTag2[X1_C1 , X1_C2] , NodeTag2[X2_C1 , X2_C2] , NodeTag2[X3_C1 , X3_C2] , NodeTag2[X4_C1 , X4_C2] , NodeTag2[Target1 , Target2]]
         }
         implicit def  tupletag2_merge4_implicit[
@@ -30,17 +30,17 @@ object Merge4 {
             Target1 , Target2
         ]( implicit 
             tupleTagImplicit1: Merge4[X1_C1 , X2_C1 , X3_C1 , X4_C1 , Target1] , tupleTagImplicit2: Merge4[X1_C2 , X2_C2 , X3_C2 , X4_C2 , Target2]
-        ): Merge4[TupleTag2[X1_C1 , X1_C2] , TupleTag2[X2_C1 , X2_C2] , TupleTag2[X3_C1 , X3_C2] , TupleTag2[X4_C1 , X4_C2] , TupleTag2[Target1 , Target2]] = {
+        )  :  Merge4[TupleTag2[X1_C1 , X1_C2] , TupleTag2[X2_C1 , X2_C2] , TupleTag2[X3_C1 , X3_C2] , TupleTag2[X4_C1 , X4_C2] , TupleTag2[Target1 , Target2]] = {
             new Merge4[TupleTag2[X1_C1 , X1_C2] , TupleTag2[X2_C1 , X2_C2] , TupleTag2[X3_C1 , X3_C2] , TupleTag2[X4_C1 , X4_C2] , TupleTag2[Target1 , Target2]]
         }
     implicit def  property_tag_merge4_implicit[
         X1 , X2 , X3 , X4, Data
-    ]: Merge4[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag4[X1 , X2 , X3 , X4, Data]] = {
+    ]  :  Merge4[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag4[X1 , X2 , X3 , X4, Data]] = {
         new Merge4[PropertyTag1[X1, Data] , PropertyTag1[X2, Data] , PropertyTag1[X3, Data] , PropertyTag1[X4, Data] , PropertyTag4[X1 , X2 , X3 , X4, Data]]
     }
     implicit def  entirety_tag_merge4_implicit[
         X1 , X2 , X3 , X4, Data
-    ]: Merge4[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag4[X1 , X2 , X3 , X4, Data]] = {
+    ]  :  Merge4[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag4[X1 , X2 , X3 , X4, Data]] = {
         new Merge4[EntiretyTag1[X1, Data] , EntiretyTag1[X2, Data] , EntiretyTag1[X3, Data] , EntiretyTag1[X4, Data] , EntiretyTag4[X1 , X2 , X3 , X4, Data]]
     }
 }

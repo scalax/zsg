@@ -27,26 +27,23 @@ object SealedTraitTest extends App {
 
   object i extends Context1[STT] {
 
-    override def append[X1, Y1, Z1](x: STT[X1], y: STT[Y1])(p: Plus1[X1, Y1, Z1]): STT[Z1] = { h =>
-      val xh = x.stt(p.takeHead1(h))
-      val yh = y.stt(p.takeTail1(h));
-      { ii: List[String] =>
-        xh(yh(ii))
+    override def append[X1, Y1, Z1](x: STT[X1], y: STT[Y1])(p: Plus1[X1, Y1, Z1]): STT[Z1] = new STT[Z1] {
+      override def stt(h: Z1): List[String] => List[String] = {
+        val xh = x.stt(p.takeHead1(h))
+        val yh = y.stt(p.takeTail1(h))
+        ii => xh(yh(ii))
       }
     }
 
-    override def start: STT[AsunaTuple0] = { item => ii =>
-      ii
+    override def start: STT[AsunaTuple0] = new STT[AsunaTuple0] {
+      override def stt(item: AsunaTuple0): List[String] => List[String] = ii => ii
     }
   }
 
   implicit def stringImplicit1[T, R]: Application1[STT, SealedTag[T], String] =
     new Application1[STT, SealedTag[T], String] {
-      override def application(context: Context1[STT]): STT[String] = {
-        str: String =>
-          { list: List[String] =>
-            str :: list
-          }
+      override def application(context: Context1[STT]): STT[String] = new STT[String] {
+        override def stt(str: String): List[String] => List[String] = list => str :: list
       }
     }
 

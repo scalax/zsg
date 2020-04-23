@@ -10,18 +10,18 @@ object Merge@{contextNum} {
         @if(isDotty) {inline given } else {implicit def } nodetag@{ii}_merge@{contextNum}_implicit[
             @asuna.codegen.MergeUtil.XI_CI_NodeTag(1 to contextNum)(1 to ii).mkString("", " , ", ",")
             @asuna.codegen.MergeUtil.TargetI_NodeTag(1 to ii).mkString(" , ")
-        ](@if(isDotty) { given } else { implicit }
+        ](@if(isDotty) { using } else { implicit }
             @asuna.codegen.MergeUtil.MergeI_NodeTag_Implicit_Parameter(1 to contextNum)(1 to ii).mkString(" , ")
-        ): Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_NodeTag_Type(1 to contextNum)(1 to ii).mkString(" , ")] = {
+        ) @if(isDotty) { as } else { : } Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_NodeTag_Type(1 to contextNum)(1 to ii).mkString(" , ")] = {
             new Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_NodeTag_Type(1 to contextNum)(1 to ii).mkString(" , ")]
         }
 
         @if(isDotty) {inline given } else {implicit def } tupletag@{ii}_merge@{contextNum}_implicit[
             @asuna.codegen.MergeUtil.XI_CI_TupleTag(1 to contextNum)(1 to ii).mkString("", " , ", ",")
             @asuna.codegen.MergeUtil.TargetI_TupleTag(1 to ii).mkString(" , ")
-        ](@if(isDotty) { given } else { implicit }
+        ](@if(isDotty) { using } else { implicit }
             @asuna.codegen.MergeUtil.MergeI_TupleTag_Implicit_Parameter(1 to contextNum)(1 to ii).mkString(" , ")
-        ): Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_TupleTag_Type(1 to contextNum)(1 to ii).mkString(" , ")] = {
+        ) @if(isDotty) { as } else { : } Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_TupleTag_Type(1 to contextNum)(1 to ii).mkString(" , ")] = {
             new Merge@{contextNum}[@asuna.codegen.MergeUtil.MergeI_TupleTag_Type(1 to contextNum)(1 to ii).mkString(" , ")]
         }
     }
@@ -29,13 +29,13 @@ object Merge@{contextNum} {
 
     @if(isDotty) {    inline given } else {implicit def } property_tag_merge@{contextNum}_implicit[
         @asuna.codegen.SnippetUtil.XI_Snippet(1 to contextNum).mkString(" , "), Data
-    ]: Merge@{contextNum}[@asuna.codegen.MergeUtil.PropertyTagI_Parameter(1 to contextNum).mkString(" , ")] = {
+    ] @if(isDotty) { as } else { : } Merge@{contextNum}[@asuna.codegen.MergeUtil.PropertyTagI_Parameter(1 to contextNum).mkString(" , ")] = {
         new Merge@{contextNum}[@asuna.codegen.MergeUtil.PropertyTagI_Parameter(1 to contextNum).mkString(" , ")]
     }
 
     @if(isDotty) {    inline given } else {implicit def } entirety_tag_merge@{contextNum}_implicit[
         @asuna.codegen.SnippetUtil.XI_Snippet(1 to contextNum).mkString(" , "), Data
-    ]: Merge@{contextNum}[@asuna.codegen.MergeUtil.EntiretyTagI_Parameter(1 to contextNum).mkString(" , ")] = {
+    ] @if(isDotty) { as } else { : } Merge@{contextNum}[@asuna.codegen.MergeUtil.EntiretyTagI_Parameter(1 to contextNum).mkString(" , ")] = {
         new Merge@{contextNum}[@asuna.codegen.MergeUtil.EntiretyTagI_Parameter(1 to contextNum).mkString(" , ")]
     }
 

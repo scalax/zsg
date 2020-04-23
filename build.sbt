@@ -17,26 +17,21 @@ val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregat
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-//val sfmt = taskKey[Unit]("sfmt")
+val sfmt = taskKey[Unit]("sfmt")
 
-/*sfmt := {
-  (core / Compile / scalafmt).value
+sfmt := {
   (core / Test / scalafmt).value
   (core / Compile / scalafmtSbt).value
 
   (macros / Compile / scalafmt).value
-  (macros / Test / scalafmt).value
   (macros / Compile / scalafmtSbt).value
 
-  (scalaTuple / Compile / scalafmt).value
   (scalaTuple / Test / scalafmt).value
   (scalaTuple / Compile / scalafmtSbt).value
 
-  (scalaTuple1 / Compile / scalafmt).value
   (scalaTuple1 / Test / scalafmt).value
   (scalaTuple1 / Compile / scalafmtSbt).value
 
-  (scalaTuple2 / Compile / scalafmt).value
   (scalaTuple2 / Test / scalafmt).value
   (scalaTuple2 / Compile / scalafmtSbt).value
 
@@ -56,7 +51,7 @@ AsunaSettings.commonSettings
   (asuna / Compile / scalafmt).value
   (asuna / Test / scalafmtSbt).value
   (asuna / Compile / scalafmtSbt).value
-}*/
+}
 
 val allUnpublish = taskKey[Unit]("allUnpublish")
 

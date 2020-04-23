@@ -27,12 +27,7 @@ object SnippetUtil {
 
   @tailrec
   def groupedTupleItem(item: Seq[String])(groupSize: Int): String = {
-    item
-      .grouped(groupSize)
-      .map { i =>
-        i.mkString(s"AsunaTuple${i.size}[", " , ", "]")
-      }
-      .to(List) match {
+    item.grouped(groupSize).map { i => i.mkString(s"AsunaTuple${i.size}[", " , ", "]") }.to(List) match {
       case h :: Nil =>
         h
       case r =>
@@ -62,12 +57,7 @@ object SnippetUtil {
   }
 
   def Tuple_To_AsunaTuple(item: Seq[String])(groupSize: Int): String = {
-    item
-      .grouped(groupSize)
-      .map { i =>
-        i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")")
-      }
-      .to(List) match {
+    item.grouped(groupSize).map { i => i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")") }.to(List) match {
       case h :: Nil =>
         h
       case r =>

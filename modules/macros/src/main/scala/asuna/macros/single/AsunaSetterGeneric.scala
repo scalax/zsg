@@ -1,6 +1,7 @@
 package asuna.macros.single
 
 import asuna.macros.AsunaParameters
+import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
 
@@ -9,12 +10,18 @@ trait AsunaSetterGeneric[H, GenericType] {
 }
 
 object AsunaSetterGeneric {
+
+  def value[Model, GenericType](i: GenericType => Model): AsunaSetterGeneric[Model, GenericType] = new AsunaSetterGeneric[Model, GenericType] {
+    override def setter(gen: GenericType): Model = i(gen)
+  }
+
   implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
+
 }
 
 object AsunaSetterGenericMacroApply {
 
-  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods {
     self =>
 
     import c.universe._
@@ -25,9 +32,7 @@ object AsunaSetterGenericMacroApply {
         val hType = h.resultType
 
         val props = h.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -40,26 +45,24 @@ object AsunaSetterGenericMacroApply {
           if (initList.size > max) {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
-                (str, { t1: Tree =>
-                  t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""")
-                })
+                (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""") })
             }
             toItemImpl(max * AsunaParameters.maxPropertyNum, i)
           } else initList
 
         val preList = props.zipWithIndex.map {
           case (str, index) =>
-            (str, { t1: Tree =>
-              q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}"""
-            })
+            (str, { t1: Tree => q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}""" })
         }
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
-        val inputFunc = q"""{ item => ${hType.typeSymbol.companion}.apply(..${casei.map { case (item, m) => q"""${TermName(item)} = ${m(Ident(TermName("item")))}""" }}) }"""
+        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${hType.typeSymbol.companion}.apply(..${casei.map {
+          case (item, m) => namedParam(TermName(item), m(Ident(TermName("item"))))
+        }}))"""
 
         c.Expr[AsunaSetterGeneric[H, M]] {
-          q"""${inputFunc}"""
+          inputFunc
         }
 
       } catch {

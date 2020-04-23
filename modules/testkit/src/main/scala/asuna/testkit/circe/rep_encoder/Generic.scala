@@ -3,6 +3,8 @@ package asuna.testkit.circe.encoder
 import asuna.{AsunaTuple1, AsunaTuple2, TupleTag}
 import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
 
+import scala.annotation.meta.getter
+
 trait CirceGeneric {
 
   class CirceGenericApply1[Table, Model] {
@@ -24,11 +26,13 @@ object mmm {
 object Abc {
   val ab: Int          = 1
   val cd: List[String] = List("1234")
-  @RootTable val mmmab = mmm
+  @(RootTable @getter)
+  val mmmab = mmm
 }
 
 trait iii {
-  @RootTable val obj: Abc.type
+  @(RootTable @getter)
+  val obj: Abc.type
   val ab: String = "miaomiaomiao"
 }
 

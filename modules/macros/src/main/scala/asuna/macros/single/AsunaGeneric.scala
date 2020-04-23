@@ -5,6 +5,8 @@ import asuna.macros.AsunaParameters
 
 import scala.language.experimental.macros
 
+import scala.collection.compat._
+
 trait AsunaGeneric[H] {
   type WT <: TupleTag
   def tag: WT
@@ -42,10 +44,9 @@ object AsunaGenericMacroApply {
         val h     = weakTypeOf[H]
         val hType = h.resultType
 
-        val props = hType.members.toList
-          .filter { s =>
-            s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor
-          }
+        val props = hType.members
+          .to(List)
+          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
             case (TermName(n), s) =>
@@ -54,21 +55,21 @@ object AsunaGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props.map(s => q"""asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
 
-        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).toList.map(i => q"""asuna.AppendTag.tag(..${i})""")
+        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""asuna.AppendTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""asuna.AppendTag.lift(..${tree})"""
+            q"""_root_.asuna.AppendTag.lift(..${tree})"""
           } else if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
+            q"""_root_.asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
           } else {
-            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            typeTagGen(groupedTree.map(s => q"""asuna.AppendTag.nodeTag(..${s})"""))
+            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
+            typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
           }
 
         c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""asuna.macros.single.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""_root_.asuna.macros.single.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
         }
 
       } catch {

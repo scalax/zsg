@@ -1,11 +1,9 @@
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
-libraryDependencies ++= Seq("org.slf4j" % "slf4j-simple" % "1.7.25" % Test)
-libraryDependencies += "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.4"
+Dependices.scalaReflect
+libraryDependencies ++= Dependices.slf4j.map(_ % Test)
+libraryDependencies += Dependices.scalaCollectionCompat
+libraryDependencies += Dependices.commonsCodec % Compile
 
-libraryDependencies ++= AsunaSettings.testDependencies.map(_ % Test)
-
-scalafmtOnCompile in Compile := true
-scalafmtOnCompile in Test := false
+libraryDependencies ++= Dependices.testDependencies.map(_ % Test)

@@ -2,6 +2,7 @@ package asuna.macros.multiply.utils
 
 import asuna.macros.multiply.RootTable
 
+import scala.annotation.meta.getter
 import scala.language.experimental.macros
 
 trait PropertyOverrideHelper {
@@ -19,9 +20,9 @@ trait PropertyOverrideHelper {
     val orderOpt = field.annotations
       .map(_.tree)
       .collect {
-        case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+        case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable @getter]) =>
           num
-        case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable]) =>
+        case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable @getter]) =>
           RootTable.apply$default$1
       }
       .headOption
@@ -38,9 +39,7 @@ trait PropertyOverrideHelper {
           }
           .reverse
           .map { case (r, s) => tablePropsGen(keys ::: r :: Nil, s, s.typeSignatureIn(newRootType), Map.empty) }
-        newMapList.foldLeft(newMapping1) { (start, m) =>
-          start ++ m
-        }
+        newMapList.foldLeft(newMapping1) { (start, m) => start ++ m }
 
       case _ => newMapping1
     }

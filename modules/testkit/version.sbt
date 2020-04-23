@@ -1,2 +1,2 @@
-AsunaSettings.projectVersionSetting
 name := "asuna-testkit"
+AsunaSettings.projectVersionSetting

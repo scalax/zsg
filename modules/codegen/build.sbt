@@ -1,7 +1,5 @@
 enablePlugins(SbtTwirl)
-AsunaSettings.scalaVersionSettings
+AsunaSettings.setting9
 AsunaSettings.commonSettings
 
-libraryDependencies += "commons-io" % "commons-io" % "2.6"
-
-scalafmtOnCompile := true
+libraryDependencies += Dependices.commonsIo
