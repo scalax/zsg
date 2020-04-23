@@ -10,7 +10,7 @@ trait ScalaTupleImplicits_3_2 {
             Plus1_X1 , Plus1_X2 , Plus1_X3,
             Plus2_X1 , Plus2_X2 , Plus2_X3
         ]( implicit 
-        t1: Application2[F, Tag1, Plus1_X1 , Plus2_X1] , t2: Application2[F, Tag2, Plus1_X2 , Plus2_X2] , t3: Application2[F, Tag3, Plus1_X3 , Plus2_X3]): Application2[
+        t1: Application2[F, Tag1, Plus1_X1 , Plus2_X1] , t2: Application2[F, Tag2, Plus1_X2 , Plus2_X2] , t3: Application2[F, Tag3, Plus1_X3 , Plus2_X3])  :  Application2[
             F,
             Tuple3[Tag1 , Tag2 , Tag3],
             Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],

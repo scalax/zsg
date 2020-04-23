@@ -16,7 +16,7 @@ trait ScalaTupleImplicits_1_8 {
             Plus7_X1,
             Plus8_X1
         ]( implicit 
-        t1: Application8[F, Tag1, Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1 , Plus6_X1 , Plus7_X1 , Plus8_X1]): Application8[
+        t1: Application8[F, Tag1, Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1 , Plus6_X1 , Plus7_X1 , Plus8_X1])  :  Application8[
             F,
             Tuple1[Tag1],
             Tuple1[Plus1_X1],

@@ -16,8 +16,8 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
-        ](@if(isDotty) { given } else { implicit }
-        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+        ](@if(isDotty) { using } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
@@ -37,8 +37,8 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
-        ](@if(isDotty) { given } else { implicit }
-        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+        ](@if(isDotty) { using } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
@@ -58,8 +58,8 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString(" , ")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
-        ](@if(isDotty) { given } else { implicit }
-        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}): Application@{typeParamNum}[
+        ](@if(isDotty) { using } else { implicit }
+        @{asuna.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")}) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             @{asuna.codegen.SnippetUtil.TagI_Snippet(1 to tagNum).mkString("Tuple" + tagNum + "[", " , ", "]")},
             @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}

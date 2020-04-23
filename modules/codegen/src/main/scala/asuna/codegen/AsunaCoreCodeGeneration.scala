@@ -24,7 +24,7 @@ object AsunaCoreCodeGeneration {
   val buildAllDir = rootAllDir.resolve("build")
 
   val rootDottyDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-0.22").resolve("asuna").resolve("codegen")
+    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-0.23").resolve("asuna").resolve("codegen")
   val buildDottyDir = rootDottyDir.resolve("build")
 
   def main(i: Array[String]): Unit = {

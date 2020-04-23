@@ -19,7 +19,7 @@ object AppendTag {
     }
 
     @for(i <- 1 to maxContextNum) {
-        @if(isDotty) { inline } else { @@inline } final def liftTag[F[@{(1 to i).map(_ => "_").mkString(" , ")}], Tag @asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(", ", " , ", "")](context: Context@{i}[F])(t1: AppendTag[Tag])(@if(isDotty) { given } else { implicit } app: Application@{i}[F, Tag @{asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(", ", " , ", "")}]): F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(" , ")}] = app.application(context)
-        @if(isDotty) { inline } else { @@inline } final def mergeTag[@asuna.codegen.SnippetUtil.TI_Snippet(1 to i).mkString(" , "), Target](t1: AppendTag[T1] @for(ii <- 2 to i) { , t@{ii} : AppendTag[T@{ii}] })(@if(isDotty) { given } else { implicit } i: Merge@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }, Target]): AppendTag[Target] = AppendTag[Target]
+        @if(isDotty) { inline } else { @@inline } final def liftTag[F[@{(1 to i).map(_ => "_").mkString(" , ")}], Tag @asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(", ", " , ", "")](context: Context@{i}[F])(t1: AppendTag[Tag])(@if(isDotty) { using } else { implicit } app: Application@{i}[F, Tag @{asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(", ", " , ", "")}]): F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to i).mkString(" , ")}] = app.application(context)
+        @if(isDotty) { inline } else { @@inline } final def mergeTag[@asuna.codegen.SnippetUtil.TI_Snippet(1 to i).mkString(" , "), Target](t1: AppendTag[T1] @for(ii <- 2 to i) { , t@{ii} : AppendTag[T@{ii}] })(@if(isDotty) { using } else { implicit } i: Merge@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }, Target]): AppendTag[Target] = AppendTag[Target]
     }
 }
