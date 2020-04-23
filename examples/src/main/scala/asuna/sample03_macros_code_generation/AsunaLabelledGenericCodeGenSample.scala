@@ -10,7 +10,7 @@ object AsunaLabelledGenericCodeGenSample {
     AsunaTuple2[AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]], AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]]],
     AsunaTuple1[AsunaTuple1[AsunaTuple2[String, String]]]
   ]] =
-    () =>
+    AsunaLabelledGeneric.value(
       BuildContent.tuple2(
         BuildContent.tuple2(
           BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
@@ -18,6 +18,7 @@ object AsunaLabelledGenericCodeGenSample {
         ),
         BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2("i9", "i10")))
       )
+    )
 
   sameType(
     implicitly[AsunaLabelledGeneric[Sample10, AsunaTuple2[

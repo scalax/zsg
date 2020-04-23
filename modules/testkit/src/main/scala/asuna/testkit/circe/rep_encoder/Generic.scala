@@ -24,13 +24,15 @@ object mmm {
 }
 
 object Abc {
-  val ab: Int                  = 1
-  val cd: List[String]         = List("1234")
-  @(RootTable@getter) val mmmab = mmm
+  val ab: Int          = 1
+  val cd: List[String] = List("1234")
+  @(RootTable @getter)
+  val mmmab = mmm
 }
 
 trait iii {
-  @(RootTable@getter) val obj: Abc.type
+  @(RootTable @getter)
+  val obj: Abc.type
   val ab: String = "miaomiaomiao"
 }
 

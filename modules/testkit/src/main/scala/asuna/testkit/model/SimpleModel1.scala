@@ -19,7 +19,7 @@ case class Test10[T](i1: String, name: String, i3: T, i4: Long, i5: Short)
 case class Test11[T](name: String, i3: T)
 
 trait Test12Trait {
-  @(ModelProperty@getter)
+  @(ModelProperty @getter)
   val test10: Test10[T]
   @DeficientProperty
   def test11: Test11[T]

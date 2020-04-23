@@ -7,7 +7,7 @@ import scala.language.experimental.macros
 
 trait PropertyOverrideHelper {
 
-   val c: scala.reflect.macros.blackbox.Context
+  val c: scala.reflect.macros.blackbox.Context
 
   import c.universe._
 
@@ -20,9 +20,9 @@ trait PropertyOverrideHelper {
     val orderOpt = field.annotations
       .map(_.tree)
       .collect {
-        case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable@getter]) =>
+        case q"""new ${classDef}(${Literal(Constant(num: Int))})""" if classDef.tpe.<:<(weakTypeOf[RootTable @getter]) =>
           num
-        case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable@getter]) =>
+        case q"""new ${classDef}(${_})""" if classDef.tpe.<:<(weakTypeOf[RootTable @getter]) =>
           RootTable.apply$default$1
       }
       .headOption
