@@ -1,6 +1,7 @@
 package asuna.sample01_append
 
 import asuna._
+import asuna.testkit.circe.CirceType
 import io.circe._
 import io.circe.syntax._
 
@@ -18,9 +19,15 @@ object Sample01 {
   object ii extends Context2[JsonObjectAppender] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-    ): JsonObjectAppender[Z1, Z2] = { (obj, name, m) => y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m)) }
+    ): JsonObjectAppender[Z1, Z2] = new JsonObjectAppender[Z1, Z2] {
+      override def appendField(obj: Z1, name: Z2, m: JsonObject): JsonObject = {
+        y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
+      }
+    }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (name, obj, m) => m }
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
+      override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: JsonObject): JsonObject = m
+    }
   }
 
   val a1: JsonObjectAppender[String, String] = new JsonObjectAppender[String, String] {
@@ -54,8 +61,8 @@ object Sample01 {
     ii.append(b2, b1)(AsunaTuple2.cachePlus2WithTypeParameter1)
 
   def main(arr: Array[String]): Unit = {
-    implicit val encoderTest04: Encoder.AsObject[Test04] =
-      Encoder.AsObject.instance { o: Test04 => b3.appendField(getter(o), names, JsonObject.empty) }
+    implicit val encoderTest04: CirceType.JsonObjectEncoder[Test04] =
+      CirceType.JsonObjectEncoder.instance { o: Test04 => b3.appendField(getter(o), names, JsonObject.empty) }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
   }

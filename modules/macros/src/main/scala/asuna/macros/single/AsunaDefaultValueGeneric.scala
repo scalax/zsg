@@ -18,16 +18,22 @@ object DefaultValue {
       }
     }
   }
+
+  object DefaultValueApply {
+    val value    = new DefaultValueApply[Any]
+    def apply[T] = value.asInstanceOf[DefaultValueApply[T]]
+  }
+
 }
 
-trait AsunaDefaultValueGeneric[H, DefaultValueType] {
+abstract class AsunaDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues: DefaultValueType
 }
 
 object AsunaDefaultValueGeneric extends AsunaDefaultValueGenericMacroPoly {
 
-  @inline def value[T, Model](t: T): AsunaDefaultValueGeneric[Model, T] = new AsunaDefaultValueGeneric[Model, T] {
-    override def defaultValues: T = t
+  @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): AsunaDefaultValueGeneric[Model, T] = new AsunaDefaultValueGeneric[Model, T] {
+    override def defaultValues: T = t(DefaultValue.DefaultValueApply[Model])
   }
 
 }
@@ -53,7 +59,7 @@ object AsunaDefaultValueGenericMacroApply {
         val hCompanion  = hTypeSymbol.companion
         val apply       = hCompanion.typeSignature.decl(TermName("apply")).asMethod
 
-        val props = hType.members.toList
+        /*val props = hType.members.toList
           .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
           .collect {
@@ -61,15 +67,15 @@ object AsunaDefaultValueGenericMacroApply {
               val proName = n.trim
               proName
           }
-          .reverse
+          .reverse*/
 
         val proTypeTag =
           apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
             case (p, i) =>
-              if (!p.isParamWithDefault) q"""asuna.macros.single.DefaultValue.model[${hType}].to(_.${p.name})(Option.empty)"""
+              if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
               else {
                 val getterName = TermName("apply$default$" + (i + 1))
-                q"""asuna.macros.single.DefaultValue.model[${hType}].to(_.${p.name})(Some($hCompanion.$getterName))"""
+                q"""item.to(_.${p.name})(Some($hCompanion.$getterName))"""
               }
           }
 
@@ -78,14 +84,14 @@ object AsunaDefaultValueGenericMacroApply {
           /*if (tree.length == 1) {
             q"""..${tree}"""
           } else*/ if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
+            q"""_root_.asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaDefaultValueGeneric[H, M]] {
-          q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(${nameTagGen(nameTag)})"""
+          q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag)})"""
         }
 
       } catch {

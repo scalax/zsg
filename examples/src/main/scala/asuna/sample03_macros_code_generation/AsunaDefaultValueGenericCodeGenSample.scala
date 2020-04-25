@@ -14,21 +14,20 @@ object AsunaDefaultValueGenericCodeGenSample {
       AsunaTuple2[AsunaTuple2[DefaultValue[String], DefaultValue[List[String]]], AsunaTuple2[DefaultValue[Long], DefaultValue[Option[Long]]]]
     ], AsunaTuple1[AsunaTuple1[AsunaTuple2[DefaultValue[List[Long]], DefaultValue[String]]]]]
   ] = {
-    val defaultValue = DefaultValue.model[Sample10]
 
-    AsunaDefaultValueGeneric.value {
+    AsunaDefaultValueGeneric.value { i =>
       BuildContent.tuple2(
         BuildContent.tuple2(
           BuildContent.tuple2(
-            BuildContent.tuple2(defaultValue.to(_.i1)(Option.empty), defaultValue.to(_.i2)(Option.empty)),
-            BuildContent.tuple2(defaultValue.to(_.i3)(Option.empty), defaultValue.to(_.i4)(Option.empty))
+            BuildContent.tuple2(i.to(_.i1)(Option.empty), i.to(_.i2)(Option.empty)),
+            BuildContent.tuple2(i.to(_.i3)(Option.empty), i.to(_.i4)(Option.empty))
           ),
           BuildContent.tuple2(
-            BuildContent.tuple2(defaultValue.to(_.i5)(Some(Sample10.apply$default$5: String)), defaultValue.to(_.i6)(Some(Sample10.apply$default$6: List[String]))),
-            BuildContent.tuple2(defaultValue.to(_.i7)(Option.empty), defaultValue.to(_.i8)(Option.empty))
+            BuildContent.tuple2(i.to(_.i5)(Some(Sample10.apply$default$5: String)), i.to(_.i6)(Some(Sample10.apply$default$6: List[String]))),
+            BuildContent.tuple2(i.to(_.i7)(Option.empty), i.to(_.i8)(Option.empty))
           )
         ),
-        BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(defaultValue.to(_.i9)(Option.empty), defaultValue.to(_.i10)(Option.empty))))
+        BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(i.to(_.i9)(Option.empty), i.to(_.i10)(Option.empty))))
       )
     }
   }

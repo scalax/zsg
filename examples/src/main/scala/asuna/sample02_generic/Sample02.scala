@@ -3,6 +3,7 @@ package asuna.sample02_generic
 import asuna._
 import asuna.macros.ByNameImplicit
 import asuna.macros.single.PropertyApply
+import asuna.testkit.circe.CirceType
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {
@@ -39,9 +40,15 @@ object Sample02 {
   object ii extends Context2[JsonObjectAppender] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-    ): JsonObjectAppender[Z1, Z2] = { (obj, name, m) => y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m)) }
+    ): JsonObjectAppender[Z1, Z2] = new JsonObjectAppender[Z1, Z2] {
+      override def appendField(obj: Z1, name: Z2, m: JsonObject): JsonObject = {
+        y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
+      }
+    }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = { (name, obj, m) => m }
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
+      override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: JsonObject): JsonObject = m
+    }
   }
 
   implicit val test04Getter: Test04 => AsunaTuple2[AsunaTuple2[String, Int], AsunaTuple2[Long, Long]] = (foo: Test04) => {
@@ -67,11 +74,11 @@ object Sample02 {
     app: Application2[JsonObjectAppender, T, I2, I3],
     i1: H => I2,
     i2: I3
-  ): Encoder.AsObject[H] = {
-    Encoder.AsObject.instance { f: H => app.application(ii).appendField(i1(f), i2, JsonObject.empty) }
+  ): CirceType.JsonObjectEncoder[H] = {
+    CirceType.JsonObjectEncoder.instance { f: H => app.application(ii).appendField(i1(f), i2, JsonObject.empty) }
   }
 
-  implicit val test04Encoder: Encoder.AsObject[Test04] = circeJsonObjectEncoder
+  implicit val test04Encoder: CirceType.JsonObjectEncoder[Test04] = circeJsonObjectEncoder
 
   def main(i: Array[String]): Unit = {
     println("Test02 Result")

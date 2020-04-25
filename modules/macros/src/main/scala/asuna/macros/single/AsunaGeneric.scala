@@ -14,6 +14,15 @@ trait AsunaGeneric[H] {
 
 object AsunaGeneric {
 
+  def value[T, G <: TupleTag](p: PropertyApply[T] => AppendTag[G]): AsunaGeneric.Aux[T, G] = new AsunaGeneric[T] {
+    override type WT = G
+    override def tag: G = p(PropertyApply[T]).tag
+  }
+
+  case class I(i1: String)
+
+  def aa[T <: TupleTag]: AsunaGeneric.Aux[I, T] = value(item => AppendTag.tag(item.to(_.i1)))
+
   def init[M]: GenericApply[M] = new GenericApply[M]
   class GenericApply[M] {
     def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
@@ -57,7 +66,7 @@ object AsunaGenericMacroApply {
 
         val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
 
-        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""asuna.AppendTag.tag(..${i})""")
+        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""_root_.asuna.AppendTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
             q"""_root_.asuna.AppendTag.lift(..${tree})"""
