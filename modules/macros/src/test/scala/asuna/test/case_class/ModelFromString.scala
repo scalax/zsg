@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.macros.single.{AsunaGeneric, AsunaSetterGeneric}
-import asuna.{Application1, AsunaTuple0, Context1, Plus1, PropertyTag0, TupleTag}
+import asuna.{Application1, AsunaTuple0, Context1, Plus1, PropertyTag0, TupleTag, TupleTag1}
 
 trait ModelDecoder[M] {
   def getData(str: String): (String, M)
@@ -99,4 +99,13 @@ object out {
     }
   }
 
+}
+
+object ii {
+  case class I(i1: String)
+  def aa[T <: TupleTag](implicit l: AsunaGeneric.Aux[I, TupleTag1[PropertyTag0[String]]]): AsunaGeneric.Aux[I, TupleTag1[PropertyTag0[String]]] = l
+
+  aa
+
+  //aa(_root_.asuna.macros.single.AsunaGeneric.value(((item) => _root_.asuna.AppendTag.lift(_root_.asuna.AppendTag.tag(item.to(((x$1) => x$1.i1))))))).bb
 }
