@@ -83,6 +83,19 @@ object in {
     }
   }
 
+  def encoder1[I1, I2 <: TupleTag, X, Y](
+                                          ii: AsunaGeneric.Aux[I1, I2])(
+  implicit   pp: Application2[MTS, I2, X, Y],
+                                         asunaGetterGeneric: AsunaGetterGeneric[I1, X],
+                                         asunaLabelledGeneric: AsunaLabelledGeneric[I1, Y]
+                                       ): ListEncoder[I1] = {
+    new ListEncoder[I1] {
+      override def encode(ii: I1): List[(PropertyItem, String)] = {
+        pp.application(i)(asunaGetterGeneric.getter(ii), asunaLabelledGeneric.names).appendField(List.empty)
+      }
+    }
+  }
+
   def reverseEncoder[I1, I2 <: TupleTag, X, Y](
     implicit ii: AsunaGeneric.Aux[I1, I2],
     pp: Application2[MTS, I2, X, Y],
