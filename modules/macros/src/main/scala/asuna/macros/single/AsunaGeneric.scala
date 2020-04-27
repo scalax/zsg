@@ -12,16 +12,19 @@ trait AsunaGeneric[H] {
   def tag: WT
 }
 
+object pp {
+  case class I(i1: String)
+
+  def aa[T <: TupleTag](implicit p: AsunaGeneric.Aux[I, T]): T = p.tag
+  aa
+}
+
 object AsunaGeneric {
 
   def value[T, G <: TupleTag](p: PropertyApply[T] => AppendTag[G]): AsunaGeneric.Aux[T, G] = new AsunaGeneric[T] {
     override type WT = G
     override def tag: G = p(PropertyApply[T]).tag
   }
-
-  case class I(i1: String)
-
-  def aa[T <: TupleTag]: AsunaGeneric.Aux[I, T] = value(item => AppendTag.tag(item.to(_.i1)))
 
   def init[M]: GenericApply[M] = new GenericApply[M]
   class GenericApply[M] {
@@ -49,6 +52,8 @@ object AsunaGenericMacroApply {
     import c.universe._
 
     def generic[H: c.WeakTypeTag, M <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
+      println("11")
+
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType
@@ -77,8 +82,10 @@ object AsunaGenericMacroApply {
             typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
           }
 
+        println(q"""_root_.asuna.macros.single.AsunaGeneric.value(item => ${typeTagGen(typeTag)})""")
+
         c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""_root_.asuna.macros.single.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+          q"""_root_.asuna.macros.single.AsunaGeneric.value(item => ${typeTagGen(typeTag)})"""
         }
 
       } catch {
