@@ -41,6 +41,17 @@ object AsunaSetterGenericMacroApply {
           }
           .reverse
 
+        val rSym = symbolOf[H]
+
+        val rModule = rSym.companion match {
+          case s if s.isStatic =>
+            q"$s"
+          case NoSymbol =>
+            q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
+          case s =>
+            q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
+        }
+
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
           if (initList.size > max) {
             val i = initList.zipWithIndex.map {
@@ -57,7 +68,7 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
-        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${hType.typeSymbol.companion}.apply(..${casei.map {
+        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${rModule}.apply(..${casei.map {
           case (item, m) => namedParam(TermName(item), m(Ident(TermName("item"))))
         }}))"""
 
