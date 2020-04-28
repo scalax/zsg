@@ -44,10 +44,10 @@ object AsunaSetterGenericMacroApply {
         val rSym = symbolOf[H]
 
         val rModule = rSym.companion match {
-          case s if s.isStatic =>
-            q"$s"
           case NoSymbol =>
             q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
+          case s if s.isStatic =>
+            q"$s"
           case s =>
             q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
         }

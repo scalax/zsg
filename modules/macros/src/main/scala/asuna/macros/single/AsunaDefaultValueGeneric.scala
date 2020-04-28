@@ -74,18 +74,26 @@ object AsunaDefaultValueGenericMacroApply {
         val proTypeTag = rSym.companion match {
           case NoSymbol => // This can happen for case classes defined inside of methods
             defaultValue
+          case s if s.isStatic =>
+            val apply = s.typeSignature.decl(TermName("apply")).asMethod
+            apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
+              case (p, i) =>
+                if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
+                else {
+                  val getterName = TermName("apply$default$" + (i + 1))
+                  q"""item.to(_.${p.name})(Some($s.$getterName))"""
+                }
+            }
           case s =>
-            if (s.isStatic) {
-              val apply = s.typeSignature.decl(TermName("apply")).asMethod
-              apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
-                case (p, i) =>
-                  if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
-                  else {
-                    val getterName = TermName("apply$default$" + (i + 1))
-                    q"""item.to(_.${p.name})(Some($s.$getterName))"""
-                  }
-              }
-            } else defaultValue
+            val apply = s.typeSignature.decl(TermName("apply")).asMethod
+            apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
+              case (p, i) =>
+                if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
+                else {
+                  val getterName = TermName("apply$default$" + (i + 1))
+                  q"""item.to(_.${p.name})(Some(${rSym.name.toTermName}.$getterName))"""
+                }
+            }
         }
 
         val nameTag                            = proTypeTag //.grouped(8).toList.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")

@@ -1,6 +1,6 @@
 package asuna.sample03_macros_code_generation
 
-trait I1 {
+trait I1jognergn {
   self: SumI =>
   case class Sample11(
     i1: String,
@@ -18,8 +18,8 @@ trait I1 {
 
 trait SumI
 
-trait II extends I1 with SumI
+trait IIgsrgresg extends I1jognergn with SumI
 
 object ii extends {
   val bb = 11
-} with II
+} with IIgsrgresg
