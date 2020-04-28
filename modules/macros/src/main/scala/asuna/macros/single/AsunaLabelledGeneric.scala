@@ -45,10 +45,10 @@ object AsunaLabelledGenericMacroApply {
         val nameTag = props.map { name => q"""${Literal(Constant(name))}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
+            q"""_root_.asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaLabelledGeneric[H, M]] {

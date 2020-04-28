@@ -14,22 +14,23 @@ trait AsunaGeneric[H] {
 
 object AsunaGeneric {
 
-  class GenericApply[M] {
-    def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
+  val value = new AsunaGeneric[Any] {
+    override type WT = TupleTag1[Any]
+    override def tag: AppendTag[TupleTag1[Any]] = AppendTag[TupleTag1[Any]]
+  }
+  type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
+  @inline def Aux[H, II <: TupleTag]: Aux[H, II] = value.asInstanceOf[Aux[H, II]]
 
-    @inline def value[K <: TupleTag](i: PropertyApply[M] => AppendTag[K]): AsunaGeneric.Aux[M, K] = new AsunaGeneric[M] {
-      override type WT = K
-      override def tag: AppendTag[K] = i(PropertyApply[M])
-    }
+  class GenericApply[M] {
+    def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW]     = i
+    @inline def value[K <: TupleTag](i: PropertyApply[M] => AppendTag[K]): AsunaGeneric.Aux[M, K] = Aux[M, K]
   }
 
   object GenericApply {
-    val value                                     = new GenericApply[Any]
-    @inline def apply[T]: GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
-    @inline implicit def init[M]: GenericApply[M] = GenericApply[M]
+    val value                                                  = new GenericApply[Any]
+    @inline def apply[T]: AsunaGeneric.GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
+    @inline implicit def init[M]: AsunaGeneric.GenericApply[M] = GenericApply[M]
   }
-
-  type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
 
   implicit def macroImpl[H, II <: TupleTag](implicit prop: AsunaGeneric.GenericApply[H]): AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
 
