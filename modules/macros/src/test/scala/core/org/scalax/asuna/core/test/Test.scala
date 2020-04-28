@@ -1,7 +1,7 @@
 package asuna.testkit
 
-import asuna.{AppendTag, BuildContent}
-import asuna.macros.single.PropertyApply
+import asuna.{AppendTag, BuildContent, TupleTag}
+import asuna.macros.single.{AsunaGeneric, PropertyApply}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -46,7 +46,7 @@ class Test extends AnyFunSpec with Matchers {
 
   import in._
 
-  val fooEncoder: ListEncoder[Foo]  = init1(fooPropertyTag).init2.encode(fooGetter, fooLabelled)
+  val fooEncoder: ListEncoder[Foo] = init1(fooPropertyTag).init2.encode(fooGetter, fooLabelled)
   val fooEncoder2: ListEncoder[Foo] = encoder
 
   val prepareResult =

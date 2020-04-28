@@ -9,26 +9,29 @@ import scala.collection.compat._
 
 trait AsunaGeneric[H] {
   type WT <: TupleTag
-  def tag: WT
+  def tag: AppendTag[WT]
 }
 
 object AsunaGeneric {
 
-  def init[M]: GenericApply[M] = new GenericApply[M]
   class GenericApply[M] {
     def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW] = i
 
-    def init1[K <: TupleTag](i: AppendTag[K]): AsunaGeneric.Aux[M, K] = {
-      new AsunaGeneric[M] {
-        override type WT = K
-        override def tag = throw new Exception("debugging")
-      }
+    @inline def value[K <: TupleTag](i: PropertyApply[M] => AppendTag[K]): AsunaGeneric.Aux[M, K] = new AsunaGeneric[M] {
+      override type WT = K
+      override def tag: AppendTag[K] = i(PropertyApply[M])
     }
+  }
+
+  object GenericApply {
+    val value                                     = new GenericApply[Any]
+    @inline def apply[T]: GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
+    @inline implicit def init[M]: GenericApply[M] = GenericApply[M]
   }
 
   type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
 
-  implicit def macroImpl[H, II <: TupleTag]: AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II <: TupleTag](implicit prop: AsunaGeneric.GenericApply[H]): AsunaGeneric.Aux[H, II] = macro AsunaGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
@@ -39,7 +42,7 @@ object AsunaGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, II <: TupleTag: c.WeakTypeTag](prop: c.Expr[AsunaGeneric.GenericApply[H]]): c.Expr[AsunaGeneric.Aux[H, II]] = {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType
@@ -55,21 +58,22 @@ object AsunaGenericMacroApply {
           }
           .reverse
 
-        val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
+        //val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""item.to(_.${TermName(s)})""")
 
-        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""asuna.AppendTag.tag(..${i})""")
+        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""_root_.asuna.AppendTag.tag(..$i)""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""_root_.asuna.AppendTag.lift(..${tree})"""
+            q"""..$tree"""
           } else if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""_root_.asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
+            q"""_root_.asuna.AppendTag.nodeTag(..$tree)"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
-            typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..$s)"""))
           }
 
-        c.Expr[AsunaGeneric.Aux[H, M]] {
-          q"""_root_.asuna.macros.single.AsunaGeneric.init[${hType}].init1(${typeTagGen(typeTag)})"""
+        c.Expr[AsunaGeneric.Aux[H, II]] {
+          q"""$prop.value(item => ${typeTagGen(typeTag)})"""
         }
 
       } catch {

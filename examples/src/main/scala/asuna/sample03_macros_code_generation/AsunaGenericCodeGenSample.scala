@@ -8,8 +8,7 @@ object AsunaGenericCodeGenSample {
   def sameType[T](t1: T, t2: T): T = t1
 
   val genResult = {
-    val pro = PropertyApply[Sample10]
-    AsunaGeneric.init[Sample10].init1 {
+    AsunaGeneric.GenericApply[Sample10].value { pro =>
       AppendTag.lift(
         AppendTag.nodeTag(
           AppendTag.nodeTag(
