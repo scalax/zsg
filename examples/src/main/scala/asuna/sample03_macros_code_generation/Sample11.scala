@@ -1,25 +1,38 @@
 package asuna.sample03_macros_code_generation
 
-trait I1jognergn {
-  self: SumI =>
-  case class Sample11(
+trait Model10TraitI {
+  self: SumTrait with SumIII =>
+
+  case class Sample10ModelWithDefaultValue(
     i1: String,
     i2: Int,
     i3: Int,
     i4: Long,
     i5: String = "Test10-i5",
-    i6: List[String] = List.empty,
+    i6: List[SumII.Aux[Char]] = List.fill(2333)(new SumII {
+      override type ChartType = Char
+      override def toString: String = s"${this.getClass.getName}.Aux[Char]"
+    }),
     i7: Long,
-    i8: Option[Long],
+    i8: Option[Long] = Option(22),
     i9: List[Long],
     i10: String
   )
+
 }
 
-trait SumI
+trait SumIII
 
-trait IIgsrgresg extends I1jognergn with SumI
+trait SumII {
+  type ChartType
+}
 
-object ii extends {
+object SumII {
+  type Aux[T] = SumII { type ChartType = T }
+}
+
+trait SumTrait extends Model10TraitI with SumIII
+
+object sumOfCaseClass extends {
   val bb = 11
-} with IIgsrgresg
+} with SumTrait

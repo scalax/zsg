@@ -98,6 +98,7 @@ object AsunaDefaultValueGenericMacroApply {
             nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
+        println(q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag)})""")
         c.Expr[AsunaDefaultValueGeneric[H, M]] {
           q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag)})"""
         }
