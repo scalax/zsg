@@ -4,6 +4,7 @@ import asuna._
 import asuna.macros.single.{AsunaDefaultValueGeneric, DefaultValue}
 
 object AsunaDefaultValueGenericCodeGenSample extends App {
+  11
 
   import ii._
 

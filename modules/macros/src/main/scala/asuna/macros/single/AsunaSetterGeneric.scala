@@ -1,6 +1,6 @@
 package asuna.macros.single
 
-import asuna.macros.AsunaParameters
+import asuna.macros.{AllScalaMacroMethods, AsunaParameters}
 import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
@@ -21,7 +21,7 @@ object AsunaSetterGeneric {
 
 object AsunaSetterGenericMacroApply {
 
-  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods {
     self =>
 
     import c.universe._
@@ -30,6 +30,8 @@ object AsunaSetterGenericMacroApply {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
+        val s     = symbolOf[H]
+        val b     = companionOfSymbol(s)
 
         val props = h.members.toList
           .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
@@ -40,17 +42,6 @@ object AsunaSetterGenericMacroApply {
               proName
           }
           .reverse
-
-        val rSym = symbolOf[H]
-
-        val rModule = rSym.companion match {
-          case NoSymbol =>
-            q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
-          case s if s.isStatic =>
-            q"$s"
-          case s =>
-            q"${rSym.name.toTermName}" // This can happen for case classes defined inside of methods
-        }
 
         def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
           if (initList.size > max) {
@@ -68,7 +59,7 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
-        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${rModule}.apply(..${casei.map {
+        val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
           case (item, m) => namedParam(TermName(item), m(Ident(TermName("item"))))
         }}))"""
 
