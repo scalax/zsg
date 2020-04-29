@@ -1,6 +1,7 @@
 package asuna.macros.single
 
-import asuna.macros.AsunaParameters
+import asuna.macros.{AllScalaMacroMethods, AsunaParameters}
+import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
 
@@ -46,40 +47,47 @@ trait AsunaDefaultValueGenericMacroPoly {
 
 object AsunaDefaultValueGenericMacroApply {
 
-  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods {
     self =>
 
     import c.universe._
 
     def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaDefaultValueGeneric[H, M]] = {
       try {
-        val h           = c.weakTypeOf[H]
-        val hType       = h.resultType
-        val hTypeSymbol = h.typeSymbol
-        val hCompanion  = hTypeSymbol.companion
-        val apply       = hCompanion.typeSignature.decl(TermName("apply")).asMethod
+        val rSym = symbolOf[H]
 
-        /*val props = hType.members.toList
-          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
-          .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              proName
+        val h     = c.weakTypeOf[H]
+        val hType = h.resultType
+
+        def props =
+          hType.members.toList
+            .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
+            .map(s => (s.name, s))
+            .collect {
+              case (TermName(n), s) =>
+                val proName = n.trim
+                proName
+            }
+            .reverse
+
+        def defaultValue = props.map(i => q"""item.to(_.${TermName(i)})(Option.empty)""")
+        val b            = companionOfSymbol(rSym)
+
+        val proTypeTag = b.companionSymbol
+          .map { s =>
+            val apply = s.typeSignature.decl(TermName("apply")).asMethod
+            apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
+              case (p, i) =>
+                if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
+                else {
+                  val getterName = TermName("apply$default$" + (i + 1))
+                  q"""item.to(_.${p.name})(Some(${b.companionTree}.$getterName))"""
+                }
+            }
           }
-          .reverse*/
+          .getOrElse(defaultValue)
 
-        val proTypeTag =
-          apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
-            case (p, i) =>
-              if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
-              else {
-                val getterName = TermName("apply$default$" + (i + 1))
-                q"""item.to(_.${p.name})(Some($hCompanion.$getterName))"""
-              }
-          }
-
-        val nameTag                            = proTypeTag //.grouped(8).toList.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
+        val nameTag                            = proTypeTag
         def nameTagGen(tree: List[Tree]): Tree =
           /*if (tree.length == 1) {
             q"""..${tree}"""

@@ -5,4 +5,5 @@ trait MacroMethods {
   import c.universe._
 
   def namedParam(name: TermName, value: Tree): Tree = AssignOrNamedArg(Ident(name), value)
+
 }

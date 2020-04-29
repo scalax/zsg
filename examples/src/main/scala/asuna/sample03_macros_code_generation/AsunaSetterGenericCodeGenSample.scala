@@ -9,7 +9,7 @@ object AsunaSetterGenericCodeGenSample {
   val genResult: AsunaSetterGeneric[Sample10, AsunaTuple2[
     AsunaTuple2[AsunaTuple2[AsunaTuple2[String, Int], AsunaTuple2[Int, Long]], AsunaTuple2[AsunaTuple2[String, List[String]], AsunaTuple2[Long, Option[Long]]]],
     AsunaTuple1[AsunaTuple1[AsunaTuple2[List[Long], String]]]
-  ]] = { i =>
+  ]] = AsunaSetterGeneric.value { i =>
     Sample10(i.i1.i1.i1.i1, i.i1.i1.i1.i2, i.i1.i1.i2.i1, i.i1.i1.i2.i2, i.i1.i2.i1.i1, i.i1.i2.i1.i2, i.i1.i2.i2.i1, i.i1.i2.i2.i2, i.i2.i1.i1.i1, i.i2.i1.i1.i2)
   }
 
