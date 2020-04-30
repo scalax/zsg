@@ -1,9 +1,9 @@
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-Dependices.scalaReflect
-libraryDependencies ++= Dependices.slf4j.map(_ % Test)
-libraryDependencies += Dependices.scalaCollectionCompat
-libraryDependencies += Dependices.commonsCodec % Compile
+Dependencies.scalaReflect
+libraryDependencies ++= Dependencies.slf4j.map(_ % Test)
+libraryDependencies += Dependencies.scalaCollectionCompat
+libraryDependencies += Dependencies.commonsCodec % Compile
 
-libraryDependencies ++= Dependices.testDependencies.map(_ % Test)
+libraryDependencies ++= Dependencies.testDependencies.map(_ % Test)

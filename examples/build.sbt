@@ -1,4 +1,4 @@
 AsunaSettings.scalaVersionSettings
 AsunaSettings.commonSettings
 
-Dependices.circeDependencies
+Dependencies.circeDependencies

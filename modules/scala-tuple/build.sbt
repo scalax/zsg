@@ -1,4 +1,4 @@
 AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
 
-libraryDependencies ++= Dependices.junit.map(_ % Test)
+libraryDependencies ++= Dependencies.junit.map(_ % Test)
