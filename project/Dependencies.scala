@@ -23,8 +23,8 @@ object Dependencies {
 
   val slickVersion = "3.3.2"
   val slick = List(
-    "com.typesafe.slick" %% "slick"               % slickVersion,
-    "com.typesafe.slick" %% "slick-codegen"       % slickVersion
+    "com.typesafe.slick" %% "slick"         % slickVersion,
+    "com.typesafe.slick" %% "slick-codegen" % slickVersion
   )
 
   val testDependencies = Seq("org.scalatest" %% "scalatest" % scalaTestVersion)
