@@ -42,7 +42,7 @@ object AsunaTupleCodeGeneration {
       .resolve("scala-tuple")
       .resolve("src")
       .resolve("main")
-      .resolve("scala-0.23")
+      .resolve("scala-3")
       .resolve("asuna")
       .resolve("scala_tuple")
       .resolve("tuple_support")
