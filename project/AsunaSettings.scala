@@ -18,15 +18,29 @@ object AsunaSettings {
   val setting7 = publishArtifact in packageDoc := false
   val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
   val setting9 = scalaVersion := currentScalaVersion
+  val setting10 = Compile / unmanagedSourceDirectories ++= {
+    if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
+      List(sourceDirectory.value / "main" / "scala-2")
+    } else {
+      List.empty
+    }
+  }
+  val setting11 = Test / unmanagedSourceDirectories ++= {
+    if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
+      List(sourceDirectory.value / "test" / "scala-2")
+    } else {
+      List.empty
+    }
+  }
 
   val scalaVersionSettings         = Seq(setting1, setting2)
   val scala_2_12_And_2_13_Settings = Seq(setting1, setting8)
 
-  val commonSettings = Seq(setting3, setting4, setting5, setting7)
+  val commonSettings = Seq(setting3, setting4, setting5, setting7, setting10, setting11)
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.3-20200428SNAP7"
+  val vSetting1             = version := "0.0.3-20200430SNAP1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
