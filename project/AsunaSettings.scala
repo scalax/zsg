@@ -7,7 +7,7 @@ object AsunaSettings {
   val currentScalaVersion = "2.13.2"
   val scala212Version     = "2.12.11"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "0.23.0-RC1"
+  val dottyVersion        = "0.24.0-RC1"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
@@ -21,6 +21,8 @@ object AsunaSettings {
   val setting10 = Compile / unmanagedSourceDirectories ++= {
     if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
       List(sourceDirectory.value / "main" / "scala-2")
+    } else if (scalaVersion.value startsWith "0.") {
+      List(sourceDirectory.value / "main" / "scala-3")
     } else {
       List.empty
     }
@@ -28,6 +30,8 @@ object AsunaSettings {
   val setting11 = Test / unmanagedSourceDirectories ++= {
     if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
       List(sourceDirectory.value / "test" / "scala-2")
+    } else if (scalaVersion.value startsWith "0.") {
+      List(sourceDirectory.value / "test" / "scala-3")
     } else {
       List.empty
     }
@@ -40,7 +44,7 @@ object AsunaSettings {
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.3-20200430SNAP1"
+  val vSetting1             = version := "0.0.3-20200505SNAP1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"

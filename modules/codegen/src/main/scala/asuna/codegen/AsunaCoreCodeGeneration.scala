@@ -7,18 +7,6 @@ import scala.io.Source
 
 object AsunaCoreCodeGeneration {
 
-  /*val root211Dir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2.11").resolve("asuna").resolve("codegen")
-  val build211Dir = root211Dir.resolve("build")
-
-  val root212Dir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2.12").resolve("asuna").resolve("codegen")
-  val build212Dir = root212Dir.resolve("build")
-
-  val root213Dir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2.13").resolve("asuna").resolve("codegen")
-  val build213Dir = root213Dir.resolve("build")*/
-
   val root2XDir =
     Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("asuna").resolve("codegen")
   val build2XDir = root2XDir.resolve("build")
@@ -28,7 +16,7 @@ object AsunaCoreCodeGeneration {
   val buildAllDir = rootAllDir.resolve("build")
 
   val rootDottyDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-0.23").resolve("asuna").resolve("codegen")
+    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("asuna").resolve("codegen")
   val buildDottyDir = rootDottyDir.resolve("build")
 
   def main(i: Array[String]): Unit = {
