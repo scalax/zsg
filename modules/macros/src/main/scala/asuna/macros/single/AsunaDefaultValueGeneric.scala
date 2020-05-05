@@ -1,5 +1,6 @@
 package asuna.macros.single
 
+import asuna.macros.single.utils.TypeHelper
 import asuna.macros.{AllScalaMacroMethods, AsunaParameters}
 import asuna.macros.utils.MacroMethods
 
@@ -47,7 +48,7 @@ trait AsunaDefaultValueGenericMacroPoly {
 
 object AsunaDefaultValueGenericMacroApply {
 
-  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods with TypeHelper {
     self =>
 
     import c.universe._
@@ -59,18 +60,9 @@ object AsunaDefaultValueGenericMacroApply {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
 
-        def props =
-          hType.members.toList
-            .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
-            .map(s => (s.name, s))
-            .collect {
-              case (TermName(n), s) =>
-                val proName = n.trim
-                proName
-            }
-            .reverse
+        def props = caseClassMembersByType(hType)
 
-        def defaultValue = props.map(i => q"""item.to(_.${TermName(i)})(Option.empty)""")
+        def defaultValue = props.map(i => q"""item.to(_.${i.fieldTermName})(Option.empty)""")
         val b            = companionOfSymbol(rSym)
 
         val proTypeTag = b.companionSymbol

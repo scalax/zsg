@@ -7,9 +7,6 @@ import scala.io.Source
 
 object AsunaCoreCodeGeneration {
 
-
-
-
   val root2XDir =
     Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("asuna").resolve("codegen")
   val build2XDir = root2XDir.resolve("build")

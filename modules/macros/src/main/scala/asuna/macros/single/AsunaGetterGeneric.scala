@@ -1,6 +1,7 @@
 package asuna.macros.single
 
 import asuna.macros.AsunaParameters
+import asuna.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
 
@@ -20,7 +21,7 @@ trait AsunaGetterGenericMacroPoly {
 
 object AsunaGetterGenericMacroApply {
 
-  class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper {
     self =>
 
     import c.universe._
@@ -28,19 +29,11 @@ object AsunaGetterGenericMacroApply {
     def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaGetterGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
-        val hType = h.typeSymbol
+        val hType = h.resultType
 
-        val props = h.members.toList
-          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
-          .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              proName
-          }
-          .reverse
+        val props = caseClassMembersByType(hType)
 
-        val nameTag = props.map { name => q"""s.${TermName(name)}""" }
+        val nameTag = props.map { name => q"""s.${name.fieldTermName}""" }
         def nameTagGen(tree: List[Tree]): Tree =
           if (tree.length <= AsunaParameters.maxPropertyNum) {
             q"""(s: ${h}) => { asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree}) }"""

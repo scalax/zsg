@@ -1,5 +1,6 @@
 package asuna.macros.single
 
+import asuna.macros.single.utils.TypeHelper
 import asuna.macros.{AllScalaMacroMethods, AsunaParameters}
 import asuna.macros.utils.MacroMethods
 
@@ -21,7 +22,7 @@ object AsunaSetterGeneric {
 
 object AsunaSetterGenericMacroApply {
 
-  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods with TypeHelper {
     self =>
 
     import c.universe._
@@ -33,17 +34,9 @@ object AsunaSetterGenericMacroApply {
         val s     = symbolOf[H]
         val b     = companionOfSymbol(s)
 
-        val props = h.members.toList
-          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
-          .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              proName
-          }
-          .reverse
+        val props = caseClassMembersByType(hType)
 
-        def toItemImpl(max: Int, initList: List[(String, Tree => Tree)]): List[(String, Tree => Tree)] =
+        def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)]): List[(ModelField, Tree => Tree)] =
           if (initList.size > max) {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
@@ -60,7 +53,7 @@ object AsunaSetterGenericMacroApply {
         val casei = toItemImpl(AsunaParameters.maxPropertyNum, preList)
 
         val inputFunc = q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
-          case (item, m) => namedParam(TermName(item), m(Ident(TermName("item"))))
+          case (item, m) => namedParam(item.fieldTermName, m(Ident(TermName("item"))))
         }}))"""
 
         c.Expr[AsunaSetterGeneric[H, M]] {

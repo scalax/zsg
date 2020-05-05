@@ -2,9 +2,9 @@ package asuna.macros.single
 
 import asuna._
 import asuna.macros.AsunaParameters
+import asuna.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
-
 import scala.collection.compat._
 
 trait AsunaGeneric[H] {
@@ -38,7 +38,7 @@ object AsunaGeneric {
 
 object AsunaGenericMacroApply {
 
-  class MacroImpl(val c: scala.reflect.macros.whitebox.Context) {
+  class MacroImpl(override val c: scala.reflect.macros.whitebox.Context) extends TypeHelper {
     self =>
 
     import c.universe._
@@ -48,19 +48,9 @@ object AsunaGenericMacroApply {
         val h     = weakTypeOf[H]
         val hType = h.resultType
 
-        val props = hType.members
-          .to(List)
-          .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
-          .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              proName
-          }
-          .reverse
+        val props = caseClassMembersByType(hType)
 
-        //val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.PropertyApply[${hType}].to(_.${TermName(s)})""")
-        val proTypeTag = props.map(s => q"""item.to(_.${TermName(s)})""")
+        val proTypeTag = props.map(s => q"""item.to(_.${s.fieldTermName})""")
 
         val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""_root_.asuna.AppendTag.tag(..$i)""")
         def typeTagGen(tree: List[Tree]): Tree =
