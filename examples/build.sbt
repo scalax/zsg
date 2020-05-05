@@ -1,4 +1,4 @@
-AsunaSettings.scalaVersionSettings
+AsunaSettings.dottyVersionSettings
 AsunaSettings.commonSettings
 
-Dependencies.circeDependencies
+libraryDependencies ++= Dependencies.circeDependencies(scalaVersion.value)

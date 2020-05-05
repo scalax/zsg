@@ -7,3 +7,5 @@ _site
 /sbt.bat
 /sbt-launch.jar
 /null
+/.dotty-ide.json
+/.dotty-ide-artifact
