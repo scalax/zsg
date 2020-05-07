@@ -1,0 +1,27 @@
+@(maxAsunaTupleNum: Int, maxAsunaContext: Int)(isDotty: Boolean)
+
+import scala.language.higherKinds
+
+@* class TupleTag1ApplicationCompanion { *@
+
+    @for(typeParamNum <- 1 to maxAsunaContext) {
+        final @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { using } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
+        ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F,TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+            new Application@{typeParamNum}[F, TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] {
+                override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple1[X1_C1]
+                @for(i <- 2 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+                    context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
+                }
+            }
+        }
+    }
+
+    @* @for(typeParamNum <- 1 to maxAsunaContext) {
+        @if(isDotty) { final inline given } else { @@inline final implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }], H1 @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](
+            @if(isDotty) { given } else { implicit } t1: Application@{typeParamNum}[F, H1 @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
+        ): Application@{typeParamNum}[F,TupleTag1[H1] @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = { context =>
+            context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
+        }
+    } *@
+
+@* } *@

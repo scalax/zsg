@@ -47,25 +47,45 @@ object AsunaCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.TupleTag(tagNum = i).body)
-      writer.println(linerContent)
-      writer.close()
-    }
-
-    for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("NodeTag" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer      = new PrintWriter(filePath.toFile, "utf-8")
-      val contentTrim = StringUtil.trimLines(asuna.codegen.tuple.txt.NodeTag(tagNum = i, maxTagNum = AsunaParameters.maxPropertyNum).body)
-      writer.println(contentTrim)
-      writer.close()
+    {
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.TupleTag(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum)(true).body)
+        writer.println(linerContent)
+        writer.close()
+      }
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = root2XDir.resolve("mapper" + i).resolve("TupleTag" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(asuna.codegen.tuple.txt.TupleTag(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum)(false).body)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
     {
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("NodeTag" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer      = new PrintWriter(filePath.toFile, "utf-8")
+        val contentTrim = StringUtil.trimLines(asuna.codegen.tuple.txt.NodeTag(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum)(true).body)
+        writer.println(contentTrim)
+        writer.close()
+      }
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = root2XDir.resolve("mapper" + i).resolve("NodeTag" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer      = new PrintWriter(filePath.toFile, "utf-8")
+        val contentTrim = StringUtil.trimLines(asuna.codegen.tuple.txt.NodeTag(tagNum = i, maxAsunaTupleNum = AsunaParameters.maxPropertyNum)(false).body)
+        writer.println(contentTrim)
+        writer.close()
+      }
+    }
+
+    /*{
       {
         val filePath = root2XDir.resolve("build").resolve("support").resolve("NodeTagApplicationCompanion.scala")
         Files.createDirectories(filePath.getParent)
@@ -91,9 +111,9 @@ object AsunaCoreCodeGeneration {
         writer.println(contentTrim)
         writer.close()
       }
-    }
+    }*/
 
-    {
+    /*{
       {
         val filePath = root2XDir.resolve("build").resolve("support").resolve("TupleTagApplicationCompanion.scala")
         Files.createDirectories(filePath.getParent)
@@ -121,7 +141,7 @@ object AsunaCoreCodeGeneration {
         writer.println(contentTrim)
         writer.close()
       }
-    }
+    }*/
 
     for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")

@@ -7,14 +7,14 @@ import scala.io.Source
 
 object AsunaTestKitCodeGeneration {
 
-  val rootDir =
+  val root2XDir =
     Paths
       .get("./")
       .resolve("modules")
       .resolve("macros")
       .resolve("src")
       .resolve("test")
-      .resolve("scala")
+      .resolve("scala-2")
       .resolve("asuna")
       .resolve("test")
       .resolve("case_class")
@@ -25,7 +25,7 @@ object AsunaTestKitCodeGeneration {
     val maxPropertyNum = 202
 
     for (i <- (1 to 100 by 8).toList ::: (minPropertyNum to maxPropertyNum).toList) yield {
-      val filePath = rootDir.resolve("CaseClassTest" + i + ".scala")
+      val filePath = root2XDir.resolve("CaseClassTest" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer1          = new PrintWriter(filePath.toFile, "utf-8")
       val content1         = Source.fromString(asuna.codegen.testkit.txt.CaseClassTestKit(maxItem = i).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
