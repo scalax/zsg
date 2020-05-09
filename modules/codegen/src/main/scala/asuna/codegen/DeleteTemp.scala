@@ -15,6 +15,6 @@ object DeleteTemp {
     FileUtils.deleteDirectory(AsunaCoreCodeGeneration.rootAllDir.toFile)
     FileUtils.deleteDirectory(AsunaCoreCodeGeneration.rootDottyDir.toFile)
 
-    FileUtils.deleteDirectory(AsunaTestKitCodeGeneration.rootDir.toFile)
+    FileUtils.deleteDirectory(AsunaTestKitCodeGeneration.root2XDir.toFile)
   }
 }

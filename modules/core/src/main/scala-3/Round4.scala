@@ -11,7 +11,7 @@ class Context11[M] {
 }
 
 object IIii {
-  inline def mi[U <: Context11[PI]](i: Int, m: String)(using u: U): String = u.ii(i, m)
+  inline def mi[U <: Context11[PI]](inline i: Int, inline m: String)(using u: U): String = u.ii(i, m)
 
   println(mi(2, "222"): String) //编译结果：println(BoxesRunTime.boxToInteger(2).toString() + "2233" + "222")
 }

@@ -1,4 +1,4 @@
-@(tagNum: Int, maxTagNum: Int)
+@(tagNum: Int, maxAsunaTupleNum: Int)(isDotty: Boolean)
 
 package asuna
 
@@ -18,4 +18,10 @@ final class NodeTag@{tagNum}[T1 <: TupleTag @for(ii <- 2 to tagNum){ , T@{ii} <:
     }
 } *@
 
-object NodeTag@{tagNum} extends support.NodeTag@{tagNum}ApplicationCompanion
+object NodeTag@{tagNum} {
+    @if(tagNum == 1) {
+        @asuna.codegen.tuple.txt.NodeTag1ApplicationCompanion(maxAsunaTupleNum = maxAsunaTupleNum, maxAsunaContext = asuna.codegen.AsunaParameters.maxContextNum)(isDotty = isDotty)
+    } else {
+        @asuna.codegen.tuple.txt.NodeTag2ApplicationCompanion(maxAsunaTupleNum = maxAsunaTupleNum, maxAsunaContext = asuna.codegen.AsunaParameters.maxContextNum)(isDotty = isDotty)
+    }
+}
