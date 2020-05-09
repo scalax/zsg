@@ -9,7 +9,7 @@ object AsunaSettings {
   val scala211Version     = "2.11.12"
   val dottyVersion        = "0.24.0-RC1"
 
-  val setting1 = scalaVersion := dottyVersion
+  val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
