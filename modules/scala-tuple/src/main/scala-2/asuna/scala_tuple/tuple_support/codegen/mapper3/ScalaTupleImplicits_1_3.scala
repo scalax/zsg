@@ -1,25 +1,21 @@
 package asuna.scala_tuple.tuple_support
 import asuna.Application3
 import asuna.Context3
-import asuna.AppendTag
 import scala.language.higherKinds
 trait ScalaTupleImplicits_1_3 {
          implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum3[
             F[_ , _ , _],
-            Tag1,
             Plus1_X1,
             Plus2_X1,
             Plus3_X1
         ]( implicit 
-        t1: Application3[F, Tag1, Plus1_X1 , Plus2_X1 , Plus3_X1])  :  Application3[
+        t1: Application3[F, Plus1_X1 , Plus2_X1 , Plus3_X1])  :  Application3[
             F,
-            Tuple1[Tag1],
             Tuple1[Plus1_X1],
             Tuple1[Plus2_X1],
             Tuple1[Plus3_X1]
         ] = new Application3[
             F,
-            Tuple1[Tag1],
             Tuple1[Plus1_X1],
             Tuple1[Plus2_X1],
             Tuple1[Plus3_X1]

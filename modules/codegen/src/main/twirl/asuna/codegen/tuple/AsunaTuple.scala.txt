@@ -1,4 +1,4 @@
-@(tagNum: Int, maxContextNum: Int)
+@(tagNum: Int)(maxAsunaTupleNum: Int, maxAsunaContext: Int)(isDotty: Boolean)
 
 package asuna
 
@@ -6,7 +6,33 @@ final class AsunaTuple@{tagNum}[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagN
 
 object AsunaTuple@{tagNum} {
 
-    @for(eachContextNum <- 1 to maxContextNum) {
+    @if(tagNum == 1) {
+        @for(typeParamNum <- 1 to maxAsunaContext) {
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { using } else { implicit } t1: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
+            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+                new Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] {
+                    override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple1[X1_C1]
+                    @for(i <- 2 to typeParamNum) { , AsunaTuple1[X1_C@{i}] }] = {
+                        context.append(context.start, t1.application(context))(AsunaTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
+                    }
+                }
+            }
+        }
+    } else {
+        @for(typeParamNum <- 1 to maxAsunaContext) {
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }](@if(isDotty) { using } else { implicit } t1: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X1_C@{i} }], t2: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X2_C@{i} }]
+            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
+                new Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] {
+                    override def application(context: Context@{typeParamNum}[F]): F[AsunaTuple2[X1_C1, X2_C1]
+                    @for(i <- 2 to typeParamNum) { , AsunaTuple2[X1_C@{i}, X2_C@{i}] }] = {
+                        context.append(t2.application(context), t1.application(context))(AsunaTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
+                    }
+                }
+            }
+        }
+    }
+
+    @for(eachContextNum <- 1 to maxAsunaContext) {
         @if(tagNum == 1) {
             final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
                 @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},

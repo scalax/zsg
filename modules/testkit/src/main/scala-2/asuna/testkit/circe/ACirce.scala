@@ -1,7 +1,7 @@
 package asuna.testkit.circe
 
 import asuna.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
-import asuna.{Application2, Application3, TupleTag}
+import asuna.{Application3, Application4}
 import asuna.macros.single.{
   AsunaDefaultValueGeneric,
   AsunaGeneric,
@@ -17,9 +17,9 @@ import io.circe.{Decoder, Encoder, JsonObject}
 
 object ACirce {
 
-  final def encodeTuple[H, R <: TupleTag, Obj, Na](
+  final def encodeTuple[H, R, Obj, Na](
     implicit ll: AsunaTupleGeneric.Aux[H, R],
-    app: Application2[encoder.JsonObjectContent, R, Obj, Na],
+    app: Application3[encoder.JsonObjectContent, R, Obj, Na],
     cv1: AsunaTupleLabelledGeneric[H, Na],
     cv2: AsunaTupleGetterGeneric[H, Obj]
   ): CirceType.JsonObjectEncoder[H] = {
@@ -32,9 +32,9 @@ object ACirce {
   final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](ll: AsunaTupleApply[Model, PreTuple], objectEncoder: Encoder[TupleType]): Encoder[Model] =
     objectEncoder.contramap(ll.toTuple)
 
-  final def encodeCaseClass[H, R <: TupleTag, Obj, Na](
+  final def encodeCaseClass[H, R, Obj, Na](
     implicit ll: AsunaGeneric.Aux[H, R],
-    app: Application2[encoder.JsonObjectContent, R, Obj, Na],
+    app: Application3[encoder.JsonObjectContent, R, Obj, Na],
     cv1: AsunaLabelledGeneric[H, Na],
     cv2: AsunaGetterGeneric[H, Obj]
   ): CirceType.JsonObjectEncoder[H] = {
@@ -46,9 +46,9 @@ object ACirce {
 
   final def encodeCaseObject[T]: CirceType.JsonObjectEncoder[T] = CirceType.JsonObjectEncoder.instance(_ => JsonObject.empty)
 
-  final def encodeSealed[H, R <: TupleTag, Cls, Lab](
+  final def encodeSealed[H, R, Cls, Lab](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application2[encoder.SealedTraitSelector[H]#JsonEncoder, R, Cls, Lab],
+    app: Application3[encoder.SealedTraitSelector[H]#JsonEncoder, R, Cls, Lab],
     cv1: AsunaSealedLabelledGeneric[H, Lab],
     cv2: AsunaSealedClassGeneric[H, Cls]
   ): CirceType.JsonObjectEncoder[H] = {
@@ -59,9 +59,9 @@ object ACirce {
     CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
   }
 
-  def decodeCaseClass[T, R <: TupleTag, Model, Nam, DefVal](
+  def decodeCaseClass[T, R, Model, Nam, DefVal](
     implicit ll: AsunaGeneric.Aux[T, R],
-    app: Application3[decoder.JsonDecoderPro, R, Model, Nam, DefVal],
+    app: Application4[decoder.JsonDecoderPro, R, Model, Nam, DefVal],
     cv1: AsunaLabelledGeneric[T, Nam],
     cv3: AsunaSetterGeneric[T, Model],
     cv4: AsunaDefaultValueGeneric[T, DefVal]
@@ -69,9 +69,9 @@ object ACirce {
     app.application(decoder.AsunaDecoderContext).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
   }
 
-  def decodeSealed[H, R <: TupleTag, Nam, Tran](
+  def decodeSealed[H, R, Nam, Tran](
     implicit ll: AsunaSealedGeneric.Aux[H, R],
-    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam, Tran],
+    app: Application3[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam, Tran],
     cv1: AsunaSealedLabelledGeneric[H, Nam],
     cv2: AsunaSealedToAbsGeneric[H, Tran]
   ): Decoder[H] = {

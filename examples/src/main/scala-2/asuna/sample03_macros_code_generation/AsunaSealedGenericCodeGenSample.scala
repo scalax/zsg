@@ -7,11 +7,11 @@ object AsunaSealedGenericCodeGenSample {
 
   def sameType[T](t1: T, t2: T): T = t1
 
-  val genResult = AsunaSealedGeneric.init[Foo].init1(AppendTag.tag(AppendTag.tag(SealedTag[Bar1], SealedTag[Bar2]), AppendTag.tag(SealedTag[Bar3], SealedTag[Bar4])))
+  val genResult = implicitly[AsunaSealedGeneric.SealedGenericApply[Foo]].value(BuildContent.tuple2(BuildContent.tuple2(SealedTag[Bar1], SealedTag[Bar2]), BuildContent.tuple2(SealedTag[Bar3], SealedTag[Bar4])))
 
   sameType(
     implicitly[
-      AsunaSealedGeneric.Aux[Foo, NodeTag2[TupleTag2[SealedTag[Bar1], SealedTag[Bar2]], TupleTag2[SealedTag[Bar3], SealedTag[Bar4]]]]
+      AsunaSealedGeneric.Aux[Foo, AsunaTuple2[AsunaTuple2[SealedTag[Bar1], SealedTag[Bar2]], AsunaTuple2[SealedTag[Bar3], SealedTag[Bar4]]]]
     ],
     genResult
   )

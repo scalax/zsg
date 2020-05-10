@@ -35,8 +35,8 @@ object AsunaGetterGenericMacroApply {
 
         val nameTag = props.map { name => q"""s.${name.fieldTermName}""" }
         def nameTagGen(tree: List[Tree]): Tree =
-          if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""(s: ${h}) => { asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree}) }"""
+          if (tree.length == 1) {
+            q"""(s: ${h}) => { ..${tree} }"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
             nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))

@@ -1,9 +1,9 @@
 package asuna.macros.single
 
-import asuna.{AppendTag, PropertyTag0}
+import asuna.PropertyTag
 
 class PropertyApply[I] {
-  def to[R](m: I => R): AppendTag[PropertyTag0[R]] = AppendTag[PropertyTag0[R]]
+  def to[R](m: I => R): PropertyTag[R] = PropertyTag[R]
 }
 object PropertyApply {
   val value: PropertyApply[Any]                 = new PropertyApply[Any]

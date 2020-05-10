@@ -1,13 +1,13 @@
 package asuna.testkit.circe.decoder
 
-import asuna.{Application2, Context2}
+import asuna.{Application3, Context3}
 import asuna.macros.ByNameImplicit
 import asuna.macros.single.SealedTag
 import io.circe.Decoder
 
 class SealedTraitSelector[P] {
 
-  trait JsonDecoder[II, T] {
+  trait JsonDecoder[PU, II, T] {
     def to(name: II, tran: T): Decoder[P]
   }
 
@@ -20,10 +20,10 @@ object SealedTraitSelector {
 
   implicit def asunaCirceSealedDecoder[T, R](
     implicit t: ByNameImplicit[Decoder[R]]
-  ): Application2[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] = new Application2[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] {
-    override def application(context: Context2[SealedTraitSelector[T]#JsonDecoder]): SealedTraitSelector[T]#JsonDecoder[String, R => T] = {
+  ): Application3[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] = new Application3[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] {
+    override def application(context: Context3[SealedTraitSelector[T]#JsonDecoder]): SealedTraitSelector[T]#JsonDecoder[SealedTag[R], String, R => T] = {
       val con = SealedTraitSelector[T]
-      new con.JsonDecoder[String, R => T] {
+      new con.JsonDecoder[SealedTag[R], String, R => T] {
         override def to(name: String, tran: R => T): Decoder[T] = {
           Decoder.instance(j => j.get(name)(t.value).right.map(tran))
         }

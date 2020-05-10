@@ -1,7 +1,7 @@
 package asuna.testkit
 
-import asuna.{AppendTag, BuildContent, TupleTag}
-import asuna.macros.single.{AsunaGeneric, PropertyApply}
+import asuna.BuildContent
+import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyApply}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -13,17 +13,16 @@ class Test extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = AppendTag.lift(
-    AppendTag.nodeTag(
-      AppendTag.nodeTag(
-        AppendTag.nodeTag(AppendTag.tag(ap.to(_.i1), ap.to(_.i2)), AppendTag.tag(ap.to(_.i3), ap.to(_.i4))),
-        AppendTag.nodeTag(AppendTag.tag(ap.to(_.i5), ap.to(_.i6)), AppendTag.tag(ap.to(_.i7), ap.to(_.i8)))
-      ),
-      AppendTag.nodeTag(AppendTag.tag(ap.to(_.i9), ap.to(_.i10)))
-    )
+  val fooPropertyTag = BuildContent.tuple2(
+    BuildContent.tuple2(
+      BuildContent.tuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4))),
+      BuildContent.tuple2(BuildContent.tuple2(ap.to(_.i5), ap.to(_.i6)), BuildContent.tuple2(ap.to(_.i7), ap.to(_.i8)))
+    ),
+    BuildContent.tuple1(BuildContent.tuple2(ap.to(_.i9), ap.to(_.i10)))
   )
 
-  val fooGetter = (foo: Foo) => {
+
+  val fooGetter = { foo: Foo =>
     BuildContent.tuple2(
       BuildContent.tuple2(
         BuildContent.tuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4)),
@@ -35,18 +34,17 @@ class Test extends AnyFunSpec with Matchers {
     )
   }
 
-  val fooLabelled =
+  val fooLabelled = BuildContent.tuple2(
     BuildContent.tuple2(
-      BuildContent.tuple2(
-        BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
-        BuildContent.tuple2(BuildContent.tuple2("i5", "i6"), BuildContent.tuple2("i7", "i8"))
-      ),
-      BuildContent.tuple1(BuildContent.tuple2("i9", "i10"))
-    )
+      BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
+      BuildContent.tuple2(BuildContent.tuple2("i5", "i6"), BuildContent.tuple2("i7", "i8"))
+    ),
+    BuildContent.tuple1(BuildContent.tuple2("i9", "i10"))
+  )
 
   import in._
 
-  val fooEncoder: ListEncoder[Foo] = init1(fooPropertyTag).init2.encode(fooGetter, fooLabelled)
+  val fooEncoder: ListEncoder[Foo] = init1(forType[Foo].value(fooPropertyTag)).init2.encode(AsunaGetterGeneric.value(fooGetter), AsunaLabelledGeneric.value(fooLabelled))
   val fooEncoder2: ListEncoder[Foo] = encoder
 
   val prepareResult =

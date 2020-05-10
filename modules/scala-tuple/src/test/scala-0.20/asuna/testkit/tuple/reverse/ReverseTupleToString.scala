@@ -29,7 +29,7 @@ object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 }
 
 object reverseTuple {
-  def asString[T](x: T)(given ii: Application1[ReverseTupleEncoder, T, T]): String = {
+  def asString[T](x: T)(given ii: Application1[ReverseTupleEncoder,  T]): String = {
     val con = ii.application(reverseScalaTupleContext)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }
@@ -51,7 +51,7 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  given reverseApplicationImplicit[T](given t: ReverseTupleEncoder[T]): Application1[ReverseTupleEncoder, T, T] = { context =>
+  given reverseApplicationImplicit[T](given t: ReverseTupleEncoder[T]): Application1[ReverseTupleEncoder,  T] = { context =>
     t
   }
 

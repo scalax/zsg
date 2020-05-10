@@ -1,5 +1,0 @@
-package asuna {
-
-  trait TupleTag
-
-}
