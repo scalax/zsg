@@ -64,8 +64,8 @@ object AsunaMultiplyRepGenericApply {
         val proTypeTag = props.map(s => tableProperty(s))
 
         def nameTagGen(tree: List[Tree]): Tree =
-          if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""{ table => _root_.asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree}) }"""
+          if (tree.length == 1) {
+            q"""{ table => ..${tree} }"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
             nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))

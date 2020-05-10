@@ -9,13 +9,13 @@ import io.circe.{Encoder, JsonObject}
 object Sample02 {
 
   trait AsunaTestGeneric[C] {
-    type Gen <: TupleTag
+    type Gen
   }
 
   object AsunaTestGeneric {
-    type Aux[C, G <: TupleTag] = AsunaTestGeneric[C] { type Gen = G }
+    type Aux[C, G] = AsunaTestGeneric[C] { type Gen = G }
     class Apply1[C] {
-      def generic[G <: TupleTag](param: => AppendTag[G]): Aux[C, G] = new AsunaTestGeneric[C] {
+      def generic[G](param: => G): Aux[C, G] = new AsunaTestGeneric[C] {
         override type Gen = G
       }
     }
@@ -28,26 +28,30 @@ object Sample02 {
 
   val ap = PropertyApply[Test04]
 
-  val test04PropertyTag: AppendTag[NodeTag2[TupleTag2[PropertyTag0[String], PropertyTag0[Int]], TupleTag2[PropertyTag0[Long], PropertyTag0[Long]]]] =
-    AppendTag.lift(AppendTag.nodeTag(AppendTag.tag(ap.to(_.i1), ap.to(_.i2)), AppendTag.tag(ap.to(_.i3), ap.to(_.i4))))
+  val test04PropertyTag: AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[Int]], AsunaTuple2[PropertyTag[Long], PropertyTag[Long]]] =
+    BuildContent.tuple2 ( BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)),  BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4)))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 
-  trait JsonObjectAppender[T, II] {
+  trait JsonObjectAppender[IP, T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
-  object ii extends Context2[JsonObjectAppender] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
-      p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-    ): JsonObjectAppender[Z1, Z2] = new JsonObjectAppender[Z1, Z2] {
-      override def appendField(obj: Z1, name: Z2, m: JsonObject): JsonObject = {
-        y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
+  object ii extends Context3[JsonObjectAppender] {
+    override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: JsonObjectAppender[X1, X2, X3], y: JsonObjectAppender[Y1, Y2, Y3])(
+      p: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]
+    ): JsonObjectAppender[Z1, Z2, Z3] = {
+      new JsonObjectAppender[Z1, Z2, Z3] {
+        override def appendField(obj: Z2, name: Z3, m: JsonObject): JsonObject = {
+          y.appendField(p.takeTail2(obj), p.takeTail3(name), x.appendField(p.takeHead2(obj), p.takeHead3(name), m))
+        }
       }
     }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-      override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: JsonObject): JsonObject = m
+    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
+      new JsonObjectAppender[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
+        override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: JsonObject): JsonObject = m
+      }
     }
   }
 
@@ -58,10 +62,10 @@ object Sample02 {
   implicit val test04Labelled: AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]] =
     BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
-  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): Application2[JsonObjectAppender, PropertyTag0[T], T, String] =
-    new Application2[JsonObjectAppender, PropertyTag0[T], T, String] {
-      override def application(context: Context2[JsonObjectAppender]): JsonObjectAppender[T, String] = {
-        new JsonObjectAppender[T, String] {
+  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): Application3[JsonObjectAppender, PropertyTag[T], T, String] =
+    new Application3[JsonObjectAppender, PropertyTag[T], T, String] {
+      override def application(context: Context3[JsonObjectAppender]): JsonObjectAppender[PropertyTag[T], T, String] = {
+        new JsonObjectAppender[PropertyTag[T], T, String] {
           override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
             ((name, encoder.value(obj))) +: m
           }
@@ -69,9 +73,9 @@ object Sample02 {
       }
     }
 
-  def circeJsonObjectEncoder[H, T <: TupleTag, I2, I3](
+  def circeJsonObjectEncoder[H, T, I2, I3](
     implicit generic: AsunaTestGeneric.Aux[H, T],
-    app: Application2[JsonObjectAppender, T, I2, I3],
+    app: Application3[JsonObjectAppender, T, I2, I3],
     i1: H => I2,
     i2: I3
   ): CirceType.JsonObjectEncoder[H] = {

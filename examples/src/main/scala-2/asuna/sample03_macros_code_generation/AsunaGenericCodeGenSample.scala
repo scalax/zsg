@@ -1,7 +1,7 @@
 package asuna.sample03_macros_code_generation
 
 import asuna._
-import asuna.macros.single.{AsunaGeneric, PropertyApply}
+import asuna.macros.single.AsunaGeneric
 
 object AsunaGenericCodeGenSample {
 
@@ -9,23 +9,21 @@ object AsunaGenericCodeGenSample {
 
   val genResult = {
     AsunaGeneric.GenericApply[Sample10].value { pro =>
-      AppendTag.lift(
-        AppendTag.nodeTag(
-          AppendTag.nodeTag(
-            AppendTag.nodeTag(AppendTag.tag(pro.to(_.i1), pro.to(_.i2)), AppendTag.tag(pro.to(_.i3), pro.to(_.i4))),
-            AppendTag.nodeTag(AppendTag.tag(pro.to(_.i5), pro.to(_.i6)), AppendTag.tag(pro.to(_.i7), pro.to(_.i8)))
+        BuildContent.tuple2(
+          BuildContent.tuple2(
+            BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i1), pro.to(_.i2)), BuildContent.tuple2(pro.to(_.i3), pro.to(_.i4))),
+            BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i5), pro.to(_.i6)), BuildContent.tuple2(pro.to(_.i7), pro.to(_.i8)))
           ),
-          AppendTag.tag(AppendTag.nodeTag(AppendTag.tag(pro.to(_.i9), pro.to(_.i10))))
+          BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(pro.to(_.i9), pro.to(_.i10))))
         )
-      )
     }
   }
 
   sameType(
-    implicitly[AsunaGeneric.Aux[Sample10, NodeTag2[NodeTag2[
-      NodeTag2[TupleTag2[PropertyTag0[String], PropertyTag0[Int]], TupleTag2[PropertyTag0[Int], PropertyTag0[Long]]],
-      NodeTag2[TupleTag2[PropertyTag0[String], PropertyTag0[List[String]]], TupleTag2[PropertyTag0[Long], PropertyTag0[Option[Long]]]]
-    ], NodeTag1[NodeTag1[TupleTag2[PropertyTag0[List[Long]], PropertyTag0[String]]]]]]],
+    implicitly[AsunaGeneric.Aux[Sample10, AsunaTuple2[AsunaTuple2[
+      AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[Int]], AsunaTuple2[PropertyTag[Int], PropertyTag[Long]]],
+      AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[List[String]]], AsunaTuple2[PropertyTag[Long], PropertyTag[Option[Long]]]]
+    ], AsunaTuple1[AsunaTuple1[AsunaTuple2[PropertyTag[List[Long]], PropertyTag[String]]]]]]],
     genResult
   )
 
