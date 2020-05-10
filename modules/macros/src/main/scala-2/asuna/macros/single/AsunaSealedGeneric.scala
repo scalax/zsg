@@ -32,7 +32,8 @@ object AsunaSealedGeneric {
 
   type Aux[H, II] = AsunaSealedGeneric[H] { type Sealed = II }
 
-  implicit def macroImpl[H, II](implicit i: AsunaSealedGeneric.SealedGenericApply[H]): AsunaSealedGeneric.Aux[H, II] = macro AsunaSealedGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II](implicit i: AsunaSealedGeneric.SealedGenericApply[H]): AsunaSealedGeneric.Aux[H, II] =
+    macro AsunaSealedGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
@@ -45,7 +46,7 @@ object AsunaSealedGenericMacroApply {
 
     def generic[H: c.WeakTypeTag, M: c.WeakTypeTag](i: c.Expr[AsunaSealedGeneric.SealedGenericApply[H]]): c.Expr[AsunaSealedGeneric.Aux[H, M]] = {
       try {
-        val h = weakTypeOf[H]
+        val h     = weakTypeOf[H]
         val hType = h.resultType
 
         val props = fleshedOutSubtypes(hType).toList

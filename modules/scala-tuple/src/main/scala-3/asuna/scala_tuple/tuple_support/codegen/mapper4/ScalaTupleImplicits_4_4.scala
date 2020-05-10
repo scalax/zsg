@@ -29,9 +29,9 @@ trait ScalaTupleImplicits_4_4 {
                 Tuple4[Plus3_X1 , Plus3_X2 , Plus3_X3 , Plus3_X4],
                 Tuple4[Plus4_X1 , Plus4_X2 , Plus4_X3 , Plus4_X4]
             ] = {
-                //val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.lift(AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , AppendTag.tag(AppendTag[Tag3] , AppendTag[Tag4]))))
-                //context.append(asunaTuple2F, context.start)(PlusToTuple4.plus4WithTypeParameter4)
-                throw new Exception
+                val implicitApplication = implicitly[Application4[F, asuna.AsunaTuple2[asuna.AsunaTuple2[Plus1_X1 , Plus1_X2] , asuna.AsunaTuple2[Plus1_X3 , Plus1_X4]] , asuna.AsunaTuple2[asuna.AsunaTuple2[Plus2_X1 , Plus2_X2] , asuna.AsunaTuple2[Plus2_X3 , Plus2_X4]] , asuna.AsunaTuple2[asuna.AsunaTuple2[Plus3_X1 , Plus3_X2] , asuna.AsunaTuple2[Plus3_X3 , Plus3_X4]] , asuna.AsunaTuple2[asuna.AsunaTuple2[Plus4_X1 , Plus4_X2] , asuna.AsunaTuple2[Plus4_X3 , Plus4_X4]]
+                ]]
+                context.append(implicitApplication.application(context), context.start)(PlusToTuple4.plus4WithTypeParameter4)
             }
         }
 }

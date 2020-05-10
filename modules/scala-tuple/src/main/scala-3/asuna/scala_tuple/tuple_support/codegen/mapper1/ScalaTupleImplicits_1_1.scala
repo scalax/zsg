@@ -17,8 +17,7 @@ trait ScalaTupleImplicits_1_1 {
             override def application(context: Context1[F]): F[
                 Tuple1[Plus1_X1]
             ] = {
-                //context.append(context.start, t1.application(context))(PlusToTuple1.plus1WithTypeParameter1)
-                throw new Exception
+                context.append(context.start, t1.application(context))(PlusToTuple1.plus1WithTypeParameter1)
             }
         }
 }

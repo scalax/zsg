@@ -17,9 +17,9 @@ trait ScalaTupleImplicits_3_1 {
             override def application(context: Context1[F]): F[
                 Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3]
             ] = {
-                //val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.lift(AppendTag.nodeTag(AppendTag.tag(AppendTag[Tag1] , AppendTag[Tag2]) , AppendTag.tag(AppendTag[Tag3]))))
-                //context.append(asunaTuple2F, context.start)(PlusToTuple1.plus1WithTypeParameter3)
-                throw new Exception
+                val implicitApplication = implicitly[Application1[F, asuna.AsunaTuple2[asuna.AsunaTuple2[Plus1_X1 , Plus1_X2] , asuna.AsunaTuple1[Plus1_X3]]
+                ]]
+                context.append(implicitApplication.application(context), context.start)(PlusToTuple1.plus1WithTypeParameter3)
             }
         }
 }

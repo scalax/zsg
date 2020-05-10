@@ -6,22 +6,22 @@ import asuna.macros.AsunaParameters
 import scala.language.experimental.macros
 
 trait AsunaGeneric[H] {
-  type WT <: TupleTag
-  def tag: AppendTag[WT]
+  type WT
+  def tag: WT
 }
 
 object AsunaGeneric {
 
   val value = new AsunaGeneric[Any] {
-    override type WT = TupleTag1[Any]
-    override def tag: AppendTag[TupleTag1[Any]] = AppendTag[TupleTag1[Any]]
+    override type WT = Any
+    override def tag: Any = 2
   }
-  type Aux[H, II <: TupleTag] = AsunaGeneric[H] { type WT = II }
-  @inline def Aux[H, II <: TupleTag]: Aux[H, II] = value.asInstanceOf[Aux[H, II]]
+  type Aux[H, II] = AsunaGeneric[H] { type WT = II }
+  @inline def Aux[H, II  ]: Aux[H, II] = value.asInstanceOf[Aux[H, II]]
 
   class GenericApply[M] {
-    def generic[WW <: TupleTag](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW]     = i
-    @inline def value[K <: TupleTag](i: PropertyApply[M] => AppendTag[K]): AsunaGeneric.Aux[M, K] = Aux[M, K]
+    def generic[WW](implicit i: AsunaGeneric.Aux[M, WW]): AsunaGeneric.Aux[M, WW]     = i
+    @inline def value[K](i: PropertyApply[M] => K): AsunaGeneric.Aux[M, K] = Aux[M, K]
   }
 
   object GenericApply {

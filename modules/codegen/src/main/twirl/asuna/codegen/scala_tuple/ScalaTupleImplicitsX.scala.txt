@@ -24,8 +24,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                //context.append(context.start, t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
-                throw new Exception
+                context.append(context.start, t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }
     } else if(tagNum == 2) {
@@ -43,8 +42,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                //context.append(t2.application(context), t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
-                throw new Exception
+                context.append(t2.application(context), t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }
     } else {
@@ -62,9 +60,11 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                //val asunaTuple2F = AppendTag.liftTag(context)(AppendTag.lift(@{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(1 to tagNum)}))
-                //context.append(asunaTuple2F, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
-                throw new Exception
+                val implicitApplication = implicitly[Application@{typeParamNum}[F, @{asuna.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(
+                    typeParameterCount = 1 to typeParamNum,
+                    seq = 1 to tagNum)}
+                ]]
+                context.append(implicitApplication.application(context), context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }
     }

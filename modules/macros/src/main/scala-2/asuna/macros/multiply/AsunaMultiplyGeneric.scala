@@ -5,6 +5,7 @@ import asuna.macros.multiply.utils.PropertyOverrideHelper
 import asuna.macros.single.PropertyApply
 
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait AsunaMultiplyGeneric[Table, Model] {
   type WT
@@ -18,19 +19,19 @@ object AsunaMultiplyGeneric {
     override def tag: Any = 2
   }
   type Aux[Table, Model, II] = AsunaMultiplyGeneric[Table, Model] { type WT = II }
-  @inline def Aux[Table, Model, II]: Aux[Table, Model, II] = value.asInstanceOf[Aux[Table, Model, II]]
+  def Aux[Table, Model, II]: Aux[Table, Model, II] = value.asInstanceOf[Aux[Table, Model, II]]
 
-  class GenericApply[Table] {
-    @inline def value[K, Model](i: PropertyApply[Table] => K): AsunaMultiplyGeneric.Aux[Table, Model, K] = Aux[Table, Model, K]
+  class MultiplyGenericApply[Table, Model] {
+    def toAux[K](i: PropertyApply[Table] => K): AsunaMultiplyGeneric.Aux[Table, Model, K] = AsunaMultiplyGeneric.Aux[Table, Model, K]
   }
 
-  object GenericApply {
-    val value                                                                                  = new GenericApply[Any]
-    @inline def apply[Table]: AsunaMultiplyGeneric.GenericApply[Table]                         = value.asInstanceOf[GenericApply[Table]]
-    @inline implicit def genericApplyImplicit[Table]: AsunaMultiplyGeneric.GenericApply[Table] = apply
+  object MultiplyGenericApply {
+    val ins                                                                             = new MultiplyGenericApply[Any, Any]
+    def apply[Table, Model]: MultiplyGenericApply[Table, Model]                         = ins.asInstanceOf[MultiplyGenericApply[Table, Model]]
+    implicit def genericApplyImplicit[Table, Model]: MultiplyGenericApply[Table, Model] = apply
   }
 
-  implicit def macroImpl[Table, Model, II](implicit prop: AsunaMultiplyGeneric.GenericApply[Table]): AsunaMultiplyGeneric.Aux[Table, Model, II] =
+  implicit def macroImpl[Table, Model, II](implicit prop: AsunaMultiplyGeneric.MultiplyGenericApply[Table, Model]): AsunaMultiplyGeneric.Aux[Table, Model, II] =
     macro AsunaMultiplyGenericApply.MacroImpl.generic[Table, Model, II]
 
 }
@@ -43,7 +44,7 @@ object AsunaMultiplyGenericApply {
     import c.universe._
 
     def generic[Table: c.WeakTypeTag, Model: c.WeakTypeTag, M: c.WeakTypeTag](
-      prop: c.Expr[AsunaMultiplyGeneric.GenericApply[Table]]
+      prop: c.Expr[AsunaMultiplyGeneric.MultiplyGenericApply[Table, Model]]
     ): c.Expr[AsunaMultiplyGeneric.Aux[Table, Model, M]] = {
       try {
         val t     = weakTypeOf[Table]
@@ -88,12 +89,12 @@ object AsunaMultiplyGenericApply {
           if (tree.length == 1) {
             q"""..${tree}"""
           } else {
-            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
+            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
             typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaMultiplyGeneric.Aux[Table, Model, M]] {
-          q"""${prop}.value(item => ${typeTagGen(proTypeTag)})"""
+          q"""${prop}.toAux(item => ${typeTagGen(proTypeTag)})"""
         }
 
       } catch {

@@ -41,8 +41,7 @@ trait ScalaTupleImplicits_2_7 {
                 Tuple2[Plus6_X1 , Plus6_X2],
                 Tuple2[Plus7_X1 , Plus7_X2]
             ] = {
-                //context.append(t2.application(context), t1.application(context))(PlusToTuple7.plus7WithTypeParameter2)
-                throw new Exception
+                context.append(t2.application(context), t1.application(context))(PlusToTuple7.plus7WithTypeParameter2)
             }
         }
 }

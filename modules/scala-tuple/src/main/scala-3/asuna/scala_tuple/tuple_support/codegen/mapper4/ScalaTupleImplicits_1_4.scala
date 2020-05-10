@@ -29,8 +29,7 @@ trait ScalaTupleImplicits_1_4 {
                 Tuple1[Plus3_X1],
                 Tuple1[Plus4_X1]
             ] = {
-                //context.append(context.start, t1.application(context))(PlusToTuple4.plus4WithTypeParameter1)
-                throw new Exception
+                context.append(context.start, t1.application(context))(PlusToTuple4.plus4WithTypeParameter1)
             }
         }
 }

@@ -50,7 +50,7 @@ object AsunaSetterGenericMacroApply {
             (str, { t1: Tree => q"""${t1}.${TermName("i" + (index % AsunaParameters.maxPropertyNum + 1).toString)}""" })
         }*/
 
-        val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, identity))
+        val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
 
         val casei = toItemImpl(1, preList)
 

@@ -69,16 +69,7 @@ object SnippetUtil {
   }
 
   def Tuple_To_AsunaTuple2(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
-    item
-      .grouped(groupSize)
-      .map { i =>
-        if (init) {
-          i.mkString(s"AppendTag.tag(", " , ", ")")
-        } else {
-          i.mkString(s"AppendTag.nodeTag(", " , ", ")")
-        }
-      }
-      .to(List) match {
+    item.grouped(groupSize).to(List).map { i => i.mkString(s"asuna.AsunaTuple${i.size}[", " , ", "]") } match {
       case h :: Nil =>
         h
       case r =>
@@ -86,8 +77,8 @@ object SnippetUtil {
     }
   }
 
-  def Lift_Tuple_To_AsunaTuple2(seq: Seq[Int]): String = {
-    Tuple_To_AsunaTuple2(seq.map(r => s"AppendTag[Tag${r}]"))(2)(true)
+  def Lift_Tuple_To_AsunaTuple2(typeParameterCount: Seq[Int], seq: Seq[Int]): String = {
+    typeParameterCount.map(count => Tuple_To_AsunaTuple2(seq.map(i => s"Plus${count}_X${i}"))(2)(true)).mkString(" , ")
   }
 
   def Tuple2Group[T](i: List[T])(groupSize: Int)(on: T => List[List[Int]]): List[List[Int]] = {
