@@ -4,13 +4,12 @@ import scala.annotation.tailrec
 
 object SnippetUtil {
 
-  def XI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"X${u}")
-  def YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Y${u}")
-  def II_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"final val i${u}: X${u}")
-  def TI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"T${u}")
-  def TagI_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(u => s"Tag${u}")
-  def ZI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Z${u}")
-  def Any_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(_ => s"Any")
+  def XI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"X${u}")
+  def YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"Y${u}")
+  def II_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"final val i${u}: X${u}")
+  def TI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"T${u}")
+  def ZI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"Z${u}")
+  def Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Any")
 
   def AsunaTuple0_Snippet(seq: Seq[Int]): List[String]     = seq.to(List).map(_ => s"AsunaTuple0")
   def AsunaTuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"AsunaTuple1[Y${i}]")
@@ -52,7 +51,7 @@ object SnippetUtil {
   def ApplicationX_XI_Snippet(pluxSeq: Seq[Int])(seq: Seq[Int]): Seq[String] = {
     seq.map { i =>
       val plusXIP = pluxSeq.map(ii => s"Plus${ii}_X${i}").mkString(" , ")
-      s"t${i}: Application${pluxSeq.size}[F, Tag${i}, ${plusXIP}]"
+      s"t${i}: Application${pluxSeq.size}[F, ${plusXIP}]"
     }
   }
 

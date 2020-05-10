@@ -38,11 +38,11 @@ object AsunaSealedClassGenericMacroApply {
         //.toList
         //.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree]): Tree =
-          if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
+          if (tree.length == 1) {
+            q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            nameTagGen(groupedTree.map(s => q"""asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaSealedClassGeneric[H, M]] {

@@ -2,36 +2,35 @@ package asuna.macros.multiply
 
 import asuna.macros.AsunaParameters
 import asuna.macros.multiply.utils.PropertyOverrideHelper
-import asuna.{AppendTag, TupleTag, TupleTag1}
+import asuna.macros.single.PropertyApply
 
 import scala.language.experimental.macros
 
 trait AsunaMultiplyGeneric[Table, Model] {
-  type WT <: TupleTag
-  def tag: AppendTag[WT]
+  type WT
+  def tag: WT
 }
 
 object AsunaMultiplyGeneric {
 
   val value = new AsunaMultiplyGeneric[Any, Any] {
-    override type WT = TupleTag1[Any]
-    override def tag: AppendTag[TupleTag1[Any]] = AppendTag[TupleTag1[Any]]
+    override type WT = Any
+    override def tag: Any = 2
   }
-  type Aux[Table, Model, II <: TupleTag] = AsunaMultiplyGeneric[Table, Model] { type WT = II }
-  @inline def Aux[Table, Model, II <: TupleTag]: Aux[Table, Model, II] = value.asInstanceOf[Aux[Table, Model, II]]
+  type Aux[Table, Model, II] = AsunaMultiplyGeneric[Table, Model] { type WT = II }
+  @inline def Aux[Table, Model, II]: Aux[Table, Model, II] = value.asInstanceOf[Aux[Table, Model, II]]
 
-  class GenericApply[Table, Model] {
-    def generic[WW <: TupleTag](implicit i: AsunaMultiplyGeneric.Aux[Table, Model, WW]): AsunaMultiplyGeneric.Aux[Table, Model, WW] = i
-    @inline def value[K <: TupleTag](i: Property1Apply[Table, Model] => AppendTag[K]): AsunaMultiplyGeneric.Aux[Table, Model, K]    = Aux[Table, Model, K]
+  class GenericApply[Table] {
+    @inline def value[K, Model](i: PropertyApply[Table] => K): AsunaMultiplyGeneric.Aux[Table, Model, K] = Aux[Table, Model, K]
   }
 
   object GenericApply {
-    val value                                                                                                = new GenericApply[Any, Any]
-    @inline def apply[Table, M]: AsunaMultiplyGeneric.GenericApply[Table, M]                                 = value.asInstanceOf[GenericApply[Table, M]]
-    @inline implicit def genericApplyImplicit[Table, Model]: AsunaMultiplyGeneric.GenericApply[Table, Model] = apply
+    val value                                                                                  = new GenericApply[Any]
+    @inline def apply[Table]: AsunaMultiplyGeneric.GenericApply[Table]                         = value.asInstanceOf[GenericApply[Table]]
+    @inline implicit def genericApplyImplicit[Table]: AsunaMultiplyGeneric.GenericApply[Table] = apply
   }
 
-  implicit def macroImpl[Table, Model, II <: TupleTag](implicit prop: AsunaMultiplyGeneric.GenericApply[Table, Model]): AsunaMultiplyGeneric.Aux[Table, Model, II] =
+  implicit def macroImpl[Table, Model, II](implicit prop: AsunaMultiplyGeneric.GenericApply[Table]): AsunaMultiplyGeneric.Aux[Table, Model, II] =
     macro AsunaMultiplyGenericApply.MacroImpl.generic[Table, Model, II]
 
 }
@@ -43,8 +42,8 @@ object AsunaMultiplyGenericApply {
 
     import c.universe._
 
-    def generic[Table: c.WeakTypeTag, Model: c.WeakTypeTag, M <: TupleTag: c.WeakTypeTag](
-      prop: c.Expr[AsunaMultiplyGeneric.GenericApply[Table, Model]]
+    def generic[Table: c.WeakTypeTag, Model: c.WeakTypeTag, M: c.WeakTypeTag](
+      prop: c.Expr[AsunaMultiplyGeneric.GenericApply[Table]]
     ): c.Expr[AsunaMultiplyGeneric.Aux[Table, Model, M]] = {
       try {
         val t     = weakTypeOf[Table]
@@ -83,22 +82,18 @@ object AsunaMultiplyGenericApply {
             )
         }
 
-        val proTypeTag = props.map(s => q"""item.to({ (table) => ${tableProperty(s)} }, _.${TermName(s)})""")
-
-        val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).toList.map(i => q"""asuna.AppendTag.tag(..${i})""")
+        val proTypeTag = props.map(s => q"""item.to(table => ${tableProperty(s)})""")
 
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""_root_.asuna.AppendTag.lift(..${tree})"""
-          } else if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""_root_.asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
+            q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 
         c.Expr[AsunaMultiplyGeneric.Aux[Table, Model, M]] {
-          q"""${prop}.value(item => ${typeTagGen(typeTag)})"""
+          q"""${prop}.value(item => ${typeTagGen(proTypeTag)})"""
         }
 
       } catch {

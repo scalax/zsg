@@ -1,33 +1,25 @@
 package asuna.macros.single.deficient
 
 import asuna.macros.AsunaParameters
-import asuna.{AppendTag, TupleTag}
 import asuna.macros.single.utils.{Sha1Helper, TypeHelper}
 
 import scala.language.experimental.macros
 import scala.collection.compat._
 
 trait AsunaTupleGeneric[TupleType] {
-  type WT <: TupleTag
-  def tag: AppendTag[WT]
+  type WT
+  def tag: WT
 }
 
 object AsunaTupleGeneric {
-  def init[M]: GenericApply[M] = new GenericApply[M]
-  class GenericApply[M] {
-    def generic[WW <: TupleTag](implicit i: AsunaTupleGeneric.Aux[M, WW]): AsunaTupleGeneric.Aux[M, WW] = i
-
-    def init1[K <: TupleTag](i: AppendTag[K]): AsunaTupleGeneric.Aux[M, K] = {
-      new AsunaTupleGeneric[M] {
-        override type WT = K
-        override def tag = i
-      }
-    }
+  def value[T, WT1](value1: WT1): AsunaTupleGeneric.Aux[T, WT1] = new AsunaTupleGeneric[T] {
+    override type WT = WT1
+    override def tag: WT1 = value1
   }
 
-  type Aux[H, II <: TupleTag] = AsunaTupleGeneric[H] { type WT = II }
+  type Aux[H, II] = AsunaTupleGeneric[H] { type WT = II }
 
-  implicit def macroImpl[TupleType, T <: TupleTag]: AsunaTupleGeneric.Aux[TupleType, T] = macro AsunaTupleGenericMacroApply.MacroImpl.generic[TupleType, T]
+  implicit def macroImpl[TupleType, T]: AsunaTupleGeneric.Aux[TupleType, T] = macro AsunaTupleGenericMacroApply.MacroImpl.generic[TupleType, T]
 }
 
 object AsunaTupleGenericMacroApply {
@@ -37,7 +29,7 @@ object AsunaTupleGenericMacroApply {
 
     import c.universe._
 
-    def generic[TupleType: c.WeakTypeTag, T <: TupleTag: c.WeakTypeTag]: c.Expr[AsunaTupleGeneric.Aux[TupleType, T]] = {
+    def generic[TupleType: c.WeakTypeTag, T: c.WeakTypeTag]: c.Expr[AsunaTupleGeneric.Aux[TupleType, T]] = {
       try {
 
         val tuple     = weakTypeOf[TupleType]
@@ -52,16 +44,14 @@ object AsunaTupleGenericMacroApply {
         val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).toList.map(i => q"""_root_.asuna.AppendTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =
           if (tree.length == 1) {
-            q"""_root_.asuna.AppendTag.lift(..${tree})"""
-          } else if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""_root_.asuna.AppendTag.lift(asuna.AppendTag.nodeTag(..${tree}))"""
+            q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..${s})"""))
+            typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.tuple(..${s})"""))
           }
 
         c.Expr[AsunaTupleGeneric.Aux[TupleType, T]] {
-          q"""_root_.asuna.macros.single.deficient.AsunaTupleGeneric.init[${tupleType}].init1(${typeTagGen(typeTag)})"""
+          q"""_root_.asuna.macros.single.deficient.AsunaTupleGeneric.value(${typeTagGen(typeTag)})"""
         }
 
       } catch {

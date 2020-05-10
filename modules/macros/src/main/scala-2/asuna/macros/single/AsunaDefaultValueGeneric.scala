@@ -5,6 +5,7 @@ import asuna.macros.{AllScalaMacroMethods, AsunaParameters}
 import asuna.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait DefaultValue[T] {
   def value: Option[T]
@@ -83,10 +84,10 @@ object AsunaDefaultValueGenericMacroApply {
         def nameTagGen(tree: List[Tree]): Tree =
           /*if (tree.length == 1) {
             q"""..${tree}"""
-          } else*/ if (tree.length <= AsunaParameters.maxPropertyNum) {
-            q"""_root_.asuna.BuildContent.${TermName("tuple" + tree.length)}(..${tree})"""
+          } else*/ if (tree.length == 1) {
+            q"""..${tree}"""
           } else {
-            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
+            val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
             nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
           }
 

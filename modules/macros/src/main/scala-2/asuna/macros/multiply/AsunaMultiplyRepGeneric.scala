@@ -2,7 +2,6 @@ package asuna.macros.multiply
 
 import asuna.macros.AsunaParameters
 import asuna.macros.multiply.utils.PropertyOverrideHelper
-import asuna.{AppendTag, TupleTag}
 
 import scala.language.experimental.macros
 
