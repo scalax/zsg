@@ -29,7 +29,7 @@ object Sample02 {
   val ap = PropertyApply[Test04]
 
   val test04PropertyTag: AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[Int]], AsunaTuple2[PropertyTag[Long], PropertyTag[Long]]] =
-    BuildContent.tuple2 ( BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)),  BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4)))
+    BuildContent.tuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4)))
 
   implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
 

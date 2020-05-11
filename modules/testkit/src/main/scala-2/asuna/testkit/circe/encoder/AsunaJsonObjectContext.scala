@@ -19,9 +19,14 @@ object AsunaJsonObjectContext extends Context3[JsonObjectContent] {
     }
   }
 
-  override def start: JsonObjectContent[AsunaTuple0, AsunaTuple0, AsunaTuple0] = new JsonObjectContent[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-    override def toAppender(name: AsunaTuple0): JsonObjectAppender[AsunaTuple0] = new JsonObjectAppender[AsunaTuple0] {
-      override def appendField(tt: AsunaTuple0, m: List[(String, Json)]): List[(String, Json)] = m
-    }
-  }
+  override val start: JsonObjectContentAsuna0 = new JsonObjectContentAsuna0
+}
+
+class JsonObjectAppenderAsuna0 extends JsonObjectAppender[AsunaTuple0] {
+  override def appendField(tt: AsunaTuple0, m: List[(String, Json)]): List[(String, Json)] = m
+}
+
+class JsonObjectContentAsuna0 extends JsonObjectContent[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
+  private val p                                                        = new JsonObjectAppenderAsuna0
+  override def toAppender(name: AsunaTuple0): JsonObjectAppenderAsuna0 = p
 }

@@ -9,13 +9,13 @@ object AsunaGenericCodeGenSample {
 
   val genResult = {
     AsunaGeneric.GenericApply[Sample10].value { pro =>
+      BuildContent.tuple2(
         BuildContent.tuple2(
-          BuildContent.tuple2(
-            BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i1), pro.to(_.i2)), BuildContent.tuple2(pro.to(_.i3), pro.to(_.i4))),
-            BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i5), pro.to(_.i6)), BuildContent.tuple2(pro.to(_.i7), pro.to(_.i8)))
-          ),
-          BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(pro.to(_.i9), pro.to(_.i10))))
-        )
+          BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i1), pro.to(_.i2)), BuildContent.tuple2(pro.to(_.i3), pro.to(_.i4))),
+          BuildContent.tuple2(BuildContent.tuple2(pro.to(_.i5), pro.to(_.i6)), BuildContent.tuple2(pro.to(_.i7), pro.to(_.i8)))
+        ),
+        BuildContent.tuple1(BuildContent.tuple1(BuildContent.tuple2(pro.to(_.i9), pro.to(_.i10))))
+      )
     }
   }
 
