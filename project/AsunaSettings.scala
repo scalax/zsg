@@ -44,7 +44,7 @@ object AsunaSettings {
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.3-20200507SNAP1"
+  val vSetting1             = version := "0.0.3-20200511SNAP1"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "asuna"
