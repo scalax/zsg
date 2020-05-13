@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.macros.single.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application2, AsunaTuple0, Context2, Plus1, Plus2}
+import asuna.{Application2, Context2, Plus2, ZsgTuple0}
 
 sealed trait Abc[T]
 
@@ -20,10 +20,10 @@ object SealedTraitTest extends App {
   }
 
   def encode[H, T, TT](
-                        implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
-                        app: Application2[STT, T, TT],
-                        labelled: AsunaSealedLabelledGeneric[H, TT]
-                      ): ListEncode[H] = new ListEncode[H] {
+    implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
+    app: Application2[STT, T, TT],
+    labelled: AsunaSealedLabelledGeneric[H, TT]
+  ): ListEncode[H] = new ListEncode[H] {
     override def str: List[String] = app.application(i).stt(labelled.names)(List.empty)
   }
 
@@ -36,15 +36,13 @@ object SealedTraitTest extends App {
       }
     }
 
-    override def start: STT[AsunaTuple0, AsunaTuple0] = new STT[AsunaTuple0, AsunaTuple0] {
-      override def stt(item: AsunaTuple0): List[String] => List[String] = ii => ii
+    override def start: STT[ZsgTuple0, ZsgTuple0] = new STT[ZsgTuple0, ZsgTuple0] {
+      override def stt(item: ZsgTuple0): List[String] => List[String] = ii => ii
     }
   }
 
-  implicit def stringImplicit1[T, R]: Application2[STT, SealedTag[T], String] = new Application2[STT, SealedTag[T], String] {
-    override def application(context: Context2[STT]): STT[SealedTag[T], String] = new STT[SealedTag[T], String] {
-      override def stt(str: String): List[String] => List[String] = list => str :: list
-    }
+  implicit def stringImplicit1[T, R]: STT[SealedTag[T], String] = new STT[SealedTag[T], String] {
+    override def stt(str: String): List[String] => List[String] = list => str :: list
   }
 
   implicit val implicit1: ListEncode[Abc[String]] = encode

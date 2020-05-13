@@ -20,10 +20,10 @@ object AsunaGenericCodeGenSample {
   }
 
   sameType(
-    implicitly[AsunaGeneric.Aux[Sample10, AsunaTuple2[AsunaTuple2[
-      AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[Int]], AsunaTuple2[PropertyTag[Int], PropertyTag[Long]]],
-      AsunaTuple2[AsunaTuple2[PropertyTag[String], PropertyTag[List[String]]], AsunaTuple2[PropertyTag[Long], PropertyTag[Option[Long]]]]
-    ], AsunaTuple1[AsunaTuple1[AsunaTuple2[PropertyTag[List[Long]], PropertyTag[String]]]]]]],
+    implicitly[AsunaGeneric.Aux[Sample10, NodeTuple2[NodeTuple2[
+      NodeTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[Int]], ZsgTuple2[PropertyTag[Int], PropertyTag[Long]]],
+      NodeTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[List[String]]], ZsgTuple2[PropertyTag[Long], PropertyTag[Option[Long]]]]
+    ], NodeTuple1[NodeTuple1[ZsgTuple2[PropertyTag[List[Long]], PropertyTag[String]]]]]]],
     genResult
   )
 

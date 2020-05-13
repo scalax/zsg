@@ -13,33 +13,33 @@ class Test extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = BuildContent.tuple2(
-    BuildContent.tuple2(
-      BuildContent.tuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4))),
-      BuildContent.tuple2(BuildContent.tuple2(ap.to(_.i5), ap.to(_.i6)), BuildContent.tuple2(ap.to(_.i7), ap.to(_.i8)))
+  val fooPropertyTag = BuildContent.nodeTuple2(
+    BuildContent.nodeTuple2(
+      BuildContent.nodeTuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4))),
+      BuildContent.nodeTuple2(BuildContent.tuple2(ap.to(_.i5), ap.to(_.i6)), BuildContent.tuple2(ap.to(_.i7), ap.to(_.i8)))
     ),
-    BuildContent.tuple1(BuildContent.tuple2(ap.to(_.i9), ap.to(_.i10)))
+    BuildContent.nodeTuple1(BuildContent.tuple2(ap.to(_.i9), ap.to(_.i10)))
   )
 
 
   val fooGetter = { foo: Foo =>
-    BuildContent.tuple2(
-      BuildContent.tuple2(
-        BuildContent.tuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4)),
-        BuildContent.tuple2(BuildContent.tuple2(foo.i5, foo.i6), BuildContent.tuple2(foo.i7, foo.i8))
+    BuildContent.nodeTuple2(
+      BuildContent.nodeTuple2(
+        BuildContent.nodeTuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4)),
+        BuildContent.nodeTuple2(BuildContent.tuple2(foo.i5, foo.i6), BuildContent.tuple2(foo.i7, foo.i8))
       ),
-      BuildContent.tuple1(
+      BuildContent.nodeTuple1(
         BuildContent.tuple2(foo.i9, foo.i10)
       )
     )
   }
 
-  val fooLabelled = BuildContent.tuple2(
-    BuildContent.tuple2(
-      BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
-      BuildContent.tuple2(BuildContent.tuple2("i5", "i6"), BuildContent.tuple2("i7", "i8"))
+  val fooLabelled = BuildContent.nodeTuple2(
+    BuildContent.nodeTuple2(
+      BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
+      BuildContent.nodeTuple2(BuildContent.tuple2("i5", "i6"), BuildContent.tuple2("i7", "i8"))
     ),
-    BuildContent.tuple1(BuildContent.tuple2("i9", "i10"))
+    BuildContent.nodeTuple1(BuildContent.tuple2("i9", "i10"))
   )
 
   import in._

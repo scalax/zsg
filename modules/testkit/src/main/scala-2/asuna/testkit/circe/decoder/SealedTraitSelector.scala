@@ -20,13 +20,11 @@ object SealedTraitSelector {
 
   implicit def asunaCirceSealedDecoder[T, R](
     implicit t: ByNameImplicit[Decoder[R]]
-  ): Application3[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] = new Application3[SealedTraitSelector[T]#JsonDecoder, SealedTag[R], String, R => T] {
-    override def application(context: Context3[SealedTraitSelector[T]#JsonDecoder]): SealedTraitSelector[T]#JsonDecoder[SealedTag[R], String, R => T] = {
-      val con = SealedTraitSelector[T]
-      new con.JsonDecoder[SealedTag[R], String, R => T] {
-        override def to(name: String, tran: R => T): Decoder[T] = {
-          Decoder.instance(j => j.get(name)(t.value).right.map(tran))
-        }
+  ): SealedTraitSelector[T]#JsonDecoder[SealedTag[R], String, R => T] = {
+    val con = SealedTraitSelector[T]
+    new con.JsonDecoder[SealedTag[R], String, R => T] {
+      override def to(name: String, tran: R => T): Decoder[T] = {
+        Decoder.instance(j => j.get(name)(t.value).right.map(tran))
       }
     }
   }

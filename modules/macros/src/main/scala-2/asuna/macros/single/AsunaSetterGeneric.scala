@@ -36,13 +36,13 @@ object AsunaSetterGenericMacroApply {
 
         val props = caseClassMembersByType(hType)
 
-        def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)]): List[(ModelField, Tree => Tree)] =
-          if (initList.size > max) {
+        def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)])(init: Boolean): List[(ModelField, Tree => Tree)] =
+          if (initList.size > max || init) {
             val i = initList.zipWithIndex.map {
               case ((str, t), index) =>
                 (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % AsunaParameters.maxPropertyNum) + 1).toString)}""") })
             }
-            toItemImpl(max * AsunaParameters.maxPropertyNum, i)
+            toItemImpl(max * AsunaParameters.maxPropertyNum, i)(false)
           } else initList
 
         /*val preList = props.zipWithIndex.map {
@@ -52,7 +52,7 @@ object AsunaSetterGenericMacroApply {
 
         val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
 
-        val casei = toItemImpl(1, preList)
+        val casei = toItemImpl(1, preList)(true)
 
         val inputFunc =
           q"""_root_.asuna.macros.single.AsunaSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {

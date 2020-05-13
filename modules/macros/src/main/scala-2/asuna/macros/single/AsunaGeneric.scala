@@ -51,16 +51,22 @@ object AsunaGenericMacroApply {
 
         val proTypeTag = props.map(s => q"""item.to(_.${s.fieldTermName})""")
 
-        def typeTagGen(tree: List[Tree]): Tree =
+        def typeTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
-            q"""..$tree"""
+            if (init)
+              q"""_root_.asuna.BuildContent.tuple1(..${tree})"""
+            else
+              q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
-            typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..$s)"""))
+            if (init)
+              typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..$s)"""), false)
+            else
+              typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..$s)"""), false)
           }
 
         c.Expr[AsunaGeneric.Aux[H, II]] {
-          q"""$prop.value(item => ${typeTagGen(proTypeTag)})"""
+          q"""$prop.value(item => ${typeTagGen(proTypeTag, true)})"""
         }
 
       } catch {

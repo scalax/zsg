@@ -63,16 +63,24 @@ object AsunaMultiplyRepGenericApply {
 
         val proTypeTag = props.map(s => tableProperty(s))
 
-        def nameTagGen(tree: List[Tree]): Tree =
+        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
-            q"""{ table => ..${tree} }"""
+            if (init) {
+              q"""{ table => _root_.asuna.BuildContent.tuple1(..${tree}) }"""
+            } else {
+              q"""{ table => ..${tree} }"""
+            }
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            if (init) {
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+            } else {
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
+            }
           }
 
         c.Expr[AsunaMultiplyRepGeneric[Table, Model, M]] {
-          q"""_root_.asuna.macros.multiply.AsunaMultiplyRepGeneric.value(${nameTagGen(proTypeTag)})"""
+          q"""_root_.asuna.macros.multiply.AsunaMultiplyRepGeneric.value(${nameTagGen(proTypeTag, true)})"""
         }
 
       } catch {

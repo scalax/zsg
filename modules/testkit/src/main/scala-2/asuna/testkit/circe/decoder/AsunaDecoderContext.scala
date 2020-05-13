@@ -1,6 +1,6 @@
 package asuna.testkit.circe.decoder
 
-import asuna.{AsunaTuple0, Context4, Plus4}
+import asuna.{Context4, Plus4, ZsgTuple0}
 import io.circe.Decoder
 
 object AsunaDecoderContext extends Context4[JsonDecoderPro] {
@@ -21,9 +21,9 @@ object AsunaDecoderContext extends Context4[JsonDecoderPro] {
     }
   }
 
-  override def start: JsonDecoderPro[AsunaTuple0, AsunaTuple0, AsunaTuple0, AsunaTuple0] = new JsonDecoderPro[AsunaTuple0, AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-    override def to(name: AsunaTuple0, defaultValue: AsunaTuple0): Decoder[AsunaTuple0] = {
-      val zeroValue = Right(AsunaTuple0.value)
+  override def start: JsonDecoderPro[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonDecoderPro[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+    override def to(name: ZsgTuple0, defaultValue: ZsgTuple0): Decoder[ZsgTuple0] = {
+      val zeroValue = Right(ZsgTuple0.value)
       Decoder.instance { _ => zeroValue }
     }
   }

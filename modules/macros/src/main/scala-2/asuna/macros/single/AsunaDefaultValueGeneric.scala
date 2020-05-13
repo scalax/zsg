@@ -80,19 +80,25 @@ object AsunaDefaultValueGenericMacroApply {
           }
           .getOrElse(defaultValue)
 
-        val nameTag                            = proTypeTag
-        def nameTagGen(tree: List[Tree]): Tree =
+        val nameTag                                           = proTypeTag
+        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           /*if (tree.length == 1) {
             q"""..${tree}"""
           } else*/ if (tree.length == 1) {
-            q"""..${tree}"""
+            if (init)
+              q"""_root_.asuna.BuildContent.tuple1(..${tree})"""
+            else
+              q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
-            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            if (init)
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+            else
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
         c.Expr[AsunaDefaultValueGeneric[H, M]] {
-          q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag)})"""
+          q"""_root_.asuna.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

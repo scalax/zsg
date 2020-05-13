@@ -7,7 +7,7 @@ trait ScalaTupleImplicits_1_1 {
             F[_],
             Plus1_X1
         ]( using 
-        t1: Application1[F, Plus1_X1])  as  Application1[
+        t1: F[Plus1_X1])  as  Application1[
             F,
             Tuple1[Plus1_X1]
         ] = new Application1[
@@ -17,7 +17,7 @@ trait ScalaTupleImplicits_1_1 {
             override def application(context: Context1[F]): F[
                 Tuple1[Plus1_X1]
             ] = {
-                context.append(context.start, t1.application(context))(PlusToTuple1.plus1WithTypeParameter1)
+                context.append(context.start, t1)(PlusToTuple1.plus1WithTypeParameter1)
             }
         }
 }

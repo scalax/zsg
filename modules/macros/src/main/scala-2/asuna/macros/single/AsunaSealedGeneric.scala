@@ -3,7 +3,9 @@ package asuna.macros.single
 import asuna.macros.AsunaParameters
 import asuna.macros.single.utils.SealedHelper
 
+import scala.annotation.tailrec
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait AsunaSealedGeneric[H] {
   type Sealed
@@ -49,20 +51,27 @@ object AsunaSealedGenericMacroApply {
         val h     = weakTypeOf[H]
         val hType = h.resultType
 
-        val props = fleshedOutSubtypes(hType).toList
+        val props = fleshedOutSubtypes(hType).to(List)
 
         val proTypeTag = props.map(s => q"""_root_.asuna.macros.single.SealedTag[${s}]""")
 
-        def typeTagGen(tree: List[Tree]): Tree =
+        @tailrec
+        def typeTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
-            q"""..${tree}"""
+            if (init)
+              q"""_root_.asuna.BuildContent.tuple1(..${tree})"""
+            else
+              q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            if (init)
+              typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+            else
+              typeTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
         c.Expr[AsunaSealedGeneric.Aux[H, M]] {
-          q"""${i}.value(${typeTagGen(proTypeTag)})"""
+          q"""${i}.value(${typeTagGen(proTypeTag, true)})"""
         }
 
       } catch {

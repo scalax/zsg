@@ -1,6 +1,6 @@
 package asuna.testkit.circe.decoder
 
-import asuna.{AsunaTuple0, Context3, Plus3}
+import asuna.{Context3, Plus3, ZsgTuple0}
 import io.circe.Decoder
 
 class AsunaSealedContext[P] extends Context3[SealedTraitSelector[P]#JsonDecoder] {
@@ -22,10 +22,10 @@ class AsunaSealedContext[P] extends Context3[SealedTraitSelector[P]#JsonDecoder]
     }
   }
 
-  override def start: SealedTraitSelector[P]#JsonDecoder[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
+  override def start: SealedTraitSelector[P]#JsonDecoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
     val con = SealedTraitSelector[P]
-    new con.JsonDecoder[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-      override def to(name: AsunaTuple0, tran: AsunaTuple0): Decoder[P] = {
+    new con.JsonDecoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+      override def to(name: ZsgTuple0, tran: ZsgTuple0): Decoder[P] = {
         Decoder.failedWithMessage("Your sealed trait have no sub class")
       }
     }
