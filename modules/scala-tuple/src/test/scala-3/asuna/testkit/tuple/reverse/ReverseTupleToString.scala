@@ -1,6 +1,6 @@
 package asuna.testkit.tuple.reverse
 
-import asuna.{Application1, AsunaTuple0, Context1, Plus1}
+import asuna.{Application1, ZsgTuple0, Context1, Plus1}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -22,38 +22,36 @@ object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
     }
   }
 
-  override def start: ReverseTupleEncoder[AsunaTuple0] = new ReverseTupleEncoder[AsunaTuple0] {
-    override def body(t: List[String], i: AsunaTuple0): List[String] = t
-    override def stringBody(i: AsunaTuple0): String                  = ""
+  override def start: ReverseTupleEncoder[ZsgTuple0] = new ReverseTupleEncoder[ZsgTuple0] {
+    override def body(t: List[String], i: ZsgTuple0): List[String] = t
+    override def stringBody(i: ZsgTuple0): String                  = ""
   }
 }
 
 object reverseTuple {
-  def asString[T](x: T)(given ii: Application1[ReverseTupleEncoder,  T]): String = {
+  def asString[T](x: T)(using ii: Application1[ReverseTupleEncoder,  T]): String = {
     val con = ii.application(reverseScalaTupleContext)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }
 }
 
 object ReverseAppendTuple {
-  given reverseTupleImplicit1: ReverseTupleEncoder[String] = new ReverseTupleEncoder[String] {
+  given reverseTupleImplicit1 as ReverseTupleEncoder[String] {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
   }
 
-  given reverseTupleImplicit12: ReverseTupleEncoder[Int] = new ReverseTupleEncoder[Int] {
+  given reverseTupleImplicit12 as ReverseTupleEncoder[Int] {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
   }
 
-  given reverseTupleImplicit3: ReverseTupleEncoder[Long] = new ReverseTupleEncoder[Long] {
+  given reverseTupleImplicit3 as ReverseTupleEncoder[Long] {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  given reverseApplicationImplicit[T](given t: ReverseTupleEncoder[T]): Application1[ReverseTupleEncoder,  T] = { context =>
-    t
-  }
+  given reverseApplicationImplicit[T](using t: Application1[ReverseTupleEncoder,  T]) as ReverseTupleEncoder[T] = t.application(reverseScalaTupleContext)
 
   /*implicit def reverseObjectTupleImplicit[T, I](
     implicit ii: Application1[ReverseTupleEncoder, T, I],

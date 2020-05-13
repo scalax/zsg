@@ -13,5 +13,5 @@ abstract class Context5[F[_ , _ , _ , _ , _]] {
         Y1 , Y2 , Y3 , Y4 , Y5,
         Z1 , Z2 , Z3 , Z4 , Z5
     ]): F[Z1 , Z2 , Z3 , Z4 , Z5]
-    def start: F[AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0]
+    def start: F[ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0]
 }

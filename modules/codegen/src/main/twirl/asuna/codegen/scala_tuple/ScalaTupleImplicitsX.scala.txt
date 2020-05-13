@@ -24,7 +24,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                context.append(context.start, t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+                context.append(context.start, t1)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }
     } else if(tagNum == 2) {
@@ -42,7 +42,7 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             override def application(context: Context@{typeParamNum}[F]): F[
                 @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n                ")}
             ] = {
-                context.append(t2.application(context), t1.application(context))(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+                context.append(t2, t1)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
             }
         }
     } else {

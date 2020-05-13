@@ -36,16 +36,22 @@ object AsunaLabelledGenericMacroApply {
         val props = caseClassMembersByType(hType)
 
         val nameTag = props.map { name => q"""${Literal(Constant(name.fieldName))}""" }
-        def nameTagGen(tree: List[Tree]): Tree =
+        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
-            q"""..${tree}"""
+            if (init)
+              q"""_root_.asuna.BuildContent.tuple1(..${tree})"""
+            else
+              q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).toList
-            nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""))
+            if (init)
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+            else
+              nameTagGen(groupedTree.map(s => q"""_root_.asuna.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
         c.Expr[AsunaLabelledGeneric[H, M]] {
-          q"""_root_.asuna.macros.single.AsunaLabelledGeneric.value(${nameTagGen(nameTag)})"""
+          q"""_root_.asuna.macros.single.AsunaLabelledGeneric.value(${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

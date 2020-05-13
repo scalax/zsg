@@ -1,7 +1,7 @@
 package asuna.testkit
 
 import asuna.macros.single.{AsunaGeneric, AsunaSetterGeneric}
-import asuna.{Application2, AsunaTuple0, Context2, Plus2, PropertyTag}
+import asuna.{Application2, ZsgTuple0, Context2, Plus2, PropertyTag}
 
 trait ModelDecoderImpl[I, M] {
   def getData(str: String): (String, M)
@@ -20,8 +20,8 @@ object decoderContext extends Context2[ModelDecoderImpl] {
     }
   }
 
-  override def start: ModelDecoderImpl[AsunaTuple0, AsunaTuple0] = new ModelDecoderImpl[AsunaTuple0, AsunaTuple0] {
-    override def getData(str: String): (String, AsunaTuple0) = (str, AsunaTuple0.value)
+  override def start: ModelDecoderImpl[ZsgTuple0, ZsgTuple0] = new ModelDecoderImpl[ZsgTuple0, ZsgTuple0] {
+    override def getData(str: String): (String, ZsgTuple0) = (str, ZsgTuple0.value)
   }
 }
 
@@ -34,8 +34,8 @@ object reverseDecoderContext extends Context2[ModelDecoderImpl] {
     }
   }
 
-  override def start: ModelDecoderImpl[AsunaTuple0, AsunaTuple0] = new ModelDecoderImpl[AsunaTuple0, AsunaTuple0] {
-    override def getData(str: String): (String, AsunaTuple0) = (str, AsunaTuple0.value)
+  override def start: ModelDecoderImpl[ZsgTuple0, ZsgTuple0] = new ModelDecoderImpl[ZsgTuple0, ZsgTuple0] {
+    override def getData(str: String): (String, ZsgTuple0) = (str, ZsgTuple0.value)
   }
 }
 
@@ -65,36 +65,30 @@ object out {
     }
   }
 
-  implicit val outImplicit1: Application2[ModelDecoderImpl, PropertyTag[String], String] = new Application2[ModelDecoderImpl, PropertyTag[String], String] {
-    override def application(context: Context2[ModelDecoderImpl]): ModelDecoderImpl[PropertyTag[String], String] = new ModelDecoderImpl[PropertyTag[String], String] {
-      override def getData(str: String): (String, String) = {
-        val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-        val str2 = str1.takeWhile(s => s != ')')
-        val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-        (str3, str2)
-      }
+  implicit val outImplicit1: ModelDecoderImpl[PropertyTag[String], String] = new ModelDecoderImpl[PropertyTag[String], String] {
+    override def getData(str: String): (String, String) = {
+      val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+      val str2 = str1.takeWhile(s => s != ')')
+      val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+      (str3, str2)
     }
   }
 
-  implicit val outImplicit2: Application2[ModelDecoderImpl, PropertyTag[Int], Int] = new Application2[ModelDecoderImpl, PropertyTag[Int], Int] {
-    override def application(context: Context2[ModelDecoderImpl]): ModelDecoderImpl[PropertyTag[Int], Int] = new ModelDecoderImpl[PropertyTag[Int], Int] {
-      override def getData(str: String): (String, Int) = {
-        val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-        val str2 = str1.takeWhile(s => s != ')')
-        val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-        (str3, str2.toInt)
-      }
+  implicit val outImplicit2: ModelDecoderImpl[PropertyTag[Int], Int] = new ModelDecoderImpl[PropertyTag[Int], Int] {
+    override def getData(str: String): (String, Int) = {
+      val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+      val str2 = str1.takeWhile(s => s != ')')
+      val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+      (str3, str2.toInt)
     }
   }
 
-  implicit val outImplicit3: Application2[ModelDecoderImpl, PropertyTag[Long], Long] = new Application2[ModelDecoderImpl, PropertyTag[Long], Long] {
-    override def application(context: Context2[ModelDecoderImpl]): ModelDecoderImpl[PropertyTag[Long], Long] = new ModelDecoderImpl[PropertyTag[Long], Long] {
-      override def getData(str: String): (String, Long) = {
-        val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
-        val str2 = str1.takeWhile(s => s != ')')
-        val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
-        (str3, str2.toLong)
-      }
+  implicit val outImplicit3: ModelDecoderImpl[PropertyTag[Long], Long] = new ModelDecoderImpl[PropertyTag[Long], Long] {
+    override def getData(str: String): (String, Long) = {
+      val str1 = str.dropWhile(s => s != '(').drop(1).dropWhile(s => s != '(').drop(1)
+      val str2 = str1.takeWhile(s => s != ')')
+      val str3 = str1.dropWhile(s => s != ')').drop(1).dropWhile(s => s != ')').drop(1)
+      (str3, str2.toLong)
     }
   }
 

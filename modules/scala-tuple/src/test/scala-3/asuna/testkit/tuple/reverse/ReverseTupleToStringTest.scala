@@ -5,8 +5,8 @@ import org.junit.Assert._
 
 class ReverseTupleToStringTest {
 
-  import ReverseAppendTuple.given
-  import asuna.scala_tuple.ScalaTupleImplicits.given
+  import ReverseAppendTuple.{given _}
+  import asuna.scala_tuple.ScalaTupleImplicits.{given _}
 
   @Test def test1: Unit = {
     assertEquals(reverseTuple.asString(ReverseTupleData.i10), "[" + ReverseTupleData.b10.toString + "]")

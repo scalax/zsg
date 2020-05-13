@@ -1,6 +1,6 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{AsunaTuple1, AsunaTuple2, PropertyTag}
+import asuna.{NodeTuple2, ZsgTuple1, ZsgTuple2}
 import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
 
 import scala.annotation.meta.getter
@@ -11,8 +11,8 @@ trait CirceGeneric {
 
     def encoder[II](table: Table)(
       implicit i: AsunaMultiplyGeneric.Aux[Table, Model, II],
-      m: AsunaMultiplyRepGeneric[Table, Model, AsunaTuple2[AsunaTuple2[String, List[String]], AsunaTuple1[Long]]]
-    ): AsunaTuple2[AsunaTuple2[String, List[String]], AsunaTuple1[Long]] = m.rep(table)
+      m: AsunaMultiplyRepGeneric[Table, Model, NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple1[Long]]]
+    ): NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple1[Long]] = m.rep(table)
   }
 
   def link[Table, Model]: CirceGenericApply1[Table, Model] = new CirceGenericApply1[Table, Model]

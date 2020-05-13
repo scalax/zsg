@@ -8,7 +8,7 @@ trait ScalaTupleImplicits_1_2 {
             Plus1_X1,
             Plus2_X1
         ]( implicit 
-        t1: Application2[F, Plus1_X1 , Plus2_X1])  :  Application2[
+        t1: F[Plus1_X1 , Plus2_X1])  :  Application2[
             F,
             Tuple1[Plus1_X1],
             Tuple1[Plus2_X1]
@@ -21,7 +21,7 @@ trait ScalaTupleImplicits_1_2 {
                 Tuple1[Plus1_X1],
                 Tuple1[Plus2_X1]
             ] = {
-                context.append(context.start, t1.application(context))(PlusToTuple2.plus2WithTypeParameter1)
+                context.append(context.start, t1)(PlusToTuple2.plus2WithTypeParameter1)
             }
         }
 }

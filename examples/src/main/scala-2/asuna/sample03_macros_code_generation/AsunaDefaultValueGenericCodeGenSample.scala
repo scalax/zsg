@@ -36,10 +36,10 @@ object AsunaDefaultValueGenericCodeGenSample extends App {
   val macroResult = implicitly[
     AsunaDefaultValueGeneric[
       Sample10ModelWithDefaultValue,
-      AsunaTuple2[AsunaTuple2[
-        AsunaTuple2[AsunaTuple2[DefaultValue[String], DefaultValue[Int]], AsunaTuple2[DefaultValue[Int], DefaultValue[Long]]],
-        AsunaTuple2[AsunaTuple2[DefaultValue[String], DefaultValue[List[SumII.Aux[Char]]]], AsunaTuple2[DefaultValue[Long], DefaultValue[Option[Long]]]]
-      ], AsunaTuple1[AsunaTuple1[AsunaTuple2[DefaultValue[List[Long]], DefaultValue[String]]]]]
+      NodeTuple2[NodeTuple2[
+        NodeTuple2[ZsgTuple2[DefaultValue[String], DefaultValue[Int]], ZsgTuple2[DefaultValue[Int], DefaultValue[Long]]],
+        NodeTuple2[ZsgTuple2[DefaultValue[String], DefaultValue[List[SumII.Aux[Char]]]], ZsgTuple2[DefaultValue[Long], DefaultValue[Option[Long]]]]
+      ], NodeTuple1[NodeTuple1[ZsgTuple2[DefaultValue[List[Long]], DefaultValue[String]]]]]
     ]
   ]
 

@@ -1,6 +1,6 @@
 package asuna.testkit.tuple.reverse
 
-import asuna.{Application1, AsunaTuple0, Context1, Plus1}
+import asuna.{Application1, Context1, Plus1, ZsgTuple0}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -22,9 +22,9 @@ object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
     }
   }
 
-  override def start: ReverseTupleEncoder[AsunaTuple0] = new ReverseTupleEncoder[AsunaTuple0] {
-    override def body(t: List[String], i: AsunaTuple0): List[String] = t
-    override def stringBody(i: AsunaTuple0): String                  = ""
+  override def start: ReverseTupleEncoder[ZsgTuple0] = new ReverseTupleEncoder[ZsgTuple0] {
+    override def body(t: List[String], i: ZsgTuple0): List[String] = t
+    override def stringBody(i: ZsgTuple0): String                  = ""
   }
 }
 
@@ -51,9 +51,7 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[T](implicit t: ReverseTupleEncoder[T]): Application1[ReverseTupleEncoder, T] = new Application1[ReverseTupleEncoder, T] {
-    override def application(context: Context1[ReverseTupleEncoder]): ReverseTupleEncoder[T] = t
-  }
+  implicit def reverseApplicationImplicit[T](implicit t: Application1[ReverseTupleEncoder, T]): ReverseTupleEncoder[T] = t.application(reverseScalaTupleContext)
 
   /*implicit def reverseObjectTupleImplicit[T, I](
     implicit ii: Application1[ReverseTupleEncoder, T, I],

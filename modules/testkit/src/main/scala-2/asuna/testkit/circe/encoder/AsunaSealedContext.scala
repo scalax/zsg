@@ -1,6 +1,6 @@
 package asuna.testkit.circe.encoder
 
-import asuna.{AsunaTuple0, Context3, Plus3}
+import asuna.{Context3, Plus3, ZsgTuple0}
 import io.circe.Json
 
 class AsunaSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder] {
@@ -16,10 +16,10 @@ class AsunaSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder]
     }
   }
 
-  override def start: SealedTraitSelector[H]#JsonEncoder[AsunaTuple0, AsunaTuple0, AsunaTuple0] = {
+  override def start: SealedTraitSelector[H]#JsonEncoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
     val con = SealedTraitSelector[H]
-    new con.JsonEncoder[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-      override def p(model: H, classTags: AsunaTuple0, labelled: AsunaTuple0): Option[(String, Json)] = Option.empty
+    new con.JsonEncoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+      override def p(model: H, classTags: ZsgTuple0, labelled: ZsgTuple0): Option[(String, Json)] = Option.empty
     }
   }
 }

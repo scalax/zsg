@@ -13,13 +13,10 @@ object JsonDecoderPro {
 
   implicit def asunaCirceDecoder[T](
     implicit dd: ByNameImplicit[Decoder[T]]
-  ): Application4[JsonDecoderPro, PropertyTag[T], T, String, DefaultValue[T]] = new Application4[JsonDecoderPro, PropertyTag[T], T, String, DefaultValue[T]] {
-    override def application(context: Context4[JsonDecoderPro]): JsonDecoderPro[PropertyTag[T], T, String, DefaultValue[T]] =
-      new JsonDecoderPro[PropertyTag[T], T, String, DefaultValue[T]] {
-        override def to(name: String, defaultValue: DefaultValue[T]): Decoder[T] = {
-          Decoder.instance { j => defaultValue.value.map(s => Right(s)).getOrElse(j.get(name)(dd.value)) }
-        }
-      }
+  ): JsonDecoderPro[PropertyTag[T], T, String, DefaultValue[T]] = new JsonDecoderPro[PropertyTag[T], T, String, DefaultValue[T]] {
+    override def to(name: String, defaultValue: DefaultValue[T]): Decoder[T] = {
+      Decoder.instance { j => defaultValue.value.map(s => Right(s)).getOrElse(j.get(name)(dd.value)) }
+    }
   }
 
 }

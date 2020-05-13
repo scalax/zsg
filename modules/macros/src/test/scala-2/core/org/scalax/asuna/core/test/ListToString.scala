@@ -1,7 +1,7 @@
 package asuna.testkit.circe.test2
 
 import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import asuna.{Application3, AsunaTuple0, Context3, Plus2, Plus3, PropertyTag}
+import asuna.{Application3, ZsgTuple0, Context3, Plus3, PropertyTag}
 
 sealed trait PropertyItem
 
@@ -57,8 +57,8 @@ object i extends Context3[LTString] {
     }
   }
 
-  override def start: LTString[AsunaTuple0, AsunaTuple0, AsunaTuple0] = new LTString[AsunaTuple0, AsunaTuple0, AsunaTuple0] {
-    override def string(i1: AsunaTuple0, i2: AsunaTuple0): ListToString = new ListToString {
+  override def start: LTString[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new LTString[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+    override def string(i1: ZsgTuple0, i2: ZsgTuple0): ListToString = new ListToString {
       override def init(i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = i
     }
   }

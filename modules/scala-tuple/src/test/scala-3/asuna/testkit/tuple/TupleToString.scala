@@ -1,6 +1,6 @@
 package asuna.testkit.tuple
 
-import asuna.{Application2, AsunaTuple0, Context2, Plus2}
+import asuna.{Application2, ZsgTuple0, Context2, Plus2}
 
 trait TupleEncoder[T, R] {
   self =>
@@ -57,17 +57,17 @@ object scalaTupleContext extends Context2[TupleEncoder] {
     }
   }
 
-  override def start: TupleEncoder[AsunaTuple0, AsunaTuple0] = new TupleEncoder[AsunaTuple0, AsunaTuple0] {
-    override def body(t: List[String], i: AsunaTuple0): List[String] = t
-    override def stringBody(i: AsunaTuple0): String                  = ""
-    override def fromString(str: String): (AsunaTuple0, String) = {
-      (AsunaTuple0.value, str)
+  override def start: TupleEncoder[ZsgTuple0, ZsgTuple0] = new TupleEncoder[ZsgTuple0, ZsgTuple0] {
+    override def body(t: List[String], i: ZsgTuple0): List[String] = t
+    override def stringBody(i: ZsgTuple0): String                  = ""
+    override def fromString(str: String): (ZsgTuple0, String) = {
+      (ZsgTuple0.value, str)
     }
   }
 }
 
 object tuple {
-  def asString[T](x: T)(given ii: Application2[TupleEncoder, T,  T]): String = {
+  def asString[T](x: T)(using ii: Application2[TupleEncoder, T,  T]): String = {
     val encoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application(scalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
 
@@ -82,7 +82,7 @@ object tuple {
     s"[${encoder.stringBody(x)}]"
   }
 
-  def fromString[T](str: String)(given ii: Application2[TupleEncoder, T,  T]): T = {
+  def fromString[T](str: String)(using ii: Application2[TupleEncoder, T,  T]): T = {
     val decoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application(scalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
       override def stringBody(i: T): String                  = ii.application(scalaTupleContext).body(List.empty, i).mkString("(", ",", ")")
@@ -98,7 +98,7 @@ object tuple {
 }
 
 trait AppendTuple {
-  given tupleImplicit1: TupleEncoder[String, String] = new TupleEncoder[String, String] {
+  given tupleImplicit1 as TupleEncoder[String, String] {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
 
@@ -108,7 +108,7 @@ trait AppendTuple {
     }
   }
 
-  given tupleImplicit2: TupleEncoder[Int, Int] = new TupleEncoder[Int, Int] {
+  given tupleImplicit2 as TupleEncoder[Int, Int] {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
 
@@ -118,7 +118,7 @@ trait AppendTuple {
     }
   }
 
-  given tupleImplicit3: TupleEncoder[Long, Long] = new TupleEncoder[Long, Long] {
+  given tupleImplicit3 as TupleEncoder[Long, Long] {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
 
@@ -128,9 +128,7 @@ trait AppendTuple {
     }
   }
 
-  given applicationImplicit[T](given t: TupleEncoder[T, T]): Application2[TupleEncoder, T,  T] = { context =>
-    t
-  }
+  given applicationImplicit[T](using t: Application2[TupleEncoder, T,  T]) as TupleEncoder[T, T] = t.application(scalaTupleContext)
 
   /*implicit def objectTupleImplicit[T](
     implicit ii: Application2[TupleEncoder, T, T, T]

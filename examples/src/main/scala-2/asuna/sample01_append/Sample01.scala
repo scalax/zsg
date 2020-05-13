@@ -9,8 +9,8 @@ object Sample01 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
-  val getter = { test04: Test04 => BuildContent.tuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4)) }
-  val names  = BuildContent.tuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
+  val getter = { test04: Test04 => BuildContent.nodeTuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4)) }
+  val names  = BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -25,8 +25,8 @@ object Sample01 {
       }
     }
 
-    override def start: JsonObjectAppender[AsunaTuple0, AsunaTuple0] = new JsonObjectAppender[AsunaTuple0, AsunaTuple0] {
-      override def appendField(obj: AsunaTuple0, name: AsunaTuple0, m: JsonObject): JsonObject = m
+    override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0] {
+      override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
     }
   }
 
@@ -51,14 +51,14 @@ object Sample01 {
     }
   }
 
-  val b1: JsonObjectAppender[AsunaTuple2[String, Int], AsunaTuple2[String, String]] =
-    ii.append(a2, a1)(AsunaTuple2.cachePlus2WithTypeParameter1)
+  val b1: JsonObjectAppender[ZsgTuple2[String, Int], ZsgTuple2[String, String]] =
+    ii.append(a2, a1)(ZsgTuple2.cachePlus2WithTypeParameter1)
 
-  val b2: JsonObjectAppender[AsunaTuple2[Long, Long], AsunaTuple2[String, String]] =
-    ii.append(a4, a3)(AsunaTuple2.cachePlus2WithTypeParameter1)
+  val b2: JsonObjectAppender[ZsgTuple2[Long, Long], ZsgTuple2[String, String]] =
+    ii.append(a4, a3)(ZsgTuple2.cachePlus2WithTypeParameter1)
 
-  val b3: JsonObjectAppender[AsunaTuple2[AsunaTuple2[String, Int], AsunaTuple2[Long, Long]], AsunaTuple2[AsunaTuple2[String, String], AsunaTuple2[String, String]]] =
-    ii.append(b2, b1)(AsunaTuple2.cachePlus2WithTypeParameter1)
+  val b3: JsonObjectAppender[NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Long, Long]], NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]]] =
+    ii.append(b2, b1)(NodeTuple2.cachePlus2WithTypeParameter1)
 
   def main(arr: Array[String]): Unit = {
     implicit val encoderTest04: CirceType.JsonObjectEncoder[Test04] =

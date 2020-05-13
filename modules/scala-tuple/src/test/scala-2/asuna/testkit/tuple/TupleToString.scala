@@ -1,6 +1,6 @@
 package asuna.testkit.tuple
 
-import asuna.{Application2, AsunaTuple0, Context2, Plus2}
+import asuna.{Application2, Context2, Plus2, ZsgTuple0}
 
 trait TupleEncoder[T, R] {
   self =>
@@ -57,11 +57,11 @@ object scalaTupleContext extends Context2[TupleEncoder] {
     }
   }
 
-  override def start: TupleEncoder[AsunaTuple0, AsunaTuple0] = new TupleEncoder[AsunaTuple0, AsunaTuple0] {
-    override def body(t: List[String], i: AsunaTuple0): List[String] = t
-    override def stringBody(i: AsunaTuple0): String                  = ""
-    override def fromString(str: String): (AsunaTuple0, String) = {
-      (AsunaTuple0.value, str)
+  override def start: TupleEncoder[ZsgTuple0, ZsgTuple0] = new TupleEncoder[ZsgTuple0, ZsgTuple0] {
+    override def body(t: List[String], i: ZsgTuple0): List[String] = t
+    override def stringBody(i: ZsgTuple0): String                  = ""
+    override def fromString(str: String): (ZsgTuple0, String) = {
+      (ZsgTuple0.value, str)
     }
   }
 }
@@ -128,9 +128,7 @@ trait AppendTuple {
     }
   }
 
-  implicit def applicationImplicit[T](implicit t: TupleEncoder[T, T]): Application2[TupleEncoder, T, T] = new Application2[TupleEncoder, T, T] {
-    override def application(context: Context2[TupleEncoder]): TupleEncoder[T, T] = t
-  }
+  implicit def applicationImplicit[T](implicit t: Application2[TupleEncoder, T, T]): TupleEncoder[T, T] = t.application(scalaTupleContext)
 
   /*implicit def objectTupleImplicit[T](
     implicit ii: Application2[TupleEncoder, T, T, T]

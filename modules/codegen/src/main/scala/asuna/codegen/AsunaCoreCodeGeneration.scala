@@ -49,11 +49,34 @@ object AsunaCoreCodeGeneration {
 
     {
       for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
-        val filePath = root2XDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
+        val filePath = root2XDir.resolve("mapper" + i).resolve("ZsgTuple" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
-          asuna.codegen.tuple.txt.AsunaTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(false).body
+          asuna.codegen.tuple.txt.ZsgTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(false).body
+        )
+        writer.println(content)
+        writer.close()
+      }
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("ZsgTuple" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content = StringUtil.trimLines(
+          asuna.codegen.tuple.txt.ZsgTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(true).body
+        )
+        writer.println(content)
+        writer.close()
+      }
+    }
+
+    {
+      for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
+        val filePath = root2XDir.resolve("mapper" + i).resolve("NodeTuple" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content = StringUtil.trimLines(
+          asuna.codegen.tuple.txt.NodeTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(false).body
         )
         writer.println(content)
         writer.close()
@@ -63,7 +86,7 @@ object AsunaCoreCodeGeneration {
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
-          asuna.codegen.tuple.txt.AsunaTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(true).body
+          asuna.codegen.tuple.txt.NodeTuple(tagNum = i)(maxAsunaTupleNum = AsunaParameters.maxPropertyNum, maxAsunaContext = AsunaParameters.maxContextNum)(true).body
         )
         writer.println(content)
         writer.close()
