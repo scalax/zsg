@@ -6,11 +6,11 @@ import asuna.AsunaTuple2
 import asuna.BuildContent
 trait PlusToTuple_1_3 {
         final def plus3WithTypeParameter1Dynamic[Y1 , Y2 , Y3]: Plus3[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3]
         ] = new Plus3[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3]
         ] {
@@ -25,16 +25,16 @@ trait PlusToTuple_1_3 {
                 final override def plus3(x: AsunaTuple0, y: Y3): Tuple1[Y3] = Tuple1(y)
         }
         final val plus3WithTypeParameter1Strict: Plus3[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Any , Any , Any,
             Tuple1[Any] , Tuple1[Any] , Tuple1[Any]
         ] = plus3WithTypeParameter1Dynamic[Any , Any , Any]
         final def plus3WithTypeParameter1[Y1 , Y2 , Y3]: Plus3[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3]
         ] = plus3WithTypeParameter1Strict.asInstanceOf[Plus3[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3]
         ]]

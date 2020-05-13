@@ -6,11 +6,11 @@ import asuna.AsunaTuple2
 import asuna.BuildContent
 trait PlusToTuple_1_2 {
         final def plus2WithTypeParameter1Dynamic[Y1 , Y2]: Plus2[
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Y1 , Y2,
             Tuple1[Y1] , Tuple1[Y2]
         ] = new Plus2[
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Y1 , Y2,
             Tuple1[Y1] , Tuple1[Y2]
         ] {
@@ -22,16 +22,16 @@ trait PlusToTuple_1_2 {
                 final override def plus2(x: AsunaTuple0, y: Y2): Tuple1[Y2] = Tuple1(y)
         }
         final val plus2WithTypeParameter1Strict: Plus2[
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Any , Any,
             Tuple1[Any] , Tuple1[Any]
         ] = plus2WithTypeParameter1Dynamic[Any , Any]
         final def plus2WithTypeParameter1[Y1 , Y2]: Plus2[
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Y1 , Y2,
             Tuple1[Y1] , Tuple1[Y2]
         ] = plus2WithTypeParameter1Strict.asInstanceOf[Plus2[
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Y1 , Y2,
             Tuple1[Y1] , Tuple1[Y2]
         ]]

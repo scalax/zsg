@@ -6,11 +6,11 @@ import asuna.AsunaTuple2
 import asuna.BuildContent
 trait PlusToTuple_1_7 {
         final def plus7WithTypeParameter1Dynamic[Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7]: Plus7[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6] , Tuple1[Y7]
         ] = new Plus7[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6] , Tuple1[Y7]
         ] {
@@ -37,16 +37,16 @@ trait PlusToTuple_1_7 {
                 final override def plus7(x: AsunaTuple0, y: Y7): Tuple1[Y7] = Tuple1(y)
         }
         final val plus7WithTypeParameter1Strict: Plus7[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Any , Any , Any , Any , Any , Any , Any,
             Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any]
         ] = plus7WithTypeParameter1Dynamic[Any , Any , Any , Any , Any , Any , Any]
         final def plus7WithTypeParameter1[Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7]: Plus7[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6] , Tuple1[Y7]
         ] = plus7WithTypeParameter1Strict.asInstanceOf[Plus7[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6] , Tuple1[Y7]
         ]]

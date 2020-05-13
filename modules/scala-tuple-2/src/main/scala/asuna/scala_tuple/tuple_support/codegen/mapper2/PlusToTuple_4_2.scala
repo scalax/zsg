@@ -11,13 +11,13 @@ trait PlusToTuple_4_2 {
         ]: Plus2[
             AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]],
             AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]],
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4],
             Tuple4[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4]
         ] = new Plus2[
             AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]],
             AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]],
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4],
             Tuple4[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4]
         ] {

@@ -6,11 +6,11 @@ import asuna.AsunaTuple2
 import asuna.BuildContent
 trait PlusToTuple_1_6 {
         final def plus6WithTypeParameter1Dynamic[Y1 , Y2 , Y3 , Y4 , Y5 , Y6]: Plus6[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6]
         ] = new Plus6[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6]
         ] {
@@ -34,16 +34,16 @@ trait PlusToTuple_1_6 {
                 final override def plus6(x: AsunaTuple0, y: Y6): Tuple1[Y6] = Tuple1(y)
         }
         final val plus6WithTypeParameter1Strict: Plus6[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Any , Any , Any , Any , Any , Any,
             Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any]
         ] = plus6WithTypeParameter1Dynamic[Any , Any , Any , Any , Any , Any]
         final def plus6WithTypeParameter1[Y1 , Y2 , Y3 , Y4 , Y5 , Y6]: Plus6[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6]
         ] = plus6WithTypeParameter1Strict.asInstanceOf[Plus6[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5] , Tuple1[Y6]
         ]]

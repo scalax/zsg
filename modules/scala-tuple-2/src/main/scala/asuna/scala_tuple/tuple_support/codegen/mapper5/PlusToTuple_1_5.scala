@@ -6,11 +6,11 @@ import asuna.AsunaTuple2
 import asuna.BuildContent
 trait PlusToTuple_1_5 {
         final def plus5WithTypeParameter1Dynamic[Y1 , Y2 , Y3 , Y4 , Y5]: Plus5[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5]
         ] = new Plus5[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5]
         ] {
@@ -31,16 +31,16 @@ trait PlusToTuple_1_5 {
                 final override def plus5(x: AsunaTuple0, y: Y5): Tuple1[Y5] = Tuple1(y)
         }
         final val plus5WithTypeParameter1Strict: Plus5[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Any , Any , Any , Any , Any,
             Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any] , Tuple1[Any]
         ] = plus5WithTypeParameter1Dynamic[Any , Any , Any , Any , Any]
         final def plus5WithTypeParameter1[Y1 , Y2 , Y3 , Y4 , Y5]: Plus5[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5]
         ] = plus5WithTypeParameter1Strict.asInstanceOf[Plus5[
-            AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0,
             Y1 , Y2 , Y3 , Y4 , Y5,
             Tuple1[Y1] , Tuple1[Y2] , Tuple1[Y3] , Tuple1[Y4] , Tuple1[Y5]
         ]]

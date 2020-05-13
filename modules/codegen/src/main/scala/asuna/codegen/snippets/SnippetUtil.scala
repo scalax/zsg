@@ -5,21 +5,36 @@ import scala.annotation.tailrec
 object SnippetUtil {
 
   def XI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"X${u}")
+  def XI_CI_F_Snippet(xi:Seq[Int], ci: Seq[Int]): List[String]  = xi.to(List).map(u => s"t${u}: F[${ci.map(c=>s"X${u}_C${c}").mkString(" , ")}]")
+  def XI_TupleTag_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"X${u} <: TupleTag")
+
   def YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"Y${u}")
   def II_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"final val i${u}: X${u}")
   def TI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"T${u}")
   def ZI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"Z${u}")
   def Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Any")
+  def YI_TupleTag_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(u => s"Y${u} <: TupleTag")
 
-  def AsunaTuple0_Snippet(seq: Seq[Int]): List[String]     = seq.to(List).map(_ => s"AsunaTuple0")
-  def AsunaTuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"AsunaTuple1[Y${i}]")
-  def AsunaTuple1_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"AsunaTuple1[Any]")
+
+
+  def TupleTag_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"TupleTag")
+
+  def AsunaTuple0_Snippet(seq: Seq[Int]): List[String]     = seq.to(List).map(_ => s"ZsgTuple0")
+  def AsunaTuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"ZsgTuple1[Y${i}]")
+  def AsunaTuple1_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"ZsgTuple1[Any]")
+  def NodeTuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"NodeTuple1[Y${i}]")
+
+
+  def NodeTuple1_TupleTag_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"NodeTuple1[TupleTag]")
+  def NodeTuple2_TupleTag_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"NodeTuple2[TupleTag, TupleTag]")
 
   def Tuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"Tuple1[Y${i}]")
   def Tuple1_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Tuple1[Any]")
 
-  def AsunaTuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"AsunaTuple2[Y${u}, X${u}]")
-  def AsunaTuple2_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"AsunaTuple2[Any, Any]")
+  def NodeTuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"NodeTuple2[Y${u}, X${u}]")
+
+  def AsunaTuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"ZsgTuple2[Y${u}, X${u}]")
+  def AsunaTuple2_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"ZsgTuple2[Any, Any]")
 
   def Tuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Tuple2[Y${u}, X${u}]")
   def Tuple2_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Tuple2[Any, Any]")

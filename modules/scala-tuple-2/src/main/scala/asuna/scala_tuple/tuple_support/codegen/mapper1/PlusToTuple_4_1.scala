@@ -9,11 +9,11 @@ trait PlusToTuple_4_1 {
             Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4
         ]: Plus1[
             AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]],
-            AsunaTuple0,
+            ZsgTuple0,
             Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]
         ] = new Plus1[
             AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]],
-            AsunaTuple0,
+            ZsgTuple0,
             Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]
         ] {
                 final override def takeHead1(z: Tuple4[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4]): AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] =

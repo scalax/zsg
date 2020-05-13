@@ -11,13 +11,13 @@ trait PlusToTuple_10_2 {
         ]: Plus2[
             AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]],
             AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]],
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10],
             Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10]
         ] = new Plus2[
             AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus1_X1 , Plus1_X2] , AsunaTuple2[Plus1_X3 , Plus1_X4]] , AsunaTuple2[AsunaTuple2[Plus1_X5 , Plus1_X6] , AsunaTuple2[Plus1_X7 , Plus1_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus1_X9 , Plus1_X10]]]],
             AsunaTuple2[AsunaTuple2[AsunaTuple2[AsunaTuple2[Plus2_X1 , Plus2_X2] , AsunaTuple2[Plus2_X3 , Plus2_X4]] , AsunaTuple2[AsunaTuple2[Plus2_X5 , Plus2_X6] , AsunaTuple2[Plus2_X7 , Plus2_X8]]] , AsunaTuple1[AsunaTuple1[AsunaTuple2[Plus2_X9 , Plus2_X10]]]],
-            AsunaTuple0 , AsunaTuple0,
+            ZsgTuple0 , ZsgTuple0,
             Tuple10[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10],
             Tuple10[Plus2_X1 , Plus2_X2 , Plus2_X3 , Plus2_X4 , Plus2_X5 , Plus2_X6 , Plus2_X7 , Plus2_X8 , Plus2_X9 , Plus2_X10]
         ] {
