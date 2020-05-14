@@ -13,7 +13,6 @@ object AsunaCoreCodeGeneration {
 
   val rootAllDir =
     Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("asuna").resolve("codegen")
-  val buildAllDir = rootAllDir.resolve("build")
 
   val rootDottyDir =
     Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("asuna").resolve("codegen")
@@ -82,7 +81,7 @@ object AsunaCoreCodeGeneration {
         writer.close()
       }
       for (i <- 1 to AsunaParameters.maxPropertyNum) yield {
-        val filePath = rootDottyDir.resolve("mapper" + i).resolve("AsunaTuple" + i + ".scala")
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("NodeTuple" + i + ".scala")
         Files.createDirectories(filePath.getParent)
         val writer = new PrintWriter(filePath.toFile, "utf-8")
         val content = StringUtil.trimLines(
@@ -93,7 +92,7 @@ object AsunaCoreCodeGeneration {
       }
     }
 
-    {
+    /*{
       val filePath = buildAllDir.resolve("NodeNumberMessage.scala")
       Files.createDirectories(filePath.getParent)
       val writer23 = new PrintWriter(filePath.toFile, "utf-8")
@@ -107,9 +106,9 @@ object AsunaCoreCodeGeneration {
       val content232 = content231.mkString(System.lineSeparator)
       writer23.println(content232)
       writer23.close()
-    }
+    }*/
 
-    {
+    /*{
       val filePath = buildAllDir.resolve("TupleNumberMessage.scala")
       Files.createDirectories(filePath.getParent)
       val writer24 = new PrintWriter(filePath.toFile, "utf-8")
@@ -123,17 +122,39 @@ object AsunaCoreCodeGeneration {
       val content242 = content241.mkString(System.lineSeparator)
       writer24.println(content242)
       writer24.close()
-    }
+    }*/
 
     {
-      val filePath = buildAllDir.resolve("BuildContent.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source.fromString(asuna.codegen.tuple.build.txt.BuildContent(maxItem = AsunaParameters.maxPropertyNum).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-      val lineContent = content.mkString(System.lineSeparator)
-      writer.println(lineContent)
-      writer.close()
+      {
+        val filePath = build2XDir.resolve("BuildContent.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content =
+          Source
+            .fromString(asuna.codegen.tuple.build.txt.BuildContent(maxItem = AsunaParameters.maxPropertyNum)(isDotty = false).body)
+            .getLines
+            .toList
+            .map(_.trim)
+            .filter(s => !s.isEmpty)
+        val lineContent = content.mkString(System.lineSeparator)
+        writer.println(lineContent)
+        writer.close()
+      }
+      {
+        val filePath = buildDottyDir.resolve("BuildContent.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val content =
+          Source
+            .fromString(asuna.codegen.tuple.build.txt.BuildContent(maxItem = AsunaParameters.maxPropertyNum)(isDotty = true).body)
+            .getLines
+            .toList
+            .map(_.trim)
+            .filter(s => !s.isEmpty)
+        val lineContent = content.mkString(System.lineSeparator)
+        writer.println(lineContent)
+        writer.close()
+      }
     }
 
     {

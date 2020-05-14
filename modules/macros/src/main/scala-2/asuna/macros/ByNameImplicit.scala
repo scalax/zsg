@@ -21,7 +21,7 @@ object ByNameImplicitHelper {
       val byNameImplicit = weakTypeOf[ByNameImplicit[T]].resultType
       val t              = weakTypeOf[T].resultType
       c.Expr[ByNameImplicit[T]] {
-        q"""new ${byNameImplicit} { override def value: ${t} = implicitly[${t}] }"""
+        q"""new ${byNameImplicit} { @inline override def value: ${t} = implicitly[${t}] }"""
       }
     }
   }

@@ -1,12 +1,12 @@
-@(maxItem: Int)
+@(maxItem: Int)(isDotty: Boolean)
 
 package asuna
 
 object BuildContent {
     @for(i <- 1 to maxItem) {
-        final def tuple@{i}[T1 @for(ii <- 2 to i){ , T@{ii} }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): ZsgTuple@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
+        @if(isDotty) { inline } else { @@inline } def tuple@{i}[T1  @for(ii <- 2 to i) { , T@{ii} }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): ZsgTuple@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
             new ZsgTuple@{i}(i1 = t1 @for(ii <- 2 to i) { , i@{ii} = t@{ii} })
-        final def nodeTuple@{i}[T1 <: TupleTag @for(ii <- 2 to i){ , T@{ii} <: TupleTag }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): NodeTuple@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
+        @if(isDotty) { inline } else { @@inline } final def nodeTuple@{i}[T1 <: TupleTag @for(ii <- 2 to i){ , T@{ii} <: TupleTag }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): NodeTuple@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
             new NodeTuple@{i}(i1 = t1 @for(ii <- 2 to i) { , i@{ii} = t@{ii} })
     }
 }

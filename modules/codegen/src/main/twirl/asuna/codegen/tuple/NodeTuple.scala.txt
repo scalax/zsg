@@ -34,7 +34,7 @@ object NodeTuple@{tagNum} {
 
     @for(eachContextNum <- 1 to maxAsunaContext) {
         @if(tagNum == 1) {
-            final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+            @@inline final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
                 @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
                 @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
                 @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
@@ -56,7 +56,7 @@ object NodeTuple@{tagNum} {
                 @{asuna.codegen.SnippetUtil.NodeTuple1_TupleTag_Any_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]
 
-            final def cachePlus@{eachContextNum}WithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+            @@inline final def cachePlus@{eachContextNum}WithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
                 @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
                 @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
                 @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
@@ -66,7 +66,7 @@ object NodeTuple@{tagNum} {
                 @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ]]
         } else {
-            final def cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
+            @@inline final def cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
                 @{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
                 @{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]: Plus@{eachContextNum}[
@@ -94,7 +94,7 @@ object NodeTuple@{tagNum} {
                 @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]
 
-            final def cachePlus@{eachContextNum}WithTypeParameter1[
+            @@inline final def cachePlus@{eachContextNum}WithTypeParameter1[
                 @{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
                 @{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]: Plus@{eachContextNum}[
