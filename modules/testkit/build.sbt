@@ -1,6 +1,5 @@
-AsunaSettings.scalaVersionSettings
-
-AsunaSettings.commonSettings
+ZsgSettings.scalaVersionSettings
+ZsgSettings.commonSettings
 
 libraryDependencies ++= Dependencies.circeDependencies(scalaVersion.value)
 //libraryDependencies ++= Dependices.upickleDependencies

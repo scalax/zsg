@@ -1,2 +1,2 @@
-AsunaSettings.projectVersionSetting
-name := "asuna-macros"
+ZsgSettings.projectVersionSetting
+name := "zsg-macros"

@@ -1,5 +1,5 @@
-AsunaSettings.dottyVersionSettings
-AsunaSettings.commonSettings
+ZsgSettings.dottyVersionSettings
+ZsgSettings.commonSettings
 
 libraryDependencies ++= Dependencies.scalaReflect(scalaVersion.value)
 libraryDependencies ++= Dependencies.slf4j.map(_ % Test)

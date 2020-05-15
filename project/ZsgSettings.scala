@@ -2,7 +2,7 @@ import sbt._
 import sbt.Keys._
 import bintray.BintrayKeys._
 
-object AsunaSettings {
+object ZsgSettings {
 
   val currentScalaVersion = "2.13.2"
   val scala212Version     = "2.12.11"
@@ -44,10 +44,10 @@ object AsunaSettings {
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.3-20200515SNAP1"
+  val vSetting1             = version := "0.0.3-M2"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
-  val vSetting4             = bintrayRepository := "asuna"
+  val vSetting4             = bintrayRepository := "zsg"
   val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   val vSetting6             = bintrayVcsUrl := Some("https://github.com/scalax/asuna.git")
   val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4, vSetting5, vSetting6)

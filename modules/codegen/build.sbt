@@ -1,5 +1,5 @@
 enablePlugins(SbtTwirl)
-AsunaSettings.setting9
-AsunaSettings.commonSettings
+ZsgSettings.setting9
+ZsgSettings.commonSettings
 
 libraryDependencies += Dependencies.commonsIo

@@ -1,2 +1,2 @@
-name := "asuna-testkit"
-AsunaSettings.projectVersionSetting
+name := "zsg-testkit"
+ZsgSettings.projectVersionSetting
