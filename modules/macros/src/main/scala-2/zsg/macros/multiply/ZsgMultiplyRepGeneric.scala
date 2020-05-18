@@ -5,25 +5,25 @@ import zsg.macros.multiply.utils.PropertyOverrideHelper
 
 import scala.language.experimental.macros
 
-trait AsunaMultiplyRepGeneric[Table, Model, Rep] {
+trait ZsgMultiplyRepGeneric[Table, Model, Rep] {
   def rep(table: Table): Rep
 }
 
-object AsunaMultiplyRepGeneric {
-  def value[Table, Model, Rep](i: Table => Rep): AsunaMultiplyRepGeneric[Table, Model, Rep] = new AsunaMultiplyRepGeneric[Table, Model, Rep] {
+object ZsgMultiplyRepGeneric {
+  def value[Table, Model, Rep](i: Table => Rep): ZsgMultiplyRepGeneric[Table, Model, Rep] = new ZsgMultiplyRepGeneric[Table, Model, Rep] {
     override def rep(table: Table): Rep = i(table)
   }
-  implicit def macroImpl[Table, Model, Rep]: AsunaMultiplyRepGeneric[Table, Model, Rep] = macro AsunaMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
+  implicit def macroImpl[Table, Model, Rep]: ZsgMultiplyRepGeneric[Table, Model, Rep] = macro ZsgMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
 }
 
-object AsunaMultiplyRepGenericApply {
+object ZsgMultiplyRepGenericApply {
 
   class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends PropertyOverrideHelper {
     self =>
 
     import c.universe._
 
-    def generic[Table: c.WeakTypeTag, Model: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaMultiplyRepGeneric[Table, Model, M]] = {
+    def generic[Table: c.WeakTypeTag, Model: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgMultiplyRepGeneric[Table, Model, M]] = {
       try {
         val t     = weakTypeOf[Table]
         val m     = weakTypeOf[Model]
@@ -79,8 +79,8 @@ object AsunaMultiplyRepGenericApply {
             }
           }
 
-        c.Expr[AsunaMultiplyRepGeneric[Table, Model, M]] {
-          q"""_root_.zsg.macros.multiply.AsunaMultiplyRepGeneric.value(${nameTagGen(proTypeTag, true)})"""
+        c.Expr[ZsgMultiplyRepGeneric[Table, Model, M]] {
+          q"""_root_.zsg.macros.multiply.ZsgMultiplyRepGeneric.value(${nameTagGen(proTypeTag, true)})"""
         }
 
       } catch {

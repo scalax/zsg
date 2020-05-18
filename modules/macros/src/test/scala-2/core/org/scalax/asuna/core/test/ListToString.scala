@@ -1,7 +1,7 @@
 package zsg.testkit.circe.test2
 
-import zsg.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import zsg.{Application3, ZsgTuple0, Context3, Plus3, PropertyTag}
+import zsg.macros.single.{ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric}
+import zsg.{Application3, Context3, Plus3, PropertyTag, ZsgTuple0}
 
 sealed trait PropertyItem
 
@@ -67,10 +67,10 @@ object i extends Context3[LTString] {
 object in {
 
   def encoder[I1, I2, I3, I4](
-                               implicit ii: AsunaGeneric.Aux[I1, I2],
+                               implicit ii: ZsgGeneric.Aux[I1, I2],
                                pp: Application3[LTString, I2, I3, I4],
-                               asunaGetterGeneric: AsunaGetterGeneric[I1, I3],
-                               asunaNameGeneric: AsunaLabelledGeneric[I1, I4]
+                               asunaGetterGeneric: ZsgGetterGeneric[I1, I3],
+                               asunaNameGeneric: ZsgLabelledGeneric[I1, I4]
                              ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {

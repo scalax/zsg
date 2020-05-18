@@ -1,6 +1,6 @@
 package zsg.testkit
 
-import zsg.macros.single.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
+import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 import zsg.{Application2, Context2, Plus2, ZsgTuple0}
 
 sealed trait Abc[T]
@@ -20,9 +20,9 @@ object SealedTraitTest extends App {
   }
 
   def encode[H, T, TT](
-    implicit asunaSealedGeneric: AsunaSealedGeneric.Aux[H, T],
+    implicit asunaSealedGeneric: ZsgSealedGeneric.Aux[H, T],
     app: Application2[STT, T, TT],
-    labelled: AsunaSealedLabelledGeneric[H, TT]
+    labelled: ZsgSealedLabelledGeneric[H, TT]
   ): ListEncode[H] = new ListEncode[H] {
     override def str: List[String] = app.application(i).stt(labelled.names)(List.empty)
   }

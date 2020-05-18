@@ -29,32 +29,28 @@ object DefaultValue {
 
 }
 
-abstract class AsunaDefaultValueGeneric[H, DefaultValueType] {
+abstract class ZsgDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues: DefaultValueType
 }
 
-object AsunaDefaultValueGeneric extends AsunaDefaultValueGenericMacroPoly {
+object ZsgDefaultValueGeneric {
 
-  @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): AsunaDefaultValueGeneric[Model, T] = new AsunaDefaultValueGeneric[Model, T] {
+  @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): ZsgDefaultValueGeneric[Model, T] = new ZsgDefaultValueGeneric[Model, T] {
     override def defaultValues: T = t(DefaultValue.DefaultValueApply[Model])
   }
 
-}
-
-trait AsunaDefaultValueGenericMacroPoly {
-
-  implicit def macroImpl[H, II]: AsunaDefaultValueGeneric[H, II] = macro AsunaDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II]: ZsgDefaultValueGeneric[H, II] = macro ZsgDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
-object AsunaDefaultValueGenericMacroApply {
+object ZsgDefaultValueGenericMacroApply {
 
   class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods with TypeHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaDefaultValueGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgDefaultValueGeneric[H, M]] = {
       try {
         val rSym = symbolOf[H]
 
@@ -97,8 +93,8 @@ object AsunaDefaultValueGenericMacroApply {
               nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        c.Expr[AsunaDefaultValueGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.AsunaDefaultValueGeneric.value(item => ${nameTagGen(nameTag, true)})"""
+        c.Expr[ZsgDefaultValueGeneric[H, M]] {
+          q"""_root_.zsg.macros.single.ZsgDefaultValueGeneric.value(item => ${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

@@ -5,35 +5,38 @@ import zsg.macros.single.utils.SealedHelper
 
 import scala.language.experimental.macros
 
-trait AsunaSealedToAbsGeneric[H, NameType] {
+trait ZsgSealedClassGeneric[H, NameType] {
   def names: NameType
 }
 
-object AsunaSealedToAbsGeneric {
+object ZsgSealedClassGeneric {
 
-  def value[N, Model](name: N): AsunaSealedToAbsGeneric[Model, N] = new AsunaSealedToAbsGeneric[Model, N] {
-    override def names: N = name
+  def value[T, Model](name: T): ZsgSealedClassGeneric[Model, T] = new ZsgSealedClassGeneric[Model, T] {
+    override def names: T = name
   }
 
-  implicit def macroImpl[H, II]: AsunaSealedToAbsGeneric[H, II] = macro AsunaSealedToabsGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: ZsgSealedClassGeneric[H, II] = macro ZsgSealedClassGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
-object AsunaSealedToabsGenericMacroApply {
+object ZsgSealedClassGenericMacroApply {
 
   class MacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedToAbsGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgSealedClassGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
 
         val props = fleshedOutSubtypes(hType).toList
 
-        val nameTag = props.map { subType => q"""{ i: ${subType} => i }: (${subType} => ${hType})""" }
+        val nameTag = props.map { subType => q"""classOf[${subType}]""" }
+        //.grouped(8)
+        //.toList
+        //.map(s => q"""zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
         def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
             if (init)
@@ -48,8 +51,8 @@ object AsunaSealedToabsGenericMacroApply {
               nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        c.Expr[AsunaSealedToAbsGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.AsunaSealedToAbsGeneric.value(${nameTagGen(nameTag, true)})"""
+        c.Expr[ZsgSealedClassGeneric[H, M]] {
+          q"""_root_.zsg.macros.single.ZsgSealedClassGeneric.value(${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

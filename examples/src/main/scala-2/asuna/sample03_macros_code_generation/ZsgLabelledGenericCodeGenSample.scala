@@ -1,16 +1,16 @@
 package zsg.sample03_macros_code_generation
 
 import zsg._
-import zsg.macros.single.AsunaLabelledGeneric
+import zsg.macros.single.ZsgLabelledGeneric
 
-object AsunaLabelledGenericCodeGenSample {
+object ZsgLabelledGenericCodeGenSample {
   def sameType[T](t1: T, t2: T): T = t1
 
-  val genResult: AsunaLabelledGeneric[Sample10, NodeTuple2[
+  val genResult: ZsgLabelledGeneric[Sample10, NodeTuple2[
     NodeTuple2[NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]], NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]]],
     NodeTuple1[NodeTuple1[ZsgTuple2[String, String]]]
   ]] =
-    AsunaLabelledGeneric.value(
+    ZsgLabelledGeneric.value(
       BuildContent.nodeTuple2(
         BuildContent.nodeTuple2(
           BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4")),
@@ -21,7 +21,7 @@ object AsunaLabelledGenericCodeGenSample {
     )
 
   sameType(
-    implicitly[AsunaLabelledGeneric[Sample10, NodeTuple2[
+    implicitly[ZsgLabelledGeneric[Sample10, NodeTuple2[
       NodeTuple2[NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]], NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]]],
       NodeTuple1[NodeTuple1[ZsgTuple2[String, String]]]
     ]]],
