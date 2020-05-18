@@ -93,9 +93,9 @@ object SnippetUtil {
 
   def Tuple_To_AsunaTuple2(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     (if (init)
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"asuna.ZsgTuple${i.size}[", " , ", "]") }
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZsgTuple${i.size}[", " , ", "]") }
      else
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"asuna.NodeTuple${i.size}[", " , ", "]") }) match {
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.NodeTuple${i.size}[", " , ", "]") }) match {
       case h :: Nil =>
         h
       case r =>

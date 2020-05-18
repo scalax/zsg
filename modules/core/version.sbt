@@ -1,2 +1,2 @@
-AsunaSettings.projectVersionSetting
-name := "asuna-core"
+ZsgSettings.projectVersionSetting
+name := "zsg-core"

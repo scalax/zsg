@@ -1,7 +1,7 @@
-package asuna.sample01_append
+package zsg.sample01_append
 
-import asuna._
-import asuna.testkit.circe.CirceType
+import zsg._
+import zsg.testkit.circe.CirceType
 import io.circe._
 import io.circe.syntax._
 

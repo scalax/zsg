@@ -1,7 +1,7 @@
-package asuna.testkit
+package zsg.testkit
 
-import asuna.BuildContent
-import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyApply}
+import zsg.BuildContent
+import zsg.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyApply}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 

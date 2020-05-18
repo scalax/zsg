@@ -1,4 +1,4 @@
-package asuna.testkit.tuple
+package zsg.testkit.tuple
 
 import org.junit.Test
 import org.junit.Assert._
@@ -6,7 +6,7 @@ import org.junit.Assert._
 class TupleToStringTest {
 
   import AppendTuple.{given _}
-  import asuna.scala_tuple.ScalaTupleImplicits.{given _}
+  import zsg.scala_tuple.ScalaTupleImplicits.{given _}
 
   @Test def test1: Unit = {
     assertEquals(tuple.asString(TupleData.i10), "[" + TupleData.i10.toString + "]")

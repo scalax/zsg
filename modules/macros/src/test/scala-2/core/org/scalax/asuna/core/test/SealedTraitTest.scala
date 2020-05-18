@@ -1,7 +1,7 @@
-package asuna.testkit
+package zsg.testkit
 
-import asuna.macros.single.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
-import asuna.{Application2, Context2, Plus2, ZsgTuple0}
+import zsg.macros.single.{AsunaSealedGeneric, AsunaSealedLabelledGeneric, SealedTag}
+import zsg.{Application2, Context2, Plus2, ZsgTuple0}
 
 sealed trait Abc[T]
 

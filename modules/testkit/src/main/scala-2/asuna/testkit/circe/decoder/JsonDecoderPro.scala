@@ -1,8 +1,8 @@
-package asuna.testkit.circe.decoder
+package zsg.testkit.circe.decoder
 
-import asuna.macros.single.DefaultValue
-import asuna.macros.ByNameImplicit
-import asuna.{Application4, Context4, PropertyTag}
+import zsg.macros.single.DefaultValue
+import zsg.macros.ByNameImplicit
+import zsg.{Application4, Context4, PropertyTag}
 import io.circe._
 
 trait JsonDecoderPro[P, T, II, D] extends Any {

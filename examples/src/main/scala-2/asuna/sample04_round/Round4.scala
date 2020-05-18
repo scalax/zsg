@@ -1,4 +1,4 @@
-package asuna
+package zsg
 import scala.language.higherKinds
 
 abstract class Map2[X1, X2, Z1, Z2] {
@@ -43,10 +43,10 @@ object MM {
           ),
           new Plus2[ZsgTuple2[Y1, T1], ZsgTuple2[Y2, T2], U1, U2, Z1, Z2] {
             override def takeHead1(z: Z1): ZsgTuple2[Y1, T1]    = new ZsgTuple2(p.takeHead1(z), p.takeTail1(z).i1)
-            override def takeTail1(z: Z1): U1                     = p.takeTail1(z).i2
+            override def takeTail1(z: Z1): U1                   = p.takeTail1(z).i2
             override def plus1(x: ZsgTuple2[Y1, T1], y: U1): Z1 = p.plus1(x.i1, new ZsgTuple2(x.i2, y))
             override def takeHead2(z: Z2): ZsgTuple2[Y2, T2]    = new ZsgTuple2(p.takeHead2(z), p.takeTail2(z).i1)
-            override def takeTail2(z: Z2): U2                     = p.takeTail2(z).i2
+            override def takeTail2(z: Z2): U2                   = p.takeTail2(z).i2
             override def plus2(x: ZsgTuple2[Y2, T2], y: U2): Z2 = p.plus2(x.i1, new ZsgTuple2(x.i2, y))
           }
         )

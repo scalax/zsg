@@ -1,6 +1,6 @@
-package asuna.testkit.circe
+package zsg.testkit.circe
 
-import asuna.macros.ByNameImplicit
+import zsg.macros.ByNameImplicit
 import io.circe._
 import shapeless._
 import shapeless.labelled.FieldType

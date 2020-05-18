@@ -1,8 +1,8 @@
-package asuna.testkit.circe.test3
+package zsg.testkit.circe.test3
 
 import java.util.Date
 
-import asuna.testkit.model._
+import zsg.testkit.model._
 
 object Instance {
 

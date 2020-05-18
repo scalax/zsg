@@ -1,10 +1,10 @@
-package asuna.testkit.circe
+package zsg.testkit.circe
 
 import io.circe.ObjectEncoder
 
 object CirceType {
 
   type JsonObjectEncoder[T] = ObjectEncoder[T]
-  val JsonObjectEncoder = ObjectEncoder
+  @inline val JsonObjectEncoder = ObjectEncoder
 
 }

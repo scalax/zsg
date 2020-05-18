@@ -14,8 +14,8 @@ val benchmark = (project in file("./modules/benchmark")).dependsOn(testkit)
 
 val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
-AsunaSettings.scalaVersionSettings
-AsunaSettings.commonSettings
+ZsgSettings.scalaVersionSettings
+ZsgSettings.commonSettings
 
 val sfmt = taskKey[Unit]("sfmt")
 
@@ -67,12 +67,12 @@ allUnpublish := {
 
 addCommandAlias(
   "codegen",
-  ";codegen/runMain asuna.codegen.AsunaCoreCodeGeneration" +
-    ";codegen/runMain asuna.codegen.AsunaTestKitCodeGeneration" +
-    ";codegen/runMain asuna.codegen.tuple.AsunaTupleCodeGeneration"
+  ";codegen/runMain zsg.codegen.ZsgCoreCodeGeneration" +
+    ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" +
+    ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration"
 )
 
-addCommandAlias("deleteCodegen", ";codegen/runMain asuna.codegen.DeleteTemp")
+addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")
 
 addCommandAlias("jmh1", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test01.*")
 addCommandAlias("jmh2", "benchmark/jmh:run -i 3 -wi 3 -f 1 -t 1 .*Test02.*")

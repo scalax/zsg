@@ -1,6 +1,6 @@
-package asuna.testkit.tuple.reverse
+package zsg.testkit.tuple.reverse
 
-import asuna.{Application1, Context1, Plus1, ZsgTuple0}
+import zsg.{Application1, Context1, Plus1, ZsgTuple0}
 
 trait ReverseTupleEncoder[T] {
   self =>

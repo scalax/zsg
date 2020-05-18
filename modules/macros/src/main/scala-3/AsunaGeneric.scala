@@ -1,7 +1,7 @@
-package asuna.macros.single
+package zsg.macros.single
 
 import asuna._
-import asuna.macros.AsunaParameters
+import zsg.macros.ZsgParameters
 
 import scala.language.experimental.macros
 
@@ -58,14 +58,14 @@ object AsunaGenericMacroApply {
 
   //       val proTypeTag = props.map(s => q"""item.to(_.${s.fieldTermName})""")
 
-  //       val typeTag = proTypeTag.grouped(AsunaParameters.maxPropertyNum).to(List).map(i => q"""_root_.asuna.AppendTag.tag(..$i)""")
+  //       val typeTag = proTypeTag.grouped(ZsgParameters.maxPropertyNum).to(List).map(i => q"""_root_.asuna.AppendTag.tag(..$i)""")
   //       def typeTagGen(tree: List[Tree]): Tree =
   //         if (tree.length == 1) {
   //           q"""..$tree"""
-  //         } else if (tree.length <= AsunaParameters.maxPropertyNum) {
+  //         } else if (tree.length <= ZsgParameters.maxPropertyNum) {
   //           q"""_root_.asuna.AppendTag.nodeTag(..$tree)"""
   //         } else {
-  //           val groupedTree = tree.grouped(AsunaParameters.maxPropertyNum).to(List)
+  //           val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
   //           typeTagGen(groupedTree.map(s => q"""_root_.asuna.AppendTag.nodeTag(..$s)"""))
   //         }
 

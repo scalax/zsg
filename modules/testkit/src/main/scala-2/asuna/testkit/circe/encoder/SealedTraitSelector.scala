@@ -1,7 +1,7 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.macros.ByNameImplicit
-import asuna.macros.single.SealedTag
+import zsg.macros.ByNameImplicit
+import zsg.macros.single.SealedTag
 import io.circe.{Encoder, Json}
 
 class SealedTraitSelector[H] {

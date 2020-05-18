@@ -1,6 +1,6 @@
-package asuna.testkit.circe.decoder
+package zsg.testkit.circe.decoder
 
-import asuna.{Context3, Plus3, ZsgTuple0}
+import zsg.{Context3, Plus3, ZsgTuple0}
 import io.circe.Decoder
 
 class AsunaSealedContext[P] extends Context3[SealedTraitSelector[P]#JsonDecoder] {

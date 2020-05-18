@@ -1,6 +1,6 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.{Context3, Plus3, ZsgTuple0}
+import zsg.{Context3, Plus3, ZsgTuple0}
 import io.circe.Json
 
 object AsunaJsonObjectContext extends Context3[JsonObjectContent] {
@@ -19,13 +19,10 @@ object AsunaJsonObjectContext extends Context3[JsonObjectContent] {
     }
   }
 
-  override val start: JsonObjectContent[ZsgTuple0, ZsgTuple0, ZsgTuple0] = JsonObjectContentAsuna0
-}
-
-private object JsonObjectAppenderAsuna0 extends JsonObjectAppender[ZsgTuple0] {
-  override def appendField(tt: ZsgTuple0, m: List[(String, Json)]): List[(String, Json)] = m
-}
-
-private object JsonObjectContentAsuna0 extends JsonObjectContent[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-  override def toAppender(name: ZsgTuple0) = JsonObjectAppenderAsuna0
+  override val start: JsonObjectContent[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonObjectContent[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+    val JsonObjectAppenderAsuna0 = new JsonObjectAppender[ZsgTuple0] {
+      override def appendField(tt: ZsgTuple0, m: List[(String, Json)]): List[(String, Json)] = m
+    }
+    override def toAppender(name: ZsgTuple0) = JsonObjectAppenderAsuna0
+  }
 }

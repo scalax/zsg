@@ -1,7 +1,7 @@
-package asuna.testkit.circe.test2
+package zsg.testkit.circe.test2
 
-import asuna.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
-import asuna.{Application3, ZsgTuple0, Context3, Plus3, PropertyTag}
+import zsg.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
+import zsg.{Application3, ZsgTuple0, Context3, Plus3, PropertyTag}
 
 sealed trait PropertyItem
 

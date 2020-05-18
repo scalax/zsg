@@ -1,0 +1,26 @@
+@(maxContextIndex: Int, maxPropertyNum: Int)
+
+package zsg.debug
+
+import scala.annotation.implicitNotFound
+
+@for(contextIndex <- 1 to maxContextIndex) {
+    @for(nodeIndex <- 1 to maxPropertyNum) {
+        class `The implicit not founded property's index is @{nodeIndex}. Please change .debug(context@{contextIndex}) to .find@{nodeIndex}.debug(context@{contextIndex}) to continue.`
+    }
+
+
+
+    @@implicitNotFound(msg = "ProName: ${ProName}\nindex: ${Index}")
+    trait TupleDebugApplication@{contextIndex}[ProName, Index, F[_ @for(_ <- 2 to contextIndex) { , _ }] @for(i <- 1 to contextIndex) { , X@{i} }] extends zsg.Application@{contextIndex}[F @for(i <- 1 to contextIndex) { , X@{i} }] {
+        override def application(context: zsg.Context@{contextIndex}[F]): F[X1 @for(i <- 2 to contextIndex) { , X@{i} }]
+    }
+
+    object TupleDebugApplication@{contextIndex} {
+        implicit def tupleDebugApplication@{contextIndex}Implicit[ProName, Index, F[_ @for(_ <- 2 to contextIndex) { , _ }] @for(i <- 1 to contextIndex) { , X@{i} }](implicit app: zsg.Application@{contextIndex}[F @for(i <- 1 to contextIndex) { , X@{i} }]): TupleDebugApplication@{contextIndex}[ProName, Index, F @for(i <- 1 to contextIndex) { , X@{i} }] = {
+            new TupleDebugApplication@{contextIndex}[ProName, Index, F @for(i <- 1 to contextIndex) { , X@{i} }] {
+                override def application(context: zsg.Context@{contextIndex}[F]): F[X1 @for(i <- 2 to contextIndex) { , X@{i} }] = app.application(context)
+            }
+        }
+    }
+}

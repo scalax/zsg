@@ -1,7 +1,7 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.macros.ByNameImplicit
-import asuna.{Application3, Context3, PropertyTag}
+import zsg.macros.ByNameImplicit
+import zsg.PropertyTag
 import io.circe.{Encoder, Json}
 
 trait JsonObjectContent[P, T, II] extends Any {
@@ -10,7 +10,7 @@ trait JsonObjectContent[P, T, II] extends Any {
 
 object JsonObjectContent {
 
-  implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): JsonObjectContent[PropertyTag[T], T, String] =
+  @inline implicit final def asunaCirceEncoder[T](implicit t: ByNameImplicit[Encoder[T]]): JsonObjectContent[PropertyTag[T], T, String] =
     new JsonObjectContent[PropertyTag[T], T, String] {
       override def toAppender(name: String): JsonObjectAppender[T] = {
         new JsonObjectAppender[T] {

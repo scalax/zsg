@@ -1,4 +1,4 @@
-package asuna.sample04_round
+package zsg.sample04_round
 
 object Round2 {
 

@@ -1,7 +1,7 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.{NodeTuple2, ZsgTuple1, ZsgTuple2}
-import asuna.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
+import zsg.{NodeTuple2, ZsgTuple1, ZsgTuple2}
+import zsg.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
 
 import scala.annotation.meta.getter
 

@@ -9,3 +9,4 @@ _site
 /null
 /.dotty-ide.json
 /.dotty-ide-artifact
+/credentials

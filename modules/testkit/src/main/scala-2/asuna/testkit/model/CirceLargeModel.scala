@@ -1,4 +1,4 @@
-package asuna.testkit.model
+package zsg.testkit.model
 
 object LargeModel {
 

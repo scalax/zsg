@@ -1,4 +1,4 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
 import io.circe.Json
 

@@ -1,0 +1,3 @@
+package zsg
+
+trait TupleTag

@@ -1,4 +1,4 @@
-package asuna.sample03_macros_code_generation
+package zsg.sample03_macros_code_generation
 
 trait Model10TraitI {
   self: SumTrait with SumIII =>

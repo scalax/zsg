@@ -1,2 +1,2 @@
-AsunaSettings.projectVersionSetting
-name := "asuna-scala-tuple"
+ZsgSettings.projectVersionSetting
+name := "zsg-scala-tuple"

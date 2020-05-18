@@ -1,6 +1,6 @@
-package asuna.testkit.circe.decoder
+package zsg.testkit.circe.decoder
 
-import asuna.{Context4, Plus4, ZsgTuple0}
+import zsg.{Context4, Plus4, ZsgTuple0}
 import io.circe.Decoder
 
 object AsunaDecoderContext extends Context4[JsonDecoderPro] {

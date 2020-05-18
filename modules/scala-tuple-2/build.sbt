@@ -1,2 +1,2 @@
-AsunaSettings.commonSettings
-AsunaSettings.dottyVersionSettings
+ZsgSettings.commonSettings
+ZsgSettings.dottyVersionSettings
