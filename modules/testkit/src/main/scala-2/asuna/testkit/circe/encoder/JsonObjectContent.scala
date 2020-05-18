@@ -1,7 +1,7 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.macros.ByNameImplicit
-import asuna.PropertyTag
+import zsg.macros.ByNameImplicit
+import zsg.PropertyTag
 import io.circe.{Encoder, Json}
 
 trait JsonObjectContent[P, T, II] extends Any {

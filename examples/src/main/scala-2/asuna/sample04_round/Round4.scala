@@ -1,4 +1,4 @@
-package asuna
+package zsg
 import scala.language.higherKinds
 
 abstract class Map2[X1, X2, Z1, Z2] {

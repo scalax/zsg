@@ -1,6 +1,6 @@
-package asuna.testkit.circe.test2
+package zsg.testkit.circe.test2
 
-import asuna.testkit.model.{Test01, Test02, Test03, Test05}
+import zsg.testkit.model.{Test01, Test02, Test03, Test05}
 
 object Circe {
 

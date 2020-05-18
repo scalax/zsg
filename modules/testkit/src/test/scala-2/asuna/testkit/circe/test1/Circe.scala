@@ -1,4 +1,4 @@
-package asuna.testkit.circe.test1
+package zsg.testkit.circe.test1
 
 object Circe {
 

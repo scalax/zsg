@@ -1,8 +1,8 @@
-package asuna.testkit.circe
+package zsg.testkit.circe
 
-import asuna.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
-import asuna.{Application3, Application4}
-import asuna.macros.single.{
+import zsg.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
+import zsg.{Application3, Application4}
+import zsg.macros.single.{
   AsunaDefaultValueGeneric,
   AsunaGeneric,
   AsunaGetterGeneric,

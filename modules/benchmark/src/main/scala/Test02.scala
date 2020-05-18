@@ -2,7 +2,7 @@ package org.scalax.asuna.circe
 
 import java.util.concurrent.TimeUnit
 
-import asuna.testkit.circe.ACirce
+import zsg.testkit.circe.ACirce
 import org.openjdk.jmh.annotations._
 
 object Aa {

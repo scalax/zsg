@@ -1,6 +1,6 @@
-package asuna.testkit.circe.test1
+package zsg.testkit.circe.test1
 
-import asuna.testkit.model._
+import zsg.testkit.model._
 import io.circe.Json
 
 object Instance {

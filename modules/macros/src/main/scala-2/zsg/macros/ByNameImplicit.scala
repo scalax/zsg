@@ -1,4 +1,4 @@
-package asuna.macros
+package zsg.macros
 
 import scala.reflect.macros.blackbox
 

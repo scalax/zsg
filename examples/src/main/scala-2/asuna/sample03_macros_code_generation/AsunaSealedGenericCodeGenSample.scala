@@ -1,7 +1,7 @@
-package asuna.sample03_macros_code_generation
+package zsg.sample03_macros_code_generation
 
-import asuna._
-import asuna.macros.single.{AsunaSealedGeneric, SealedTag}
+import zsg._
+import zsg.macros.single.{AsunaSealedGeneric, SealedTag}
 
 object AsunaSealedGenericCodeGenSample {
 

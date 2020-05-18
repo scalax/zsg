@@ -1,6 +1,6 @@
-package asuna.testkit.circe.encoder
+package zsg.testkit.circe.encoder
 
-import asuna.{Context3, Plus3, ZsgTuple0}
+import zsg.{Context3, Plus3, ZsgTuple0}
 import io.circe.Json
 
 object AsunaJsonObjectContext extends Context3[JsonObjectContent] {

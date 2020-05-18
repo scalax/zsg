@@ -1,6 +1,6 @@
 package zsg.macros.multiply.utils
 
-import asuna.macros.multiply.RootTable
+import zsg.macros.multiply.RootTable
 
 import scala.annotation.meta.getter
 import scala.language.experimental.macros

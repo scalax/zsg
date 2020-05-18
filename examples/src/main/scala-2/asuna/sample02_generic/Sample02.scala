@@ -1,9 +1,9 @@
-package asuna.sample02_generic
+package zsg.sample02_generic
 
-import asuna._
-import asuna.macros.ByNameImplicit
-import asuna.macros.single.PropertyApply
-import asuna.testkit.circe.CirceType
+import zsg._
+import zsg.macros.ByNameImplicit
+import zsg.macros.single.PropertyApply
+import zsg.testkit.circe.CirceType
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {

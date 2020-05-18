@@ -1,6 +1,6 @@
-package asuna.testkit.model
+package zsg.testkit.model
 
-import asuna.macros.single.deficient.{DeficientProperty, ModelProperty}
+import zsg.macros.single.deficient.{DeficientProperty, ModelProperty}
 
 import scala.annotation.meta.getter
 

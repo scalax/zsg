@@ -1,4 +1,4 @@
-package asuna.macros.multiply
+package zsg.macros.multiply
 
 import scala.annotation.StaticAnnotation
 

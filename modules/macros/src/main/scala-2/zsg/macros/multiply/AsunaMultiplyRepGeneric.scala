@@ -1,4 +1,4 @@
-package asuna.macros.multiply
+package zsg.macros.multiply
 
 import zsg.macros.ZsgParameters
 import zsg.macros.multiply.utils.PropertyOverrideHelper

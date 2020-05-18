@@ -1,6 +1,6 @@
-package asuna.testkit.circe
+package zsg.testkit.circe
 
-import asuna.testkit.model.LargeModel
+import zsg.testkit.model.LargeModel
 import io.circe.{Decoder, Encoder}
 import io.circe.syntax._
 

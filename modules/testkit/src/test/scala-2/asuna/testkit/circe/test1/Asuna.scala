@@ -1,8 +1,8 @@
-package asuna.testkit.circe.test1
+package zsg.testkit.circe.test1
 
 import io.circe.Encoder
-import asuna.testkit.model._
-import asuna.testkit.circe.{ACirce, CirceType}
+import zsg.testkit.model._
+import zsg.testkit.circe.{ACirce, CirceType}
 
 trait Poly1 {
 

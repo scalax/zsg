@@ -1,4 +1,4 @@
-package asuna.sample03_macros_code_generation
+package zsg.sample03_macros_code_generation
 
 sealed trait Foo
 

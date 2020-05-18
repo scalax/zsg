@@ -1,4 +1,4 @@
-package asuna.testkit.circe
+package zsg.testkit.circe
 
 import io.circe.ObjectEncoder
 

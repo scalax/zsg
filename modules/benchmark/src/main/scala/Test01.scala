@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
 import upickle.default.{ReadWriter => RW}
-import asuna.testkit.circe.ACirce
+import zsg.testkit.circe.ACirce
 import io.circe.Encoder
 
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间

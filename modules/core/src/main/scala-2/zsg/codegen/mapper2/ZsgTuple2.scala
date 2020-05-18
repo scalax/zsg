@@ -81,7 +81,7 @@ object ZsgTuple2 {
                     }
                 }
             }
-            @inline final def cachePlus1WithTypeParameter1Dynamic[
+             @inline  final def cachePlus1WithTypeParameter1Dynamic[
                 X1,
                 Y1
             ]: Plus1[
@@ -105,7 +105,7 @@ object ZsgTuple2 {
                 Any,
                 Any
             ]
-            @inline final def cachePlus1WithTypeParameter1[
+             @inline  final def cachePlus1WithTypeParameter1[
                 X1,
                 Y1
             ]: Plus1[
@@ -117,7 +117,7 @@ object ZsgTuple2 {
                 Y1,
                 ZsgTuple2[Y1, X1]
             ]]
-            @inline final def cachePlus2WithTypeParameter1Dynamic[
+             @inline  final def cachePlus2WithTypeParameter1Dynamic[
                 X1 , X2,
                 Y1 , Y2
             ]: Plus2[
@@ -144,7 +144,7 @@ object ZsgTuple2 {
                 Any , Any,
                 Any , Any
             ]
-            @inline final def cachePlus2WithTypeParameter1[
+             @inline  final def cachePlus2WithTypeParameter1[
                 X1 , X2,
                 Y1 , Y2
             ]: Plus2[
@@ -156,7 +156,7 @@ object ZsgTuple2 {
                 Y1 , Y2,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2]
             ]]
-            @inline final def cachePlus3WithTypeParameter1Dynamic[
+             @inline  final def cachePlus3WithTypeParameter1Dynamic[
                 X1 , X2 , X3,
                 Y1 , Y2 , Y3
             ]: Plus3[
@@ -186,7 +186,7 @@ object ZsgTuple2 {
                 Any , Any , Any,
                 Any , Any , Any
             ]
-            @inline final def cachePlus3WithTypeParameter1[
+             @inline  final def cachePlus3WithTypeParameter1[
                 X1 , X2 , X3,
                 Y1 , Y2 , Y3
             ]: Plus3[
@@ -198,7 +198,7 @@ object ZsgTuple2 {
                 Y1 , Y2 , Y3,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2] , ZsgTuple2[Y3, X3]
             ]]
-            @inline final def cachePlus4WithTypeParameter1Dynamic[
+             @inline  final def cachePlus4WithTypeParameter1Dynamic[
                 X1 , X2 , X3 , X4,
                 Y1 , Y2 , Y3 , Y4
             ]: Plus4[
@@ -231,7 +231,7 @@ object ZsgTuple2 {
                 Any , Any , Any , Any,
                 Any , Any , Any , Any
             ]
-            @inline final def cachePlus4WithTypeParameter1[
+             @inline  final def cachePlus4WithTypeParameter1[
                 X1 , X2 , X3 , X4,
                 Y1 , Y2 , Y3 , Y4
             ]: Plus4[
@@ -243,7 +243,7 @@ object ZsgTuple2 {
                 Y1 , Y2 , Y3 , Y4,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2] , ZsgTuple2[Y3, X3] , ZsgTuple2[Y4, X4]
             ]]
-            @inline final def cachePlus5WithTypeParameter1Dynamic[
+             @inline  final def cachePlus5WithTypeParameter1Dynamic[
                 X1 , X2 , X3 , X4 , X5,
                 Y1 , Y2 , Y3 , Y4 , Y5
             ]: Plus5[
@@ -279,7 +279,7 @@ object ZsgTuple2 {
                 Any , Any , Any , Any , Any,
                 Any , Any , Any , Any , Any
             ]
-            @inline final def cachePlus5WithTypeParameter1[
+             @inline  final def cachePlus5WithTypeParameter1[
                 X1 , X2 , X3 , X4 , X5,
                 Y1 , Y2 , Y3 , Y4 , Y5
             ]: Plus5[
@@ -291,7 +291,7 @@ object ZsgTuple2 {
                 Y1 , Y2 , Y3 , Y4 , Y5,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2] , ZsgTuple2[Y3, X3] , ZsgTuple2[Y4, X4] , ZsgTuple2[Y5, X5]
             ]]
-            @inline final def cachePlus6WithTypeParameter1Dynamic[
+             @inline  final def cachePlus6WithTypeParameter1Dynamic[
                 X1 , X2 , X3 , X4 , X5 , X6,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6
             ]: Plus6[
@@ -330,7 +330,7 @@ object ZsgTuple2 {
                 Any , Any , Any , Any , Any , Any,
                 Any , Any , Any , Any , Any , Any
             ]
-            @inline final def cachePlus6WithTypeParameter1[
+             @inline  final def cachePlus6WithTypeParameter1[
                 X1 , X2 , X3 , X4 , X5 , X6,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6
             ]: Plus6[
@@ -342,7 +342,7 @@ object ZsgTuple2 {
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2] , ZsgTuple2[Y3, X3] , ZsgTuple2[Y4, X4] , ZsgTuple2[Y5, X5] , ZsgTuple2[Y6, X6]
             ]]
-            @inline final def cachePlus7WithTypeParameter1Dynamic[
+             @inline  final def cachePlus7WithTypeParameter1Dynamic[
                 X1 , X2 , X3 , X4 , X5 , X6 , X7,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7
             ]: Plus7[
@@ -384,7 +384,7 @@ object ZsgTuple2 {
                 Any , Any , Any , Any , Any , Any , Any,
                 Any , Any , Any , Any , Any , Any , Any
             ]
-            @inline final def cachePlus7WithTypeParameter1[
+             @inline  final def cachePlus7WithTypeParameter1[
                 X1 , X2 , X3 , X4 , X5 , X6 , X7,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7
             ]: Plus7[
@@ -396,7 +396,7 @@ object ZsgTuple2 {
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7,
                 ZsgTuple2[Y1, X1] , ZsgTuple2[Y2, X2] , ZsgTuple2[Y3, X3] , ZsgTuple2[Y4, X4] , ZsgTuple2[Y5, X5] , ZsgTuple2[Y6, X6] , ZsgTuple2[Y7, X7]
             ]]
-            @inline final def cachePlus8WithTypeParameter1Dynamic[
+             @inline  final def cachePlus8WithTypeParameter1Dynamic[
                 X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7 , Y8
             ]: Plus8[
@@ -441,7 +441,7 @@ object ZsgTuple2 {
                 Any , Any , Any , Any , Any , Any , Any , Any,
                 Any , Any , Any , Any , Any , Any , Any , Any
             ]
-            @inline final def cachePlus8WithTypeParameter1[
+             @inline  final def cachePlus8WithTypeParameter1[
                 X1 , X2 , X3 , X4 , X5 , X6 , X7 , X8,
                 Y1 , Y2 , Y3 , Y4 , Y5 , Y6 , Y7 , Y8
             ]: Plus8[
