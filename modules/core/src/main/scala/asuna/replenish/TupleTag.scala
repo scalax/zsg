@@ -1,3 +1,0 @@
-package asuna
-
-trait TupleTag

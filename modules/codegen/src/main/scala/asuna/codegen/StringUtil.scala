@@ -1,4 +1,4 @@
-package asuna.codegen
+package zsg.codegen
 
 import scala.io.Source
 

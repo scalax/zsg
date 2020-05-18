@@ -1,6 +1,0 @@
-@(maxItem: Int)
-
-package asuna
-@for(tagNum <- 1 to maxItem) {
-    final class `Message： Please change .debug(context) to .find@{tagNum}.debug(context).`
-}

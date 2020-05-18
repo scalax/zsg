@@ -1,0 +1,6 @@
+@(maxItem: Int)
+
+package zsg
+@for(tagNum <- 1 to maxItem) {
+    final class `Number： @{tagNum}`
+}

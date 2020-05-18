@@ -1,7 +1,0 @@
-@(maxAsunaTupleNum: Int)(maxPropertyNum: Int)
-
-package asuna.scala_tuple
-
-trait ScalaTupleImplicits extends @{(1 to maxPropertyNum).flatMap(i => (1 to maxAsunaTupleNum).map(ii => s"tuple_support.ScalaTupleImplicits_${ii}_${i}")).mkString("\n    with ")}
-
-object ScalaTupleImplicits extends ScalaTupleImplicits
