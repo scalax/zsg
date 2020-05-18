@@ -21,7 +21,7 @@ trait ScalaTupleImplicits_3_2 {
                 Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
                 Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
             ] = {
-                val implicitApplication = implicitly[Application2[F, asuna.NodeTuple2[asuna.ZsgTuple2[Plus1_X1 , Plus1_X2] , asuna.ZsgTuple1[Plus1_X3]] , asuna.NodeTuple2[asuna.ZsgTuple2[Plus2_X1 , Plus2_X2] , asuna.ZsgTuple1[Plus2_X3]]
+                val implicitApplication = implicitly[Application2[F, zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple1[Plus1_X3]] , zsg.NodeTuple2[zsg.ZsgTuple2[Plus2_X1 , Plus2_X2] , zsg.ZsgTuple1[Plus2_X3]]
                 ]]
                 context.append(implicitApplication.application(context), context.start)(PlusToTuple2.plus2WithTypeParameter3)
             }

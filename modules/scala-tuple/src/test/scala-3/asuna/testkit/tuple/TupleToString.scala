@@ -1,6 +1,6 @@
-package asuna.testkit.tuple
+package zsg.testkit.tuple
 
-import asuna.{Application2, ZsgTuple0, Context2, Plus2}
+import zsg.{Application2, ZsgTuple0, Context2, Plus2}
 
 trait TupleEncoder[T, R] {
   self =>

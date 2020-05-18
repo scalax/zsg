@@ -17,7 +17,7 @@ trait ScalaTupleImplicits_3_1 {
             override def application(context: Context1[F]): F[
                 Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3]
             ] = {
-                val implicitApplication = implicitly[Application1[F, asuna.NodeTuple2[asuna.ZsgTuple2[Plus1_X1 , Plus1_X2] , asuna.ZsgTuple1[Plus1_X3]]
+                val implicitApplication = implicitly[Application1[F, zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple1[Plus1_X3]]
                 ]]
                 context.append(implicitApplication.application(context), context.start)(PlusToTuple1.plus1WithTypeParameter3)
             }
