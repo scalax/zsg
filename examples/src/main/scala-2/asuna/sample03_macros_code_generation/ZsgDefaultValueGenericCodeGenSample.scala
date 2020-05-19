@@ -1,9 +1,9 @@
 package zsg.sample03_macros_code_generation
 
 import zsg._
-import zsg.macros.single.{AsunaDefaultValueGeneric, DefaultValue}
+import zsg.macros.single.{DefaultValue, ZsgDefaultValueGeneric}
 
-object AsunaDefaultValueGenericCodeGenSample extends App {
+object ZsgDefaultValueGenericCodeGenSample extends App {
 
   import sumOfCaseClass._
 
@@ -34,7 +34,7 @@ object AsunaDefaultValueGenericCodeGenSample extends App {
   }*/
 
   val macroResult = implicitly[
-    AsunaDefaultValueGeneric[
+    ZsgDefaultValueGeneric[
       Sample10ModelWithDefaultValue,
       NodeTuple2[NodeTuple2[
         NodeTuple2[ZsgTuple2[DefaultValue[String], DefaultValue[Int]], ZsgTuple2[DefaultValue[Int], DefaultValue[Long]]],

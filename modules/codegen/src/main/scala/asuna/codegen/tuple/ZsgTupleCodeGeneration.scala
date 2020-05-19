@@ -3,7 +3,7 @@ package zsg.codegen.tuple
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
-import zsg.codegen.{ZsgParameters, StringUtil}
+import zsg.codegen.{StringUtil, ZsgParameters}
 
 import scala.io.Source
 

@@ -6,28 +6,28 @@ import zsg.macros.utils.MacroMethods
 
 import scala.language.experimental.macros
 
-trait AsunaSetterGeneric[H, GenericType] {
+trait ZsgSetterGeneric[H, GenericType] {
   def setter(gen: GenericType): H
 }
 
-object AsunaSetterGeneric {
+object ZsgSetterGeneric {
 
-  def value[Model, GenericType](i: GenericType => Model): AsunaSetterGeneric[Model, GenericType] = new AsunaSetterGeneric[Model, GenericType] {
+  def value[Model, GenericType](i: GenericType => Model): ZsgSetterGeneric[Model, GenericType] = new ZsgSetterGeneric[Model, GenericType] {
     override def setter(gen: GenericType): Model = i(gen)
   }
 
-  implicit def macroImpl[H, M]: AsunaSetterGeneric[H, M] = macro AsunaSetterGenericMacroApply.MacroImpl.generic[H, M]
+  implicit def macroImpl[H, M]: ZsgSetterGeneric[H, M] = macro ZsgSetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }
 
-object AsunaSetterGenericMacroApply {
+object ZsgSetterGenericMacroApply {
 
   class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends MacroMethods with AllScalaMacroMethods with TypeHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSetterGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgSetterGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -54,12 +54,11 @@ object AsunaSetterGenericMacroApply {
 
         val casei = toItemImpl(1, preList)(true)
 
-        val inputFunc =
-          q"""_root_.zsg.macros.single.AsunaSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
-            case (item, m) => namedParam(item.fieldTermName, m(Ident(TermName("item"))))
-          }}))"""
+        val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
+          case (item, m) => namedParam(item.fieldTermName, m(Ident(TermName("item"))))
+        }}))"""
 
-        c.Expr[AsunaSetterGeneric[H, M]] {
+        c.Expr[ZsgSetterGeneric[H, M]] {
           inputFunc
         }
 

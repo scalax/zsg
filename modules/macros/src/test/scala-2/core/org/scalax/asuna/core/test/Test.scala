@@ -1,7 +1,7 @@
 package zsg.testkit
 
 import zsg.BuildContent
-import zsg.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric, PropertyApply}
+import zsg.macros.single.{PropertyApply, ZsgGetterGeneric, ZsgLabelledGeneric}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -44,7 +44,7 @@ class Test extends AnyFunSpec with Matchers {
 
   import in._
 
-  val fooEncoder: ListEncoder[Foo] = init1(forType[Foo].value(fooPropertyTag)).init2.encode(AsunaGetterGeneric.value(fooGetter), AsunaLabelledGeneric.value(fooLabelled))
+  val fooEncoder: ListEncoder[Foo] = init1(forType[Foo].value(fooPropertyTag)).init2.encode(ZsgGetterGeneric.value(fooGetter), ZsgLabelledGeneric.value(fooLabelled))
   val fooEncoder2: ListEncoder[Foo] = encoder
 
   val prepareResult =

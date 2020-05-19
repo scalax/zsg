@@ -1,39 +1,38 @@
 package zsg.macros.single
 
 import zsg.macros.ZsgParameters
-import zsg.macros.single.utils.SealedHelper
+import zsg.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
 
-trait AsunaSealedLabelledGeneric[H, NameType] {
+trait ZsgLabelledGeneric[H, NameType] {
   def names: NameType
 }
 
-object AsunaSealedLabelledGeneric {
-
-  def value[T, Model](name: T): AsunaSealedLabelledGeneric[Model, T] = new AsunaSealedLabelledGeneric[Model, T] {
+object ZsgLabelledGeneric {
+  @inline def value[T, Model](name: T): ZsgLabelledGeneric[Model, T] = new ZsgLabelledGeneric[Model, T] {
     override def names: T = name
   }
 
-  implicit def macroImpl[H, II]: AsunaSealedLabelledGeneric[H, II] = macro AsunaSealedLabelledGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: ZsgLabelledGeneric[H, II] = macro ZsgLabelledGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
-object AsunaSealedLabelledGenericMacroApply {
+object ZsgLabelledGenericMacroApply {
 
-  class MacroImpl1(override val c: scala.reflect.macros.blackbox.Context) extends SealedHelper {
+  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaSealedLabelledGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgLabelledGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
 
-        val props = fleshedOutSubtypes(hType).toList
+        val props = caseClassMembersByType(hType)
 
-        val nameTag = props.map { subType => q"""${Literal(Constant(subType.typeSymbol.name.toString))}""" }
+        val nameTag = props.map { name => q"""${Literal(Constant(name.fieldName))}""" }
         def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
             if (init)
@@ -48,8 +47,8 @@ object AsunaSealedLabelledGenericMacroApply {
               nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        c.Expr[AsunaSealedLabelledGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.AsunaSealedLabelledGeneric.value(${nameTagGen(nameTag, true)})"""
+        c.Expr[ZsgLabelledGeneric[H, M]] {
+          q"""_root_.zsg.macros.single.ZsgLabelledGeneric.value(${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

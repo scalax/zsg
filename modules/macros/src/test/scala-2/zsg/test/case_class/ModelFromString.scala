@@ -1,6 +1,6 @@
 package zsg.testkit
 
-import zsg.macros.single.{AsunaGeneric, AsunaSetterGeneric}
+import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
 import zsg.{Application2, ZsgTuple0, Context2, Plus2, PropertyTag}
 
 trait ModelDecoderImpl[I, M] {
@@ -42,9 +42,9 @@ object reverseDecoderContext extends Context2[ModelDecoderImpl] {
 object out {
 
   def decoder[I1, I2, I3](
-                           implicit ii: AsunaGeneric.Aux[I1, I2],
+                           implicit ii: ZsgGeneric.Aux[I1, I2],
                            pp: Application2[ModelDecoderImpl, I2, I3],
-                           asunaSetterGeneric: AsunaSetterGeneric[I1, I3]
+                           asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
                          ): ModelDecoder[I1] = new ModelDecoder[I1] {
     override def getData(str: String): (String, I1) = {
       val c = pp.application(reverseDecoderContext)
@@ -54,9 +54,9 @@ object out {
   }
 
   def reverseDecoder[I1, I2, I3](
-                                  implicit ii: AsunaGeneric.Aux[I1, I2],
+                                  implicit ii: ZsgGeneric.Aux[I1, I2],
                                   pp: Application2[ModelDecoderImpl, I2, I3],
-                                  asunaSetterGeneric: AsunaSetterGeneric[I1, I3]
+                                  asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
                                 ): ModelDecoder[I1] = new ModelDecoder[I1] {
     override def getData(str: String): (String, I1) = {
       val c = pp.application(decoderContext)

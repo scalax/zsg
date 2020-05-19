@@ -5,28 +5,26 @@ import zsg.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
 
-trait AsunaGetterGeneric[H, GenericType] {
+trait ZsgGetterGeneric[H, GenericType] {
   def getter(model: H): GenericType
 }
 
-object AsunaGetterGeneric extends AsunaGetterGenericMacroPoly {
-  @inline def value[H, GenericType](i: H => GenericType): AsunaGetterGeneric[H, GenericType] = new AsunaGetterGeneric[H, GenericType] {
+object ZsgGetterGeneric {
+  @inline def value[H, GenericType](i: H => GenericType): ZsgGetterGeneric[H, GenericType] = new ZsgGetterGeneric[H, GenericType] {
     override def getter(model: H): GenericType = i(model)
   }
+  implicit def macroImpl[H, M]: ZsgGetterGeneric[H, M] = macro ZsgGetterGenericMacroApply.MacroImpl.generic[H, M]
+
 }
 
-trait AsunaGetterGenericMacroPoly {
-  implicit def macroImpl[H, M]: AsunaGetterGeneric[H, M] = macro AsunaGetterGenericMacroApply.MacroImpl.generic[H, M]
-}
-
-object AsunaGetterGenericMacroApply {
+object ZsgGetterGenericMacroApply {
 
   class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[AsunaGetterGeneric[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag]: c.Expr[ZsgGetterGeneric[H, M]] = {
       try {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
@@ -49,8 +47,8 @@ object AsunaGetterGenericMacroApply {
               nameTagGen(groupedTree.map(s => q"""zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        c.Expr[AsunaGetterGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.AsunaGetterGeneric.value(${nameTagGen(nameTag, true)})"""
+        c.Expr[ZsgGetterGeneric[H, M]] {
+          q"""_root_.zsg.macros.single.ZsgGetterGeneric.value(${nameTagGen(nameTag, true)})"""
         }
 
       } catch {

@@ -1,15 +1,15 @@
 package zsg.sample03_macros_code_generation
 
 import zsg._
-import zsg.macros.single.AsunaGetterGeneric
+import zsg.macros.single.ZsgGetterGeneric
 
-object AsunaGetterGenericCodeGenSample {
+object ZsgGetterGenericCodeGenSample {
   def sameType[T](t1: T, t2: T): T = t1
 
-  val genResult: AsunaGetterGeneric[Sample10, NodeTuple2[
+  val genResult: ZsgGetterGeneric[Sample10, NodeTuple2[
     NodeTuple2[NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Int, Long]], NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple2[Long, Option[Long]]]],
     NodeTuple1[NodeTuple1[ZsgTuple2[List[Long], String]]]
-  ]] = new AsunaGetterGeneric[Sample10, NodeTuple2[
+  ]] = new ZsgGetterGeneric[Sample10, NodeTuple2[
     NodeTuple2[NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Int, Long]], NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple2[Long, Option[Long]]]],
     NodeTuple1[NodeTuple1[ZsgTuple2[List[Long], String]]]
   ]] {
@@ -28,7 +28,7 @@ object AsunaGetterGenericCodeGenSample {
   }
 
   sameType(
-    implicitly[AsunaGetterGeneric[Sample10, NodeTuple2[
+    implicitly[ZsgGetterGeneric[Sample10, NodeTuple2[
       NodeTuple2[NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Int, Long]], NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple2[Long, Option[Long]]]],
       NodeTuple1[NodeTuple1[ZsgTuple2[List[Long], String]]]
     ]]],

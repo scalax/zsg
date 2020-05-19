@@ -1,7 +1,7 @@
 package zsg.testkit.circe.encoder
 
 import zsg.{NodeTuple2, ZsgTuple1, ZsgTuple2}
-import zsg.macros.multiply.{AsunaMultiplyGeneric, AsunaMultiplyRepGeneric, RootTable}
+import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
 
@@ -10,8 +10,8 @@ trait CirceGeneric {
   class CirceGenericApply1[Table, Model] {
 
     def encoder[II](table: Table)(
-      implicit i: AsunaMultiplyGeneric.Aux[Table, Model, II],
-      m: AsunaMultiplyRepGeneric[Table, Model, NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple1[Long]]]
+      implicit i: ZsgMultiplyGeneric.Aux[Table, Model, II],
+      m: ZsgMultiplyRepGeneric[Table, Model, NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple1[Long]]]
     ): NodeTuple2[ZsgTuple2[String, List[String]], ZsgTuple1[Long]] = m.rep(table)
   }
 

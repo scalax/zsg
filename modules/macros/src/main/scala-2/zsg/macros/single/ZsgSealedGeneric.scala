@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 import scala.language.experimental.macros
 import scala.collection.compat._
 
-trait AsunaSealedGeneric[H] {
+trait ZsgSealedGeneric[H] {
   type Sealed
   def tag: Sealed
 }
@@ -18,10 +18,10 @@ object SealedTag {
   def apply[T]: SealedTag[T] = new SealedTag[T]
 }
 
-object AsunaSealedGeneric {
+object ZsgSealedGeneric {
 
   class SealedGenericApply[I] {
-    def value[M](value1: => M): AsunaSealedGeneric.Aux[I, M] = new AsunaSealedGeneric[I] {
+    def value[M](value1: => M): ZsgSealedGeneric.Aux[I, M] = new ZsgSealedGeneric[I] {
       override type Sealed = M
       override def tag: M = value1
     }
@@ -32,21 +32,21 @@ object AsunaSealedGeneric {
     implicit def implicitApply[T]: SealedGenericApply[T] = value.asInstanceOf[SealedGenericApply[T]]
   }
 
-  type Aux[H, II] = AsunaSealedGeneric[H] { type Sealed = II }
+  type Aux[H, II] = ZsgSealedGeneric[H] { type Sealed = II }
 
-  implicit def macroImpl[H, II](implicit i: AsunaSealedGeneric.SealedGenericApply[H]): AsunaSealedGeneric.Aux[H, II] =
-    macro AsunaSealedGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II](implicit i: ZsgSealedGeneric.SealedGenericApply[H]): ZsgSealedGeneric.Aux[H, II] =
+    macro ZsgSealedGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
-object AsunaSealedGenericMacroApply {
+object ZsgSealedGenericMacroApply {
 
   class MacroImpl1(override val c: scala.reflect.macros.whitebox.Context) extends SealedHelper {
     self =>
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag](i: c.Expr[AsunaSealedGeneric.SealedGenericApply[H]]): c.Expr[AsunaSealedGeneric.Aux[H, M]] = {
+    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag](i: c.Expr[ZsgSealedGeneric.SealedGenericApply[H]]): c.Expr[ZsgSealedGeneric.Aux[H, M]] = {
       try {
         val h     = weakTypeOf[H]
         val hType = h.resultType
@@ -70,8 +70,8 @@ object AsunaSealedGenericMacroApply {
               typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        c.Expr[AsunaSealedGeneric.Aux[H, M]] {
-          q"""${i}.value(${typeTagGen(proTypeTag, true)})"""
+        c.Expr[ZsgSealedGeneric.Aux[H, M]] {
+          q"""$i.value(${typeTagGen(proTypeTag, true)})"""
         }
 
       } catch {

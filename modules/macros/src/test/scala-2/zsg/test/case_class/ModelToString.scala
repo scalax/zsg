@@ -1,6 +1,6 @@
 package zsg.testkit
 
-import zsg.macros.single.{AsunaGeneric, AsunaGetterGeneric, AsunaLabelledGeneric}
+import zsg.macros.single.{ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric}
 import zsg.testkit.in.MTS
 import zsg.{Application3, Context3, Plus3, PropertyTag, ZsgTuple0}
 
@@ -73,10 +73,10 @@ object in {
   }
 
   def encoder[I1, I2, X, Y](
-    implicit ii: AsunaGeneric.Aux[I1, I2],
+    implicit ii: ZsgGeneric.Aux[I1, I2],
     pp: Application3[MTS, I2, X, Y],
-    asunaGetterGeneric: AsunaGetterGeneric[I1, X],
-    asunaLabelledGeneric: AsunaLabelledGeneric[I1, Y]
+    asunaGetterGeneric: ZsgGetterGeneric[I1, X],
+    asunaLabelledGeneric: ZsgLabelledGeneric[I1, Y]
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
@@ -86,10 +86,10 @@ object in {
   }
 
   trait II[I1, I2] {
-    val g: AsunaGeneric.Aux[I1, I2]
+    val g: ZsgGeneric.Aux[I1, I2]
 
     def init2[X, Y](implicit n: Application3[MTS, I2, X, Y]): III[I1, I2, X, Y] = new III[I1, I2, X, Y] {
-      def encode(asunaGetterGeneric: AsunaGetterGeneric[I1, X], asunaLabelledGeneric: AsunaLabelledGeneric[I1, Y]): ListEncoder[I1] = {
+      def encode(asunaGetterGeneric: ZsgGetterGeneric[I1, X], asunaLabelledGeneric: ZsgLabelledGeneric[I1, Y]): ListEncoder[I1] = {
         new ListEncoder[I1] {
           override def encode(ii: I1): List[(PropertyItem, String)] = {
             n.application(i)(asunaGetterGeneric.getter(ii), asunaLabelledGeneric.names).appendField(List.empty)
@@ -100,19 +100,19 @@ object in {
   }
 
   trait III[I1, I2, X, Y] {
-    def encode(asunaGetterGeneric: AsunaGetterGeneric[I1, X], asunaLabelledGeneric: AsunaLabelledGeneric[I1, Y]): ListEncoder[I1]
+    def encode(asunaGetterGeneric: ZsgGetterGeneric[I1, X], asunaLabelledGeneric: ZsgLabelledGeneric[I1, Y]): ListEncoder[I1]
   }
 
-  def init1[I1, I2](implicit ii: AsunaGeneric.Aux[I1, I2]): II[I1, I2] = {
+  def init1[I1, I2](implicit ii: ZsgGeneric.Aux[I1, I2]): II[I1, I2] = {
     new II[I1, I2] {
-      val g: AsunaGeneric.Aux[I1, I2] = ii
+      val g: ZsgGeneric.Aux[I1, I2] = ii
     }
   }
 
-  def encoder1[I1, I2, X, Y](ii: AsunaGeneric.Aux[I1, I2])(
+  def encoder1[I1, I2, X, Y](ii: ZsgGeneric.Aux[I1, I2])(
     implicit pp: Application3[MTS, I2, X, Y],
-    asunaGetterGeneric: AsunaGetterGeneric[I1, X],
-    asunaLabelledGeneric: AsunaLabelledGeneric[I1, Y]
+    asunaGetterGeneric: ZsgGetterGeneric[I1, X],
+    asunaLabelledGeneric: ZsgLabelledGeneric[I1, Y]
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
@@ -124,7 +124,7 @@ object in {
   def forType[T]: TypeContent[T] = new TypeContent[T] {}
 
   trait TypeContent[T] {
-    def value[R](i: R): AsunaGeneric.Aux[T, R] = new AsunaGeneric[T] {
+    def value[R](i: R): ZsgGeneric.Aux[T, R] = new ZsgGeneric[T] {
       override type WT = R
 
       override def tag: WT = i
@@ -132,10 +132,10 @@ object in {
   }
 
   def reverseEncoder[I1, I2, X, Y](
-    implicit ii: AsunaGeneric.Aux[I1, I2],
+    implicit ii: ZsgGeneric.Aux[I1, I2],
     pp: Application3[MTS, I2, X, Y],
-    asunaGetterGeneric: AsunaGetterGeneric[I1, X],
-    asunaNameGeneric: AsunaLabelledGeneric[I1, Y]
+    asunaGetterGeneric: ZsgGetterGeneric[I1, X],
+    asunaNameGeneric: ZsgLabelledGeneric[I1, Y]
   ): ListEncoder[I1] = {
     new ListEncoder[I1] {
       override def encode(ii: I1): List[(PropertyItem, String)] = {
