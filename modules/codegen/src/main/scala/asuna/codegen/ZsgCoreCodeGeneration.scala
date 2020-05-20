@@ -108,21 +108,24 @@ object ZsgCoreCodeGeneration {
       writer23.close()
     }*/
 
-    /*{
-      val filePath = buildAllDir.resolve("TupleNumberMessage.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer24 = new PrintWriter(filePath.toFile, "utf-8")
-      val content241 =
-        Source
-          .fromString(zsg.codegen.tuple.build.txt.TupleNumberMessage(maxItem = ZsgParameters.maxPropertyNum).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val content242 = content241.mkString(System.lineSeparator)
-      writer24.println(content242)
-      writer24.close()
-    }*/
+    {
+      {
+        val filePath = root2XDir.resolve("DebugMessage.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
+        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.DebugMessage(maxItem = ZsgParameters.maxContextNum)(isDotty = false).body)
+        writer.println(content)
+        writer.close()
+      }
+      {
+        val filePath = rootDottyDir.resolve("DebugMessage.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
+        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.DebugMessage(maxItem = ZsgParameters.maxContextNum)(isDotty = true).body)
+        writer.println(content)
+        writer.close()
+      }
+    }
 
     {
       {
