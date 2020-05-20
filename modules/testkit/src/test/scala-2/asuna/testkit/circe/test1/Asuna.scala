@@ -1,6 +1,9 @@
 package zsg.testkit.circe.test1
 
+import java.net.URI
+
 import io.circe.Encoder
+import zsg.macros.single.ZsgDebugChecker
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceType}
 
@@ -13,6 +16,11 @@ trait Poly1 {
   implicit def test03_en_implicit: CirceType.JsonObjectEncoder[Test03]                               = ACirce.encodeCaseClass
 
   implicit def test05_en_implicit: CirceType.JsonObjectEncoder[Test05[String]] = ACirce.encodeSealed
+
+  case class Test111111111111111(i3: String, i4: URI, i44: Int)
+
+  val aa = ACirce.debugEncodeCaseClass[Test111111111111111].instance
+  //ZsgDebugChecker.checkCaseClass[Test111111111111111](aa)
 
 }
 

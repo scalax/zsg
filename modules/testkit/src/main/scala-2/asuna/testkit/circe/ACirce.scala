@@ -3,6 +3,7 @@ package zsg.testkit.circe
 import zsg.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
 import zsg.{Application3, Application4}
 import zsg.macros.single.{
+  ZsgDebugGeneric,
   ZsgDefaultValueGeneric,
   ZsgGeneric,
   ZsgGetterGeneric,
@@ -14,6 +15,7 @@ import zsg.macros.single.{
   ZsgSetterGeneric
 }
 import io.circe.{Decoder, Encoder, JsonObject}
+import zsg.testkit.circe.encoder.debug.{JsonObjectDebugger, JsonObjectDebuggerContext}
 
 object ACirce {
 
@@ -42,6 +44,16 @@ object ACirce {
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     val application2       = applicationEncoder.toAppender(name1)
     CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
+  }
+
+  final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
+
+  class DebugEncodeCaseClassApply[CaseClass] {
+    def instance[Gen, Debug, ColumnInfo](
+      implicit generic: ZsgGeneric.Aux[CaseClass, Gen],
+      debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
+      app: Application3[JsonObjectDebugger, Gen, Debug, ColumnInfo]
+    ): ColumnInfo = app.application(JsonObjectDebuggerContext).target
   }
 
   final def encodeCaseObject[T]: CirceType.JsonObjectEncoder[T] = CirceType.JsonObjectEncoder.instance(_ => JsonObject.empty)
