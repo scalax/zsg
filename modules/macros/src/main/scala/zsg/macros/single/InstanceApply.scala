@@ -1,9 +1,7 @@
 package zsg.macros.single
 
-import zsg.PropertyTag
-
 class InstanceApply {
-  def to[R]: PropertyTag[R] = PropertyTag[R]
+  def to[ColumnIndex, ColumnName]: DebugColumnInfo[ColumnIndex, ColumnName] = DebugColumnInfo[ColumnIndex, ColumnName]
 }
 object InstanceApply {
   private val value: InstanceApply = new InstanceApply
