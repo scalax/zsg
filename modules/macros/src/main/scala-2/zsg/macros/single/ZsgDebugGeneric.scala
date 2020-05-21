@@ -53,7 +53,7 @@ object ZsgDebugGenericMacroApply {
             q"""{
               type ${TypeName(index.toString)} = String
               type ${TypeName(s.fieldName)} = String
-              item.to[_root_.zsg.macros.single.DebugColumnInfo[${TypeName(index.toString)}, ${TypeName(s.fieldName)}]]
+              item.to[${TypeName(index.toString)}, ${TypeName(s.fieldName)}]
             }"""
         }
 

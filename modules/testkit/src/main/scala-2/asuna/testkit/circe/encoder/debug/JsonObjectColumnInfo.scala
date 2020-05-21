@@ -6,7 +6,9 @@ import zsg.testkit.circe.encoder.JsonObjectContent
 
 import scala.annotation.implicitNotFound
 
-@implicitNotFound("\nImplicit for io.circe.Encoder or JsonObjectContent not found\nColumn index: ${ColumnIndex} (0-based)\nColumn name : ${ColumnName}\nColumn type : ${ColumnType}")
+@implicitNotFound(
+  "\nImplicit for io.circe.Encoder or JsonObjectContent not found\nColumn index: ${ColumnIndex} (0-based)\nColumn name : ${ColumnName}\nColumn type : ${ColumnType}"
+)
 class JsonObjectColumnInfo[ColumnName, ColumnIndex, ColumnType] extends DebugMessage1[JsonObjectColumnInfo[ColumnName, ColumnIndex, ColumnType]]
 
 object JsonObjectColumnInfo {
