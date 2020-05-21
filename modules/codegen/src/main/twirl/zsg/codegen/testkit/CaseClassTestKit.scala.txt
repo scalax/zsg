@@ -1,12 +1,12 @@
 @(maxItem: Int)
 
-package zsg.testkit
+package zsg.macros.test
 
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class Test@{maxItem} extends AnyFunSpec with Matchers {
+class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
   case class Foo@{maxItem}(@for(i <- 1 to maxItem) { i@{i}: @if(i % 4 == 0) { String } @if(i % 4 == 1) { Long } @if(i % 4 == 2) { Int } @if(i % 4 == 3) { Int } @if(i < maxItem) { , }}) {
     self =>

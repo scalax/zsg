@@ -1,0 +1,22 @@
+@(maxItem: Int)(isDotty: Boolean)
+
+package zsg
+@for(tagNum <- 1 to maxItem) {
+    class DebugMessage@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")]
+}
+
+object DebugMessage {
+
+@for(tagNum <- 1 to maxItem) {
+    def byImplicit[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")](
+        i@{tagNum}: DebugMessage@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")]
+    )(
+        @if(isDotty) { using } else { implicit }
+        @for(i <- 1 to tagNum - 1) {
+            message@{i}: X@{i},
+        }
+        message@{tagNum}: X@{tagNum}
+    ): DebugMessage@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")] = new DebugMessage@{tagNum}[@asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")]
+}
+
+}

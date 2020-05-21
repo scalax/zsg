@@ -16,8 +16,8 @@ object ZsgTestKitCodeGeneration {
       .resolve("test")
       .resolve("scala-2")
       .resolve("zsg")
-      .resolve("test")
-      .resolve("case_class")
+      .resolve("macros")
+      .resolve("case_class_test")
       .resolve("codegen")
 
   def main(i: Array[String]): Unit = {
