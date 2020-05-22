@@ -62,7 +62,7 @@ object ACirce {
       implicit
       cv1: ZsgLabelledGeneric[CaseClass, Na],
       cv2: ZsgGetterGeneric[CaseClass, Obj]
-    ): Encoder.AsObject[CaseClass] = {
+    ): CirceType.JsonObjectEncoder[CaseClass] = {
       val name1        = cv1.names
       val application2 = content.toAppender(name1)
       CirceType.JsonObjectEncoder.instance { o: CaseClass => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
