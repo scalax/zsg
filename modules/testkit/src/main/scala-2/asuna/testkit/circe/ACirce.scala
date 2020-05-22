@@ -1,8 +1,9 @@
 package zsg.testkit.circe
 
 import zsg.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
-import zsg.{Application3, Application4}
+import zsg.{Application3, Application4, Context3}
 import zsg.macros.single.{
+  ZsgDebugChecker,
   ZsgDebugGeneric,
   ZsgDefaultValueGeneric,
   ZsgGeneric,
@@ -49,11 +50,23 @@ object ACirce {
   final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
 
   class DebugEncodeCaseClassApply[CaseClass] {
+    type EncoderObjectType = CirceType.JsonObjectEncoder[CaseClass]
+    val checker: ZsgDebugChecker[Context3[encoder.JsonObjectContent], CaseClass] =
+      ZsgDebugChecker[Context3[encoder.JsonObjectContent], CaseClass](encoder.AsunaJsonObjectContext)
     def instance[Gen, Debug, ColumnInfo](
       implicit generic: ZsgGeneric.Aux[CaseClass, Gen],
       debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
       app: Application3[JsonObjectDebugger, Gen, Debug, ColumnInfo]
     ): ColumnInfo = app.application(JsonObjectDebuggerContext).target
+    def toEncoder[R, Obj, Na](content: encoder.JsonObjectContent[R, Obj, Na])(
+      implicit
+      cv1: ZsgLabelledGeneric[CaseClass, Na],
+      cv2: ZsgGetterGeneric[CaseClass, Obj]
+    ): CirceType.JsonObjectEncoder[CaseClass] = {
+      val name1        = cv1.names
+      val application2 = content.toAppender(name1)
+      CirceType.JsonObjectEncoder.instance { o: CaseClass => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
+    }
   }
 
   final def encodeCaseObject[T]: CirceType.JsonObjectEncoder[T] = CirceType.JsonObjectEncoder.instance(_ => JsonObject.empty)
