@@ -4,6 +4,7 @@ import java.net.URI
 
 import io.circe.Encoder
 import zsg.macros.single.ZsgDebugChecker
+import zsg.testkit.circe.encoder.AsunaJsonObjectContext
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceType}
 
@@ -17,10 +18,10 @@ trait Poly1 {
 
   implicit def test05_en_implicit: CirceType.JsonObjectEncoder[Test05[String]] = ACirce.encodeSealed
 
-  case class Test111111111111111(i3: String, i4: URI, i44: Int)
+  case class Test111(i3: String, i4: Long, i44: Int)
 
-  val aa = ACirce.debugEncodeCaseClass[Test111111111111111].instance
-  //ZsgDebugChecker.checkCaseClass[Test111111111111111](aa)
+  val enCon1                               = ACirce.debugEncodeCaseClass[Test111]
+  implicit val i: enCon1.EncoderObjectType = enCon1.toEncoder(enCon1.checker.checkCaseClass(enCon1.checker.context)(enCon1.instance))
 
 }
 

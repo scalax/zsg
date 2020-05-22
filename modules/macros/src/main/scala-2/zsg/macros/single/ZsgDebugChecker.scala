@@ -1,26 +1,29 @@
 package zsg.macros.single
 
-import zsg.PropertyTag
 import zsg.macros.ZsgParameters
 import zsg.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
 import scala.collection.compat._
 
+class ZsgDebugChecker[T, CaseClass](val context: T) {
+
+  def checkCaseClass(contextInstance: T)(prop: Any): Any = macro ZsgDebugCheckerMacroApply.MacroImpl.generic[CaseClass]
+
+}
+
 object ZsgDebugChecker {
-
-  def checkCaseClass[CaseClass](prop: Any): PropertyTag[CaseClass] = macro ZsgDebugCheckerMacroApply.MacroImpl.generic[CaseClass]
-
+  def apply[T, CaseClass](context: T): ZsgDebugChecker[T, CaseClass] = new ZsgDebugChecker[T, CaseClass](context)
 }
 
 object ZsgDebugCheckerMacroApply {
 
-  class MacroImpl(override val c: scala.reflect.macros.blackbox.Context) extends TypeHelper {
+  class MacroImpl(override val c: scala.reflect.macros.whitebox.Context) extends TypeHelper {
     self =>
 
     import c.universe._
 
-    def generic[CaseClass: c.WeakTypeTag](prop: c.Tree): c.Expr[PropertyTag[CaseClass]] = {
+    def generic[CaseClass: c.WeakTypeTag](contextInstance: c.Tree)(prop: c.Tree): c.Tree = {
       try {
         val caseClass     = weakTypeOf[CaseClass]
         val caseClassType = caseClass.resultType
@@ -40,14 +43,26 @@ object ZsgDebugCheckerMacroApply {
 
         val casei = toItemImpl(1, preList)(true)
 
-        val checkerList: List[Tree] = casei.map { case (field, fun) => q"""_root_.zsg.DebugMessage.byImplicit(${fun(prop)})""" }
+        val checkerList: List[Tree] = casei.map(s => q"""${s._2(prop)}.debug""")
 
-        c.Expr[PropertyTag[CaseClass]] {
-          q"""{
-            ${checkerList}
-            _root_.zsg.PropertyTag[${caseClass}]
-          }"""
-        }
+        def typeTagGen(tree: List[Tree], init: Boolean): Tree =
+          if (tree.length == 1) {
+            if (init)
+              q"""buildContextApply.tuple(..${tree})"""
+            else
+              q"""..${tree}"""
+          } else {
+            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
+            if (init)
+              typeTagGen(groupedTree.map(s => q"""buildContextApply.tuple(..$s)"""), false)
+            else
+              typeTagGen(groupedTree.map(s => q"""buildContextApply.nodeTuple(..$s)"""), false)
+          }
+
+        q"""{
+          val buildContextApply = _root_.zsg.BuildContextApply(${contextInstance})
+          ${typeTagGen(checkerList, true)}
+        }"""
 
       } catch {
         case e: Exception =>

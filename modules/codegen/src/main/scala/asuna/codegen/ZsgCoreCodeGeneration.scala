@@ -92,21 +92,14 @@ object ZsgCoreCodeGeneration {
       }
     }
 
-    /*{
-      val filePath = buildAllDir.resolve("NodeNumberMessage.scala")
+    {
+      val filePath = rootAllDir.resolve("BuildContextApply.scala")
       Files.createDirectories(filePath.getParent)
-      val writer23 = new PrintWriter(filePath.toFile, "utf-8")
-      val content231 =
-        Source
-          .fromString(zsg.codegen.tuple.build.txt.NodeNumberMessage(maxItem = ZsgParameters.maxPropertyNum).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val content232 = content231.mkString(System.lineSeparator)
-      writer23.println(content232)
-      writer23.close()
-    }*/
+      val writer  = new PrintWriter(filePath.toFile, "utf-8")
+      val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContextApply(maxContextCount = ZsgParameters.maxContextNum).body)
+      writer.println(content)
+      writer.close()
+    }
 
     {
       {

@@ -6,20 +6,22 @@ object SnippetUtil {
 
   def XI_Snippet(seq: Seq[Int]): List[String]                   = seq.to(List).map(u => s"X${u}")
   def XI_CI_F_Snippet(xi: Seq[Int], ci: Seq[Int]): List[String] = xi.to(List).map(u => s"t${u}: F[${ci.map(c => s"X${u}_C${c}").mkString(" , ")}]")
-  def XI_TupleTag_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"X${u} <: TupleTag")
 
   def YI_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"Y${u}")
   def II_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"final val i${u}: X${u}")
   def TI_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"T${u}")
   def ZI_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"Z${u}")
   def Any_Snippet(seq: Seq[Int]): List[String]         = seq.to(List).map(_ => s"Any")
+  def XI_TupleTag_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(u => s"X${u} <: TupleTag")
   def YI_TupleTag_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(u => s"Y${u} <: TupleTag")
 
   def TupleTag_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"TupleTag")
 
   def AsunaTuple0_Snippet(seq: Seq[Int]): List[String]     = seq.to(List).map(_ => s"ZsgTuple0")
+  def AsunaTuple1_XI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"ZsgTuple1[X${i}]")
   def AsunaTuple1_YI_Snippet(seq: Seq[Int]): List[String]  = seq.to(List).map(i => s"ZsgTuple1[Y${i}]")
   def AsunaTuple1_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"ZsgTuple1[Any]")
+  def NodeTuple1_XI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(i => s"NodeTuple1[X${i}]")
   def NodeTuple1_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(i => s"NodeTuple1[Y${i}]")
 
   def NodeTuple1_TupleTag_Any_Snippet(seq: Seq[Int]): List[String]     = seq.to(List).map(_ => s"NodeTuple1[TupleTag]")
