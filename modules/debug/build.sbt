@@ -1,2 +1,2 @@
-ZsgSettings.scalaVersionSettings
+ZsgSettings.dottyVersionSettings
 ZsgSettings.commonSettings
