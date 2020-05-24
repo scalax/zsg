@@ -13,14 +13,14 @@ import zsg.BuildContent
 trait PlusToTuple_@{caseClassNum}_@{tagNum} {
 
     @if(caseClassNum == 1) {
-        final def plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = new Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] {
             @for(i <- 1 to tagNum) {
                 final override def takeHead@{i}(z: Tuple1[Y@{i}]): ZsgTuple0 = ZsgTuple0.value
@@ -30,32 +30,32 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
         }
 
         final val plus@{tagNum}WithTypeParameter@{caseClassNum}Strict: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple1_Any_Snippet(1 to tagNum).mkString(" , ")}
-        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}]
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple1_Any_Snippet(1 to tagNum).mkString(" , ")}
+        ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[@{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}]
 
-        final def plus@{tagNum}WithTypeParameter@{caseClassNum}[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+        final def plus@{tagNum}WithTypeParameter@{caseClassNum}[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]: Plus@{tagNum}[
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{zsg.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Strict.asInstanceOf[Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-            @{asuna.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+            @{zsg.codegen.SnippetUtil.Tuple1_YI_Snippet(1 to tagNum).mkString(" , ")}
         ]]
     } else if (caseClassNum == 2) {
         final def plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
         ]: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = new Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] {
             @for(i <- 1 to tagNum) {
                 final override def takeHead@{i}(z: Tuple2[Y@{i}, X@{i}]): X@{i} = z._2
@@ -65,44 +65,44 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
         }
 
         final val plus@{tagNum}WithTypeParameter@{caseClassNum}Strict: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple2_Any_Any_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple2_Any_Any_Snippet(1 to tagNum).mkString(" , ")}
         ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Dynamic[
-            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Any_Snippet(1 to tagNum).mkString(" , ")}
         ]
 
         final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
         ]: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Strict.asInstanceOf[Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ]]
     } else {
         final def plus@{tagNum}WithTypeParameter@{caseClassNum}[
-            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("", " , ", "")).mkString(",\n            ")}
+            @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("", " , ", "")).mkString(",\n            ")}
         ]: Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
+            @{zsg.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
         ] = new Plus@{tagNum}[
-            @{asuna.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
-            @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
-            @{asuna.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
+            @{zsg.codegen.SnippetUtil.plusX_AsunaTuple2_XI_Snippet(1 to tagNum)(1 to caseClassNum).mkString(",\n            ")},
+            @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to tagNum)(1 to caseClassNum).map(_.mkString("Tuple" + caseClassNum + "[", " , ", "]")).mkString(",\n            ")}
         ] {
             @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): @{asuna.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)} =
-                    @{asuna.codegen.SnippetUtil.single_Tuple_To_AsunaTuple(1 to caseClassNum)}
-                final override def takeTail@{i}(z: @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): ZsgTuple0 = ZsgTuple0.value
-                final override def plus@{i}(x: @{asuna.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)}, y: ZsgTuple0): @{asuna.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")} =
-                    @{asuna.codegen.SnippetUtil.Tuple2_Index_To_ScalaTuple_Index(caseClassNum)}
+                final override def takeHead@{i}(z: @{zsg.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): @{zsg.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)} =
+                    @{zsg.codegen.SnippetUtil.single_Tuple_To_AsunaTuple(1 to caseClassNum)}
+                final override def takeTail@{i}(z: @{zsg.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")}): ZsgTuple0 = ZsgTuple0.value
+                final override def plus@{i}(x: @{zsg.codegen.SnippetUtil.single_plusX_AsunaTuple2_XI_Snippet(i)(1 to caseClassNum)}, y: ZsgTuple0): @{zsg.codegen.SnippetUtil.single_PlusX_XI_Snippet(i)(1 to caseClassNum).mkString("Tuple" + caseClassNum + "[", " , ", "]")} =
+                    @{zsg.codegen.SnippetUtil.Tuple2_Index_To_ScalaTuple_Index(caseClassNum)}
             }
         }
     }

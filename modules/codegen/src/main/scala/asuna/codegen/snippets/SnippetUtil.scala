@@ -1,4 +1,4 @@
-package asuna.codegen
+package zsg.codegen
 
 import scala.annotation.tailrec
 
@@ -123,6 +123,15 @@ object SnippetUtil {
     } else {
       val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
       result.map(_.map(p => s".i${p + 1}").mkString("x", "", "")).mkString(s"Tuple${tupleSize}(", " , ", ")")
+    }
+  }
+
+  def Tuple2_Index_To_DebugCaseClass_Index(tupleSize: Int): String = {
+    if (tupleSize == 1) {
+      s"d1 = tuple.i1"
+    } else {
+      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
+      result.zipWithIndex.map { case (item, index) => item.map(p => s".i${p + 1}").mkString(s"d${index + 1} = tuple", "", "") }.mkString(" , ")
     }
   }
 

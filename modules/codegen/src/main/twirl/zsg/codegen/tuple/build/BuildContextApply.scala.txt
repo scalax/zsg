@@ -6,26 +6,26 @@ object BuildContextApply {
 
     @for(tagNum <- 1 to maxContextCount) {
         final class BuildContextApply@{tagNum}[F[@{(1 to tagNum).map(_ => "_").mkString(" , ")}]](val context: Context@{tagNum}[F]) {
-            def tuple[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](
-                i: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
-            ): F[@{asuna.codegen.SnippetUtil.AsunaTuple1_XI_Snippet(1 to tagNum).mkString(" , ")}] = {
+            def tuple[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](
+                i: F[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
+            ): F[@{zsg.codegen.SnippetUtil.AsunaTuple1_XI_Snippet(1 to tagNum).mkString(" , ")}] = {
                 context.append(context.start, i)(ZsgTuple1.cachePlus@{tagNum}WithTypeParameter0)
             }
-            def tuple[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}, @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](
-                i1: F[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}],
-                i2: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
-            ): F[@{asuna.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}] = {
+            def tuple[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}, @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](
+                i1: F[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}],
+                i2: F[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
+            ): F[@{zsg.codegen.SnippetUtil.AsunaTuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}] = {
                 context.append(i2, i1)(ZsgTuple2.cachePlus@{tagNum}WithTypeParameter1)
             }
-            def nodeTuple[@{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](
-                i: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
-            ): F[@{asuna.codegen.SnippetUtil.NodeTuple1_XI_Snippet(1 to tagNum).mkString(" , ")}] = {
+            def nodeTuple[@{zsg.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](
+                i: F[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
+            ): F[@{zsg.codegen.SnippetUtil.NodeTuple1_XI_Snippet(1 to tagNum).mkString(" , ")}] = {
                 context.append(context.start, i)(NodeTuple1.cachePlus@{tagNum}WithTypeParameter0)
             }
-            def nodeTuple[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}, @{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](
-                i1: F[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}],
-                i2: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
-            ): F[@{asuna.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}] = {
+            def nodeTuple[@{zsg.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}, @{zsg.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](
+                i1: F[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}],
+                i2: F[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}]
+            ): F[@{zsg.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}] = {
                 context.append(i2, i1)(NodeTuple2.cachePlus@{tagNum}WithTypeParameter1)
             }
         }

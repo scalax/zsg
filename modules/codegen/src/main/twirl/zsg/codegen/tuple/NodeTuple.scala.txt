@@ -2,7 +2,7 @@
 
 package zsg
 
-final class NodeTuple@{tagNum}[@{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](@{asuna.codegen.SnippetUtil.II_Snippet(1 to tagNum).mkString(" , ")}) extends TupleTag
+final class NodeTuple@{tagNum}[@{zsg.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to tagNum).mkString(" , ")}](@{zsg.codegen.SnippetUtil.II_Snippet(1 to tagNum).mkString(" , ")}) extends TupleTag
 
 object NodeTuple@{tagNum} {
 
@@ -34,14 +34,14 @@ object NodeTuple@{tagNum} {
 
     @for(eachContextNum <- 1 to maxAsunaContext) {
         @if(tagNum == 1) {
-            @if(isDotty) { inline } else { @@inline } final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            @if(isDotty) { inline } else { @@inline } final def cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{zsg.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+                @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = new Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] {
                 @for(i <- 1 to eachContextNum) {
                     final override def takeHead@{i}(z: NodeTuple1[Y@{i}]): ZsgTuple0 = ZsgTuple0.value
@@ -51,32 +51,32 @@ object NodeTuple@{tagNum} {
             }
 
             final val cachePlus@{eachContextNum}WithTypeParameter0Strict: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple1_TupleTag_Any_Snippet(1 to eachContextNum).mkString(" , ")}
-            ] = cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]
+                @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple1_TupleTag_Any_Snippet(1 to eachContextNum).mkString(" , ")}
+            ] = cachePlus@{eachContextNum}WithTypeParameter0Dynamic[@{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]
 
-            @@inline final def cachePlus@{eachContextNum}WithTypeParameter0[@{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
-                @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+            @@inline final def cachePlus@{eachContextNum}WithTypeParameter0[@{zsg.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}]: Plus@{eachContextNum}[
+                @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{zsg.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = cachePlus@{eachContextNum}WithTypeParameter0Strict.asInstanceOf[Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
-                @{asuna.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString("", " , ", ",")}
+                @{zsg.codegen.SnippetUtil.NodeTuple1_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ]]
         } else {
             @if(isDotty) { inline } else { @@inline } final def cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
-                @{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = new Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] {
                 @for(i <- 1 to eachContextNum) {
                     final override def takeHead@{i}(z: NodeTuple2[Y@{i}, X@{i}]): X@{i} = z.i2
@@ -86,25 +86,25 @@ object NodeTuple@{tagNum} {
             }
 
             final val cachePlus@{eachContextNum}WithTypeParameter1Strict: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple2_TupleTag_Any_Any_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple2_TupleTag_Any_Any_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = cachePlus@{eachContextNum}WithTypeParameter1Dynamic[
-                @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]
 
             @if(isDotty) { inline } else { @@inline } final def cachePlus@{eachContextNum}WithTypeParameter1[
-                @{asuna.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_TupleTag_Snippet(1 to eachContextNum).mkString(" , ")}
             ]: Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ] = cachePlus@{eachContextNum}WithTypeParameter1Strict.asInstanceOf[Plus@{eachContextNum}[
-                @{asuna.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
-                @{asuna.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
+                @{zsg.codegen.SnippetUtil.XI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.YI_Snippet(1 to eachContextNum).mkString(" , ")},
+                @{zsg.codegen.SnippetUtil.NodeTuple2_XI_YI_Snippet(1 to eachContextNum).mkString(" , ")}
             ]]
         }
     }

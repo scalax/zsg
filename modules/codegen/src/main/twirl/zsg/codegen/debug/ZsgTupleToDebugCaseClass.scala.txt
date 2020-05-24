@@ -1,0 +1,7 @@
+package zsg.debug
+trait ZsgTupleToDebugCaseClass[T, C] {
+  def tupleToCaseClass(tuple: T): C
+}
+
+object ZsgTupleToDebugCaseClass
+@{(1 to 127).map(i => s"DebugCaseClass${i}Instance").mkString(" extends ", " with ", "")} with DebugCaseClass64TupleTagInstance

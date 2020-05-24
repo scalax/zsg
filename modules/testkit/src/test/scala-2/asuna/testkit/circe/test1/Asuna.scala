@@ -1,6 +1,7 @@
 package zsg.testkit.circe.test1
 
 import io.circe.Encoder
+import zsg.debug.DebugInstance
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceType}
 
@@ -16,9 +17,7 @@ trait Poly1 {
 
   case class Test111(i3: String, i4: Long, i44: Int)
 
-  val enCon1                               = ACirce.debugEncodeCaseClass[Test111]
-  val ii                                   = enCon1.instance
-  implicit val i: enCon1.EncoderObjectType = enCon1.toEncoder(enCon1.checker.checkCaseClass(enCon1.checker.context)(ii))
+  DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[Test111].instance).infer
 
 }
 

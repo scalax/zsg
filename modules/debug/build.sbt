@@ -1,0 +1,2 @@
+ZsgSettings.scalaVersionSettings
+ZsgSettings.commonSettings
