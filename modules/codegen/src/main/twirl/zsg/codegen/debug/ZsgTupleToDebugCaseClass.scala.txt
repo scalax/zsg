@@ -2,18 +2,23 @@ package zsg.debug
 
 import scala.annotation.implicitNotFound
 
-@@implicitNotFound(msg = "\nYou receive this message perhaps your case class have more than 64 fields.\nChange\n" +
+@@implicitNotFound(msg = "\nYou receive this message perhaps your case class have more than 64 fields.\n  Change\n" +
 "DebugInstance.fromTuple(content).infer\n" +
 "  to\n" +
 "DebugInstance.fromTuple(content.i1).infer\n" +
 "DebugInstance.fromTuple(content.i2).infer\n" +
-"is OK.\n" +
-"If your case class is more than 128 fields, you can change it to\n" +
+"  if it's field's count is between 65 and 128.\n" +
+"  Change it to\n" +
 "DebugInstance.fromTuple(content.i1.i1).infer\n" +
 "DebugInstance.fromTuple(content.i1.i2).infer\n" +
 "DebugInstance.fromTuple(content.i2.i1).infer\n" +
-"DebugInstance.fromTuple(content.i2.i2).infer (only more than 196 fields will have this property.)\n" +
-"to avoid receiving this message again.")
+"  if it's field's count is between 129 and 196\n" +
+"  Change it to\n" +
+"DebugInstance.fromTuple(content.i1.i1).infer\n" +
+"DebugInstance.fromTuple(content.i1.i2).infer\n" +
+"DebugInstance.fromTuple(content.i2.i1).infer\n" +
+"DebugInstance.fromTuple(content.i2.i2).infer\n" +
+"  if it's field's count is between 197 and 253")
 trait ZsgTupleToDebugCaseClass[T, C] {
   def tupleToCaseClass(tuple: T): C
 }
