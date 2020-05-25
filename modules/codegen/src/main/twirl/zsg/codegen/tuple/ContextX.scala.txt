@@ -7,18 +7,18 @@ import scala.language.higherKinds
 abstract class Context@{tagNum}[F[@{(1 to tagNum).map(_ => "_").mkString(" , ")}]] {
 
     def append[
-        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-        @{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
+        @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{zsg.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
     ](
-        x: F[@{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}],
-        y: F[@{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]
+        x: F[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}],
+        y: F[@{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}]
     )(p: Plus@{tagNum}[
-        @{asuna.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-        @{asuna.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
-        @{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
-    ]): F[@{asuna.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}]
+        @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString("", " , ", ",")}
+        @{zsg.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}
+    ]): F[@{zsg.codegen.SnippetUtil.ZI_Snippet(1 to tagNum).mkString(" , ")}]
 
-    def start: F[@{asuna.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")}]
+    def start: F[@{zsg.codegen.SnippetUtil.AsunaTuple0_Snippet(1 to tagNum).mkString(" , ")}]
 
 }

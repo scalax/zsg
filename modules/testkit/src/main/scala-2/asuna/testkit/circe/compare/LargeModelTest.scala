@@ -12,6 +12,9 @@ object LargeModelTest extends App {
     implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
     val i1                                                                             = LargeModel.largeModel_2_value.asJson
 
+    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModel_1].instance.i1).infer
+    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModel_1].instance.i2).infer
+
     println("==================== line ====================")
 
     implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = ACirce.decodeCaseClass

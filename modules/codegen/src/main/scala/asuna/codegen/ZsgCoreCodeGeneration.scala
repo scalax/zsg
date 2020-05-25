@@ -153,24 +153,6 @@ object ZsgCoreCodeGeneration {
       }
     }
 
-    {
-      val filePath = rootAllDir.resolve("message").resolve("MessageClass.scala")
-      Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(
-            zsg.codegen.debug.scala_all.txt.MessageClass(maxContextIndex = ZsgParameters.maxContextNum, maxPropertyNum = ZsgParameters.maxPropertyNum).body
-          )
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
-      writer.println(linerContent)
-      writer.close()
-    }
-
   }
 
 }
