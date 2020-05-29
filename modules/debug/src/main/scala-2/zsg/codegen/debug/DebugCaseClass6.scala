@@ -1,5 +1,4 @@
 package zsg.debug
-import scala.annotation.implicitNotFound
 trait DebugCaseClass6Instance {
         implicit def zsgTupleToDebugCaseClass6InstanceImplicit[D1 , D2 , D3 , D4 , D5 , D6
         ]: ZsgTupleToDebugCaseClass[
