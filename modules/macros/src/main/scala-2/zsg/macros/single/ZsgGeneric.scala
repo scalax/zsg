@@ -13,16 +13,14 @@ trait ZsgGeneric[H] {
 
 object ZsgGeneric {
 
-  val value = new ZsgGeneric[Any] {
-    override type WT = Any
-    override def tag: Any = 2
-  }
   type Aux[H, II] = ZsgGeneric[H] { type WT = II }
-  @inline def Aux[H, II]: Aux[H, II] = value.asInstanceOf[Aux[H, II]]
 
   class GenericApply[M] {
     def generic[WW](implicit i: ZsgGeneric.Aux[M, WW]): ZsgGeneric.Aux[M, WW] = i
-    @inline def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K]      = Aux[M, K]
+    def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K] = new ZsgGeneric[M] {
+      override type WT = K
+      override def tag: WT = i(PropertyApply[M])
+    }
   }
 
   object GenericApply {
