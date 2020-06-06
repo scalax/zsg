@@ -2,7 +2,7 @@ package zsg.macros.single
 
 import scala.language.experimental.macros
 
-class GenericColumnName[N <: StringName](val value: String)
+class GenericColumnName[N <: StringName](val value: String) extends AnyVal
 
 object GenericColumnName {
   implicit def nImplicit[N <: StringName]: GenericColumnName[N] = macro GenericColumnNameMacroApply.MacroImpl.generic[N]
