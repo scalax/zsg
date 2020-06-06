@@ -2,27 +2,27 @@ package zsg.macros.single
 
 import scala.language.experimental.macros
 
-abstract class GenericColumnName[N <: StringName] {
-  def value: Symbol
-}
+class GenericColumnName[N <: StringName](val value: String)
 
 object GenericColumnName {
+  implicit def nImplicit[N <: StringName]: GenericColumnName[N] = macro GenericColumnNameMacroApply.MacroImpl.generic[N]
+}
 
-  implicit def nImplicit[N <: StringName]: GenericColumnName[N] = macro MacroImpl.generic[N]
-
+object GenericColumnNameMacroApply {
   class MacroImpl(val c: scala.reflect.macros.blackbox.Context) {
     import c.universe._
     def generic[N <: StringName: c.WeakTypeTag]: c.Expr[GenericColumnName[N]] = {
-      val n              = weakTypeOf[N]
-      val TypeName(name) = n.typeSymbol.name
-      val name1          = name.trim
-      c.Expr[GenericColumnName[N]] {
-        q"""
-          new _root_.zsg.macros.single.GenericColumnName[${n}] {
-          override val value: Symbol = ${Literal(Symbol(name1))}
-        }"""
+      try {
+        val n    = weakTypeOf[N]
+        val name = n.toString.trim
+        c.Expr[GenericColumnName[N]] {
+          q"""new _root_.zsg.macros.single.GenericColumnName[${n}](${Literal(Constant(name))})"""
+        }
+      } catch {
+        case e: Exception =>
+          e.printStackTrace()
+          throw e
       }
     }
   }
-
 }

@@ -30,7 +30,7 @@ object ZsgLabelledTypeGeneric {
   }
 
   object CaseClassColumnName {
-    val value                                         = CaseClassColumnName[Any]
+    val value                                         = new CaseClassColumnName[Any]
     def apply[N]                                      = value.asInstanceOf[CaseClassColumnName[N]]
     implicit def nImplicit[N]: CaseClassColumnName[N] = CaseClassColumnName[N]
   }
@@ -57,7 +57,7 @@ object ZsgLabelledTypeGenericMacroApply {
 
         val proTypeTag = props.map(s => q"""{
             type ${TypeName(s.fieldName)} = _root_.zsg.macros.single.StringName
-            item[${TypeName(s.fieldName)}]
+            item.name[${TypeName(s.fieldName)}]
           }""")
 
         def typeTagGen(tree: List[Tree], init: Boolean): Tree =
@@ -75,7 +75,7 @@ object ZsgLabelledTypeGenericMacroApply {
           }
 
         c.Expr[ZsgLabelledTypeGeneric.Aux[CaseClass, T]] {
-          q"""$n.value(item => ${typeTagGen(proTypeTag, true)})"""
+          q"""$n.propertyName(item => ${typeTagGen(proTypeTag, true)})"""
         }
 
       } catch {

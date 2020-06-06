@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 class AsunaWithDecoderEncoderTest extends AnyFunSpec with Matchers {
 
-  describe("asuna encoder") {
+  describe("zsg encoder") {
     it("generic the same json object as circe") {
       Asuna.i1_1FromJson shouldBe Circe.i1_1FromJson
       Asuna.i1_2FromJson shouldBe Circe.i1_2FromJson

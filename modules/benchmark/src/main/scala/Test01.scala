@@ -23,9 +23,8 @@ class Test01 {
     implicit val a1: Encoder.AsObject[Bar] = deriveEncoder
     implicit val a2: Encoder.AsObject[Foo] = deriveEncoder
   }
-  Tuple2
 
-  object asunaEncoder {
+  object zsgEncoder {
     implicit val a1: Encoder.AsObject[Bar] = ACirce.encodeCaseClass
     implicit val a2: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
   }
@@ -39,8 +38,8 @@ class Test01 {
   }
 
   @Benchmark
-  def asunaCirceTest = {
-    asunaEncoder.a1(model).noSpaces
+  def zsgCirceTest = {
+    zsgEncoder.a1(model).noSpaces
   }
 
   @Benchmark
