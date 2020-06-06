@@ -24,9 +24,9 @@ object ZsgGeneric {
   }
 
   object GenericApply {
-    val value                                                = new GenericApply[Any]
-    @inline def apply[T]: ZsgGeneric.GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
-    @inline implicit def init[M]: ZsgGeneric.GenericApply[M] = GenericApply[M]
+    val value                                        = new GenericApply[Any]
+    def apply[T]: ZsgGeneric.GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
+    implicit def init[M]: ZsgGeneric.GenericApply[M] = GenericApply[M]
   }
 
   implicit def macroImpl[H, II](implicit prop: ZsgGeneric.GenericApply[H]): ZsgGeneric.Aux[H, II] = macro ZsgGenericMacroApply.MacroImpl.generic[H, II]

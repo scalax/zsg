@@ -13,7 +13,7 @@ object AsunaJsonObjectContext extends Context3[JsonObjectAppender] {
     }
   }
 
-  override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+  override val start: JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
     override def appendField(tt: ZsgTuple0, m: List[(String, Json)]): List[(String, Json)] = m
   }
 }
