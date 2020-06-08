@@ -28,5 +28,3 @@ object GenericColumnName {
   }
 
 }
-
-

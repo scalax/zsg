@@ -1,7 +1,7 @@
 package zsg.testkit.circe
 
-import zsg.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
-import zsg.{Application3, Application4}
+import zsg.macros.single.deficient.AsunaTupleApply
+import zsg.{Application2, Application3, Application4}
 import zsg.macros.single.{
   ZsgDebugGeneric,
   ZsgDefaultValueGeneric,
@@ -12,7 +12,6 @@ import zsg.macros.single.{
   ZsgSealedClassGeneric,
   ZsgSealedGeneric,
   ZsgSealedLabelledGeneric,
-  ZsgSealedToAbsGeneric,
   ZsgSetterGeneric
 }
 import io.circe.{Decoder, Encoder, JsonObject}
@@ -81,15 +80,14 @@ object ACirce {
     app.application(decoder.AsunaDecoderContext).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
   }
 
-  def decodeSealed[H, R, Nam, Tran](
+  def decodeSealed[H, R, Nam](
     implicit ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application3[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam, Tran],
-    cv1: ZsgSealedLabelledGeneric[H, Nam],
-    cv2: ZsgSealedToAbsGeneric[H, Tran]
+    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam],
+    cv1: ZsgSealedLabelledGeneric[H, Nam]
   ): Decoder[H] = {
     val ii    = new decoder.AsunaSealedContext[H]
     val names = cv1.names
-    app.application(ii).to(names, cv2.names)
+    app.application(ii).to(names)
   }
 
 }
