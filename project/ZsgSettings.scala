@@ -44,7 +44,7 @@ object ZsgSettings {
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.4-SNAP2020060701"
+  val vSetting1             = version := "0.0.4-SNAP2020060801"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "zsg"
