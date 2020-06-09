@@ -1,4 +1,4 @@
-package zsg.macros.test
+package zsg.macros.sealed_trait.test
 
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 import zsg.{Application2, Context2, Plus2, ZsgTuple0}
