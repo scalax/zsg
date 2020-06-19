@@ -1,7 +1,5 @@
 package zsg.hlist
 
-import java.time.LocalDate
-
 trait HList {
 
   type Head
