@@ -26,10 +26,9 @@ object Sample01 {
         }
       }
 
-    override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0] =
-      new JsonObjectAppender[ZsgTuple0, ZsgTuple0] {
-        override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
-      }
+    override val start: JsonObjectAppender[ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0] {
+      override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
+    }
   }
 
   val a1: JsonObjectAppender[String, String] = new JsonObjectAppender[String, String] {
