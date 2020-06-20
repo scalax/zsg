@@ -28,6 +28,7 @@ sfmt := {
   (debug / Compile / scalafmtSbt).value
 
   (macros / Compile / scalafmt).value
+  (macros / Test / scalafmt).value
   (macros / Compile / scalafmtSbt).value
 
   (scalaTuple / Test / scalafmt).value

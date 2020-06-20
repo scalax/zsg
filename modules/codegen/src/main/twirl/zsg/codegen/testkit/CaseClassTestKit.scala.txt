@@ -1,6 +1,6 @@
 @(maxItem: Int)
 
-package zsg.macros.test
+package zsg.macros.case_class_test
 
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
@@ -20,21 +20,18 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
   val ap@{maxItem} = PropertyApply[Foo@{maxItem}]
 
-  import in._
-  import out._
-
-  val fooEncoder@{maxItem}: ListEncoder[Foo@{maxItem}] = encoder
-  val reverseFooEncoder@{maxItem}: ListEncoder[Foo@{maxItem}] = reverseEncoder
-  val fooDecoder@{maxItem}: ModelDecoder[Foo@{maxItem}] = decoder
-  val reverseFooDecoder@{maxItem}: ModelDecoder[Foo@{maxItem}] = reverseDecoder
+  val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder
+  val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder
+  val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
+  val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
 
     describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {
-            val str1 = fooEncoder@{maxItem}.encode(fooValue@{maxItem}).mkString("|")
+            val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem}).mkString("|")
             str1 shouldBe fooValue@{maxItem}.toString
         }
         it("should generic to a reverse encoder") {
-            val str2 = reverseFooEncoder@{maxItem}.encode(fooValue@{maxItem}).mkString("|")
+            val str2 = reverseFooEncoder@{maxItem}.mToString(fooValue@{maxItem}).mkString("|")
             str2 shouldBe fooValue@{maxItem}.reverseString
         }
         it("should generic to a decoder") {
