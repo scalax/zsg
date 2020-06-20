@@ -1,17 +1,17 @@
 package zsg.testkit.circe
 
-import zsg.macros.single.deficient.{AsunaTupleApply, AsunaTupleGeneric, AsunaTupleGetterGeneric, AsunaTupleLabelledGeneric}
-import zsg.{Application3, Application4}
+import zsg.macros.single.deficient.AsunaTupleApply
+import zsg.{Application2, Application3, Application4}
 import zsg.macros.single.{
   ZsgDebugGeneric,
   ZsgDefaultValueGeneric,
   ZsgGeneric,
   ZsgGetterGeneric,
   ZsgLabelledGeneric,
+  ZsgLabelledTypeGeneric,
   ZsgSealedClassGeneric,
   ZsgSealedGeneric,
   ZsgSealedLabelledGeneric,
-  ZsgSealedToAbsGeneric,
   ZsgSetterGeneric
 }
 import io.circe.{Decoder, Encoder, JsonObject}
@@ -19,7 +19,7 @@ import zsg.testkit.circe.encoder.debug.{JsonObjectDebugger, JsonObjectDebuggerCo
 
 object ACirce {
 
-  final def encodeTuple[H, R, Obj, Na](
+  /*final def encodeTuple[H, R, Obj, Na](
     implicit ll: AsunaTupleGeneric.Aux[H, R],
     app: Application3[encoder.JsonObjectContent, R, Obj, Na],
     cv1: AsunaTupleLabelledGeneric[H, Na],
@@ -29,30 +29,29 @@ object ACirce {
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
     val application2       = applicationEncoder.toAppender(name1)
     CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
-  }
+  }*/
 
   final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](ll: AsunaTupleApply[Model, PreTuple], objectEncoder: Encoder[TupleType]): Encoder[Model] =
     objectEncoder.contramap(ll.toTuple)
 
-  final def encodeCaseClass[H, R, Obj, Na](
+  final def encodeCaseClass[H, R, N, Obj](
     implicit ll: ZsgGeneric.Aux[H, R],
-    app: Application3[encoder.JsonObjectContent, R, Obj, Na],
-    cv1: ZsgLabelledGeneric[H, Na],
+    nm: ZsgLabelledTypeGeneric.Aux[H, N],
+    app: Application3[encoder.JsonObjectAppender, R, N, Obj],
     cv2: ZsgGetterGeneric[H, Obj]
   ): CirceType.JsonObjectEncoder[H] = {
-    val name1              = cv1.names
     val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
-    val application2       = applicationEncoder.toAppender(name1)
-    CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
+    CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty)) }
   }
 
   final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
 
   class DebugEncodeCaseClassApply[CaseClass] {
-    def instance[Gen, Debug, ColumnInfo](
+    def instance[Gen, Name, Debug, ColumnInfo](
       implicit generic: ZsgGeneric.Aux[CaseClass, Gen],
+      nm: ZsgLabelledTypeGeneric.Aux[CaseClass, Name],
       debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
-      app: Application3[JsonObjectDebugger, Gen, Debug, ColumnInfo]
+      app: Application4[JsonObjectDebugger, Gen, Name, Debug, ColumnInfo]
     ): ColumnInfo = app.application(JsonObjectDebuggerContext).target
   }
 
@@ -81,15 +80,14 @@ object ACirce {
     app.application(decoder.AsunaDecoderContext).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
   }
 
-  def decodeSealed[H, R, Nam, Tran](
+  def decodeSealed[H, R, Nam](
     implicit ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application3[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam, Tran],
-    cv1: ZsgSealedLabelledGeneric[H, Nam],
-    cv2: ZsgSealedToAbsGeneric[H, Tran]
+    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam],
+    cv1: ZsgSealedLabelledGeneric[H, Nam]
   ): Decoder[H] = {
     val ii    = new decoder.AsunaSealedContext[H]
     val names = cv1.names
-    app.application(ii).to(names, cv2.names)
+    app.application(ii).to(names)
   }
 
 }

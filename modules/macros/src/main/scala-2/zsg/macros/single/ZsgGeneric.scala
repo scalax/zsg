@@ -13,22 +13,20 @@ trait ZsgGeneric[H] {
 
 object ZsgGeneric {
 
-  val value = new ZsgGeneric[Any] {
-    override type WT = Any
-    override def tag: Any = 2
-  }
   type Aux[H, II] = ZsgGeneric[H] { type WT = II }
-  @inline def Aux[H, II]: Aux[H, II] = value.asInstanceOf[Aux[H, II]]
 
   class GenericApply[M] {
     def generic[WW](implicit i: ZsgGeneric.Aux[M, WW]): ZsgGeneric.Aux[M, WW] = i
-    @inline def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K]      = Aux[M, K]
+    def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K] = new ZsgGeneric[M] {
+      override type WT = K
+      override def tag: WT = i(PropertyApply[M])
+    }
   }
 
   object GenericApply {
-    val value                                                = new GenericApply[Any]
-    @inline def apply[T]: ZsgGeneric.GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
-    @inline implicit def init[M]: ZsgGeneric.GenericApply[M] = GenericApply[M]
+    val value                                        = new GenericApply[Any]
+    def apply[T]: ZsgGeneric.GenericApply[T]         = value.asInstanceOf[GenericApply[T]]
+    implicit def init[M]: ZsgGeneric.GenericApply[M] = GenericApply[M]
   }
 
   implicit def macroImpl[H, II](implicit prop: ZsgGeneric.GenericApply[H]): ZsgGeneric.Aux[H, II] = macro ZsgGenericMacroApply.MacroImpl.generic[H, II]

@@ -7,24 +7,20 @@ import scala.io.Source
 
 object ZsgTestKitCodeGeneration {
 
-  val root2XDir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("macros")
-      .resolve("src")
-      .resolve("test")
-      .resolve("scala-2")
-      .resolve("zsg")
-      .resolve("macros")
-      .resolve("case_class_test")
-      .resolve("codegen")
+  val root2XDir = Paths
+    .get("./")
+    .resolve("modules")
+    .resolve("macros")
+    .resolve("src")
+    .resolve("test")
+    .resolve("scala-2")
+    .resolve("zsg")
+    .resolve("macros")
+    .resolve("case_class_test")
+    .resolve("codegen")
 
   def main(i: Array[String]): Unit = {
-    val minPropertyNum = 195
-    val maxPropertyNum = 202
-
-    for (i <- (1 to 100 by 8).toList ::: (minPropertyNum to maxPropertyNum).toList) yield {
+    for (i <- List(1, 2, 3, 68, 202)) yield {
       val filePath = root2XDir.resolve("CaseClassTest" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer1          = new PrintWriter(filePath.toFile, "utf-8")

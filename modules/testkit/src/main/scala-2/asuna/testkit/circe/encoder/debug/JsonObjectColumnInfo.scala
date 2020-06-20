@@ -1,17 +1,17 @@
 package zsg.testkit.circe.encoder.debug
 
 import zsg.PropertyTag
-import zsg.testkit.circe.encoder.JsonObjectContent
+import zsg.testkit.circe.encoder.JsonObjectAppender
 
 import scala.annotation.implicitNotFound
 
 @implicitNotFound(
-  "\nImplicit for io.circe.Encoder or JsonObjectContent not found\nColumn index: ${ColumnIndex} (0-based)\nColumn name : ${ColumnName}\nColumn type : ${ColumnType}"
+  "\nImplicit for io.circe.Encoder or JsonObjectAppender not found\nColumn index: ${ColumnIndex} (0-based)\nColumn name : ${ColumnName}\nColumn type : ${ColumnType}"
 )
-class JsonObjectColumnInfo[ColumnName, ColumnIndex, ColumnType]
+class JsonObjectColumnInfo[ColumnName, ColumnIndex, ColumnType, NameType]
 
 object JsonObjectColumnInfo {
-  implicit final def zsgCirceEncoder[ColumnName, ColumnIndex, T](
-    implicit t: JsonObjectContent[PropertyTag[T], T, String]
-  ): JsonObjectColumnInfo[ColumnName, ColumnIndex, T] = new JsonObjectColumnInfo[ColumnName, ColumnIndex, T]
+  implicit final def zsgCirceEncoder[ColumnName, ColumnIndex, T, N](
+    implicit t: JsonObjectAppender[PropertyTag[T], N, T]
+  ): JsonObjectColumnInfo[ColumnName, ColumnIndex, T, N] = new JsonObjectColumnInfo[ColumnName, ColumnIndex, T, N]
 }

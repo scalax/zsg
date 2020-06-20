@@ -2,8 +2,6 @@
 
 package zsg.debug
 
-import scala.annotation.implicitNotFound
-
 trait DebugCaseClass@{proNum}Instance {
     @if(isDotty) {
         given zsgTupleToDebugCaseClass@{proNum}InstanceImplicit[@{(1 to proNum).map(i => s"D${i}").mkString(" , ")}] as ZsgTupleToDebugCaseClass[
