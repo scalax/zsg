@@ -10,9 +10,10 @@ trait ZsgMultiplyRepGeneric[Table, Model, Rep] {
 }
 
 object ZsgMultiplyRepGeneric {
-  def value[Table, Model, Rep](i: Table => Rep): ZsgMultiplyRepGeneric[Table, Model, Rep] = new ZsgMultiplyRepGeneric[Table, Model, Rep] {
-    override def rep(table: Table): Rep = i(table)
-  }
+  def value[Table, Model, Rep](i: Table => Rep): ZsgMultiplyRepGeneric[Table, Model, Rep] =
+    new ZsgMultiplyRepGeneric[Table, Model, Rep] {
+      override def rep(table: Table): Rep = i(table)
+    }
   implicit def macroImpl[Table, Model, Rep]: ZsgMultiplyRepGeneric[Table, Model, Rep] = macro ZsgMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
 }
 

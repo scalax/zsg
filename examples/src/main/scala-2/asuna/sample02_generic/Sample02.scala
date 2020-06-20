@@ -15,9 +15,10 @@ object Sample02 {
   object AsunaTestGeneric {
     type Aux[C, G] = AsunaTestGeneric[C] { type Gen = G }
     class Apply1[C] {
-      def generic[G](param: => G): Aux[C, G] = new AsunaTestGeneric[C] {
-        override type Gen = G
-      }
+      def generic[G](param: => G): Aux[C, G] =
+        new AsunaTestGeneric[C] {
+          override type Gen = G
+        }
     }
     def init[C]: Apply1[C] = new Apply1[C]
   }
@@ -40,18 +41,15 @@ object Sample02 {
   object ii extends Context3[JsonObjectAppender] {
     override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: JsonObjectAppender[X1, X2, X3], y: JsonObjectAppender[Y1, Y2, Y3])(
       p: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]
-    ): JsonObjectAppender[Z1, Z2, Z3] = {
+    ): JsonObjectAppender[Z1, Z2, Z3] =
       new JsonObjectAppender[Z1, Z2, Z3] {
         override def appendField(obj: Z2, name: Z3, m: JsonObject): JsonObject = {
           y.appendField(p.takeTail2(obj), p.takeTail3(name), x.appendField(p.takeHead2(obj), p.takeHead3(name), m))
         }
       }
-    }
 
-    override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
-      new JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-        override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
-      }
+    override val start: JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
+      override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
     }
   }
 
@@ -70,8 +68,8 @@ object Sample02 {
     }
   }
 
-  def circeJsonObjectEncoder[H, T, I2, I3](
-    implicit generic: AsunaTestGeneric.Aux[H, T],
+  def circeJsonObjectEncoder[H, T, I2, I3](implicit
+    generic: AsunaTestGeneric.Aux[H, T],
     app: Application3[JsonObjectAppender, T, I2, I3],
     i1: H => I2,
     i2: I3

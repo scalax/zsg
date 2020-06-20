@@ -11,9 +11,10 @@ trait ZsgSealedLabelledGeneric[H, NameType] {
 
 object ZsgSealedLabelledGeneric {
 
-  def value[T, Model](name: T): ZsgSealedLabelledGeneric[Model, T] = new ZsgSealedLabelledGeneric[Model, T] {
-    override def names: T = name
-  }
+  def value[T, Model](name: T): ZsgSealedLabelledGeneric[Model, T] =
+    new ZsgSealedLabelledGeneric[Model, T] {
+      override def names: T = name
+    }
 
   implicit def macroImpl[H, II]: ZsgSealedLabelledGeneric[H, II] = macro ZsgSealedLabelledGenericMacroApply.MacroImpl1.generic[H, II]
 

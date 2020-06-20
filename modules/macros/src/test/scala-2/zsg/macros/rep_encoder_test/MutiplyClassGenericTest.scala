@@ -10,8 +10,8 @@ import scala.annotation.meta.getter
 class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
   class CirceGenericApply1[Table, Model] {
-    def encoder[II, M](table: Table)(
-      implicit i: ZsgMultiplyGeneric.Aux[Table, Model, II],
+    def encoder[II, M](table: Table)(implicit
+      i: ZsgMultiplyGeneric.Aux[Table, Model, II],
       p: Application2[Getter, II, M],
       m: ZsgMultiplyRepGeneric[Table, Model, M]
     ): M = m.rep(table)

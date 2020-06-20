@@ -39,45 +39,57 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
       BuildContent.nodeTuple2(
         BuildContent.nodeTuple2(
           BuildContent.nodeTuple2(
-            BuildContent.tuple2({
-              type i1 = StringName
-              n.name[i1]
-            }, {
-              type i2 = StringName
-              n.name[i2]
-            }),
-            BuildContent.tuple2({
-              type i3 = StringName
-              n.name[i3]
-            }, {
-              type i4 = StringName
-              n.name[i4]
-            })
+            BuildContent.tuple2(
+              {
+                type i1 = StringName
+                n.name[i1]
+              }, {
+                type i2 = StringName
+                n.name[i2]
+              }
+            ),
+            BuildContent.tuple2(
+              {
+                type i3 = StringName
+                n.name[i3]
+              }, {
+                type i4 = StringName
+                n.name[i4]
+              }
+            )
           ),
           BuildContent.nodeTuple2(
-            BuildContent.tuple2({
-              type i5 = StringName
-              n.name[i5]
-            }, {
-              type i6 = StringName
-              n.name[i6]
-            }),
-            BuildContent.tuple2({
-              type i7 = StringName
-              n.name[i7]
-            }, {
-              type i8 = StringName
-              n.name[i8]
-            })
+            BuildContent.tuple2(
+              {
+                type i5 = StringName
+                n.name[i5]
+              }, {
+                type i6 = StringName
+                n.name[i6]
+              }
+            ),
+            BuildContent.tuple2(
+              {
+                type i7 = StringName
+                n.name[i7]
+              }, {
+                type i8 = StringName
+                n.name[i8]
+              }
+            )
           )
         ),
-        BuildContent.nodeTuple1(BuildContent.tuple2({
-          type i9 = StringName
-          n.name[i9]
-        }, {
-          type i10 = StringName
-          n.name[i10]
-        }))
+        BuildContent.nodeTuple1(
+          BuildContent.tuple2(
+            {
+              type i9 = StringName
+              n.name[i9]
+            }, {
+              type i10 = StringName
+              n.name[i10]
+            }
+          )
+        )
       )
     )
 

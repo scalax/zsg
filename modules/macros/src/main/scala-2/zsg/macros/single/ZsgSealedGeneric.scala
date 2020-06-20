@@ -21,10 +21,11 @@ object SealedTag {
 object ZsgSealedGeneric {
 
   class SealedGenericApply[I] {
-    def value[M](value1: => M): ZsgSealedGeneric.Aux[I, M] = new ZsgSealedGeneric[I] {
-      override type Sealed = M
-      override def tag: M = value1
-    }
+    def value[M](value1: => M): ZsgSealedGeneric.Aux[I, M] =
+      new ZsgSealedGeneric[I] {
+        override type Sealed = M
+        override def tag: M = value1
+      }
   }
 
   object SealedGenericApply {

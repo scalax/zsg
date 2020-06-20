@@ -24,22 +24,24 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     def str: List[String]
   }
 
-  def encode[H, T, TT](
-    implicit zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
+  def encode[H, T, TT](implicit
+    zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
     app: Application2[STT, T, TT],
     labelled: ZsgSealedLabelledGeneric[H, TT]
-  ): SealedTraitNames[H] = new SealedTraitNames[H] {
-    override val str: List[String] = app.application(i).stt(labelled.names)(List.empty)
-  }
+  ): SealedTraitNames[H] =
+    new SealedTraitNames[H] {
+      override val str: List[String] = app.application(i).stt(labelled.names)(List.empty)
+    }
 
   object i extends Context2[STT] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: STT[X1, X2], y: STT[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): STT[Z1, Z2] = new STT[Z1, Z2] {
-      override def stt(h: Z2): List[String] => List[String] = {
-        val xh = x.stt(p.takeHead2(h))
-        val yh = y.stt(p.takeTail2(h))
-        ii => yh(xh(ii))
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: STT[X1, X2], y: STT[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): STT[Z1, Z2] =
+      new STT[Z1, Z2] {
+        override def stt(h: Z2): List[String] => List[String] = {
+          val xh = x.stt(p.takeHead2(h))
+          val yh = y.stt(p.takeTail2(h))
+          ii => yh(xh(ii))
+        }
       }
-    }
 
     private val nTran: List[String] => List[String] = ii => ii
 
@@ -48,9 +50,10 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     }
   }
 
-  implicit def stringImplicit1[T, R]: STT[SealedTag[T], String] = new STT[SealedTag[T], String] {
-    override def stt(str: String): List[String] => List[String] = list => str :: list
-  }
+  implicit def stringImplicit1[T, R]: STT[SealedTag[T], String] =
+    new STT[SealedTag[T], String] {
+      override def stt(str: String): List[String] => List[String] = list => str :: list
+    }
 
   describe("A sealed trait") {
     it("should labelled generic to it's names") {

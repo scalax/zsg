@@ -10,9 +10,10 @@ trait ZsgLabelledGeneric[H, NameType] {
 }
 
 object ZsgLabelledGeneric {
-  @inline def value[T, Model](name: T): ZsgLabelledGeneric[Model, T] = new ZsgLabelledGeneric[Model, T] {
-    override def names: T = name
-  }
+  @inline def value[T, Model](name: T): ZsgLabelledGeneric[Model, T] =
+    new ZsgLabelledGeneric[Model, T] {
+      override def names: T = name
+    }
 
   implicit def macroImpl[H, II]: ZsgLabelledGeneric[H, II] = macro ZsgLabelledGenericMacroApply.MacroImpl.generic[H, II]
 

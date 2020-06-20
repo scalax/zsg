@@ -35,10 +35,11 @@ object AsunaTupleApplyMacroApply {
         val shaSelfTerm = TermName(shaSelf)
         val shaSelfVal  = q"""val $shaSelfTerm = $EmptyTree"""
 
-        def tupleDeficientSetter = struct.tupleFields.map { pro =>
-          val argsSetter = pro.caseClassFields.map(i => namedParam(i.fieldTermName, Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)))
-          q"""override def ${pro.fieldTermName} = ${pro.fieldType.typeSymbol.companion}(..${argsSetter})"""
-        }
+        def tupleDeficientSetter =
+          struct.tupleFields.map { pro =>
+            val argsSetter = pro.caseClassFields.map(i => namedParam(i.fieldTermName, Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)))
+            q"""override def ${pro.fieldTermName} = ${pro.fieldType.typeSymbol.companion}(..${argsSetter})"""
+          }
 
         val shaParameterName    = freshName
         val shaParamNameTerm    = TermName(shaParameterName)

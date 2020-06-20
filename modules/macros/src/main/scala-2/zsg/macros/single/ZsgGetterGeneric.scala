@@ -10,9 +10,10 @@ trait ZsgGetterGeneric[H, GenericType] {
 }
 
 object ZsgGetterGeneric {
-  @inline def value[H, GenericType](i: H => GenericType): ZsgGetterGeneric[H, GenericType] = new ZsgGetterGeneric[H, GenericType] {
-    override def getter(model: H): GenericType = i(model)
-  }
+  @inline def value[H, GenericType](i: H => GenericType): ZsgGetterGeneric[H, GenericType] =
+    new ZsgGetterGeneric[H, GenericType] {
+      override def getter(model: H): GenericType = i(model)
+    }
   implicit def macroImpl[H, M]: ZsgGetterGeneric[H, M] = macro ZsgGetterGenericMacroApply.MacroImpl.generic[H, M]
 
 }

@@ -15,8 +15,8 @@ object SealedTraitSelector {
   val value    = new SealedTraitSelector[Any]
   def apply[T] = value.asInstanceOf[SealedTraitSelector[T]]
 
-  implicit final def asunaCirceSealedEncoder[T, R](
-    implicit t: ByNameImplicit[Encoder[R]]
+  implicit final def asunaCirceSealedEncoder[T, R](implicit
+    t: ByNameImplicit[Encoder[R]]
   ): SealedTraitSelector[T]#JsonEncoder[SealedTag[R], Class[R], String] = {
     val con = SealedTraitSelector[T]
     new con.JsonEncoder[SealedTag[R], Class[R], String] {

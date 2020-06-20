@@ -9,12 +9,13 @@ abstract class Map2[X1, X2, Z1, Z2] {
 }
 
 object Map2 {
-  def p[X1, Z1]: Map2[X1, Z1, X1, Z1] = new Map2[X1, Z1, X1, Z1] {
-    override def take1(z: X1): X1 = z
-    override def plus1(x: X1): X1 = x
-    override def take2(z: Z1): Z1 = z
-    override def plus2(x: Z1): Z1 = x
-  }
+  def p[X1, Z1]: Map2[X1, Z1, X1, Z1] =
+    new Map2[X1, Z1, X1, Z1] {
+      override def take1(z: X1): X1 = z
+      override def plus1(x: X1): X1 = x
+      override def take2(z: Z1): Z1 = z
+      override def plus2(x: Z1): Z1 = x
+    }
 }
 
 abstract class CContext[F[_, _], T1, T2] {

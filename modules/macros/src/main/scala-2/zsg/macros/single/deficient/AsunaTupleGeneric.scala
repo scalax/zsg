@@ -12,10 +12,11 @@ trait AsunaTupleGeneric[TupleType] {
 }
 
 object AsunaTupleGeneric {
-  def value[T, WT1](value1: WT1): AsunaTupleGeneric.Aux[T, WT1] = new AsunaTupleGeneric[T] {
-    override type WT = WT1
-    override def tag: WT1 = value1
-  }
+  def value[T, WT1](value1: WT1): AsunaTupleGeneric.Aux[T, WT1] =
+    new AsunaTupleGeneric[T] {
+      override type WT = WT1
+      override def tag: WT1 = value1
+    }
 
   type Aux[H, II] = AsunaTupleGeneric[H] { type WT = II }
 

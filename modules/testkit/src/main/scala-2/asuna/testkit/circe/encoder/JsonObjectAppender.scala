@@ -11,11 +11,12 @@ abstract class JsonObjectAppender[PropertyTag, NameTag, T] {
 
 object JsonObjectAppender {
 
-  implicit final def zsgCirceEncoder[T, N <: StringName](
-    implicit t: ByNameImplicit[Encoder[T]],
+  implicit final def zsgCirceEncoder[T, N <: StringName](implicit
+    t: ByNameImplicit[Encoder[T]],
     n: GenericColumnName[N]
-  ): JsonObjectAppender[PropertyTag[T], ColumnName[N], T] = new JsonObjectAppender[PropertyTag[T], ColumnName[N], T] {
-    override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
-  }
+  ): JsonObjectAppender[PropertyTag[T], ColumnName[N], T] =
+    new JsonObjectAppender[PropertyTag[T], ColumnName[N], T] {
+      override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
+    }
 
 }
