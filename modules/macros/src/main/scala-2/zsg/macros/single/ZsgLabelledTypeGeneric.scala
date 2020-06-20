@@ -23,10 +23,11 @@ object ZsgLabelledTypeGeneric {
   }
 
   class CaseClassColumnName[CaseClass] {
-    def propertyName[T](n: ColumnNameGen => T): ZsgLabelledTypeGeneric.Aux[CaseClass, T] = new ZsgLabelledTypeGeneric[CaseClass] {
-      override type WT = T
-      override def tag: T = n(ColumnNameGen.value)
-    }
+    def propertyName[T](n: ColumnNameGen => T): ZsgLabelledTypeGeneric.Aux[CaseClass, T] =
+      new ZsgLabelledTypeGeneric[CaseClass] {
+        override type WT = T
+        override def tag: T = n(ColumnNameGen.value)
+      }
   }
 
   object CaseClassColumnName {

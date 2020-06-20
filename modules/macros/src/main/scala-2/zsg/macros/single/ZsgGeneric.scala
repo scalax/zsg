@@ -17,10 +17,11 @@ object ZsgGeneric {
 
   class GenericApply[M] {
     def generic[WW](implicit i: ZsgGeneric.Aux[M, WW]): ZsgGeneric.Aux[M, WW] = i
-    def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K] = new ZsgGeneric[M] {
-      override type WT = K
-      override def tag: WT = i(PropertyApply[M])
-    }
+    def value[K](i: PropertyApply[M] => K): ZsgGeneric.Aux[M, K] =
+      new ZsgGeneric[M] {
+        override type WT = K
+        override def tag: WT = i(PropertyApply[M])
+      }
   }
 
   object GenericApply {

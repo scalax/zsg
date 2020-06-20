@@ -6,9 +6,10 @@ trait AllScalaMacroMethods {
 
   case class CompanionWithSymbol(companionSymbol: Option[Symbol], companionTree: Tree)
 
-  def companionOfSymbol(symbol: Symbol): CompanionWithSymbol = symbol.companion match {
-    case NoSymbol         => CompanionWithSymbol(Option.empty, q"""${symbol.name.toTermName}""")
-    case s if s.isStatic  => CompanionWithSymbol(Option(s), q"""${s}""")
-    case s if !s.isStatic => CompanionWithSymbol(Option(s), q"""${symbol.name.toTermName}""")
-  }
+  def companionOfSymbol(symbol: Symbol): CompanionWithSymbol =
+    symbol.companion match {
+      case NoSymbol         => CompanionWithSymbol(Option.empty, q"""${symbol.name.toTermName}""")
+      case s if s.isStatic  => CompanionWithSymbol(Option(s), q"""${s}""")
+      case s if !s.isStatic => CompanionWithSymbol(Option(s), q"""${symbol.name.toTermName}""")
+    }
 }

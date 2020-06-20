@@ -22,10 +22,11 @@ object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
     }
   }
 
-  override def start: ReverseTupleEncoder[ZsgTuple0] = new ReverseTupleEncoder[ZsgTuple0] {
-    override def body(t: List[String], i: ZsgTuple0): List[String] = t
-    override def stringBody(i: ZsgTuple0): String                  = ""
-  }
+  override def start: ReverseTupleEncoder[ZsgTuple0] =
+    new ReverseTupleEncoder[ZsgTuple0] {
+      override def body(t: List[String], i: ZsgTuple0): List[String] = t
+      override def stringBody(i: ZsgTuple0): String                  = ""
+    }
 }
 
 object reverseTuple {

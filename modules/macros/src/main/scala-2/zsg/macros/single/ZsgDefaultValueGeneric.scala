@@ -35,9 +35,10 @@ abstract class ZsgDefaultValueGeneric[H, DefaultValueType] {
 
 object ZsgDefaultValueGeneric {
 
-  @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): ZsgDefaultValueGeneric[Model, T] = new ZsgDefaultValueGeneric[Model, T] {
-    override def defaultValues: T = t(DefaultValue.DefaultValueApply[Model])
-  }
+  @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): ZsgDefaultValueGeneric[Model, T] =
+    new ZsgDefaultValueGeneric[Model, T] {
+      override def defaultValues: T = t(DefaultValue.DefaultValueApply[Model])
+    }
 
   implicit def macroImpl[H, II]: ZsgDefaultValueGeneric[H, II] = macro ZsgDefaultValueGenericMacroApply.MacroImpl.generic[H, II]
 

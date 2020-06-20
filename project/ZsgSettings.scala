@@ -49,7 +49,7 @@ object ZsgSettings {
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "zsg"
   val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-  val vSetting6             = bintrayVcsUrl := Some("https://github.com/scalax/asuna.git")
+  val vSetting6             = bintrayVcsUrl := Some("https://github.com/scalax/zsg.git")
   val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting3, vSetting4, vSetting5, vSetting6)
 
 }

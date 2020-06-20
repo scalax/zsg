@@ -43,28 +43,30 @@ object ModelFromString {
     }
   }
 
-  def decoder[I1, I2, I3](
-    implicit ii: ZsgGeneric.Aux[I1, I2],
+  def decoder[I1, I2, I3](implicit
+    ii: ZsgGeneric.Aux[I1, I2],
     pp: Application2[ModelFromStringImpl, I2, I3],
     asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
-  ): ModelFromString[I1] = new ModelFromString[I1] {
-    override def getData(str: String): (String, I1) = {
-      val c         = pp.application(reverseDecoderContext)
-      val (str1, m) = c.getData(str)
-      (str1, asunaSetterGeneric.setter(m))
+  ): ModelFromString[I1] =
+    new ModelFromString[I1] {
+      override def getData(str: String): (String, I1) = {
+        val c         = pp.application(reverseDecoderContext)
+        val (str1, m) = c.getData(str)
+        (str1, asunaSetterGeneric.setter(m))
+      }
     }
-  }
 
-  def reverseDecoder[I1, I2, I3](
-    implicit ii: ZsgGeneric.Aux[I1, I2],
+  def reverseDecoder[I1, I2, I3](implicit
+    ii: ZsgGeneric.Aux[I1, I2],
     pp: Application2[ModelFromStringImpl, I2, I3],
     asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
-  ): ModelFromString[I1] = new ModelFromString[I1] {
-    override def getData(str: String): (String, I1) = {
-      val c         = pp.application(decoderContext)
-      val (str1, m) = c.getData(str)
-      (str1, asunaSetterGeneric.setter(m))
+  ): ModelFromString[I1] =
+    new ModelFromString[I1] {
+      override def getData(str: String): (String, I1) = {
+        val c         = pp.application(decoderContext)
+        val (str1, m) = c.getData(str)
+        (str1, asunaSetterGeneric.setter(m))
+      }
     }
-  }
 
 }

@@ -10,7 +10,7 @@ object Sample01 {
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
   val getter = { test04: Test04 => BuildContent.nodeTuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4)) }
-  val names  = BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
+  val names = BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -19,15 +19,17 @@ object Sample01 {
   object ii extends Context2[JsonObjectAppender] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: JsonObjectAppender[X1, X2], y: JsonObjectAppender[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
-    ): JsonObjectAppender[Z1, Z2] = new JsonObjectAppender[Z1, Z2] {
-      override def appendField(obj: Z1, name: Z2, m: JsonObject): JsonObject = {
-        y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
+    ): JsonObjectAppender[Z1, Z2] =
+      new JsonObjectAppender[Z1, Z2] {
+        override def appendField(obj: Z1, name: Z2, m: JsonObject): JsonObject = {
+          y.appendField(p.takeTail1(obj), p.takeTail2(name), x.appendField(p.takeHead1(obj), p.takeHead2(name), m))
+        }
       }
-    }
 
-    override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0] {
-      override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
-    }
+    override def start: JsonObjectAppender[ZsgTuple0, ZsgTuple0] =
+      new JsonObjectAppender[ZsgTuple0, ZsgTuple0] {
+        override def appendField(obj: ZsgTuple0, name: ZsgTuple0, m: JsonObject): JsonObject = m
+      }
   }
 
   val a1: JsonObjectAppender[String, String] = new JsonObjectAppender[String, String] {

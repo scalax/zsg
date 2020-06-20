@@ -11,7 +11,7 @@ import scala.annotation.implicitNotFound
 class JsonObjectColumnInfo[ColumnName, ColumnIndex, ColumnType, NameType]
 
 object JsonObjectColumnInfo {
-  implicit final def zsgCirceEncoder[ColumnName, ColumnIndex, T, N](
-    implicit t: JsonObjectAppender[PropertyTag[T], N, T]
+  implicit final def zsgCirceEncoder[ColumnName, ColumnIndex, T, N](implicit
+    t: JsonObjectAppender[PropertyTag[T], N, T]
   ): JsonObjectColumnInfo[ColumnName, ColumnIndex, T, N] = new JsonObjectColumnInfo[ColumnName, ColumnIndex, T, N]
 }

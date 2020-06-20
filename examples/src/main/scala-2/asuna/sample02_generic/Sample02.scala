@@ -15,9 +15,10 @@ object Sample02 {
   object AsunaTestGeneric {
     type Aux[C, G] = AsunaTestGeneric[C] { type Gen = G }
     class Apply1[C] {
-      def generic[G](param: => G): Aux[C, G] = new AsunaTestGeneric[C] {
-        override type Gen = G
-      }
+      def generic[G](param: => G): Aux[C, G] =
+        new AsunaTestGeneric[C] {
+          override type Gen = G
+        }
     }
     def init[C]: Apply1[C] = new Apply1[C]
   }
@@ -70,8 +71,8 @@ object Sample02 {
     }
   }
 
-  def circeJsonObjectEncoder[H, T, I2, I3](
-    implicit generic: AsunaTestGeneric.Aux[H, T],
+  def circeJsonObjectEncoder[H, T, I2, I3](implicit
+    generic: AsunaTestGeneric.Aux[H, T],
     app: Application3[JsonObjectAppender, T, I2, I3],
     i1: H => I2,
     i2: I3

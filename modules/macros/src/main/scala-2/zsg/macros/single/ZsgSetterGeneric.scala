@@ -12,9 +12,10 @@ trait ZsgSetterGeneric[H, GenericType] {
 
 object ZsgSetterGeneric {
 
-  def value[Model, GenericType](i: GenericType => Model): ZsgSetterGeneric[Model, GenericType] = new ZsgSetterGeneric[Model, GenericType] {
-    override def setter(gen: GenericType): Model = i(gen)
-  }
+  def value[Model, GenericType](i: GenericType => Model): ZsgSetterGeneric[Model, GenericType] =
+    new ZsgSetterGeneric[Model, GenericType] {
+      override def setter(gen: GenericType): Model = i(gen)
+    }
 
   implicit def macroImpl[H, M]: ZsgSetterGeneric[H, M] = macro ZsgSetterGenericMacroApply.MacroImpl.generic[H, M]
 

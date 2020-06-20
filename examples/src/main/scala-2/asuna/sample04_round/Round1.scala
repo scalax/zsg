@@ -13,16 +13,18 @@ class Type0 extends TypeParam {
 
 object Item0 {
 
-  implicit def implicit0[K <: KindContext]: Application[K, Item0, Type0] = new Application[K, Item0, Type0] {
-    override def tag: ItemTag[Item0]                          = Item.tag0
-    override def application(context: Context[K]): K#M[Type0] = context.start
-  }
+  implicit def implicit0[K <: KindContext]: Application[K, Item0, Type0] =
+    new Application[K, Item0, Type0] {
+      override def tag: ItemTag[Item0]                          = Item.tag0
+      override def application(context: Context[K]): K#M[Type0] = context.start
+    }
 
-  def plus0[T <: TypeParam]: Plus[Type0, T, Type1[T]] = new Plus[Type0, T, Type1[T]] {
-    override def plus(p: Item0, item: T#H): Item1[T#H] = Item.apply1(item)
-    override def take(t: Item1[T#H]): (Item0, T#H)     = (Item.apply0, t.i1)
-    override def sub: Plus[Type0, T#T, Type1[T#T]]     = plus0[T#T]
-  }
+  def plus0[T <: TypeParam]: Plus[Type0, T, Type1[T]] =
+    new Plus[Type0, T, Type1[T]] {
+      override def plus(p: Item0, item: T#H): Item1[T#H] = Item.apply1(item)
+      override def take(t: Item1[T#H]): (Item0, T#H)     = (Item.apply0, t.i1)
+      override def sub: Plus[Type0, T#T, Type1[T#T]]     = plus0[T#T]
+    }
 
 }
 
@@ -43,11 +45,12 @@ object Item1 {
       }
     }
 
-  def plus1[T1 <: TypeParam, T <: TypeParam]: Plus[Type1[T1], T, Type2[T1, T]] = new Plus[Type1[T1], T, Type2[T1, T]] {
-    override def plus(p: Item1[T1#H], item: T#H): Item2[T1#H, T#H] = Item.apply2(p.i1, item)
-    override def take(t: Item2[T1#H, T#H]): (Item1[T1#H], T#H)     = (Item.apply1(t.i1), t.i2)
-    override def sub: Plus[Type1[T1#T], T#T, Type2[T1#T, T#T]]     = plus1[T1#T, T#T]
-  }
+  def plus1[T1 <: TypeParam, T <: TypeParam]: Plus[Type1[T1], T, Type2[T1, T]] =
+    new Plus[Type1[T1], T, Type2[T1, T]] {
+      override def plus(p: Item1[T1#H], item: T#H): Item2[T1#H, T#H] = Item.apply2(p.i1, item)
+      override def take(t: Item2[T1#H, T#H]): (Item1[T1#H], T#H)     = (Item.apply1(t.i1), t.i2)
+      override def sub: Plus[Type1[T1#T], T#T, Type2[T1#T, T#T]]     = plus1[T1#T, T#T]
+    }
 
 }
 
@@ -59,22 +62,24 @@ class Type2[T1 <: TypeParam, T2 <: TypeParam] extends TypeParam {
 
 object Item2 {
 
-  implicit def implicit2[K <: KindContext, T1, T2, P1 <: TypeParam, P2 <: TypeParam](
-    implicit t1: Application[K, T1, P1],
+  implicit def implicit2[K <: KindContext, T1, T2, P1 <: TypeParam, P2 <: TypeParam](implicit
+    t1: Application[K, T1, P1],
     t2: Application[K, T2, P2]
-  ): Application[K, Item2[T1, T2], Type2[P1, P2]] = new Application[K, Item2[T1, T2], Type2[P1, P2]] {
-    override def tag: ItemTag[Item2[T1, T2]] = Item.tag2(t1.tag, t2.tag)
-    override def application(context: Context[K]): K#M[Type2[P1, P2]] = {
-      val ii2 = t2.application(context)
-      context.append(Item1.implicit1(t1).application(context), ii2, Item1.plus1[P1, P2])
+  ): Application[K, Item2[T1, T2], Type2[P1, P2]] =
+    new Application[K, Item2[T1, T2], Type2[P1, P2]] {
+      override def tag: ItemTag[Item2[T1, T2]] = Item.tag2(t1.tag, t2.tag)
+      override def application(context: Context[K]): K#M[Type2[P1, P2]] = {
+        val ii2 = t2.application(context)
+        context.append(Item1.implicit1(t1).application(context), ii2, Item1.plus1[P1, P2])
+      }
     }
-  }
 
-  def plus2[T1 <: TypeParam, T2 <: TypeParam, T <: TypeParam]: Plus[Type2[T1, T2], T, Type3[T1, T2, T]] = new Plus[Type2[T1, T2], T, Type3[T1, T2, T]] {
-    override def plus(p: Item2[T1#H, T2#H], item: T#H): Item3[T1#H, T2#H, T#H] = Item.apply3(p.i1, p.i2, item)
-    override def take(t: Item3[T1#H, T2#H, T#H]): (Item2[T1#H, T2#H], T#H)     = (Item.apply2(t.i1, t.i2), t.i3)
-    override def sub: Plus[Type2[T1#T, T2#T], T#T, Type3[T1#T, T2#T, T#T]]     = plus2[T1#T, T2#T, T#T]
-  }
+  def plus2[T1 <: TypeParam, T2 <: TypeParam, T <: TypeParam]: Plus[Type2[T1, T2], T, Type3[T1, T2, T]] =
+    new Plus[Type2[T1, T2], T, Type3[T1, T2, T]] {
+      override def plus(p: Item2[T1#H, T2#H], item: T#H): Item3[T1#H, T2#H, T#H] = Item.apply3(p.i1, p.i2, item)
+      override def take(t: Item3[T1#H, T2#H, T#H]): (Item2[T1#H, T2#H], T#H)     = (Item.apply2(t.i1, t.i2), t.i3)
+      override def sub: Plus[Type2[T1#T, T2#T], T#T, Type3[T1#T, T2#T, T#T]]     = plus2[T1#T, T2#T, T#T]
+    }
 
 }
 
@@ -86,17 +91,18 @@ class Type3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam] extends TypeParam
 
 object Item3 {
 
-  implicit def implicit3[K <: KindContext, T1, T2, T3, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam](
-    implicit t1: Application[K, T1, P1],
+  implicit def implicit3[K <: KindContext, T1, T2, T3, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam](implicit
+    t1: Application[K, T1, P1],
     t2: Application[K, T2, P2],
     t3: Application[K, T3, P3]
-  ): Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] = new Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] {
-    override def tag: ItemTag[Item3[T1, T2, T3]] = Item.tag3(t1.tag, t2.tag, t3.tag)
-    override def application(context: Context[K]): K#M[Type3[P1, P2, P3]] = {
-      val ii3 = t3.application(context)
-      context.append(Item2.implicit2(t1, t2).application(context), ii3, Item2.plus2[P1, P2, P3])
+  ): Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] =
+    new Application[K, Item3[T1, T2, T3], Type3[P1, P2, P3]] {
+      override def tag: ItemTag[Item3[T1, T2, T3]] = Item.tag3(t1.tag, t2.tag, t3.tag)
+      override def application(context: Context[K]): K#M[Type3[P1, P2, P3]] = {
+        val ii3 = t3.application(context)
+        context.append(Item2.implicit2(t1, t2).application(context), ii3, Item2.plus2[P1, P2, P3])
+      }
     }
-  }
 
   def plus3[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T <: TypeParam]: Plus[Type3[T1, T2, T3], T, Type4[T1, T2, T3, T]] =
     new Plus[Type3[T1, T2, T3], T, Type4[T1, T2, T3, T]] {
@@ -115,18 +121,19 @@ class Type4[T1 <: TypeParam, T2 <: TypeParam, T3 <: TypeParam, T4 <: TypeParam] 
 
 object Item4 {
 
-  implicit def implicit4[K <: KindContext, T1, T2, T3, T4, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam, P4 <: TypeParam](
-    implicit t1: Application[K, T1, P1],
+  implicit def implicit4[K <: KindContext, T1, T2, T3, T4, P1 <: TypeParam, P2 <: TypeParam, P3 <: TypeParam, P4 <: TypeParam](implicit
+    t1: Application[K, T1, P1],
     t2: Application[K, T2, P2],
     t3: Application[K, T3, P3],
     t4: Application[K, T4, P4]
-  ): Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] = new Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] {
-    override def tag: ItemTag[Item4[T1, T2, T3, T4]] = Item.tag4(t1.tag, t2.tag, t3.tag, t4.tag)
-    override def application(context: Context[K]): K#M[Type4[P1, P2, P3, P4]] = {
-      val ii4 = t4.application(context)
-      context.append(Item3.implicit3(t1, t2, t3).application(context), ii4, Item3.plus3[P1, P2, P3, P4])
+  ): Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] =
+    new Application[K, Item4[T1, T2, T3, T4], Type4[P1, P2, P3, P4]] {
+      override def tag: ItemTag[Item4[T1, T2, T3, T4]] = Item.tag4(t1.tag, t2.tag, t3.tag, t4.tag)
+      override def application(context: Context[K]): K#M[Type4[P1, P2, P3, P4]] = {
+        val ii4 = t4.application(context)
+        context.append(Item3.implicit3(t1, t2, t3).application(context), ii4, Item3.plus3[P1, P2, P3, P4])
+      }
     }
-  }
 
 }
 
