@@ -6,11 +6,11 @@ object ZsgTuple1 {
                 context: Context1[F]
             )  :  F[  ZsgTuple1[X1_C1] ] =
                 context.append(context.start, t1)(ZsgTuple1.cachePlus1WithTypeParameter0)
-             implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum2[F[_  , _ ]  , X1_C1  , X1_C2 ]( implicit 
-                t1: F[X1_C1 , X1_C2],
-                context: Context2[F]
-            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2] ] =
-                context.append(context.start, t1)(ZsgTuple1.cachePlus2WithTypeParameter0)
+             implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum2[F[_  , _ ]  , X1_C1  , X1_C2 /*, T <: Context2[F]*/]( implicit
+                t1: F[X1_C1 , X1_C2]/*,
+                context: T*/
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2] ] = throw new Exception
+                //context.append(context.start, t1)(ZsgTuple1.cachePlus2WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum3[F[_  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3 ]( implicit 
                 t1: F[X1_C1 , X1_C2 , X1_C3],
                 context: Context3[F]

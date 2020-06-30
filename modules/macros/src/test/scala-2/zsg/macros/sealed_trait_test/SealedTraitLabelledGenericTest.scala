@@ -3,18 +3,18 @@ package zsg.macros.sealed_trait_test
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
-import zsg.{Context2, Plus2, ZsgTuple0}
+import zsg.{Context2, Plus2, ZsgTuple0, ZsgTuple1}
 
 class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   sealed trait Abc[T]
 
   class AA[T](ii: T, iiii: String) extends Abc[T]
-  class BB[T](ii: T, iiii: String) extends Abc[T]
+  //class BB[T](ii: T, iiii: String) extends Abc[T]
   //case class CC(i1: Number, i2: String) extends Abc[Number]
   //case object dd                        extends Abc[Number]
 
-  class Ignore(ii: Int, iiii: String) extends BB[Int](ii, iiii)
+  //class Ignore(ii: Int, iiii: String) extends BB[Int](ii, iiii)
 
   trait STT[II, T] {
     def stt(t: T): List[String] => List[String]
@@ -68,7 +68,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     }
   }
 
-  implicit def stringImplicit1[T, R]: STT[SealedTag[T], String] =
+  implicit def stringImplicit1[T]: STT[SealedTag[T], String] =
     new STT[SealedTag[T], String] {
       override def stt(str: String): List[String] => List[String] = list => str :: list
     }
@@ -78,7 +78,12 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
       val names1: SealedTraitNames[Abc[String]] = encode { (c11: Context2[STT]) => s =>
         {
           implicit val c123 = c11
-          s.encode: SealedTraitNames[Abc[String]]
+          // s.encode: SealedTraitNames[Abc[String]]
+          // val bb: STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]] = ZsgTuple1.tupleTagApplicationImplicit_tagNum1_typeParamNum2(stringImplicit1, c123)
+
+          implicitly[STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]]]
+
+          s.encode(implicitly[ZsgSealedGeneric.Aux[Abc[String], ZsgTuple1[SealedTag[AA[String]]]]], implicitly[STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]]], implicitly[ZsgSealedLabelledGeneric[Abc[String], ZsgTuple1[String]]]): SealedTraitNames[Abc[String]]
         }
       }
       // names1.str shouldBe List("AA", "BB", "CC", "dd")
