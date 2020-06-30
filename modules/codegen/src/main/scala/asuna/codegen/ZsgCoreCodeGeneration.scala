@@ -37,14 +37,14 @@ object ZsgCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
+    /*for (i <- 1 to ZsgParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
       val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i).body)
       writer.println(linerContent)
       writer.close()
-    }
+    }*/
 
     {
       for (i <- 1 to ZsgParameters.maxPropertyNum) yield {
@@ -91,25 +91,6 @@ object ZsgCoreCodeGeneration {
         writer.close()
       }
     }
-
-    /*{
-      {
-        val filePath = root2XDir.resolve("DebugMessage.scala")
-        Files.createDirectories(filePath.getParent)
-        val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.DebugMessage(maxItem = ZsgParameters.maxContextNum)(isDotty = false).body)
-        writer.println(content)
-        writer.close()
-      }
-      {
-        val filePath = rootDottyDir.resolve("DebugMessage.scala")
-        Files.createDirectories(filePath.getParent)
-        val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.DebugMessage(maxItem = ZsgParameters.maxContextNum)(isDotty = true).body)
-        writer.println(content)
-        writer.close()
-      }
-    }*/
 
     {
       {

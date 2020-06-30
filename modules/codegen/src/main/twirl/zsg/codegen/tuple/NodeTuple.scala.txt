@@ -8,27 +8,17 @@ object NodeTuple@{tagNum} {
 
     @if(tagNum == 1) {
         @for(typeParamNum <- 1 to maxAsunaContext) {
-            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} <: TupleTag }](@if(isDotty) { using } else { implicit } t1: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X1_C@{i} }]
-            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , NodeTuple1[X1_C@{i}] }] = {
-                new Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , NodeTuple1[X1_C@{i}] }] {
-                    override def application(context: Context@{typeParamNum}[F]): F[NodeTuple1[X1_C1]
-                    @for(i <- 2 to typeParamNum) { , NodeTuple1[X1_C@{i}] }] = {
-                        context.append(context.start, t1.application(context))(NodeTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
-                    }
-                }
-            }
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} <: TupleTag }](@if(isDotty) { using } else { implicit } t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }],
+                context: Context@{typeParamNum}[F]
+            ) @if(isDotty) { as } else { : } F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } NodeTuple1[X1_C@{i}] }] =
+                context.append(context.start, t1)(NodeTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
         }
     } else {
         @for(typeParamNum <- 1 to maxAsunaContext) {
-            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} <: TupleTag } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} <: TupleTag }](@if(isDotty) { using } else { implicit } t1: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X1_C@{i} }], t2: Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , X2_C@{i} }]
-            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , NodeTuple2[X1_C@{i}, X2_C@{i}] }] = {
-                new Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , NodeTuple2[X1_C@{i}, X2_C@{i}] }] {
-                    override def application(context: Context@{typeParamNum}[F]): F[NodeTuple2[X1_C1, X2_C1]
-                    @for(i <- 2 to typeParamNum) { , NodeTuple2[X1_C@{i}, X2_C@{i}] }] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
-                    }
-                }
-            }
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} <: TupleTag } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} <: TupleTag }](@if(isDotty) { using } else { implicit } t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }], t2: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X2_C@{i} }],
+                context: Context@{typeParamNum}[F]
+            ) @if(isDotty) { as } else { : } F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } NodeTuple2[X1_C@{i}, X2_C@{i}] }] =
+                context.append(t2, t1)(NodeTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
         }
     }
 

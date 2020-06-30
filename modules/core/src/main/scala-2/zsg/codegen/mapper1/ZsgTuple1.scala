@@ -2,85 +2,45 @@ package zsg
 final class ZsgTuple1[X1](final val i1: X1) extends TupleTag
 object ZsgTuple1 {
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum1[F[_ ]  , X1_C1 ]( implicit 
-            t1: F[X1_C1]
-            )  :  Application1[F  , ZsgTuple1[X1_C1] ] = {
-                new Application1[F  , ZsgTuple1[X1_C1] ] {
-                    override def application(context: Context1[F]): F[ZsgTuple1[X1_C1]
-                    ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus1WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1],
+                context: Context1[F]
+            )  :  F[  ZsgTuple1[X1_C1] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus1WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum2[F[_  , _ ]  , X1_C1  , X1_C2 ]( implicit 
-            t1: F[X1_C1 , X1_C2]
-            )  :  Application2[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2] ] = {
-                new Application2[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2] ] {
-                    override def application(context: Context2[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus2WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2],
+                context: Context2[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus2WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum3[F[_  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3]
-            )  :  Application3[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3] ] = {
-                new Application3[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3] ] {
-                    override def application(context: Context3[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus3WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3],
+                context: Context3[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus3WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum4[F[_  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4]
-            )  :  Application4[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4] ] = {
-                new Application4[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4] ] {
-                    override def application(context: Context4[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus4WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4],
+                context: Context4[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3]   ,  ZsgTuple1[X1_C4] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus4WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum5[F[_  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5]
-            )  :  Application5[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5] ] = {
-                new Application5[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5] ] {
-                    override def application(context: Context5[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus5WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5],
+                context: Context5[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3]   ,  ZsgTuple1[X1_C4]   ,  ZsgTuple1[X1_C5] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus5WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum6[F[_  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6]
-            )  :  Application6[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6] ] = {
-                new Application6[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6] ] {
-                    override def application(context: Context6[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus6WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6],
+                context: Context6[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3]   ,  ZsgTuple1[X1_C4]   ,  ZsgTuple1[X1_C5]   ,  ZsgTuple1[X1_C6] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus6WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum7[F[_  , _  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7]
-            )  :  Application7[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7] ] = {
-                new Application7[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7] ] {
-                    override def application(context: Context7[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus7WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7],
+                context: Context7[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3]   ,  ZsgTuple1[X1_C4]   ,  ZsgTuple1[X1_C5]   ,  ZsgTuple1[X1_C6]   ,  ZsgTuple1[X1_C7] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus7WithTypeParameter0)
              implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum8[F[_  , _  , _  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ]( implicit 
-            t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7 , X1_C8]
-            )  :  Application8[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7]  , ZsgTuple1[X1_C8] ] = {
-                new Application8[F  , ZsgTuple1[X1_C1]  , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7]  , ZsgTuple1[X1_C8] ] {
-                    override def application(context: Context8[F]): F[ZsgTuple1[X1_C1]
-                     , ZsgTuple1[X1_C2]  , ZsgTuple1[X1_C3]  , ZsgTuple1[X1_C4]  , ZsgTuple1[X1_C5]  , ZsgTuple1[X1_C6]  , ZsgTuple1[X1_C7]  , ZsgTuple1[X1_C8] ] = {
-                        context.append(context.start, t1)(ZsgTuple1.cachePlus8WithTypeParameter0)
-                    }
-                }
-            }
+                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7 , X1_C8],
+                context: Context8[F]
+            )  :  F[  ZsgTuple1[X1_C1]   ,  ZsgTuple1[X1_C2]   ,  ZsgTuple1[X1_C3]   ,  ZsgTuple1[X1_C4]   ,  ZsgTuple1[X1_C5]   ,  ZsgTuple1[X1_C6]   ,  ZsgTuple1[X1_C7]   ,  ZsgTuple1[X1_C8] ] =
+                context.append(context.start, t1)(ZsgTuple1.cachePlus8WithTypeParameter0)
              @inline  final def cachePlus1WithTypeParameter0Dynamic[Y1]: Plus1[
                 ZsgTuple0,
                 Y1,

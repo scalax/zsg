@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
-import zsg.{Application2, Context2, Plus2, ZsgTuple0}
+import zsg.{Context2, Plus2, ZsgTuple0}
 
 trait ModelFromString[M] {
   def getData(str: String): (String, M)
@@ -43,30 +43,37 @@ object ModelFromString {
     }
   }
 
-  def decoder[I1, I2, I3](implicit
-    ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application2[ModelFromStringImpl, I2, I3],
-    asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
-  ): ModelFromString[I1] =
-    new ModelFromString[I1] {
-      override def getData(str: String): (String, I1) = {
-        val c         = pp.application(reverseDecoderContext)
-        val (str1, m) = c.getData(str)
-        (str1, asunaSetterGeneric.setter(m))
+  class DecoderContent {
+    def decoder[I1, I2, I3](implicit
+      ii: ZsgGeneric.Aux[I1, I2],
+      pp: ModelFromStringImpl[I2, I3],
+      zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
+    ): ModelFromString[I1] =
+      new ModelFromString[I1] {
+        override def getData(str: String): (String, I1) = {
+          val (str1, m) = pp.getData(str)
+          (str1, zsgSetterGeneric.setter(m))
+        }
       }
-    }
+  }
 
-  def reverseDecoder[I1, I2, I3](implicit
-    ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application2[ModelFromStringImpl, I2, I3],
-    asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
-  ): ModelFromString[I1] =
-    new ModelFromString[I1] {
-      override def getData(str: String): (String, I1) = {
-        val c         = pp.application(decoderContext)
-        val (str1, m) = c.getData(str)
-        (str1, asunaSetterGeneric.setter(m))
+  def decoder[I](n: Context2[ModelFromStringImpl] => DecoderContent => ModelFromString[I]): ModelFromString[I] = n(decoderContext)(new DecoderContent)
+
+  class ReverseDecoderContent {
+    def reverseDecoder[I1, I2, I3](implicit
+      ii: ZsgGeneric.Aux[I1, I2],
+      pp: ModelFromStringImpl[I2, I3],
+      zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
+    ): ModelFromString[I1] =
+      new ModelFromString[I1] {
+        override def getData(str: String): (String, I1) = {
+          val (str1, m) = pp.getData(str)
+          (str1, zsgSetterGeneric.setter(m))
+        }
       }
-    }
+  }
+
+  def reverseDecoder[I](n: Context2[ModelFromStringImpl] => ReverseDecoderContent => ModelFromString[I]): ModelFromString[I] =
+    n(reverseDecoderContext)(new ReverseDecoderContent)
 
 }

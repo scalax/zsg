@@ -1,78 +1,38 @@
 package zsg
 final class NodeTuple2[X1 <: TupleTag , X2 <: TupleTag](final val i1: X1 , final val i2: X2) extends TupleTag
 object NodeTuple2 {
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum1[F[_ ]  , X1_C1 <: TupleTag   , X2_C1 <: TupleTag ]( using  t1: Application1[F  , X1_C1 ], t2: Application1[F  , X2_C1 ]
-            )  as  Application1[F  , NodeTuple2[X1_C1, X2_C1] ] = {
-                new Application1[F  , NodeTuple2[X1_C1, X2_C1] ] {
-                    override def application(context: Context1[F]): F[NodeTuple2[X1_C1, X2_C1]
-                    ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus1WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum2[F[_  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag ]( using  t1: Application2[F  , X1_C1  , X1_C2 ], t2: Application2[F  , X2_C1  , X2_C2 ]
-            )  as  Application2[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2] ] = {
-                new Application2[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2] ] {
-                    override def application(context: Context2[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus2WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum3[F[_  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag ]( using  t1: Application3[F  , X1_C1  , X1_C2  , X1_C3 ], t2: Application3[F  , X2_C1  , X2_C2  , X2_C3 ]
-            )  as  Application3[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3] ] = {
-                new Application3[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3] ] {
-                    override def application(context: Context3[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus3WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum4[F[_  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag ]( using  t1: Application4[F  , X1_C1  , X1_C2  , X1_C3  , X1_C4 ], t2: Application4[F  , X2_C1  , X2_C2  , X2_C3  , X2_C4 ]
-            )  as  Application4[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4] ] = {
-                new Application4[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4] ] {
-                    override def application(context: Context4[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus4WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum5[F[_  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag ]( using  t1: Application5[F  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5 ], t2: Application5[F  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5 ]
-            )  as  Application5[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5] ] = {
-                new Application5[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5] ] {
-                    override def application(context: Context5[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus5WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum6[F[_  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag ]( using  t1: Application6[F  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6 ], t2: Application6[F  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6 ]
-            )  as  Application6[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6] ] = {
-                new Application6[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6] ] {
-                    override def application(context: Context6[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus6WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum7[F[_  , _  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag  , X2_C7 <: TupleTag ]( using  t1: Application7[F  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ], t2: Application7[F  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ]
-            )  as  Application7[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7] ] = {
-                new Application7[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7] ] {
-                    override def application(context: Context7[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus7WithTypeParameter1)
-                    }
-                }
-            }
-             given  tupleTagApplicationImplicit_tagNum2_typeParamNum8[F[_  , _  , _  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag  , X1_C8 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag  , X2_C7 <: TupleTag  , X2_C8 <: TupleTag ]( using  t1: Application8[F  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ], t2: Application8[F  , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ]
-            )  as  Application8[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7]  , NodeTuple2[X1_C8, X2_C8] ] = {
-                new Application8[F  , NodeTuple2[X1_C1, X2_C1]  , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7]  , NodeTuple2[X1_C8, X2_C8] ] {
-                    override def application(context: Context8[F]): F[NodeTuple2[X1_C1, X2_C1]
-                     , NodeTuple2[X1_C2, X2_C2]  , NodeTuple2[X1_C3, X2_C3]  , NodeTuple2[X1_C4, X2_C4]  , NodeTuple2[X1_C5, X2_C5]  , NodeTuple2[X1_C6, X2_C6]  , NodeTuple2[X1_C7, X2_C7]  , NodeTuple2[X1_C8, X2_C8] ] = {
-                        context.append(t2.application(context), t1.application(context))(NodeTuple2.cachePlus8WithTypeParameter1)
-                    }
-                }
-            }
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum1[F[_ ]  , X1_C1 <: TupleTag   , X2_C1 <: TupleTag ]( using  t1: F[  X1_C1 ], t2: F[  X2_C1 ],
+                context: Context1[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus1WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum2[F[_  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2 ], t2: F[  X2_C1   ,  X2_C2 ],
+                context: Context2[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus2WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum3[F[_  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3 ],
+                context: Context3[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus3WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum4[F[_  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4 ],
+                context: Context4[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3]   ,  NodeTuple2[X1_C4, X2_C4] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus4WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum5[F[_  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5 ],
+                context: Context5[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3]   ,  NodeTuple2[X1_C4, X2_C4]   ,  NodeTuple2[X1_C5, X2_C5] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus5WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum6[F[_  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6 ],
+                context: Context6[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3]   ,  NodeTuple2[X1_C4, X2_C4]   ,  NodeTuple2[X1_C5, X2_C5]   ,  NodeTuple2[X1_C6, X2_C6] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus6WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum7[F[_  , _  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag  , X2_C7 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6   ,  X1_C7 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6   ,  X2_C7 ],
+                context: Context7[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3]   ,  NodeTuple2[X1_C4, X2_C4]   ,  NodeTuple2[X1_C5, X2_C5]   ,  NodeTuple2[X1_C6, X2_C6]   ,  NodeTuple2[X1_C7, X2_C7] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus7WithTypeParameter1)
+             given  tupleTagApplicationImplicit_tagNum2_typeParamNum8[F[_  , _  , _  , _  , _  , _  , _  , _ ]  , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag  , X1_C8 <: TupleTag   , X2_C1 <: TupleTag  , X2_C2 <: TupleTag  , X2_C3 <: TupleTag  , X2_C4 <: TupleTag  , X2_C5 <: TupleTag  , X2_C6 <: TupleTag  , X2_C7 <: TupleTag  , X2_C8 <: TupleTag ]( using  t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6   ,  X1_C7   ,  X1_C8 ], t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6   ,  X2_C7   ,  X2_C8 ],
+                context: Context8[F]
+            )  as  F[  NodeTuple2[X1_C1, X2_C1]   ,  NodeTuple2[X1_C2, X2_C2]   ,  NodeTuple2[X1_C3, X2_C3]   ,  NodeTuple2[X1_C4, X2_C4]   ,  NodeTuple2[X1_C5, X2_C5]   ,  NodeTuple2[X1_C6, X2_C6]   ,  NodeTuple2[X1_C7, X2_C7]   ,  NodeTuple2[X1_C8, X2_C8] ] =
+                context.append(t2, t1)(NodeTuple2.cachePlus8WithTypeParameter1)
              inline  final def cachePlus1WithTypeParameter1Dynamic[
                 X1 <: TupleTag,
                 Y1 <: TupleTag
