@@ -1,6 +1,5 @@
 package zsg.macros.sealed_trait_test
 
-import javafx.application.Application
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
