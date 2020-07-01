@@ -1,20 +1,21 @@
 package zsg.macros.sealed_trait_test
 
+import javafx.application.Application
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
-import zsg.{Context2, Plus2, ZsgTuple0, ZsgTuple1}
+import zsg.{Application2, Context2, Plus2, ZsgTuple0, ZsgTuple1}
 
 class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   sealed trait Abc[T]
 
-  class AA[T](ii: T, iiii: String) extends Abc[T]
-  //class BB[T](ii: T, iiii: String) extends Abc[T]
-  //case class CC(i1: Number, i2: String) extends Abc[Number]
-  //case object dd                        extends Abc[Number]
+  class AA[T](ii: T, iiii: String)      extends Abc[T]
+  class BB[T](ii: T, iiii: String)      extends Abc[T]
+  case class CC(i1: Number, i2: String) extends Abc[Number]
+  case object dd                        extends Abc[Number]
 
-  //class Ignore(ii: Int, iiii: String) extends BB[Int](ii, iiii)
+  class Ignore(ii: Int, iiii: String) extends BB[Int](ii, iiii)
 
   trait STT[II, T] {
     def stt(t: T): List[String] => List[String]
@@ -25,33 +26,15 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
   }
 
   class TraitApply[H] {
-    def encode[T](implicit zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T]): TraitApply2[T] = new TraitApply2
-
-    class TraitApply2[T] {
-      def encode[TT](implicit app: STT[T, TT]): TraitApply3[TT] = new TraitApply3(app)
-
-      class TraitApply3[TT](stt: STT[T, TT]) {
-        def encode(implicit labelled: ZsgSealedLabelledGeneric[H, TT]): SealedTraitNames[H] =
-          new SealedTraitNames[H] {
-            override val str: List[String] = stt.stt(labelled.names)(List.empty)
-          }
+    def fetch[T, TT](implicit
+      zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
+      app: Application2[STT, T, TT],
+      labelled: ZsgSealedLabelledGeneric[H, TT]
+    ): SealedTraitNames[H] =
+      new SealedTraitNames[H] {
+        override def str: List[String] = app.application.stt(labelled.names)(List.empty)
       }
-    }
   }
-
-  /*def encode[H, T, TT](implicit
-    zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
-    app: STT[T, TT],
-    labelled: ZsgSealedLabelledGeneric[H, TT]
-  ): SealedTraitNames[H] =
-    new SealedTraitNames[H] {
-      override val str: List[String] = app.stt(labelled.names)(List.empty)
-    }*/
-
-  def encode1[H] =
-    new {
-      def encode2[T](implicit zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T]): ZsgSealedGeneric.Aux[H, T] = zsgSealedGeneric
-    }
 
   def encode[T](n: Context2[STT] => TraitApply[T] => SealedTraitNames[T]): SealedTraitNames[T] = n(i)(new TraitApply)
 
@@ -79,25 +62,8 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   describe("A sealed trait") {
     it("should labelled generic to it's names") {
-      val names1: SealedTraitNames[Abc[String]] = encode { (c11: Context2[STT]) => s =>
-        {
-          // implicit val c123 = c11
-          // s.encode: SealedTraitNames[Abc[String]]
-          val bb: STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]] = ZsgTuple1.tupleTagApplicationImplicit_tagNum1_typeParamNum2
-
-          implicitly[STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]]]
-
-          /*s.encode(
-            s.encode2,
-            ZsgTuple1.tupleTagApplicationImplicit_tagNum1_typeParamNum2(stringImplicit1): STT[ZsgTuple1[SealedTag[AA[String]]], ZsgTuple1[String]],
-            implicitly[ZsgSealedLabelledGeneric[Abc[String], ZsgTuple1[String]]]
-          )*/
-          s.encode.encode(ZsgTuple1.tupleTagApplicationImplicit_tagNum1_typeParamNum2).encode: SealedTraitNames[Abc[String]]
-        }
-      }: SealedTraitNames[Abc[String]]
-      // names1.str shouldBe List("AA", "BB", "CC", "dd")
-
-      // encode1[Abc[String]].encode2.bb
+      val names1: SealedTraitNames[Abc[String]] = encode(implicit c => _.fetch)
+      names1.str shouldBe List("AA", "BB", "CC", "dd")
     }
   }
 

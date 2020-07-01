@@ -4,8 +4,8 @@ import scala.annotation.tailrec
 
 object SnippetUtil {
 
-  def XI_Snippet(seq: Seq[Int]): List[String]                   = seq.to(List).map(u => s"X${u}")
-  def XI_CI_F_Snippet(xi: Seq[Int], ci: Seq[Int]): List[String] = xi.to(List).map(u => s"t${u}: F[${ci.map(c => s"X${u}_C${c}").mkString(" , ")}]")
+  def XI_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(u => s"X${u}")
+  // def XI_CI_F_Snippet(xi: Seq[Int], ci: Seq[Int]): List[String] = xi.to(List).map(u => s"t${u}: F[${ci.map(c => s"X${u}_C${c}").mkString(" , ")}]")
 
   def YI_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"Y${u}")
   def II_Snippet(seq: Seq[Int]): List[String]          = seq.to(List).map(u => s"final val i${u}: X${u}")

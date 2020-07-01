@@ -2,17 +2,17 @@ package zsg.macros.rep_encoder_test
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
-import zsg.{Context2, Plus2, PropertyTag, ZsgTuple0}
+import zsg.{Application2, Context2, Plus2, PropertyTag, ZsgTuple0}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
 
 class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
-  class CirceGenericApply1[Table, Model] {
-    def encoder[II, M](table: Table)(implicit
+  class CirceGenericApply1[Model] {
+    def encoder[Table, II, M](table: Table)(implicit
       i: ZsgMultiplyGeneric.Aux[Table, Model, II],
-      p: Getter[II, M],
+      p: Application2[Getter, II, M],
       m: ZsgMultiplyRepGeneric[Table, Model, M]
     ): M = m.rep(table)
   }
@@ -22,8 +22,8 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     override val start: Getter[ZsgTuple0, ZsgTuple0]                                                                                    = new Getter[ZsgTuple0, ZsgTuple0]
   }
 
-  class CirceGenericApply2[Table, Model] {
-    def encode[M](n: Context2[Getter] => CirceGenericApply1[Table, Model] => M): M = n(getterContext)(new CirceGenericApply1[Table, Model])
+  class CirceGenericApply2[Model] {
+    def encode[M](n: Context2[Getter] => CirceGenericApply1[Model] => M): M = n(getterContext)(new CirceGenericApply1[Model])
   }
 
   class Getter[Tag, Model]
@@ -32,7 +32,7 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     implicit def implicit1[I]: Getter[PropertyTag[I], I] = new Getter[PropertyTag[I], I]
   }
 
-  def link[Table, Model]: CirceGenericApply2[Table, Model] = new CirceGenericApply2[Table, Model]
+  def link[Model]: CirceGenericApply2[Model] = new CirceGenericApply2[Model]
 
   object mmm {
     val ef: Long = 123456789
@@ -57,11 +57,11 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     override val obj = Abc
   }
 
-  //val linkModel = link[iii, K].encode(implicit c => _.encoder(model))
+  val linkModel = link[K].encode(implicit c => _.encoder(model: iii))
 
   describe("Rep Mapper") {
     it("should map mutiply class") {
-      /*linkModel.i2.i1: Long
+      linkModel.i2.i1: Long
       linkModel.i1.i1: String
       linkModel.i1.i2: List[String]
 
@@ -69,7 +69,7 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
       linkModel.i1.i1 shouldBe model.ab
       linkModel.i1.i2 shouldBe model.obj.cd
 
-      linkModel.i1.i1 should not be model.obj.ab*/
+      linkModel.i1.i1 should not be model.obj.ab
     }
   }
 

@@ -8,19 +8,20 @@ object ZsgTuple@{tagNum} {
 
     @if(tagNum == 1) {
         @for(typeParamNum <- 1 to maxAsunaContext) {
-            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { using } else { implicit }
-                @{zsg.codegen.SnippetUtil.XI_CI_F_Snippet(xi = 1 to tagNum, ci = 1 to typeParamNum).mkString(" , ")},
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum1_typeParamNum@{typeParamNum}[F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { using } else { implicit }
+                t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }],
                 context: Context@{typeParamNum}[F]
-            ) @if(isDotty) { as } else { : } F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } ZsgTuple1[X1_C@{i}] }] =
-                context.append(context.start, t1)(ZsgTuple1.cachePlus@{typeParamNum}WithTypeParameter0)
+            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , ZsgTuple1[X1_C@{i}] }] =
+                new Application@{typeParamNum}(context.append(context.start, t1)(ZsgTuple1.cachePlus@{typeParamNum}WithTypeParameter0))
         }
     } else {
         @for(typeParamNum <- 1 to maxAsunaContext) {
-            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[_ @for(i <- 2 to typeParamNum) { , _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }](@if(isDotty) { using } else { implicit }
-                @{zsg.codegen.SnippetUtil.XI_CI_F_Snippet(xi = 1 to tagNum, ci = 1 to typeParamNum).mkString(" , ")},
+            @if(isDotty) { given } else { implicit def } tupleTagApplicationImplicit_tagNum2_typeParamNum@{typeParamNum}[F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } _ }] @for(ii <- 1 to typeParamNum) { , X1_C@{ii} } @for(ii <- 1 to typeParamNum) { , X2_C@{ii} }](@if(isDotty) { using } else { implicit }
+                t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }],
+                t2: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X2_C@{i} }],
                 context: Context@{typeParamNum}[F]
-            ) @if(isDotty) { as } else { : } F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } ZsgTuple2[X1_C@{i}, X2_C@{i}] }] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus@{typeParamNum}WithTypeParameter1)
+            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F @for(i <- 1 to typeParamNum) { , ZsgTuple2[X1_C@{i}, X2_C@{i}] }] =
+                new Application@{typeParamNum}(context.append(t2, t1)(ZsgTuple2.cachePlus@{typeParamNum}WithTypeParameter1))
         }
     }
 

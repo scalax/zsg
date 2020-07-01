@@ -20,10 +20,10 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
   val ap@{maxItem} = PropertyApply[Foo@{maxItem}]
 
-  val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder
-  val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder
-  val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
-  val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
+  val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder(implicit c => _.encoder)
+  val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder(implicit c => _.reverseEncoder)
+  val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder(implicit c => _.decoder)
+  val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder(implicit c => _.reverseDecoder)
 
     describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {

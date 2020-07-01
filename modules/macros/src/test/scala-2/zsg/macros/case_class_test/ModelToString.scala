@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ColumnName, GenericColumnName, StringName, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
-import zsg.{Context3, Plus3, PropertyTag, ZsgTuple0}
+import zsg.{Application3, Context3, Plus3, PropertyTag, ZsgTuple0}
 
 trait ModelToString[E] {
   def mToString(i: E): List[(PropertyItem, String)]
@@ -62,40 +62,37 @@ object ModelToString {
       }
   }
 
-  class EncoderContent {
-    def encoder[I1, I2, X, Y](implicit
+  class EncoderContent[I1] {
+    def encoder[I2, X, Y](implicit
       g: ZsgGeneric.Aux[I1, I2],
       l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-      pp: ModelToStringContent[I2, X, Y],
-      asunaGetterGeneric: ZsgGetterGeneric[I1, X]
+      pp: Application3[ModelToStringContent, I2, X, Y],
+      zsgGetterGeneric: ZsgGetterGeneric[I1, X]
     ): ModelToString[I1] = {
       new ModelToString[I1] {
-        override def mToString(data: I1): List[(PropertyItem, String)] = pp.encode(asunaGetterGeneric.getter(data), List.empty)
+        override def mToString(data: I1): List[(PropertyItem, String)] = pp.application.encode(zsgGetterGeneric.getter(data), List.empty)
       }
     }
   }
 
-  def encoder[T](n: Context3[ModelToStringContent] => EncoderContent => ModelToString[T]): ModelToString[T] = n(ModelToStringContext)(new EncoderContent)
+  def encoder[T](n: Context3[ModelToStringContent] => EncoderContent[T] => ModelToString[T]): ModelToString[T] = n(ModelToStringContext)(new EncoderContent)
 
   trait Init2[I1, I2, L] {
     val g: ZsgGeneric.Aux[I1, I2]
     val l: ZsgLabelledTypeGeneric.Aux[I1, L]
 
-    def init2[X](n: Context3[ModelToStringContent] => MContent => Init3[I1, I2, X, L]): Init3[I1, I2, X, L] = n(ModelToStringContext)(new MContent)
+    def init2[X](n: Context3[ModelToStringContent] => MContent => Init3[X]): Init3[X] = n(ModelToStringContext)(new MContent)
 
     class MContent {
-      def init2[X](implicit n: ModelToStringContent[I2, X, L]): Init3[I1, I2, X, L] =
-        new Init3[I1, I2, X, L] {
-          def init3(asunaGetterGeneric: ZsgGetterGeneric[I1, X]): ModelToString[I1] =
-            new ModelToString[I1] {
-              override def mToString(ii: I1): List[(PropertyItem, String)] = n.encode(asunaGetterGeneric.getter(ii), List.empty)
-            }
+      def init2[X](implicit n: Application3[ModelToStringContent, I2, X, L]): Init3[X] = new Init3[X](n.application)
+    }
+
+    class Init3[X](n: ModelToStringContent[I2, X, L]) {
+      def init3(zsgGetterGeneric: ZsgGetterGeneric[I1, X]): ModelToString[I1] =
+        new ModelToString[I1] {
+          override def mToString(ii: I1): List[(PropertyItem, String)] = n.encode(zsgGetterGeneric.getter(ii), List.empty)
         }
     }
-  }
-
-  trait Init3[I1, I2, X, Y] {
-    def init3(zsgGetterGeneric: ZsgGetterGeneric[I1, X]): ModelToString[I1]
   }
 
   def init1[I1, I2, L](implicit ii: ZsgGeneric.Aux[I1, I2], labelled: ZsgLabelledTypeGeneric.Aux[I1, L]): Init2[I1, I2, L] =
@@ -114,18 +111,18 @@ object ModelToString {
       }
   }
 
-  class ReverseContent {
-    def reverseEncoder[I1, I2, X, Y](implicit
+  class ReverseContent[I1] {
+    def reverseEncoder[I2, X, Y](implicit
       ii: ZsgGeneric.Aux[I1, I2],
       l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-      pp: ModelToStringContent[I2, X, Y],
+      pp: Application3[ModelToStringContent, I2, X, Y],
       zsgGetterGeneric: ZsgGetterGeneric[I1, X]
     ): ModelToString[I1] =
       new ModelToString[I1] {
-        override def mToString(ii: I1): List[(PropertyItem, String)] = pp.encode(zsgGetterGeneric.getter(ii), List.empty)
+        override def mToString(ii: I1): List[(PropertyItem, String)] = pp.application.encode(zsgGetterGeneric.getter(ii), List.empty)
       }
   }
 
-  def reverseEncoder[T](n: Context3[ModelToStringContent] => ReverseContent => ModelToString[T]): ModelToString[T] = n(ReverseModelToStringContext)(new ReverseContent)
+  def reverseEncoder[T](n: Context3[ModelToStringContent] => ReverseContent[T] => ModelToString[T]): ModelToString[T] = n(ReverseModelToStringContext)(new ReverseContent)
 
 }

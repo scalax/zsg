@@ -70,15 +70,15 @@ class Test02 {
   }
 
   object asunaEncoder {
-    implicit val _w2: Encoder[A]        = ACirce.encodeSealed
-    implicit val _w3: Encoder[B]        = ACirce.encodeCaseClass
-    implicit val _w4: Encoder[C]        = ACirce.encodeCaseClass
-    implicit val _w5: Encoder[LL]       = ACirce.encodeSealed
-    implicit val _w6: Encoder[Node]     = ACirce.encodeCaseClass
+    implicit val _w2: Encoder[A]        = ACirce.encodeSealed(implicit c => _.encodeSealed)
+    implicit val _w3: Encoder[B]        = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
+    implicit val _w4: Encoder[C]        = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
+    implicit val _w5: Encoder[LL]       = ACirce.encodeSealed(implicit c => _.encodeSealed)
+    implicit val _w6: Encoder[Node]     = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
     implicit val _w7: Encoder[End.type] = ACirce.encodeCaseObject
-    implicit val _w8: Encoder[ADTc]     = ACirce.encodeCaseClass
-    implicit val _w9: Encoder[ADT0]     = ACirce.encodeCaseClass
-    implicit val _wData: Encoder[Data]  = ACirce.encodeCaseClass
+    implicit val _w8: Encoder[ADTc]     = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
+    implicit val _w9: Encoder[ADT0]     = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
+    implicit val _wData: Encoder[Data]  = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
   }
 
   @Benchmark

@@ -1,46 +1,54 @@
 package zsg
 final class ZsgTuple2[X1 , X2](final val i1: X1 , final val i2: X2) extends TupleTag
 object ZsgTuple2 {
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum1[F[_ ]  , X1_C1   , X2_C1 ]( implicit 
-                t1: F[X1_C1] , t2: F[X2_C1],
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum1[F[  _ ]  , X1_C1   , X2_C1 ]( implicit 
+                t1: F[  X1_C1 ],
+                t2: F[  X2_C1 ],
                 context: Context1[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus1WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum2[F[_  , _ ]  , X1_C1  , X1_C2   , X2_C1  , X2_C2 ]( implicit 
-                t1: F[X1_C1 , X1_C2] , t2: F[X2_C1 , X2_C2],
+            )  :  Application1[F  , ZsgTuple2[X1_C1, X2_C1] ] =
+                new Application1(context.append(t2, t1)(ZsgTuple2.cachePlus1WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum2[F[  _   ,  _ ]  , X1_C1  , X1_C2   , X2_C1  , X2_C2 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2 ],
+                t2: F[  X2_C1   ,  X2_C2 ],
                 context: Context2[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus2WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum3[F[_  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3   , X2_C1  , X2_C2  , X2_C3 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3] , t2: F[X2_C1 , X2_C2 , X2_C3],
+            )  :  Application2[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2] ] =
+                new Application2(context.append(t2, t1)(ZsgTuple2.cachePlus2WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum3[F[  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3   , X2_C1  , X2_C2  , X2_C3 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3 ],
                 context: Context3[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus3WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum4[F[_  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4   , X2_C1  , X2_C2  , X2_C3  , X2_C4 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4] , t2: F[X2_C1 , X2_C2 , X2_C3 , X2_C4],
+            )  :  Application3[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3] ] =
+                new Application3(context.append(t2, t1)(ZsgTuple2.cachePlus3WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum4[F[  _   ,  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4   , X2_C1  , X2_C2  , X2_C3  , X2_C4 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4 ],
                 context: Context4[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3]   ,  ZsgTuple2[X1_C4, X2_C4] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus4WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum5[F[_  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5] , t2: F[X2_C1 , X2_C2 , X2_C3 , X2_C4 , X2_C5],
+            )  :  Application4[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3]  , ZsgTuple2[X1_C4, X2_C4] ] =
+                new Application4(context.append(t2, t1)(ZsgTuple2.cachePlus4WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum5[F[  _   ,  _   ,  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5 ],
                 context: Context5[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3]   ,  ZsgTuple2[X1_C4, X2_C4]   ,  ZsgTuple2[X1_C5, X2_C5] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus5WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum6[F[_  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6] , t2: F[X2_C1 , X2_C2 , X2_C3 , X2_C4 , X2_C5 , X2_C6],
+            )  :  Application5[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3]  , ZsgTuple2[X1_C4, X2_C4]  , ZsgTuple2[X1_C5, X2_C5] ] =
+                new Application5(context.append(t2, t1)(ZsgTuple2.cachePlus5WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum6[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6 ],
                 context: Context6[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3]   ,  ZsgTuple2[X1_C4, X2_C4]   ,  ZsgTuple2[X1_C5, X2_C5]   ,  ZsgTuple2[X1_C6, X2_C6] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus6WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum7[F[_  , _  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7] , t2: F[X2_C1 , X2_C2 , X2_C3 , X2_C4 , X2_C5 , X2_C6 , X2_C7],
+            )  :  Application6[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3]  , ZsgTuple2[X1_C4, X2_C4]  , ZsgTuple2[X1_C5, X2_C5]  , ZsgTuple2[X1_C6, X2_C6] ] =
+                new Application6(context.append(t2, t1)(ZsgTuple2.cachePlus6WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum7[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6   ,  X1_C7 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6   ,  X2_C7 ],
                 context: Context7[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3]   ,  ZsgTuple2[X1_C4, X2_C4]   ,  ZsgTuple2[X1_C5, X2_C5]   ,  ZsgTuple2[X1_C6, X2_C6]   ,  ZsgTuple2[X1_C7, X2_C7] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus7WithTypeParameter1)
-             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum8[F[_  , _  , _  , _  , _  , _  , _  , _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ]( implicit 
-                t1: F[X1_C1 , X1_C2 , X1_C3 , X1_C4 , X1_C5 , X1_C6 , X1_C7 , X1_C8] , t2: F[X2_C1 , X2_C2 , X2_C3 , X2_C4 , X2_C5 , X2_C6 , X2_C7 , X2_C8],
+            )  :  Application7[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3]  , ZsgTuple2[X1_C4, X2_C4]  , ZsgTuple2[X1_C5, X2_C5]  , ZsgTuple2[X1_C6, X2_C6]  , ZsgTuple2[X1_C7, X2_C7] ] =
+                new Application7(context.append(t2, t1)(ZsgTuple2.cachePlus7WithTypeParameter1))
+             implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum8[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ]  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8   , X2_C1  , X2_C2  , X2_C3  , X2_C4  , X2_C5  , X2_C6  , X2_C7  , X2_C8 ]( implicit 
+                t1: F[  X1_C1   ,  X1_C2   ,  X1_C3   ,  X1_C4   ,  X1_C5   ,  X1_C6   ,  X1_C7   ,  X1_C8 ],
+                t2: F[  X2_C1   ,  X2_C2   ,  X2_C3   ,  X2_C4   ,  X2_C5   ,  X2_C6   ,  X2_C7   ,  X2_C8 ],
                 context: Context8[F]
-            )  :  F[  ZsgTuple2[X1_C1, X2_C1]   ,  ZsgTuple2[X1_C2, X2_C2]   ,  ZsgTuple2[X1_C3, X2_C3]   ,  ZsgTuple2[X1_C4, X2_C4]   ,  ZsgTuple2[X1_C5, X2_C5]   ,  ZsgTuple2[X1_C6, X2_C6]   ,  ZsgTuple2[X1_C7, X2_C7]   ,  ZsgTuple2[X1_C8, X2_C8] ] =
-                context.append(t2, t1)(ZsgTuple2.cachePlus8WithTypeParameter1)
+            )  :  Application8[F  , ZsgTuple2[X1_C1, X2_C1]  , ZsgTuple2[X1_C2, X2_C2]  , ZsgTuple2[X1_C3, X2_C3]  , ZsgTuple2[X1_C4, X2_C4]  , ZsgTuple2[X1_C5, X2_C5]  , ZsgTuple2[X1_C6, X2_C6]  , ZsgTuple2[X1_C7, X2_C7]  , ZsgTuple2[X1_C8, X2_C8] ] =
+                new Application8(context.append(t2, t1)(ZsgTuple2.cachePlus8WithTypeParameter1))
              @inline  final def cachePlus1WithTypeParameter1Dynamic[
                 X1,
                 Y1

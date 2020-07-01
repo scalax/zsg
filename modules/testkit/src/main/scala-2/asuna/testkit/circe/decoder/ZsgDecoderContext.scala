@@ -3,7 +3,7 @@ package zsg.testkit.circe.decoder
 import zsg.{Context4, Plus4, ZsgTuple0}
 import io.circe.Decoder
 
-object AsunaDecoderContext extends Context4[JsonDecoderPro] {
+object ZsgDecoderContext extends Context4[JsonDecoderPro] {
   override def append[X1, X2, X3, X4, Y1, Y2, Y3, Y4, Z1, Z2, Z3, Z4](x: JsonDecoderPro[X1, X2, X3, X4], y: JsonDecoderPro[Y1, Y2, Y3, Y4])(
     p: Plus4[X1, X2, X3, X4, Y1, Y2, Y3, Y4, Z1, Z2, Z3, Z4]
   ): JsonDecoderPro[Z1, Z2, Z3, Z4] =
