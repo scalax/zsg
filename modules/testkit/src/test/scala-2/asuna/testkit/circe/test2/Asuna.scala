@@ -24,7 +24,7 @@ trait Poly2 {
 
   implicit def test05_de_implicit: Decoder[Test05[String]] = ACirce.decodeSealed(implicit i => _.decodeSealed)
   implicit def test06_de_implicit: Decoder[Test06[String]] = ACirce.decodeCaseClass(implicit i => _.decodeCaseClass)
-  implicit def test07_de_implicit: Decoder[Test07[String]] = ACirce.decodeCaseClass(implicit  i => _.decodeCaseClass)
+  implicit def test07_de_implicit: Decoder[Test07[String]] = ACirce.decodeCaseClass(implicit i => _.decodeCaseClass)
   implicit def test08_de_implicit: Decoder[Test08]         = ACirce.decodeCaseClass(implicit i => _.decodeCaseClass)
   implicit def test09_de_implicit: Decoder[Test09.type]    = Decoder.instance(f => Right(Test09))
 
