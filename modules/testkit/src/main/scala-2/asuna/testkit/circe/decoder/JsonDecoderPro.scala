@@ -20,4 +20,6 @@ object JsonDecoderPro {
       }
     }
 
+  implicit val c: Context4[JsonDecoderPro] = ZsgDecoderContext
+
 }

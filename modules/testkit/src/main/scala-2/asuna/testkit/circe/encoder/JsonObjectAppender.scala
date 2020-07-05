@@ -1,7 +1,7 @@
 package zsg.testkit.circe.encoder
 
 import io.circe.{Encoder, Json}
-import zsg.PropertyTag
+import zsg.{Context3, PropertyTag}
 import zsg.macros.ByNameImplicit
 import zsg.macros.single.{ColumnName, GenericColumnName, StringName}
 
@@ -18,5 +18,7 @@ object JsonObjectAppender {
     new JsonObjectAppender[PropertyTag[T], ColumnName[N], T] {
       override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
     }
+
+  implicit val c: Context3[JsonObjectAppender] = ZsgJsonObjectContext
 
 }

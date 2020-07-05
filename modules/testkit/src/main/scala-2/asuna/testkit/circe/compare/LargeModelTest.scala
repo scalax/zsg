@@ -8,8 +8,8 @@ object LargeModelTest extends App {
 
   object a1 {
 
-    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_1] = ACirce.encodeCaseClass(implicit i => _.encodeCaseClass)
-    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_2] = ACirce.encodeCaseClass(implicit i => _.encodeCaseClass)
+    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
+    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
     val i1                                                                             = LargeModel.largeModel_2_value.asJson
 
     zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModel_1].instance(implicit i => _.instance).i1).infer
@@ -17,8 +17,8 @@ object LargeModelTest extends App {
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = ACirce.decodeCaseClass(implicit i => _.decodeCaseClass)
-    implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModel_2] = ACirce.decodeCaseClass(implicit i => _.decodeCaseClass)
+    implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = ACirce.decodeCaseClass
+    implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModel_2] = ACirce.decodeCaseClass
     val i2                                                              = i1.as[LargeModel.LargeModel_2]
 
   }
