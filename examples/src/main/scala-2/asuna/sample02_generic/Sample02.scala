@@ -38,6 +38,10 @@ object Sample02 {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
+  object JsonObjectAppender {
+    implicit val c: Context3[JsonObjectAppender] = ii
+  }
+
   object ii extends Context3[JsonObjectAppender] {
     override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: JsonObjectAppender[X1, X2, X3], y: JsonObjectAppender[Y1, Y2, Y3])(
       p: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]
@@ -74,7 +78,7 @@ object Sample02 {
     i1: H => I2,
     i2: I3
   ): CirceType.JsonObjectEncoder[H] = {
-    CirceType.JsonObjectEncoder.instance { f: H => app.application(ii).appendField(i1(f), i2, JsonObject.empty) }
+    CirceType.JsonObjectEncoder.instance { f: H => app.application.appendField(i1(f), i2, JsonObject.empty) }
   }
 
   implicit val test04Encoder: CirceType.JsonObjectEncoder[Test04] = circeJsonObjectEncoder

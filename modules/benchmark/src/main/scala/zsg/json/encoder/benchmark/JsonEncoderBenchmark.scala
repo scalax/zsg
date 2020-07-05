@@ -26,8 +26,8 @@ class JsonEncoderBenchmark {
   }
 
   object zsgEncoder {
-    implicit val barEncoder: Encoder.AsObject[Bar] = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
-    implicit val fooEncoder: Encoder.AsObject[Foo] = ACirce.encodeCaseClass(implicit c => _.encodeCaseClass)
+    implicit val barEncoder: Encoder.AsObject[Bar] = ACirce.encodeCaseClass
+    implicit val fooEncoder: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
   }
 
   val model: Bar = Model1.bar
