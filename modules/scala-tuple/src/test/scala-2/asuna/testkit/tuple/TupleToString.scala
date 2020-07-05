@@ -10,6 +10,10 @@ trait TupleEncoder[T, R] {
   def fromString(str: String): (R, String)
 }
 
+object TupleEncoder {
+  implicit val c: Context2[TupleEncoder] = scalaTupleContext
+}
+
 object scalaTupleContext extends Context2[TupleEncoder] {
 
   /*override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
@@ -130,8 +134,6 @@ trait AppendTuple {
   }
 
   implicit def applicationImplicit[T](implicit t: Application2[TupleEncoder, T, T]): TupleEncoder[T, T] = t.application
-
-  implicit val context1 : Context2[TupleEncoder] = scalaTupleContext
 
   /*implicit def objectTupleImplicit[T](
     implicit ii: Application2[TupleEncoder, T, T, T]

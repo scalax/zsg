@@ -8,6 +8,10 @@ trait ReverseTupleEncoder[T] {
   def stringBody(i: T): String
 }
 
+object ReverseTupleEncoder {
+  implicit val c: Context1[ReverseTupleEncoder] = reverseScalaTupleContext
+}
+
 object reverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 
   override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
@@ -53,16 +57,5 @@ object ReverseAppendTuple {
   }
 
   implicit def reverseApplicationImplicit[T](implicit t: Application1[ReverseTupleEncoder, T]): ReverseTupleEncoder[T] = t.application
-
-  implicit val context2   : Context1[ReverseTupleEncoder] = reverseScalaTupleContext
-
-
-  /*implicit def reverseObjectTupleImplicit[T, I](
-    implicit ii: Application1[ReverseTupleEncoder, T, I],
-    c: T <:< I
-  ): ReverseTupleEncoder[T] = new ReverseTupleEncoder[T] {
-    override def body(t: List[String], i: T): List[String] = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")") :: t
-    override def stringBody(i: T): String                  = ii.application(reverseScalaTupleContext).body(List.empty, i).mkString("(", ",", ")")
-  }*/
 
 }
