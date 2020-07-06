@@ -19,9 +19,7 @@ trait ScalaTupleImplicits_7_1 {
             T,
             Tuple7[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7]
         ]({
-            val implicitApplication = implicitly[Application1[F, T, zsg.NodeTuple2[zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple2[Plus1_X3 , Plus1_X4]] , zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X5 , Plus1_X6] , zsg.ZsgTuple1[Plus1_X7]]]
-            ]]
-            context.append(implicitApplication.application, context.start)(PlusToTuple1.plus1WithTypeParameter7)
+            context.append(implicitly[Application1[F, T, zsg.NodeTuple2[zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple2[Plus1_X3 , Plus1_X4]] , zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X5 , Plus1_X6] , zsg.ZsgTuple1[Plus1_X7]]]]].application, context.start)(PlusToTuple1.plus1WithTypeParameter7)
         })
 }
 object ScalaTupleImplicits_7_1 extends ScalaTupleImplicits_7_1

@@ -60,11 +60,10 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             T,
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
         ]({
-            val implicitApplication = implicitly[Application@{typeParamNum}[F, T, @{zsg.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(
+            context.append(implicitly[Application@{typeParamNum}[F, T, @{zsg.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(
                 typeParameterCount = 1 to typeParamNum,
-                seq = 1 to tagNum)}
-            ]]
-            context.append(implicitApplication.application, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
+                seq = 1 to tagNum
+            )}]].application, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
         })
     }
 
