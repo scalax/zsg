@@ -155,6 +155,31 @@ object ZsgTupleCodeGeneration {
     }
 
     {
+      {
+        val filePath = root1_2X_Dir.resolve("ApplicationFetchContent.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(
+          zsg.codegen.scala_tuple.txt.ApplicationFetchContent(maxParamNum = ZsgParameters.maxContextNum)(isDotty = false).body
+        )
+        writer.println(linerContent)
+        writer.close()
+      }
+
+      {
+        val filePath = root1_dotty_Dir.resolve("ApplicationFetchContent.scala")
+        Files.createDirectories(filePath.getParent)
+        val writer = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent =
+          StringUtil.trimLines(
+            zsg.codegen.scala_tuple.txt.ApplicationFetchContent(maxParamNum = ZsgParameters.maxContextNum)(isDotty = true).body
+          )
+        writer.println(linerContent)
+        writer.close()
+      }
+    }
+
+    {
       val filePath = root1_all_Dir.resolve("ScalaTupleImplicits.scala")
       Files.createDirectories(filePath.getParent)
       val writer = new PrintWriter(filePath.toFile, "utf-8")
