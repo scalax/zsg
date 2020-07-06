@@ -10,13 +10,13 @@ import scala.language.higherKinds
 trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
 
     @if(tagNum == 1) {
-        @if(isDotty) { given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
+        @if(isDotty) { inline given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             T <: Context@{typeParamNum}[F],
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
         ](@if(isDotty) { using } else { implicit }
-            @{zsg.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")},
-            context: T
+            @for(paramI <- 1 to tagNum) { @if(isDotty) { inline } t@{paramI}: F[@for(typeI <- 1 to typeParamNum) { @if(typeI > 1) { , } Plus@{typeI}_X@{paramI} }], }
+            @if(isDotty) { inline } context: T
         ) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             T,
@@ -27,13 +27,13 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
         ](context.append(context.start, t1)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum}))
     } else if(tagNum == 2) {
-        @if(isDotty) { given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
+        @if(isDotty) { inline given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             T <: Context@{typeParamNum}[F],
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
         ](@if(isDotty) { using } else { implicit }
-            @{zsg.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")},
-            context: T
+            @for(paramI <- 1 to tagNum) { @if(isDotty) { inline } t@{paramI}: F[@for(typeI <- 1 to typeParamNum) { @if(typeI > 1) { , } Plus@{typeI}_X@{paramI} }], }
+            @if(isDotty) { inline } context: T
         ) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             T,
@@ -44,13 +44,13 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
         ](context.append(t2, t1)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum}))
     } else {
-        @if(isDotty) { given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
+        @if(isDotty) { inline given } else { implicit def tupleTagApplicationImplicit_tagNum@{tagNum}_typeParamNum@{typeParamNum} } [
             F[@{(1 to typeParamNum).map(_ => "_").mkString(" , ")}],
             T <: Context@{typeParamNum}[F],
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString(" , ")).mkString(",\n            ")}
         ](@if(isDotty) { using } else { implicit }
-            @{zsg.codegen.SnippetUtil.ApplicationX_XI_Snippet(1 to typeParamNum)(1 to tagNum).mkString(" , ")},
-            context: T
+            @for(paramI <- 1 to tagNum) { @if(isDotty) { inline } t@{paramI}: F[@for(typeI <- 1 to typeParamNum) { @if(typeI > 1) { , } Plus@{typeI}_X@{paramI} }], }
+            @if(isDotty) { inline } context: T
         ) @if(isDotty) { as } else { : } Application@{typeParamNum}[
             F,
             T,

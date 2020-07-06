@@ -10,7 +10,7 @@ trait ReverseTupleEncoder[T] {
 
 class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 
-  override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
+  inline override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
     new ReverseTupleEncoder[Z1] {
       override def body(t: List[String], i: Z1): List[String] = {
         val x1 = p.takeHead1(i)
@@ -33,10 +33,7 @@ object ReverseScalaTupleContext {
 }
 
 object reverseTuple {
-  def asString[T](x: T)(using Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
-    val con = implicitly[Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]].application
-    s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
-  }
+  inline def asString[T](x: T)(using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = s"[${ii.application.body(List.empty, x).mkString("(", ",", ")")}]"
 }
 
 object ReverseAppendTuple {
@@ -55,6 +52,6 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  given [T](using Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]) as ReverseTupleEncoder[T] = implicitly[Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]].application
+  inline given [T](using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]) as ReverseTupleEncoder[T] = ii.application
 
 }

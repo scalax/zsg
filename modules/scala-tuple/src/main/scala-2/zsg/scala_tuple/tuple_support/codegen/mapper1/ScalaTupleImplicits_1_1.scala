@@ -8,8 +8,8 @@ trait ScalaTupleImplicits_1_1 {
             T <: Context1[F],
             Plus1_X1
         ]( implicit 
-            t1: F[Plus1_X1],
-            context: T
+              t1: F[  Plus1_X1 ], 
+             context: T
         )  :  Application1[
             F,
             T,

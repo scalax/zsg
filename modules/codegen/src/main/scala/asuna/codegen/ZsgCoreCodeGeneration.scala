@@ -37,13 +37,23 @@ object ZsgCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i).body)
-      writer.println(linerContent)
-      writer.close()
+    {
+      for (i <- 1 to ZsgParameters.maxContextNum) yield {
+        val filePath = root2XDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i, isDotty = false).body)
+        writer.println(linerContent)
+        writer.close()
+      }
+      for (i <- 1 to ZsgParameters.maxContextNum) yield {
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("Application" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i, isDotty = true).body)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
     {

@@ -3,14 +3,14 @@ import zsg.Application2
 import zsg.Context2
 import scala.language.higherKinds
 trait ScalaTupleImplicits_1_2 {
-         given  [
+         inline given  [
             F[_ , _],
             T <: Context2[F],
             Plus1_X1,
             Plus2_X1
         ]( using 
-            t1: F[Plus1_X1 , Plus2_X1],
-            context: T
+              inline  t1: F[  Plus1_X1   ,  Plus2_X1 ], 
+             inline  context: T
         )  as  Application2[
             F,
             T,

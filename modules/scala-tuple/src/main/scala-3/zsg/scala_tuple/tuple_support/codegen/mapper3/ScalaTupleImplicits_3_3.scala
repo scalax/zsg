@@ -3,15 +3,15 @@ import zsg.Application3
 import zsg.Context3
 import scala.language.higherKinds
 trait ScalaTupleImplicits_3_3 {
-         given  [
+         inline given  [
             F[_ , _ , _],
             T <: Context3[F],
             Plus1_X1 , Plus1_X2 , Plus1_X3,
             Plus2_X1 , Plus2_X2 , Plus2_X3,
             Plus3_X1 , Plus3_X2 , Plus3_X3
         ]( using 
-            t1: F[Plus1_X1 , Plus2_X1 , Plus3_X1] , t2: F[Plus1_X2 , Plus2_X2 , Plus3_X2] , t3: F[Plus1_X3 , Plus2_X3 , Plus3_X3],
-            context: T
+              inline  t1: F[  Plus1_X1   ,  Plus2_X1   ,  Plus3_X1 ],   inline  t2: F[  Plus1_X2   ,  Plus2_X2   ,  Plus3_X2 ],   inline  t3: F[  Plus1_X3   ,  Plus2_X3   ,  Plus3_X3 ], 
+             inline  context: T
         )  as  Application3[
             F,
             T,

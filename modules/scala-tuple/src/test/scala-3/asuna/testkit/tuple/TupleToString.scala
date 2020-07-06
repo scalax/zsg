@@ -12,35 +12,7 @@ trait TupleEncoder[T, R] {
 
 class ScalaTupleContext extends Context2[TupleEncoder] {
 
-  /*override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-    x: TupleEncoder[X#H, X#T#H],
-    y: TupleEncoder[Y#H, Y#T#H],
-    p: Plus[X, Y, Z]
-  ): TupleEncoder[Z#H, Z#T#H] = {
-    new TupleEncoder[Z#H, Z#T#H] {
-      override def body(t: List[String], i: Z#H): List[String] = {
-        val x1 = p.takeHead(i)
-        val y1 = p.takeTail(i)
-        y.body(x.body(t, x1), y1)
-      }
-      override def stringBody(i: Z#H): String = ""
-
-      override def fromString(str: String): (Z#T#H, String) = {
-        val (x1, str1) = y.fromString(str)
-        val (x2, str2) = x.fromString(str1)
-        (p.sub.plus(x2, x1), str2)
-      }
-    }
-  }
-
-  override def start: TupleEncoder[AsunaTuple0, AsunaTuple0] = new TupleEncoder[AsunaTuple0, AsunaTuple0] {
-    override def body(t: List[String], i: AsunaTuple0): List[String] = t
-    override def stringBody(i: AsunaTuple0): String                  = ""
-    override def fromString(str: String): (AsunaTuple0, String) = {
-      (AsunaTuple0.value, str)
-    }
-  }*/
-  override def append[X1, X2, Y1, Y2, Z1, Z2](x: TupleEncoder[X1, X2], y: TupleEncoder[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): TupleEncoder[Z1, Z2] = {
+  inline override def append[X1, X2, Y1, Y2, Z1, Z2](x: TupleEncoder[X1, X2], y: TupleEncoder[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): TupleEncoder[Z1, Z2] = {
     new TupleEncoder[Z1, Z2] {
       override def body(t: List[String], i: Z1): List[String] = {
         val x1 = p.takeHead1(i)
@@ -72,8 +44,7 @@ object ScalaTupleContext {
 
 object tuple {
 
-  def asString[T](x: T)(using Application2[TupleEncoder, ScalaTupleContext, T,  T]): String = {
-    val ii = implicitly[Application2[TupleEncoder, ScalaTupleContext, T,  T]]
+  inline def asString[T](x: T)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T, T]): String = {
     val encoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
 
@@ -88,8 +59,7 @@ object tuple {
     s"[${encoder.stringBody(x)}]"
   }
 
-  def fromString[T](str: String)(using Application2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
-    val ii = implicitly[Application2[TupleEncoder, ScalaTupleContext, T,  T]]
+  inline def fromString[T](str: String)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
     val decoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
       override def stringBody(i: T): String                  = ii.application.body(List.empty, i).mkString("(", ",", ")")
@@ -136,7 +106,7 @@ trait AppendTuple {
     }
   }
 
-  given [T](using Application2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = implicitly[Application2[TupleEncoder, ScalaTupleContext, T, T]].application
+  inline given [T](using inline ii: Application2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = ii.application
 
 }
 

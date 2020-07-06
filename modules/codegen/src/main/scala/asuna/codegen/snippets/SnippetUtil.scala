@@ -71,12 +71,12 @@ object SnippetUtil {
   def PlusX_XI_Snippet(pluxSeq: Seq[Int])(seq: Seq[Int]): Seq[Iterable[String]] = pluxSeq.map(i => seq.map(ii => s"Plus${i}_X${ii}"))
   def single_PlusX_XI_Snippet(pluxIndex: Int)(seq: Seq[Int]): Seq[String]       = seq.map(ii => s"Plus${pluxIndex}_X${ii}")
 
-  def ApplicationX_XI_Snippet(pluxSeq: Seq[Int])(seq: Seq[Int]): Seq[String] = {
+  /*def ApplicationX_XI_Snippet(pluxSeq: Seq[Int])(seq: Seq[Int]): Seq[String] = {
     seq.map { i =>
       val plusXIP = pluxSeq.map(ii => s"Plus${ii}_X${i}").mkString(" , ")
       s"t${i}: F[${plusXIP}]"
     }
-  }
+  }*/
 
   def Tuple_To_AsunaTuple(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     (if (init) item.grouped(groupSize).map { i => i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")") }
