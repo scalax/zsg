@@ -13,8 +13,6 @@ class TupleToStringTest {
     assertEquals(tuple.asString(TupleData.i11), "[" + TupleData.i11.toString + "]")
     assertEquals(tuple.asString(TupleData.i12), "[" + TupleData.i12.toString + "]")
     assertEquals(tuple.asString(TupleData.i13), "[" + TupleData.i13.toString + "]")
-    //tuple.asString(TupleData.i14) shouldBe "[" + TupleData.i14.toString + "]"
-    //tuple.asString(TupleData.i15) shouldBe "[" + TupleData.i15.toString + "]"
   }
 
   @Test def test2: Unit = {

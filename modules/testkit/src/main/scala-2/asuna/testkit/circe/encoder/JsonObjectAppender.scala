@@ -1,7 +1,7 @@
 package zsg.testkit.circe.encoder
 
 import io.circe.{Encoder, Json}
-import zsg.PropertyTag
+import zsg.{Context3, PropertyTag}
 import zsg.macros.ByNameImplicit
 import zsg.macros.single.{ColumnName, GenericColumnName, StringName}
 

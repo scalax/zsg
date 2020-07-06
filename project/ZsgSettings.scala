@@ -4,7 +4,7 @@ import bintray.BintrayKeys._
 
 object ZsgSettings {
 
-  val currentScalaVersion = "2.13.2"
+  val currentScalaVersion = "2.13.3"
   val scala212Version     = "2.12.11"
   val scala211Version     = "2.11.12"
   val dottyVersion        = "0.25.0-RC2"
@@ -44,7 +44,7 @@ object ZsgSettings {
 
   val dottyVersionSettings = Seq(setting1, setting6)
 
-  val vSetting1             = version := "0.0.4-SNAP2020060801"
+  val vSetting1             = version := "0.0.4-SNAP2020070101"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "zsg"

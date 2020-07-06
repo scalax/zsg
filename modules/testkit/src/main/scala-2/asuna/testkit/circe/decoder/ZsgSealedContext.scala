@@ -3,7 +3,7 @@ package zsg.testkit.circe.decoder
 import zsg.{Context2, Plus2, ZsgTuple0}
 import io.circe.Decoder
 
-class AsunaSealedContext[P] extends Context2[SealedTraitSelector[P]#JsonDecoder] {
+class ZsgSealedContext[P] extends Context2[SealedTraitSelector[P]#JsonDecoder] {
 
   override def append[X1, X2, Y1, Y2, Z1, Z2](x: SealedTraitSelector[P]#JsonDecoder[X1, X2], y: SealedTraitSelector[P]#JsonDecoder[Y1, Y2])(
     p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
@@ -29,4 +29,8 @@ class AsunaSealedContext[P] extends Context2[SealedTraitSelector[P]#JsonDecoder]
     }
   }
 
+}
+
+object ZsgSealedContext {
+  implicit def c[H]: ZsgSealedContext[H] = new ZsgSealedContext[H]
 }

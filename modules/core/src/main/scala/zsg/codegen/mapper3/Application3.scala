@@ -1,4 +1,2 @@
 package zsg
-abstract class Application3[F[_ , _ , _], X1 , X2 , X3] {
-    def application(context: Context3[F]): F[X1 , X2 , X3]
-}
+class Application3[F[  _   ,  _   ,  _ ], T <: Context3[F]  , I1  , I2  , I3 ](val application: F[  I1   ,  I2   ,  I3 ]) extends AnyVal

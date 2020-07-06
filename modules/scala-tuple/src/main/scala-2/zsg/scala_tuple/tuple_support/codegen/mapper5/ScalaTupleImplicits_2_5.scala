@@ -5,14 +5,18 @@ import scala.language.higherKinds
 trait ScalaTupleImplicits_2_5 {
          implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum5[
             F[_ , _ , _ , _ , _],
+            T <: Context5[F],
             Plus1_X1 , Plus1_X2,
             Plus2_X1 , Plus2_X2,
             Plus3_X1 , Plus3_X2,
             Plus4_X1 , Plus4_X2,
             Plus5_X1 , Plus5_X2
         ]( implicit 
-        t1: F[Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1] , t2: F[Plus1_X2 , Plus2_X2 , Plus3_X2 , Plus4_X2 , Plus5_X2])  :  Application5[
+            t1: F[Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1] , t2: F[Plus1_X2 , Plus2_X2 , Plus3_X2 , Plus4_X2 , Plus5_X2],
+            context: T
+        )  :  Application5[
             F,
+            T,
             Tuple2[Plus1_X1 , Plus1_X2],
             Tuple2[Plus2_X1 , Plus2_X2],
             Tuple2[Plus3_X1 , Plus3_X2],
@@ -20,21 +24,12 @@ trait ScalaTupleImplicits_2_5 {
             Tuple2[Plus5_X1 , Plus5_X2]
         ] = new Application5[
             F,
+            T,
             Tuple2[Plus1_X1 , Plus1_X2],
             Tuple2[Plus2_X1 , Plus2_X2],
             Tuple2[Plus3_X1 , Plus3_X2],
             Tuple2[Plus4_X1 , Plus4_X2],
             Tuple2[Plus5_X1 , Plus5_X2]
-        ] {
-            override def application(context: Context5[F]): F[
-                Tuple2[Plus1_X1 , Plus1_X2],
-                Tuple2[Plus2_X1 , Plus2_X2],
-                Tuple2[Plus3_X1 , Plus3_X2],
-                Tuple2[Plus4_X1 , Plus4_X2],
-                Tuple2[Plus5_X1 , Plus5_X2]
-            ] = {
-                context.append(t2, t1)(PlusToTuple5.plus5WithTypeParameter2)
-            }
-        }
+        ](context.append(t2, t1)(PlusToTuple5.plus5WithTypeParameter2))
 }
 object ScalaTupleImplicits_2_5 extends ScalaTupleImplicits_2_5

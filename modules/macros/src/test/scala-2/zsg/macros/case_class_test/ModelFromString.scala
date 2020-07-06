@@ -9,7 +9,7 @@ trait ModelFromString[M] {
 
 object ModelFromString {
 
-  object decoderContext extends Context2[ModelFromStringImpl] {
+  class ReverseDecoderContext extends Context2[ModelFromStringImpl] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: ModelFromStringImpl[X1, X2], y: ModelFromStringImpl[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
     ): ModelFromStringImpl[Z1, Z2] =
@@ -26,7 +26,11 @@ object ModelFromString {
     }
   }
 
-  object reverseDecoderContext extends Context2[ModelFromStringImpl] {
+  object ReverseDecoderContext {
+    implicit val value: ReverseDecoderContext = new ReverseDecoderContext
+  }
+
+  class DecoderContext extends Context2[ModelFromStringImpl] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: ModelFromStringImpl[X1, X2], y: ModelFromStringImpl[Y1, Y2])(
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
     ): ModelFromStringImpl[Z1, Z2] =
@@ -43,29 +47,31 @@ object ModelFromString {
     }
   }
 
+  object DecoderContext {
+    implicit val value: DecoderContext = new DecoderContext
+  }
+
   def decoder[I1, I2, I3](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application2[ModelFromStringImpl, I2, I3],
-    asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
+    pp: Application2[ModelFromStringImpl, DecoderContext, I2, I3],
+    zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
       override def getData(str: String): (String, I1) = {
-        val c         = pp.application(reverseDecoderContext)
-        val (str1, m) = c.getData(str)
-        (str1, asunaSetterGeneric.setter(m))
+        val (str1, m) = pp.application.getData(str)
+        (str1, zsgSetterGeneric.setter(m))
       }
     }
 
   def reverseDecoder[I1, I2, I3](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application2[ModelFromStringImpl, I2, I3],
-    asunaSetterGeneric: ZsgSetterGeneric[I1, I3]
+    pp: Application2[ModelFromStringImpl, ReverseDecoderContext, I2, I3],
+    zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
       override def getData(str: String): (String, I1) = {
-        val c         = pp.application(decoderContext)
-        val (str1, m) = c.getData(str)
-        (str1, asunaSetterGeneric.setter(m))
+        val (str1, m) = pp.application.getData(str)
+        (str1, zsgSetterGeneric.setter(m))
       }
     }
 
