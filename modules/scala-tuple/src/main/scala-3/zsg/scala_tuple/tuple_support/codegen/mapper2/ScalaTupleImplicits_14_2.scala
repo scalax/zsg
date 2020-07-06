@@ -3,7 +3,7 @@ import zsg.Application2
 import zsg.Context2
 import scala.language.higherKinds
 trait ScalaTupleImplicits_14_2 {
-         given  tupleTagApplicationImplicit_tagNum14_typeParamNum2[
+         given  [
             F[_ , _],
             T <: Context2[F],
             Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6 , Plus1_X7 , Plus1_X8 , Plus1_X9 , Plus1_X10 , Plus1_X11 , Plus1_X12 , Plus1_X13 , Plus1_X14,
