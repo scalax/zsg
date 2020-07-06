@@ -9,21 +9,21 @@ import scala.annotation.meta.getter
 
 class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
-  class CirceGenericApply1[Model] {
-    def encoder[Table, II, M](table: Table)(implicit
-      i: ZsgMultiplyGeneric.Aux[Table, Model, II],
-      p: Application2[Getter, II, M],
-      m: ZsgMultiplyRepGeneric[Table, Model, M]
-    ): M = m.rep(table)
-  }
-
-  object getterContext extends Context2[Getter] {
+  class GetterContext extends Context2[Getter] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: Getter[X1, X2], y: Getter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): Getter[Z1, Z2] = new Getter[Z1, Z2]
     override val start: Getter[ZsgTuple0, ZsgTuple0]                                                                                    = new Getter[ZsgTuple0, ZsgTuple0]
   }
 
+  object GetterContext {
+    implicit val value: GetterContext = new GetterContext
+  }
+
   class CirceGenericApply2[Model] {
-    def encode[M](n: Context2[Getter] => CirceGenericApply1[Model] => M): M = n(getterContext)(new CirceGenericApply1[Model])
+    def encoder[Table, II, M](table: Table)(implicit
+      i: ZsgMultiplyGeneric.Aux[Table, Model, II],
+      p: Application2[Getter, GetterContext, II, M],
+      m: ZsgMultiplyRepGeneric[Table, Model, M]
+    ): M = m.rep(table)
   }
 
   class Getter[Tag, Model]
@@ -57,7 +57,7 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     override val obj = Abc
   }
 
-  val linkModel = link[K].encode(implicit c => _.encoder(model: iii))
+  val linkModel = link[K].encoder(model: iii)
 
   describe("Rep Mapper") {
     it("should map mutiply class") {

@@ -5,15 +5,18 @@ import scala.language.higherKinds
 trait ScalaTupleImplicits_2_1 {
          implicit def  tupleTagApplicationImplicit_tagNum2_typeParamNum1[
             F[_],
+            T <: Context1[F],
             Plus1_X1 , Plus1_X2
         ]( implicit 
             t1: F[Plus1_X1] , t2: F[Plus1_X2],
-            context: Context1[F]
+            context: T
         )  :  Application1[
             F,
+            T,
             Tuple2[Plus1_X1 , Plus1_X2]
         ] = new Application1[
             F,
+            T,
             Tuple2[Plus1_X1 , Plus1_X2]
         ](context.append(t2, t1)(PlusToTuple1.plus1WithTypeParameter2))
 }

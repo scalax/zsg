@@ -30,6 +30,4 @@ object SealedTraitSelector {
     }
   }
 
-  implicit def c[H]: Context3[SealedTraitSelector[H]#JsonEncoder] = new ZsgSealedContext[H]
-
 }

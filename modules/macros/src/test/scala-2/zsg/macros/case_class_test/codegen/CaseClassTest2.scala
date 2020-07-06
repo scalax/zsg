@@ -12,10 +12,10 @@ class CaseClassTest2 extends AnyFunSpec with Matchers {
   }
   val fooValue2                                 = Foo2(i1 = 1, i2 = 2)
   val ap2                                       = PropertyApply[Foo2]
-  val fooEncoder2: ModelToString[Foo2]          = ModelToString.encoder(implicit c => _.encoder)
-  val reverseFooEncoder2: ModelToString[Foo2]   = ModelToString.reverseEncoder(implicit c => _.reverseEncoder)
-  val fooDecoder2: ModelFromString[Foo2]        = ModelFromString.decoder(implicit c => _.decoder)
-  val reverseFooDecoder2: ModelFromString[Foo2] = ModelFromString.reverseDecoder(implicit c => _.reverseDecoder)
+  val fooEncoder2: ModelToString[Foo2]          = ModelToString.encoder
+  val reverseFooEncoder2: ModelToString[Foo2]   = ModelToString.reverseEncoder
+  val fooDecoder2: ModelFromString[Foo2]        = ModelFromString.decoder
+  val reverseFooDecoder2: ModelFromString[Foo2] = ModelFromString.reverseDecoder
   describe("A case class by 2 length") {
     it("should generic to a encoder") {
       val str1 = fooEncoder2.mToString(fooValue2).mkString("|")

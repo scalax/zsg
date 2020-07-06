@@ -150,10 +150,10 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     i68 = "i68"
   )
   val ap68                                        = PropertyApply[Foo68]
-  val fooEncoder68: ModelToString[Foo68]          = ModelToString.encoder(implicit c => _.encoder)
-  val reverseFooEncoder68: ModelToString[Foo68]   = ModelToString.reverseEncoder(implicit c => _.reverseEncoder)
-  val fooDecoder68: ModelFromString[Foo68]        = ModelFromString.decoder(implicit c => _.decoder)
-  val reverseFooDecoder68: ModelFromString[Foo68] = ModelFromString.reverseDecoder(implicit c => _.reverseDecoder)
+  val fooEncoder68: ModelToString[Foo68]          = ModelToString.encoder
+  val reverseFooEncoder68: ModelToString[Foo68]   = ModelToString.reverseEncoder
+  val fooDecoder68: ModelFromString[Foo68]        = ModelFromString.decoder
+  val reverseFooDecoder68: ModelFromString[Foo68] = ModelFromString.reverseDecoder
   describe("A case class by 68 length") {
     it("should generic to a encoder") {
       val str1 = fooEncoder68.mToString(fooValue68).mkString("|")

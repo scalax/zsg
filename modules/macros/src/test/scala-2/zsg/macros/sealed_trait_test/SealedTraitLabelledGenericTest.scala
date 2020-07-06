@@ -24,20 +24,16 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     def str: List[String]
   }
 
-  class TraitApply[H] {
-    def fetch[T, TT](implicit
-      zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
-      app: Application2[STT, T, TT],
-      labelled: ZsgSealedLabelledGeneric[H, TT]
-    ): SealedTraitNames[H] =
-      new SealedTraitNames[H] {
-        override def str: List[String] = app.application.stt(labelled.names)(List.empty)
-      }
-  }
+  def fetch[H, T, TT](implicit
+    zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
+    app: Application2[STT, STTContext, T, TT],
+    labelled: ZsgSealedLabelledGeneric[H, TT]
+  ): SealedTraitNames[H] =
+    new SealedTraitNames[H] {
+      override def str: List[String] = app.application.stt(labelled.names)(List.empty)
+    }
 
-  def encode[T](n: Context2[STT] => TraitApply[T] => SealedTraitNames[T]): SealedTraitNames[T] = n(i)(new TraitApply)
-
-  object i extends Context2[STT] {
+  class STTContext extends Context2[STT] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: STT[X1, X2], y: STT[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): STT[Z1, Z2] =
       new STT[Z1, Z2] {
         override def stt(h: Z2): List[String] => List[String] = {
@@ -54,6 +50,10 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     }
   }
 
+  object STTContext {
+    implicit val value: STTContext = new STTContext
+  }
+
   implicit def stringImplicit1[T]: STT[SealedTag[T], String] =
     new STT[SealedTag[T], String] {
       override def stt(str: String): List[String] => List[String] = list => str :: list
@@ -61,7 +61,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   describe("A sealed trait") {
     it("should labelled generic to it's names") {
-      val names1: SealedTraitNames[Abc[String]] = encode(implicit c => _.fetch)
+      val names1: SealedTraitNames[Abc[String]] = fetch
       names1.str shouldBe List("AA", "BB", "CC", "dd")
     }
   }

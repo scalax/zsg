@@ -17,7 +17,7 @@ trait Poly1 {
 
   case class Test111(i3: String, i4: Long, i44: Int)
 
-  DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[Test111].instance(implicit i => _.instance)).infer
+  DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[Test111].instance).infer
 
 }
 

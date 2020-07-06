@@ -37,25 +37,25 @@ object ACirce {
   final def encodeCaseClass[H, R, N, Obj](implicit
     ll: ZsgGeneric.Aux[H, R],
     nm: ZsgLabelledTypeGeneric.Aux[H, N],
-    app: Application3[encoder.JsonObjectAppender, R, N, Obj],
+    app: Application3[encoder.JsonObjectAppender, encoder.ZsgJsonObjectContext, R, N, Obj],
     cv2: ZsgGetterGeneric[H, Obj]
   ): CirceType.JsonObjectEncoder[H] = {
     val applicationEncoder = app.application
     CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty)) }
   }
 
-  final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApplyContent[CaseClass] = new DebugEncodeCaseClassApplyContent[CaseClass]
+  final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
 
-  class DebugEncodeCaseClassApplyContent[CaseClass] {
+  /*class DebugEncodeCaseClassApplyContent[CaseClass] {
     def instance[T](n: Context4[JsonObjectDebugger] => DebugEncodeCaseClassApply[CaseClass] => T): T = n(JsonObjectDebuggerContext)(new DebugEncodeCaseClassApply)
-  }
+  }*/
 
   class DebugEncodeCaseClassApply[CaseClass] {
     def instance[Gen, Name, Debug, ColumnInfo](implicit
       generic: ZsgGeneric.Aux[CaseClass, Gen],
       nm: ZsgLabelledTypeGeneric.Aux[CaseClass, Name],
       debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
-      app: Application4[JsonObjectDebugger, Gen, Name, Debug, ColumnInfo]
+      app: Application4[JsonObjectDebugger, JsonObjectDebuggerContext, Gen, Name, Debug, ColumnInfo]
     ): ColumnInfo = app.application.target
   }
 
@@ -63,7 +63,7 @@ object ACirce {
 
   final def encodeSealed[H, R, Cls, Lab](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application3[encoder.SealedTraitSelector[H]#JsonEncoder, R, Cls, Lab],
+    app: Application3[encoder.SealedTraitSelector[H]#JsonEncoder, encoder.ZsgSealedContext[H], R, Cls, Lab],
     cv1: ZsgSealedLabelledGeneric[H, Lab],
     cv2: ZsgSealedClassGeneric[H, Cls]
   ): CirceType.JsonObjectEncoder[H] = {
@@ -75,7 +75,7 @@ object ACirce {
 
   def decodeCaseClass[T, R, Model, Nam, DefVal](implicit
     ll: ZsgGeneric.Aux[T, R],
-    app: Application4[decoder.JsonDecoderPro, R, Model, Nam, DefVal],
+    app: Application4[decoder.JsonDecoderPro, decoder.ZsgDecoderContext, R, Model, Nam, DefVal],
     cv1: ZsgLabelledGeneric[T, Nam],
     cv3: ZsgSetterGeneric[T, Model],
     cv4: ZsgDefaultValueGeneric[T, DefVal]
@@ -83,7 +83,7 @@ object ACirce {
 
   def decodeSealed[H, R, Nam](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, R, Nam],
+    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, decoder.ZsgSealedContext[H], R, Nam],
     cv1: ZsgSealedLabelledGeneric[H, Nam]
   ): Decoder[H] = {
     val names = cv1.names

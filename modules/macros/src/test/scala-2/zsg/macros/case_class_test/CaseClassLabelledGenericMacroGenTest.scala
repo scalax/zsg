@@ -93,9 +93,8 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
       )
     )
 
-  val fooEncoder: ModelToString[Foo] =
-    ModelToString.init1(ModelToString.forType[Foo].value(fooPropertyTag), fooLabelled).init2(implicit c => _.init2).init3(ZsgGetterGeneric.value(fooGetter))
-  val fooEncoder2: ModelToString[Foo] = ModelToString.encoder(implicit c => _.encoder)
+  val fooEncoder: ModelToString[Foo]  = ModelToString.init1(ModelToString.forType[Foo].value(fooPropertyTag), fooLabelled).init2.init3(ZsgGetterGeneric.value(fooGetter))
+  val fooEncoder2: ModelToString[Foo] = ModelToString.encoder
 
   def prepareResult(foo: Foo) =
     s"(String(${foo.i1}),i1)|(String(${foo.i2}),i2)|(Int(${foo.i3}),i3)|" +

@@ -5,6 +5,7 @@ import scala.language.higherKinds
 trait ScalaTupleImplicits_1_8 {
          implicit def  tupleTagApplicationImplicit_tagNum1_typeParamNum8[
             F[_ , _ , _ , _ , _ , _ , _ , _],
+            T <: Context8[F],
             Plus1_X1,
             Plus2_X1,
             Plus3_X1,
@@ -15,9 +16,10 @@ trait ScalaTupleImplicits_1_8 {
             Plus8_X1
         ]( implicit 
             t1: F[Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1 , Plus6_X1 , Plus7_X1 , Plus8_X1],
-            context: Context8[F]
+            context: T
         )  :  Application8[
             F,
+            T,
             Tuple1[Plus1_X1],
             Tuple1[Plus2_X1],
             Tuple1[Plus3_X1],
@@ -28,6 +30,7 @@ trait ScalaTupleImplicits_1_8 {
             Tuple1[Plus8_X1]
         ] = new Application8[
             F,
+            T,
             Tuple1[Plus1_X1],
             Tuple1[Plus2_X1],
             Tuple1[Plus3_X1],

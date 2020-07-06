@@ -19,6 +19,4 @@ object JsonObjectAppender {
       override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
     }
 
-  implicit val c: Context3[JsonObjectAppender] = ZsgJsonObjectContext
-
 }

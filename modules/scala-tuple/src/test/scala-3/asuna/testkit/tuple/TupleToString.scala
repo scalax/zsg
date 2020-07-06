@@ -10,11 +10,7 @@ trait TupleEncoder[T, R] {
   def fromString(str: String): (R, String)
 }
 
-object TupleEncoder {
-  given as Context2[TupleEncoder] = scalaTupleContext
-}
-
-object scalaTupleContext extends Context2[TupleEncoder] {
+class ScalaTupleContext extends Context2[TupleEncoder] {
 
   /*override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: TupleEncoder[X#H, X#T#H],
@@ -70,9 +66,14 @@ object scalaTupleContext extends Context2[TupleEncoder] {
   }
 }
 
+object ScalaTupleContext {
+  given as ScalaTupleContext { }
+}
+
 object tuple {
 
-  def asString[T](x: T)(using ii: Application2[TupleEncoder, T,  T]): String = {
+  def asString[T](x: T)(using Application2[TupleEncoder, ScalaTupleContext, T,  T]): String = {
+    val ii = implicitly[Application2[TupleEncoder, ScalaTupleContext, T,  T]]
     val encoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
 
@@ -87,7 +88,8 @@ object tuple {
     s"[${encoder.stringBody(x)}]"
   }
 
-  def fromString[T](str: String)(using ii: Application2[TupleEncoder, T,  T]): T = {
+  def fromString[T](str: String)(using Application2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
+    val ii = implicitly[Application2[TupleEncoder, ScalaTupleContext, T,  T]]
     val decoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
       override def stringBody(i: T): String                  = ii.application.body(List.empty, i).mkString("(", ",", ")")
@@ -134,7 +136,7 @@ trait AppendTuple {
     }
   }
 
-  given [T](using t: Application2[TupleEncoder, T,  T]) as TupleEncoder[T, T] = t.application
+  given [T](using Application2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = implicitly[Application2[TupleEncoder, ScalaTupleContext, T, T]].application
 
 }
 

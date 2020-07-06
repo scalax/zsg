@@ -23,3 +23,7 @@ class ZsgSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder] {
     }
   }
 }
+
+object ZsgSealedContext {
+  implicit def c[H]: ZsgSealedContext[H] = new ZsgSealedContext[H]
+}
