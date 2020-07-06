@@ -33,7 +33,10 @@ object ReverseScalaTupleContext {
 }
 
 object reverseTuple {
-  inline def asString[T](x: T)(using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = s"[${ii.application.body(List.empty, x).mkString("(", ",", ")")}]"
+  inline def asString[T](x: T)(using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
+    val n1 = ii.application
+    s"[${n1.body(List.empty, x).mkString("(", ",", ")")}]"
+  }
 }
 
 object ReverseAppendTuple {

@@ -59,12 +59,12 @@ trait ScalaTupleImplicits_@{tagNum}_@{typeParamNum} {
             F,
             T,
             @{zsg.codegen.SnippetUtil.PlusX_XI_Snippet(1 to typeParamNum)(1 to tagNum).map(_.mkString("Tuple" + tagNum + "[", " , ", "]")).mkString(",\n            ")}
-        ]({
+        ](
             context.append(implicitly[Application@{typeParamNum}[F, T, @{zsg.codegen.SnippetUtil.Lift_Tuple_To_AsunaTuple2(
                 typeParameterCount = 1 to typeParamNum,
                 seq = 1 to tagNum
             )}]].application, context.start)(PlusToTuple@{typeParamNum}.plus@{typeParamNum}WithTypeParameter@{tagNum})
-        })
+        )
     }
 
 }

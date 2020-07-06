@@ -45,13 +45,14 @@ object ScalaTupleContext {
 object tuple {
 
   inline def asString[T](x: T)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T, T]): String = {
+    val n1 = ii.application
     val encoder = new TupleEncoder[T, T] {
-      override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
+      override def body(t: List[String], i: T): List[String] = n1.body(List.empty, i).mkString("(", ",", ")") :: t
 
-      override def stringBody(i: T): String = ii.application.body(List.empty, i).mkString("(", ",", ")")
+      override def stringBody(i: T): String = n1.body(List.empty, i).mkString("(", ",", ")")
 
       override def fromString(str: String): (T, String) = {
-        val (t, str1) = ii.application.fromString(str.dropWhile(s => s == '(' || s == ',' || s == ')'))
+        val (t, str1) = n1.fromString(str.dropWhile(s => s == '(' || s == ',' || s == ')'))
         val str2      = str1.dropWhile(s => s == '(' || s == ',' || s == ')')
         (t, str2)
       }
@@ -60,12 +61,13 @@ object tuple {
   }
 
   inline def fromString[T](str: String)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
+    val n1 = ii.application
     val decoder = new TupleEncoder[T, T] {
-      override def body(t: List[String], i: T): List[String] = ii.application.body(List.empty, i).mkString("(", ",", ")") :: t
-      override def stringBody(i: T): String                  = ii.application.body(List.empty, i).mkString("(", ",", ")")
+      override def body(t: List[String], i: T): List[String] = n1.body(List.empty, i).mkString("(", ",", ")") :: t
+      override def stringBody(i: T): String                  = n1.body(List.empty, i).mkString("(", ",", ")")
 
       override def fromString(str: String): (T, String) = {
-        val (t, str1) = ii.application.fromString(str.dropWhile(s => s == '(' || s == ',' || s == ')'))
+        val (t, str1) = n1.fromString(str.dropWhile(s => s == '(' || s == ',' || s == ')'))
         val str2      = str1.dropWhile(s => s == '(' || s == ',' || s == ')')
         (t, str2)
       }
