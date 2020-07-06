@@ -1,52 +1,52 @@
 package zsg
 final class NodeTuple1[X1 <: TupleTag](final val i1: X1) extends TupleTag
 object NodeTuple1 {
-             given  [F[  _ ], T <: Context1[F]
+             inline given  [F[  _ ], T <: Context1[F]
              , X1_C1 <: TupleTag ]( using 
-                t1: Application1[F, T  , X1_C1 ],
-                context: T
+                 inline  t1: Application1[F, T  , X1_C1 ],
+                 inline  context: T
             )  as  Application1[F, T  , NodeTuple1[X1_C1] ] =
                 new Application1(context.append(context.start, t1.application)(NodeTuple1.cachePlus1WithTypeParameter0))
-             given  [F[  _   ,  _ ], T <: Context2[F]
+             inline given  [F[  _   ,  _ ], T <: Context2[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag ]( using 
-                t1: Application2[F, T  , X1_C1  , X1_C2 ],
-                context: T
+                 inline  t1: Application2[F, T  , X1_C1  , X1_C2 ],
+                 inline  context: T
             )  as  Application2[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2] ] =
                 new Application2(context.append(context.start, t1.application)(NodeTuple1.cachePlus2WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _ ], T <: Context3[F]
+             inline given  [F[  _   ,  _   ,  _ ], T <: Context3[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag ]( using 
-                t1: Application3[F, T  , X1_C1  , X1_C2  , X1_C3 ],
-                context: T
+                 inline  t1: Application3[F, T  , X1_C1  , X1_C2  , X1_C3 ],
+                 inline  context: T
             )  as  Application3[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3] ] =
                 new Application3(context.append(context.start, t1.application)(NodeTuple1.cachePlus3WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _   ,  _ ], T <: Context4[F]
+             inline given  [F[  _   ,  _   ,  _   ,  _ ], T <: Context4[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag ]( using 
-                t1: Application4[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4 ],
-                context: T
+                 inline  t1: Application4[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4 ],
+                 inline  context: T
             )  as  Application4[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3]  , NodeTuple1[X1_C4] ] =
                 new Application4(context.append(context.start, t1.application)(NodeTuple1.cachePlus4WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context5[F]
+             inline given  [F[  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context5[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag ]( using 
-                t1: Application5[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5 ],
-                context: T
+                 inline  t1: Application5[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5 ],
+                 inline  context: T
             )  as  Application5[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3]  , NodeTuple1[X1_C4]  , NodeTuple1[X1_C5] ] =
                 new Application5(context.append(context.start, t1.application)(NodeTuple1.cachePlus5WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context6[F]
+             inline given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context6[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag ]( using 
-                t1: Application6[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6 ],
-                context: T
+                 inline  t1: Application6[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6 ],
+                 inline  context: T
             )  as  Application6[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3]  , NodeTuple1[X1_C4]  , NodeTuple1[X1_C5]  , NodeTuple1[X1_C6] ] =
                 new Application6(context.append(context.start, t1.application)(NodeTuple1.cachePlus6WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context7[F]
+             inline given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context7[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag ]( using 
-                t1: Application7[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ],
-                context: T
+                 inline  t1: Application7[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7 ],
+                 inline  context: T
             )  as  Application7[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3]  , NodeTuple1[X1_C4]  , NodeTuple1[X1_C5]  , NodeTuple1[X1_C6]  , NodeTuple1[X1_C7] ] =
                 new Application7(context.append(context.start, t1.application)(NodeTuple1.cachePlus7WithTypeParameter0))
-             given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context8[F]
+             inline given  [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context8[F]
              , X1_C1 <: TupleTag  , X1_C2 <: TupleTag  , X1_C3 <: TupleTag  , X1_C4 <: TupleTag  , X1_C5 <: TupleTag  , X1_C6 <: TupleTag  , X1_C7 <: TupleTag  , X1_C8 <: TupleTag ]( using 
-                t1: Application8[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ],
-                context: T
+                 inline  t1: Application8[F, T  , X1_C1  , X1_C2  , X1_C3  , X1_C4  , X1_C5  , X1_C6  , X1_C7  , X1_C8 ],
+                 inline  context: T
             )  as  Application8[F, T  , NodeTuple1[X1_C1]  , NodeTuple1[X1_C2]  , NodeTuple1[X1_C3]  , NodeTuple1[X1_C4]  , NodeTuple1[X1_C5]  , NodeTuple1[X1_C6]  , NodeTuple1[X1_C7]  , NodeTuple1[X1_C8] ] =
                 new Application8(context.append(context.start, t1.application)(NodeTuple1.cachePlus8WithTypeParameter0))
              inline  def cachePlus1WithTypeParameter0Dynamic[Y1 <: TupleTag]: Plus1[

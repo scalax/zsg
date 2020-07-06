@@ -3,7 +3,7 @@ import zsg.Application7
 import zsg.Context7
 import scala.language.higherKinds
 trait ScalaTupleImplicits_2_7 {
-         given  [
+         inline given  [
             F[_ , _ , _ , _ , _ , _ , _],
             T <: Context7[F],
             Plus1_X1 , Plus1_X2,
@@ -14,8 +14,8 @@ trait ScalaTupleImplicits_2_7 {
             Plus6_X1 , Plus6_X2,
             Plus7_X1 , Plus7_X2
         ]( using 
-            t1: F[Plus1_X1 , Plus2_X1 , Plus3_X1 , Plus4_X1 , Plus5_X1 , Plus6_X1 , Plus7_X1] , t2: F[Plus1_X2 , Plus2_X2 , Plus3_X2 , Plus4_X2 , Plus5_X2 , Plus6_X2 , Plus7_X2],
-            context: T
+              inline  t1: F[  Plus1_X1   ,  Plus2_X1   ,  Plus3_X1   ,  Plus4_X1   ,  Plus5_X1   ,  Plus6_X1   ,  Plus7_X1 ],   inline  t2: F[  Plus1_X2   ,  Plus2_X2   ,  Plus3_X2   ,  Plus4_X2   ,  Plus5_X2   ,  Plus6_X2   ,  Plus7_X2 ], 
+             inline  context: T
         )  as  Application7[
             F,
             T,
