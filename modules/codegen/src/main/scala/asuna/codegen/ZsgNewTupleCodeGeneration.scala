@@ -23,7 +23,7 @@ object ZsgNewTupleCodeGeneration {
       val filePath = rootAllDir.resolve("mapper" + i).resolve("ApplicationX" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationXNum(tagNum = i, isDotty = false).body)
+      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ApplicationX(tagNum = i, isDotty = false).body)
       writer.println(linerContent)
       writer.close()
     }
@@ -32,7 +32,7 @@ object ZsgNewTupleCodeGeneration {
       val filePath = rootAllDir.resolve("ztuple" + i).resolve("ZTuple" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ZTupleX(ZTupleNum = i).body)
+      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZTupleX(ZTupleNum = i).body)
       writer.println(linerContent)
       writer.close()
     }
@@ -41,7 +41,7 @@ object ZsgNewTupleCodeGeneration {
       val filePath = rootAllDir.resolve("ztuple" + i).resolve("ZNode" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ZNodeX(ZTupleNum = i).body)
+      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZNodeX(ZTupleNum = i).body)
       writer.println(linerContent)
       writer.close()
     }
