@@ -1,0 +1,5 @@
+@(tagNum: Int, isDotty: Boolean)
+package zsg
+abstract class ApplicationX@{tagNum}[F[@for(i <- 1 to tagNum) { @if(i > 1) { , } _ }], T <: Context@{tagNum}[F] @for(i <- 1 to tagNum) { , I@{i} }] {
+  def application(context: T): F[@for(i <- 1 to tagNum) { @if(i > 1) { , } I@{i} }]
+}
