@@ -45,6 +45,15 @@ object ZsgNewTupleCodeGeneration {
       writer.println(linerContent)
       writer.close()
     }
+
+    for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      val filePath = rootAllDir.resolve("ztuple" + i).resolve("PlusInstanceTuple" + i + ".scala")
+      Files.createDirectories(filePath.getParent)
+      val writer       = new PrintWriter(filePath.toFile, "utf-8")
+      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.PlusInstanceTupleX(ZTupleNum = i, maxContextNum = ZsgParameters.maxContextNum).body)
+      writer.println(linerContent)
+      writer.close()
+    }
   }
 
 }

@@ -1,0 +1,25 @@
+@(ZTupleNum: Int, maxContextNum: Int)
+package zsg
+
+@Plus1Name(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } I@{ii} } @for(ii <- 1 to contextCount) { , ZsgTuple0 } @for(ii <- 1 to contextCount) { , ZTuple@{tupleNum}[I@{ii}] }] }
+@Plus1NameAny(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } Any } @for(ii <- 1 to contextCount) { , ZsgTuple0 } @for(ii <- 1 to contextCount) { , ZTuple@{tupleNum}[Any] }] }
+
+object PlusInstanceTuple@{ZTupleNum} {
+    @if(ZTupleNum == 1) {
+        @for(i <- 1 to maxContextNum) {
+            def pContextNum@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii} }]: @Plus1Name(contextCount = i, tupleNum = ZTupleNum) =  new @Plus1Name(contextCount = i, tupleNum = ZTupleNum) @* *@ {
+                @for(ii <- 1 to i) {
+                    override def takeHead@{ii}(n: ZTuple@{ZTupleNum}[I@{ii}]): I@{ii} = n.i1
+                }
+                @for(ii <- 1 to i) {
+                    override def takeTail@{ii}(n: ZTuple@{ZTupleNum}[I@{ii}]): ZsgTuple0 = ZsgTuple0.value
+                }
+                @for(ii <- 1 to i) {
+                    override def plus@{ii}(n: I@{ii}, m: ZsgTuple0): ZTuple@{ZTupleNum}[I@{ii}] = new ZTuple@{ZTupleNum}(n)
+                }
+            }
+            val cacheContextNum@{i}: @Plus1NameAny(contextCount = i, tupleNum = ZTupleNum) = pContextNum@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Any }]
+            def contextNum@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii} }]: @Plus1Name(contextCount = i, tupleNum = ZTupleNum) = cacheContextNum@{i}.asInstanceOf[@Plus1Name(contextCount = i, tupleNum = ZTupleNum)]
+        }
+    }
+}
