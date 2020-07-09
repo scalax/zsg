@@ -46,11 +46,11 @@ object ZTuple@{ZTupleNum} {
                     context.append(context.start, t1)(PlusInstanceTuple@{ZTupleNum}.contextNum@{contextNum})
                 }
             }
-        } else if(ZTupleNum == 2) {
+        } else {
             implicit def context@{contextNum}Implicit@ApplicationTypeParameter(tupleNum = ZTupleNum, contextNum = contextNum)
             (implicit @ApplicationParameter(tupleNum = ZTupleNum, contextNum = contextNum)): @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) = new @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ {
                 override def application(context: T): @ApplicationTypeResult(tupleNum = ZTupleNum, contextNum = contextNum) = {
-                    context.append(t1, t2)(PlusInstanceTuple@{ZTupleNum}.contextNum@{contextNum})
+                    context.append(@{zsg.codegen.JinzhiTree.contextAppend(i = ZTupleNum - 1, contextNum = contextNum)}, t@{ZTupleNum})(PlusInstanceTuple@{ZTupleNum}.contextNum@{contextNum})
                 }
             }
         }
