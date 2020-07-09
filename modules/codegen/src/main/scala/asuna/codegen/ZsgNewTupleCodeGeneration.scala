@@ -56,7 +56,7 @@ object ZsgNewTupleCodeGeneration {
     }
 
     {
-      val filePath = rootAllDir.resolve("ztuple2"  ).resolve("PlusInstanceZsgTuple2.scala")
+      val filePath = rootAllDir.resolve("ztuple2").resolve("PlusInstanceZsgTuple2.scala")
       Files.createDirectories(filePath.getParent)
       val writer       = new PrintWriter(filePath.toFile, "utf-8")
       val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.PlusInstanceZsgTuple2(ZTupleNum = 2, maxContextNum = ZsgParameters.maxContextNum).body)

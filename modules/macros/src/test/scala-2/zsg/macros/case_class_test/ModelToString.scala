@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ColumnName, GenericColumnName, StringName, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
-import zsg.{Application3, Context3, Plus3, PropertyTag, ZsgTuple0}
+import zsg.{ApplicationX3, Context3, Plus3, PropertyTag, ZsgTuple0}
 
 trait ModelToString[E] {
   def mToString(i: E): List[(PropertyItem, String)]
@@ -15,8 +15,8 @@ object ModelToString {
     ): ModelToStringContent[Z1, Z2, Z3] =
       new ModelToStringContent[Z1, Z2, Z3] {
         override def encode(i1: Z2, l: List[(PropertyItem, String)]): List[(PropertyItem, String)] = {
-          val t1 = x.encode(p.takeHead2(i1), l)
-          y.encode(p.takeTail2(i1), t1)
+          val t2 = y.encode(p.takeTail2(i1), l)
+          x.encode(p.takeHead2(i1), t2)
         }
       }
 
@@ -26,7 +26,7 @@ object ModelToString {
   }
 
   object ModelToStringContext {
-    implicit val value: ModelToStringContext = new ModelToStringContext
+    val value: ModelToStringContext = new ModelToStringContext
   }
 
   class ReverseModelToStringContext extends Context3[ModelToStringContent] {
@@ -35,8 +35,8 @@ object ModelToString {
     ): ModelToStringContent[Z1, Z2, Z3] =
       new ModelToStringContent[Z1, Z2, Z3] {
         override def encode(i1: Z2, l: List[(PropertyItem, String)]): List[(PropertyItem, String)] = {
-          val t2 = y.encode(p.takeTail2(i1), l)
-          x.encode(p.takeHead2(i1), t2)
+          val t1 = x.encode(p.takeHead2(i1), l)
+          y.encode(p.takeTail2(i1), t1)
         }
       }
 
@@ -75,11 +75,11 @@ object ModelToString {
   def encoder[I1, I2, X, Y](implicit
     g: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-    pp: Application3[ModelToStringContent, ModelToStringContext, I2, X, Y],
+    pp: ApplicationX3[ModelToStringContent, ModelToStringContext, I2, X, Y],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]
   ): ModelToString[I1] = {
     new ModelToString[I1] {
-      override def mToString(data: I1): List[(PropertyItem, String)] = pp.application.encode(zsgGetterGeneric.getter(data), List.empty)
+      override def mToString(data: I1): List[(PropertyItem, String)] = pp.application(ModelToStringContext.value).encode(zsgGetterGeneric.getter(data), List.empty)
     }
   }
 
@@ -87,7 +87,8 @@ object ModelToString {
     val g: ZsgGeneric.Aux[I1, I2]
     val l: ZsgLabelledTypeGeneric.Aux[I1, L]
 
-    def init2[X](implicit n: Application3[ModelToStringContent, ModelToStringContext, I2, X, L]): Init3[I1, I2, X, L] = new Init3(n.application)
+    def init2[X](implicit n: ApplicationX3[ModelToStringContent, ModelToStringContext, I2, X, L]): Init3[I1, I2, X, L] =
+      new Init3(n.application(ModelToStringContext.value))
 
   }
 
@@ -117,11 +118,11 @@ object ModelToString {
   def reverseEncoder[I1, I2, X, Y](implicit
     ii: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-    pp: Application3[ModelToStringContent, ReverseModelToStringContext, I2, X, Y],
+    pp: ApplicationX3[ModelToStringContent, ReverseModelToStringContext, I2, X, Y],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]
   ): ModelToString[I1] =
     new ModelToString[I1] {
-      override def mToString(ii: I1): List[(PropertyItem, String)] = pp.application.encode(zsgGetterGeneric.getter(ii), List.empty)
+      override def mToString(ii: I1): List[(PropertyItem, String)] = pp.application(ReverseModelToStringContext.value).encode(zsgGetterGeneric.getter(ii), List.empty)
     }
 
 }
