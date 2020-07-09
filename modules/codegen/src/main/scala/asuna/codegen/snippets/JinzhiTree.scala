@@ -69,16 +69,21 @@ object JinzhiTree {
     s"new ${className}(${index.map(i => s"i${i} = m${map(i)}").mkString(" , ")}, i${i} = n)"
   }
 
-  def contextAppend(i: Int, contextNum: Int): String = {
-    def contextAppendImpl(i: TreeContent[String]): String = {
-      i match {
-        case d: DataTree[String] =>
-          d.data
-        case n: NodeTree[String] =>
-          s"context.append(${contextAppendImpl(n.i1)}, ${contextAppendImpl(n.i2)})(PlusInstanceZsgTuple2.contextNum${contextNum})"
-      }
+  def contextAppendImpl(i: TreeContent[String], contextNum: Int): String = {
+    i match {
+      case d: DataTree[String] =>
+        d.data
+      case n: NodeTree[String] =>
+        s"context.append(${contextAppendImpl(n.i1, contextNum = contextNum)}, ${contextAppendImpl(n.i2, contextNum = contextNum)})(PlusInstanceZsgTuple2.contextNum${contextNum})"
     }
-    contextAppendImpl(listToTree((1 to i).to(List).map(r => s"t${r}")))
+  }
+
+  def contextAppend(i: Int, contextNum: Int): String = {
+    contextAppendImpl(listToTree((1 to i).to(List).map(r => s"t${r}")), contextNum = contextNum)
+  }
+
+  def nodeContextAppend(i: Int, contextNum: Int): String = {
+    contextAppendImpl(listToTree((1 to i).to(List).map(r => s"t${r}.application(context)")), contextNum = contextNum)
   }
 
 }

@@ -14,7 +14,10 @@ package zsg
 @* @NodePlus2NameAny(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } TupleTag } @for(ii <- 1 to contextCount) { , TupleTag }  @for(ii <- 1 to contextCount) { , ZNode@{tupleNum}[TupleTag, TupleTag] }] } *@
 
 @PlusNName(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } HighTupleAlias@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} } ] } @for(ii <- 1 to contextCount) { , I@{ii} }  @for(ii <- 1 to contextCount) { , ZTuple@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }, I@{ii}] }] }
+@PlusNNameAny(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } HighTupleAlias@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Any } ] } @for(ii <- 1 to contextCount) { , Any }  @for(ii <- 1 to contextCount) { , ZTuple@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Any }, Any ] }] }
+
 @NodePlusNName(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } HighTupleAlias@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} } ] } @for(ii <- 1 to contextCount) { , I@{ii} }  @for(ii <- 1 to contextCount) { , ZNode@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }, I@{ii}] }] }
+@NodePlusNNameAny(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } HighTupleAlias@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } TupleTag } ] } @for(ii <- 1 to contextCount) { , TupleTag }  @for(ii <- 1 to contextCount) { , ZNode@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } TupleTag }, TupleTag ] }] }
 
 object PlusInstanceTuple@{ZTupleNum} {
     @if(ZTupleNum == 1) {
@@ -37,7 +40,7 @@ object PlusInstanceTuple@{ZTupleNum} {
         type HighTupleAlias@{ZTupleNum}[@for(ii <- 1 to ZTupleNum - 1) { @if(ii > 1) { , } I@{ii} }] = @{zsg.codegen.JinzhiTree.treeToType(ZTupleNum - 1)}
         type HighTupleAliasUpper@{ZTupleNum}[@for(ii <- 1 to ZTupleNum) { @if(ii > 1) { , } I@{ii} }] = @{zsg.codegen.JinzhiTree.treeToType(ZTupleNum)}
         @for(i <- 1 to maxContextNum) {
-            def contextNum@{i}[
+            def pContextNum@{i}[
                 @for(ii <- 1 to i) {
                     @if(ii > 1) { , }
                     @for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }
@@ -56,6 +59,14 @@ object PlusInstanceTuple@{ZTupleNum} {
                     override def plus@{ii}(m: HighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }], n: I@{ii}): ZTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}] = @{zsg.codegen.JinzhiTree.treeIndex(i = ZTupleNum, className = "ZTuple" + ZTupleNum)}
                 }
             }
+            val cacheContextNum@{i}: @PlusNNameAny(contextCount = i, tupleNum = ZTupleNum) = pContextNum@{i}[@for(ii <- 1 to i * ZTupleNum) { @if(ii > 1) { , } Any }]
+            def contextNum@{i}[@for(ii <- 1 to i) {
+                @if(ii > 1) { , }
+                    @for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }
+                }
+                @for(ii <- 1 to i) {
+                    , I@{ii}
+            }]: @PlusNName(contextCount = i, tupleNum = ZTupleNum) = cacheContextNum@{i}.asInstanceOf[@PlusNName(contextCount = i, tupleNum = ZTupleNum)]
         }
     }
 
@@ -79,7 +90,7 @@ object PlusInstanceTuple@{ZTupleNum} {
         type NodeHighTupleAlias@{ZTupleNum}[@for(ii <- 1 to ZTupleNum - 1) { @if(ii > 1) { , } I@{ii} <: TupleTag }] = @{zsg.codegen.JinzhiTree.treeToType(ZTupleNum - 1)}
         type NodeHighTupleAliasUpper@{ZTupleNum}[@for(ii <- 1 to ZTupleNum) { @if(ii > 1) { , } I@{ii} <: TupleTag }] = @{zsg.codegen.JinzhiTree.treeToType(ZTupleNum)}
         @for(i <- 1 to maxContextNum) {
-            def nodeContextNum@{i}[
+            def pNodeContextNum@{i}[
                 @for(ii <- 1 to i) {
                     @if(ii > 1) { , }
                     @for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} <: TupleTag }
@@ -97,8 +108,15 @@ object PlusInstanceTuple@{ZTupleNum} {
                 @for(ii <- 1 to i) {
                     override def plus@{ii}(m: NodeHighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }], n: I@{ii}): ZNode@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}] = @{zsg.codegen.JinzhiTree.treeIndex(i = ZTupleNum, className = "ZNode" + ZTupleNum)}
                 }
-
             }
+            val cacheNodeContextNum@{i}: @NodePlusNNameAny(contextCount = i, tupleNum = ZTupleNum) = pNodeContextNum@{i}[@for(ii <- 1 to i * ZTupleNum) { @if(ii > 1) { , } TupleTag }]
+            def nodeContextNum@{i}[@for(ii <- 1 to i) {
+                @if(ii > 1) { , }
+                    @for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} <: TupleTag }
+                }
+                @for(ii <- 1 to i) {
+                    , I@{ii} <: TupleTag
+            }]: @NodePlusNName(contextCount = i, tupleNum = ZTupleNum) = cacheNodeContextNum@{i}.asInstanceOf[@NodePlusNName(contextCount = i, tupleNum = ZTupleNum)]
         }
     }
 
