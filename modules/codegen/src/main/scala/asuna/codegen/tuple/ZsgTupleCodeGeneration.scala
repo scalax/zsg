@@ -6,6 +6,7 @@ import java.nio.file.{Files, Paths}
 import zsg.codegen.{StringUtil, ZsgParameters}
 
 import scala.io.Source
+import scala.util.Using
 
 object ZsgTupleCodeGeneration {
 
@@ -80,11 +81,9 @@ object ZsgTupleCodeGeneration {
       for (ii <- 0 to ZsgParameters.maxTupleNum - 1) yield {
         val filePath = root2Dir.resolve("mapper" + i).resolve("HListPlus_" + ii + "_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
-        val writer = new PrintWriter(filePath.toFile, "utf-8")
-        val content =
-          Source.fromString(zsg.codegen.scala_tuple.txt.HListPlusX(tagNum = i, caseClassNum = ii).body).getLines.toList.map(_.trim).filter(s => !s.isEmpty)
-        val linerContent = content.mkString(System.lineSeparator)
-        writer.println(linerContent)
+        val writer  = new PrintWriter(filePath.toFile, "utf-8")
+        val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.HListPlusX(tagNum = i, caseClassNum = ii).body)
+        writer.println(content)
         writer.close()
       }
     }
@@ -92,17 +91,11 @@ object ZsgTupleCodeGeneration {
     for (i <- 1 to ZsgParameters.maxContextNum) yield {
       val filePath = root2Dir.resolve("mapper" + i).resolve("HListPlus" + i + ".scala")
       Files.createDirectories(filePath.getParent)
-      val writer = new PrintWriter(filePath.toFile, "utf-8")
-      val content =
-        Source
-          .fromString(zsg.codegen.scala_tuple.txt.HListPlusSum(tagNum = i, maxTupleNum = ZsgParameters.maxTupleNum - 2).body)
-          .getLines
-          .toList
-          .map(_.trim)
-          .filter(s => !s.isEmpty)
-      val linerContent = content.mkString(System.lineSeparator)
-      writer.println(linerContent)
-      writer.close()
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.HListPlusSum(tagNum = i, maxTupleNum = ZsgParameters.maxTupleNum - 2).body)
+        writer.println(content)
+      }
+
     }
 
     for (i <- 1 to ZsgParameters.maxContextNum) yield {
