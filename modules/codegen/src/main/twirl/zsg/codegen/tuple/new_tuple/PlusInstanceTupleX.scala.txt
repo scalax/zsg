@@ -46,6 +46,10 @@ object PlusInstanceTuple@{ZTupleNum} {
             val cacheContextNum@{i}: @Plus2NameAny(contextCount = i, tupleNum = ZTupleNum) = pContextNum@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Any } @for(ii <- 1 to i) { , Any }]
             def contextNum@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } K@{ii} } @for(ii <- 1 to i) { , I@{ii} }]: @Plus2Name(contextCount = i, tupleNum = ZTupleNum) = cacheContextNum@{i}.asInstanceOf[@Plus2Name(contextCount = i, tupleNum = ZTupleNum)]
         }
+    } else {
+        @for(i <- 1 to maxContextNum) {
+            type I@{ZTupleNum}[@for(ii <- 1 to ZTupleNum - 1) { @if(ii > 1) { , } I@{ii} }] = @{zsg.codegen.JinzhiTree.treeToType(ZTupleNum - 1)}
+        }
     }
 
     @if(ZTupleNum == 1) {
