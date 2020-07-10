@@ -2,7 +2,7 @@ package zsg.macros.rep_encoder_test
 
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
-import zsg.{Application2, Context2, Plus2, PropertyTag, ZsgTuple0}
+import zsg.{ApplicationX2, Context2, Plus2, PropertyTag, ZsgTuple0}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
@@ -15,13 +15,13 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
   }
 
   object GetterContext {
-    implicit val value: GetterContext = new GetterContext
+    val value: GetterContext = new GetterContext
   }
 
   class CirceGenericApply2[Model] {
     def encoder[Table, II, M](table: Table)(implicit
       i: ZsgMultiplyGeneric.Aux[Table, Model, II],
-      p: Application2[Getter, GetterContext, II, M],
+      p: ApplicationX2[Getter, GetterContext, II, M],
       m: ZsgMultiplyRepGeneric[Table, Model, M]
     ): M = m.rep(table)
   }
@@ -61,15 +61,15 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
   describe("Rep Mapper") {
     it("should map mutiply class") {
-      linkModel.i2.i1: Long
-      linkModel.i1.i1: String
-      linkModel.i1.i2: List[String]
+      linkModel.i3: Long
+      linkModel.i1: String
+      linkModel.i2: List[String]
 
-      linkModel.i2.i1 shouldBe mmm.ef
-      linkModel.i1.i1 shouldBe model.ab
-      linkModel.i1.i2 shouldBe model.obj.cd
+      linkModel.i3 shouldBe mmm.ef
+      linkModel.i1 shouldBe model.ab
+      linkModel.i2 shouldBe model.obj.cd
 
-      linkModel.i1.i1 should not be model.obj.ab
+      linkModel.i1 should not be model.obj.ab
     }
   }
 

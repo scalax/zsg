@@ -8,18 +8,18 @@ object LargeModelTest extends App {
 
   object a1 {
 
-    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_1] = ACirce.encodeCaseClass
-    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModel_2] = ACirce.encodeCaseClass
-    val i1                                                                             = LargeModel.largeModel_2_value.asJson
+    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModelA] = ACirce.encodeCaseClass
+    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModelB] = ACirce.encodeCaseClass
+    val i1                                                                            = LargeModel.largeModelBValue.asJson
 
-    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModel_1].instance.i1).infer
-    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModel_1].instance.i2).infer
+    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModelA].instance.i1).infer
+    zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModelA].instance.i2).infer
 
     println("==================== line ====================")
 
-    implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModel_1] = ACirce.decodeCaseClass
-    implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModel_2] = ACirce.decodeCaseClass
-    val i2                                                              = i1.as[LargeModel.LargeModel_2]
+    implicit lazy val largeModel_1_de: Decoder[LargeModel.LargeModelA] = ACirce.decodeCaseClass
+    implicit lazy val largeModel_2_de: Decoder[LargeModel.LargeModelB] = ACirce.decodeCaseClass
+    val i2                                                             = i1.as[LargeModel.LargeModelB]
 
   }
 

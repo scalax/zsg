@@ -1,12 +1,12 @@
 package zsg.debug
 trait DebugCaseClass3Instance {
         given zsgTupleToDebugCaseClass3InstanceImplicit[D1 , D2 , D3] as ZsgTupleToDebugCaseClass[
-            zsg.NodeTuple2[zsg.ZsgTuple2[D1 , D2] , zsg.ZsgTuple1[D3]],
+            zsg.ZTuple3[D1 , D2 , D3],
             DebugCaseClass3[D1 , D2 , D3]
         ] {
-            override def tupleToCaseClass(tuple: zsg.NodeTuple2[zsg.ZsgTuple2[D1 , D2] , zsg.ZsgTuple1[D3]]
+            override def tupleToCaseClass(tuple: zsg.ZTuple3[D1 , D2 , D3]
             ): DebugCaseClass3[D1 , D2 , D3] = {
-                DebugCaseClass3(d1 = tuple.i1.i1 , d2 = tuple.i1.i2 , d3 = tuple.i2.i1)
+                DebugCaseClass3(d1 = tuple.i1 , d2 = tuple.i2 , d3 = tuple.i3)
             }
         }
 }

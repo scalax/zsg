@@ -9,8 +9,8 @@ class ZsgJsonObjectContext extends Context3[JsonObjectAppender] {
   ): JsonObjectAppender[Z1, Z2, Z3] =
     new JsonObjectAppender[Z1, Z2, Z3] {
       override def appendField(tt: Z3, m: List[(String, Json)]): List[(String, Json)] = {
-        val m1 = x.appendField(p.takeHead3(tt), m)
-        y.appendField(p.takeTail3(tt), m1)
+        val m1 = y.appendField(p.takeTail3(tt), m)
+        x.appendField(p.takeHead3(tt), m1)
       }
     }
 
@@ -20,5 +20,5 @@ class ZsgJsonObjectContext extends Context3[JsonObjectAppender] {
 }
 
 object ZsgJsonObjectContext {
-  implicit val value: ZsgJsonObjectContext = new ZsgJsonObjectContext
+  val value: ZsgJsonObjectContext = new ZsgJsonObjectContext
 }

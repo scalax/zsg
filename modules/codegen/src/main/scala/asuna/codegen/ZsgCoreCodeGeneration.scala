@@ -107,7 +107,7 @@ object ZsgCoreCodeGeneration {
         val filePath = build2XDir.resolve("BuildContent.scala")
         Files.createDirectories(filePath.getParent)
         val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxPropertyNum)(isDotty = false).body)
+        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = false).body)
         writer.println(content)
         writer.close()
       }
@@ -115,7 +115,7 @@ object ZsgCoreCodeGeneration {
         val filePath = buildDottyDir.resolve("BuildContent.scala")
         Files.createDirectories(filePath.getParent)
         val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxPropertyNum)(isDotty = true).body)
+        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = true).body)
         writer.println(content)
         writer.close()
       }

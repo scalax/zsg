@@ -49,18 +49,18 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
             @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
         ]: Plus@{tagNum}[
-            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = new Plus@{tagNum}[
-            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] {
             @for(i <- 1 to tagNum) {
-                final override def takeHead@{i}(z: Tuple2[Y@{i}, X@{i}]): X@{i} = z._2
-                final override def takeTail@{i}(z: Tuple2[Y@{i}, X@{i}]): Y@{i} = z._1
-                final override def plus@{i}(x: X@{i}, y: Y@{i}): Tuple2[Y@{i}, X@{i}] = Tuple2(y, x)
+                final override def takeHead@{i}(z: Tuple2[Y@{i}, X@{i}]): Y@{i} = z._1
+                final override def takeTail@{i}(z: Tuple2[Y@{i}, X@{i}]): X@{i} = z._2
+                final override def plus@{i}(y: Y@{i}, x: X@{i}): Tuple2[Y@{i}, X@{i}] = Tuple2(y, x)
             }
         }
 
@@ -77,12 +77,12 @@ trait PlusToTuple_@{caseClassNum}_@{tagNum} {
             @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")}
         ]: Plus@{tagNum}[
-            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ] = plus@{tagNum}WithTypeParameter@{caseClassNum}Strict.asInstanceOf[Plus@{tagNum}[
-            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.YI_Snippet(1 to tagNum).mkString(" , ")},
+            @{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")},
             @{zsg.codegen.SnippetUtil.Tuple2_XI_YI_Snippet(1 to tagNum).mkString(" , ")}
         ]]
     } else {

@@ -3,7 +3,7 @@ package zsg.macros.sealed_trait_test
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
-import zsg.{Application2, Context2, Plus2, ZsgTuple0, ZsgTuple1}
+import zsg.{ApplicationX2, Context2, Plus2, ZsgTuple0}
 
 class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
@@ -26,11 +26,11 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   def fetch[H, T, TT](implicit
     zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
-    app: Application2[STT, STTContext, T, TT],
+    app: ApplicationX2[STT, STTContext, T, TT],
     labelled: ZsgSealedLabelledGeneric[H, TT]
   ): SealedTraitNames[H] =
     new SealedTraitNames[H] {
-      override def str: List[String] = app.application.stt(labelled.names)(List.empty)
+      override def str: List[String] = app.application(STTContext.value).stt(labelled.names)(List.empty)
     }
 
   class STTContext extends Context2[STT] {
@@ -39,7 +39,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
         override def stt(h: Z2): List[String] => List[String] = {
           val xh = x.stt(p.takeHead2(h))
           val yh = y.stt(p.takeTail2(h))
-          ii => yh(xh(ii))
+          ii => xh(yh(ii))
         }
       }
 
@@ -51,7 +51,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
   }
 
   object STTContext {
-    implicit val value: STTContext = new STTContext
+    val value: STTContext = new STTContext
   }
 
   implicit def stringImplicit1[T]: STT[SealedTag[T], String] =

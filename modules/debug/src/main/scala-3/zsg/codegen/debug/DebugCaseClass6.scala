@@ -1,12 +1,12 @@
 package zsg.debug
 trait DebugCaseClass6Instance {
         given zsgTupleToDebugCaseClass6InstanceImplicit[D1 , D2 , D3 , D4 , D5 , D6] as ZsgTupleToDebugCaseClass[
-            zsg.NodeTuple2[zsg.NodeTuple2[zsg.ZsgTuple2[D1 , D2] , zsg.ZsgTuple2[D3 , D4]] , zsg.NodeTuple1[zsg.ZsgTuple2[D5 , D6]]],
+            zsg.ZTuple6[D1 , D2 , D3 , D4 , D5 , D6],
             DebugCaseClass6[D1 , D2 , D3 , D4 , D5 , D6]
         ] {
-            override def tupleToCaseClass(tuple: zsg.NodeTuple2[zsg.NodeTuple2[zsg.ZsgTuple2[D1 , D2] , zsg.ZsgTuple2[D3 , D4]] , zsg.NodeTuple1[zsg.ZsgTuple2[D5 , D6]]]
+            override def tupleToCaseClass(tuple: zsg.ZTuple6[D1 , D2 , D3 , D4 , D5 , D6]
             ): DebugCaseClass6[D1 , D2 , D3 , D4 , D5 , D6] = {
-                DebugCaseClass6(d1 = tuple.i1.i1.i1 , d2 = tuple.i1.i1.i2 , d3 = tuple.i1.i2.i1 , d4 = tuple.i1.i2.i2 , d5 = tuple.i2.i1.i1 , d6 = tuple.i2.i1.i2)
+                DebugCaseClass6(d1 = tuple.i1 , d2 = tuple.i2 , d3 = tuple.i3 , d4 = tuple.i4 , d5 = tuple.i5 , d6 = tuple.i6)
             }
         }
 }
