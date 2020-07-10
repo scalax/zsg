@@ -1,5 +1,5 @@
 package zsg.scala_tuple.tuple_support
-import zsg.Application2
+import zsg.ApplicationX2
 import zsg.Context2
 import scala.language.higherKinds
 trait ScalaTupleImplicits_3_2 {
@@ -9,20 +9,21 @@ trait ScalaTupleImplicits_3_2 {
             Plus1_X1 , Plus1_X2 , Plus1_X3,
             Plus2_X1 , Plus2_X2 , Plus2_X3
         ]( using 
-              inline  t1: F[  Plus1_X1   ,  Plus2_X1 ],   inline  t2: F[  Plus1_X2   ,  Plus2_X2 ],   inline  t3: F[  Plus1_X3   ,  Plus2_X3 ], 
-             inline  context: T
-        )  as  Application2[
+               inline  t1: F[  Plus1_X1   ,  Plus2_X1 ]   ,   inline  t2: F[  Plus1_X2   ,  Plus2_X2 ]   ,   inline  t3: F[  Plus1_X3   ,  Plus2_X3 ] 
+        )  as  ApplicationX2[
             F,
             T,
             Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
             Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
-        ] = new Application2[
+        ] = new ApplicationX2[
             F,
             T,
             Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3],
             Tuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]
-        ](
-            context.append(ApplicationFetchContent.app2[F, T, zsg.ZNode2[zsg.ZTuple2[Plus1_X1 , Plus1_X2] , zsg.ZTuple1[Plus1_X3]] , zsg.ZNode2[zsg.ZTuple2[Plus2_X1 , Plus2_X2] , zsg.ZTuple1[Plus2_X3]]], context.start)(PlusToTuple2.plus2WithTypeParameter3)
-        )
+        ] {
+            override def application(context: T) = {
+                context.append(ApplicationFetchContent.app2[F, T, zsg.ZTuple3[Plus1_X1 , Plus1_X2 , Plus1_X3] , zsg.ZTuple3[Plus2_X1 , Plus2_X2 , Plus2_X3]].application(context), context.start)(PlusToTuple2.plus2WithTypeParameter3)
+            }
+        }
 }
 object ScalaTupleImplicits_3_2 extends ScalaTupleImplicits_3_2
