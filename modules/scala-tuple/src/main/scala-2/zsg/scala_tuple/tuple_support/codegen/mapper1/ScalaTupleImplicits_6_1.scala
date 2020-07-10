@@ -19,7 +19,7 @@ trait ScalaTupleImplicits_6_1 {
             T,
             Tuple6[Plus1_X1 , Plus1_X2 , Plus1_X3 , Plus1_X4 , Plus1_X5 , Plus1_X6]
         ](
-            context.append(ApplicationFetchContent.app1[F, T, zsg.NodeTuple2[zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple2[Plus1_X3 , Plus1_X4]] , zsg.NodeTuple1[zsg.ZsgTuple2[Plus1_X5 , Plus1_X6]]]], context.start)(PlusToTuple1.plus1WithTypeParameter6)
+            context.append(ApplicationFetchContent.app1[F, T, zsg.ZNode2[zsg.ZNode2[zsg.ZTuple2[Plus1_X1 , Plus1_X2] , zsg.ZTuple2[Plus1_X3 , Plus1_X4]] , zsg.ZNode1[zsg.ZTuple2[Plus1_X5 , Plus1_X6]]]], context.start)(PlusToTuple1.plus1WithTypeParameter6)
         )
 }
 object ScalaTupleImplicits_6_1 extends ScalaTupleImplicits_6_1

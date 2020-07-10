@@ -2,7 +2,7 @@ package zsg.testkit.model
 
 object LargeModel {
 
-  case class LargeModel_1(
+  case class LargeModelA(
     miaomiao1: Int = 123,
     miaomiao2: String,
     miaomiao3: String,
@@ -19,7 +19,7 @@ object LargeModel {
     miaomiao14: String,
     miaomiao15: String,
     miaomiao16: String,
-    miaomiao17: Option[LargeModel_2],
+    miaomiao17: Option[LargeModelB],
     miaomiao18: String,
     miaomiao19: String,
     miaomiao20: String,
@@ -105,7 +105,7 @@ object LargeModel {
     miaomiao100: String
   )
 
-  case class LargeModel_2(
+  case class LargeModelB(
     miaomiao1: Int = 123,
     miaomiao2: String,
     miaomiao3: String,
@@ -116,7 +116,7 @@ object LargeModel {
     miaomiao8: String,
     miaomiao9: String,
     miaomiao10: String,
-    miaomiao11: List[LargeModel_1],
+    miaomiao11: List[LargeModelA],
     miaomiao12: String,
     miaomiao13: String,
     miaomiao14: String,
@@ -208,8 +208,8 @@ object LargeModel {
     miaomiao100: String
   )
 
-  def largeModel_1_value =
-    LargeModel_1(
+  def largeModelAValue =
+    LargeModelA(
       miaomiao1 = 404,
       miaomiao2 = "init string",
       miaomiao3 = "init string",
@@ -312,7 +312,7 @@ object LargeModel {
       miaomiao100 = "init string"
     )
 
-  val largeModel_2_value = LargeModel_2(
+  val largeModelBValue = LargeModelB(
     miaomiao1 = 404,
     miaomiao2 = "init string",
     miaomiao3 = "init string",
@@ -323,7 +323,7 @@ object LargeModel {
     miaomiao8 = "init string",
     miaomiao9 = "init string",
     miaomiao10 = "init string",
-    miaomiao11 = List(largeModel_1_value),
+    miaomiao11 = List(largeModelAValue),
     miaomiao12 = "2333",
     miaomiao13 = "init string",
     miaomiao14 = "init string",

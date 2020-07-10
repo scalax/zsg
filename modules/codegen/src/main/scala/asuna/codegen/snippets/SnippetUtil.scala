@@ -95,9 +95,9 @@ object SnippetUtil {
 
   def Tuple_To_AsunaTuple2(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     (if (init)
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZsgTuple${i.size}[", " , ", "]") }
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZTuple${i.size}[", " , ", "]") }
      else
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.NodeTuple${i.size}[", " , ", "]") }) match {
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZNode${i.size}[", " , ", "]") }) match {
       case h :: Nil =>
         h
       case r =>
@@ -110,7 +110,7 @@ object SnippetUtil {
   }
 
   def Tuple2Group[T](i: List[T])(groupSize: Int)(on: T => List[List[Int]]): List[List[Int]] = {
-    if (i.size >= groupSize && i.size > 1) {
+    if (i.size > 1) {
       Tuple2Group(i.grouped(groupSize).to(List).map(_.zipWithIndex.to(List)))(groupSize)(s => s.flatMap { case (item, index) => on(item).map(p => index :: p) })
     } else {
       i.flatMap(on)
@@ -130,7 +130,7 @@ object SnippetUtil {
     if (tupleSize == 1) {
       s"d1 = tuple.i1"
     } else {
-      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
+      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(groupSize = 22)(i => List(i: List[Int]))
       result.zipWithIndex.map { case (item, index) => item.map(p => s".i${p + 1}").mkString(s"d${index + 1} = tuple", "", "") }.mkString(" , ")
     }
   }

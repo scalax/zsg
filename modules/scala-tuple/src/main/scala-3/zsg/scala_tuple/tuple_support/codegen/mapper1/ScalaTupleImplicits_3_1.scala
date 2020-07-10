@@ -19,7 +19,7 @@ trait ScalaTupleImplicits_3_1 {
             T,
             Tuple3[Plus1_X1 , Plus1_X2 , Plus1_X3]
         ](
-            context.append(ApplicationFetchContent.app1[F, T, zsg.NodeTuple2[zsg.ZsgTuple2[Plus1_X1 , Plus1_X2] , zsg.ZsgTuple1[Plus1_X3]]], context.start)(PlusToTuple1.plus1WithTypeParameter3)
+            context.append(ApplicationFetchContent.app1[F, T, zsg.ZNode2[zsg.ZTuple2[Plus1_X1 , Plus1_X2] , zsg.ZTuple1[Plus1_X3]]], context.start)(PlusToTuple1.plus1WithTypeParameter3)
         )
 }
 object ScalaTupleImplicits_3_1 extends ScalaTupleImplicits_3_1
