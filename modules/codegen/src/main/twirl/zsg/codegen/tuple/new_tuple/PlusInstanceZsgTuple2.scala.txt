@@ -1,4 +1,4 @@
-@(ZTupleNum: Int, maxContextNum: Int)(isDotty: Bollean)
+@(ZTupleNum: Int, maxContextNum: Int)(isDotty: Boolean)
 package zsg
 
 @PlusNName(contextCount: Int, tupleNum: Int) = { Plus@{contextCount}[@for(ii <- 1 to contextCount) { @if(ii > 1) { , } HighTupleAlias@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} } ] } @for(ii <- 1 to contextCount) { , I@{ii} }  @for(ii <- 1 to contextCount) { , ZsgTuple@{tupleNum}[@for(iii <- 1 to tupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }, I@{ii}] }] }
@@ -16,15 +16,15 @@ object PlusInstanceZsgTuple@{ZTupleNum} {
             @for(ii <- 1 to i) {
                 , I@{ii}
             }
-        ] extends @PlusNName(contextCount = i, tupleNum = ZTupleNum) = new @PlusNName(contextCount = i, tupleNum = ZTupleNum) @* *@ {
+        ] extends @PlusNName(contextCount = i, tupleNum = ZTupleNum) @* *@ {
             @for(ii <- 1 to i) {
-                @if(isDotty) { isDotty } override def takeHead@{ii}(n: ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}]): HighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }] = @{zsg.codegen.JinzhiTree.treeBuildModel(ZTupleNum - 1)}
+                @if(isDotty) { inline } override def takeHead@{ii}(n: ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}]): HighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }] = @{zsg.codegen.JinzhiTree.treeBuildModel(ZTupleNum - 1)}
             }
             @for(ii <- 1 to i) {
-                @if(isDotty) { isDotty } override def takeTail@{ii}(n: ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}]): I@{ii} = n.i@{ZTupleNum}
+                @if(isDotty) { inline } override def takeTail@{ii}(n: ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}]): I@{ii} = n.i@{ZTupleNum}
             }
             @for(ii <- 1 to i) {
-                @if(isDotty) { isDotty } override def plus@{ii}(m: HighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }], n: I@{ii}): ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}] = @{zsg.codegen.JinzhiTree.treeIndex(i = ZTupleNum, className = "ZsgTuple" + ZTupleNum)}
+                @if(isDotty) { inline } override def plus@{ii}(m: HighTupleAlias@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { @if(iii > 1) { , } Tuple@{iii}_Context@{ii} }], n: I@{ii}): ZsgTuple@{ZTupleNum}[@for(iii <- 1 to ZTupleNum - 1) { Tuple@{iii}_Context@{ii} , } I@{ii}] = @{zsg.codegen.JinzhiTree.treeIndex(i = ZTupleNum, className = "ZsgTuple" + ZTupleNum)}
             }
         }
         val cacheContextNum@{i}: PContextNum@{i}[@for(ii <- 1 to i * ZTupleNum) { @if(ii > 1) { , } Any }] = new PContextNum@{i}[@for(ii <- 1 to i * ZTupleNum) { @if(ii > 1) { , } Any }]
