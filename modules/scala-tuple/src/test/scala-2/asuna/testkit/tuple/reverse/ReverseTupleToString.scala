@@ -1,6 +1,6 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.{Application1, Context1, Plus1, ZsgTuple0}
+import zsg.{ApplicationX1, Context1, Plus1, ZsgTuple0}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -15,10 +15,9 @@ class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
       override def body(t: List[String], i: Z1): List[String] = {
         val x1 = p.takeHead1(i)
         val y1 = p.takeTail1(i)
-        x.body(y.body(t, y1), x1)
+        y.body(x.body(t, x1), y1)
       }
       override def stringBody(i: Z1): String = ""
-
     }
   }
 
@@ -30,12 +29,12 @@ class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 }
 
 object ReverseScalaTupleContext {
-  implicit val value: ReverseScalaTupleContext = new ReverseScalaTupleContext
+  val value: ReverseScalaTupleContext = new ReverseScalaTupleContext
 }
 
 object reverseTuple {
-  def asString[T](x: T)(implicit ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
-    val con = ii.application
+  def asString[T](x: T)(implicit ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
+    val con = ii.application(ReverseScalaTupleContext.value)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }
 }
@@ -56,6 +55,7 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[T](implicit t: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): ReverseTupleEncoder[T] = t.application
+  implicit def reverseApplicationImplicit[T](implicit t: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): ReverseTupleEncoder[T] =
+    t.application(ReverseScalaTupleContext.value)
 
 }

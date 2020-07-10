@@ -1,6 +1,6 @@
 package zsg.testkit.tuple
 
-import zsg.{Application2, ZsgTuple0, Context2, Plus2}
+import zsg.{ApplicationX2, ZsgTuple0, Context2, Plus2}
 
 trait TupleEncoder[T, R] {
   self =>
@@ -17,13 +17,13 @@ class ScalaTupleContext extends Context2[TupleEncoder] {
       override def body(t: List[String], i: Z1): List[String] = {
         val x1 = p.takeHead1(i)
         val y1 = p.takeTail1(i)
-        y.body(x.body(t, x1), y1)
+        x.body(y.body(t, y1), x1)
       }
       override def stringBody(i: Z1): String = ""
 
       override def fromString(str: String): (Z2, String) = {
-        val (x1, str1) = y.fromString(str)
-        val (x2, str2) = x.fromString(str1)
+        val (x2, str1) = x.fromString(str)
+        val (x1, str2) = y.fromString(str1)
         (p.plus2(x2, x1), str2)
       }
     }
@@ -39,13 +39,13 @@ class ScalaTupleContext extends Context2[TupleEncoder] {
 }
 
 object ScalaTupleContext {
-  given as ScalaTupleContext { }
+  val value: ScalaTupleContext = new ScalaTupleContext
 }
 
 object tuple {
 
-  inline def asString[T](x: T)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T, T]): String = {
-    val n1 = ii.application
+  inline def asString[T](x: T)(using inline ii: ApplicationX2[TupleEncoder, ScalaTupleContext, T, T]): String = {
+    val n1 = ii.application(ScalaTupleContext.value)
     val encoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = n1.body(List.empty, i).mkString("(", ",", ")") :: t
 
@@ -60,8 +60,8 @@ object tuple {
     s"[${encoder.stringBody(x)}]"
   }
 
-  inline def fromString[T](str: String)(using inline ii: Application2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
-    val n1 = ii.application
+  inline def fromString[T](str: String)(using inline ii: ApplicationX2[TupleEncoder, ScalaTupleContext, T,  T]): T = {
+    val n1 = ii.application(ScalaTupleContext.value)
     val decoder = new TupleEncoder[T, T] {
       override def body(t: List[String], i: T): List[String] = n1.body(List.empty, i).mkString("(", ",", ")") :: t
       override def stringBody(i: T): String                  = n1.body(List.empty, i).mkString("(", ",", ")")
@@ -108,7 +108,7 @@ trait AppendTuple {
     }
   }
 
-  inline given [T](using inline ii: Application2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = ii.application
+  inline given [T](using inline ii: ApplicationX2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = ii.application(ScalaTupleContext.value)
 
 }
 

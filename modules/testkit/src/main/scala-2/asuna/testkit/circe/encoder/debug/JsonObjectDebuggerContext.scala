@@ -11,5 +11,5 @@ class JsonObjectDebuggerContext extends Context4[JsonObjectDebugger] {
 }
 
 object JsonObjectDebuggerContext {
-  implicit val value: JsonObjectDebuggerContext = new JsonObjectDebuggerContext
+  val value: JsonObjectDebuggerContext = new JsonObjectDebuggerContext
 }

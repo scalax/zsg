@@ -32,5 +32,5 @@ class ZsgDecoderContext extends Context4[JsonDecoderPro] {
 }
 
 object ZsgDecoderContext {
-  implicit val value: ZsgDecoderContext = new ZsgDecoderContext
+  val value: ZsgDecoderContext = new ZsgDecoderContext
 }

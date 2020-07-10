@@ -1,6 +1,6 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.{Application1, ZsgTuple0, Context1, Plus1}
+import zsg.{ApplicationX1, ZsgTuple0, Context1, Plus1}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -15,7 +15,7 @@ class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
       override def body(t: List[String], i: Z1): List[String] = {
         val x1 = p.takeHead1(i)
         val y1 = p.takeTail1(i)
-        x.body(y.body(t, y1), x1)
+        y.body(x.body(t, x1), y1)
       }
       override def stringBody(i: Z1): String = ""
 
@@ -29,12 +29,12 @@ class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
 }
 
 object ReverseScalaTupleContext {
-  given as ReverseScalaTupleContext { }
+  val value: ReverseScalaTupleContext = new ReverseScalaTupleContext
 }
 
 object reverseTuple {
-  inline def asString[T](x: T)(using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
-    val n1 = ii.application
+  inline def asString[T](x: T)(using inline ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
+    val n1 = ii.application(ReverseScalaTupleContext.value)
     s"[${n1.body(List.empty, x).mkString("(", ",", ")")}]"
   }
 }
@@ -55,6 +55,6 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  inline given [T](using inline ii: Application1[ReverseTupleEncoder, ReverseScalaTupleContext, T]) as ReverseTupleEncoder[T] = ii.application
+  inline given [T](using inline ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]) as ReverseTupleEncoder[T] = ii.application(ReverseScalaTupleContext.value)
 
 }

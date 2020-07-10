@@ -38,7 +38,7 @@ object SnippetUtil {
   def Tuple2_XI_YI_Snippet(seq: Seq[Int]): List[String]   = seq.to(List).map(u => s"Tuple2[Y${u}, X${u}]")
   def Tuple2_Any_Any_Snippet(seq: Seq[Int]): List[String] = seq.to(List).map(_ => s"Tuple2[Any, Any]")
 
-  @tailrec
+  /*@tailrec
   def groupedTupleItem(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     if (init) {
       item.grouped(groupSize).map { i => i.mkString(s"ZsgTuple${i.size}[", " , ", "]") }.to(List) match {
@@ -55,17 +55,17 @@ object SnippetUtil {
           groupedTupleItem(r)(groupSize)(false)
       }
     }
-  }
+  }*/
 
   def plusX_AsunaTuple2_XI_Snippet(plusSeq: Seq[Int])(seq: Seq[Int]): Seq[String] =
     for {
       plusIndex <- plusSeq
     } yield {
-      groupedTupleItem(seq.map(r => s"Plus${plusIndex}_X${r}"))(2)(true)
+      seq.map(r => s"Plus${plusIndex}_X${r}").mkString(s"zsg.ZTuple${seq.size}[", " , ", "]")
     }
 
   def single_plusX_AsunaTuple2_XI_Snippet(plusIndex: Int)(seq: Seq[Int]): String = {
-    groupedTupleItem(seq.map(r => s"Plus${plusIndex}_X${r}"))(2)(true)
+    seq.map(r => s"Plus${plusIndex}_X${r}").mkString(s"zsg.ZTuple${seq.size}[", " , ", "]")
   }
 
   def PlusX_XI_Snippet(pluxSeq: Seq[Int])(seq: Seq[Int]): Seq[Iterable[String]] = pluxSeq.map(i => seq.map(ii => s"Plus${i}_X${ii}"))
@@ -78,7 +78,7 @@ object SnippetUtil {
     }
   }*/
 
-  def Tuple_To_AsunaTuple(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
+  /*def Tuple_To_AsunaTuple(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     (if (init) item.grouped(groupSize).map { i => i.mkString(s"BuildContent.tuple${i.size}(", " , ", ")") }
      else
        item.grouped(groupSize).map { i => i.mkString(s"BuildContent.nodeTuple${i.size}(", " , ", ")") }).to(List) match {
@@ -87,17 +87,17 @@ object SnippetUtil {
       case r =>
         Tuple_To_AsunaTuple(r)(groupSize)(false)
     }
-  }
+  }*/
 
   def single_Tuple_To_AsunaTuple(seq: Seq[Int]): String = {
-    Tuple_To_AsunaTuple(seq.map(r => s"z._${r}"))(2)(true)
+    seq.map(r => s"i${r} = z._${r}").mkString(s"new zsg.ZTuple${seq.size}(", " , ", ")")
   }
 
   def Tuple_To_AsunaTuple2(item: Seq[String])(groupSize: Int)(init: Boolean): String = {
     (if (init)
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZsgTuple${i.size}[", " , ", "]") }
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZTuple${i.size}[", " , ", "]") }
      else
-       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.NodeTuple${i.size}[", " , ", "]") }) match {
+       item.grouped(groupSize).to(List).map { i => i.mkString(s"zsg.ZNode${i.size}[", " , ", "]") }) match {
       case h :: Nil =>
         h
       case r =>
@@ -106,11 +106,11 @@ object SnippetUtil {
   }
 
   def Lift_Tuple_To_AsunaTuple2(typeParameterCount: Seq[Int], seq: Seq[Int]): String = {
-    typeParameterCount.map(count => Tuple_To_AsunaTuple2(seq.map(i => s"Plus${count}_X${i}"))(2)(true)).mkString(" , ")
+    typeParameterCount.map(count => seq.map(i => s"Plus${count}_X${i}").mkString(s"zsg.ZTuple${seq.size}[", " , ", "]")).mkString(" , ")
   }
 
   def Tuple2Group[T](i: List[T])(groupSize: Int)(on: T => List[List[Int]]): List[List[Int]] = {
-    if (i.size >= groupSize && i.size > 1) {
+    if (i.size > 1) {
       Tuple2Group(i.grouped(groupSize).to(List).map(_.zipWithIndex.to(List)))(groupSize)(s => s.flatMap { case (item, index) => on(item).map(p => index :: p) })
     } else {
       i.flatMap(on)
@@ -118,19 +118,14 @@ object SnippetUtil {
   }
 
   def Tuple2_Index_To_ScalaTuple_Index(tupleSize: Int): String = {
-    if (tupleSize == 1) {
-      s"Tuple1(x.i1)"
-    } else {
-      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
-      result.map(_.map(p => s".i${p + 1}").mkString("x", "", "")).mkString(s"Tuple${tupleSize}(", " , ", ")")
-    }
+    (1 to tupleSize).map(s => s"_${s} = x.i${s}").mkString(s"Tuple${tupleSize}(", " , ", ")")
   }
 
   def Tuple2_Index_To_DebugCaseClass_Index(tupleSize: Int): String = {
     if (tupleSize == 1) {
       s"d1 = tuple.i1"
     } else {
-      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(2)(i => List(i: List[Int]))
+      val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(groupSize = 22)(i => List(i: List[Int]))
       result.zipWithIndex.map { case (item, index) => item.map(p => s".i${p + 1}").mkString(s"d${index + 1} = tuple", "", "") }.mkString(" , ")
     }
   }
