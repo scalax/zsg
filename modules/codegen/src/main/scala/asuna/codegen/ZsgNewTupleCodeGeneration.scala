@@ -28,22 +28,42 @@ object ZsgNewTupleCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
-      val filePath = rootAllDir.resolve("ztuple" + i).resolve("ZTuple" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZTupleX(ZTupleNum = i)(maxContextNum = ZsgParameters.maxContextNum).body)
-      writer.println(linerContent)
-      writer.close()
+    {
+      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+        val filePath = root2XDir.resolve("ztuple" + i).resolve("ZTuple" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZTupleX(ZTupleNum = i)(maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body)
+        writer.println(linerContent)
+        writer.close()
+      }
+      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+        val filePath = rootDottyDir.resolve("ztuple" + i).resolve("ZTuple" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZTupleX(ZTupleNum = i)(maxContextNum = ZsgParameters.maxContextNum)(isDotty = true).body)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
-    for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
-      val filePath = rootAllDir.resolve("ztuple" + i).resolve("ZNode" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZNodeX(ZTupleNum = i, maxContextNum = ZsgParameters.maxContextNum).body)
-      writer.println(linerContent)
-      writer.close()
+    {
+      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+        val filePath = root2XDir.resolve("ztuple" + i).resolve("ZNode" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZNodeX(ZTupleNum = i, maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body)
+        writer.println(linerContent)
+        writer.close()
+      }
+      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+        val filePath = rootDottyDir.resolve("ztuple" + i).resolve("ZNode" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ZNodeX(ZTupleNum = i, maxContextNum = ZsgParameters.maxContextNum)(isDotty = true).body)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
     for (i <- 1 to ZsgParameters.maxZTupleNum) yield {

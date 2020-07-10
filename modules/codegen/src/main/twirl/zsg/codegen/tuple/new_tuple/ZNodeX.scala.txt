@@ -37,15 +37,17 @@ object ZNode@{ZTupleNum} {
 
     @for(contextNum <- 1 to maxContextNum) {
         @if(ZTupleNum == 1) {
-            @if(isDotty) { inline given } else { implicit def context@{contextNum}Implicit } @ApplicationTypeParameter(tupleNum = ZTupleNum, contextNum = contextNum)
-            (@if(isDotty) { using } else { implicit } @ApplicationParameter(tupleNum = ZTupleNum, contextNum = contextNum)): @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) = new @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ {
+            @if(isDotty) { inline given } else { implicit def contextNum@{contextNum} } @ApplicationTypeParameter(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ (
+                @if(isDotty) { using } else { implicit } @ApplicationParameter(tupleNum = ZTupleNum, contextNum = contextNum)
+            ) @if(isDotty) { as } else { : } @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) = new @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ {
                 override def application(context: T): @ApplicationTypeResult(tupleNum = ZTupleNum, contextNum = contextNum) = {
                     context.append(context.start, t1.application(context))(PlusInstanceTuple@{ZTupleNum}.nodeContextNum@{contextNum})
                 }
             }
         } else {
-            @if(isDotty) { inline given } else { implicit def context@{contextNum}Implicit } @ApplicationTypeParameter(tupleNum = ZTupleNum, contextNum = contextNum)
-            (@if(isDotty) { using } else { implicit } @ApplicationParameter(tupleNum = ZTupleNum, contextNum = contextNum)): @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) = new @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ {
+            @if(isDotty) { inline given } else { implicit def contextNum@{contextNum} } @ApplicationTypeParameter(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ (
+                @if(isDotty) { using } else { implicit } @ApplicationParameter(tupleNum = ZTupleNum, contextNum = contextNum)
+            ) @if(isDotty) { as } else { : } @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) = new @ApplicationType(tupleNum = ZTupleNum, contextNum = contextNum) @* *@ {
                 override def application(context: T): @ApplicationTypeResult(tupleNum = ZTupleNum, contextNum = contextNum) = {
                     context.append(@{zsg.codegen.JinzhiTree.nodeContextAppend(i = ZTupleNum - 1, contextNum = contextNum)}, t@{ZTupleNum}.application(context))(PlusInstanceTuple@{ZTupleNum}.nodeContextNum@{contextNum})
                 }
