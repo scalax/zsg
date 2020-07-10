@@ -4,6 +4,7 @@ import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
 import scala.io.Source
+import scala.util.Using
 
 object ZsgCoreCodeGeneration {
 
@@ -28,13 +29,23 @@ object ZsgCoreCodeGeneration {
       writer.close()
     }
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
-      Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i).body)
-      writer.println(linerContent)
-      writer.close()
+    {
+      for (i <- 1 to ZsgParameters.maxContextNum) yield {
+        val filePath = root2XDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i)(isDotty = false).body)
+          writer.println(linerContent)
+        }
+      }
+      for (i <- 1 to ZsgParameters.maxContextNum) yield {
+        val filePath = rootDottyDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
+        Files.createDirectories(filePath.getParent)
+        val writer       = new PrintWriter(filePath.toFile, "utf-8")
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i)(isDotty = true).body)
+        writer.println(linerContent)
+        writer.close()
+      }
     }
 
     {

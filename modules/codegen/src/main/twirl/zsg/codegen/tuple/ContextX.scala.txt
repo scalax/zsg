@@ -1,4 +1,4 @@
-@(tagNum: Int)
+@(tagNum: Int)(isDotty: Boolean)
 
 package zsg
 
