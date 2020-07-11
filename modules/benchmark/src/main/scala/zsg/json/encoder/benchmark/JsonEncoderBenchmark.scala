@@ -6,7 +6,7 @@ import org.openjdk.jmh.annotations._
 import upickle.default.{ReadWriter => RW}
 import zsg.testkit.circe.ACirce
 import io.circe.Encoder
-import zsg.json.model.{Bar, Foo, Model1}
+import zsg.json.model.case_class.{Bar, BenchmarkModel, Foo}
 
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间
 @OutputTimeUnit(TimeUnit.SECONDS)      // 输出结果的时间粒度为微秒
@@ -30,7 +30,7 @@ class JsonEncoderBenchmark {
     implicit val fooEncoder: Encoder.AsObject[Foo] = ACirce.encodeCaseClass
   }
 
-  val model: Bar = Model1.bar
+  val model: Bar = BenchmarkModel.bar
 
   @Benchmark
   def uPickleEncode: String = {

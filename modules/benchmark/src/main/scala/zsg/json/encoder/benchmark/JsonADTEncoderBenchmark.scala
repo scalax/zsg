@@ -1,44 +1,24 @@
-package org.scalax.asuna.circe
+package zsg.json.encoder.benchmark
 
 import java.util.concurrent.TimeUnit
 
 import zsg.testkit.circe.ACirce
 import org.openjdk.jmh.annotations._
-
-object Aa {
-  import ADTs.ADT0
-  import Defaults._
-  import Generic.ADT
-  import Hierarchy._
-  import Recursive._
-  type Data = ADT[Seq[(Int, Int)], String, A, LL, ADTc, ADT0]
-  val benchmarkSampleData: Data = ADT(
-    Vector((1, 2), (3, 4), (4, 5), (6, 7), (8, 9), (10, 11), (12, 13)),
-    """
-        |I am cow, hear me moo
-        |I weigh twice as much as you
-        |And I look good on the barbecueeeee
-      """.stripMargin,
-    C("lol i am a noob", "haha you are a noob"): A,
-    Node(-11, Node(-22, Node(-33, Node(-44, End)))): LL,
-    ADTc(i = 1234567890, s = "i am a strange loop"),
-    ADT0("1234")
-  )
-}
+import zsg.json.model.adt.ADTBenchmarkModel
 
 @BenchmarkMode(Array(Mode.Throughput)) // 测试方法平均执行时间
 @OutputTimeUnit(TimeUnit.SECONDS)      // 输出结果的时间粒度为微秒
 @State(Scope.Thread)                   // 每个测试线程一个实例
-class Test02 {
+class JsonADTEncoderBenchmark {
 
   import upickle.default.{ReadWriter => RW, macroRW}
   import upickle.default._
 
-  import ADTs.ADT0
-  import Defaults._
-  import Generic.ADT
-  import Hierarchy._
-  import Recursive._
+  import zsg.json.model.adt.ADTs.ADT0
+  import zsg.json.model.adt.Defaults._
+  import zsg.json.model.adt.Generic.ADT
+  import zsg.json.model.adt.Hierarchy._
+  import zsg.json.model.adt.Recursive._
   type Data = ADT[Seq[(Int, Int)], String, A, LL, ADTc, ADT0]
 
   import io.circe._
@@ -84,24 +64,24 @@ class Test02 {
   @Benchmark
   def upickleTest = {
     import upickle.default._
-    write(Aa.benchmarkSampleData)
+    write(ADTBenchmarkModel.benchmarkSampleData)
   }
 
   @Benchmark
-  def asunaCirceTest = {
-    asunaEncoder._wData(Aa.benchmarkSampleData).noSpaces
+  def zsgCirceTest = {
+    asunaEncoder._wData(ADTBenchmarkModel.benchmarkSampleData).noSpaces
   }
 
   @Benchmark
-  def rawCirceTest = {
-    rawCirceEncoder(Aa.benchmarkSampleData).noSpaces
+  def vBaseCirceTest = {
+    rawCirceEncoder(ADTBenchmarkModel.benchmarkSampleData).noSpaces
   }
 
   @TearDown
   def after: Unit = {
-    val asunaCirceStr = asunaEncoder._wData(Aa.benchmarkSampleData).noSpaces
-    val rawCirceStr   = rawCirceEncoder(Aa.benchmarkSampleData).noSpaces
-    val upickleStr    = write(Aa.benchmarkSampleData)(upickleRW)
+    val asunaCirceStr = asunaEncoder._wData(ADTBenchmarkModel.benchmarkSampleData).noSpaces
+    val rawCirceStr   = rawCirceEncoder(ADTBenchmarkModel.benchmarkSampleData).noSpaces
+    val upickleStr    = write(ADTBenchmarkModel.benchmarkSampleData)(upickleRW)
     println(s"asuna 结果: ${asunaCirceStr}")
     println(s"circe 结果: ${rawCirceStr}")
     println(s"upickle 结果: ${upickleStr}")
