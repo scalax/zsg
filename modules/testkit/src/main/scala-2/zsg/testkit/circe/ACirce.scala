@@ -1,7 +1,7 @@
 package zsg.testkit.circe
 
 import zsg.macros.single.deficient.AsunaTupleApply
-import zsg.{Application2, Application3, Application4, ApplicationX2, ApplicationX3, ApplicationX4, Context2, Context3, Context4}
+import zsg.{ApplicationX2, ApplicationX3, ApplicationX4}
 import zsg.macros.single.{
   ZsgDebugGeneric,
   ZsgDefaultValueGeneric,
@@ -39,16 +39,12 @@ object ACirce {
     nm: ZsgLabelledTypeGeneric.Aux[H, N],
     app: ApplicationX3[encoder.JsonObjectAppender, encoder.ZsgJsonObjectContext, R, N, Obj],
     cv2: ZsgGetterGeneric[H, Obj]
-  ): CirceType.JsonObjectEncoder[H] = {
+  ): CirceVersionCompat.JsonObjectEncoder[H] = {
     val applicationEncoder = app.application(encoder.ZsgJsonObjectContext.value)
-    CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty)) }
+    CirceVersionCompat.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty)) }
   }
 
   final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
-
-  /*class DebugEncodeCaseClassApplyContent[CaseClass] {
-    def instance[T](n: Context4[JsonObjectDebugger] => DebugEncodeCaseClassApply[CaseClass] => T): T = n(JsonObjectDebuggerContext)(new DebugEncodeCaseClassApply)
-  }*/
 
   class DebugEncodeCaseClassApply[CaseClass] {
     def instance[Gen, Name, Debug, ColumnInfo](implicit
@@ -59,18 +55,18 @@ object ACirce {
     ): ColumnInfo = app.application(JsonObjectDebuggerContext.value).target
   }
 
-  final def encodeCaseObject[T]: CirceType.JsonObjectEncoder[T] = CirceType.JsonObjectEncoder.instance(_ => JsonObject.empty)
+  final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] = CirceVersionCompat.JsonObjectEncoder.instance(_ => JsonObject.empty)
 
   final def encodeSealed[H, R, Cls, Lab](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
     app: ApplicationX3[encoder.SealedTraitSelector[H]#JsonEncoder, encoder.ZsgSealedContext[H], R, Cls, Lab],
     cv1: ZsgSealedLabelledGeneric[H, Lab],
     cv2: ZsgSealedClassGeneric[H, Cls]
-  ): CirceType.JsonObjectEncoder[H] = {
+  ): CirceVersionCompat.JsonObjectEncoder[H] = {
     val name1              = cv1.names
     val name2              = cv2.names
     val applicationEncoder = app.application(encoder.ZsgSealedContext.c[H])
-    CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
+    CirceVersionCompat.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
   }
 
   def decodeCaseClass[T, R, Model, Nam, DefVal](implicit

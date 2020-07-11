@@ -16,7 +16,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
 
   class Ignore(ii: Int, iiii: String) extends BB[Int](ii, iiii)
 
-  trait STT[II, T] {
+  trait SealedNameGetter[II, T] {
     def stt(t: T): List[String] => List[String]
   }
 
@@ -24,18 +24,18 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
     def str: List[String]
   }
 
-  def fetch[H, T, TT](implicit
+  def sealedNames[H, T, TT](implicit
     zsgSealedGeneric: ZsgSealedGeneric.Aux[H, T],
-    app: ApplicationX2[STT, STTContext, T, TT],
+    app: ApplicationX2[SealedNameGetter, SealedNameGetterContext, T, TT],
     labelled: ZsgSealedLabelledGeneric[H, TT]
   ): SealedTraitNames[H] =
     new SealedTraitNames[H] {
-      override def str: List[String] = app.application(STTContext.value).stt(labelled.names)(List.empty)
+      override def str: List[String] = app.application(SealedNameGetterContext.value).stt(labelled.names)(List.empty)
     }
 
-  class STTContext extends Context2[STT] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: STT[X1, X2], y: STT[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): STT[Z1, Z2] =
-      new STT[Z1, Z2] {
+  class SealedNameGetterContext extends Context2[SealedNameGetter] {
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: SealedNameGetter[X1, X2], y: SealedNameGetter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): SealedNameGetter[Z1, Z2] =
+      new SealedNameGetter[Z1, Z2] {
         override def stt(h: Z2): List[String] => List[String] = {
           val xh = x.stt(p.takeHead2(h))
           val yh = y.stt(p.takeTail2(h))
@@ -43,26 +43,30 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
         }
       }
 
-    private val nTran: List[String] => List[String] = ii => ii
-
-    override val start: STT[ZsgTuple0, ZsgTuple0] = new STT[ZsgTuple0, ZsgTuple0] {
-      override def stt(item: ZsgTuple0): List[String] => List[String] = nTran
+    override val start: SealedNameGetter[ZsgTuple0, ZsgTuple0] = {
+      val nTran: List[String] => List[String] = ii => ii
+      new SealedNameGetter[ZsgTuple0, ZsgTuple0] {
+        override def stt(item: ZsgTuple0): List[String] => List[String] = nTran
+      }
     }
   }
 
-  object STTContext {
-    val value: STTContext = new STTContext
+  object SealedNameGetterContext {
+    val value: SealedNameGetterContext = new SealedNameGetterContext
   }
 
-  implicit def stringImplicit1[T]: STT[SealedTag[T], String] =
-    new STT[SealedTag[T], String] {
+  implicit def stringImplicit1[T]: SealedNameGetter[SealedTag[T], String] =
+    new SealedNameGetter[SealedTag[T], String] {
       override def stt(str: String): List[String] => List[String] = list => str :: list
     }
 
   describe("A sealed trait") {
     it("should labelled generic to it's names") {
-      val names1: SealedTraitNames[Abc[String]] = fetch
+      val names1: SealedTraitNames[Abc[String]] = sealedNames
       names1.str shouldBe List("AA", "BB", "CC", "dd")
+      new Ignore(ii = 2, iiii = "2").isInstanceOf[Abc[Int]] shouldBe true
+      names1.str.contains("Ignore") shouldBe false
+      names1.str.contains("BB") shouldBe true
     }
   }
 

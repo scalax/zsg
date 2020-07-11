@@ -34,30 +34,28 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
   def link[Model]: CirceGenericApply2[Model] = new CirceGenericApply2[Model]
 
+  case class InstanceModel(ab: Long, cd: String, ef: Long)
+
   object mmm {
     val ef: Long = 123456789
   }
-
   object Abc {
     val ab: Int          = 1
     val cd: List[String] = List("1234")
     @(RootTable @getter)
     val mmmab = mmm
   }
-
   trait iii {
-    @(RootTable @getter)
     val obj: Abc.type
     val ab: String = "p"
   }
-
-  case class K(ab: Long, cd: String, ef: Long)
-
   object model extends iii {
-    override val obj = Abc
+    @(RootTable @getter)
+    override val obj        = Abc
+    override val ab: String = "override p"
   }
 
-  val linkModel = link[K].encoder(model: iii)
+  val linkModel = link[InstanceModel].encoder(model)
 
   describe("Rep Mapper") {
     it("should map mutiply class") {
@@ -66,6 +64,7 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
       linkModel.i2: List[String]
 
       linkModel.i3 shouldBe mmm.ef
+      linkModel.i3 shouldBe model.obj.mmmab.ef
       linkModel.i1 shouldBe model.ab
       linkModel.i2 shouldBe model.obj.cd
 

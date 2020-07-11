@@ -1,15 +1,15 @@
 package zsg.testkit.circe
 
 import zsg.testkit.model.LargeModel
-import io.circe.{Decoder, Encoder}
+import io.circe.Decoder
 import io.circe.syntax._
 
 object LargeModelTest extends App {
 
   object a1 {
 
-    implicit val largeModel_1_en: CirceType.JsonObjectEncoder[LargeModel.LargeModelA] = ACirce.encodeCaseClass
-    implicit val largeModel_2_en: CirceType.JsonObjectEncoder[LargeModel.LargeModelB] = ACirce.encodeCaseClass
+    implicit val largeModel_1_en: CirceVersionCompat.JsonObjectEncoder[LargeModel.LargeModelA] = ACirce.encodeCaseClass
+    implicit val largeModel_2_en: CirceVersionCompat.JsonObjectEncoder[LargeModel.LargeModelB] = ACirce.encodeCaseClass
     val i1                                                                            = LargeModel.largeModelBValue.asJson
 
     zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModelA].instance.i1).infer
