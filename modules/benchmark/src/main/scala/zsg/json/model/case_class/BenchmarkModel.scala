@@ -1,6 +1,6 @@
-package zsg.json.model
+package zsg.json.model.case_class
 
-object Model1 {
+object BenchmarkModel {
   val foo = Foo(
     i1 = 404,
     i2 = "init string",
@@ -16,5 +16,5 @@ object Model1 {
     i12 = "2333"
   )
 
-  val bar = Bar(i1 = Model1.foo)
+  val bar = Bar(i1 = BenchmarkModel.foo)
 }

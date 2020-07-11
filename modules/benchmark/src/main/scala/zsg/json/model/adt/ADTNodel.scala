@@ -1,4 +1,4 @@
-package org.scalax.asuna.circe
+package zsg.json.model.adt
 
 object ADTs {
   case class ADT0(i1: String)

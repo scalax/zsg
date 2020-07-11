@@ -1,4 +1,4 @@
-package zsg.json.model
+package zsg.json.model.case_class
 
 case class Foo(
   i1: Int,
