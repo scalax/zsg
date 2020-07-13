@@ -10,7 +10,7 @@ object LargeModelTest extends App {
 
     implicit val largeModel_1_en: CirceVersionCompat.JsonObjectEncoder[LargeModel.LargeModelA] = ACirce.encodeCaseClass
     implicit val largeModel_2_en: CirceVersionCompat.JsonObjectEncoder[LargeModel.LargeModelB] = ACirce.encodeCaseClass
-    val i1                                                                            = LargeModel.largeModelBValue.asJson
+    val i1                                                                                     = LargeModel.largeModelBValue.asJson
 
     zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModelA].instance.i1).infer
     zsg.debug.DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[LargeModel.LargeModelA].instance.i2).infer

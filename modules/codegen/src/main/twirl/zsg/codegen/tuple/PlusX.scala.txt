@@ -1,4 +1,4 @@
-@(tagNum: Int, maxAsunaTupleNum: Int)
+@(tagNum: Int)
 
 package zsg
 

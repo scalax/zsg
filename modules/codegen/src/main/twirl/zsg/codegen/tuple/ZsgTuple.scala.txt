@@ -1,10 +1,10 @@
-@(tagNum: Int)(maxAsunaTupleNum: Int, maxAsunaContext: Int)(isDotty: Boolean)
+@(tagNum: Int)(maxAsunaContext: Int)(isDotty: Boolean)
 
 package zsg
 
 final class ZsgTuple@{tagNum}[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).mkString(" , ")}](@{zsg.codegen.SnippetUtil.II_Snippet(1 to tagNum).mkString(" , ")}) extends TupleTag
 
-object ZsgTuple@{tagNum} {
+@* object ZsgTuple@{tagNum} {
 
     @if(tagNum == 1) {
         @for(typeParamNum <- 1 to maxAsunaContext) {
@@ -104,4 +104,4 @@ object ZsgTuple@{tagNum} {
         }
     }
 
-}
+} *@
