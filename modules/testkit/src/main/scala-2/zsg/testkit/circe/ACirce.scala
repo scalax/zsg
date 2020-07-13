@@ -15,7 +15,6 @@ import zsg.macros.single.{
   ZsgSetterGeneric
 }
 import io.circe.{Decoder, Encoder, JsonObject}
-import zsg.testkit.circe.encoder.debug.{JsonObjectDebugger, JsonObjectDebuggerContext}
 
 object ACirce {
 
@@ -51,8 +50,8 @@ object ACirce {
       generic: ZsgGeneric.Aux[CaseClass, Gen],
       nm: ZsgLabelledTypeGeneric.Aux[CaseClass, Name],
       debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
-      app: ApplicationX4[JsonObjectDebugger, JsonObjectDebuggerContext, Gen, Name, Debug, ColumnInfo]
-    ): ColumnInfo = app.application(JsonObjectDebuggerContext.value).target
+      app: ApplicationX4[encoder.debug.JsonObjectDebugger, encoder.debug.JsonObjectDebuggerContext, Gen, Name, Debug, ColumnInfo]
+    ): ColumnInfo = app.application(encoder.debug.JsonObjectDebuggerContext.value).target
   }
 
   final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] = CirceVersionCompat.JsonObjectEncoder.instance(_ => JsonObject.empty)

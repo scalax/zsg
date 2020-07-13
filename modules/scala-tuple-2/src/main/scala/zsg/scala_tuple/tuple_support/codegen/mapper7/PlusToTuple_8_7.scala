@@ -1,10 +1,6 @@
 package zsg.scala_tuple.tuple_support
 import zsg.Plus7
 import zsg.ZsgTuple0
-import zsg.ZsgTuple1
-import zsg.ZsgTuple2
-import zsg.NodeTuple1
-import zsg.NodeTuple2
 import zsg.BuildContent
 trait PlusToTuple_8_7 {
         final def plus7WithTypeParameter8[

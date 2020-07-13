@@ -1,10 +1,6 @@
 package zsg.scala_tuple.tuple_support
 import zsg.Plus5
 import zsg.ZsgTuple0
-import zsg.ZsgTuple1
-import zsg.ZsgTuple2
-import zsg.NodeTuple1
-import zsg.NodeTuple2
 import zsg.BuildContent
 trait PlusToTuple_13_5 {
         final def plus5WithTypeParameter13[

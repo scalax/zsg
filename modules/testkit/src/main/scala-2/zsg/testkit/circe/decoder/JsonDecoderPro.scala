@@ -2,7 +2,7 @@ package zsg.testkit.circe.decoder
 
 import zsg.macros.single.DefaultValue
 import zsg.macros.ByNameImplicit
-import zsg.{Application4, Context4, PropertyTag}
+import zsg.PropertyTag
 import io.circe._
 
 trait JsonDecoderPro[P, T, II, D] extends Any {
