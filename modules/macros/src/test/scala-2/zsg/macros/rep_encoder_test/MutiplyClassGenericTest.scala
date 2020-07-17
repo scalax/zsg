@@ -55,10 +55,11 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     override val ab: String = "override p"
   }
 
-  val linkModel = link[InstanceModel].encoder(model)
 
   describe("Rep Mapper") {
     it("should map mutiply class") {
+      val linkModel = link[InstanceModel].encoder(model)
+
       linkModel.i3: Long
       linkModel.i1: String
       linkModel.i2: List[String]

@@ -89,7 +89,6 @@ object ModelToString {
 
     def init2[X](implicit n: ApplicationX3[ModelToStringContent, ModelToStringContext, I2, X, L]): Init3[I1, I2, X, L] =
       new Init3(n.application(ModelToStringContext.value))
-
   }
 
   class Init3[I1, I2, X, L](n: ModelToStringContent[I2, X, L]) {
