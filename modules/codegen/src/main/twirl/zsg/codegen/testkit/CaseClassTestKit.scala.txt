@@ -6,19 +6,23 @@ import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
+@CaseClassMember(i: Int) = { i@{i}: @if(i % 6 == 0) { String } @if(i % 6 == 1) { Long } @if(i % 6 == 2) { Int } @if(i % 6 == 3) { Int } @if(i % 6 == 4) { Long } @if(i % 6 == 5) { Long = Long.MaxValue } }
+@CaseClassDefaultValue(i: Int) = { @if(i % 6 == 5) { DefaultValue(value = Option(LongProperty(self.i@{i})), fieldIndex = @{i}) } else { DefaultValue(value = Option.empty, fieldIndex = @i) } }
+@CaseClassFieldValue(i: Int) = { FieldModel(value = @if(i % 6 == 0) { StringProperty(self.i@{i}) } @if(i % 6 == 1) { LongProperty(self.i@{i}) } @if(i % 6 == 2) { IntProperty(self.i@{i}) } @if(i % 6 == 3) { IntProperty(self.i@{i}) } @if(i % 6 == 4) { LongProperty(self.i@{i}) } @if(i % 6 == 5) { LongProperty(self.i@{i}) }, fieldIndex = @{i}, fieldName = "i@{i}", typeName = @if(i % 6 == 0) { "String" } @if(i % 6 == 1) { "Long" } @if(i % 6 == 2) { "Int" } @if(i % 6 == 3) { "Int" } @if(i % 6 == 4) { "Long" } @if(i % 6 == 5) { "Long" }) }
+@CaseClassParmeter(i: Int) = { @if(i % 6 == 0) { @if(i > 1) { , } i@{i} = "i1" } @if(i % 6 == 1) { @if(i > 1) { , } i@{i} = 225523422542L } @if(i % 6 == 2) { @if(i > 1) { , } i@{i} = 88 } @if(i % 6 == 3) { @if(i > 1) { , } i@{i} = 82 } @if(i % 6 == 4) { @if(i > 1) { , } i@{i} = 24564564L } }
+
 class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
-  case class Foo@{maxItem}(@for(i <- 1 to maxItem) { i@{i}: @if(i % 4 == 0) { String } @if(i % 4 == 1) { Long } @if(i % 4 == 2) { Int } @if(i % 4 == 3) { Int } @if(i < maxItem) { , }}) {
+  case class Foo@{maxItem}(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassMember(i = i) }) {
     self =>
-    override def toString: String =
-        @for(i <- 1 to maxItem){s"(@if(i % 4 == 0){String}@if(i % 4 == 1){Long}@if(i % 4 == 2){Int}@if(i % 4 == 3){Int}" + s"(${self.i@{i}}),i@{i})@if(i < maxItem){|}" @if(i < maxItem) { + }}
-    def reverseString: String =
-        @for(i <- maxItem to 1 by - 1){s"(@if(i % 4 == 0){String}@if(i % 4 == 1){Long}@if(i % 4 == 2){Int}@if(i % 4 == 3){Int}" + s"(${self.i@{i}}),i@{i})@if(i > 1){|}" @if(i > 1) { + }}
+    def defaultValues: List[DefaultValue] = List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassDefaultValue(i = i) })
+    def fieldInfo: List[FieldModel] =
+        List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassFieldValue(i = i) })
+    def reverseString: List[FieldModel] =
+        List(@for(i <- maxItem to 1 by - 1) { @CaseClassFieldValue(i = i) @if(i > 1) { , } })
   }
 
-  val fooValue@{maxItem} = Foo@{maxItem}(@for(i <- 1 to maxItem) { i@{i} = @if(i % 4 == 0) { "i@{i}" } @if(i % 4 == 1) { @{i} } @if(i % 4 == 2) { @{i} } @if(i % 4 == 3) { @{i} } @if(i < maxItem) { , }})
-
-  val ap@{maxItem} = PropertyApply[Foo@{maxItem}]
+  val fooValue@{maxItem} = Foo@{maxItem}(@for(i <- 1 to maxItem) {  @CaseClassParmeter(i = i) })
 
   val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder
   val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder

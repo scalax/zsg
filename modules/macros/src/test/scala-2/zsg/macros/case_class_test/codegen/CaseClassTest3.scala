@@ -5,12 +5,22 @@ import org.scalatest.matchers.should.Matchers
 class CaseClassTest3 extends AnyFunSpec with Matchers {
   case class Foo3(i1: Long, i2: Int, i3: Int) {
     self =>
-    override def toString: String =
-      s"(Long" + s"(${self.i1}),i1)|" + s"(Int" + s"(${self.i2}),i2)|" + s"(Int" + s"(${self.i3}),i3)"
-    def reverseString: String =
-      s"(Int" + s"(${self.i3}),i3)|" + s"(Int" + s"(${self.i2}),i2)|" + s"(Long" + s"(${self.i1}),i1)"
+    def defaultValues: List[DefaultValue] =
+      List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2), DefaultValue(value = Option.empty, fieldIndex = 3))
+    def fieldInfo: List[FieldModel] =
+      List(
+        FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"),
+        FieldModel(value = IntProperty(self.i2), fieldIndex = 2, fieldName = "i2", typeName = "Int"),
+        FieldModel(value = IntProperty(self.i3), fieldIndex = 3, fieldName = "i3", typeName = "Int")
+      )
+    def reverseString: List[FieldModel] =
+      List(
+        FieldModel(value = IntProperty(self.i3), fieldIndex = 3, fieldName = "i3", typeName = "Int"),
+        FieldModel(value = IntProperty(self.i2), fieldIndex = 2, fieldName = "i2", typeName = "Int"),
+        FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long")
+      )
   }
-  val fooValue3                                 = Foo3(i1 = 1, i2 = 2, i3 = 3)
+  val fooValue3                                 = Foo3(i1 = 225523422542L, i2 = 88, i3 = 82)
   val ap3                                       = PropertyApply[Foo3]
   val fooEncoder3: ModelToString[Foo3]          = ModelToString.encoder
   val reverseFooEncoder3: ModelToString[Foo3]   = ModelToString.reverseEncoder

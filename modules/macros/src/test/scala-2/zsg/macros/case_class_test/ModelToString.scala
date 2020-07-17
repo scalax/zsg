@@ -4,7 +4,7 @@ import zsg.macros.single.{ColumnName, GenericColumnName, StringName, ZsgGeneric,
 import zsg.{ApplicationX3, Context3, Plus3, PropertyTag, ZsgTuple0}
 
 trait ModelToString[E] {
-  def mToString(i: E): List[(PropertyItem, String)]
+  def mToString(i: E): List[FieldModel]
 }
 
 object ModelToString {
@@ -50,27 +50,30 @@ object ModelToString {
   }
 
   trait ModelToStringContent[I1, M, I2] {
-    def encode(i: M, l: List[(PropertyItem, String)]): List[(PropertyItem, String)]
+    def encode(i: M, l: List[FieldModel], index: Int): (List[FieldModel], Int)
   }
 
   object ModelToStringContent {
     implicit def pp1[G <: StringName](implicit g: GenericColumnName[G]): ModelToStringContent[PropertyTag[String], String, ColumnName[G]] =
       new ModelToStringContent[PropertyTag[String], String, ColumnName[G]] {
-        override def encode(t: String, i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (StringProperty(t), g.value) :: i
+        override def encode(t: String, i: List[FieldModel], index: Int): (List[FieldModel], Int) =
+          (FieldModel(value = StringProperty(t), fieldIndex = index, fieldName = g.value, typeName = "String") :: i, index)
       }
 
     implicit def pp2[G <: StringName](implicit g: GenericColumnName[G]): ModelToStringContent[PropertyTag[Int], Int, ColumnName[G]] =
       new ModelToStringContent[PropertyTag[Int], Int, ColumnName[G]] {
-        override def encode(t: Int, i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (IntProperty(t), g.value) :: i
+        override def encode(t: Int, i: List[FieldModel], index: Int): (List[FieldModel], Int) =
+          (FieldModel(value = IntProperty(t), fieldIndex = index, fieldName = g.value, typeName = "String") :: i, index)
       }
 
     implicit def pp3[G <: StringName](implicit g: GenericColumnName[G]): ModelToStringContent[PropertyTag[Long], Long, ColumnName[G]] =
       new ModelToStringContent[PropertyTag[Long], Long, ColumnName[G]] {
-        override def encode(t: Long, i: List[(PropertyItem, String)]): List[(PropertyItem, String)] = (LongProperty(t), g.value) :: i
+        override def encode(t: Long, i: List[FieldModel], index: Int): (List[FieldModel], Int) =
+          (FieldModel(value = LongProperty(t), fieldIndex = index, fieldName = g.value, typeName = "String") :: i, index)
       }
   }
 
-  class EncoderContent[I1] {}
+  class EncoderContent[I1]
 
   def encoder[I1, I2, X, Y](implicit
     g: ZsgGeneric.Aux[I1, I2],

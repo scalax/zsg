@@ -5,12 +5,13 @@ import org.scalatest.matchers.should.Matchers
 class CaseClassTest1 extends AnyFunSpec with Matchers {
   case class Foo1(i1: Long) {
     self =>
-    override def toString: String =
-      s"(Long" + s"(${self.i1}),i1)"
-    def reverseString: String =
-      s"(Long" + s"(${self.i1}),i1)"
+    def defaultValues: List[DefaultValue] = List(DefaultValue(value = Option.empty, fieldIndex = 1))
+    def fieldInfo: List[FieldModel] =
+      List(FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"))
+    def reverseString: List[FieldModel] =
+      List(FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"))
   }
-  val fooValue1                                 = Foo1(i1 = 1)
+  val fooValue1                                 = Foo1(i1 = 225523422542L)
   val ap1                                       = PropertyApply[Foo1]
   val fooEncoder1: ModelToString[Foo1]          = ModelToString.encoder
   val reverseFooEncoder1: ModelToString[Foo1]   = ModelToString.reverseEncoder

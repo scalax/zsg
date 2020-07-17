@@ -5,12 +5,19 @@ import org.scalatest.matchers.should.Matchers
 class CaseClassTest2 extends AnyFunSpec with Matchers {
   case class Foo2(i1: Long, i2: Int) {
     self =>
-    override def toString: String =
-      s"(Long" + s"(${self.i1}),i1)|" + s"(Int" + s"(${self.i2}),i2)"
-    def reverseString: String =
-      s"(Int" + s"(${self.i2}),i2)|" + s"(Long" + s"(${self.i1}),i1)"
+    def defaultValues: List[DefaultValue] = List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2))
+    def fieldInfo: List[FieldModel] =
+      List(
+        FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"),
+        FieldModel(value = IntProperty(self.i2), fieldIndex = 2, fieldName = "i2", typeName = "Int")
+      )
+    def reverseString: List[FieldModel] =
+      List(
+        FieldModel(value = IntProperty(self.i2), fieldIndex = 2, fieldName = "i2", typeName = "Int"),
+        FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long")
+      )
   }
-  val fooValue2                                 = Foo2(i1 = 1, i2 = 2)
+  val fooValue2                                 = Foo2(i1 = 225523422542L, i2 = 88)
   val ap2                                       = PropertyApply[Foo2]
   val fooEncoder2: ModelToString[Foo2]          = ModelToString.encoder
   val reverseFooEncoder2: ModelToString[Foo2]   = ModelToString.reverseEncoder
