@@ -216,7 +216,7 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
         FieldModel(value = LongProperty(self.i67), fieldIndex = 67, fieldName = "i67", typeName = "Long"),
         FieldModel(value = IntProperty(self.i68), fieldIndex = 68, fieldName = "i68", typeName = "Int")
       )
-    def reverseString: List[FieldModel] =
+    def reverseFieldInfo: List[FieldModel] =
       List(
         FieldModel(value = IntProperty(self.i68), fieldIndex = 68, fieldName = "i68", typeName = "Int"),
         FieldModel(value = LongProperty(self.i67), fieldIndex = 67, fieldName = "i67", typeName = "Long"),
@@ -347,26 +347,29 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     i67 = 225523422542L,
     i68 = 88
   )
-  val ap68                                        = PropertyApply[Foo68]
   val fooEncoder68: ModelToString[Foo68]          = ModelToString.encoder
   val reverseFooEncoder68: ModelToString[Foo68]   = ModelToString.reverseEncoder
   val fooDecoder68: ModelFromString[Foo68]        = ModelFromString.decoder
   val reverseFooDecoder68: ModelFromString[Foo68] = ModelFromString.reverseDecoder
   describe("A case class by 68 length") {
     it("should generic to a encoder") {
-      val str1 = fooEncoder68.mToString(fooValue68).mkString("|")
-      str1 shouldBe fooValue68.toString
+      val str1 = fooEncoder68.mToString(fooValue68)
+      str1 shouldBe fooValue68.fieldInfo
     }
     it("should generic to a reverse encoder") {
-      val str2 = reverseFooEncoder68.mToString(fooValue68).mkString("|")
-      str2 shouldBe fooValue68.reverseString
+      val str2 = reverseFooEncoder68.mToString(fooValue68)
+      str2 shouldBe fooValue68.reverseFieldInfo
+    }
+    it("should generic to it's default value") {
+      val str2 = fooEncoder68.defaultValues
+      str2 shouldBe fooValue68.defaultValues
     }
     it("should generic to a decoder") {
-      val (_, model1) = fooDecoder68.getData(fooValue68.toString)
+      val (_, model1) = fooDecoder68.getData(fooValue68.fieldInfo)
       model1 shouldBe fooValue68
     }
     it("should generic to a reverse decoder") {
-      val (_, model2) = reverseFooDecoder68.getData(fooValue68.reverseString)
+      val (_, model2) = reverseFooDecoder68.getData(fooValue68.reverseFieldInfo)
       model2 shouldBe fooValue68
     }
   }

@@ -18,7 +18,7 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
     def defaultValues: List[DefaultValue] = List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassDefaultValue(i = i) })
     def fieldInfo: List[FieldModel] =
         List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassFieldValue(i = i) })
-    def reverseString: List[FieldModel] =
+    def reverseFieldInfo: List[FieldModel] =
         List(@for(i <- maxItem to 1 by - 1) { @CaseClassFieldValue(i = i) @if(i > 1) { , } })
   }
 
@@ -31,19 +31,23 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
     describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {
-            val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem}).mkString("|")
-            str1 shouldBe fooValue@{maxItem}.toString
+            val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem})
+            str1 shouldBe fooValue@{maxItem}.fieldInfo
         }
         it("should generic to a reverse encoder") {
-            val str2 = reverseFooEncoder@{maxItem}.mToString(fooValue@{maxItem}).mkString("|")
-            str2 shouldBe fooValue@{maxItem}.reverseString
+            val str2 = reverseFooEncoder@{maxItem}.mToString(fooValue@{maxItem})
+            str2 shouldBe fooValue@{maxItem}.reverseFieldInfo
+        }
+        it("should generic to it's default value") {
+            val str2 = fooEncoder@{maxItem}.defaultValues
+            str2 shouldBe fooValue@{maxItem}.defaultValues
         }
         it("should generic to a decoder") {
-            val (_, model1) = fooDecoder@{maxItem}.getData(fooValue@{maxItem}.toString)
+            val (_, model1) = fooDecoder@{maxItem}.getData(fooValue@{maxItem}.fieldInfo)
             model1 shouldBe fooValue@{maxItem}
         }
         it("should generic to a reverse decoder") {
-            val (_, model2) = reverseFooDecoder@{maxItem}.getData(fooValue@{maxItem}.reverseString)
+            val (_, model2) = reverseFooDecoder@{maxItem}.getData(fooValue@{maxItem}.reverseFieldInfo)
             model2 shouldBe fooValue@{maxItem}
         }
     }

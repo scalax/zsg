@@ -2,8 +2,8 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
-class CaseClassTest202 extends AnyFunSpec with Matchers {
-  case class Foo202(
+class CaseClassTest160 extends AnyFunSpec with Matchers {
+  case class Foo160(
     i1: Long,
     i2: Int,
     i3: Int,
@@ -163,49 +163,7 @@ class CaseClassTest202 extends AnyFunSpec with Matchers {
     i157: Long,
     i158: Int,
     i159: Int,
-    i160: Long,
-    i161: Long = Long.MaxValue,
-    i162: String,
-    i163: Long,
-    i164: Int,
-    i165: Int,
-    i166: Long,
-    i167: Long = Long.MaxValue,
-    i168: String,
-    i169: Long,
-    i170: Int,
-    i171: Int,
-    i172: Long,
-    i173: Long = Long.MaxValue,
-    i174: String,
-    i175: Long,
-    i176: Int,
-    i177: Int,
-    i178: Long,
-    i179: Long = Long.MaxValue,
-    i180: String,
-    i181: Long,
-    i182: Int,
-    i183: Int,
-    i184: Long,
-    i185: Long = Long.MaxValue,
-    i186: String,
-    i187: Long,
-    i188: Int,
-    i189: Int,
-    i190: Long,
-    i191: Long = Long.MaxValue,
-    i192: String,
-    i193: Long,
-    i194: Int,
-    i195: Int,
-    i196: Long,
-    i197: Long = Long.MaxValue,
-    i198: String,
-    i199: Long,
-    i200: Int,
-    i201: Int,
-    i202: Long
+    i160: Long
   ) {
     self =>
     def defaultValues: List[DefaultValue] =
@@ -369,49 +327,7 @@ class CaseClassTest202 extends AnyFunSpec with Matchers {
         DefaultValue(value = Option.empty, fieldIndex = 157),
         DefaultValue(value = Option.empty, fieldIndex = 158),
         DefaultValue(value = Option.empty, fieldIndex = 159),
-        DefaultValue(value = Option.empty, fieldIndex = 160),
-        DefaultValue(value = Option(LongProperty(self.i161)), fieldIndex = 161),
-        DefaultValue(value = Option.empty, fieldIndex = 162),
-        DefaultValue(value = Option.empty, fieldIndex = 163),
-        DefaultValue(value = Option.empty, fieldIndex = 164),
-        DefaultValue(value = Option.empty, fieldIndex = 165),
-        DefaultValue(value = Option.empty, fieldIndex = 166),
-        DefaultValue(value = Option(LongProperty(self.i167)), fieldIndex = 167),
-        DefaultValue(value = Option.empty, fieldIndex = 168),
-        DefaultValue(value = Option.empty, fieldIndex = 169),
-        DefaultValue(value = Option.empty, fieldIndex = 170),
-        DefaultValue(value = Option.empty, fieldIndex = 171),
-        DefaultValue(value = Option.empty, fieldIndex = 172),
-        DefaultValue(value = Option(LongProperty(self.i173)), fieldIndex = 173),
-        DefaultValue(value = Option.empty, fieldIndex = 174),
-        DefaultValue(value = Option.empty, fieldIndex = 175),
-        DefaultValue(value = Option.empty, fieldIndex = 176),
-        DefaultValue(value = Option.empty, fieldIndex = 177),
-        DefaultValue(value = Option.empty, fieldIndex = 178),
-        DefaultValue(value = Option(LongProperty(self.i179)), fieldIndex = 179),
-        DefaultValue(value = Option.empty, fieldIndex = 180),
-        DefaultValue(value = Option.empty, fieldIndex = 181),
-        DefaultValue(value = Option.empty, fieldIndex = 182),
-        DefaultValue(value = Option.empty, fieldIndex = 183),
-        DefaultValue(value = Option.empty, fieldIndex = 184),
-        DefaultValue(value = Option(LongProperty(self.i185)), fieldIndex = 185),
-        DefaultValue(value = Option.empty, fieldIndex = 186),
-        DefaultValue(value = Option.empty, fieldIndex = 187),
-        DefaultValue(value = Option.empty, fieldIndex = 188),
-        DefaultValue(value = Option.empty, fieldIndex = 189),
-        DefaultValue(value = Option.empty, fieldIndex = 190),
-        DefaultValue(value = Option(LongProperty(self.i191)), fieldIndex = 191),
-        DefaultValue(value = Option.empty, fieldIndex = 192),
-        DefaultValue(value = Option.empty, fieldIndex = 193),
-        DefaultValue(value = Option.empty, fieldIndex = 194),
-        DefaultValue(value = Option.empty, fieldIndex = 195),
-        DefaultValue(value = Option.empty, fieldIndex = 196),
-        DefaultValue(value = Option(LongProperty(self.i197)), fieldIndex = 197),
-        DefaultValue(value = Option.empty, fieldIndex = 198),
-        DefaultValue(value = Option.empty, fieldIndex = 199),
-        DefaultValue(value = Option.empty, fieldIndex = 200),
-        DefaultValue(value = Option.empty, fieldIndex = 201),
-        DefaultValue(value = Option.empty, fieldIndex = 202)
+        DefaultValue(value = Option.empty, fieldIndex = 160)
       )
     def fieldInfo: List[FieldModel] =
       List(
@@ -574,94 +490,10 @@ class CaseClassTest202 extends AnyFunSpec with Matchers {
         FieldModel(value = LongProperty(self.i157), fieldIndex = 157, fieldName = "i157", typeName = "Long"),
         FieldModel(value = IntProperty(self.i158), fieldIndex = 158, fieldName = "i158", typeName = "Int"),
         FieldModel(value = IntProperty(self.i159), fieldIndex = 159, fieldName = "i159", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i160), fieldIndex = 160, fieldName = "i160", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i161), fieldIndex = 161, fieldName = "i161", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i162), fieldIndex = 162, fieldName = "i162", typeName = "String"),
-        FieldModel(value = LongProperty(self.i163), fieldIndex = 163, fieldName = "i163", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i164), fieldIndex = 164, fieldName = "i164", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i165), fieldIndex = 165, fieldName = "i165", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i166), fieldIndex = 166, fieldName = "i166", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i167), fieldIndex = 167, fieldName = "i167", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i168), fieldIndex = 168, fieldName = "i168", typeName = "String"),
-        FieldModel(value = LongProperty(self.i169), fieldIndex = 169, fieldName = "i169", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i170), fieldIndex = 170, fieldName = "i170", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i171), fieldIndex = 171, fieldName = "i171", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i172), fieldIndex = 172, fieldName = "i172", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i173), fieldIndex = 173, fieldName = "i173", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i174), fieldIndex = 174, fieldName = "i174", typeName = "String"),
-        FieldModel(value = LongProperty(self.i175), fieldIndex = 175, fieldName = "i175", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i176), fieldIndex = 176, fieldName = "i176", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i177), fieldIndex = 177, fieldName = "i177", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i178), fieldIndex = 178, fieldName = "i178", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i179), fieldIndex = 179, fieldName = "i179", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i180), fieldIndex = 180, fieldName = "i180", typeName = "String"),
-        FieldModel(value = LongProperty(self.i181), fieldIndex = 181, fieldName = "i181", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i182), fieldIndex = 182, fieldName = "i182", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i183), fieldIndex = 183, fieldName = "i183", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i184), fieldIndex = 184, fieldName = "i184", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i185), fieldIndex = 185, fieldName = "i185", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i186), fieldIndex = 186, fieldName = "i186", typeName = "String"),
-        FieldModel(value = LongProperty(self.i187), fieldIndex = 187, fieldName = "i187", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i188), fieldIndex = 188, fieldName = "i188", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i189), fieldIndex = 189, fieldName = "i189", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i190), fieldIndex = 190, fieldName = "i190", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i191), fieldIndex = 191, fieldName = "i191", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i192), fieldIndex = 192, fieldName = "i192", typeName = "String"),
-        FieldModel(value = LongProperty(self.i193), fieldIndex = 193, fieldName = "i193", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i194), fieldIndex = 194, fieldName = "i194", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i195), fieldIndex = 195, fieldName = "i195", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i196), fieldIndex = 196, fieldName = "i196", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i197), fieldIndex = 197, fieldName = "i197", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i198), fieldIndex = 198, fieldName = "i198", typeName = "String"),
-        FieldModel(value = LongProperty(self.i199), fieldIndex = 199, fieldName = "i199", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i200), fieldIndex = 200, fieldName = "i200", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i201), fieldIndex = 201, fieldName = "i201", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i202), fieldIndex = 202, fieldName = "i202", typeName = "Long")
+        FieldModel(value = LongProperty(self.i160), fieldIndex = 160, fieldName = "i160", typeName = "Long")
       )
-    def reverseString: List[FieldModel] =
+    def reverseFieldInfo: List[FieldModel] =
       List(
-        FieldModel(value = LongProperty(self.i202), fieldIndex = 202, fieldName = "i202", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i201), fieldIndex = 201, fieldName = "i201", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i200), fieldIndex = 200, fieldName = "i200", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i199), fieldIndex = 199, fieldName = "i199", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i198), fieldIndex = 198, fieldName = "i198", typeName = "String"),
-        FieldModel(value = LongProperty(self.i197), fieldIndex = 197, fieldName = "i197", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i196), fieldIndex = 196, fieldName = "i196", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i195), fieldIndex = 195, fieldName = "i195", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i194), fieldIndex = 194, fieldName = "i194", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i193), fieldIndex = 193, fieldName = "i193", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i192), fieldIndex = 192, fieldName = "i192", typeName = "String"),
-        FieldModel(value = LongProperty(self.i191), fieldIndex = 191, fieldName = "i191", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i190), fieldIndex = 190, fieldName = "i190", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i189), fieldIndex = 189, fieldName = "i189", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i188), fieldIndex = 188, fieldName = "i188", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i187), fieldIndex = 187, fieldName = "i187", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i186), fieldIndex = 186, fieldName = "i186", typeName = "String"),
-        FieldModel(value = LongProperty(self.i185), fieldIndex = 185, fieldName = "i185", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i184), fieldIndex = 184, fieldName = "i184", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i183), fieldIndex = 183, fieldName = "i183", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i182), fieldIndex = 182, fieldName = "i182", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i181), fieldIndex = 181, fieldName = "i181", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i180), fieldIndex = 180, fieldName = "i180", typeName = "String"),
-        FieldModel(value = LongProperty(self.i179), fieldIndex = 179, fieldName = "i179", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i178), fieldIndex = 178, fieldName = "i178", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i177), fieldIndex = 177, fieldName = "i177", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i176), fieldIndex = 176, fieldName = "i176", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i175), fieldIndex = 175, fieldName = "i175", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i174), fieldIndex = 174, fieldName = "i174", typeName = "String"),
-        FieldModel(value = LongProperty(self.i173), fieldIndex = 173, fieldName = "i173", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i172), fieldIndex = 172, fieldName = "i172", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i171), fieldIndex = 171, fieldName = "i171", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i170), fieldIndex = 170, fieldName = "i170", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i169), fieldIndex = 169, fieldName = "i169", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i168), fieldIndex = 168, fieldName = "i168", typeName = "String"),
-        FieldModel(value = LongProperty(self.i167), fieldIndex = 167, fieldName = "i167", typeName = "Long"),
-        FieldModel(value = LongProperty(self.i166), fieldIndex = 166, fieldName = "i166", typeName = "Long"),
-        FieldModel(value = IntProperty(self.i165), fieldIndex = 165, fieldName = "i165", typeName = "Int"),
-        FieldModel(value = IntProperty(self.i164), fieldIndex = 164, fieldName = "i164", typeName = "Int"),
-        FieldModel(value = LongProperty(self.i163), fieldIndex = 163, fieldName = "i163", typeName = "Long"),
-        FieldModel(value = StringProperty(self.i162), fieldIndex = 162, fieldName = "i162", typeName = "String"),
-        FieldModel(value = LongProperty(self.i161), fieldIndex = 161, fieldName = "i161", typeName = "Long"),
         FieldModel(value = LongProperty(self.i160), fieldIndex = 160, fieldName = "i160", typeName = "Long"),
         FieldModel(value = IntProperty(self.i159), fieldIndex = 159, fieldName = "i159", typeName = "Int"),
         FieldModel(value = IntProperty(self.i158), fieldIndex = 158, fieldName = "i158", typeName = "Int"),
@@ -824,7 +656,7 @@ class CaseClassTest202 extends AnyFunSpec with Matchers {
         FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long")
       )
   }
-  val fooValue202 = Foo202(
+  val fooValue160 = Foo160(
     i1 = 225523422542L,
     i2 = 88,
     i3 = 82,
@@ -958,64 +790,32 @@ class CaseClassTest202 extends AnyFunSpec with Matchers {
     i157 = 225523422542L,
     i158 = 88,
     i159 = 82,
-    i160 = 24564564L,
-    i162 = "i1",
-    i163 = 225523422542L,
-    i164 = 88,
-    i165 = 82,
-    i166 = 24564564L,
-    i168 = "i1",
-    i169 = 225523422542L,
-    i170 = 88,
-    i171 = 82,
-    i172 = 24564564L,
-    i174 = "i1",
-    i175 = 225523422542L,
-    i176 = 88,
-    i177 = 82,
-    i178 = 24564564L,
-    i180 = "i1",
-    i181 = 225523422542L,
-    i182 = 88,
-    i183 = 82,
-    i184 = 24564564L,
-    i186 = "i1",
-    i187 = 225523422542L,
-    i188 = 88,
-    i189 = 82,
-    i190 = 24564564L,
-    i192 = "i1",
-    i193 = 225523422542L,
-    i194 = 88,
-    i195 = 82,
-    i196 = 24564564L,
-    i198 = "i1",
-    i199 = 225523422542L,
-    i200 = 88,
-    i201 = 82,
-    i202 = 24564564L
+    i160 = 24564564L
   )
-  val ap202                                         = PropertyApply[Foo202]
-  val fooEncoder202: ModelToString[Foo202]          = ModelToString.encoder
-  val reverseFooEncoder202: ModelToString[Foo202]   = ModelToString.reverseEncoder
-  val fooDecoder202: ModelFromString[Foo202]        = ModelFromString.decoder
-  val reverseFooDecoder202: ModelFromString[Foo202] = ModelFromString.reverseDecoder
-  describe("A case class by 202 length") {
+  val fooEncoder160: ModelToString[Foo160]          = ModelToString.encoder
+  val reverseFooEncoder160: ModelToString[Foo160]   = ModelToString.reverseEncoder
+  val fooDecoder160: ModelFromString[Foo160]        = ModelFromString.decoder
+  val reverseFooDecoder160: ModelFromString[Foo160] = ModelFromString.reverseDecoder
+  describe("A case class by 160 length") {
     it("should generic to a encoder") {
-      val str1 = fooEncoder202.mToString(fooValue202).mkString("|")
-      str1 shouldBe fooValue202.toString
+      val str1 = fooEncoder160.mToString(fooValue160)
+      str1 shouldBe fooValue160.fieldInfo
     }
     it("should generic to a reverse encoder") {
-      val str2 = reverseFooEncoder202.mToString(fooValue202).mkString("|")
-      str2 shouldBe fooValue202.reverseString
+      val str2 = reverseFooEncoder160.mToString(fooValue160)
+      str2 shouldBe fooValue160.reverseFieldInfo
+    }
+    it("should generic to it's default value") {
+      val str2 = fooEncoder160.defaultValues
+      str2 shouldBe fooValue160.defaultValues
     }
     it("should generic to a decoder") {
-      val (_, model1) = fooDecoder202.getData(fooValue202.toString)
-      model1 shouldBe fooValue202
+      val (_, model1) = fooDecoder160.getData(fooValue160.fieldInfo)
+      model1 shouldBe fooValue160
     }
     it("should generic to a reverse decoder") {
-      val (_, model2) = reverseFooDecoder202.getData(fooValue202.reverseString)
-      model2 shouldBe fooValue202
+      val (_, model2) = reverseFooDecoder160.getData(fooValue160.reverseFieldInfo)
+      model2 shouldBe fooValue160
     }
   }
 }
