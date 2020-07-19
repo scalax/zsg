@@ -1,6 +1,6 @@
 package zsg.testkit.circe.test1
 
-object Circe {
+object CirceModel {
 
   import io.circe.syntax._
   import io.circe.generic.auto._

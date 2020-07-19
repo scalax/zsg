@@ -2,7 +2,7 @@ package zsg.testkit.circe.test2
 
 import zsg.testkit.model.{Test01, Test02, Test03, Test05}
 
-object Circe {
+object CirceModel {
 
   import io.circe.generic.auto._
 

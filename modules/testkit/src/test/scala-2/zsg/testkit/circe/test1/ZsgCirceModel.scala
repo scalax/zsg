@@ -5,9 +5,9 @@ import zsg.debug.DebugInstance
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceVersionCompat}
 
-trait Poly1 {
+trait ZsgCirceImplicit1 {
 
-  import Poly2._
+  import ZsgCirceImplicit2._
 
   implicit def test01_en_implicit[T](implicit i: Encoder[T]): CirceVersionCompat.JsonObjectEncoder[Test01[T]] = ACirce.encodeCaseClass
   implicit def test02_en_implicit: CirceVersionCompat.JsonObjectEncoder[Test02]                               = ACirce.encodeCaseClass
@@ -21,11 +21,11 @@ trait Poly1 {
 
 }
 
-object Poly1 extends Poly1
+object ZsgCirceImplicit1 extends ZsgCirceImplicit1
 
-trait Poly2 {
+trait ZsgCirceImplicit2 {
 
-  import Poly1._
+  import ZsgCirceImplicit1._
 
   implicit def test04_en_implicit: CirceVersionCompat.JsonObjectEncoder[Test04] = ACirce.encodeCaseClass
 
@@ -36,13 +36,13 @@ trait Poly2 {
 
 }
 
-object Poly2 extends Poly2
+object ZsgCirceImplicit2 extends ZsgCirceImplicit2
 
-object Asuna {
+object ZsgCirceModel {
 
   import io.circe.syntax._
-  import Poly1._
-  import Poly2._
+  import ZsgCirceImplicit1._
+  import ZsgCirceImplicit2._
 
   val i1Json = Instance.i1.asJson
   val i2Json = Instance.i2.asJson
