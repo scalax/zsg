@@ -32,7 +32,7 @@ trait ZsgCirceImplicit2 {
 
 object ZsgCirceImplicit2 extends ZsgCirceImplicit2
 
-object ZsgModel {
+object ZsgCirceModel {
 
   import ZsgCirceImplicit1._
   import ZsgCirceImplicit2._
