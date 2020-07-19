@@ -2,9 +2,11 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+import scala.collection.compat._
 class CaseClassTest2 extends AnyFunSpec with Matchers {
   case class Foo2(i1: Long, i2: Int) {
     self =>
+    def fieldNames: List[String]          = List("i1", "i2")
     def defaultValues: List[DefaultValue] = List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2))
     def fieldInfo: List[FieldModel] =
       List(
@@ -34,6 +36,14 @@ class CaseClassTest2 extends AnyFunSpec with Matchers {
     it("should generic to it's default value") {
       val str2 = fooEncoder2.defaultValues
       str2 shouldBe fooValue2.defaultValues
+    }
+    it("should generic to it's name list") {
+      val name1 = fooEncoder2.labelledNames
+      name1 shouldBe fooValue2.fieldNames
+    }
+    it("should generic to it's reverse name list") {
+      val name1 = reverseFooEncoder2.labelledNames
+      name1 shouldBe fooValue2.fieldNames.reverse
     }
     it("should generic to a decoder") {
       val (_, model1) = fooDecoder2.getData(fooValue2.fieldInfo)

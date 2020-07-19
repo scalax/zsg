@@ -5,6 +5,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+import scala.collection.compat._
 
 @CaseClassMember(i: Int) = { i@{i}: @if(i % 6 == 0) { String } @if(i % 6 == 1) { Long } @if(i % 6 == 2) { Int } @if(i % 6 == 3) { Int } @if(i % 6 == 4) { Long } @if(i % 6 == 5) { Long = Long.MaxValue } }
 @CaseClassDefaultValue(i: Int) = { @if(i % 6 == 5) { DefaultValue(value = Option(LongProperty(self.i@{i})), fieldIndex = @{i}) } else { DefaultValue(value = Option.empty, fieldIndex = @i) } }
@@ -13,21 +14,22 @@ import org.scalatest.matchers.should.Matchers
 
 class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
 
-  case class Foo@{maxItem}(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassMember(i = i) }) {
-    self =>
-    def defaultValues: List[DefaultValue] = List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassDefaultValue(i = i) })
-    def fieldInfo: List[FieldModel] =
-        List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassFieldValue(i = i) })
-    def reverseFieldInfo: List[FieldModel] =
-        List(@for(i <- maxItem to 1 by - 1) { @CaseClassFieldValue(i = i) @if(i > 1) { , } })
-  }
+    case class Foo@{maxItem}(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassMember(i = i) }) {
+        self =>
+        def fieldNames: List[String] = List(@for(ii <- 1 to maxItem) { @if(ii > 1) { , } "i@{ii}" })
+        def defaultValues: List[DefaultValue] = List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassDefaultValue(i = i) })
+        def fieldInfo: List[FieldModel] =
+            List(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassFieldValue(i = i) })
+        def reverseFieldInfo: List[FieldModel] =
+            List(@for(i <- maxItem to 1 by - 1) { @CaseClassFieldValue(i = i) @if(i > 1) { , } })
+    }
 
-  val fooValue@{maxItem} = Foo@{maxItem}(@for(i <- 1 to maxItem) {  @CaseClassParmeter(i = i) })
+    val fooValue@{maxItem} = Foo@{maxItem}(@for(i <- 1 to maxItem) {  @CaseClassParmeter(i = i) })
 
-  val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder
-  val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder
-  val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
-  val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
+    val fooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.encoder
+    val reverseFooEncoder@{maxItem}: ModelToString[Foo@{maxItem}] = ModelToString.reverseEncoder
+    val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
+    val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
 
     describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {
@@ -41,6 +43,14 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
         it("should generic to it's default value") {
             val str2 = fooEncoder@{maxItem}.defaultValues
             str2 shouldBe fooValue@{maxItem}.defaultValues
+        }
+        it("should generic to it's name list") {
+            val name1 = fooEncoder@{maxItem}.labelledNames
+            name1 shouldBe fooValue@{maxItem}.fieldNames
+        }
+        it("should generic to it's reverse name list") {
+            val name1 = reverseFooEncoder@{maxItem}.labelledNames
+            name1 shouldBe fooValue@{maxItem}.fieldNames.reverse
         }
         it("should generic to a decoder") {
             val (_, model1) = fooDecoder@{maxItem}.getData(fooValue@{maxItem}.fieldInfo)
