@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.BuildContent
-import zsg.macros.single.{PropertyApply, StringName, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
+import zsg.macros.single.{PropertyApply, StringName, ZsgDefaultValueGeneric, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -13,83 +13,70 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = BuildContent.nodeTuple2(
-    BuildContent.nodeTuple2(
-      BuildContent.nodeTuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4))),
-      BuildContent.nodeTuple2(BuildContent.tuple2(ap.to(_.i5), ap.to(_.i6)), BuildContent.tuple2(ap.to(_.i7), ap.to(_.i8)))
-    ),
-    BuildContent.nodeTuple1(BuildContent.tuple2(ap.to(_.i9), ap.to(_.i10)))
-  )
+  val fooPropertyTag =
+    BuildContent.tuple10(
+      ap.to(_.i1),
+      ap.to(_.i2),
+      ap.to(_.i3),
+      ap.to(_.i4),
+      ap.to(_.i5),
+      ap.to(_.i6),
+      ap.to(_.i7),
+      ap.to(_.i8),
+      ap.to(_.i9),
+      ap.to(_.i10)
+    )
 
   val fooGetter = { foo: Foo =>
-    BuildContent.nodeTuple2(
-      BuildContent.nodeTuple2(
-        BuildContent.nodeTuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4)),
-        BuildContent.nodeTuple2(BuildContent.tuple2(foo.i5, foo.i6), BuildContent.tuple2(foo.i7, foo.i8))
-      ),
-      BuildContent.nodeTuple1(
-        BuildContent.tuple2(foo.i9, foo.i10)
-      )
+    BuildContent.tuple10(
+      foo.i1,
+      foo.i2,
+      foo.i3,
+      foo.i4,
+      foo.i5,
+      foo.i6,
+      foo.i7,
+      foo.i8,
+      foo.i9,
+      foo.i10
     )
   }
 
   val fooLabelled = ZsgLabelledTypeGeneric
     .CaseClassColumnName[Foo]
     .propertyName(n =>
-      BuildContent.nodeTuple2(
-        BuildContent.nodeTuple2(
-          BuildContent.nodeTuple2(
-            BuildContent.tuple2(
-              {
-                type i1 = StringName
-                n.name[i1]
-              }, {
-                type i2 = StringName
-                n.name[i2]
-              }
-            ),
-            BuildContent.tuple2(
-              {
-                type i3 = StringName
-                n.name[i3]
-              }, {
-                type i4 = StringName
-                n.name[i4]
-              }
-            )
-          ),
-          BuildContent.nodeTuple2(
-            BuildContent.tuple2(
-              {
-                type i5 = StringName
-                n.name[i5]
-              }, {
-                type i6 = StringName
-                n.name[i6]
-              }
-            ),
-            BuildContent.tuple2(
-              {
-                type i7 = StringName
-                n.name[i7]
-              }, {
-                type i8 = StringName
-                n.name[i8]
-              }
-            )
-          )
-        ),
-        BuildContent.nodeTuple1(
-          BuildContent.tuple2(
-            {
-              type i9 = StringName
-              n.name[i9]
-            }, {
-              type i10 = StringName
-              n.name[i10]
-            }
-          )
-        )
+      BuildContent.tuple10(
+        {
+          type i1 = StringName
+          n.name[i1]
+        }, {
+          type i2 = StringName
+          n.name[i2]
+        }, {
+          type i3 = StringName
+          n.name[i3]
+        }, {
+          type i4 = StringName
+          n.name[i4]
+        }, {
+          type i5 = StringName
+          n.name[i5]
+        }, {
+          type i6 = StringName
+          n.name[i6]
+        }, {
+          type i7 = StringName
+          n.name[i7]
+        }, {
+          type i8 = StringName
+          n.name[i8]
+        }, {
+          type i9 = StringName
+          n.name[i9]
+        }, {
+          type i10 = StringName
+          n.name[i10]
+        }
       )
     )
 
@@ -97,15 +84,23 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
   val fooEncoder2: ModelToString[Foo] = ModelToString.encoder
 
   def prepareResult(foo: Foo) =
-    s"(String(${foo.i1}),i1)|(String(${foo.i2}),i2)|(Int(${foo.i3}),i3)|" +
-      s"(Int(${foo.i4}),i4)|(Long(${foo.i5}),i5)|(String(${foo.i6}),i6)|" +
-      s"(String(${foo.i7}),i7)|(String(${foo.i8}),i8)|(Int(${foo.i9}),i9)|" +
-      s"(Int(${foo.i10}),i10)"
+    List(
+      FieldModel(value = StringProperty(foo.i1), fieldIndex = 1, fieldName = "i1", typeName = "String"),
+      FieldModel(value = StringProperty(foo.i2), fieldIndex = 2, fieldName = "i2", typeName = "String"),
+      FieldModel(value = IntProperty(foo.i3), fieldIndex = 3, fieldName = "i3", typeName = "Int"),
+      FieldModel(value = IntProperty(foo.i4), fieldIndex = 4, fieldName = "i4", typeName = "Int"),
+      FieldModel(value = LongProperty(foo.i5), fieldIndex = 5, fieldName = "i5", typeName = "Long"),
+      FieldModel(value = StringProperty(foo.i6), fieldIndex = 6, fieldName = "i6", typeName = "String"),
+      FieldModel(value = StringProperty(foo.i7), fieldIndex = 7, fieldName = "i7", typeName = "String"),
+      FieldModel(value = StringProperty(foo.i8), fieldIndex = 8, fieldName = "i8", typeName = "String"),
+      FieldModel(value = IntProperty(foo.i9), fieldIndex = 9, fieldName = "i9", typeName = "Int"),
+      FieldModel(value = IntProperty(foo.i10), fieldIndex = 10, fieldName = "i10", typeName = "Int")
+    )
 
   describe("A case class") {
     it("should labelled generic to a encoder") {
-      val str1 = fooEncoder.mToString(fooValue).mkString("|")
-      val str2 = fooEncoder2.mToString(fooValue).mkString("|")
+      val str1 = fooEncoder.mToString(fooValue)
+      val str2 = fooEncoder2.mToString(fooValue)
       str1 shouldBe prepareResult(fooValue)
       str2 shouldBe prepareResult(fooValue)
       str1 shouldBe str2

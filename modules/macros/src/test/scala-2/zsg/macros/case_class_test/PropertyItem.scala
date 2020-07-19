@@ -13,3 +13,7 @@ case class StringProperty(i: String) extends PropertyItem {
 case class LongProperty(i: Long) extends PropertyItem {
   override def toString = s"Long(${i})"
 }
+
+case class DefaultValue(value: Option[PropertyItem], fieldIndex: Int)
+
+case class FieldModel(value: PropertyItem, fieldIndex: Int, fieldName: String, typeName: String)

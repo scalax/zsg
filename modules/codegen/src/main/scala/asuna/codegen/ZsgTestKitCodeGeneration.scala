@@ -21,7 +21,7 @@ object ZsgTestKitCodeGeneration {
     .resolve("codegen")
 
   def main(i: Array[String]): Unit = {
-    for (i <- List(1, 2, 3, 68, 202)) yield {
+    for (i <- List(1, 2, 3, 68, 160)) yield {
       val filePath = root2XDir.resolve("CaseClassTest" + i + ".scala")
       Files.createDirectories(filePath.getParent)
       Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
