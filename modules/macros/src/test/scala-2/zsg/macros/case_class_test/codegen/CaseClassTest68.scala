@@ -2,6 +2,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+import scala.collection.compat._
 class CaseClassTest68 extends AnyFunSpec with Matchers {
   case class Foo68(
     i1: Long,
@@ -74,6 +75,77 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     i68: Int
   ) {
     self =>
+    def fieldNames: List[String] =
+      List(
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8",
+        "i9",
+        "i10",
+        "i11",
+        "i12",
+        "i13",
+        "i14",
+        "i15",
+        "i16",
+        "i17",
+        "i18",
+        "i19",
+        "i20",
+        "i21",
+        "i22",
+        "i23",
+        "i24",
+        "i25",
+        "i26",
+        "i27",
+        "i28",
+        "i29",
+        "i30",
+        "i31",
+        "i32",
+        "i33",
+        "i34",
+        "i35",
+        "i36",
+        "i37",
+        "i38",
+        "i39",
+        "i40",
+        "i41",
+        "i42",
+        "i43",
+        "i44",
+        "i45",
+        "i46",
+        "i47",
+        "i48",
+        "i49",
+        "i50",
+        "i51",
+        "i52",
+        "i53",
+        "i54",
+        "i55",
+        "i56",
+        "i57",
+        "i58",
+        "i59",
+        "i60",
+        "i61",
+        "i62",
+        "i63",
+        "i64",
+        "i65",
+        "i66",
+        "i67",
+        "i68"
+      )
     def defaultValues: List[DefaultValue] =
       List(
         DefaultValue(value = Option.empty, fieldIndex = 1),
@@ -363,6 +435,14 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     it("should generic to it's default value") {
       val str2 = fooEncoder68.defaultValues
       str2 shouldBe fooValue68.defaultValues
+    }
+    it("should generic to it's name list") {
+      val name1 = fooEncoder68.labelledNames
+      name1 shouldBe fooValue68.fieldNames
+    }
+    it("should generic to it's reverse name list") {
+      val name1 = reverseFooEncoder68.labelledNames
+      name1 shouldBe fooValue68.fieldNames.reverse
     }
     it("should generic to a decoder") {
       val (_, model1) = fooDecoder68.getData(fooValue68.fieldInfo)
