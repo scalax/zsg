@@ -3,7 +3,7 @@ package zsg.testkit.circe.test1
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class AsunaWithCirceEncoderTest extends AnyFunSpec with Matchers {
+class ZsgWithCirceEncoderTest extends AnyFunSpec with Matchers {
 
   describe("zsg encoder") {
 

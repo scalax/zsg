@@ -4,7 +4,7 @@ import zsg.testkit.model._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
 
-class AsunaWithDecoderEncoderTest extends AnyFunSpec with Matchers {
+class ZsgWithDecoderEncoderTest extends AnyFunSpec with Matchers {
 
   describe("zsg encoder") {
     it("generic the same json object as circe") {
