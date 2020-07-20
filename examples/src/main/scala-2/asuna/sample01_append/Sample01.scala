@@ -1,7 +1,7 @@
 package zsg.sample01_append
 
 import zsg._
-import zsg.testkit.circe.CirceType
+import zsg.testkit.circe.CirceVersionCompat
 import io.circe._
 import io.circe.syntax._
 
@@ -9,8 +9,8 @@ object Sample01 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
-  val getter = { test04: Test04 => BuildContent.nodeTuple2(BuildContent.tuple2(test04.i1, test04.i2), BuildContent.tuple2(test04.i3, test04.i4)) }
-  val names = BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
+  val getter = { test04: Test04 => BuildContent.tuple4(test04.i1, test04.i2, test04.i3, test04.i4) }
+  val names = BuildContent.tuple4("i1", "i2", "i3", "i4")
 
   trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -52,18 +52,11 @@ object Sample01 {
     }
   }
 
-  val b1: JsonObjectAppender[ZsgTuple2[String, Int], ZsgTuple2[String, String]] =
-    ii.append(a2, a1)(ZsgTuple2.cachePlus2WithTypeParameter1)
-
-  val b2: JsonObjectAppender[ZsgTuple2[Long, Long], ZsgTuple2[String, String]] =
-    ii.append(a4, a3)(ZsgTuple2.cachePlus2WithTypeParameter1)
-
-  val b3: JsonObjectAppender[NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Long, Long]], NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]]] =
-    ii.append(b2, b1)(NodeTuple2.cachePlus2WithTypeParameter1)
+  val b1: JsonObjectAppender[ZTuple4[String, Int, Long, Long], ZTuple4[String, String, String, String]] = ZTuple4.contextNum2(a1, a2, a3, a4).application(ii)
 
   def main(arr: Array[String]): Unit = {
-    implicit val encoderTest04: CirceType.JsonObjectEncoder[Test04] =
-      CirceType.JsonObjectEncoder.instance { o: Test04 => b3.appendField(getter(o), names, JsonObject.empty) }
+    implicit val encoderTest04: CirceVersionCompat.JsonObjectEncoder[Test04] =
+      CirceVersionCompat.JsonObjectEncoder.instance { o: Test04 => b1.appendField(getter(o), names, JsonObject.empty) }
 
     println(Test04("test04", 4, 5, 6).asJson.noSpaces) //{"i1":"test04","i2":4,"i3":5,"i4":6}
   }

@@ -36,10 +36,9 @@ object ZsgDefaultValueGenericCodeGenSample extends App {
   val macroResult = implicitly[
     ZsgDefaultValueGeneric[
       Sample10ModelWithDefaultValue,
-      NodeTuple2[NodeTuple2[
-        NodeTuple2[ZsgTuple2[DefaultValue[String], DefaultValue[Int]], ZsgTuple2[DefaultValue[Int], DefaultValue[Long]]],
-        NodeTuple2[ZsgTuple2[DefaultValue[String], DefaultValue[List[SumII.Aux[Char]]]], ZsgTuple2[DefaultValue[Long], DefaultValue[Option[Long]]]]
-      ], NodeTuple1[NodeTuple1[ZsgTuple2[DefaultValue[List[Long]], DefaultValue[String]]]]]
+      ZTuple10[DefaultValue[String], DefaultValue[Int], DefaultValue[Int], DefaultValue[Long], DefaultValue[String], DefaultValue[List[SumII.Aux[Char]]], DefaultValue[
+        Long
+      ], DefaultValue[Option[Long]], DefaultValue[List[Long]], DefaultValue[String]]
     ]
   ]
 
@@ -48,7 +47,7 @@ object ZsgDefaultValueGenericCodeGenSample extends App {
     genResult
   )*/
 
-  val n: Option[List[SumII.Aux[Char]]] = macroResult.defaultValues.i1.i2.i1.i2.value
+  val n: Option[List[SumII.Aux[Char]]] = macroResult.defaultValues.i6.value
 
   println(n.toList.flatten.mkString("\n"))
 
