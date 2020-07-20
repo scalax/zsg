@@ -4,7 +4,7 @@ import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
 import zsg.{ApplicationX2, Context2, Plus2, ZsgTuple0}
 
 trait ModelFromString[M] {
-  def getData(str: String): (String, M)
+  def getData(str: List[FieldModel]): (List[FieldModel], M)
 }
 
 object ModelFromString {
@@ -14,7 +14,7 @@ object ModelFromString {
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
     ): ModelFromStringImpl[Z1, Z2] =
       new ModelFromStringImpl[Z1, Z2] {
-        override def getData(str: String): (String, Z2) = {
+        override def getData(str: List[FieldModel]): (List[FieldModel], Z2) = {
           val (str1, d1) = y.getData(str)
           val (str2, d2) = x.getData(str1)
           (str2, p.plus2(d2, d1))
@@ -22,7 +22,7 @@ object ModelFromString {
       }
 
     override val start: ModelFromStringImpl[ZsgTuple0, ZsgTuple0] = new ModelFromStringImpl[ZsgTuple0, ZsgTuple0] {
-      override def getData(str: String): (String, ZsgTuple0) = (str, ZsgTuple0.value)
+      override def getData(str: List[FieldModel]): (List[FieldModel], ZsgTuple0) = (str, ZsgTuple0.value)
     }
   }
 
@@ -35,7 +35,7 @@ object ModelFromString {
       p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
     ): ModelFromStringImpl[Z1, Z2] =
       new ModelFromStringImpl[Z1, Z2] {
-        override def getData(str: String): (String, Z2) = {
+        override def getData(str: List[FieldModel]): (List[FieldModel], Z2) = {
           val (str1, d1) = x.getData(str)
           val (str2, d2) = y.getData(str1)
           (str2, p.plus2(d1, d2))
@@ -43,7 +43,7 @@ object ModelFromString {
       }
 
     override val start: ModelFromStringImpl[ZsgTuple0, ZsgTuple0] = new ModelFromStringImpl[ZsgTuple0, ZsgTuple0] {
-      override def getData(str: String): (String, ZsgTuple0) = (str, ZsgTuple0.value)
+      override def getData(str: List[FieldModel]): (List[FieldModel], ZsgTuple0) = (str, ZsgTuple0.value)
     }
   }
 
@@ -57,7 +57,7 @@ object ModelFromString {
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
-      override def getData(str: String): (String, I1) = {
+      override def getData(str: List[FieldModel]): (List[FieldModel], I1) = {
         val (str1, m) = pp.application(DecoderContext.value).getData(str)
         (str1, zsgSetterGeneric.setter(m))
       }
@@ -69,7 +69,7 @@ object ModelFromString {
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
-      override def getData(str: String): (String, I1) = {
+      override def getData(str: List[FieldModel]): (List[FieldModel], I1) = {
         val (str1, m) = pp.application(ReverseDecoderContext.value).getData(str)
         (str1, zsgSetterGeneric.setter(m))
       }

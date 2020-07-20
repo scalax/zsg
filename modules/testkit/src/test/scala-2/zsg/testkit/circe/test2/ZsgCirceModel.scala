@@ -4,20 +4,20 @@ import zsg.testkit.circe.ACirce
 import io.circe.Decoder
 import zsg.testkit.model._
 
-trait Poly1 {
+trait ZsgCirceImplicit1 {
 
-  import Poly2._
+  import ZsgCirceImplicit2._
 
   implicit def test02_de_implicit: Decoder[Test02] = ACirce.decodeCaseClass
   implicit def test04_de_implicit: Decoder[Test04] = ACirce.decodeCaseClass
 
 }
 
-object Poly1 extends Poly1
+object ZsgCirceImplicit1 extends ZsgCirceImplicit1
 
-trait Poly2 {
+trait ZsgCirceImplicit2 {
 
-  import Poly1._
+  import ZsgCirceImplicit1._
 
   implicit def test01_de_implicit[T](implicit de: Decoder[T]): Decoder[Test01[T]] = ACirce.decodeCaseClass
   implicit def test03_de_implicit: Decoder[Test03]                                = ACirce.decodeCaseClass
@@ -30,12 +30,12 @@ trait Poly2 {
 
 }
 
-object Poly2 extends Poly2
+object ZsgCirceImplicit2 extends ZsgCirceImplicit2
 
-object Asuna {
+object ZsgCirceModel {
 
-  import Poly1._
-  import Poly2._
+  import ZsgCirceImplicit1._
+  import ZsgCirceImplicit2._
 
   val i1_1FromJson = Instance.i1.as[Test01[String]]
   val i1_2FromJson = Instance.i1.as[Test01[Int]]

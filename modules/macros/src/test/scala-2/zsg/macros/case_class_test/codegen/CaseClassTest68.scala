@@ -2,6 +2,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers
+import scala.collection.compat._
 class CaseClassTest68 extends AnyFunSpec with Matchers {
   case class Foo68(
     i1: Long,
@@ -74,6 +75,77 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     i68: Int
   ) {
     self =>
+    def fieldNames: List[String] =
+      List(
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8",
+        "i9",
+        "i10",
+        "i11",
+        "i12",
+        "i13",
+        "i14",
+        "i15",
+        "i16",
+        "i17",
+        "i18",
+        "i19",
+        "i20",
+        "i21",
+        "i22",
+        "i23",
+        "i24",
+        "i25",
+        "i26",
+        "i27",
+        "i28",
+        "i29",
+        "i30",
+        "i31",
+        "i32",
+        "i33",
+        "i34",
+        "i35",
+        "i36",
+        "i37",
+        "i38",
+        "i39",
+        "i40",
+        "i41",
+        "i42",
+        "i43",
+        "i44",
+        "i45",
+        "i46",
+        "i47",
+        "i48",
+        "i49",
+        "i50",
+        "i51",
+        "i52",
+        "i53",
+        "i54",
+        "i55",
+        "i56",
+        "i57",
+        "i58",
+        "i59",
+        "i60",
+        "i61",
+        "i62",
+        "i63",
+        "i64",
+        "i65",
+        "i66",
+        "i67",
+        "i68"
+      )
     def defaultValues: List[DefaultValue] =
       List(
         DefaultValue(value = Option.empty, fieldIndex = 1),
@@ -216,7 +288,7 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
         FieldModel(value = LongProperty(self.i67), fieldIndex = 67, fieldName = "i67", typeName = "Long"),
         FieldModel(value = IntProperty(self.i68), fieldIndex = 68, fieldName = "i68", typeName = "Int")
       )
-    def reverseString: List[FieldModel] =
+    def reverseFieldInfo: List[FieldModel] =
       List(
         FieldModel(value = IntProperty(self.i68), fieldIndex = 68, fieldName = "i68", typeName = "Int"),
         FieldModel(value = LongProperty(self.i67), fieldIndex = 67, fieldName = "i67", typeName = "Long"),
@@ -347,26 +419,37 @@ class CaseClassTest68 extends AnyFunSpec with Matchers {
     i67 = 225523422542L,
     i68 = 88
   )
-  val ap68                                        = PropertyApply[Foo68]
   val fooEncoder68: ModelToString[Foo68]          = ModelToString.encoder
   val reverseFooEncoder68: ModelToString[Foo68]   = ModelToString.reverseEncoder
   val fooDecoder68: ModelFromString[Foo68]        = ModelFromString.decoder
   val reverseFooDecoder68: ModelFromString[Foo68] = ModelFromString.reverseDecoder
   describe("A case class by 68 length") {
     it("should generic to a encoder") {
-      val str1 = fooEncoder68.mToString(fooValue68).mkString("|")
-      str1 shouldBe fooValue68.toString
+      val str1 = fooEncoder68.mToString(fooValue68)
+      str1 shouldBe fooValue68.fieldInfo
     }
     it("should generic to a reverse encoder") {
-      val str2 = reverseFooEncoder68.mToString(fooValue68).mkString("|")
-      str2 shouldBe fooValue68.reverseString
+      val str2 = reverseFooEncoder68.mToString(fooValue68)
+      str2 shouldBe fooValue68.reverseFieldInfo
+    }
+    it("should generic to it's default value") {
+      val str2 = fooEncoder68.defaultValues
+      str2 shouldBe fooValue68.defaultValues
+    }
+    it("should generic to it's name list") {
+      val name1 = fooEncoder68.labelledNames
+      name1 shouldBe fooValue68.fieldNames
+    }
+    it("should generic to it's reverse name list") {
+      val name1 = reverseFooEncoder68.labelledNames
+      name1 shouldBe fooValue68.fieldNames.reverse
     }
     it("should generic to a decoder") {
-      val (_, model1) = fooDecoder68.getData(fooValue68.toString)
+      val (_, model1) = fooDecoder68.getData(fooValue68.fieldInfo)
       model1 shouldBe fooValue68
     }
     it("should generic to a reverse decoder") {
-      val (_, model2) = reverseFooDecoder68.getData(fooValue68.reverseString)
+      val (_, model2) = reverseFooDecoder68.getData(fooValue68.reverseFieldInfo)
       model2 shouldBe fooValue68
     }
   }
