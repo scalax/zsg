@@ -20,10 +20,9 @@ object ZsgGenericCodeGenSample {
   }
 
   sameType(
-    implicitly[ZsgGeneric.Aux[Sample10, NodeTuple2[NodeTuple2[
-      NodeTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[Int]], ZsgTuple2[PropertyTag[Int], PropertyTag[Long]]],
-      NodeTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[List[String]]], ZsgTuple2[PropertyTag[Long], PropertyTag[Option[Long]]]]
-    ], NodeTuple1[NodeTuple1[ZsgTuple2[PropertyTag[List[Long]], PropertyTag[String]]]]]]],
+    implicitly[ZsgGeneric.Aux[Sample10, ZTuple10[PropertyTag[String], PropertyTag[Int], PropertyTag[Int], PropertyTag[Long], PropertyTag[String], PropertyTag[
+      List[String]
+    ], PropertyTag[Long], PropertyTag[Option[Long]], PropertyTag[List[Long]], PropertyTag[String]]]],
     genResult
   )
 

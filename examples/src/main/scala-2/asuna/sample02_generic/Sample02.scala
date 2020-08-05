@@ -3,20 +3,20 @@ package zsg.sample02_generic
 import zsg._
 import zsg.macros.ByNameImplicit
 import zsg.macros.single.PropertyApply
-import zsg.testkit.circe.CirceType
+import zsg.testkit.circe.CirceVersionCompat
 import io.circe.{Encoder, JsonObject}
 
 object Sample02 {
 
-  trait AsunaTestGeneric[C] {
+  trait ZsgTestGeneric[C] {
     type Gen
   }
 
-  object AsunaTestGeneric {
-    type Aux[C, G] = AsunaTestGeneric[C] { type Gen = G }
+  object ZsgTestGeneric {
+    type Aux[C, G] = ZsgTestGeneric[C] { type Gen = G }
     class Apply1[C] {
       def generic[G](param: => G): Aux[C, G] =
-        new AsunaTestGeneric[C] {
+        new ZsgTestGeneric[C] {
           override type Gen = G
         }
     }
@@ -29,10 +29,10 @@ object Sample02 {
 
   val ap = PropertyApply[Test04]
 
-  val test04PropertyTag: NodeTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[Int]], ZsgTuple2[PropertyTag[Long], PropertyTag[Long]]] =
-    BuildContent.nodeTuple2(BuildContent.tuple2(ap.to(_.i1), ap.to(_.i2)), BuildContent.tuple2(ap.to(_.i3), ap.to(_.i4)))
+  val test04PropertyTag: ZTuple4[PropertyTag[String], PropertyTag[Int], PropertyTag[Long], PropertyTag[Long]] =
+    BuildContent.tuple4(ap.to(_.i1), ap.to(_.i2), ap.to(_.i3), ap.to(_.i4))
 
-  implicit val test04Generic = AsunaTestGeneric.init[Test04].generic(test04PropertyTag)
+  implicit val test04Generic = ZsgTestGeneric.init[Test04].generic(test04PropertyTag)
 
   trait JsonObjectAppender[IP, T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
@@ -53,16 +53,12 @@ object Sample02 {
     }
   }
 
-  object ii {
-    implicit val value: ii = new ii
+  implicit val test04Getter: Test04 => ZTuple4[String, Int, Long, Long] = (foo: Test04) => {
+    BuildContent.tuple4(foo.i1, foo.i2, foo.i3, foo.i4)
   }
 
-  implicit val test04Getter: Test04 => NodeTuple2[ZsgTuple2[String, Int], ZsgTuple2[Long, Long]] = (foo: Test04) => {
-    BuildContent.nodeTuple2(BuildContent.tuple2(foo.i1, foo.i2), BuildContent.tuple2(foo.i3, foo.i4))
-  }
-
-  implicit val test04Labelled: NodeTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]] =
-    BuildContent.nodeTuple2(BuildContent.tuple2("i1", "i2"), BuildContent.tuple2("i3", "i4"))
+  implicit val test04Labelled: ZTuple4[String, String, String, String] =
+    BuildContent.tuple4("i1", "i2", "i3", "i4")
 
   implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): JsonObjectAppender[PropertyTag[T], T, String] = {
     new JsonObjectAppender[PropertyTag[T], T, String] {
@@ -73,15 +69,13 @@ object Sample02 {
   }
 
   def circeJsonObjectEncoder[H, T, I2, I3](implicit
-    generic: AsunaTestGeneric.Aux[H, T],
-    app: Application3[JsonObjectAppender, ii, T, I2, I3],
+    generic: ZsgTestGeneric.Aux[H, T],
+    app: ApplicationX3[JsonObjectAppender, ii, T, I2, I3],
     i1: H => I2,
     i2: I3
-  ): CirceType.JsonObjectEncoder[H] = {
-    CirceType.JsonObjectEncoder.instance { f: H => app.application.appendField(i1(f), i2, JsonObject.empty) }
-  }
+  ): CirceVersionCompat.JsonObjectEncoder[H] = CirceVersionCompat.JsonObjectEncoder.instance { f: H => app.application(new ii).appendField(i1(f), i2, JsonObject.empty) }
 
-  implicit val test04Encoder: CirceType.JsonObjectEncoder[Test04] = circeJsonObjectEncoder
+  implicit val test04Encoder: CirceVersionCompat.JsonObjectEncoder[Test04] = circeJsonObjectEncoder
 
   def main(i: Array[String]): Unit = {
     println("Test02 Result")
