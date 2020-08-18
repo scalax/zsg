@@ -7,9 +7,9 @@ object ZsgSettings {
   val currentScalaVersion = "2.13.3"
   val scala212Version     = "2.12.11"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "0.25.0-RC2"
+  val dottyVersion        = "0.26.0-RC1"
 
-  val setting1 = scalaVersion := currentScalaVersion
+  val setting1 = scalaVersion := dottyVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
