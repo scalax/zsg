@@ -1,12 +1,12 @@
 *target
-*/.idea
 /.idea
 /logs
 _site
 /sbt
 /sbt.bat
 /sbt-launch.jar
-/null
 /.dotty-ide.json
 /.dotty-ide-artifact
 /credentials
+/.metals
+/.bloop
