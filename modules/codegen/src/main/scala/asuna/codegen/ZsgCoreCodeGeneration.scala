@@ -3,20 +3,19 @@ package zsg.codegen
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
-import scala.io.Source
 import scala.util.Using
 
 object ZsgCoreCodeGeneration {
 
   val root2XDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("zsg").resolve("codegen")
   val build2XDir = root2XDir.resolve("build")
 
   val rootAllDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("zsg").resolve("codegen")
 
   val rootDottyDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("zsg").resolve("codegen")
   val buildDottyDir = rootDottyDir.resolve("build")
 
   def main(arr: Array[String]): Unit = {
