@@ -7,7 +7,7 @@ object ZsgSettings {
   val currentScalaVersion = "2.13.3"
   val scala212Version     = "2.12.11"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "0.25.0-RC2"
+  val dottyVersion        = "0.26.0-RC1"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
@@ -36,13 +36,13 @@ object ZsgSettings {
       List.empty
     }
   }
+  val setting12 = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
   val scalaVersionSettings         = Seq(setting1, setting2)
   val scala_2_12_And_2_13_Settings = Seq(setting1, setting8)
+  val dottyVersionSettings         = Seq(setting1, setting6)
 
-  val commonSettings = Seq(setting3, setting4, setting5, setting7, setting10, setting11)
-
-  val dottyVersionSettings = Seq(setting1, setting6)
+  val commonSettings = Seq(setting3, setting4, setting5, setting7, setting10, setting11, setting12)
 
   val vSetting1             = version := "0.0.4-SNAP2020071301"
   val vSetting2             = organization := "org.scalax"

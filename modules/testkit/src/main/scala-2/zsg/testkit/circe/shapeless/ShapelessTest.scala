@@ -14,8 +14,8 @@ object ShapelessEncoderTest {
     encodeH: ByNameImplicit[Encoder[H]],
     encodeT: CirceVersionCompat.JsonObjectEncoder[T]
   ): CirceVersionCompat.JsonObjectEncoder[FieldType[K, H] :: T] =
-    CirceVersionCompat.JsonObjectEncoder.instance {
-      case h :: t => ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
+    CirceVersionCompat.JsonObjectEncoder.instance { case h :: t =>
+      ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
     }
 
   def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: CirceVersionCompat.JsonObjectEncoder[R]): CirceVersionCompat.JsonObjectEncoder[A] =

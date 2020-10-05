@@ -3,26 +3,35 @@ import sbt.Keys._
 
 object Dependencies {
 
-  def circeDependencies(scalaVersion: String): Seq[ModuleID] = {
-    if (scalaVersion startsWith "2.11.") {
+  def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, 11)) =>
       ("io.circe" %% "circe-derivation" % "0.11.0-M3") :: List(
         "io.circe" %% "circe-core",
         "io.circe" %% "circe-generic",
         "io.circe" %% "circe-parser"
       ).map(_ % "0.11.2")
-    } else if (!(scalaVersion startsWith "0.")) {
+    case Some((2, x)) if x >= 12 =>
       ("io.circe" %% "circe-derivation" % "0.13.0-M4") :: List(
         "io.circe" %% "circe-core",
         "io.circe" %% "circe-generic",
         "io.circe" %% "circe-parser"
       ).map(_ % "0.13.0")
-    } else List.empty
+    case _ =>
+      List.empty
   }
 
+  val zioVersion = "1.0.1"
+  val zioTest = List(
+    "dev.zio" %% "zio-test"          % zioVersion % "test",
+    "dev.zio" %% "zio-test-sbt"      % zioVersion % "test",
+    "dev.zio" %% "zio-test-magnolia" % zioVersion % "test" // optional
+  )
+
+  val slickVersion = "3.3.3"
   val slick = List(
-    "com.typesafe.slick" %% "slick",
-    "com.typesafe.slick" %% "slick-codegen"
-  ).map(_ % "3.3.2")
+    "com.typesafe.slick" %% "slick"         % slickVersion,
+    "com.typesafe.slick" %% "slick-codegen" % slickVersion
+  )
 
   def testDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") junit else List("org.scalatest" %% "scalatest" % "3.1.1") ::: junit
 

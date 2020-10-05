@@ -9,14 +9,14 @@ import scala.util.Using
 object ZsgNewTupleCodeGeneration {
 
   val root2XDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("zsg").resolve("codegen")
   val build2XDir = root2XDir.resolve("build")
 
   val rootAllDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("zsg").resolve("codegen")
 
   val rootDottyDir =
-    Paths.get("./").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("zsg").resolve("codegen")
+    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("zsg").resolve("codegen")
   val buildDottyDir = rootDottyDir.resolve("build")
 
   def main(arrs: Array[String]): Unit = {

@@ -27,10 +27,9 @@ trait TypeHelper {
       .to(List)
       .filter(s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor)
       .map(s => (s, s.name))
-      .collect {
-        case (symbol, TermName(n)) =>
-          val name = n.trim
-          ModelField(name, symbol, TermName(name))
+      .collect { case (symbol, TermName(n)) =>
+        val name = n.trim
+        ModelField(name, symbol, TermName(name))
       }
       .reverse
   }

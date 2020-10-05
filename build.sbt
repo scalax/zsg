@@ -18,7 +18,7 @@ val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregat
 ZsgSettings.scalaVersionSettings
 ZsgSettings.commonSettings
 
-val sfmt = taskKey[Unit]("sfmt")
+/*val sfmt = taskKey[Unit]("sfmt")
 
 sfmt := {
   (core / Test / scalafmt).value
@@ -56,7 +56,9 @@ sfmt := {
   (asuna / Compile / scalafmt).value
   (asuna / Test / scalafmtSbt).value
   (asuna / Compile / scalafmtSbt).value
-}
+}*/
+
+addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 
 val allUnpublish = taskKey[Unit]("allUnpublish")
 
