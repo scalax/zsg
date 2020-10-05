@@ -5,9 +5,9 @@ import bintray.BintrayKeys._
 object ZsgSettings {
 
   val currentScalaVersion = "2.13.3"
-  val scala212Version     = "2.12.11"
+  val scala212Version     = "2.12.12"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "0.26.0-RC1"
+  val dottyVersion        = "0.26.0"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
@@ -19,21 +19,17 @@ object ZsgSettings {
   val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
   val setting9 = scalaVersion := currentScalaVersion
   val setting10 = Compile / unmanagedSourceDirectories ++= {
-    if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
-      List(sourceDirectory.value / "main" / "scala-2")
-    } else if (scalaVersion.value startsWith "0.") {
-      List(sourceDirectory.value / "main" / "scala-3")
-    } else {
-      List.empty
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, _)) => List(sourceDirectory.value / "main" / "scala-2")
+      case Some((0, _)) => List(sourceDirectory.value / "main" / "scala-3")
+      case _            => List.empty
     }
   }
   val setting11 = Test / unmanagedSourceDirectories ++= {
-    if ((scalaVersion.value startsWith "2.11.") || (scalaVersion.value startsWith "2.12.") || (scalaVersion.value startsWith "2.13.")) {
-      List(sourceDirectory.value / "test" / "scala-2")
-    } else if (scalaVersion.value startsWith "0.") {
-      List(sourceDirectory.value / "test" / "scala-3")
-    } else {
-      List.empty
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, _)) => List(sourceDirectory.value / "test" / "scala-2")
+      case Some((0, _)) => List(sourceDirectory.value / "test" / "scala-3")
+      case _            => List.empty
     }
   }
   val setting12 = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
