@@ -63,56 +63,55 @@ trait ScalaTupleImplicits_17_1 {
       Plus1_X16,
       Plus1_X17
     ]
-  ] =
-    new ApplicationX1[
-      F,
-      T,
-      Tuple17[
-        Plus1_X1,
-        Plus1_X2,
-        Plus1_X3,
-        Plus1_X4,
-        Plus1_X5,
-        Plus1_X6,
-        Plus1_X7,
-        Plus1_X8,
-        Plus1_X9,
-        Plus1_X10,
-        Plus1_X11,
-        Plus1_X12,
-        Plus1_X13,
-        Plus1_X14,
-        Plus1_X15,
-        Plus1_X16,
-        Plus1_X17
-      ]
-    ] {
-      override def application(context: T) = {
-        context.append(
-          ApplicationFetchContent
-            .app1[F, T, zsg.ZTuple17[
-              Plus1_X1,
-              Plus1_X2,
-              Plus1_X3,
-              Plus1_X4,
-              Plus1_X5,
-              Plus1_X6,
-              Plus1_X7,
-              Plus1_X8,
-              Plus1_X9,
-              Plus1_X10,
-              Plus1_X11,
-              Plus1_X12,
-              Plus1_X13,
-              Plus1_X14,
-              Plus1_X15,
-              Plus1_X16,
-              Plus1_X17
-            ]]
-            .application(context),
-          context.start
-        )(PlusToTuple1.plus1WithTypeParameter17)
-      }
+  ] = new ApplicationX1[
+    F,
+    T,
+    Tuple17[
+      Plus1_X1,
+      Plus1_X2,
+      Plus1_X3,
+      Plus1_X4,
+      Plus1_X5,
+      Plus1_X6,
+      Plus1_X7,
+      Plus1_X8,
+      Plus1_X9,
+      Plus1_X10,
+      Plus1_X11,
+      Plus1_X12,
+      Plus1_X13,
+      Plus1_X14,
+      Plus1_X15,
+      Plus1_X16,
+      Plus1_X17
+    ]
+  ] {
+    override def application(context: T) = {
+      context.append(
+        ApplicationFetchContent
+          .app1[F, T, zsg.ZTuple17[
+            Plus1_X1,
+            Plus1_X2,
+            Plus1_X3,
+            Plus1_X4,
+            Plus1_X5,
+            Plus1_X6,
+            Plus1_X7,
+            Plus1_X8,
+            Plus1_X9,
+            Plus1_X10,
+            Plus1_X11,
+            Plus1_X12,
+            Plus1_X13,
+            Plus1_X14,
+            Plus1_X15,
+            Plus1_X16,
+            Plus1_X17
+          ]]
+          .application(context),
+        context.start
+      )(PlusToTuple1.plus1WithTypeParameter17)
     }
+  }
 }
 object ScalaTupleImplicits_17_1 extends ScalaTupleImplicits_17_1

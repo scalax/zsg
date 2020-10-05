@@ -33,26 +33,25 @@ trait ScalaTupleImplicits_7_2 {
     T,
     Tuple7[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5, Plus1_X6, Plus1_X7],
     Tuple7[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5, Plus2_X6, Plus2_X7]
-  ] =
-    new ApplicationX2[
-      F,
-      T,
-      Tuple7[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5, Plus1_X6, Plus1_X7],
-      Tuple7[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5, Plus2_X6, Plus2_X7]
-    ] {
-      override def application(context: T) = {
-        context.append(
-          ApplicationFetchContent
-            .app2[
-              F,
-              T,
-              zsg.ZTuple7[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5, Plus1_X6, Plus1_X7],
-              zsg.ZTuple7[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5, Plus2_X6, Plus2_X7]
-            ]
-            .application(context),
-          context.start
-        )(PlusToTuple2.plus2WithTypeParameter7)
-      }
+  ] = new ApplicationX2[
+    F,
+    T,
+    Tuple7[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5, Plus1_X6, Plus1_X7],
+    Tuple7[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5, Plus2_X6, Plus2_X7]
+  ] {
+    override def application(context: T) = {
+      context.append(
+        ApplicationFetchContent
+          .app2[
+            F,
+            T,
+            zsg.ZTuple7[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5, Plus1_X6, Plus1_X7],
+            zsg.ZTuple7[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5, Plus2_X6, Plus2_X7]
+          ]
+          .application(context),
+        context.start
+      )(PlusToTuple2.plus2WithTypeParameter7)
     }
+  }
 }
 object ScalaTupleImplicits_7_2 extends ScalaTupleImplicits_7_2

@@ -72,62 +72,61 @@ trait ScalaTupleImplicits_20_1 {
       Plus1_X19,
       Plus1_X20
     ]
-  ] =
-    new ApplicationX1[
-      F,
-      T,
-      Tuple20[
-        Plus1_X1,
-        Plus1_X2,
-        Plus1_X3,
-        Plus1_X4,
-        Plus1_X5,
-        Plus1_X6,
-        Plus1_X7,
-        Plus1_X8,
-        Plus1_X9,
-        Plus1_X10,
-        Plus1_X11,
-        Plus1_X12,
-        Plus1_X13,
-        Plus1_X14,
-        Plus1_X15,
-        Plus1_X16,
-        Plus1_X17,
-        Plus1_X18,
-        Plus1_X19,
-        Plus1_X20
-      ]
-    ] {
-      override def application(context: T) = {
-        context.append(
-          ApplicationFetchContent
-            .app1[F, T, zsg.ZTuple20[
-              Plus1_X1,
-              Plus1_X2,
-              Plus1_X3,
-              Plus1_X4,
-              Plus1_X5,
-              Plus1_X6,
-              Plus1_X7,
-              Plus1_X8,
-              Plus1_X9,
-              Plus1_X10,
-              Plus1_X11,
-              Plus1_X12,
-              Plus1_X13,
-              Plus1_X14,
-              Plus1_X15,
-              Plus1_X16,
-              Plus1_X17,
-              Plus1_X18,
-              Plus1_X19,
-              Plus1_X20
-            ]]
-            .application(context),
-          context.start
-        )(PlusToTuple1.plus1WithTypeParameter20)
-      }
+  ] = new ApplicationX1[
+    F,
+    T,
+    Tuple20[
+      Plus1_X1,
+      Plus1_X2,
+      Plus1_X3,
+      Plus1_X4,
+      Plus1_X5,
+      Plus1_X6,
+      Plus1_X7,
+      Plus1_X8,
+      Plus1_X9,
+      Plus1_X10,
+      Plus1_X11,
+      Plus1_X12,
+      Plus1_X13,
+      Plus1_X14,
+      Plus1_X15,
+      Plus1_X16,
+      Plus1_X17,
+      Plus1_X18,
+      Plus1_X19,
+      Plus1_X20
+    ]
+  ] {
+    override def application(context: T) = {
+      context.append(
+        ApplicationFetchContent
+          .app1[F, T, zsg.ZTuple20[
+            Plus1_X1,
+            Plus1_X2,
+            Plus1_X3,
+            Plus1_X4,
+            Plus1_X5,
+            Plus1_X6,
+            Plus1_X7,
+            Plus1_X8,
+            Plus1_X9,
+            Plus1_X10,
+            Plus1_X11,
+            Plus1_X12,
+            Plus1_X13,
+            Plus1_X14,
+            Plus1_X15,
+            Plus1_X16,
+            Plus1_X17,
+            Plus1_X18,
+            Plus1_X19,
+            Plus1_X20
+          ]]
+          .application(context),
+        context.start
+      )(PlusToTuple1.plus1WithTypeParameter20)
     }
+  }
 }
 object ScalaTupleImplicits_20_1 extends ScalaTupleImplicits_20_1

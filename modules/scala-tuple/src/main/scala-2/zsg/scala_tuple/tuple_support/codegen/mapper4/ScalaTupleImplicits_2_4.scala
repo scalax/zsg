@@ -24,17 +24,16 @@ trait ScalaTupleImplicits_2_4 {
     Tuple2[Plus2_X1, Plus2_X2],
     Tuple2[Plus3_X1, Plus3_X2],
     Tuple2[Plus4_X1, Plus4_X2]
-  ] =
-    new ApplicationX4[
-      F,
-      T,
-      Tuple2[Plus1_X1, Plus1_X2],
-      Tuple2[Plus2_X1, Plus2_X2],
-      Tuple2[Plus3_X1, Plus3_X2],
-      Tuple2[Plus4_X1, Plus4_X2]
-    ] {
-      override def application(context: T) =
-        context.append(t1, t2)(PlusToTuple4.plus4WithTypeParameter2)
-    }
+  ] = new ApplicationX4[
+    F,
+    T,
+    Tuple2[Plus1_X1, Plus1_X2],
+    Tuple2[Plus2_X1, Plus2_X2],
+    Tuple2[Plus3_X1, Plus3_X2],
+    Tuple2[Plus4_X1, Plus4_X2]
+  ] {
+    override def application(context: T) =
+      context.append(t1, t2)(PlusToTuple4.plus4WithTypeParameter2)
+  }
 }
 object ScalaTupleImplicits_2_4 extends ScalaTupleImplicits_2_4

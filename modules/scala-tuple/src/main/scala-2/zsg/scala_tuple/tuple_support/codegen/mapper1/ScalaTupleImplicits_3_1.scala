@@ -17,16 +17,15 @@ trait ScalaTupleImplicits_3_1 {
     F,
     T,
     Tuple3[Plus1_X1, Plus1_X2, Plus1_X3]
-  ] =
-    new ApplicationX1[
-      F,
-      T,
-      Tuple3[Plus1_X1, Plus1_X2, Plus1_X3]
-    ] {
-      override def application(context: T) = {
-        context
-          .append(ApplicationFetchContent.app1[F, T, zsg.ZTuple3[Plus1_X1, Plus1_X2, Plus1_X3]].application(context), context.start)(PlusToTuple1.plus1WithTypeParameter3)
-      }
+  ] = new ApplicationX1[
+    F,
+    T,
+    Tuple3[Plus1_X1, Plus1_X2, Plus1_X3]
+  ] {
+    override def application(context: T) = {
+      context
+        .append(ApplicationFetchContent.app1[F, T, zsg.ZTuple3[Plus1_X1, Plus1_X2, Plus1_X3]].application(context), context.start)(PlusToTuple1.plus1WithTypeParameter3)
     }
+  }
 }
 object ScalaTupleImplicits_3_1 extends ScalaTupleImplicits_3_1

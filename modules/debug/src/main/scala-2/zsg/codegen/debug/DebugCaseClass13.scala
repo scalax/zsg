@@ -3,31 +3,30 @@ trait DebugCaseClass13Instance {
   implicit def zsgTupleToDebugCaseClass13InstanceImplicit[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]: ZsgTupleToDebugCaseClass[
     zsg.ZTuple13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13],
     DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]
-  ] =
-    new ZsgTupleToDebugCaseClass[
-      zsg.ZTuple13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13],
-      DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]
-    ] {
-      override def tupleToCaseClass(
-        tuple: zsg.ZTuple13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]
-      ): DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13] = {
-        DebugCaseClass13(
-          d1 = tuple.i1,
-          d2 = tuple.i2,
-          d3 = tuple.i3,
-          d4 = tuple.i4,
-          d5 = tuple.i5,
-          d6 = tuple.i6,
-          d7 = tuple.i7,
-          d8 = tuple.i8,
-          d9 = tuple.i9,
-          d10 = tuple.i10,
-          d11 = tuple.i11,
-          d12 = tuple.i12,
-          d13 = tuple.i13
-        )
-      }
+  ] = new ZsgTupleToDebugCaseClass[
+    zsg.ZTuple13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13],
+    DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]
+  ] {
+    override def tupleToCaseClass(
+      tuple: zsg.ZTuple13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13]
+    ): DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13] = {
+      DebugCaseClass13(
+        d1 = tuple.i1,
+        d2 = tuple.i2,
+        d3 = tuple.i3,
+        d4 = tuple.i4,
+        d5 = tuple.i5,
+        d6 = tuple.i6,
+        d7 = tuple.i7,
+        d8 = tuple.i8,
+        d9 = tuple.i9,
+        d10 = tuple.i10,
+        d11 = tuple.i11,
+        d12 = tuple.i12,
+        d13 = tuple.i13
+      )
     }
+  }
 }
 case class DebugCaseClass13[D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13](
   d1: D1,

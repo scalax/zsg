@@ -17,11 +17,10 @@ object PlusInstanceZsgTuple2 {
   ]: PContextNum1[
     Tuple1_Context1,
     I1
-  ] =
-    cacheContextNum1.asInstanceOf[PContextNum1[
-      Tuple1_Context1,
-      I1
-    ]]
+  ] = cacheContextNum1.asInstanceOf[PContextNum1[
+    Tuple1_Context1,
+    I1
+  ]]
   class PContextNum2[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -46,13 +45,12 @@ object PlusInstanceZsgTuple2 {
     Tuple1_Context2,
     I1,
     I2
-  ] =
-    cacheContextNum2.asInstanceOf[PContextNum2[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      I1,
-      I2
-    ]]
+  ] = cacheContextNum2.asInstanceOf[PContextNum2[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    I1,
+    I2
+  ]]
   class PContextNum3[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -96,15 +94,14 @@ object PlusInstanceZsgTuple2 {
     I1,
     I2,
     I3
-  ] =
-    cacheContextNum3.asInstanceOf[PContextNum3[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      I1,
-      I2,
-      I3
-    ]]
+  ] = cacheContextNum3.asInstanceOf[PContextNum3[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    I1,
+    I2,
+    I3
+  ]]
   class PContextNum4[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -149,17 +146,16 @@ object PlusInstanceZsgTuple2 {
     I2,
     I3,
     I4
-  ] =
-    cacheContextNum4.asInstanceOf[PContextNum4[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      Tuple1_Context4,
-      I1,
-      I2,
-      I3,
-      I4
-    ]]
+  ] = cacheContextNum4.asInstanceOf[PContextNum4[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    Tuple1_Context4,
+    I1,
+    I2,
+    I3,
+    I4
+  ]]
   class PContextNum5[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -216,19 +212,18 @@ object PlusInstanceZsgTuple2 {
     I3,
     I4,
     I5
-  ] =
-    cacheContextNum5.asInstanceOf[PContextNum5[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      Tuple1_Context4,
-      Tuple1_Context5,
-      I1,
-      I2,
-      I3,
-      I4,
-      I5
-    ]]
+  ] = cacheContextNum5.asInstanceOf[PContextNum5[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    Tuple1_Context4,
+    Tuple1_Context5,
+    I1,
+    I2,
+    I3,
+    I4,
+    I5
+  ]]
   class PContextNum6[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -295,21 +290,20 @@ object PlusInstanceZsgTuple2 {
     I4,
     I5,
     I6
-  ] =
-    cacheContextNum6.asInstanceOf[PContextNum6[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      Tuple1_Context4,
-      Tuple1_Context5,
-      Tuple1_Context6,
-      I1,
-      I2,
-      I3,
-      I4,
-      I5,
-      I6
-    ]]
+  ] = cacheContextNum6.asInstanceOf[PContextNum6[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    Tuple1_Context4,
+    Tuple1_Context5,
+    Tuple1_Context6,
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6
+  ]]
   class PContextNum7[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -385,23 +379,22 @@ object PlusInstanceZsgTuple2 {
     I5,
     I6,
     I7
-  ] =
-    cacheContextNum7.asInstanceOf[PContextNum7[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      Tuple1_Context4,
-      Tuple1_Context5,
-      Tuple1_Context6,
-      Tuple1_Context7,
-      I1,
-      I2,
-      I3,
-      I4,
-      I5,
-      I6,
-      I7
-    ]]
+  ] = cacheContextNum7.asInstanceOf[PContextNum7[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    Tuple1_Context4,
+    Tuple1_Context5,
+    Tuple1_Context6,
+    Tuple1_Context7,
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7
+  ]]
   class PContextNum8[
     Tuple1_Context1,
     Tuple1_Context2,
@@ -489,23 +482,22 @@ object PlusInstanceZsgTuple2 {
     I6,
     I7,
     I8
-  ] =
-    cacheContextNum8.asInstanceOf[PContextNum8[
-      Tuple1_Context1,
-      Tuple1_Context2,
-      Tuple1_Context3,
-      Tuple1_Context4,
-      Tuple1_Context5,
-      Tuple1_Context6,
-      Tuple1_Context7,
-      Tuple1_Context8,
-      I1,
-      I2,
-      I3,
-      I4,
-      I5,
-      I6,
-      I7,
-      I8
-    ]]
+  ] = cacheContextNum8.asInstanceOf[PContextNum8[
+    Tuple1_Context1,
+    Tuple1_Context2,
+    Tuple1_Context3,
+    Tuple1_Context4,
+    Tuple1_Context5,
+    Tuple1_Context6,
+    Tuple1_Context7,
+    Tuple1_Context8,
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8
+  ]]
 }

@@ -34,25 +34,24 @@ object ZNode4 {
     Tuple2_Context2,
     Tuple3_Context2,
     Tuple4_Context2
-  ]] =
-    new ApplicationX2[
-      F,
-      T,
+  ]] = new ApplicationX2[
+    F,
+    T,
+    ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
+    ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2]
+  ] {
+    override def application(context: T): F[
       ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
       ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2]
-    ] {
-      override def application(context: T): F[
-        ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
-        ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2]
-      ] = {
-        context.append(
-          context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum2), t3.application(context))(
-            PlusInstanceZsgTuple2.contextNum2
-          ),
-          t4.application(context)
-        )(PlusInstanceTuple4.nodeContextNum2)
-      }
+    ] = {
+      context.append(
+        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum2), t3.application(context))(
+          PlusInstanceZsgTuple2.contextNum2
+        ),
+        t4.application(context)
+      )(PlusInstanceTuple4.nodeContextNum2)
     }
+  }
   implicit def contextNum3[F[_, _, _], T <: Context3[
     F
   ], Tuple1_Context1 <: TupleTag, Tuple2_Context1 <: TupleTag, Tuple3_Context1 <: TupleTag, Tuple4_Context1 <: TupleTag, Tuple1_Context2 <: TupleTag, Tuple2_Context2 <: TupleTag, Tuple3_Context2 <: TupleTag, Tuple4_Context2 <: TupleTag, Tuple1_Context3 <: TupleTag, Tuple2_Context3 <: TupleTag, Tuple3_Context3 <: TupleTag, Tuple4_Context3 <: TupleTag](
@@ -66,27 +65,26 @@ object ZNode4 {
     Tuple2_Context2,
     Tuple3_Context2,
     Tuple4_Context2
-  ], ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3]] =
-    new ApplicationX3[
-      F,
-      T,
+  ], ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3]] = new ApplicationX3[
+    F,
+    T,
+    ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
+    ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
+    ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3]
+  ] {
+    override def application(context: T): F[
       ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
       ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
       ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3]
-    ] {
-      override def application(context: T): F[
-        ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
-        ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
-        ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3]
-      ] = {
-        context.append(
-          context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum3), t3.application(context))(
-            PlusInstanceZsgTuple2.contextNum3
-          ),
-          t4.application(context)
-        )(PlusInstanceTuple4.nodeContextNum3)
-      }
+    ] = {
+      context.append(
+        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum3), t3.application(context))(
+          PlusInstanceZsgTuple2.contextNum3
+        ),
+        t4.application(context)
+      )(PlusInstanceTuple4.nodeContextNum3)
     }
+  }
   implicit def contextNum4[F[_, _, _, _], T <: Context4[
     F
   ], Tuple1_Context1 <: TupleTag, Tuple2_Context1 <: TupleTag, Tuple3_Context1 <: TupleTag, Tuple4_Context1 <: TupleTag, Tuple1_Context2 <: TupleTag, Tuple2_Context2 <: TupleTag, Tuple3_Context2 <: TupleTag, Tuple4_Context2 <: TupleTag, Tuple1_Context3 <: TupleTag, Tuple2_Context3 <: TupleTag, Tuple3_Context3 <: TupleTag, Tuple4_Context3 <: TupleTag, Tuple1_Context4 <: TupleTag, Tuple2_Context4 <: TupleTag, Tuple3_Context4 <: TupleTag, Tuple4_Context4 <: TupleTag](
@@ -141,31 +139,30 @@ object ZNode4 {
     Tuple2_Context5,
     Tuple3_Context5,
     Tuple4_Context5
-  ]] =
-    new ApplicationX5[
-      F,
-      T,
+  ]] = new ApplicationX5[
+    F,
+    T,
+    ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
+    ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
+    ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
+    ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
+    ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5]
+  ] {
+    override def application(context: T): F[
       ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
       ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
       ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
       ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
       ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5]
-    ] {
-      override def application(context: T): F[
-        ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
-        ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
-        ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
-        ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
-        ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5]
-      ] = {
-        context.append(
-          context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum5), t3.application(context))(
-            PlusInstanceZsgTuple2.contextNum5
-          ),
-          t4.application(context)
-        )(PlusInstanceTuple4.nodeContextNum5)
-      }
+    ] = {
+      context.append(
+        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum5), t3.application(context))(
+          PlusInstanceZsgTuple2.contextNum5
+        ),
+        t4.application(context)
+      )(PlusInstanceTuple4.nodeContextNum5)
     }
+  }
   implicit def contextNum6[F[_, _, _, _, _, _], T <: Context6[
     F
   ], Tuple1_Context1 <: TupleTag, Tuple2_Context1 <: TupleTag, Tuple3_Context1 <: TupleTag, Tuple4_Context1 <: TupleTag, Tuple1_Context2 <: TupleTag, Tuple2_Context2 <: TupleTag, Tuple3_Context2 <: TupleTag, Tuple4_Context2 <: TupleTag, Tuple1_Context3 <: TupleTag, Tuple2_Context3 <: TupleTag, Tuple3_Context3 <: TupleTag, Tuple4_Context3 <: TupleTag, Tuple1_Context4 <: TupleTag, Tuple2_Context4 <: TupleTag, Tuple3_Context4 <: TupleTag, Tuple4_Context4 <: TupleTag, Tuple1_Context5 <: TupleTag, Tuple2_Context5 <: TupleTag, Tuple3_Context5 <: TupleTag, Tuple4_Context5 <: TupleTag, Tuple1_Context6 <: TupleTag, Tuple2_Context6 <: TupleTag, Tuple3_Context6 <: TupleTag, Tuple4_Context6 <: TupleTag](
@@ -184,33 +181,32 @@ object ZNode4 {
     Tuple2_Context5,
     Tuple3_Context5,
     Tuple4_Context5
-  ], ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6]] =
-    new ApplicationX6[
-      F,
-      T,
+  ], ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6]] = new ApplicationX6[
+    F,
+    T,
+    ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
+    ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
+    ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
+    ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
+    ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5],
+    ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6]
+  ] {
+    override def application(context: T): F[
       ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
       ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
       ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
       ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
       ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5],
       ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6]
-    ] {
-      override def application(context: T): F[
-        ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
-        ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
-        ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
-        ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
-        ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5],
-        ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6]
-      ] = {
-        context.append(
-          context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum6), t3.application(context))(
-            PlusInstanceZsgTuple2.contextNum6
-          ),
-          t4.application(context)
-        )(PlusInstanceTuple4.nodeContextNum6)
-      }
+    ] = {
+      context.append(
+        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum6), t3.application(context))(
+          PlusInstanceZsgTuple2.contextNum6
+        ),
+        t4.application(context)
+      )(PlusInstanceTuple4.nodeContextNum6)
     }
+  }
   implicit def contextNum7[F[_, _, _, _, _, _, _], T <: Context7[
     F
   ], Tuple1_Context1 <: TupleTag, Tuple2_Context1 <: TupleTag, Tuple3_Context1 <: TupleTag, Tuple4_Context1 <: TupleTag, Tuple1_Context2 <: TupleTag, Tuple2_Context2 <: TupleTag, Tuple3_Context2 <: TupleTag, Tuple4_Context2 <: TupleTag, Tuple1_Context3 <: TupleTag, Tuple2_Context3 <: TupleTag, Tuple3_Context3 <: TupleTag, Tuple4_Context3 <: TupleTag, Tuple1_Context4 <: TupleTag, Tuple2_Context4 <: TupleTag, Tuple3_Context4 <: TupleTag, Tuple4_Context4 <: TupleTag, Tuple1_Context5 <: TupleTag, Tuple2_Context5 <: TupleTag, Tuple3_Context5 <: TupleTag, Tuple4_Context5 <: TupleTag, Tuple1_Context6 <: TupleTag, Tuple2_Context6 <: TupleTag, Tuple3_Context6 <: TupleTag, Tuple4_Context6 <: TupleTag, Tuple1_Context7 <: TupleTag, Tuple2_Context7 <: TupleTag, Tuple3_Context7 <: TupleTag, Tuple4_Context7 <: TupleTag](
@@ -281,10 +277,19 @@ object ZNode4 {
     Tuple2_Context8,
     Tuple3_Context8,
     Tuple4_Context8
-  ]] =
-    new ApplicationX8[
-      F,
-      T,
+  ]] = new ApplicationX8[
+    F,
+    T,
+    ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
+    ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
+    ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
+    ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
+    ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5],
+    ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6],
+    ZNode4[Tuple1_Context7, Tuple2_Context7, Tuple3_Context7, Tuple4_Context7],
+    ZNode4[Tuple1_Context8, Tuple2_Context8, Tuple3_Context8, Tuple4_Context8]
+  ] {
+    override def application(context: T): F[
       ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
       ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
       ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
@@ -293,23 +298,13 @@ object ZNode4 {
       ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6],
       ZNode4[Tuple1_Context7, Tuple2_Context7, Tuple3_Context7, Tuple4_Context7],
       ZNode4[Tuple1_Context8, Tuple2_Context8, Tuple3_Context8, Tuple4_Context8]
-    ] {
-      override def application(context: T): F[
-        ZNode4[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1, Tuple4_Context1],
-        ZNode4[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2, Tuple4_Context2],
-        ZNode4[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3, Tuple4_Context3],
-        ZNode4[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4, Tuple4_Context4],
-        ZNode4[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5, Tuple4_Context5],
-        ZNode4[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6, Tuple4_Context6],
-        ZNode4[Tuple1_Context7, Tuple2_Context7, Tuple3_Context7, Tuple4_Context7],
-        ZNode4[Tuple1_Context8, Tuple2_Context8, Tuple3_Context8, Tuple4_Context8]
-      ] = {
-        context.append(
-          context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum8), t3.application(context))(
-            PlusInstanceZsgTuple2.contextNum8
-          ),
-          t4.application(context)
-        )(PlusInstanceTuple4.nodeContextNum8)
-      }
+    ] = {
+      context.append(
+        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum8), t3.application(context))(
+          PlusInstanceZsgTuple2.contextNum8
+        ),
+        t4.application(context)
+      )(PlusInstanceTuple4.nodeContextNum8)
     }
+  }
 }

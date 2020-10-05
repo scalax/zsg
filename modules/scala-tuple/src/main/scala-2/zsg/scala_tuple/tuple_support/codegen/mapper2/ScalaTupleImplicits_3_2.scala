@@ -21,19 +21,18 @@ trait ScalaTupleImplicits_3_2 {
     T,
     Tuple3[Plus1_X1, Plus1_X2, Plus1_X3],
     Tuple3[Plus2_X1, Plus2_X2, Plus2_X3]
-  ] =
-    new ApplicationX2[
-      F,
-      T,
-      Tuple3[Plus1_X1, Plus1_X2, Plus1_X3],
-      Tuple3[Plus2_X1, Plus2_X2, Plus2_X3]
-    ] {
-      override def application(context: T) = {
-        context.append(
-          ApplicationFetchContent.app2[F, T, zsg.ZTuple3[Plus1_X1, Plus1_X2, Plus1_X3], zsg.ZTuple3[Plus2_X1, Plus2_X2, Plus2_X3]].application(context),
-          context.start
-        )(PlusToTuple2.plus2WithTypeParameter3)
-      }
+  ] = new ApplicationX2[
+    F,
+    T,
+    Tuple3[Plus1_X1, Plus1_X2, Plus1_X3],
+    Tuple3[Plus2_X1, Plus2_X2, Plus2_X3]
+  ] {
+    override def application(context: T) = {
+      context.append(
+        ApplicationFetchContent.app2[F, T, zsg.ZTuple3[Plus1_X1, Plus1_X2, Plus1_X3], zsg.ZTuple3[Plus2_X1, Plus2_X2, Plus2_X3]].application(context),
+        context.start
+      )(PlusToTuple2.plus2WithTypeParameter3)
     }
+  }
 }
 object ScalaTupleImplicits_3_2 extends ScalaTupleImplicits_3_2

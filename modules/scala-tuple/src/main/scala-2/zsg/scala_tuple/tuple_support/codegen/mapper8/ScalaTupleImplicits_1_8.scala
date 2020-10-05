@@ -27,21 +27,20 @@ trait ScalaTupleImplicits_1_8 {
     Tuple1[Plus6_X1],
     Tuple1[Plus7_X1],
     Tuple1[Plus8_X1]
-  ] =
-    new ApplicationX8[
-      F,
-      T,
-      Tuple1[Plus1_X1],
-      Tuple1[Plus2_X1],
-      Tuple1[Plus3_X1],
-      Tuple1[Plus4_X1],
-      Tuple1[Plus5_X1],
-      Tuple1[Plus6_X1],
-      Tuple1[Plus7_X1],
-      Tuple1[Plus8_X1]
-    ] {
-      override def application(context: T) =
-        context.append(context.start, t1)(PlusToTuple8.plus8WithTypeParameter1)
-    }
+  ] = new ApplicationX8[
+    F,
+    T,
+    Tuple1[Plus1_X1],
+    Tuple1[Plus2_X1],
+    Tuple1[Plus3_X1],
+    Tuple1[Plus4_X1],
+    Tuple1[Plus5_X1],
+    Tuple1[Plus6_X1],
+    Tuple1[Plus7_X1],
+    Tuple1[Plus8_X1]
+  ] {
+    override def application(context: T) =
+      context.append(context.start, t1)(PlusToTuple8.plus8WithTypeParameter1)
+  }
 }
 object ScalaTupleImplicits_1_8 extends ScalaTupleImplicits_1_8

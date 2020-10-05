@@ -39,29 +39,28 @@ trait ScalaTupleImplicits_5_4 {
     Tuple5[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5],
     Tuple5[Plus3_X1, Plus3_X2, Plus3_X3, Plus3_X4, Plus3_X5],
     Tuple5[Plus4_X1, Plus4_X2, Plus4_X3, Plus4_X4, Plus4_X5]
-  ] =
-    new ApplicationX4[
-      F,
-      T,
-      Tuple5[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5],
-      Tuple5[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5],
-      Tuple5[Plus3_X1, Plus3_X2, Plus3_X3, Plus3_X4, Plus3_X5],
-      Tuple5[Plus4_X1, Plus4_X2, Plus4_X3, Plus4_X4, Plus4_X5]
-    ] {
-      override def application(context: T) = {
-        context.append(
-          ApplicationFetchContent
-            .app4[F, T, zsg.ZTuple5[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5], zsg.ZTuple5[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5], zsg.ZTuple5[
-              Plus3_X1,
-              Plus3_X2,
-              Plus3_X3,
-              Plus3_X4,
-              Plus3_X5
-            ], zsg.ZTuple5[Plus4_X1, Plus4_X2, Plus4_X3, Plus4_X4, Plus4_X5]]
-            .application(context),
-          context.start
-        )(PlusToTuple4.plus4WithTypeParameter5)
-      }
+  ] = new ApplicationX4[
+    F,
+    T,
+    Tuple5[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5],
+    Tuple5[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5],
+    Tuple5[Plus3_X1, Plus3_X2, Plus3_X3, Plus3_X4, Plus3_X5],
+    Tuple5[Plus4_X1, Plus4_X2, Plus4_X3, Plus4_X4, Plus4_X5]
+  ] {
+    override def application(context: T) = {
+      context.append(
+        ApplicationFetchContent
+          .app4[F, T, zsg.ZTuple5[Plus1_X1, Plus1_X2, Plus1_X3, Plus1_X4, Plus1_X5], zsg.ZTuple5[Plus2_X1, Plus2_X2, Plus2_X3, Plus2_X4, Plus2_X5], zsg.ZTuple5[
+            Plus3_X1,
+            Plus3_X2,
+            Plus3_X3,
+            Plus3_X4,
+            Plus3_X5
+          ], zsg.ZTuple5[Plus4_X1, Plus4_X2, Plus4_X3, Plus4_X4, Plus4_X5]]
+          .application(context),
+        context.start
+      )(PlusToTuple4.plus4WithTypeParameter5)
     }
+  }
 }
 object ScalaTupleImplicits_5_4 extends ScalaTupleImplicits_5_4

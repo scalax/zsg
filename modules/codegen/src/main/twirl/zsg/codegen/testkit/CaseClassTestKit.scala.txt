@@ -3,16 +3,20 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.PropertyApply
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 import scala.collection.compat._
+
+import zio._
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
 
 @CaseClassMember(i: Int) = { i@{i}: @if(i % 6 == 0) { String } @if(i % 6 == 1) { Long } @if(i % 6 == 2) { Int } @if(i % 6 == 3) { Int } @if(i % 6 == 4) { Long } @if(i % 6 == 5) { Long = Long.MaxValue } }
 @CaseClassDefaultValue(i: Int) = { @if(i % 6 == 5) { DefaultValue(value = Option(LongProperty(self.i@{i})), fieldIndex = @{i}) } else { DefaultValue(value = Option.empty, fieldIndex = @i) } }
 @CaseClassFieldValue(i: Int) = { FieldModel(value = @if(i % 6 == 0) { StringProperty(self.i@{i}) } @if(i % 6 == 1) { LongProperty(self.i@{i}) } @if(i % 6 == 2) { IntProperty(self.i@{i}) } @if(i % 6 == 3) { IntProperty(self.i@{i}) } @if(i % 6 == 4) { LongProperty(self.i@{i}) } @if(i % 6 == 5) { LongProperty(self.i@{i}) }, fieldIndex = @{i}, fieldName = "i@{i}", typeName = @if(i % 6 == 0) { "String" } @if(i % 6 == 1) { "Long" } @if(i % 6 == 2) { "Int" } @if(i % 6 == 3) { "Int" } @if(i % 6 == 4) { "Long" } @if(i % 6 == 5) { "Long" }) }
 @CaseClassParmeter(i: Int) = { @if(i % 6 == 0) { @if(i > 1) { , } i@{i} = "i1" } @if(i % 6 == 1) { @if(i > 1) { , } i@{i} = 225523422542L } @if(i % 6 == 2) { @if(i > 1) { , } i@{i} = 88 } @if(i % 6 == 3) { @if(i > 1) { , } i@{i} = 82 } @if(i % 6 == 4) { @if(i > 1) { , } i@{i} = 24564564L } }
 
-class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
+object CaseClassTest@{maxItem} extends DefaultRunnableSpec {
 
     case class Foo@{maxItem}(@for(i <- 1 to maxItem) { @if(i > 1) { , } @CaseClassMember(i = i) }) {
         self =>
@@ -31,7 +35,37 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
     val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
     val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
 
-    describe("A case class by @{maxItem} length") {
+    def spec = suite("A case class by @{maxItem} length")(
+        zio.test.test("should generic to a encoder") {
+            val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem})
+            assert(str1)(equalTo(fooValue@{maxItem}.fieldInfo))
+        },
+        zio.test.test("should generic to a reverse encoder") {
+            val str2 = reverseFooEncoder@{maxItem}.mToString(fooValue@{maxItem})
+            assert(str2)(equalTo(fooValue@{maxItem}.reverseFieldInfo))
+        },
+        zio.test.test("should generic to it's default value") {
+            val str2 = fooEncoder@{maxItem}.defaultValues
+            assert(str2)(equalTo(fooValue@{maxItem}.defaultValues))
+        },
+        zio.test.test("should generic to it's name list") {
+            val name1 = fooEncoder@{maxItem}.labelledNames
+            assert(name1)(equalTo(fooValue@{maxItem}.fieldNames))
+        },
+        zio.test.test("should generic to it's reverse name list") {
+            val name1 = reverseFooEncoder@{maxItem}.labelledNames
+            assert(name1)(equalTo(fooValue@{maxItem}.fieldNames.reverse))
+        },
+        zio.test.test("should generic to a decoder") {
+            val (_, model1) = fooDecoder@{maxItem}.getData(fooValue@{maxItem}.fieldInfo)
+            assert(model1)(equalTo(fooValue@{maxItem}))
+        },
+        zio.test.test("should generic to a reverse decoder") {
+            val (_, model2) = reverseFooDecoder@{maxItem}.getData(fooValue@{maxItem}.reverseFieldInfo)
+            assert(model2)(equalTo(fooValue@{maxItem}))
+        }
+    )
+    @* describe("A case class by @{maxItem} length") {
         it("should generic to a encoder") {
             val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem})
             str1 shouldBe fooValue@{maxItem}.fieldInfo
@@ -60,6 +94,6 @@ class CaseClassTest@{maxItem} extends AnyFunSpec with Matchers {
             val (_, model2) = reverseFooDecoder@{maxItem}.getData(fooValue@{maxItem}.reverseFieldInfo)
             model2 shouldBe fooValue@{maxItem}
         }
-    }
+    } *@
 
 }

@@ -100,25 +100,15 @@ object CaseClassLabelledGenericMacroGenTest extends DefaultRunnableSpec {
       FieldModel(value = IntProperty(foo.i10), fieldIndex = 10, fieldName = "i10", typeName = "Int")
     )
 
-  /*describe("A case class") {
-    it("should labelled generic to a encoder") {
-      val str1 = fooEncoder.mToString(fooValue)
-      val str2 = fooEncoder2.mToString(fooValue)
-      str1 shouldBe prepareResult(fooValue)
-      str2 shouldBe prepareResult(fooValue)
-      str1 shouldBe str2
-    }
-  }*/
-
   def spec = suite("A case class")(
-    testM("should labelled generic to a encoder") {
+    zio.test.test("should labelled generic to a encoder") {
       val str1 = fooEncoder.mToString(fooValue)
       val str2 = fooEncoder2.mToString(fooValue)
 
       val assert1 = assert(str1)(equalTo(prepareResult(fooValue)))
       val assert2 = assert(str2)(equalTo(prepareResult(fooValue)))
       val assert3 = assert(str1)(equalTo(str2))
-      ZIO.succeed(assert1 && assert2 && assert3)
+      assert1 && assert2 && assert3
     }
   )
 
