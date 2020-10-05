@@ -3,28 +3,35 @@ import sbt.Keys._
 
 object Dependencies {
 
+  val circe_2_11_version  = "0.11.2"
+  val circe_2_13_version  = "0.13.0"
+  val circe_dotty_version = "0.14.0-M1"
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, 11)) =>
       ("io.circe" %% "circe-derivation" % "0.11.0-M3") :: List(
-        "io.circe" %% "circe-core",
-        "io.circe" %% "circe-generic",
-        "io.circe" %% "circe-parser"
-      ).map(_ % "0.11.2")
+        "io.circe" %% "circe-core"    % circe_2_11_version,
+        "io.circe" %% "circe-generic" % circe_2_11_version,
+        "io.circe" %% "circe-parser"  % circe_2_11_version
+      )
     case Some((2, x)) if x >= 12 =>
       ("io.circe" %% "circe-derivation" % "0.13.0-M4") :: List(
-        "io.circe" %% "circe-core",
-        "io.circe" %% "circe-generic",
-        "io.circe" %% "circe-parser"
-      ).map(_ % "0.13.0")
+        "io.circe" %% "circe-core"    % circe_2_13_version,
+        "io.circe" %% "circe-generic" % circe_2_13_version,
+        "io.circe" %% "circe-parser"  % circe_2_13_version
+      )
     case _ =>
-      List.empty
+      List(
+        "io.circe" %% "circe-core"    % circe_dotty_version,
+        "io.circe" %% "circe-generic" % circe_dotty_version,
+        "io.circe" %% "circe-parser"  % circe_dotty_version
+      )
   }
 
   val zioVersion = "1.0.1"
   val zioTest = List(
-    "dev.zio" %% "zio-test"          % zioVersion % "test",
-    "dev.zio" %% "zio-test-sbt"      % zioVersion % "test",
-    "dev.zio" %% "zio-test-magnolia" % zioVersion % "test" // optional
+    "dev.zio" %% "zio-test"     % zioVersion % "test",
+    "dev.zio" %% "zio-test-sbt" % zioVersion % "test" // ,
+    // "dev.zio" %% "zio-test-magnolia" % zioVersion % "test" // optional
   )
 
   val slickVersion = "3.3.3"
@@ -37,16 +44,17 @@ object Dependencies {
 
   def upickleDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") List.empty else List("com.lihaoyi" %% "upickle" % "0.9.5")
 
-  def scalaReflect(scalaVersion: String) =
-    if ((scalaVersion startsWith "2.11") || (scalaVersion startsWith "2.12") || (scalaVersion startsWith "2.13")) {
-      List("org.scala-lang" % "scala-reflect" % scalaVersion)
-    } else {
-      List.empty
-    }
+  def scalaReflect(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, _)) => List("org.scala-lang" % "scala-reflect" % scalaVersion)
+    case _            => List.empty
+  }
 
   val slf4j = List("org.slf4j" % "slf4j-simple" % "1.7.25")
 
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.4"
+  def scalaCollectionCompat(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, _)) => List("org.scala-lang.modules" %% "scala-collection-compat" % "2.2.0")
+    case _            => List.empty
+  }
 
   val commonsCodec = "commons-codec" % "commons-codec" % "1.14"
 
