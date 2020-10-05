@@ -39,9 +39,8 @@ object ZsgSetterGenericMacroApply {
 
         def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)])(init: Boolean): List[(ModelField, Tree => Tree)] =
           if (initList.size > max || init) {
-            val i = initList.zipWithIndex.map {
-              case ((str, t), index) =>
-                (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % ZsgParameters.maxPropertyNum) + 1).toString)}""") })
+            val i = initList.zipWithIndex.map { case ((str, t), index) =>
+              (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % ZsgParameters.maxPropertyNum) + 1).toString)}""") })
             }
             toItemImpl(max * ZsgParameters.maxPropertyNum, i)(false)
           } else initList
@@ -55,8 +54,8 @@ object ZsgSetterGenericMacroApply {
 
         val casei = toItemImpl(1, preList)(true)
 
-        val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
-          case (item, m) => namedParam(item.fieldTermName, m(Ident(TermName("item"))))
+        val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map { case (item, m) =>
+          namedParam(item.fieldTermName, m(Ident(TermName("item"))))
         }}))"""
 
         c.Expr[ZsgSetterGeneric[H, M]] {

@@ -66,13 +66,12 @@ object ZsgDefaultValueGenericMacroApply {
         val proTypeTag = b.companionSymbol
           .map { s =>
             val apply = s.typeSignature.decl(TermName("apply")).asMethod
-            apply.paramLists.head.map(_.asTerm).zipWithIndex.map {
-              case (p, i) =>
-                if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
-                else {
-                  val getterName = TermName("apply$default$" + (i + 1))
-                  q"""item.to(_.${p.name})(Some(${b.companionTree}.$getterName))"""
-                }
+            apply.paramLists.head.map(_.asTerm).zipWithIndex.map { case (p, i) =>
+              if (!p.isParamWithDefault) q"""item.to(_.${p.name})(Option.empty)"""
+              else {
+                val getterName = TermName("apply$default$" + (i + 1))
+                q"""item.to(_.${p.name})(Some(${b.companionTree}.$getterName))"""
+              }
             }
           }
           .getOrElse(defaultValue)

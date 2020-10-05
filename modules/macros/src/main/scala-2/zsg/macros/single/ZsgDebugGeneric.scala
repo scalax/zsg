@@ -48,9 +48,8 @@ object ZsgDebugGenericMacroApply {
 
         val props = caseClassMembersByType(hType)
 
-        val proTypeTag = props.zipWithIndex.map {
-          case (s, index) =>
-            q"""{
+        val proTypeTag = props.zipWithIndex.map { case (s, index) =>
+          q"""{
               type ${TypeName(index.toString)} = String
               type ${TypeName(s.fieldName)} = String
               item.to[${TypeName(index.toString)}, ${TypeName(s.fieldName)}]

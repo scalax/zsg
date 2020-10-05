@@ -32,10 +32,9 @@ trait PropertyOverrideHelper {
         val newMapList = newRootType.members.toList
           .filter(_.isTerm)
           .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              (proName, s)
+          .collect { case (TermName(n), s) =>
+            val proName = n.trim
+            (proName, s)
           }
           .reverse
           .map { case (r, s) => tablePropsGen(keys ::: r :: Nil, s, s.typeSignatureIn(newRootType), Map.empty) }

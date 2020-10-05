@@ -1,2 +1,2 @@
 package zsg.scala_tuple.tuple_support
-trait HListPlus_11_8 
+trait HListPlus_11_8

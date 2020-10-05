@@ -1,5 +1,6 @@
 package zsg.scala_tuple
-trait ScalaTupleImplicits extends tuple_support.ScalaTupleImplicits_1_1
+trait ScalaTupleImplicits
+    extends tuple_support.ScalaTupleImplicits_1_1
     with tuple_support.ScalaTupleImplicits_2_1
     with tuple_support.ScalaTupleImplicits_3_1
     with tuple_support.ScalaTupleImplicits_4_1

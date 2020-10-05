@@ -1,5 +1,6 @@
 package zsg.scala_tuple.tuple_support
-object PlusToTuple8 extends PlusToTuple_1_8
+object PlusToTuple8
+    extends PlusToTuple_1_8
     with PlusToTuple_2_8
     with PlusToTuple_3_8
     with PlusToTuple_4_8

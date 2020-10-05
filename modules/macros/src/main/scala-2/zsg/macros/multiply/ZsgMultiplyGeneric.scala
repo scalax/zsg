@@ -55,20 +55,18 @@ object ZsgMultiplyGenericApply {
         val props = mType.members.toList
           .filter { s => s.isTerm && s.asTerm.isVal && s.asTerm.isCaseAccessor }
           .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              proName
+          .collect { case (TermName(n), s) =>
+            val proName = n.trim
+            proName
           }
           .reverse
 
         val tableFields = tType.members.toList
           .filter(s => s.isTerm)
           .map(s => (s.name, s))
-          .collect {
-            case (TermName(n), s) =>
-              val proName = n.trim
-              (List(proName), s, s.typeSignatureIn(tType))
+          .collect { case (TermName(n), s) =>
+            val proName = n.trim
+            (List(proName), s, s.typeSignatureIn(tType))
           }
           .reverse
 
