@@ -59,25 +59,8 @@ object MutiplyClassGenericTest extends DefaultRunnableSpec {
     override val ab: String = "override p"
   }
 
-  /*describe("Rep Mapper") {
-    it("should map mutiply class") {
-      val linkModel = link[InstanceModel].encoder(model)
-
-      linkModel.i3: Long
-      linkModel.i1: String
-      linkModel.i2: List[String]
-
-      linkModel.i3 shouldBe mmm.ef
-      linkModel.i3 shouldBe model.obj.mmmab.ef
-      linkModel.i1 shouldBe model.ab
-      linkModel.i2 shouldBe model.obj.cd
-
-      linkModel.i1 should not be model.obj.ab
-    }
-  }*/
-
   def spec = suite("Rep Mapper")(
-    testM("should map mutiply class") {
+    zio.test.test("should map mutiply class") {
       val linkModel = link[InstanceModel].encoder(model)
 
       linkModel.i3: Long
@@ -89,7 +72,7 @@ object MutiplyClassGenericTest extends DefaultRunnableSpec {
       val assert3 = assert(linkModel.i1)(equalTo(model.ab))
       val assert4 = assert(linkModel.i2)(equalTo(model.obj.cd))
       val assert5 = !assert(linkModel.i1: Any)(equalTo(model.obj.ab: Any))
-      ZIO.succeed(assert1 && assert2 && assert3 && assert4 && assert5)
+      assert1 && assert2 && assert3 && assert4 && assert5
     }
   )
 

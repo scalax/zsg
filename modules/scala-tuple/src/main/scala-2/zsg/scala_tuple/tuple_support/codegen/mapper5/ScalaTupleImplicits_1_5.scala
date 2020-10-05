@@ -21,18 +21,17 @@ trait ScalaTupleImplicits_1_5 {
     Tuple1[Plus3_X1],
     Tuple1[Plus4_X1],
     Tuple1[Plus5_X1]
-  ] =
-    new ApplicationX5[
-      F,
-      T,
-      Tuple1[Plus1_X1],
-      Tuple1[Plus2_X1],
-      Tuple1[Plus3_X1],
-      Tuple1[Plus4_X1],
-      Tuple1[Plus5_X1]
-    ] {
-      override def application(context: T) =
-        context.append(context.start, t1)(PlusToTuple5.plus5WithTypeParameter1)
-    }
+  ] = new ApplicationX5[
+    F,
+    T,
+    Tuple1[Plus1_X1],
+    Tuple1[Plus2_X1],
+    Tuple1[Plus3_X1],
+    Tuple1[Plus4_X1],
+    Tuple1[Plus5_X1]
+  ] {
+    override def application(context: T) =
+      context.append(context.start, t1)(PlusToTuple5.plus5WithTypeParameter1)
+  }
 }
 object ScalaTupleImplicits_1_5 extends ScalaTupleImplicits_1_5

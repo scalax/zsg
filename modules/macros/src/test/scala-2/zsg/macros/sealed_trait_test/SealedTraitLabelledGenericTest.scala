@@ -1,11 +1,14 @@
 package zsg.macros.sealed_trait_test
 
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 import zsg.{ApplicationX2, Context2, Plus2, ZsgTuple0}
+import zio._
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
 
-class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
+object SealedTraitLabelledGenericTest extends DefaultRunnableSpec {
 
   sealed trait Abc[T]
 
@@ -60,7 +63,7 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
       override def stt(str: String): List[String] => List[String] = list => str :: list
     }
 
-  describe("A sealed trait") {
+  /*describe("A sealed trait") {
     it("should labelled generic to it's names") {
       val names1: SealedTraitNames[Abc[String]] = sealedNames
       names1.str shouldBe List("AA", "BB", "CC", "dd")
@@ -68,6 +71,17 @@ class SealedTraitLabelledGenericTest extends AnyFunSpec with Matchers {
       names1.str.contains("Ignore") shouldBe false
       names1.str.contains("BB") shouldBe true
     }
-  }
+  }*/
+
+  def spec = suite("A sealed trait")(
+    zio.test.test("should labelled generic to it's names") {
+      val names1: SealedTraitNames[Abc[String]] = sealedNames
+      val assert1                               = assert(names1.str)(equalTo(List("AA", "BB", "CC", "dd")))
+      val assert2                               = assert(new Ignore(ii = 2, iiii = "2").isInstanceOf[Abc[Int]])(equalTo(true))
+      val assert3                               = assert(names1.str.contains("Ignore"))(equalTo(false))
+      val assert4                               = assert(names1.str.contains("BB"))(equalTo(true))
+      assert1 && assert2 && assert3 && assert4
+    }
+  )
 
 }

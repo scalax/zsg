@@ -1,9 +1,12 @@
 package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 import scala.collection.compat._
-class CaseClassTest3 extends AnyFunSpec with Matchers {
+import zio._
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
+object CaseClassTest3 extends DefaultRunnableSpec {
   case class Foo3(i1: Long, i2: Int, i3: Int) {
     self =>
     def fieldNames: List[String] = List("i1", "i2", "i3")
@@ -27,34 +30,34 @@ class CaseClassTest3 extends AnyFunSpec with Matchers {
   val reverseFooEncoder3: ModelToString[Foo3]   = ModelToString.reverseEncoder
   val fooDecoder3: ModelFromString[Foo3]        = ModelFromString.decoder
   val reverseFooDecoder3: ModelFromString[Foo3] = ModelFromString.reverseDecoder
-  describe("A case class by 3 length") {
-    it("should generic to a encoder") {
+  def spec = suite("A case class by 3 length")(
+    zio.test.test("should generic to a encoder") {
       val str1 = fooEncoder3.mToString(fooValue3)
-      str1 shouldBe fooValue3.fieldInfo
-    }
-    it("should generic to a reverse encoder") {
+      assert(str1)(equalTo(fooValue3.fieldInfo))
+    },
+    zio.test.test("should generic to a reverse encoder") {
       val str2 = reverseFooEncoder3.mToString(fooValue3)
-      str2 shouldBe fooValue3.reverseFieldInfo
-    }
-    it("should generic to it's default value") {
+      assert(str2)(equalTo(fooValue3.reverseFieldInfo))
+    },
+    zio.test.test("should generic to it's default value") {
       val str2 = fooEncoder3.defaultValues
-      str2 shouldBe fooValue3.defaultValues
-    }
-    it("should generic to it's name list") {
+      assert(str2)(equalTo(fooValue3.defaultValues))
+    },
+    zio.test.test("should generic to it's name list") {
       val name1 = fooEncoder3.labelledNames
-      name1 shouldBe fooValue3.fieldNames
-    }
-    it("should generic to it's reverse name list") {
+      assert(name1)(equalTo(fooValue3.fieldNames))
+    },
+    zio.test.test("should generic to it's reverse name list") {
       val name1 = reverseFooEncoder3.labelledNames
-      name1 shouldBe fooValue3.fieldNames.reverse
-    }
-    it("should generic to a decoder") {
+      assert(name1)(equalTo(fooValue3.fieldNames.reverse))
+    },
+    zio.test.test("should generic to a decoder") {
       val (_, model1) = fooDecoder3.getData(fooValue3.fieldInfo)
-      model1 shouldBe fooValue3
-    }
-    it("should generic to a reverse decoder") {
+      assert(model1)(equalTo(fooValue3))
+    },
+    zio.test.test("should generic to a reverse decoder") {
       val (_, model2) = reverseFooDecoder3.getData(fooValue3.reverseFieldInfo)
-      model2 shouldBe fooValue3
+      assert(model2)(equalTo(fooValue3))
     }
-  }
+  )
 }

@@ -7,5 +7,4 @@ libraryDependencies ++= Dependencies.scalaCollectionCompat(scalaVersion.value)
 
 libraryDependencies += Dependencies.commonsCodec % Compile
 
-libraryDependencies ++= Dependencies.testDependencies(scalaVersion.value).map(_ % Test)
 libraryDependencies ++= Dependencies.zioTest

@@ -10,16 +10,15 @@ trait PlusToTuple_2_1 {
     Y1,
     X1,
     Tuple2[Y1, X1]
-  ] =
-    new Plus1[
-      Y1,
-      X1,
-      Tuple2[Y1, X1]
-    ] {
-      final override def takeHead1(z: Tuple2[Y1, X1]): Y1    = z._1
-      final override def takeTail1(z: Tuple2[Y1, X1]): X1    = z._2
-      final override def plus1(y: Y1, x: X1): Tuple2[Y1, X1] = Tuple2(y, x)
-    }
+  ] = new Plus1[
+    Y1,
+    X1,
+    Tuple2[Y1, X1]
+  ] {
+    final override def takeHead1(z: Tuple2[Y1, X1]): Y1    = z._1
+    final override def takeTail1(z: Tuple2[Y1, X1]): X1    = z._2
+    final override def plus1(y: Y1, x: X1): Tuple2[Y1, X1] = Tuple2(y, x)
+  }
   final val plus1WithTypeParameter2Strict: Plus1[
     Any,
     Any,
@@ -35,10 +34,9 @@ trait PlusToTuple_2_1 {
     Y1,
     X1,
     Tuple2[Y1, X1]
-  ] =
-    plus1WithTypeParameter2Strict.asInstanceOf[Plus1[
-      Y1,
-      X1,
-      Tuple2[Y1, X1]
-    ]]
+  ] = plus1WithTypeParameter2Strict.asInstanceOf[Plus1[
+    Y1,
+    X1,
+    Tuple2[Y1, X1]
+  ]]
 }

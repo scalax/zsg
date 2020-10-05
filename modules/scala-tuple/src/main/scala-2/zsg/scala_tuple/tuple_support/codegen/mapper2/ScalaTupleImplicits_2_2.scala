@@ -18,15 +18,14 @@ trait ScalaTupleImplicits_2_2 {
     T,
     Tuple2[Plus1_X1, Plus1_X2],
     Tuple2[Plus2_X1, Plus2_X2]
-  ] =
-    new ApplicationX2[
-      F,
-      T,
-      Tuple2[Plus1_X1, Plus1_X2],
-      Tuple2[Plus2_X1, Plus2_X2]
-    ] {
-      override def application(context: T) =
-        context.append(t1, t2)(PlusToTuple2.plus2WithTypeParameter2)
-    }
+  ] = new ApplicationX2[
+    F,
+    T,
+    Tuple2[Plus1_X1, Plus1_X2],
+    Tuple2[Plus2_X1, Plus2_X2]
+  ] {
+    override def application(context: T) =
+      context.append(t1, t2)(PlusToTuple2.plus2WithTypeParameter2)
+  }
 }
 object ScalaTupleImplicits_2_2 extends ScalaTupleImplicits_2_2
