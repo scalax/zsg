@@ -9,7 +9,7 @@ import scala.util.Using
 object ZsgTestKitCodeGeneration {
 
   val root2XDir = Paths
-    .get("./")
+    .get(".")
     .resolve("modules")
     .resolve("macros")
     .resolve("src")
