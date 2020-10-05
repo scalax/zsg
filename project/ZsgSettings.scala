@@ -5,7 +5,7 @@ import bintray.BintrayKeys._
 object ZsgSettings {
 
   val currentScalaVersion = "2.13.3"
-  val scala212Version     = "2.12.11"
+  val scala212Version     = "2.12.12"
   val scala211Version     = "2.11.12"
   val dottyVersion        = "0.26.0"
 
