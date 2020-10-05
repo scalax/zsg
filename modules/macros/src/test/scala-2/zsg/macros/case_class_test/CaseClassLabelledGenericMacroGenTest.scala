@@ -1,11 +1,14 @@
 package zsg.macros.case_class_test
 
 import zsg.BuildContent
-import zsg.macros.single.{PropertyApply, StringName, ZsgDefaultValueGeneric, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
+import zsg.macros.single.{PropertyApply, StringName, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
+import zio._
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
 
-class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
+object CaseClassLabelledGenericMacroGenTest extends DefaultRunnableSpec {
 
   case class Foo(i1: String, i2: String, i3: Int, i4: Int, i5: Long, i6: String, i7: String, i8: String, i9: Int, i10: Int)
 
@@ -97,7 +100,7 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
       FieldModel(value = IntProperty(foo.i10), fieldIndex = 10, fieldName = "i10", typeName = "Int")
     )
 
-  describe("A case class") {
+  /*describe("A case class") {
     it("should labelled generic to a encoder") {
       val str1 = fooEncoder.mToString(fooValue)
       val str2 = fooEncoder2.mToString(fooValue)
@@ -105,6 +108,18 @@ class CaseClassLabelledGenericMacroGenTest extends AnyFunSpec with Matchers {
       str2 shouldBe prepareResult(fooValue)
       str1 shouldBe str2
     }
-  }
+  }*/
+
+  def spec = suite("A case class")(
+    testM("should labelled generic to a encoder") {
+      val str1 = fooEncoder.mToString(fooValue)
+      val str2 = fooEncoder2.mToString(fooValue)
+
+      val assert1 = assert(str1)(equalTo(prepareResult(fooValue)))
+      val assert2 = assert(str2)(equalTo(prepareResult(fooValue)))
+      val assert3 = assert(str1)(equalTo(str2))
+      ZIO.succeed(assert1 && assert2 && assert3)
+    }
+  )
 
 }

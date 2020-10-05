@@ -1,13 +1,17 @@
 package zsg.macros.rep_encoder_test
 
-import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.matchers.should.Matchers
 import zsg.{ApplicationX2, Context2, Plus2, PropertyTag, ZsgTuple0}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
+import zio._
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
+
 import scala.annotation.meta.getter
 
-class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
+object MutiplyClassGenericTest extends DefaultRunnableSpec {
 
   class GetterContext extends Context2[Getter] {
     override def append[X1, X2, Y1, Y2, Z1, Z2](x: Getter[X1, X2], y: Getter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): Getter[Z1, Z2] = new Getter[Z1, Z2]
@@ -55,7 +59,7 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
     override val ab: String = "override p"
   }
 
-  describe("Rep Mapper") {
+  /*describe("Rep Mapper") {
     it("should map mutiply class") {
       val linkModel = link[InstanceModel].encoder(model)
 
@@ -70,6 +74,23 @@ class MutiplyClassGenericTest extends AnyFunSpec with Matchers {
 
       linkModel.i1 should not be model.obj.ab
     }
-  }
+  }*/
+
+  def spec = suite("Rep Mapper")(
+    testM("should map mutiply class") {
+      val linkModel = link[InstanceModel].encoder(model)
+
+      linkModel.i3: Long
+      linkModel.i1: String
+      linkModel.i2: List[String]
+
+      val assert1 = assert(linkModel.i3)(equalTo(mmm.ef))
+      val assert2 = assert(linkModel.i3)(equalTo(model.obj.mmmab.ef))
+      val assert3 = assert(linkModel.i1)(equalTo(model.ab))
+      val assert4 = assert(linkModel.i2)(equalTo(model.obj.cd))
+      val assert5 = !assert(linkModel.i1: Any)(equalTo(model.obj.ab: Any))
+      ZIO.succeed(assert1 && assert2 && assert3 && assert4 && assert5)
+    }
+  )
 
 }
