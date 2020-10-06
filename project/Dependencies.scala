@@ -40,7 +40,7 @@ object Dependencies {
     "com.typesafe.slick" %% "slick-codegen" % slickVersion
   )
 
-  def testDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") junit else List("org.scalatest" %% "scalatest" % "3.1.1") ::: junit
+  // def testDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") junit else List("org.scalatest" %% "scalatest" % "3.1.1") ::: junit
 
   def upickleDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") List.empty else List("com.lihaoyi" %% "upickle" % "0.9.5")
 
