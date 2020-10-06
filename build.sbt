@@ -82,6 +82,7 @@ addCommandAlias(
     ";codegen/runMain zsg.codegen.ZsgDebugCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgNewTupleCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" +
+    ";codegen/runMain zsg.codegen.ZsgRepCodeGeneration" +
     ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration"
 )
 

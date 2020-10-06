@@ -1,0 +1,10 @@
+@(maxContextNum: Int)
+
+package zsg.rep
+
+object RepMeta {
+    @for(i <- 1 to maxContextNum) {
+        def apply[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }](tuple: Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }]): RepMeta@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }] =
+            new impl.RepMetaImpl@{i}(@for(ii <- 1 to i) { @if(ii > 1) { , } rep@{ii} = tuple._@{ii} })
+    }
+}
