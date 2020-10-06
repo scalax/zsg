@@ -1,17 +1,20 @@
 import scala.util.Try
 
-val core   = project in file(".") / "modules" / "core"
-val debug  = (project in file(".") / "modules" / "debug").dependsOn(core)
-val macros = (project in file(".") / "modules" / "macros").dependsOn(core)
+val baseDir    = file(".")
+val modulesDir = baseDir / "modules"
 
-val scalaTuple1 = (project in file(".") / "modules" / "scala-tuple-1").dependsOn(core)
-val scalaTuple2 = (project in file(".") / "modules" / "scala-tuple-2").dependsOn(scalaTuple1)
-val scalaTuple  = (project in file(".") / "modules" / "scala-tuple").dependsOn(scalaTuple2)
+val core   = project in modulesDir / "core"
+val debug  = (project in modulesDir / "debug").dependsOn(core)
+val macros = (project in modulesDir / "macros").dependsOn(core)
 
-val codegen   = project in file(".") / "modules" / "codegen"
-val testkit   = (project in file(".") / "modules" / "testkit").dependsOn(macros, debug)
-val examples  = (project in file(".") / "examples").dependsOn(testkit)
-val benchmark = (project in file(".") / "modules" / "benchmark").dependsOn(testkit)
+val scalaTuple1 = (project in modulesDir / "scala-tuple-1").dependsOn(core)
+val scalaTuple2 = (project in modulesDir / "scala-tuple-2").dependsOn(scalaTuple1)
+val scalaTuple  = (project in modulesDir / "scala-tuple").dependsOn(scalaTuple2)
+
+val codegen   = project in modulesDir / "codegen"
+val testkit   = (project in modulesDir / "testkit").dependsOn(macros, debug)
+val examples  = (project in baseDir / "examples").dependsOn(testkit)
+val benchmark = (project in modulesDir / "benchmark").dependsOn(testkit)
 
 val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, debug, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
