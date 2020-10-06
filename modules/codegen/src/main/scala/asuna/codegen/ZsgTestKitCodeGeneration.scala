@@ -3,22 +3,11 @@ package zsg.codegen
 import java.io.PrintWriter
 import java.nio.file.{Files, Paths}
 
-import scala.io.Source
 import scala.util.Using
 
 object ZsgTestKitCodeGeneration {
 
-  val root2XDir = Paths
-    .get(".")
-    .resolve("modules")
-    .resolve("macros")
-    .resolve("src")
-    .resolve("test")
-    .resolve("scala-2")
-    .resolve("zsg")
-    .resolve("macros")
-    .resolve("case_class_test")
-    .resolve("codegen")
+  val root2XDir = Paths.get(".", "modules", "macros", "src", "test", "scala-2", "zsg", "macros", "case_class_test", "codegen")
 
   def main(i: Array[String]): Unit = {
     for (i <- List(1, 2, 3, 68, 160)) yield {
@@ -30,4 +19,5 @@ object ZsgTestKitCodeGeneration {
       }
     }
   }
+
 }

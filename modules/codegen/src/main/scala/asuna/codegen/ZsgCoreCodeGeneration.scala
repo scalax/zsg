@@ -7,30 +7,27 @@ import scala.util.Using
 
 object ZsgCoreCodeGeneration {
 
-  val root2XDir =
-    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-2").resolve("zsg").resolve("codegen")
+  val root2XDir  = Paths.get(".", "modules", "core", "src", "main", "scala-2", "zsg", "codegen")
   val build2XDir = root2XDir.resolve("build")
 
-  val rootAllDir =
-    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala").resolve("zsg").resolve("codegen")
+  val rootAllDir = Paths.get(".", "modules", "core", "src", "main", "scala", "zsg", "codegen")
 
-  val rootDottyDir =
-    Paths.get(".").resolve("modules").resolve("core").resolve("src").resolve("main").resolve("scala-3").resolve("zsg").resolve("codegen")
+  val rootDottyDir  = Paths.get(".", "modules", "core", "src", "main", "scala-3", "zsg", "codegen")
   val buildDottyDir = rootDottyDir.resolve("build")
 
   def main(arr: Array[String]): Unit = {
     for (i <- 1 to ZsgParameters.maxContextNum) yield {
-      val filePath = rootAllDir.resolve("mapper" + i).resolve("Plus" + i + ".scala")
+      val filePath = rootAllDir.resolve(Paths.get("mapper" + i, "Plus" + i + ".scala"))
       Files.createDirectories(filePath.getParent)
-      val writer       = new PrintWriter(filePath.toFile, "utf-8")
-      val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.PlusX(tagNum = i).body)
-      writer.println(linerContent)
-      writer.close()
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.PlusX(tagNum = i).body)
+        writer.println(linerContent)
+      }
     }
 
     {
       for (i <- 1 to ZsgParameters.maxContextNum) yield {
-        val filePath = root2XDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
+        val filePath = root2XDir.resolve(Paths.get("mapper" + i, "Context" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
           val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i)(isDotty = false).body)
@@ -38,12 +35,12 @@ object ZsgCoreCodeGeneration {
         }
       }
       for (i <- 1 to ZsgParameters.maxContextNum) yield {
-        val filePath = rootDottyDir.resolve("mapper" + i).resolve("Context" + i + ".scala")
+        val filePath = rootDottyDir.resolve(Paths.get("mapper" + i, "Context" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
-        val writer       = new PrintWriter(filePath.toFile, "utf-8")
-        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i)(isDotty = true).body)
-        writer.println(linerContent)
-        writer.close()
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ContextX(tagNum = i)(isDotty = true).body)
+          writer.println(linerContent)
+        }
       }
     }
 
@@ -116,18 +113,18 @@ object ZsgCoreCodeGeneration {
       {
         val filePath = build2XDir.resolve("BuildContent.scala")
         Files.createDirectories(filePath.getParent)
-        val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = false).body)
-        writer.println(content)
-        writer.close()
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = false).body)
+          writer.println(content)
+        }
       }
       {
         val filePath = buildDottyDir.resolve("BuildContent.scala")
         Files.createDirectories(filePath.getParent)
-        val writer  = new PrintWriter(filePath.toFile, "utf-8")
-        val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = true).body)
-        writer.println(content)
-        writer.close()
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val content = StringUtil.trimLines(zsg.codegen.tuple.build.txt.BuildContent(maxItem = ZsgParameters.maxZTupleNum)(isDotty = true).body)
+          writer.println(content)
+        }
       }
     }
 
