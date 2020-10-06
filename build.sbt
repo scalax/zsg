@@ -1,9 +1,10 @@
 import scala.util.Try
 
-val baseDir    = file(".")
-val modulesDir = baseDir / "modules"
+val rootDir    = file(".")
+val modulesDir = rootDir / "modules"
 
 val core   = project in modulesDir / "core"
+val rep    = project in modulesDir / "rep"
 val debug  = (project in modulesDir / "debug").dependsOn(core)
 val macros = (project in modulesDir / "macros").dependsOn(core)
 
@@ -13,10 +14,10 @@ val scalaTuple  = (project in modulesDir / "scala-tuple").dependsOn(scalaTuple2)
 
 val codegen   = project in modulesDir / "codegen"
 val testkit   = (project in modulesDir / "testkit").dependsOn(macros, debug)
-val examples  = (project in baseDir / "examples").dependsOn(testkit)
+val examples  = (project in rootDir / "examples").dependsOn(testkit)
 val benchmark = (project in modulesDir / "benchmark").dependsOn(testkit)
 
-val asuna = (project in file(".")).dependsOn(core, scalaTuple, testkit).aggregate(core, macros, debug, scalaTuple, scalaTuple1, scalaTuple2, testkit)
+val asuna = (project in rootDir).dependsOn(core, scalaTuple, testkit).aggregate(core, rep, macros, debug, scalaTuple, scalaTuple1, scalaTuple2, testkit)
 
 ZsgSettings.scalaVersionSettings
 ZsgSettings.commonSettings

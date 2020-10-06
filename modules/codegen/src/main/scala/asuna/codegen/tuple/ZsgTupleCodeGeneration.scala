@@ -10,70 +10,11 @@ import scala.util.Using
 
 object ZsgTupleCodeGeneration {
 
-  val root1_all_Dir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("scala-tuple")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("zsg")
-      .resolve("scala_tuple")
-      .resolve("tuple_support")
-      .resolve("codegen")
-
-  val root1_2X_Dir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("scala-tuple")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala-2")
-      .resolve("zsg")
-      .resolve("scala_tuple")
-      .resolve("tuple_support")
-      .resolve("codegen")
-
-  val root1_dotty_Dir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("scala-tuple")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala-3")
-      .resolve("zsg")
-      .resolve("scala_tuple")
-      .resolve("tuple_support")
-      .resolve("codegen")
-
-  val root2Dir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("scala-tuple-1")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("zsg")
-      .resolve("scala_tuple")
-      .resolve("tuple_support")
-      .resolve("codegen")
-
-  val root3Dir =
-    Paths
-      .get("./")
-      .resolve("modules")
-      .resolve("scala-tuple-2")
-      .resolve("src")
-      .resolve("main")
-      .resolve("scala")
-      .resolve("zsg")
-      .resolve("scala_tuple")
-      .resolve("tuple_support")
-      .resolve("codegen")
+  val root1_all_Dir   = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root1_2X_Dir    = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-2", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root1_dotty_Dir = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-3", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root2Dir        = Paths.get(".", "modules", "scala-tuple-1", "src", "main", "scala", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root3Dir        = Paths.get(".", "modules", "scala-tuple-2", "src", "main", "scala", "zsg", "scala_tuple", "tuple_support", "codegen")
 
   def main(arr: Array[String]): Unit = {
 
