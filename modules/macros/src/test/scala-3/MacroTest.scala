@@ -8,7 +8,7 @@ import zio.test.environment._
 
 object MacroTest extends DefaultRunnableSpec {
 
-  def spec = suite("Confim macro tree")(
+  override def spec = suite("Confim macro tree")(
     testM("macro tree should equal the word provide") {
       for {
         _     <- console.putStr(zsg.macros.single.AsunaGeneric.defaultOf.getClass.getName)

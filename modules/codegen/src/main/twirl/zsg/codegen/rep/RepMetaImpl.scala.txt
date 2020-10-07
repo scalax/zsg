@@ -10,7 +10,11 @@ class RepMetaImpl@{contextNum}[@for(i <- 1 to contextNum) { @if(i > 1) { , } T@{
                     , Out_@{ii}_@{iii}
                 }
             }
-        ](tuple: Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }])(implicit
+        ](@if(i == 1) {
+            tuple: Tu1
+        } else {
+            tuple: Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }]
+        })(implicit
             @for(ii <- 1 to i) {
                 @for(iii <- 1 to contextNum) {
                     @if(ii == 1) {
@@ -21,8 +25,14 @@ class RepMetaImpl@{contextNum}[@for(i <- 1 to contextNum) { @if(i > 1) { , } T@{
                 }
             }
         ): zsg.rep.RepMeta@{contextNum}[@for(iii <- 1 to contextNum) { @if(iii > 1) { , } Out_@{i}_@{iii} }] = {
-            @for(iii <- 1 to contextNum) {
-                val i@{iii} = @for(ii <- i to 1 by - 1) { repFunction_@{iii}_@{ii}.function( } rep@{iii} @for(ii <- 1 to i) { , tuple._@{ii}) }
+            @if(i == 1) {
+                @for(iii <- 1 to contextNum) {
+                    val i@{iii} = repFunction_@{iii}_1.function(rep@{iii}, tuple)
+                }
+            } else {
+                @for(iii <- 1 to contextNum) {
+                    val i@{iii} = @for(ii <- i to 1 by - 1) { repFunction_@{iii}_@{ii}.function( } rep@{iii} @for(ii <- 1 to i) { , tuple._@{ii}) }
+                }
             }
             new RepMetaImpl@{contextNum}(@for(ii <- 1 to contextNum) { @if(ii > 1) { , } rep@{ii} = i@{ii} })
         }

@@ -1,7 +1,6 @@
 package zsg.rep
 object RepMeta {
-  def apply[Tu1](tuple: Tuple1[Tu1]): RepMeta1[Tu1] =
-    new impl.RepMetaImpl1(rep1 = tuple._1)
+  def apply[Tu1](tuple: Tu1): RepMeta1[Tu1] = new impl.RepMetaImpl1(tuple)
   def apply[Tu1, Tu2](tuple: Tuple2[Tu1, Tu2]): RepMeta2[Tu1, Tu2] =
     new impl.RepMetaImpl2(rep1 = tuple._1, rep2 = tuple._2)
   def apply[Tu1, Tu2, Tu3](tuple: Tuple3[Tu1, Tu2, Tu3]): RepMeta3[Tu1, Tu2, Tu3] =

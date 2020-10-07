@@ -10,7 +10,11 @@ abstract class RepMeta@{contextNum}[@for(i <- 1 to contextNum) { @if(i > 1) { , 
                     , Out_@{ii}_@{iii}
                 }
             }
-        ](tuple: Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }])(implicit
+        ](@if(i == 1) {
+            tuple: Tu1
+        } else {
+            tuple: Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Tu@{ii} }]
+        })(implicit
             @for(ii <- 1 to i) {
                 @for(iii <- 1 to contextNum) {
                     @if(ii == 1) {

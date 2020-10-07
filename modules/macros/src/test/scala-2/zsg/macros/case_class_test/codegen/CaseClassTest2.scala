@@ -27,7 +27,7 @@ object CaseClassTest2 extends DefaultRunnableSpec {
   val reverseFooEncoder2: ModelToString[Foo2]   = ModelToString.reverseEncoder
   val fooDecoder2: ModelFromString[Foo2]        = ModelFromString.decoder
   val reverseFooDecoder2: ModelFromString[Foo2] = ModelFromString.reverseDecoder
-  def spec = suite("A case class by 2 length")(
+  override def spec = suite("A case class by 2 length")(
     zio.test.test("should generic to a encoder") {
       val str1 = fooEncoder2.mToString(fooValue2)
       assert(str1)(equalTo(fooValue2.fieldInfo))
