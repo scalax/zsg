@@ -35,7 +35,7 @@ object CaseClassTest@{maxItem} extends DefaultRunnableSpec {
     val fooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.decoder
     val reverseFooDecoder@{maxItem}: ModelFromString[Foo@{maxItem}] = ModelFromString.reverseDecoder
 
-    def spec = suite("A case class by @{maxItem} length")(
+    override def spec = suite("A case class by @{maxItem} length")(
         zio.test.test("should generic to a encoder") {
             val str1 = fooEncoder@{maxItem}.mToString(fooValue@{maxItem})
             assert(str1)(equalTo(fooValue@{maxItem}.fieldInfo))

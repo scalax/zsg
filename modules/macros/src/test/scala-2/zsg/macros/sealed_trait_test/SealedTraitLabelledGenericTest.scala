@@ -7,7 +7,7 @@ import zio.test.environment._
 
 object SealedTraitLabelledGenericTest extends DefaultRunnableSpec {
 
-  def spec = suite("A sealed trait")(
+  override def spec = suite("A sealed trait")(
     test("should labelled generic to it's names") {
       import SealedTraitLabelledGenericPrepareTest._
       val names1: SealedTraitNames[Abc[String]] = sealedNames

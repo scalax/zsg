@@ -39,7 +39,7 @@ object TupleToStringTest extends DefaultRunnableSpec {
   import AppendTuple.{given _}
   import zsg.scala_tuple.ScalaTupleImplicits.{given _}
 
-  def spec = suite("Tuple Mapper 2")(
+  override def spec = suite("Tuple Mapper 2")(
     test("auto map to string 1") {
       val assert1 = assert(tuple.asString(TupleData.i10))(equalTo("[" + TupleData.i10.toString + "]"))
       val assert2 = assert(tuple.asString(TupleData.i11))(equalTo("[" + TupleData.i11.toString + "]"))

@@ -5,8 +5,7 @@ trait SealedHelper {
   val c: scala.reflect.macros.blackbox.Context
   import c.universe._
 
-  /**
-    * If a super-type is generic, find all the subtypes, but at the same time
+  /** If a super-type is generic, find all the subtypes, but at the same time
     * fill in all the generic type parameters that are based on the super-type's
     * concrete type
     * @author lihaoyi

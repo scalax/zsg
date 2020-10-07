@@ -7,7 +7,7 @@ import zio.test.environment._
 
 object ZsgWithCirceEncoderTest extends DefaultRunnableSpec {
 
-  def spec = suite("zsg encoder")(
+  override def spec = suite("zsg encoder")(
     test("generic the same case class json object as circe") {
       val assert1 = assert(ZsgCirceModel.i1Json)(equalTo(CirceModel.i1Json))
       val assert2 = assert(ZsgCirceModel.i2Json)(equalTo(CirceModel.i2Json))

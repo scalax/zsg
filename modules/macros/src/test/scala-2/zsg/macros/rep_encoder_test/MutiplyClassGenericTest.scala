@@ -7,7 +7,7 @@ import zio.test.environment._
 
 object MutiplyClassGenericTest extends DefaultRunnableSpec {
 
-  def spec = suite("Rep Mapper")(
+  override def spec = suite("Rep Mapper")(
     test("should map mutiply class") {
       import MutiplyClassGenericPrepareTest._
 

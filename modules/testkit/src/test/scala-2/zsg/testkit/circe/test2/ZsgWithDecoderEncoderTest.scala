@@ -9,7 +9,7 @@ import zio.test.environment._
 
 object ZsgWithDecoderEncoderTest extends DefaultRunnableSpec {
 
-  def spec = suite("zsg encoder")(
+  override def spec = suite("zsg encoder")(
     test("generic the same json object as circe") {
       val assert1 = assert(ZsgCirceModel.i1_1FromJson)(equalTo(CirceModel.i1_1FromJson))
       val assert2 = assert(ZsgCirceModel.i1_2FromJson)(equalTo(CirceModel.i1_2FromJson))

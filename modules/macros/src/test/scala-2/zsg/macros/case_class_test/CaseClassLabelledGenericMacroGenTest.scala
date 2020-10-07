@@ -7,7 +7,7 @@ import zio.test.environment._
 
 object CaseClassLabelledGenericMacroGenTest extends DefaultRunnableSpec {
 
-  def spec = suite("A case class")(
+  override def spec = suite("A case class")(
     test("should labelled generic to a encoder") {
       import CaseClassLabelledGenericMacroGenPrepareTest._
       val str1 = fooEncoder.mToString(fooValue)
