@@ -4383,3 +4383,69 @@ abstract class RepMeta8[T1, T2, T3, T4, T5, T6, T7, T8](val rep1: T1, val rep2: 
     repFunction_8_22: RepFunction[Out_21_8, Tu22, Out_22_8]
   ): RepMeta8[Out_22_1, Out_22_2, Out_22_3, Out_22_4, Out_22_5, Out_22_6, Out_22_7, Out_22_8]
 }
+object RepMeta8 extends impl.RepMetaOptionTakerImplicit_1_8 {
+  implicit def repMetaTakerImplicit1[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]: RepTaker[RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu1] =
+    new RepTaker[RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu1] {
+      override def function(i: RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]): TTu1 = i.rep1
+    }
+  implicit def repMetaOptionTakerImplicit1[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu1] =
+    new OptionRepTaker[RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu1] {
+      override def function(i: RepMeta8[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]): Option[TTu1] = Some(i.rep1)
+    }
+  implicit def repMetaTakerImplicit2[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]: RepTaker[RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu2] =
+    new RepTaker[RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu2] {
+      override def function(i: RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]): TTu2 = i.rep2
+    }
+  implicit def repMetaOptionTakerImplicit2[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu2] =
+    new OptionRepTaker[RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu2] {
+      override def function(i: RepMeta8[Tu1, TTu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]): Option[TTu2] = Some(i.rep2)
+    }
+  implicit def repMetaTakerImplicit3[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8]: RepTaker[RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu3] =
+    new RepTaker[RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu3] {
+      override def function(i: RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8]): TTu3 = i.rep3
+    }
+  implicit def repMetaOptionTakerImplicit3[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu3] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8], TTu3] {
+      override def function(i: RepMeta8[Tu1, Tu2, TTu3, Tu4, Tu5, Tu6, Tu7, Tu8]): Option[TTu3] = Some(i.rep3)
+    }
+  implicit def repMetaTakerImplicit4[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8]: RepTaker[RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8], TTu4] =
+    new RepTaker[RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8], TTu4] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8]): TTu4 = i.rep4
+    }
+  implicit def repMetaOptionTakerImplicit4[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8], TTu4] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8], TTu4] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, TTu4, Tu5, Tu6, Tu7, Tu8]): Option[TTu4] = Some(i.rep4)
+    }
+  implicit def repMetaTakerImplicit5[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8]: RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8], TTu5] =
+    new RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8], TTu5] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8]): TTu5 = i.rep5
+    }
+  implicit def repMetaOptionTakerImplicit5[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8], TTu5] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8], TTu5] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, TTu5, Tu6, Tu7, Tu8]): Option[TTu5] = Some(i.rep5)
+    }
+  implicit def repMetaTakerImplicit6[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8]: RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8], TTu6] =
+    new RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8], TTu6] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8]): TTu6 = i.rep6
+    }
+  implicit def repMetaOptionTakerImplicit6[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8], TTu6] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8], TTu6] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, TTu6, Tu7, Tu8]): Option[TTu6] = Some(i.rep6)
+    }
+  implicit def repMetaTakerImplicit7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8]: RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8], TTu7] =
+    new RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8], TTu7] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8]): TTu7 = i.rep7
+    }
+  implicit def repMetaOptionTakerImplicit7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8], TTu7] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8], TTu7] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, TTu7, Tu8]): Option[TTu7] = Some(i.rep7)
+    }
+  implicit def repMetaTakerImplicit8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8]: RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8], TTu8] =
+    new RepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8], TTu8] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8]): TTu8 = i.rep8
+    }
+  implicit def repMetaOptionTakerImplicit8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8]: OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8], TTu8] =
+    new OptionRepTaker[RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8], TTu8] {
+      override def function(i: RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, TTu8]): Option[TTu8] = Some(i.rep8)
+    }
+}

@@ -19,7 +19,11 @@ object Rep1Test extends DefaultRunnableSpec {
       val assert3 = assert(meta2.rep1.description)(equalTo("bbbb"))
       val assert4 = assert(meta3.rep1.description)(equalTo("bbbb"))
 
-      assert1 && assert2 && assert3 && assert4
+      val assert5 = assert(take[RouteModel](meta3).description)(equalTo("bbbb"))
+      val assert6 = !assert(takeOption[BooleanModel](meta3))(equalTo(Option(new BooleanModel(true))))
+      val assert7 = assert(takeOption[BooleanModel](meta3))(equalTo(Option.empty))
+
+      assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7
     },
     test("should auto lift in 2 meta model.") {
       val meta1 = meta.rep(reverseBoolean, description("iiiinnnn"))
@@ -35,7 +39,9 @@ object Rep1Test extends DefaultRunnableSpec {
       val assert5 = assert(meta3.rep1.description)(equalTo("bbbb"))
       val assert6 = assert(meta3.rep2.isPrepared)(equalTo(meta.rep2.isPrepared))
 
-      assert1 && assert2 && assert3 && assert4 && assert5 && assert6
+      val assert7 = assert(take[RouteModel](meta3).description)(equalTo("bbbb"))
+
+      assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7
     }
   )
 }
