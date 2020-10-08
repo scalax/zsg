@@ -1307,3 +1307,21 @@ abstract class RepMeta2[T1, T2](val rep1: T1, val rep2: T2) {
     repFunction_2_22: RepFunction[Out_21_2, Tu22, Out_22_2]
   ): RepMeta2[Out_22_1, Out_22_2]
 }
+object RepMeta2 extends impl.RepMetaOptionTakerImplicit_1_2 {
+  implicit def repMetaTakerImplicit1[TTu1, Tu2]: RepTaker[RepMeta2[TTu1, Tu2], TTu1] =
+    new RepTaker[RepMeta2[TTu1, Tu2], TTu1] {
+      override def function(i: RepMeta2[TTu1, Tu2]): TTu1 = i.rep1
+    }
+  implicit def repMetaOptionTakerImplicit1[TTu1, Tu2]: OptionRepTaker[RepMeta2[TTu1, Tu2], TTu1] =
+    new OptionRepTaker[RepMeta2[TTu1, Tu2], TTu1] {
+      override def function(i: RepMeta2[TTu1, Tu2]): Option[TTu1] = Some(i.rep1)
+    }
+  implicit def repMetaTakerImplicit2[Tu1, TTu2]: RepTaker[RepMeta2[Tu1, TTu2], TTu2] =
+    new RepTaker[RepMeta2[Tu1, TTu2], TTu2] {
+      override def function(i: RepMeta2[Tu1, TTu2]): TTu2 = i.rep2
+    }
+  implicit def repMetaOptionTakerImplicit2[Tu1, TTu2]: OptionRepTaker[RepMeta2[Tu1, TTu2], TTu2] =
+    new OptionRepTaker[RepMeta2[Tu1, TTu2], TTu2] {
+      override def function(i: RepMeta2[Tu1, TTu2]): Option[TTu2] = Some(i.rep2)
+    }
+}

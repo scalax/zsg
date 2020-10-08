@@ -727,3 +727,13 @@ abstract class RepMeta1[T1](val rep1: T1) {
     repFunction_1_22: RepFunction[Out_21_1, Tu22, Out_22_1]
   ): RepMeta1[Out_22_1]
 }
+object RepMeta1 extends impl.RepMetaOptionTakerImplicit_1_1 {
+  implicit def repMetaTakerImplicit1[TTu1]: RepTaker[RepMeta1[TTu1], TTu1] =
+    new RepTaker[RepMeta1[TTu1], TTu1] {
+      override def function(i: RepMeta1[TTu1]): TTu1 = i.rep1
+    }
+  implicit def repMetaOptionTakerImplicit1[TTu1]: OptionRepTaker[RepMeta1[TTu1], TTu1] =
+    new OptionRepTaker[RepMeta1[TTu1], TTu1] {
+      override def function(i: RepMeta1[TTu1]): Option[TTu1] = Some(i.rep1)
+    }
+}
