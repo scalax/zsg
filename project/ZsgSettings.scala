@@ -40,7 +40,7 @@ object ZsgSettings {
 
   val commonSettings = Seq(setting3, setting4, setting5, setting7, setting10, setting11, setting12)
 
-  val vSetting1             = version := "0.0.4-SNAP2020101001"
+  val vSetting1             = version := "0.0.4-SNAP2020101003"
   val vSetting2             = organization := "org.scalax"
   val vSetting3             = bintrayOrganization := Some("scalax")
   val vSetting4             = bintrayRepository := "zsg"

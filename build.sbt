@@ -4,7 +4,7 @@ val rootDir    = file(".")
 val modulesDir = rootDir / "modules"
 
 val core   = project in modulesDir / "core"
-val rep    = project in modulesDir / "rep"
+val rep    = (project in modulesDir / "rep").dependsOn(core)
 val debug  = (project in modulesDir / "debug").dependsOn(core)
 val macros = (project in modulesDir / "macros").dependsOn(core)
 
