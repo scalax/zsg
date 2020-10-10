@@ -68,6 +68,7 @@ val allUnpublish = taskKey[Unit]("allUnpublish")
 
 allUnpublish := {
   Try { (core / bintrayUnpublish).value }
+  Try { (rep / bintrayUnpublish).value }
   Try { (macros / bintrayUnpublish).value }
   Try { (scalaTuple / bintrayUnpublish).value }
   Try { (scalaTuple1 / bintrayUnpublish).value }
