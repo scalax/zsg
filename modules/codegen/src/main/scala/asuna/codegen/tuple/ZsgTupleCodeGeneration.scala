@@ -27,7 +27,6 @@ object ZsgTupleCodeGeneration {
           val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.HListPlusX(tagNum = i, caseClassNum = ii).body)
           writer.println(content)
         }
-
       }
     }
 
@@ -62,7 +61,7 @@ object ZsgTupleCodeGeneration {
       }
     }
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
+    /*for (i <- 1 to ZsgParameters.maxContextNum) yield {
       for (ii <- 1 to ZsgParameters.maxTupleNum) yield {
         val filePath = root3Dir.resolve(Paths.get("mapper" + i, "PlusToTuple_" + ii + "_" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
@@ -80,7 +79,7 @@ object ZsgTupleCodeGeneration {
         val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusToTupleSum(tagNum = i, maxTupleNum = ZsgParameters.maxTupleNum).body)
         writer.println(content)
       }
-    }
+    }*/
 
     /*{
       for (i <- 1 to ZsgParameters.maxTupleNum) yield {
