@@ -36,7 +36,7 @@ object JinzhiTree {
         case d: DataTree[String] =>
           d.data
         case n: NodeTree[String] =>
-          s"""ZsgTuple2[${treeToTypeImpl(n.i1)}, ${treeToTypeImpl(n.i2)}]"""
+          s"""zsg.ZsgTuple2[${treeToTypeImpl(n.i1)}, ${treeToTypeImpl(n.i2)}]"""
       }
     }
     treeToTypeImpl(listToTree((1 to i).to(List).map(r => s"I${r}")))
@@ -67,6 +67,33 @@ object JinzhiTree {
     val index = (1 to i - 1).to(List)
     val map   = treeIndexImpl(listToTree(index), "")
     s"new ${className}(${index.map(i => s"i${i} = m${map(i)}").mkString(" , ")}, i${i} = n)"
+  }
+
+  def scalaTupleTreeBuildModel(i: Int): String = {
+    def treeBuildImpl(i: TreeContent[String]): String = {
+      i match {
+        case d: DataTree[String] =>
+          d.data
+        case n: NodeTree[String] =>
+          s"""new zsg.ZsgTuple2(i1 = ${treeBuildImpl(n.i1)}, i2 = ${treeBuildImpl(n.i2)})"""
+      }
+    }
+    treeBuildImpl(listToTree((1 to i).to(List).map(r => s"n._${r}")))
+  }
+
+  def scalaTupleTreeIndex(i: Int, className: String): String = {
+    def treeIndexImpl(i: TreeContent[Int], suffix: String): Map[Int, String] = {
+      i match {
+        case d: DataTree[Int] =>
+          Map((d.data, suffix))
+        case n: NodeTree[Int] =>
+          treeIndexImpl(n.i1, suffix + ".i1") ++ treeIndexImpl(n.i2, suffix + ".i2")
+      }
+    }
+
+    val index = (1 to i - 1).to(List)
+    val map   = treeIndexImpl(listToTree(index), "")
+    s"new ${className}(${index.map(i => s"_${i} = m${map(i)}").mkString(" , ")}, _${i} = n)"
   }
 
   def contextAppendImpl(i: TreeContent[String], contextNum: Int): String = {

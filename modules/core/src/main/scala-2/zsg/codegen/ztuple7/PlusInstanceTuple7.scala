@@ -1,7 +1,8 @@
 package zsg
 object PlusInstanceTuple7 {
-  type HighTupleAlias7[I1, I2, I3, I4, I5, I6]          = ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[I5, I6]]
-  type HighTupleAliasUpper7[I1, I2, I3, I4, I5, I6, I7] = ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], I7]]
+  type HighTupleAlias7[I1, I2, I3, I4, I5, I6] = zsg.ZsgTuple2[zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]], zsg.ZsgTuple2[I5, I6]]
+  type HighTupleAliasUpper7[I1, I2, I3, I4, I5, I6, I7] =
+    zsg.ZsgTuple2[zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]], zsg.ZsgTuple2[zsg.ZsgTuple2[I5, I6], I7]]
   class PContextNum1[
     Tuple1_Context1,
     Tuple2_Context1,
@@ -1927,9 +1928,9 @@ object PlusInstanceTuple7 {
     I8
   ]]
   type NodeHighTupleAlias7[I1 <: TupleTag, I2 <: TupleTag, I3 <: TupleTag, I4 <: TupleTag, I5 <: TupleTag, I6 <: TupleTag] =
-    ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[I5, I6]]
+    zsg.ZsgTuple2[zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]], zsg.ZsgTuple2[I5, I6]]
   type NodeHighTupleAliasUpper7[I1 <: TupleTag, I2 <: TupleTag, I3 <: TupleTag, I4 <: TupleTag, I5 <: TupleTag, I6 <: TupleTag, I7 <: TupleTag] =
-    ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], I7]]
+    zsg.ZsgTuple2[zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]], zsg.ZsgTuple2[zsg.ZsgTuple2[I5, I6], I7]]
   class PNodeContextNum1[
     Tuple1_Context1 <: TupleTag,
     Tuple2_Context1 <: TupleTag,

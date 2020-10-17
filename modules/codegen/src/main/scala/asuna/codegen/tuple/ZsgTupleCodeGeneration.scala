@@ -14,6 +14,8 @@ object ZsgTupleCodeGeneration {
   val root1_dotty_Dir = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-3", "zsg", "scala_tuple", "tuple_support", "codegen")
   val root2Dir        = Paths.get(".", "modules", "scala-tuple-1", "src", "main", "scala", "zsg", "scala_tuple", "tuple_support", "codegen")
   val root3Dir        = Paths.get(".", "modules", "scala-tuple-2", "src", "main", "scala", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root3_2X_Dir    = Paths.get(".", "modules", "scala-tuple-2", "src", "main", "scala-2", "zsg", "scala_tuple", "tuple_support", "codegen")
+  val root3_dotty_Dir = Paths.get(".", "modules", "scala-tuple-2", "src", "main", "scala-3", "zsg", "scala_tuple", "tuple_support", "codegen")
 
   def main(arr: Array[String]): Unit = {
 
@@ -36,7 +38,26 @@ object ZsgTupleCodeGeneration {
         val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.HListPlusSum(tagNum = i, maxTupleNum = ZsgParameters.maxTupleNum - 2).body)
         writer.println(content)
       }
+    }
 
+    for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
+      val filePath = root3_2X_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val content =
+          StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body)
+        writer.println(content)
+      }
+    }
+
+    for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
+      val filePath = root3_dotty_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val content =
+          StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = true).body)
+        writer.println(content)
+      }
     }
 
     for (i <- 1 to ZsgParameters.maxContextNum) yield {
