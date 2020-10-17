@@ -1,7 +1,7 @@
 package zsg
 object PlusInstanceTuple4 {
-        type HighTupleAlias4[  I1   ,  I2   ,  I3 ] = ZsgTuple2[ZsgTuple2[I1, I2], I3]
-        type HighTupleAliasUpper4[  I1   ,  I2   ,  I3   ,  I4 ] = ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]]
+        type HighTupleAlias4[  I1   ,  I2   ,  I3 ] = zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], I3]
+        type HighTupleAliasUpper4[  I1   ,  I2   ,  I3   ,  I4 ] = zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]]
             class PContextNum1[
                       Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1 
                     , I1
@@ -574,8 +574,8 @@ object PlusInstanceTuple4 {
                     , I7
                     , I8
             ]]
-        type NodeHighTupleAlias4[  I1 <: TupleTag   ,  I2 <: TupleTag   ,  I3 <: TupleTag ] = ZsgTuple2[ZsgTuple2[I1, I2], I3]
-        type NodeHighTupleAliasUpper4[  I1 <: TupleTag   ,  I2 <: TupleTag   ,  I3 <: TupleTag   ,  I4 <: TupleTag ] = ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]]
+        type NodeHighTupleAlias4[  I1 <: TupleTag   ,  I2 <: TupleTag   ,  I3 <: TupleTag ] = zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], I3]
+        type NodeHighTupleAliasUpper4[  I1 <: TupleTag   ,  I2 <: TupleTag   ,  I3 <: TupleTag   ,  I4 <: TupleTag ] = zsg.ZsgTuple2[zsg.ZsgTuple2[I1, I2], zsg.ZsgTuple2[I3, I4]]
             class PNodeContextNum1[
                       Tuple1_Context1 <: TupleTag   ,  Tuple2_Context1 <: TupleTag   ,  Tuple3_Context1 <: TupleTag 
                     , I1 <: TupleTag

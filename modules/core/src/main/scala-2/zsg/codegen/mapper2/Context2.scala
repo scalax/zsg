@@ -21,5 +21,4 @@ abstract class Context2[F[_, _]] {
       Z2
     ]
   ): F[Z1, Z2]
-  def start: F[ZsgTuple0, ZsgTuple0]
 }

@@ -1,9 +1,7 @@
 package zsg
 object BuildContent {
-  @inline def tuple1[T1](t1: T1): ZTuple1[T1] =
-    new ZTuple1(i1 = t1)
-  @inline final def nodeTuple1[T1 <: TupleTag](t1: T1): ZNode1[T1] =
-    new ZNode1(i1 = t1)
+  @inline def tuple1[T1](t1: T1): T1                       = t1
+  @inline final def nodeTuple1[T1 <: TupleTag](t1: T1): T1 = t1
   @inline def tuple2[T1, T2](t1: T1, t2: T2): ZTuple2[T1, T2] =
     new ZTuple2(i1 = t1, i2 = t2)
   @inline final def nodeTuple2[T1 <: TupleTag, T2 <: TupleTag](t1: T1, t2: T2): ZNode2[T1, T2] =

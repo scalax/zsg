@@ -1,6 +1,6 @@
 package zsg.testkit.circe.decoder
 
-import zsg.{Context4, Plus4, ZsgTuple0}
+import zsg.{Context4, Plus4}
 import io.circe.Decoder
 
 class ZsgDecoderContext extends Context4[JsonDecoderPro] {
@@ -19,14 +19,6 @@ class ZsgDecoderContext extends Context4[JsonDecoderPro] {
         } yield {
           p.plus2(x1, y1)
         }
-      }
-    }
-
-  override def start: JsonDecoderPro[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] =
-    new JsonDecoderPro[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-      override def to(name: ZsgTuple0, defaultValue: ZsgTuple0): Decoder[ZsgTuple0] = {
-        val zeroValue = Right(ZsgTuple0.value)
-        Decoder.instance { _ => zeroValue }
       }
     }
 }

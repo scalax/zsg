@@ -1,6 +1,6 @@
 package zsg.testkit.circe.decoder
 
-import zsg.{Context2, Plus2, ZsgTuple0}
+import zsg.{Context2, Plus2}
 import io.circe.Decoder
 
 class ZsgSealedContext[P] extends Context2[SealedTraitSelector[P]#JsonDecoder] {
@@ -19,16 +19,6 @@ class ZsgSealedContext[P] extends Context2[SealedTraitSelector[P]#JsonDecoder] {
       }
     }
   }
-
-  override val start: SealedTraitSelector[P]#JsonDecoder[ZsgTuple0, ZsgTuple0] = {
-    val con = SealedTraitSelector[P]
-    new con.JsonDecoder[ZsgTuple0, ZsgTuple0] {
-      override def to(name: ZsgTuple0): Decoder[P] = {
-        Decoder.failedWithMessage("Your sealed trait have no sub class")
-      }
-    }
-  }
-
 }
 
 object ZsgSealedContext {

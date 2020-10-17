@@ -1,7 +1,7 @@
 package zsg
 object PlusInstanceTuple2 {
   type HighTupleAlias2[I1]          = I1
-  type HighTupleAliasUpper2[I1, I2] = ZsgTuple2[I1, I2]
+  type HighTupleAliasUpper2[I1, I2] = zsg.ZsgTuple2[I1, I2]
   class PContextNum1[
     Tuple1_Context1,
     I1
@@ -501,7 +501,7 @@ object PlusInstanceTuple2 {
     I8
   ]]
   type NodeHighTupleAlias2[I1 <: TupleTag]                      = I1
-  type NodeHighTupleAliasUpper2[I1 <: TupleTag, I2 <: TupleTag] = ZsgTuple2[I1, I2]
+  type NodeHighTupleAliasUpper2[I1 <: TupleTag, I2 <: TupleTag] = zsg.ZsgTuple2[I1, I2]
   class PNodeContextNum1[
     Tuple1_Context1 <: TupleTag,
     I1 <: TupleTag

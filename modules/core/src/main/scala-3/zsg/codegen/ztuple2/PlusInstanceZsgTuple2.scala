@@ -1,7 +1,7 @@
 package zsg
 object PlusInstanceZsgTuple2 {
     type HighTupleAlias2[  I1 ] = I1
-    type HighTupleAliasUpper2[  I1   ,  I2 ] = ZsgTuple2[I1, I2]
+    type HighTupleAliasUpper2[  I1   ,  I2 ] = zsg.ZsgTuple2[I1, I2]
         class PContextNum1[
                   Tuple1_Context1 
                 , I1

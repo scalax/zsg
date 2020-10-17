@@ -2,6 +2,6 @@
 
 package zsg.scala_tuple
 
-trait ScalaTupleImplicits extends @{(1 to maxPropertyNum).flatMap(i => (1 to maxAsunaTupleNum).map(ii => s"tuple_support.ScalaTupleImplicits_${ii}_${i}")).mkString("\n    with ")}
+trait ScalaTupleImplicits extends @{(2 to maxAsunaTupleNum).map(ii => s"tuple_support.ScalaTupleImplicits_${ii}").mkString("\n    with ")}
 
 object ScalaTupleImplicits extends ScalaTupleImplicits

@@ -3880,7 +3880,7 @@ abstract class RepMeta7[T1, T2, T3, T4, T5, T6, T7](val rep1: T1, val rep2: T2, 
     repFunction_7_22: RepFunction[Out_21_7, Tu22, Out_22_7]
   ): RepMeta7[Out_22_1, Out_22_2, Out_22_3, Out_22_4, Out_22_5, Out_22_6, Out_22_7]
 }
-object RepMeta7 extends impl.RepMetaOptionTakerImplicit_1_7 {
+object RepMeta7 {
   implicit def repMetaTakerImplicit1[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7]: RepTaker[RepMeta7[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7], TTu1] =
     new RepTaker[RepMeta7[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7], TTu1] {
       override def function(i: RepMeta7[TTu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7]): TTu1 = i.rep1

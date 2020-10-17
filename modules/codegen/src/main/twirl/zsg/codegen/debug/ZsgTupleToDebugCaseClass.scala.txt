@@ -24,4 +24,4 @@ trait ZsgTupleToDebugCaseClass[T, C] {
 }
 
 object ZsgTupleToDebugCaseClass
-@{(1 to 64).map(i => s"DebugCaseClass${i}Instance").mkString(" extends ", " with ", "")}
+@{(2 to 22).map(i => s"DebugCaseClass${i}Instance").mkString(" extends ", " with ", "")}

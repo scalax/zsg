@@ -1,6 +1,6 @@
 package zsg.testkit.circe.encoder
 
-import zsg.{Context3, Plus3, ZsgTuple0}
+import zsg.{Context3, Plus3}
 import io.circe.Json
 
 class ZsgJsonObjectContext extends Context3[JsonObjectAppender] {
@@ -13,10 +13,6 @@ class ZsgJsonObjectContext extends Context3[JsonObjectAppender] {
         x.appendField(p.takeHead3(tt), m1)
       }
     }
-
-  override val start: JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] = new JsonObjectAppender[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-    override def appendField(tt: ZsgTuple0, m: List[(String, Json)]): List[(String, Json)] = m
-  }
 }
 
 object ZsgJsonObjectContext {

@@ -10,7 +10,7 @@ object ZNode3 {
     override def application(context: T): F[
       ZNode3[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum1), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum1), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum1
       )
     }
@@ -28,7 +28,7 @@ object ZNode3 {
         ZNode3[Tuple1_Context1, Tuple2_Context1, Tuple3_Context1],
         ZNode3[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2]
       ] = {
-        context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum2), t3.application(context))(
+        context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum2), t3.application(context))(
           PlusInstanceTuple3.nodeContextNum2
         )
       }
@@ -56,7 +56,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context2, Tuple2_Context2, Tuple3_Context2],
       ZNode3[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum3), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum3), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum3
       )
     }
@@ -86,7 +86,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context3, Tuple2_Context3, Tuple3_Context3],
       ZNode3[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum4), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum4), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum4
       )
     }
@@ -118,7 +118,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context4, Tuple2_Context4, Tuple3_Context4],
       ZNode3[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum5), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum5), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum5
       )
     }
@@ -156,7 +156,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context5, Tuple2_Context5, Tuple3_Context5],
       ZNode3[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum6), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum6), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum6
       )
     }
@@ -196,7 +196,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context6, Tuple2_Context6, Tuple3_Context6],
       ZNode3[Tuple1_Context7, Tuple2_Context7, Tuple3_Context7]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum7), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum7), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum7
       )
     }
@@ -238,7 +238,7 @@ object ZNode3 {
       ZNode3[Tuple1_Context7, Tuple2_Context7, Tuple3_Context7],
       ZNode3[Tuple1_Context8, Tuple2_Context8, Tuple3_Context8]
     ] = {
-      context.append(context.append(t1.application(context), t2.application(context))(PlusInstanceZsgTuple2.contextNum8), t3.application(context))(
+      context.append(context.append(t1.application(context), t2.application(context))(zsg.PlusInstanceZsgTuple2.contextNum8), t3.application(context))(
         PlusInstanceTuple3.nodeContextNum8
       )
     }

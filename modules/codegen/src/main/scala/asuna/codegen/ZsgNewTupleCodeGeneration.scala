@@ -26,7 +26,7 @@ object ZsgNewTupleCodeGeneration {
     }
 
     {
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = root2XDir.resolve(Paths.get("ztuple" + i, "ZTuple" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -35,7 +35,7 @@ object ZsgNewTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = rootDottyDir.resolve(Paths.get("ztuple" + i, "ZTuple" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -47,7 +47,7 @@ object ZsgNewTupleCodeGeneration {
     }
 
     {
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = root2XDir.resolve(Paths.get("ztuple" + i, "ZNode" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -56,7 +56,7 @@ object ZsgNewTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = rootDottyDir.resolve(Paths.get("ztuple" + i, "ZNode" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -67,7 +67,7 @@ object ZsgNewTupleCodeGeneration {
     }
 
     {
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = root2XDir.resolve(Paths.get("ztuple" + i, "PlusInstanceTuple" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -76,7 +76,7 @@ object ZsgNewTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      for (i <- 1 to ZsgParameters.maxZTupleNum) yield {
+      for (i <- 2 to ZsgParameters.maxZTupleNum) yield {
         val filePath = rootDottyDir.resolve(Paths.get("ztuple" + i, "PlusInstanceTuple" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>

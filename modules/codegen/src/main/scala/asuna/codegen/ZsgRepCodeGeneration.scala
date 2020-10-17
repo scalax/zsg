@@ -35,14 +35,14 @@ object ZsgRepCodeGeneration {
       }
     }
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
+    /*for (i <- 1 to ZsgParameters.maxContextNum) yield {
       val filePath = rootAllDir.resolve(Paths.get("impl", "RepMetaOptionTakerImplicit_1_" + i + ".scala"))
       Files.createDirectories(filePath.getParent)
       Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
         val linerContent = StringUtil.trimLines(zsg.codegen.rep.txt.RepMetaOptionTakerImplicit1(contextNum = i)(maxZTupleNum = ZsgParameters.maxZTupleNum).body)
         writer.println(linerContent)
       }
-    }
+    }*/
 
     {
       val filePath = buildAllDir.resolve("RepMeta.scala")

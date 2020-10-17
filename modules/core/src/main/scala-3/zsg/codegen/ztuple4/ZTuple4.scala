@@ -26,7 +26,7 @@ object ZTuple4 {
                 override def application(context: T):  F[
          ZTuple4[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum1), t3)(PlusInstanceZsgTuple2.contextNum1), t4)(PlusInstanceTuple4.contextNum1)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum1), t3)(zsg.PlusInstanceZsgTuple2.contextNum1), t4)(PlusInstanceTuple4.contextNum1)
                 }
             }
              inline given   [F[  _   ,  _ ], T <: Context2[F]
@@ -61,7 +61,7 @@ object ZTuple4 {
          ZTuple4[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1 ]
          ,  ZTuple4[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum2), t3)(PlusInstanceZsgTuple2.contextNum2), t4)(PlusInstanceTuple4.contextNum2)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum2), t3)(zsg.PlusInstanceZsgTuple2.contextNum2), t4)(PlusInstanceTuple4.contextNum2)
                 }
             }
              inline given   [F[  _   ,  _   ,  _ ], T <: Context3[F]
@@ -104,7 +104,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2 ]
          ,  ZTuple4[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum3), t3)(PlusInstanceZsgTuple2.contextNum3), t4)(PlusInstanceTuple4.contextNum3)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum3), t3)(zsg.PlusInstanceZsgTuple2.contextNum3), t4)(PlusInstanceTuple4.contextNum3)
                 }
             }
              inline given   [F[  _   ,  _   ,  _   ,  _ ], T <: Context4[F]
@@ -155,7 +155,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3 ]
          ,  ZTuple4[  Tuple1_Context4   ,  Tuple2_Context4   ,  Tuple3_Context4   ,  Tuple4_Context4 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum4), t3)(PlusInstanceZsgTuple2.contextNum4), t4)(PlusInstanceTuple4.contextNum4)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum4), t3)(zsg.PlusInstanceZsgTuple2.contextNum4), t4)(PlusInstanceTuple4.contextNum4)
                 }
             }
              inline given   [F[  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context5[F]
@@ -214,7 +214,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context4   ,  Tuple2_Context4   ,  Tuple3_Context4   ,  Tuple4_Context4 ]
          ,  ZTuple4[  Tuple1_Context5   ,  Tuple2_Context5   ,  Tuple3_Context5   ,  Tuple4_Context5 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum5), t3)(PlusInstanceZsgTuple2.contextNum5), t4)(PlusInstanceTuple4.contextNum5)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum5), t3)(zsg.PlusInstanceZsgTuple2.contextNum5), t4)(PlusInstanceTuple4.contextNum5)
                 }
             }
              inline given   [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context6[F]
@@ -281,7 +281,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context5   ,  Tuple2_Context5   ,  Tuple3_Context5   ,  Tuple4_Context5 ]
          ,  ZTuple4[  Tuple1_Context6   ,  Tuple2_Context6   ,  Tuple3_Context6   ,  Tuple4_Context6 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum6), t3)(PlusInstanceZsgTuple2.contextNum6), t4)(PlusInstanceTuple4.contextNum6)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum6), t3)(zsg.PlusInstanceZsgTuple2.contextNum6), t4)(PlusInstanceTuple4.contextNum6)
                 }
             }
              inline given   [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context7[F]
@@ -356,7 +356,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context6   ,  Tuple2_Context6   ,  Tuple3_Context6   ,  Tuple4_Context6 ]
          ,  ZTuple4[  Tuple1_Context7   ,  Tuple2_Context7   ,  Tuple3_Context7   ,  Tuple4_Context7 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum7), t3)(PlusInstanceZsgTuple2.contextNum7), t4)(PlusInstanceTuple4.contextNum7)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum7), t3)(zsg.PlusInstanceZsgTuple2.contextNum7), t4)(PlusInstanceTuple4.contextNum7)
                 }
             }
              inline given   [F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context8[F]
@@ -439,7 +439,7 @@ object ZTuple4 {
          ,  ZTuple4[  Tuple1_Context7   ,  Tuple2_Context7   ,  Tuple3_Context7   ,  Tuple4_Context7 ]
          ,  ZTuple4[  Tuple1_Context8   ,  Tuple2_Context8   ,  Tuple3_Context8   ,  Tuple4_Context8 ]
 ]  = {
-                    context.append(context.append(context.append(t1, t2)(PlusInstanceZsgTuple2.contextNum8), t3)(PlusInstanceZsgTuple2.contextNum8), t4)(PlusInstanceTuple4.contextNum8)
+                    context.append(context.append(context.append(t1, t2)(zsg.PlusInstanceZsgTuple2.contextNum8), t3)(zsg.PlusInstanceZsgTuple2.contextNum8), t4)(PlusInstanceTuple4.contextNum8)
                 }
             }
 }

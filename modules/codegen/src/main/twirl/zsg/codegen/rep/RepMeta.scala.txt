@@ -28,7 +28,7 @@ abstract class RepMeta@{contextNum}[@for(i <- 1 to contextNum) { @if(i > 1) { , 
     }
 }
 
-object RepMeta@{contextNum} extends impl.RepMetaOptionTakerImplicit_1_@{contextNum} {
+object RepMeta@{contextNum} @* extends impl.RepMetaOptionTakerImplicit_1_@{contextNum} *@ {
     @for(i <- 1 to contextNum) {
         implicit def repMetaTakerImplicit@{i}[@for(ii <- 1 to contextNum) { @if(ii > 1) { , } @if(i == ii) { TTu@{i} } else { Tu@{ii} } }]: RepTaker[RepMeta@{contextNum}[@for(ii <- 1 to contextNum) { @if(ii > 1) { , } @if(i == ii) { TTu@{i} } else { Tu@{ii} } }], TTu@{i}] =
             new RepTaker[RepMeta@{contextNum}[@for(ii <- 1 to contextNum) { @if(ii > 1) { , } @if(i == ii) { TTu@{i} } else { Tu@{ii} } }], TTu@{i}] {
