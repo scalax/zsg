@@ -1,6 +1,6 @@
 package zsg.testkit.circe.encoder
 
-import zsg.{Context3, Plus3, ZsgTuple0}
+import zsg.{Context3, Plus3}
 import io.circe.Json
 
 class ZsgSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder] {
@@ -13,13 +13,6 @@ class ZsgSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder] {
         val a = x.p(model, plus.takeHead2(classTags), plus.takeHead3(labelled))
         a.orElse(y.p(model, plus.takeTail2(classTags), plus.takeTail3(labelled)))
       }
-    }
-  }
-
-  override def start: SealedTraitSelector[H]#JsonEncoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
-    val con = SealedTraitSelector[H]
-    new con.JsonEncoder[ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-      override def p(model: H, classTags: ZsgTuple0, labelled: ZsgTuple0): Option[(String, Json)] = Option.empty
     }
   }
 }

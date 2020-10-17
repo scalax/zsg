@@ -1,6 +1,6 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.{ApplicationX1, Context1, Plus1, ZsgTuple0}
+import zsg.{ApplicationX1, Context1, Plus1}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -20,12 +20,6 @@ class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
       override def stringBody(i: Z1): String = ""
     }
   }
-
-  override val start: ReverseTupleEncoder[ZsgTuple0] =
-    new ReverseTupleEncoder[ZsgTuple0] {
-      override def body(t: List[String], i: ZsgTuple0): List[String] = t
-      override def stringBody(i: ZsgTuple0): String                  = ""
-    }
 }
 
 object ReverseScalaTupleContext {

@@ -12,15 +12,6 @@ trait ModelToString[E] {
 object ModelToString {
 
   class ModelToStringContext extends Context5[ModelToStringContent] {
-    override val start: ModelToStringContent[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
-      new ModelToStringContent[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-        override def totalSize: Int                                                                                             = 0
-        override def encode(i1: ZsgTuple0, l: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int)          = (l, index)
-        override def defaultValue(i: ZsgTuple0, l: List[DefaultValue], plus: Int => Int, index: Int): (List[DefaultValue], Int) = (l, index)
-        override def appendLabelledName(m: ZsgTuple0, names: List[String]): List[String]                                        = names
-      }
-    }
-
     override def append[X1, X2, X3, X4, X5, Y1, Y2, Y3, Y4, Y5, Z1, Z2, Z3, Z4, Z5](
       x: ModelToStringContent[X1, X2, X3, X4, X5],
       y: ModelToStringContent[Y1, Y2, Y3, Y4, Y5]
@@ -45,15 +36,6 @@ object ModelToString {
   }
 
   class ReverseModelToStringContext extends Context5[ModelToStringContent] {
-    override val start: ModelToStringContent[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] = {
-      new ModelToStringContent[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0] {
-        override def totalSize: Int                                                                                             = 0
-        override def encode(i1: ZsgTuple0, i2: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int)         = (i2, index)
-        override def defaultValue(i: ZsgTuple0, l: List[DefaultValue], plus: Int => Int, index: Int): (List[DefaultValue], Int) = (l, index)
-        override def appendLabelledName(m: ZsgTuple0, names: List[String]): List[String]                                        = names
-      }
-    }
-
     override def append[X1, X2, X3, X4, X5, Y1, Y2, Y3, Y4, Y5, Z1, Z2, Z3, Z4, Z5](
       x: ModelToStringContent[X1, X2, X3, X4, X5],
       y: ModelToStringContent[Y1, Y2, Y3, Y4, Y5]

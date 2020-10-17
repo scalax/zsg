@@ -14,7 +14,8 @@ object ZsgDebugCodeGeneration {
   def main(i: Array[String]): Unit = {
 
     {
-      for (proNum <- 1 to 64) yield {
+      // for (proNum <- 2 to 64) yield {
+      for (proNum <- 2 to 22) yield {
         val filePath = root2XDir.resolve(Paths.get("debug", s"DebugCaseClass${proNum}.scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -23,7 +24,8 @@ object ZsgDebugCodeGeneration {
         }
       }
 
-      for (proNum <- 1 to 64) yield {
+      // for (proNum <- 2 to 64) yield {
+      for (proNum <- 2 to 22) yield {
         val filePath = rootDottyDir.resolve(Paths.get("debug", s"DebugCaseClass${proNum}.scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>

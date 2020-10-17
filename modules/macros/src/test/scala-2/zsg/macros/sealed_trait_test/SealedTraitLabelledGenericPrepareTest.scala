@@ -40,13 +40,6 @@ object SealedTraitLabelledGenericPrepareTest {
           ii => xh(yh(ii))
         }
       }
-
-    override val start: SealedNameGetter[ZsgTuple0, ZsgTuple0] = {
-      val nTran: List[String] => List[String] = ii => ii
-      new SealedNameGetter[ZsgTuple0, ZsgTuple0] {
-        override def stt(item: ZsgTuple0): List[String] => List[String] = nTran
-      }
-    }
   }
 
   object SealedNameGetterContext {

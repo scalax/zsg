@@ -101,7 +101,7 @@ object JinzhiTree {
       case d: DataTree[String] =>
         d.data
       case n: NodeTree[String] =>
-        s"context.append(${contextAppendImpl(n.i1, contextNum = contextNum)}, ${contextAppendImpl(n.i2, contextNum = contextNum)})(PlusInstanceZsgTuple2.contextNum${contextNum})"
+        s"context.append(${contextAppendImpl(n.i1, contextNum = contextNum)}, ${contextAppendImpl(n.i2, contextNum = contextNum)})(zsg.PlusInstanceZsgTuple2.contextNum${contextNum})"
     }
   }
 

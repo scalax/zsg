@@ -1,6 +1,6 @@
 package zsg.testkit.tuple
 
-import zsg.{ApplicationX2, Context2, Plus2, ZsgTuple0}
+import zsg.{ApplicationX2, Context2, Plus2}
 
 trait TupleEncoder[T, R] {
   self =>
@@ -25,14 +25,6 @@ class ScalaTupleContext extends Context2[TupleEncoder] {
         val (x1, str2) = y.fromString(str1)
         (p.plus2(x2, x1), str2)
       }
-    }
-  }
-
-  override val start: TupleEncoder[ZsgTuple0, ZsgTuple0] = new TupleEncoder[ZsgTuple0, ZsgTuple0] {
-    override def body(t: List[String], i: ZsgTuple0): List[String] = t
-    override def stringBody(i: ZsgTuple0): String                  = ""
-    override def fromString(str: String): (ZsgTuple0, String) = {
-      (ZsgTuple0.value, str)
     }
   }
 }

@@ -23,8 +23,7 @@ trait ZsgTupleToDebugCaseClass[T, C] {
   def tupleToCaseClass(tuple: T): C
 }
 object ZsgTupleToDebugCaseClass
-    extends DebugCaseClass1Instance
-    with DebugCaseClass2Instance
+    extends DebugCaseClass2Instance
     with DebugCaseClass3Instance
     with DebugCaseClass4Instance
     with DebugCaseClass5Instance
@@ -45,45 +44,3 @@ object ZsgTupleToDebugCaseClass
     with DebugCaseClass20Instance
     with DebugCaseClass21Instance
     with DebugCaseClass22Instance
-    with DebugCaseClass23Instance
-    with DebugCaseClass24Instance
-    with DebugCaseClass25Instance
-    with DebugCaseClass26Instance
-    with DebugCaseClass27Instance
-    with DebugCaseClass28Instance
-    with DebugCaseClass29Instance
-    with DebugCaseClass30Instance
-    with DebugCaseClass31Instance
-    with DebugCaseClass32Instance
-    with DebugCaseClass33Instance
-    with DebugCaseClass34Instance
-    with DebugCaseClass35Instance
-    with DebugCaseClass36Instance
-    with DebugCaseClass37Instance
-    with DebugCaseClass38Instance
-    with DebugCaseClass39Instance
-    with DebugCaseClass40Instance
-    with DebugCaseClass41Instance
-    with DebugCaseClass42Instance
-    with DebugCaseClass43Instance
-    with DebugCaseClass44Instance
-    with DebugCaseClass45Instance
-    with DebugCaseClass46Instance
-    with DebugCaseClass47Instance
-    with DebugCaseClass48Instance
-    with DebugCaseClass49Instance
-    with DebugCaseClass50Instance
-    with DebugCaseClass51Instance
-    with DebugCaseClass52Instance
-    with DebugCaseClass53Instance
-    with DebugCaseClass54Instance
-    with DebugCaseClass55Instance
-    with DebugCaseClass56Instance
-    with DebugCaseClass57Instance
-    with DebugCaseClass58Instance
-    with DebugCaseClass59Instance
-    with DebugCaseClass60Instance
-    with DebugCaseClass61Instance
-    with DebugCaseClass62Instance
-    with DebugCaseClass63Instance
-    with DebugCaseClass64Instance

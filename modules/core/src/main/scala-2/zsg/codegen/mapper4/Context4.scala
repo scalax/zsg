@@ -33,5 +33,4 @@ abstract class Context4[F[_, _, _, _]] {
       Z4
     ]
   ): F[Z1, Z2, Z3, Z4]
-  def start: F[ZsgTuple0, ZsgTuple0, ZsgTuple0, ZsgTuple0]
 }

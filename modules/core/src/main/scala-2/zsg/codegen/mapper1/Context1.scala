@@ -15,5 +15,4 @@ abstract class Context1[F[_]] {
       Z1
     ]
   ): F[Z1]
-  def start: F[ZsgTuple0]
 }

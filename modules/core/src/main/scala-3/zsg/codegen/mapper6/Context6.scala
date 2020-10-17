@@ -13,5 +13,4 @@ abstract class Context6[F[_ , _ , _ , _ , _ , _]] {
         Y1 , Y2 , Y3 , Y4 , Y5 , Y6,
         Z1 , Z2 , Z3 , Z4 , Z5 , Z6
     ]): F[Z1 , Z2 , Z3 , Z4 , Z5 , Z6]
-    def start: F[ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0 , ZsgTuple0]
 }
