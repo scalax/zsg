@@ -40,23 +40,25 @@ object ZsgTupleCodeGeneration {
       }
     }
 
-    for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
-      val filePath = root3_2X_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
-      Files.createDirectories(filePath.getParent)
-      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val content =
-          StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body)
-        writer.println(content)
+    {
+      for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
+        val filePath = root3_2X_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
+        Files.createDirectories(filePath.getParent)
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val content =
+            StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body)
+          writer.println(content)
+        }
       }
-    }
 
-    for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
-      val filePath = root3_dotty_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
-      Files.createDirectories(filePath.getParent)
-      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val content =
-          StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = true).body)
-        writer.println(content)
+      for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
+        val filePath = root3_dotty_Dir.resolve("scala_tuple_plus").resolve("PlusInstanceScalaTuple_" + ii + ".scala")
+        Files.createDirectories(filePath.getParent)
+        Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+          val content =
+            StringUtil.trimLines(zsg.codegen.scala_tuple.txt.PlusInstanceTupleX(ZTupleNum = ii, maxContextNum = ZsgParameters.maxContextNum)(isDotty = true).body)
+          writer.println(content)
+        }
       }
     }
 
@@ -96,7 +98,7 @@ object ZsgTupleCodeGeneration {
 
       for (i <- 1 to ZsgParameters.maxTupleNum) yield {
         for (ii <- 1 to ZsgParameters.maxContextNum) yield {
-          val filePath = root1_dotty_Dir.resolve("mapper" + ii).resolve("ScalaTupleImplicits_" + i + "_" + ii + ".scala")
+          val filePath = root1_dotty_Dir.resolve(Paths.get("mapper" + ii, "ScalaTupleImplicits_" + i + "_" + ii + ".scala"))
           Files.createDirectories(filePath.getParent)
           Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
             val linerContent =
@@ -106,6 +108,17 @@ object ZsgTupleCodeGeneration {
             writer.println(linerContent)
           }
         }
+      }
+    }
+
+    for (i <- 1 to ZsgParameters.maxTupleNum) yield {
+      val filePath = root1_2X_Dir.resolve(Paths.get("scala_tuple", "mapper" + i, "ScalaTupleImplicits_" + i + ".scala"))
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val linerContent = StringUtil.trimLines(
+          zsg.codegen.scala_tuple.txt.TupleXImplicit(ZTupleNum = i)(maxContextNum = ZsgParameters.maxContextNum)(isDotty = false).body
+        )
+        writer.println(linerContent)
       }
     }
 
