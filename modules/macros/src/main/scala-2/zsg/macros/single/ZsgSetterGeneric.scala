@@ -52,7 +52,7 @@ object ZsgSetterGenericMacroApply {
 
         val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
 
-        val casei = toItemImpl(1, preList)(true)
+        val casei = if (preList.size > 1) toItemImpl(1, preList)(true) else preList
 
         val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map { case (item, m) =>
           namedParam(item.fieldTermName, m(Ident(TermName("item"))))
