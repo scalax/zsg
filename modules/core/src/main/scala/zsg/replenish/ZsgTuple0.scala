@@ -1,7 +1,7 @@
 package zsg
 
-final class ZsgTuple0
+final class ZsgTuple012345
 
-object ZsgTuple0 {
-  final val value: ZsgTuple0 = new ZsgTuple0
+object ZsgTuple012345 {
+  final val value: ZsgTuple012345 = new ZsgTuple012345
 }

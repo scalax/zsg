@@ -1,7 +1,7 @@
 package zsg.macros.sealed_trait_test
 
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
-import zsg.{ApplicationX2, Context2, Plus2, ZsgTuple0}
+import zsg.{ApplicationX2, Context2, Plus2}
 
 object SealedTraitLabelledGenericPrepareTest {
 

@@ -1,6 +1,6 @@
 package zsg.macros.rep_encoder_test
 
-import zsg.{ApplicationX2, Context2, Plus2, PropertyTag, ZsgTuple0}
+import zsg.{ApplicationX2, Context2, Plus2, PropertyTag}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
