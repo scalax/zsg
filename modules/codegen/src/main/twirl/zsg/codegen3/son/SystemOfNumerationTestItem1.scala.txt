@@ -1,10 +1,19 @@
-package zsg.debug
+package zsg.codegen3
+
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
 
 object SystemOfNumerationTestItem1 {
 
-    val item1  = 进位准备.init6(@for(i <- 1 to 5) { "item@{i}" }, "item6")
-    val item10 = item1@for(i <- 7 to 10) { .next("item@{i}") }
-    @for(i <- 2 to 9)
+    def testItem(item: SystemOfNumeration[String]): TestResult = {
+        @for(i <- 1 to 300) {
+            val item@{i} = item @for(i <- zsg.codegen3.SystemOfNumeration.initToList(i).tail.reverse) { ._@{i} } ._@{zsg.codegen3.SystemOfNumeration.initToList(i).head}_th
+            val assert@{i} = assert(item@{i})(equalTo("item@{i}"))
+        }
+        @for(i <- 1 to 299) { assert@{i} && } assert300
+    }
 
 }
 
