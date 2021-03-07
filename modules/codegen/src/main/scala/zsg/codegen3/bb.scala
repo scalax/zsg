@@ -1,4 +1,4 @@
-package asuna.codegen3
+package zsg.codegen3
 
 trait 进位准备[T] {
   def noSuchElement: T            = throw new IllegalStateException("No such element.")
@@ -14,6 +14,17 @@ trait 进位准备[T] {
 
   def next(t: T): 进位准备[T]
   def 加数后上级进位操作(noNeed: => 进位准备[T], need: => 进位准备[T]): 进位准备[T]
+}
+
+object 进位准备 {
+  def init6[T](i1: T, i2: T, i3: T, i4: T, i5: T, i6: T): 进位准备[T] = new P_3_Step_2(i1, i2, new S_2(i3, i4, i5), new S_0(i6))
+def intToList(i:Int):List[Int] = {
+  if (i < 3){
+    List(i)
+  } else {
+    (i%3):: intToList(i  / 3)
+  }
+}
 }
 
 class P_3_Step_1[T](override val _1_th: T, override val _2_th: T, override val _1: 进位准备[T], override val _2: 进位准备[T]) extends 进位准备[T] {

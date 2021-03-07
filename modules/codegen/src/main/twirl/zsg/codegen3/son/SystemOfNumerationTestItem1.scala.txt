@@ -1,0 +1,10 @@
+package zsg.debug
+
+object SystemOfNumerationTestItem1 {
+
+    val item1  = 进位准备.init6(@for(i <- 1 to 5) { "item@{i}" }, "item6")
+    val item10 = item1@for(i <- 7 to 10) { .next("item@{i}") }
+    @for(i <- 2 to 9)
+
+}
+
