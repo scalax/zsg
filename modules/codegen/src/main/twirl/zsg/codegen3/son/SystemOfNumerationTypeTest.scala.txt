@@ -6,7 +6,7 @@ import zsg.replenish._
     class Item@{i}
 }
 
-class TypeConfirm {
+object TypeConfirm1 {
     val item252 = zsg.codegen3.SOFAlias.zTuple252(@for(i <- 1 to 251) { new Item@{i}, } new Item252)
     @for(i <- 1 to 252) {
         val b@{i}: Item@{i} = item252@for(ii <- zsg.codegen3.SystemOfNumeration.initToList(i).tail.reverse) { ._@{ii} }._@{zsg.codegen3.SystemOfNumeration.initToList(i).head}_th

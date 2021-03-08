@@ -17,7 +17,7 @@ object SOFAliasCodegen {
     val b = if (count <= 6) s else (7 to count).foldLeft(s)((x, y) => x.next(NameType(s"T${y}")))
     def in(bb: SystemOfNumeration[NameType]): String = bb match {
       case P_3_Step_1(_1_th, _2_th, _1, _2)            => s"P_3_Step_1[${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)}]"
-      case P_3_Step_2(_1_th, _2_th, _1, _2)            => s"P_3_Step_2[${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)}]"
+      case P_3_Step_2(_1_th, _2_th, _1, _2)            => s"P_3_Step_1[${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)}]"
       case S_0(_0_th)                                  => s"S_0[${_0_th.name}]"
       case S_1(_0_th, _1_th)                           => s"S_1[${_0_th.name}, ${_1_th.name}]"
       case S_2(_0_th, _1_th, _2_th)                    => s"S_2[${_0_th.name}, ${_1_th.name}, ${_2_th.name}]"
@@ -26,8 +26,8 @@ object SOFAliasCodegen {
       case I_1(_0_th, _1_th, _2_th, _0, _1)            => s"I_1[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}]"
       case I_1_To_2(_0_th, _1_th, _2_th, _0, _1)       => s"I_1_To_2[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}]"
       case I_2_Step_0(_0_th, _1_th, _2_th, _0, _1, _2) => s"I_2_Step_0[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)}]"
-      case I_2_Step_1(_0_th, _1_th, _2_th, _0, _1, _2) => s"I_2_Step_1[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)}]"
-      case I_2_Step_2(_0_th, _1_th, _2_th, _0, _1, _2) => s"I_2_Step_2[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)}]"
+      case I_2_Step_1(_0_th, _1_th, _2_th, _0, _1, _2) => s"I_2_Step_0[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)}]"
+      case I_2_Step_2(_0_th, _1_th, _2_th, _0, _1, _2) => s"I_2_Step_0[${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)}]"
     }
     in(b)
   }
@@ -37,7 +37,7 @@ object SOFAliasCodegen {
     val b = if (count <= 6) s else (7 to count).foldLeft(s)((x, y) => x.next(NameType(s"t${y}")))
     def in(bb: SystemOfNumeration[NameType]): String = bb match {
       case P_3_Step_1(_1_th, _2_th, _1, _2)            => s"new P_3_Step_1(${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)})"
-      case P_3_Step_2(_1_th, _2_th, _1, _2)            => s"new P_3_Step_2(${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)})"
+      case P_3_Step_2(_1_th, _2_th, _1, _2)            => s"new P_3_Step_1(${_1_th.name}, ${_2_th.name}, ${in(_1)}, ${in(_2)})"
       case S_0(_0_th)                                  => s"new S_0(${_0_th.name})"
       case S_1(_0_th, _1_th)                           => s"new S_1(${_0_th.name}, ${_1_th.name})"
       case S_2(_0_th, _1_th, _2_th)                    => s"new S_2(${_0_th.name}, ${_1_th.name}, ${_2_th.name})"
@@ -46,8 +46,8 @@ object SOFAliasCodegen {
       case I_1(_0_th, _1_th, _2_th, _0, _1)            => s"new I_1(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)})"
       case I_1_To_2(_0_th, _1_th, _2_th, _0, _1)       => s"new I_1_To_2(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)})"
       case I_2_Step_0(_0_th, _1_th, _2_th, _0, _1, _2) => s"new I_2_Step_0(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)})"
-      case I_2_Step_1(_0_th, _1_th, _2_th, _0, _1, _2) => s"new I_2_Step_1(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)})"
-      case I_2_Step_2(_0_th, _1_th, _2_th, _0, _1, _2) => s"new I_2_Step_2(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)})"
+      case I_2_Step_1(_0_th, _1_th, _2_th, _0, _1, _2) => s"new I_2_Step_0(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)})"
+      case I_2_Step_2(_0_th, _1_th, _2_th, _0, _1, _2) => s"new I_2_Step_0(${_0_th.name}, ${_1_th.name}, ${_2_th.name}, ${in(_0)}, ${in(_1)}, ${in(_2)})"
     }
     in(b)
   }
@@ -67,10 +67,16 @@ object SOFAliasCodegen {
       val content = zsg.codegen.StringUtil.trimLines(zsg.codegen3.son.txt.SystemOfNumerationTypeAlias(list.map(_.head)).body)
       writer.println(content)
     }
-    val filePath3 = rootTestDir.resolve(s"TypeConfirm.scala")
+    val filePath3 = rootTestDir.resolve(s"TypeConfirm1.scala")
     Files.createDirectories(rootTestDir)
     Using(new PrintWriter(filePath3.toFile, "utf-8")) { writer =>
       val content = zsg.codegen.StringUtil.trimLines(zsg.codegen3.son.txt.SystemOfNumerationTypeTest().body)
+      writer.println(content)
+    }
+    val filePath4 = rootTestDir.resolve(s"TypeConfirm2.scala")
+    Files.createDirectories(rootTestDir)
+    Using(new PrintWriter(filePath4.toFile, "utf-8")) { writer =>
+      val content = zsg.codegen.StringUtil.trimLines(zsg.codegen3.son.txt.SystemOfNumerationTypeTest2().body)
       writer.println(content)
     }
   }

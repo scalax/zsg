@@ -253,7 +253,7 @@ class Item250
 class Item251
 class Item252
 class Item253
-class TypeConfirm {
+object TypeConfirm1 {
   val item252 = zsg.codegen3.SOFAlias.zTuple252(
     new Item1,
     new Item2,

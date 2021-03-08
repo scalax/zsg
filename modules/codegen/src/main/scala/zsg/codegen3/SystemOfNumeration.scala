@@ -116,7 +116,6 @@ case class I_2_Step_0[T](
   override val _1: SystemOfNumeration[T],
   override val _2: SystemOfNumeration[T]
 ) extends SystemOfNumeration[T] {
-
   override def next(t: T): SystemOfNumeration[T] =
     _0.加数后上级进位操作(new I_2_Step_0(_0_th, _1_th, _2_th, _0.next(t), _1, _2), new I_2_Step_1(_0_th, _1_th, _2_th, _0.next(t), _1, _2))
   override def 加数后上级进位操作(noNeed: => SystemOfNumeration[T], need: => SystemOfNumeration[T]): SystemOfNumeration[T] = noNeed
