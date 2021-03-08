@@ -1,0 +1,15 @@
+package zsg.codegen3
+
+import zio.console._
+import zio.test._
+import zio.test.Assertion._
+import zio.test.environment._
+
+class SOFAlias {
+
+    @for(i <- 6 to 253) yield {
+        type ZTuple@{i}[@for(ii <- 1 to i - 1) yield { T@{ii}, } T@{i}] = @SOFAliasCodegen
+    }
+
+}
+
