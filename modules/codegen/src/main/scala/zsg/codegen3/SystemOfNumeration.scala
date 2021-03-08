@@ -18,13 +18,7 @@ trait SystemOfNumeration[T] {
 
 object SystemOfNumeration {
   def init6[T](i1: T, i2: T, i3: T, i4: T, i5: T, i6: T): SystemOfNumeration[T] = new P_3_Step_2(i1, i2, new S_2(i3, i4, i5), new S_0(i6))
-  def initToList(i: Int): List[Int] = {
-    if (i < 3) {
-      List(i)
-    } else {
-      (i % 3) :: initToList(i / 3)
-    }
-  }
+  def initToList(i: Int): List[Int]                                             = if (i < 3) List(i) else (i % 3) :: initToList(i / 3)
 }
 
 case class P_3_Step_1[T](override val _1_th: T, override val _2_th: T, override val _1: SystemOfNumeration[T], override val _2: SystemOfNumeration[T])

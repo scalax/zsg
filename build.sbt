@@ -85,10 +85,15 @@ addCommandAlias(
     ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgRepCodeGeneration" +
     ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration" +
-    ";codegen/runMain zsg.codegen3.SOFCodeGeneration"
+    ";codegen/runMain zsg.codegen3.SOFCodeGeneration" +
+    ";codegen/runMain zsg.codegen3.SOFAliasCodegen"
 )
 
-addCommandAlias("bb", ";codegen/runMain zsg.codegen3.SOFCodeGeneration")
+addCommandAlias(
+  "bb",
+  ";codegen/runMain zsg.codegen3.SOFCodeGeneration" +
+    ";codegen/runMain zsg.codegen3.SOFAliasCodegen"
+)
 
 addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")
 
