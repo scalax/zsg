@@ -2,6 +2,7 @@ package zsg.codegen
 
 import zsg.codegen.tuple.ZsgTupleCodeGeneration
 import org.apache.commons.io.FileUtils
+import zsg.codegen3.{SOFAliasCodegen, SOFCodeGeneration}
 
 object DeleteTemp {
   def main(i: Array[String]): Unit = {
@@ -26,5 +27,9 @@ object DeleteTemp {
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.root2XDir.toFile)
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.rootAllDir.toFile)
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.rootDottyDir.toFile)
+
+    FileUtils.deleteDirectory(SOFCodeGeneration.rootDir.toFile)
+    FileUtils.deleteDirectory(SOFAliasCodegen.rootDir.toFile)
+    FileUtils.deleteDirectory(SOFAliasCodegen.rootTestDir.toFile)
   }
 }

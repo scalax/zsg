@@ -5,3 +5,4 @@ ZsgSettings.commonSettings
 scalafmtOnCompile := true
 
 libraryDependencies += Dependencies.commonsIo
+libraryDependencies ++= Dependencies.zioTest

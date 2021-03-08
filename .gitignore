@@ -11,3 +11,6 @@ _site
 /.metals
 /.bloop
 /.bsp
+/.vscode
+/project/project
+/null
