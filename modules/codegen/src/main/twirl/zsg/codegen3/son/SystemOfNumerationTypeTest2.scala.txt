@@ -1,10 +1,5 @@
 package zsg.codegen3.test
 
-import zio.console._
-import zio.test._
-import zio.test.Assertion._
-import zio.test.environment._
-
 object TypeConfirm2 {
 
     @for(i <- 252 to 6 by - 1) {

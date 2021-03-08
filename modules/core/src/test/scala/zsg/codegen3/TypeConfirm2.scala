@@ -1,8 +1,4 @@
 package zsg.codegen3.test
-import zio.console._
-import zio.test._
-import zio.test.Assertion._
-import zio.test.environment._
 object TypeConfirm2 {
   val c252: zsg.codegen3.SOFAlias#ZTuple252[
     Item1,
