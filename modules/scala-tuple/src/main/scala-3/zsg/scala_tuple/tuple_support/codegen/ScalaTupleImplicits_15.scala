@@ -50,7 +50,7 @@ trait ScalaTupleImplicits_15 {
          ,   inline  t15: F[
                  Tuple15_Context1
         ]
-        )  as   zsg.ApplicationX1[F, T
+        ) :  zsg.ApplicationX1[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
 ]  = new  zsg.ApplicationX1[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
@@ -126,7 +126,7 @@ trait ScalaTupleImplicits_15 {
                  Tuple15_Context1
                  ,  Tuple15_Context2
         ]
-        )  as   zsg.ApplicationX2[F, T
+        ) :  zsg.ApplicationX2[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
 ]  = new  zsg.ApplicationX2[F, T
@@ -221,7 +221,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context2
                  ,  Tuple15_Context3
         ]
-        )  as   zsg.ApplicationX3[F, T
+        ) :  zsg.ApplicationX3[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]
@@ -335,7 +335,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context3
                  ,  Tuple15_Context4
         ]
-        )  as   zsg.ApplicationX4[F, T
+        ) :  zsg.ApplicationX4[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]
@@ -468,7 +468,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context4
                  ,  Tuple15_Context5
         ]
-        )  as   zsg.ApplicationX5[F, T
+        ) :  zsg.ApplicationX5[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]
@@ -620,7 +620,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context5
                  ,  Tuple15_Context6
         ]
-        )  as   zsg.ApplicationX6[F, T
+        ) :  zsg.ApplicationX6[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]
@@ -791,7 +791,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context6
                  ,  Tuple15_Context7
         ]
-        )  as   zsg.ApplicationX7[F, T
+        ) :  zsg.ApplicationX7[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]
@@ -981,7 +981,7 @@ trait ScalaTupleImplicits_15 {
                  ,  Tuple15_Context7
                  ,  Tuple15_Context8
         ]
-        )  as   zsg.ApplicationX8[F, T
+        ) :  zsg.ApplicationX8[F, T
         , Tuple15[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1 ]
         , Tuple15[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2 ]
         , Tuple15[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3 ]

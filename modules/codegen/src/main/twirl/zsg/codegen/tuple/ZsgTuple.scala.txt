@@ -12,7 +12,7 @@ final class ZsgTuple@{tagNum}[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).
             @for(ii <- 1 to typeParamNum) { , X1_C@{ii} }](@if(isDotty) { using } else { implicit }
                 @if(isDotty) { inline } t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }],
                 @if(isDotty) { inline } context: T
-            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F, T @for(i <- 1 to typeParamNum) { , ZsgTuple1[X1_C@{i}] }] =
+            ) : Application@{typeParamNum}[F, T @for(i <- 1 to typeParamNum) { , ZsgTuple1[X1_C@{i}] }] =
                 new Application@{typeParamNum}(context.append(context.start, t1)(ZsgTuple1.cachePlus@{typeParamNum}WithTypeParameter0))
         }
     } else {
@@ -22,7 +22,7 @@ final class ZsgTuple@{tagNum}[@{zsg.codegen.SnippetUtil.XI_Snippet(1 to tagNum).
                 @if(isDotty) { inline } t1: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X1_C@{i} }],
                 @if(isDotty) { inline } t2: F[@for(i <- 1 to typeParamNum) { @if(i > 1) { , } X2_C@{i} }],
                 @if(isDotty) { inline } context: T
-            ) @if(isDotty) { as } else { : } Application@{typeParamNum}[F, T @for(i <- 1 to typeParamNum) { , ZsgTuple2[X1_C@{i}, X2_C@{i}] }] =
+            ) : Application@{typeParamNum}[F, T @for(i <- 1 to typeParamNum) { , ZsgTuple2[X1_C@{i}, X2_C@{i}] }] =
                 new Application@{typeParamNum}(context.append(t2, t1)(ZsgTuple2.cachePlus@{typeParamNum}WithTypeParameter1))
         }
     }

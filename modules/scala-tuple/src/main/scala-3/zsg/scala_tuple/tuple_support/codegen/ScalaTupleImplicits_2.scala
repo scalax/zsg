@@ -11,7 +11,7 @@ trait ScalaTupleImplicits_2 {
          ,   inline  t2: F[
                  Tuple2_Context1
         ]
-        )  as   zsg.ApplicationX1[F, T
+        ) :  zsg.ApplicationX1[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
 ]  = new  zsg.ApplicationX1[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
@@ -35,7 +35,7 @@ trait ScalaTupleImplicits_2 {
                  Tuple2_Context1
                  ,  Tuple2_Context2
         ]
-        )  as   zsg.ApplicationX2[F, T
+        ) :  zsg.ApplicationX2[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
 ]  = new  zsg.ApplicationX2[F, T
@@ -65,7 +65,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context2
                  ,  Tuple2_Context3
         ]
-        )  as   zsg.ApplicationX3[F, T
+        ) :  zsg.ApplicationX3[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -101,7 +101,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context3
                  ,  Tuple2_Context4
         ]
-        )  as   zsg.ApplicationX4[F, T
+        ) :  zsg.ApplicationX4[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -143,7 +143,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context4
                  ,  Tuple2_Context5
         ]
-        )  as   zsg.ApplicationX5[F, T
+        ) :  zsg.ApplicationX5[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -191,7 +191,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context5
                  ,  Tuple2_Context6
         ]
-        )  as   zsg.ApplicationX6[F, T
+        ) :  zsg.ApplicationX6[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -245,7 +245,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context6
                  ,  Tuple2_Context7
         ]
-        )  as   zsg.ApplicationX7[F, T
+        ) :  zsg.ApplicationX7[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -305,7 +305,7 @@ trait ScalaTupleImplicits_2 {
                  ,  Tuple2_Context7
                  ,  Tuple2_Context8
         ]
-        )  as   zsg.ApplicationX8[F, T
+        ) :  zsg.ApplicationX8[F, T
         , Tuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , Tuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , Tuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]

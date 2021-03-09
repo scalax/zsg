@@ -3,7 +3,7 @@ package asuna.sample04_round
 trait PI
 
 object PI {
-  given m1 as Context11[PI]
+  given Context11[PI] = new Context11[PI]
 }
 
 class Context11[M] {

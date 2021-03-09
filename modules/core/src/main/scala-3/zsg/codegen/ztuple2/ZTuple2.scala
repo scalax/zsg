@@ -12,7 +12,7 @@ object ZTuple2 {
          ,   inline  t2: F[
                  Tuple2_Context1
         ]
-            )  as   ApplicationX1[F, T
+            ) :  ApplicationX1[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
 ]  = new  ApplicationX1[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
@@ -36,7 +36,7 @@ object ZTuple2 {
                  Tuple2_Context1
                  ,  Tuple2_Context2
         ]
-            )  as   ApplicationX2[F, T
+            ) :  ApplicationX2[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
 ]  = new  ApplicationX2[F, T
@@ -66,7 +66,7 @@ object ZTuple2 {
                  ,  Tuple2_Context2
                  ,  Tuple2_Context3
         ]
-            )  as   ApplicationX3[F, T
+            ) :  ApplicationX3[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -102,7 +102,7 @@ object ZTuple2 {
                  ,  Tuple2_Context3
                  ,  Tuple2_Context4
         ]
-            )  as   ApplicationX4[F, T
+            ) :  ApplicationX4[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -144,7 +144,7 @@ object ZTuple2 {
                  ,  Tuple2_Context4
                  ,  Tuple2_Context5
         ]
-            )  as   ApplicationX5[F, T
+            ) :  ApplicationX5[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -192,7 +192,7 @@ object ZTuple2 {
                  ,  Tuple2_Context5
                  ,  Tuple2_Context6
         ]
-            )  as   ApplicationX6[F, T
+            ) :  ApplicationX6[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -246,7 +246,7 @@ object ZTuple2 {
                  ,  Tuple2_Context6
                  ,  Tuple2_Context7
         ]
-            )  as   ApplicationX7[F, T
+            ) :  ApplicationX7[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]
@@ -306,7 +306,7 @@ object ZTuple2 {
                  ,  Tuple2_Context7
                  ,  Tuple2_Context8
         ]
-            )  as   ApplicationX8[F, T
+            ) :  ApplicationX8[F, T
         , ZTuple2[  Tuple1_Context1   ,  Tuple2_Context1 ]
         , ZTuple2[  Tuple1_Context2   ,  Tuple2_Context2 ]
         , ZTuple2[  Tuple1_Context3   ,  Tuple2_Context3 ]

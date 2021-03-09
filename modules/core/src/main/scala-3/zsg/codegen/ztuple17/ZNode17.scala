@@ -57,7 +57,7 @@ object ZNode17 {
          ,   inline  t17: ApplicationX1[F, T
                 , Tuple17_Context1
         ]
-            )  as   ApplicationX1[F, T
+            ) :  ApplicationX1[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
 ]  = new  ApplicationX1[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
@@ -141,7 +141,7 @@ object ZNode17 {
                 , Tuple17_Context1
                 , Tuple17_Context2
         ]
-            )  as   ApplicationX2[F, T
+            ) :  ApplicationX2[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
 ]  = new  ApplicationX2[F, T
@@ -246,7 +246,7 @@ object ZNode17 {
                 , Tuple17_Context2
                 , Tuple17_Context3
         ]
-            )  as   ApplicationX3[F, T
+            ) :  ApplicationX3[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
@@ -372,7 +372,7 @@ object ZNode17 {
                 , Tuple17_Context3
                 , Tuple17_Context4
         ]
-            )  as   ApplicationX4[F, T
+            ) :  ApplicationX4[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
@@ -519,7 +519,7 @@ object ZNode17 {
                 , Tuple17_Context4
                 , Tuple17_Context5
         ]
-            )  as   ApplicationX5[F, T
+            ) :  ApplicationX5[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
@@ -687,7 +687,7 @@ object ZNode17 {
                 , Tuple17_Context5
                 , Tuple17_Context6
         ]
-            )  as   ApplicationX6[F, T
+            ) :  ApplicationX6[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
@@ -876,7 +876,7 @@ object ZNode17 {
                 , Tuple17_Context6
                 , Tuple17_Context7
         ]
-            )  as   ApplicationX7[F, T
+            ) :  ApplicationX7[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
@@ -1086,7 +1086,7 @@ object ZNode17 {
                 , Tuple17_Context7
                 , Tuple17_Context8
         ]
-            )  as   ApplicationX8[F, T
+            ) :  ApplicationX8[F, T
         , ZNode17[  Tuple1_Context1   ,  Tuple2_Context1   ,  Tuple3_Context1   ,  Tuple4_Context1   ,  Tuple5_Context1   ,  Tuple6_Context1   ,  Tuple7_Context1   ,  Tuple8_Context1   ,  Tuple9_Context1   ,  Tuple10_Context1   ,  Tuple11_Context1   ,  Tuple12_Context1   ,  Tuple13_Context1   ,  Tuple14_Context1   ,  Tuple15_Context1   ,  Tuple16_Context1   ,  Tuple17_Context1 ]
         , ZNode17[  Tuple1_Context2   ,  Tuple2_Context2   ,  Tuple3_Context2   ,  Tuple4_Context2   ,  Tuple5_Context2   ,  Tuple6_Context2   ,  Tuple7_Context2   ,  Tuple8_Context2   ,  Tuple9_Context2   ,  Tuple10_Context2   ,  Tuple11_Context2   ,  Tuple12_Context2   ,  Tuple13_Context2   ,  Tuple14_Context2   ,  Tuple15_Context2   ,  Tuple16_Context2   ,  Tuple17_Context2 ]
         , ZNode17[  Tuple1_Context3   ,  Tuple2_Context3   ,  Tuple3_Context3   ,  Tuple4_Context3   ,  Tuple5_Context3   ,  Tuple6_Context3   ,  Tuple7_Context3   ,  Tuple8_Context3   ,  Tuple9_Context3   ,  Tuple10_Context3   ,  Tuple11_Context3   ,  Tuple12_Context3   ,  Tuple13_Context3   ,  Tuple14_Context3   ,  Tuple15_Context3   ,  Tuple16_Context3   ,  Tuple17_Context3 ]
