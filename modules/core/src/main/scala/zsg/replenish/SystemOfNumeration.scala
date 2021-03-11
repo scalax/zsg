@@ -2,7 +2,19 @@ package zsg.replenish
 
 trait SystemOfNumeration
 
-class P_3_Step_1[T1, T2, +I1 <: SystemOfNumeration, +I2 <: SystemOfNumeration](val _1_th: T1, val _2_th: T2, val _1: I1, val _2: I2) extends SystemOfNumeration
+class N_0 extends SystemOfNumeration
+
+class N_1[T1](val _1_th: T1) extends N_0 with SystemOfNumeration
+
+class N_2[T1, T2](override val _1_th: T1, val _2_th: T2) extends N_1[T1](_1_th = _1_th) with SystemOfNumeration
+
+class P_2_Step_1[T1, T2, +I1 <: SystemOfNumeration](override val _1_th: T1, override val _2_th: T2, val _1: I1)
+    extends N_2[T1, T2](_1_th = _1_th, _2_th = _2_th)
+    with SystemOfNumeration
+
+class P_3_Step_1[T1, T2, +I1 <: SystemOfNumeration, +I2 <: SystemOfNumeration](override val _1_th: T1, override val _2_th: T2, override val _1: I1, val _2: I2)
+    extends P_2_Step_1[T1, T2, I1](_1_th = _1_th, _2_th = _2_th, _1 = _1)
+    with SystemOfNumeration
 
 @deprecated
 class P_3_Step_2[T1, T2, +I1 <: SystemOfNumeration, +I2 <: SystemOfNumeration](override val _1_th: T1, override val _2_th: T2, override val _1: I1, override val _2: I2)

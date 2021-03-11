@@ -64164,4 +64164,15 @@ object TypeConfirm2 {
   val c7: zsg.codegen3.SOFAlias#ZTuple7[Item1, Item2, Item3, Item4, Item5, Item6, Item7]                                                         = TypeConfirm1.item252
   val d6: zsg.codegen3.SOFAlias#ZTuple6[Item1, Item2, Item3, Item4, Item5, Item6]                                                                = c7
   val c6: zsg.codegen3.SOFAlias#ZTuple6[Item1, Item2, Item3, Item4, Item5, Item6]                                                                = TypeConfirm1.item252
+  val d5: zsg.codegen3.SOFAlias#ZTuple5[Item1, Item2, Item3, Item4, Item5]                                                                       = c6
+  val c5: zsg.codegen3.SOFAlias#ZTuple5[Item1, Item2, Item3, Item4, Item5]                                                                       = TypeConfirm1.item252
+  val d4: zsg.codegen3.SOFAlias#ZTuple4[Item1, Item2, Item3, Item4]                                                                              = c5
+  val c4: zsg.codegen3.SOFAlias#ZTuple4[Item1, Item2, Item3, Item4]                                                                              = TypeConfirm1.item252
+  val d3: zsg.codegen3.SOFAlias#ZTuple3[Item1, Item2, Item3]                                                                                     = c4
+  val c3: zsg.codegen3.SOFAlias#ZTuple3[Item1, Item2, Item3]                                                                                     = TypeConfirm1.item252
+  val d2: zsg.codegen3.SOFAlias#ZTuple2[Item1, Item2]                                                                                            = c3
+  val c2: zsg.codegen3.SOFAlias#ZTuple2[Item1, Item2]                                                                                            = TypeConfirm1.item252
+  val d1: zsg.codegen3.SOFAlias#ZTuple1[Item1]                                                                                                   = c2
+  val c1: zsg.codegen3.SOFAlias#ZTuple1[Item1]                                                                                                   = TypeConfirm1.item252
+  val d0: zsg.codegen3.SOFAlias#ZTuple0                                                                                                          = c1
 }

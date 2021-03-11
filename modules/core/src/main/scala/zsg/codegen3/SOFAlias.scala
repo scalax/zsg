@@ -1,4 +1,5 @@
 package zsg.codegen3
+import zsg.replenish._
 class SOFAlias
     extends SOFAlias6
     with SOFAlias11
@@ -49,7 +50,14 @@ class SOFAlias
     with SOFAlias236
     with SOFAlias241
     with SOFAlias246
-    with SOFAlias251
+    with SOFAlias251 {
+  type ZTuple0                     = N_0
+  type ZTuple1[T1]                 = N_1[T1]
+  type ZTuple2[T1, T2]             = N_2[T1, T2]
+  type ZTuple3[T1, T2, T3]         = P_2_Step_1[T1, T2, S_0[T3]]
+  type ZTuple4[T1, T2, T3, T4]     = P_2_Step_1[T1, T2, S_1[T3, T4]]
+  type ZTuple5[T1, T2, T3, T4, T5] = P_2_Step_1[T1, T2, S_2[T3, T4, T5]]
+}
 object SOFAlias
     extends SOFInit6
     with SOFInit11
@@ -100,4 +108,11 @@ object SOFAlias
     with SOFInit236
     with SOFInit241
     with SOFInit246
-    with SOFInit251
+    with SOFInit251 {
+  val zTuple0: SOFAlias#ZTuple0                                                                                 = new N_0
+  def zTuple1[T1](t1: T1): SOFAlias#ZTuple1[T1]                                                                 = new N_1(t1)
+  def zTuple2[T1, T2](t1: T1, t2: T2): SOFAlias#ZTuple2[T1, T2]                                                 = new N_2(t1, t2)
+  def zTuple3[T1, T2, T3](t1: T1, t2: T2, t3: T3): SOFAlias#ZTuple3[T1, T2, T3]                                 = new P_2_Step_1(t1, t2, new S_0(t3))
+  def zTuple4[T1, T2, T3, T4](t1: T1, t2: T2, t3: T3, t4: T4): SOFAlias#ZTuple4[T1, T2, T3, T4]                 = new P_2_Step_1(t1, t2, new S_1(t3, t4))
+  def zTuple5[T1, T2, T3, T4, T5](t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): SOFAlias#ZTuple5[T1, T2, T3, T4, T5] = new P_2_Step_1(t1, t2, new S_2(t3, t4, t5))
+}
