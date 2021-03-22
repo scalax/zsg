@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.BuildContent
-import zsg.macros.single.{PropertyApply, StringName, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
+import zsg.macros.single.{PropertyApply, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
 
 object CaseClassLabelledGenericMacroGenPrepareTest {
 
@@ -40,41 +40,22 @@ object CaseClassLabelledGenericMacroGenPrepareTest {
     )
   }
 
+  lazy val dsfsdfewrene: Foo = throw new Exception
+
   val fooLabelled = ZsgLabelledTypeGeneric
     .CaseClassColumnName[Foo]
     .propertyName(n =>
       BuildContent.tuple10(
-        {
-          type i1 = StringName
-          n.name[i1]
-        }, {
-          type i2 = StringName
-          n.name[i2]
-        }, {
-          type i3 = StringName
-          n.name[i3]
-        }, {
-          type i4 = StringName
-          n.name[i4]
-        }, {
-          type i5 = StringName
-          n.name[i5]
-        }, {
-          type i6 = StringName
-          n.name[i6]
-        }, {
-          type i7 = StringName
-          n.name[i7]
-        }, {
-          type i8 = StringName
-          n.name[i8]
-        }, {
-          type i9 = StringName
-          n.name[i9]
-        }, {
-          type i10 = StringName
-          n.name[i10]
-        }
+        n.name[dsfsdfewrene.i1.type],
+        n.name[dsfsdfewrene.i2.type],
+        n.name[dsfsdfewrene.i3.type],
+        n.name[dsfsdfewrene.i4.type],
+        n.name[dsfsdfewrene.i5.type],
+        n.name[dsfsdfewrene.i6.type],
+        n.name[dsfsdfewrene.i7.type],
+        n.name[dsfsdfewrene.i8.type],
+        n.name[dsfsdfewrene.i9.type],
+        n.name[dsfsdfewrene.i10.type]
       )
     )
 

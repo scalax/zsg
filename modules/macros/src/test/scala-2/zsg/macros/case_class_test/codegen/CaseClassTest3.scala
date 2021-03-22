@@ -6,7 +6,7 @@ import zio.console._
 import zio.test._
 import zio.test.Assertion._
 import zio.test.environment._
-object CaseClassTest3 extends DefaultRunnableSpec {
+/*object CaseClassTest3 extends DefaultRunnableSpec {
   case class Foo3(i1: Long, i2: Int, i3: Int) {
     self =>
     def fieldNames: List[String] = List("i1", "i2", "i3")
@@ -60,4 +60,4 @@ object CaseClassTest3 extends DefaultRunnableSpec {
       assert(model2)(equalTo(fooValue3))
     }
   )
-}
+}*/

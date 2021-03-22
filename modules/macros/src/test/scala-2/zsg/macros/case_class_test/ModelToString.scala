@@ -1,6 +1,6 @@
 package zsg.macros.case_class_test
 
-import zsg.macros.single.{ColumnName, GenericColumnName, StringName, ZsgDefaultValueGeneric, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric, ZsgLabelledTypeGeneric}
+import zsg.macros.single.{ColumnName, GenericColumnName, ZsgDefaultValueGeneric, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric, ZsgLabelledTypeGeneric}
 import zsg.{ApplicationX5, Context5, Plus5, PropertyTag}
 
 trait ModelToString[E] {
@@ -67,7 +67,7 @@ object ModelToString {
   }
 
   object ModelToStringContent {
-    implicit def pp1[G <: StringName](implicit
+    implicit def pp1[G](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[PropertyTag[String], String, ColumnName[G], zsg.macros.single.DefaultValue[String], String] =
       new ModelToStringContent[PropertyTag[String], String, ColumnName[G], zsg.macros.single.DefaultValue[String], String] {
@@ -79,7 +79,7 @@ object ModelToString {
         override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
       }
 
-    implicit def pp2[G <: StringName](implicit
+    implicit def pp2[G](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[PropertyTag[Int], Int, ColumnName[G], zsg.macros.single.DefaultValue[Int], String] =
       new ModelToStringContent[PropertyTag[Int], Int, ColumnName[G], zsg.macros.single.DefaultValue[Int], String] {
@@ -91,7 +91,7 @@ object ModelToString {
         override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
       }
 
-    implicit def pp3[G <: StringName](implicit
+    implicit def pp3[G](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[PropertyTag[Long], Long, ColumnName[G], zsg.macros.single.DefaultValue[Long], String] =
       new ModelToStringContent[PropertyTag[Long], Long, ColumnName[G], zsg.macros.single.DefaultValue[Long], String] {

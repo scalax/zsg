@@ -15,7 +15,7 @@ object ZsgLabelledTypeGeneric {
   type Aux[C, W] = ZsgLabelledTypeGeneric[C] { type WT = W }
 
   class ColumnNameGen {
-    def name[N <: StringName]: ColumnName[N] = ColumnName[N]
+    def name[N]: ColumnName[N] = ColumnName[N]
   }
 
   object ColumnNameGen {
@@ -56,10 +56,7 @@ object ZsgLabelledTypeGenericMacroApply {
 
         val props = caseClassMembersByType(caseClassType)
 
-        val proTypeTag = props.map(s => q"""{
-            type ${TypeName(s.fieldName)} = _root_.zsg.macros.single.StringName
-            item.name[${TypeName(s.fieldName)}]
-          }""")
+        val proTypeTag = props.map(s => q"""_root_.zsg.macros.single.ColumnName[model.${TermName(s.fieldName)}.type]""")
 
         def typeTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
@@ -75,8 +72,16 @@ object ZsgLabelledTypeGenericMacroApply {
               typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..$s)"""), false)
           }
 
+        println(q"""$n.propertyName(item => {
+            lazy val model: $caseClass = throw new Exception
+            ${typeTagGen(proTypeTag, true)}
+          })""")
+
         c.Expr[ZsgLabelledTypeGeneric.Aux[CaseClass, T]] {
-          q"""$n.propertyName(item => ${typeTagGen(proTypeTag, true)})"""
+          q"""$n.propertyName(item => {
+            lazy val model: $caseClass = throw new Exception
+            ${typeTagGen(proTypeTag, true)}
+          })"""
         }
 
       } catch {
