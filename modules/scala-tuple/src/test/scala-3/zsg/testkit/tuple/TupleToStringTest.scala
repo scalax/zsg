@@ -36,8 +36,8 @@ import zio.test.environment._
 
 object TupleToStringTest extends DefaultRunnableSpec {
 
-  import AppendTuple.{given _}
-  import zsg.scala_tuple.ScalaTupleImplicits.{given _}
+  import AppendTuple.given
+  import zsg.scala_tuple.ScalaTupleImplicits.given
 
   override def spec = suite("Tuple Mapper 2")(
     test("auto map to string 1") {

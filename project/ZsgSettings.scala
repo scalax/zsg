@@ -20,16 +20,22 @@ object ZsgSettings {
   val setting9 = scalaVersion := currentScalaVersion
   val setting10 = Compile / unmanagedSourceDirectories ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, _)) => List(sourceDirectory.value / "main" / "scala-2")
-      case Some((3, _)) => List(sourceDirectory.value / "main" / "scala-3")
-      case _            => List.empty
+      case Some((2, 11)) => List(sourceDirectory.value / "main" / "scala-2.11")
+      case Some((2, 12)) => List(sourceDirectory.value / "main" / "scala-2.12")
+      case Some((2, 13)) => List(sourceDirectory.value / "main" / "scala-2.13")
+      case Some((2, _))  => List(sourceDirectory.value / "main" / "scala-2")
+      case Some((3, _))  => List(sourceDirectory.value / "main" / "scala-3")
+      case _             => List.empty
     }
   }
   val setting11 = Test / unmanagedSourceDirectories ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, _)) => List(sourceDirectory.value / "test" / "scala-2")
-      case Some((0, _)) => List(sourceDirectory.value / "test" / "scala-3")
-      case _            => List.empty
+      case Some((2, 11)) => List(sourceDirectory.value / "test" / "scala-2.11")
+      case Some((2, 12)) => List(sourceDirectory.value / "test" / "scala-2.12")
+      case Some((2, 13)) => List(sourceDirectory.value / "main" / "scala-2.13")
+      case Some((2, _))  => List(sourceDirectory.value / "test" / "scala-2")
+      case Some((3, _))  => List(sourceDirectory.value / "test" / "scala-3")
+      case _             => List.empty
     }
   }
   val setting12 = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")

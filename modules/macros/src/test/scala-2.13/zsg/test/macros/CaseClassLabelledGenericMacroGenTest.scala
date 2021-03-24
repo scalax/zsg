@@ -1,4 +1,4 @@
-package zsg.macros.case_class_test
+package zsg.test.macros.case_class_test
 
 import zio.console._
 import zio.test._

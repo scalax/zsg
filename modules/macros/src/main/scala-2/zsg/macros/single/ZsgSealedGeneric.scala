@@ -27,16 +27,14 @@ object ZsgSealedGeneric {
         override def tag: M = value1
       }
   }
-
   object SealedGenericApply {
-    val value: SealedGenericApply[Any]                   = new SealedGenericApply[Any]
-    implicit def implicitApply[T]: SealedGenericApply[T] = value.asInstanceOf[SealedGenericApply[T]]
+    val value: SealedGenericApply[Any]  = new SealedGenericApply[Any]
+    def apply[T]: SealedGenericApply[T] = value.asInstanceOf[SealedGenericApply[T]]
   }
 
   type Aux[H, II] = ZsgSealedGeneric[H] { type Sealed = II }
 
-  implicit def macroImpl[H, II](implicit i: ZsgSealedGeneric.SealedGenericApply[H]): ZsgSealedGeneric.Aux[H, II] =
-    macro ZsgSealedGenericMacroApply.MacroImpl1.generic[H, II]
+  implicit def macroImpl[H, II]: ZsgSealedGeneric.Aux[H, II] = macro ZsgSealedGenericMacroApply.MacroImpl1.generic[H, II]
 
 }
 
@@ -47,12 +45,11 @@ object ZsgSealedGenericMacroApply {
 
     import c.universe._
 
-    def generic[H: c.WeakTypeTag, M: c.WeakTypeTag](i: c.Expr[ZsgSealedGeneric.SealedGenericApply[H]]): c.Expr[ZsgSealedGeneric.Aux[H, M]] = {
+    def generic[H: WeakTypeTag, M: WeakTypeTag]: c.Expr[ZsgSealedGeneric.Aux[H, M]] = {
       try {
-        val h     = weakTypeOf[H]
-        val hType = h.resultType
+        val h = weakTypeOf[H]
 
-        val props = fleshedOutSubtypes(hType).to(List)
+        val props = fleshedOutSubtypes(h).to(List)
 
         val proTypeTag = props.map(s => q"""_root_.zsg.macros.single.SealedTag[${s}]""")
 
@@ -71,10 +68,8 @@ object ZsgSealedGenericMacroApply {
               typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
-        println(q"""$i.value(${typeTagGen(proTypeTag, true)})""")
-
         c.Expr[ZsgSealedGeneric.Aux[H, M]] {
-          q"""$i.value(${typeTagGen(proTypeTag, true)})"""
+          q"""_root_.zsg.macros.single.ZsgSealedGeneric.SealedGenericApply[${h}].value(${typeTagGen(proTypeTag, true)})"""
         }
 
       } catch {

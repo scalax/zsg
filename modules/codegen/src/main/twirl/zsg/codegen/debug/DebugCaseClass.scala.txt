@@ -4,7 +4,10 @@ package zsg.debug
 
 trait DebugCaseClass@{proNum}Instance {
     @if(isDotty) {
-        given zsgTupleToDebugCaseClass@{proNum}InstanceImplicit[@{(1 to proNum).map(i => s"D${i}").mkString(" , ")}] as ZsgTupleToDebugCaseClass[
+        given [@{(1 to proNum).map(i => s"D${i}").mkString(" , ")}]: ZsgTupleToDebugCaseClass[
+            @{zsg.codegen.SnippetUtil.Tuple_To_AsunaTuple2((1 to proNum).map(i => s"D${i}"))(maxPropertyNum)(true)},
+            DebugCaseClass@{proNum}[@{(1 to proNum).map(i => s"D${i}").mkString(" , ")}]
+        ] = new ZsgTupleToDebugCaseClass[
             @{zsg.codegen.SnippetUtil.Tuple_To_AsunaTuple2((1 to proNum).map(i => s"D${i}"))(maxPropertyNum)(true)},
             DebugCaseClass@{proNum}[@{(1 to proNum).map(i => s"D${i}").mkString(" , ")}]
         ] {

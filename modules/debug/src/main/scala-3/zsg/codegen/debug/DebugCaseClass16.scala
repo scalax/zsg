@@ -1,6 +1,9 @@
 package zsg.debug
 trait DebugCaseClass16Instance {
-        given zsgTupleToDebugCaseClass16InstanceImplicit[D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16] as ZsgTupleToDebugCaseClass[
+        given [D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16]: ZsgTupleToDebugCaseClass[
+            zsg.ZTuple16[D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16],
+            DebugCaseClass16[D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16]
+        ] = new ZsgTupleToDebugCaseClass[
             zsg.ZTuple16[D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16],
             DebugCaseClass16[D1 , D2 , D3 , D4 , D5 , D6 , D7 , D8 , D9 , D10 , D11 , D12 , D13 , D14 , D15 , D16]
         ] {

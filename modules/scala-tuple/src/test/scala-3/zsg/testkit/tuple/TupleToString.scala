@@ -71,7 +71,7 @@ object tuple {
 }
 
 trait AppendTuple {
-  given as TupleEncoder[String, String] {
+  given TupleEncoder[String, String] = new TupleEncoder[String, String] {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
 
@@ -81,7 +81,7 @@ trait AppendTuple {
     }
   }
 
-  given as TupleEncoder[Int, Int] {
+  given TupleEncoder[Int, Int] = new TupleEncoder[Int, Int] {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
 
@@ -91,7 +91,7 @@ trait AppendTuple {
     }
   }
 
-  given as TupleEncoder[Long, Long] {
+  given TupleEncoder[Long, Long] = new TupleEncoder[Long, Long] {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
 
@@ -101,7 +101,7 @@ trait AppendTuple {
     }
   }
 
-  inline given [T](using inline ii: ApplicationX2[TupleEncoder, ScalaTupleContext, T, T]) as TupleEncoder[T, T] = ii.application(ScalaTupleContext.value)
+  inline given [T](using inline ii: ApplicationX2[TupleEncoder, ScalaTupleContext, T, T]): TupleEncoder[T, T] = ii.application(ScalaTupleContext.value)
 
 }
 

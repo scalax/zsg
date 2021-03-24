@@ -36,21 +36,21 @@ object reverseTuple {
 }
 
 object ReverseAppendTuple {
-  given as ReverseTupleEncoder[String] {
+  given ReverseTupleEncoder[String] = new ReverseTupleEncoder[String] {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
   }
 
-  given as ReverseTupleEncoder[Int] {
+  given ReverseTupleEncoder[Int] = new ReverseTupleEncoder[Int] {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
   }
 
-  given as ReverseTupleEncoder[Long] {
+  given ReverseTupleEncoder[Long] = new ReverseTupleEncoder[Long] {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  inline given [T](using inline ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]) as ReverseTupleEncoder[T] = ii.application(ReverseScalaTupleContext.value)
+  inline given [T](using inline ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): ReverseTupleEncoder[T] = ii.application(ReverseScalaTupleContext.value)
 
 }

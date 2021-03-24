@@ -36,11 +36,11 @@ object AsunaGeneric {
 
 object AsunaGenericMacroApply {
 
-  import scala.quoted._
+  import scala.quoted.*
 
-  def generic[H](prop: Expr[AsunaGeneric.GenericApply[H]])(using qctx: QuoteContext, t1: Type[H]): Expr[Any] = {
-    import qctx.tasty._
-    println(t1.unseal)
+  def generic[H](prop: Expr[AsunaGeneric.GenericApply[H]])(using qctx: Quotes, t1: Type[H]): Expr[Any] = {
+    // import qctx.tasty._
+    // println(t1.unseal)
     prop
   }
 

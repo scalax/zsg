@@ -1,6 +1,7 @@
-package zsg.macros.case_class_test
+package zsg.test.macros.case_class_test
 
 import zsg.BuildContent
+import zsg.macros.case_class_test.{FieldModel, IntProperty, LongProperty, ModelToString, StringProperty}
 import zsg.macros.single.{ColumnName, PropertyApply, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
 
 object CaseClassLabelledGenericMacroGenPrepareTest {

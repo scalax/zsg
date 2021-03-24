@@ -1,6 +1,9 @@
 package zsg.debug
 trait DebugCaseClass5Instance {
-        given zsgTupleToDebugCaseClass5InstanceImplicit[D1 , D2 , D3 , D4 , D5] as ZsgTupleToDebugCaseClass[
+        given [D1 , D2 , D3 , D4 , D5]: ZsgTupleToDebugCaseClass[
+            zsg.ZTuple5[D1 , D2 , D3 , D4 , D5],
+            DebugCaseClass5[D1 , D2 , D3 , D4 , D5]
+        ] = new ZsgTupleToDebugCaseClass[
             zsg.ZTuple5[D1 , D2 , D3 , D4 , D5],
             DebugCaseClass5[D1 , D2 , D3 , D4 , D5]
         ] {
