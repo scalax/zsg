@@ -29,7 +29,7 @@ object Dependencies {
       )
   }
 
-  val zioVersion = "1.0.1"
+  val zioVersion = "1.0.5"
   val zioTest = List(
     "dev.zio" %% "zio-test"     % zioVersion % "test",
     "dev.zio" %% "zio-test-sbt" % zioVersion % "test" // ,

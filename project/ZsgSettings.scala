@@ -7,7 +7,7 @@ object ZsgSettings {
   val currentScalaVersion = "2.13.4"
   val scala212Version     = "2.12.12"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "3.0.0-M3"
+  val dottyVersion        = "3.0.0-RC1"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
@@ -21,7 +21,7 @@ object ZsgSettings {
   val setting10 = Compile / unmanagedSourceDirectories ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, _)) => List(sourceDirectory.value / "main" / "scala-2")
-      case Some((0, _)) => List(sourceDirectory.value / "main" / "scala-3")
+      case Some((3, _)) => List(sourceDirectory.value / "main" / "scala-3")
       case _            => List.empty
     }
   }

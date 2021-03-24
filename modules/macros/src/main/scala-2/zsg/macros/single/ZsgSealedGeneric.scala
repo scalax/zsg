@@ -64,7 +64,7 @@ object ZsgSealedGenericMacroApply {
             else
               q"""..${tree}"""
           } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
             if (init)
               typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
             else
