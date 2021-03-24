@@ -71,6 +71,8 @@ object ZsgSealedGenericMacroApply {
               typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
           }
 
+        println(q"""$i.value(${typeTagGen(proTypeTag, true)})""")
+
         c.Expr[ZsgSealedGeneric.Aux[H, M]] {
           q"""$i.value(${typeTagGen(proTypeTag, true)})"""
         }
