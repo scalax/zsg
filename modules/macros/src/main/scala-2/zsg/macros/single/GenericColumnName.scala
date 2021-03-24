@@ -13,12 +13,10 @@ object GenericColumnName {
       import c.universe._
       def generic[N: c.WeakTypeTag]: c.Expr[GenericColumnName[N]] = {
         try {
-          val n = weakTypeOf[N]
-          println(n)
-          // val TermName(name) = n.termSymbol.name.decodedName
-          // println(name.trim)
+          val n                                    = weakTypeOf[N]
+          val ConstantType(Constant(name: String)) = n
           c.Expr[GenericColumnName[N]] {
-            q"""new _root_.zsg.macros.single.GenericColumnName[${n}](${Literal(Constant("22"))})"""
+            q"""new _root_.zsg.macros.single.GenericColumnName[${n}](${Literal(Constant(name.trim))})"""
           }
         } catch {
           case e: Exception =>
