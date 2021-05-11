@@ -8,34 +8,19 @@ val rep    = (project in modulesDir / "rep").dependsOn(core)
 val debug  = (project in modulesDir / "debug").dependsOn(core)
 val macros = (project in modulesDir / "macros").dependsOn(core)
 
-val scalaTuple1 = (project in modulesDir / "scala-tuple-1").dependsOn(core)
-val scalaTuple2 = (project in modulesDir / "scala-tuple-2").dependsOn(scalaTuple1)
-val scalaTuple  = (project in modulesDir / "scala-tuple").dependsOn(scalaTuple2)
+val scalaTuple = (project in modulesDir / "scala-tuple").dependsOn(core)
 
 val codegen   = project in modulesDir / "codegen"
 val testkit   = (project in modulesDir / "testkit").dependsOn(macros, debug)
 val examples  = (project in rootDir / "examples").dependsOn(testkit)
 val benchmark = (project in modulesDir / "benchmark").dependsOn(testkit)
 
-val asuna = (project in rootDir).dependsOn(core, scalaTuple, testkit).aggregate(core, rep, macros, debug, scalaTuple, scalaTuple1, scalaTuple2, testkit)
+val asuna = (project in rootDir).dependsOn(core, scalaTuple, testkit).aggregate(core, rep, macros, debug, scalaTuple, testkit)
 
 ZsgSettings.scalaVersionSettings
 ZsgSettings.commonSettings
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
-
-val allUnpublish = taskKey[Unit]("allUnpublish")
-
-allUnpublish := {
-  Try { (core / bintrayUnpublish).value }
-  Try { (rep / bintrayUnpublish).value }
-  Try { (macros / bintrayUnpublish).value }
-  Try { (scalaTuple / bintrayUnpublish).value }
-  Try { (scalaTuple1 / bintrayUnpublish).value }
-  Try { (scalaTuple2 / bintrayUnpublish).value }
-  Try { (testkit / bintrayUnpublish).value }
-  Try { (asuna / bintrayUnpublish).value }
-}
 
 addCommandAlias(
   "codegen",
@@ -43,8 +28,7 @@ addCommandAlias(
     ";codegen/runMain zsg.codegen.ZsgDebugCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgNewTupleCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" +
-    ";codegen/runMain zsg.codegen.ZsgRepCodeGeneration" +
-    ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration"
+    ";codegen/runMain zsg.codegen.ZsgRepCodeGeneration"
 )
 
 addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")

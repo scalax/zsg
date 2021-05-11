@@ -4,7 +4,7 @@ package zsg
 
 object BuildContent {
     @for(i <- 1 to zsg.codegen.ZsgParameters.maxContextNum) {
-        def plusFuncImpl[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} }] =
+        private def plusFuncImpl@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} }] =
         new Plus@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} } @for(i1 <- 1 to i) { , zsg.ZsgTuple2[X@{i1}, Y@{i1}] }] {
             @for(i1 <- 1 to i) {
                 override def takeHead@{i1}(z: zsg.ZsgTuple2[X@{i1}, Y@{i1}]): X@{i1} = z.i1
@@ -12,5 +12,11 @@ object BuildContent {
                 override def plus@{i1}(x: X@{i1}, y: Y@{i1}): zsg.ZsgTuple2[X@{i1}, Y@{i1}] = new zsg.ZsgTuple2(i1 = x, i2 = y)
             }
         }
+
+        private val plusValueAny@{i} = plusFuncImpl@{i}[Any @for(_ <- 1 to 2 * i - 1) { , Any }]
+
+        @if(isDotty) { inline } def plus@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} }]:
+        Plus@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} } @for(i1 <- 1 to i) { , zsg.ZsgTuple2[X@{i1}, Y@{i1}] }] =
+            plusValueAny@{i}.asInstanceOf[Plus@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} } @for(i1 <- 1 to i) { , zsg.ZsgTuple2[X@{i1}, Y@{i1}] }]]
     }
 }

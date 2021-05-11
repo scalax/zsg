@@ -19,7 +19,7 @@ object ZsgTupleCodeGeneration {
 
   def main(arr: Array[String]): Unit = {
 
-    for (i <- 1 to ZsgParameters.maxContextNum) yield {
+    /*for (i <- 1 to ZsgParameters.maxContextNum) yield {
       for (ii <- 0 to ZsgParameters.maxTupleNum - 1) yield {
         val filePath = root2Dir.resolve(Paths.get("mapper" + i, "HListPlus_" + ii + "_" + i + ".scala"))
         Files.createDirectories(filePath.getParent)
@@ -37,9 +37,9 @@ object ZsgTupleCodeGeneration {
         val content = StringUtil.trimLines(zsg.codegen.scala_tuple.txt.HListPlusSum(tagNum = i, maxTupleNum = ZsgParameters.maxTupleNum - 2).body)
         writer.println(content)
       }
-    }
+    }*/
 
-    {
+    /*{
       for (ii <- 2 to ZsgParameters.maxTupleNum) yield {
         val filePath = root3_2X_Dir.resolve(Paths.get("scala_tuple_plus", "PlusInstanceScalaTuple_" + ii + ".scala"))
         Files.createDirectories(filePath.getParent)
@@ -59,7 +59,7 @@ object ZsgTupleCodeGeneration {
           writer.println(content)
         }
       }
-    }
+    }*/
 
     /*for (i <- 1 to ZsgParameters.maxContextNum) yield {
       for (ii <- 1 to ZsgParameters.maxTupleNum) yield {
@@ -110,7 +110,7 @@ object ZsgTupleCodeGeneration {
       }
     }*/
 
-    {
+    /*{
       for (i <- 2 to ZsgParameters.maxTupleNum) yield {
         val filePath = root1_2X_Dir.resolve("ScalaTupleImplicits_" + i + ".scala")
         Files.createDirectories(filePath.getParent)
@@ -131,9 +131,9 @@ object ZsgTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-    }
+    }*/
 
-    {
+    /*{
       {
         val filePath = root1_2X_Dir.resolve("ApplicationFetchContent.scala")
         Files.createDirectories(filePath.getParent)
@@ -156,9 +156,9 @@ object ZsgTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-    }
+    }*/
 
-    {
+    /*{
       val filePath = root1_all_Dir.resolve("ScalaTupleImplicits.scala")
       Files.createDirectories(filePath.getParent)
       Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
@@ -167,7 +167,7 @@ object ZsgTupleCodeGeneration {
         )
         writer.println(content)
       }
-    }
+    }*/
 
   }
 }
