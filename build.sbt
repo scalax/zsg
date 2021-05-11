@@ -1,5 +1,3 @@
-import scala.util.Try
-
 val rootDir    = file(".")
 val modulesDir = rootDir / "modules"
 

@@ -20,7 +20,7 @@ object ZsgNewTupleCodeGeneration {
       val filePath = rootAllDir.resolve(Paths.get("mapper" + i, "ApplicationX" + i + ".scala"))
       Files.createDirectories(filePath.getParent)
       Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.new_tuple.txt.ApplicationX(tagNum = i, isDotty = false).body)
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i, isDotty = false).body)
         writer.println(linerContent)
       }
     }
