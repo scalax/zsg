@@ -1,6 +1,5 @@
 package zsg.scala_tuple.tuple_support
-object HListPlus8
-    extends HListPlus_0_8
+object HListPlus8 extends HListPlus_0_8
     with HListPlus_1_8
     with HListPlus_2_8
     with HListPlus_3_8

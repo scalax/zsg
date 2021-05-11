@@ -3,13 +3,14 @@
 package zsg
 
 object BuildContent {
-    @if(isDotty) { inline } else { @@inline } def tuple1[T1](t1: T1): T1 = t1
-    @if(isDotty) { inline } else { @@inline } final def nodeTuple1[T1 <: TupleTag](t1: T1): T1 = t1
-
-    @for(i <- 2 to maxItem) {
-        @if(isDotty) { inline } else { @@inline } def tuple@{i}[T1  @for(ii <- 2 to i) { , T@{ii} }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): ZTuple@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
-            new ZTuple@{i}(i1 = t1 @for(ii <- 2 to i) { , i@{ii} = t@{ii} })
-        @if(isDotty) { inline } else { @@inline } final def nodeTuple@{i}[T1 <: TupleTag @for(ii <- 2 to i){ , T@{ii} <: TupleTag }](t1: T1 @for(ii <- 2 to i){ , t@{ii} : T@{ii} }): ZNode@{i}[T1 @for(ii <- 2 to i) { , T@{ii} }] =
-            new ZNode@{i}(i1 = t1 @for(ii <- 2 to i) { , i@{ii} = t@{ii} })
+    @for(i <- 1 to zsg.codegen.ZsgParameters.maxContextNum) {
+        def plusFuncImpl[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} }] =
+        new Plus@{i}[X1 @for(i1 <- 2 to i) { , X@{i1} } @for(i1 <- 1 to i) { , Y@{i1} } @for(i1 <- 1 to i) { , zsg.ZsgTuple2[X@{i1}, Y@{i1}] }] {
+            @for(i1 <- 1 to i) {
+                override def takeHead@{i1}(z: zsg.ZsgTuple2[X@{i1}, Y@{i1}]): X@{i1} = z.i1
+                override def takeTail@{i1}(z: zsg.ZsgTuple2[X@{i1}, Y@{i1}]): Y@{i1} = z.i2
+                override def plus@{i1}(x: X@{i1}, y: Y@{i1}): zsg.ZsgTuple2[X@{i1}, Y@{i1}] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+            }
+        }
     }
 }

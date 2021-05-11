@@ -15,6 +15,34 @@ import zsg.ApplicationX7
 import zsg.Context7
 import zsg.ApplicationX8
 import zsg.Context8
+import zsg.ApplicationX9
+import zsg.Context9
+import zsg.ApplicationX10
+import zsg.Context10
+import zsg.ApplicationX11
+import zsg.Context11
+import zsg.ApplicationX12
+import zsg.Context12
+import zsg.ApplicationX13
+import zsg.Context13
+import zsg.ApplicationX14
+import zsg.Context14
+import zsg.ApplicationX15
+import zsg.Context15
+import zsg.ApplicationX16
+import zsg.Context16
+import zsg.ApplicationX17
+import zsg.Context17
+import zsg.ApplicationX18
+import zsg.Context18
+import zsg.ApplicationX19
+import zsg.Context19
+import zsg.ApplicationX20
+import zsg.Context20
+import zsg.ApplicationX21
+import zsg.Context21
+import zsg.ApplicationX22
+import zsg.Context22
 import scala.language.higherKinds
 object ApplicationFetchContent {
          inline  def app1[F[  _ ], T <: Context1[F]  ,I1 ](
@@ -41,4 +69,46 @@ object ApplicationFetchContent {
          inline  def app8[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context8[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8 ](
              using inline  ii: ApplicationX8[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8 ]
         ): ApplicationX8[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8 ] = ii
+         inline  def app9[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context9[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9 ](
+             using inline  ii: ApplicationX9[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9 ]
+        ): ApplicationX9[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9 ] = ii
+         inline  def app10[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context10[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10 ](
+             using inline  ii: ApplicationX10[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10 ]
+        ): ApplicationX10[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10 ] = ii
+         inline  def app11[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context11[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11 ](
+             using inline  ii: ApplicationX11[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11 ]
+        ): ApplicationX11[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11 ] = ii
+         inline  def app12[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context12[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12 ](
+             using inline  ii: ApplicationX12[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12 ]
+        ): ApplicationX12[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12 ] = ii
+         inline  def app13[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context13[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13 ](
+             using inline  ii: ApplicationX13[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13 ]
+        ): ApplicationX13[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13 ] = ii
+         inline  def app14[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context14[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14 ](
+             using inline  ii: ApplicationX14[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14 ]
+        ): ApplicationX14[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14 ] = ii
+         inline  def app15[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context15[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15 ](
+             using inline  ii: ApplicationX15[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15 ]
+        ): ApplicationX15[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15 ] = ii
+         inline  def app16[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context16[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16 ](
+             using inline  ii: ApplicationX16[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16 ]
+        ): ApplicationX16[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16 ] = ii
+         inline  def app17[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context17[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17 ](
+             using inline  ii: ApplicationX17[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17 ]
+        ): ApplicationX17[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17 ] = ii
+         inline  def app18[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context18[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18 ](
+             using inline  ii: ApplicationX18[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18 ]
+        ): ApplicationX18[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18 ] = ii
+         inline  def app19[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context19[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19 ](
+             using inline  ii: ApplicationX19[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19 ]
+        ): ApplicationX19[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19 ] = ii
+         inline  def app20[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context20[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20 ](
+             using inline  ii: ApplicationX20[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20 ]
+        ): ApplicationX20[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20 ] = ii
+         inline  def app21[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context21[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21 ](
+             using inline  ii: ApplicationX21[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21 ]
+        ): ApplicationX21[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21 ] = ii
+         inline  def app22[F[  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _   ,  _ ], T <: Context22[F]  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21  ,I22 ](
+             using inline  ii: ApplicationX22[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21  ,I22 ]
+        ): ApplicationX22[F, T  ,I1  ,I2  ,I3  ,I4  ,I5  ,I6  ,I7  ,I8  ,I9  ,I10  ,I11  ,I12  ,I13  ,I14  ,I15  ,I16  ,I17  ,I18  ,I19  ,I20  ,I21  ,I22 ] = ii
 }

@@ -1,89 +1,828 @@
 package zsg
 object BuildContent {
-     inline  def tuple1[T1](t1: T1): T1 = t1
-     inline  final def nodeTuple1[T1 <: TupleTag](t1: T1): T1 = t1
-         inline  def tuple2[T1   , T2 ](t1: T1  , t2 : T2 ): ZTuple2[T1  , T2 ] =
-            new ZTuple2(i1 = t1  , i2 = t2 )
-         inline  final def nodeTuple2[T1 <: TupleTag  , T2 <: TupleTag ](t1: T1  , t2 : T2 ): ZNode2[T1  , T2 ] =
-            new ZNode2(i1 = t1  , i2 = t2 )
-         inline  def tuple3[T1   , T2  , T3 ](t1: T1  , t2 : T2  , t3 : T3 ): ZTuple3[T1  , T2  , T3 ] =
-            new ZTuple3(i1 = t1  , i2 = t2  , i3 = t3 )
-         inline  final def nodeTuple3[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3 ): ZNode3[T1  , T2  , T3 ] =
-            new ZNode3(i1 = t1  , i2 = t2  , i3 = t3 )
-         inline  def tuple4[T1   , T2  , T3  , T4 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4 ): ZTuple4[T1  , T2  , T3  , T4 ] =
-            new ZTuple4(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4 )
-         inline  final def nodeTuple4[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4 ): ZNode4[T1  , T2  , T3  , T4 ] =
-            new ZNode4(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4 )
-         inline  def tuple5[T1   , T2  , T3  , T4  , T5 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5 ): ZTuple5[T1  , T2  , T3  , T4  , T5 ] =
-            new ZTuple5(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5 )
-         inline  final def nodeTuple5[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5 ): ZNode5[T1  , T2  , T3  , T4  , T5 ] =
-            new ZNode5(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5 )
-         inline  def tuple6[T1   , T2  , T3  , T4  , T5  , T6 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6 ): ZTuple6[T1  , T2  , T3  , T4  , T5  , T6 ] =
-            new ZTuple6(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6 )
-         inline  final def nodeTuple6[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6 ): ZNode6[T1  , T2  , T3  , T4  , T5  , T6 ] =
-            new ZNode6(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6 )
-         inline  def tuple7[T1   , T2  , T3  , T4  , T5  , T6  , T7 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7 ): ZTuple7[T1  , T2  , T3  , T4  , T5  , T6  , T7 ] =
-            new ZTuple7(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7 )
-         inline  final def nodeTuple7[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7 ): ZNode7[T1  , T2  , T3  , T4  , T5  , T6  , T7 ] =
-            new ZNode7(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7 )
-         inline  def tuple8[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8 ): ZTuple8[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8 ] =
-            new ZTuple8(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8 )
-         inline  final def nodeTuple8[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8 ): ZNode8[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8 ] =
-            new ZNode8(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8 )
-         inline  def tuple9[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9 ): ZTuple9[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9 ] =
-            new ZTuple9(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9 )
-         inline  final def nodeTuple9[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9 ): ZNode9[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9 ] =
-            new ZNode9(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9 )
-         inline  def tuple10[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10 ): ZTuple10[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10 ] =
-            new ZTuple10(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10 )
-         inline  final def nodeTuple10[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10 ): ZNode10[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10 ] =
-            new ZNode10(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10 )
-         inline  def tuple11[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11 ): ZTuple11[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11 ] =
-            new ZTuple11(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11 )
-         inline  final def nodeTuple11[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11 ): ZNode11[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11 ] =
-            new ZNode11(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11 )
-         inline  def tuple12[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12 ): ZTuple12[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12 ] =
-            new ZTuple12(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12 )
-         inline  final def nodeTuple12[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12 ): ZNode12[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12 ] =
-            new ZNode12(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12 )
-         inline  def tuple13[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13 ): ZTuple13[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13 ] =
-            new ZTuple13(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13 )
-         inline  final def nodeTuple13[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13 ): ZNode13[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13 ] =
-            new ZNode13(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13 )
-         inline  def tuple14[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14 ): ZTuple14[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14 ] =
-            new ZTuple14(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14 )
-         inline  final def nodeTuple14[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14 ): ZNode14[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14 ] =
-            new ZNode14(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14 )
-         inline  def tuple15[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15 ): ZTuple15[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15 ] =
-            new ZTuple15(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15 )
-         inline  final def nodeTuple15[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15 ): ZNode15[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15 ] =
-            new ZNode15(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15 )
-         inline  def tuple16[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16 ): ZTuple16[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16 ] =
-            new ZTuple16(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16 )
-         inline  final def nodeTuple16[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16 ): ZNode16[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16 ] =
-            new ZNode16(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16 )
-         inline  def tuple17[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17 ): ZTuple17[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17 ] =
-            new ZTuple17(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17 )
-         inline  final def nodeTuple17[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17 ): ZNode17[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17 ] =
-            new ZNode17(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17 )
-         inline  def tuple18[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18 ): ZTuple18[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18 ] =
-            new ZTuple18(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18 )
-         inline  final def nodeTuple18[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag  , T18 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18 ): ZNode18[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18 ] =
-            new ZNode18(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18 )
-         inline  def tuple19[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19 ): ZTuple19[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19 ] =
-            new ZTuple19(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19 )
-         inline  final def nodeTuple19[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag  , T18 <: TupleTag  , T19 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19 ): ZNode19[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19 ] =
-            new ZNode19(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19 )
-         inline  def tuple20[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20 ): ZTuple20[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20 ] =
-            new ZTuple20(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20 )
-         inline  final def nodeTuple20[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag  , T18 <: TupleTag  , T19 <: TupleTag  , T20 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20 ): ZNode20[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20 ] =
-            new ZNode20(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20 )
-         inline  def tuple21[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20  , t21 : T21 ): ZTuple21[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21 ] =
-            new ZTuple21(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20  , i21 = t21 )
-         inline  final def nodeTuple21[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag  , T18 <: TupleTag  , T19 <: TupleTag  , T20 <: TupleTag  , T21 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20  , t21 : T21 ): ZNode21[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21 ] =
-            new ZNode21(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20  , i21 = t21 )
-         inline  def tuple22[T1   , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21  , T22 ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20  , t21 : T21  , t22 : T22 ): ZTuple22[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21  , T22 ] =
-            new ZTuple22(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20  , i21 = t21  , i22 = t22 )
-         inline  final def nodeTuple22[T1 <: TupleTag  , T2 <: TupleTag  , T3 <: TupleTag  , T4 <: TupleTag  , T5 <: TupleTag  , T6 <: TupleTag  , T7 <: TupleTag  , T8 <: TupleTag  , T9 <: TupleTag  , T10 <: TupleTag  , T11 <: TupleTag  , T12 <: TupleTag  , T13 <: TupleTag  , T14 <: TupleTag  , T15 <: TupleTag  , T16 <: TupleTag  , T17 <: TupleTag  , T18 <: TupleTag  , T19 <: TupleTag  , T20 <: TupleTag  , T21 <: TupleTag  , T22 <: TupleTag ](t1: T1  , t2 : T2  , t3 : T3  , t4 : T4  , t5 : T5  , t6 : T6  , t7 : T7  , t8 : T8  , t9 : T9  , t10 : T10  , t11 : T11  , t12 : T12  , t13 : T13  , t14 : T14  , t15 : T15  , t16 : T16  , t17 : T17  , t18 : T18  , t19 : T19  , t20 : T20  , t21 : T21  , t22 : T22 ): ZNode22[T1  , T2  , T3  , T4  , T5  , T6  , T7  , T8  , T9  , T10  , T11  , T12  , T13  , T14  , T15  , T16  , T17  , T18  , T19  , T20  , T21  , T22 ] =
-            new ZNode22(i1 = t1  , i2 = t2  , i3 = t3  , i4 = t4  , i5 = t5  , i6 = t6  , i7 = t7  , i8 = t8  , i9 = t9  , i10 = t10  , i11 = t11  , i12 = t12  , i13 = t13  , i14 = t14  , i15 = t15  , i16 = t16  , i17 = t17  , i18 = t18  , i19 = t19  , i20 = t20  , i21 = t21  , i22 = t22 )
+        def plusFuncImpl[X1   , Y1 ] =
+        new Plus1[X1   , Y1   , zsg.ZsgTuple2[X1, Y1] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2   , Y1  , Y2 ] =
+        new Plus2[X1  , X2   , Y1  , Y2   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3   , Y1  , Y2  , Y3 ] =
+        new Plus3[X1  , X2  , X3   , Y1  , Y2  , Y3   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4   , Y1  , Y2  , Y3  , Y4 ] =
+        new Plus4[X1  , X2  , X3  , X4   , Y1  , Y2  , Y3  , Y4   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5   , Y1  , Y2  , Y3  , Y4  , Y5 ] =
+        new Plus5[X1  , X2  , X3  , X4  , X5   , Y1  , Y2  , Y3  , Y4  , Y5   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6 ] =
+        new Plus6[X1  , X2  , X3  , X4  , X5  , X6   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7 ] =
+        new Plus7[X1  , X2  , X3  , X4  , X5  , X6  , X7   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8 ] =
+        new Plus8[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9 ] =
+        new Plus9[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10 ] =
+        new Plus10[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11 ] =
+        new Plus11[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12 ] =
+        new Plus12[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13 ] =
+        new Plus13[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14 ] =
+        new Plus14[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15 ] =
+        new Plus15[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16 ] =
+        new Plus16[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17 ] =
+        new Plus17[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18 ] =
+        new Plus18[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17]  , zsg.ZsgTuple2[X18, Y18] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead18(z: zsg.ZsgTuple2[X18, Y18]): X18 = z.i1
+                override def takeTail18(z: zsg.ZsgTuple2[X18, Y18]): Y18 = z.i2
+                override def plus18(x: X18, y: Y18): zsg.ZsgTuple2[X18, Y18] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19 ] =
+        new Plus19[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17]  , zsg.ZsgTuple2[X18, Y18]  , zsg.ZsgTuple2[X19, Y19] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead18(z: zsg.ZsgTuple2[X18, Y18]): X18 = z.i1
+                override def takeTail18(z: zsg.ZsgTuple2[X18, Y18]): Y18 = z.i2
+                override def plus18(x: X18, y: Y18): zsg.ZsgTuple2[X18, Y18] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead19(z: zsg.ZsgTuple2[X19, Y19]): X19 = z.i1
+                override def takeTail19(z: zsg.ZsgTuple2[X19, Y19]): Y19 = z.i2
+                override def plus19(x: X19, y: Y19): zsg.ZsgTuple2[X19, Y19] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20 ] =
+        new Plus20[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17]  , zsg.ZsgTuple2[X18, Y18]  , zsg.ZsgTuple2[X19, Y19]  , zsg.ZsgTuple2[X20, Y20] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead18(z: zsg.ZsgTuple2[X18, Y18]): X18 = z.i1
+                override def takeTail18(z: zsg.ZsgTuple2[X18, Y18]): Y18 = z.i2
+                override def plus18(x: X18, y: Y18): zsg.ZsgTuple2[X18, Y18] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead19(z: zsg.ZsgTuple2[X19, Y19]): X19 = z.i1
+                override def takeTail19(z: zsg.ZsgTuple2[X19, Y19]): Y19 = z.i2
+                override def plus19(x: X19, y: Y19): zsg.ZsgTuple2[X19, Y19] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead20(z: zsg.ZsgTuple2[X20, Y20]): X20 = z.i1
+                override def takeTail20(z: zsg.ZsgTuple2[X20, Y20]): Y20 = z.i2
+                override def plus20(x: X20, y: Y20): zsg.ZsgTuple2[X20, Y20] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20  , X21   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20  , Y21 ] =
+        new Plus21[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20  , X21   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20  , Y21   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17]  , zsg.ZsgTuple2[X18, Y18]  , zsg.ZsgTuple2[X19, Y19]  , zsg.ZsgTuple2[X20, Y20]  , zsg.ZsgTuple2[X21, Y21] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead18(z: zsg.ZsgTuple2[X18, Y18]): X18 = z.i1
+                override def takeTail18(z: zsg.ZsgTuple2[X18, Y18]): Y18 = z.i2
+                override def plus18(x: X18, y: Y18): zsg.ZsgTuple2[X18, Y18] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead19(z: zsg.ZsgTuple2[X19, Y19]): X19 = z.i1
+                override def takeTail19(z: zsg.ZsgTuple2[X19, Y19]): Y19 = z.i2
+                override def plus19(x: X19, y: Y19): zsg.ZsgTuple2[X19, Y19] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead20(z: zsg.ZsgTuple2[X20, Y20]): X20 = z.i1
+                override def takeTail20(z: zsg.ZsgTuple2[X20, Y20]): Y20 = z.i2
+                override def plus20(x: X20, y: Y20): zsg.ZsgTuple2[X20, Y20] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead21(z: zsg.ZsgTuple2[X21, Y21]): X21 = z.i1
+                override def takeTail21(z: zsg.ZsgTuple2[X21, Y21]): Y21 = z.i2
+                override def plus21(x: X21, y: Y21): zsg.ZsgTuple2[X21, Y21] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
+        def plusFuncImpl[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20  , X21  , X22   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20  , Y21  , Y22 ] =
+        new Plus22[X1  , X2  , X3  , X4  , X5  , X6  , X7  , X8  , X9  , X10  , X11  , X12  , X13  , X14  , X15  , X16  , X17  , X18  , X19  , X20  , X21  , X22   , Y1  , Y2  , Y3  , Y4  , Y5  , Y6  , Y7  , Y8  , Y9  , Y10  , Y11  , Y12  , Y13  , Y14  , Y15  , Y16  , Y17  , Y18  , Y19  , Y20  , Y21  , Y22   , zsg.ZsgTuple2[X1, Y1]  , zsg.ZsgTuple2[X2, Y2]  , zsg.ZsgTuple2[X3, Y3]  , zsg.ZsgTuple2[X4, Y4]  , zsg.ZsgTuple2[X5, Y5]  , zsg.ZsgTuple2[X6, Y6]  , zsg.ZsgTuple2[X7, Y7]  , zsg.ZsgTuple2[X8, Y8]  , zsg.ZsgTuple2[X9, Y9]  , zsg.ZsgTuple2[X10, Y10]  , zsg.ZsgTuple2[X11, Y11]  , zsg.ZsgTuple2[X12, Y12]  , zsg.ZsgTuple2[X13, Y13]  , zsg.ZsgTuple2[X14, Y14]  , zsg.ZsgTuple2[X15, Y15]  , zsg.ZsgTuple2[X16, Y16]  , zsg.ZsgTuple2[X17, Y17]  , zsg.ZsgTuple2[X18, Y18]  , zsg.ZsgTuple2[X19, Y19]  , zsg.ZsgTuple2[X20, Y20]  , zsg.ZsgTuple2[X21, Y21]  , zsg.ZsgTuple2[X22, Y22] ] {
+                override def takeHead1(z: zsg.ZsgTuple2[X1, Y1]): X1 = z.i1
+                override def takeTail1(z: zsg.ZsgTuple2[X1, Y1]): Y1 = z.i2
+                override def plus1(x: X1, y: Y1): zsg.ZsgTuple2[X1, Y1] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead2(z: zsg.ZsgTuple2[X2, Y2]): X2 = z.i1
+                override def takeTail2(z: zsg.ZsgTuple2[X2, Y2]): Y2 = z.i2
+                override def plus2(x: X2, y: Y2): zsg.ZsgTuple2[X2, Y2] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead3(z: zsg.ZsgTuple2[X3, Y3]): X3 = z.i1
+                override def takeTail3(z: zsg.ZsgTuple2[X3, Y3]): Y3 = z.i2
+                override def plus3(x: X3, y: Y3): zsg.ZsgTuple2[X3, Y3] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead4(z: zsg.ZsgTuple2[X4, Y4]): X4 = z.i1
+                override def takeTail4(z: zsg.ZsgTuple2[X4, Y4]): Y4 = z.i2
+                override def plus4(x: X4, y: Y4): zsg.ZsgTuple2[X4, Y4] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead5(z: zsg.ZsgTuple2[X5, Y5]): X5 = z.i1
+                override def takeTail5(z: zsg.ZsgTuple2[X5, Y5]): Y5 = z.i2
+                override def plus5(x: X5, y: Y5): zsg.ZsgTuple2[X5, Y5] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead6(z: zsg.ZsgTuple2[X6, Y6]): X6 = z.i1
+                override def takeTail6(z: zsg.ZsgTuple2[X6, Y6]): Y6 = z.i2
+                override def plus6(x: X6, y: Y6): zsg.ZsgTuple2[X6, Y6] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead7(z: zsg.ZsgTuple2[X7, Y7]): X7 = z.i1
+                override def takeTail7(z: zsg.ZsgTuple2[X7, Y7]): Y7 = z.i2
+                override def plus7(x: X7, y: Y7): zsg.ZsgTuple2[X7, Y7] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead8(z: zsg.ZsgTuple2[X8, Y8]): X8 = z.i1
+                override def takeTail8(z: zsg.ZsgTuple2[X8, Y8]): Y8 = z.i2
+                override def plus8(x: X8, y: Y8): zsg.ZsgTuple2[X8, Y8] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead9(z: zsg.ZsgTuple2[X9, Y9]): X9 = z.i1
+                override def takeTail9(z: zsg.ZsgTuple2[X9, Y9]): Y9 = z.i2
+                override def plus9(x: X9, y: Y9): zsg.ZsgTuple2[X9, Y9] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead10(z: zsg.ZsgTuple2[X10, Y10]): X10 = z.i1
+                override def takeTail10(z: zsg.ZsgTuple2[X10, Y10]): Y10 = z.i2
+                override def plus10(x: X10, y: Y10): zsg.ZsgTuple2[X10, Y10] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead11(z: zsg.ZsgTuple2[X11, Y11]): X11 = z.i1
+                override def takeTail11(z: zsg.ZsgTuple2[X11, Y11]): Y11 = z.i2
+                override def plus11(x: X11, y: Y11): zsg.ZsgTuple2[X11, Y11] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead12(z: zsg.ZsgTuple2[X12, Y12]): X12 = z.i1
+                override def takeTail12(z: zsg.ZsgTuple2[X12, Y12]): Y12 = z.i2
+                override def plus12(x: X12, y: Y12): zsg.ZsgTuple2[X12, Y12] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead13(z: zsg.ZsgTuple2[X13, Y13]): X13 = z.i1
+                override def takeTail13(z: zsg.ZsgTuple2[X13, Y13]): Y13 = z.i2
+                override def plus13(x: X13, y: Y13): zsg.ZsgTuple2[X13, Y13] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead14(z: zsg.ZsgTuple2[X14, Y14]): X14 = z.i1
+                override def takeTail14(z: zsg.ZsgTuple2[X14, Y14]): Y14 = z.i2
+                override def plus14(x: X14, y: Y14): zsg.ZsgTuple2[X14, Y14] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead15(z: zsg.ZsgTuple2[X15, Y15]): X15 = z.i1
+                override def takeTail15(z: zsg.ZsgTuple2[X15, Y15]): Y15 = z.i2
+                override def plus15(x: X15, y: Y15): zsg.ZsgTuple2[X15, Y15] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead16(z: zsg.ZsgTuple2[X16, Y16]): X16 = z.i1
+                override def takeTail16(z: zsg.ZsgTuple2[X16, Y16]): Y16 = z.i2
+                override def plus16(x: X16, y: Y16): zsg.ZsgTuple2[X16, Y16] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead17(z: zsg.ZsgTuple2[X17, Y17]): X17 = z.i1
+                override def takeTail17(z: zsg.ZsgTuple2[X17, Y17]): Y17 = z.i2
+                override def plus17(x: X17, y: Y17): zsg.ZsgTuple2[X17, Y17] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead18(z: zsg.ZsgTuple2[X18, Y18]): X18 = z.i1
+                override def takeTail18(z: zsg.ZsgTuple2[X18, Y18]): Y18 = z.i2
+                override def plus18(x: X18, y: Y18): zsg.ZsgTuple2[X18, Y18] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead19(z: zsg.ZsgTuple2[X19, Y19]): X19 = z.i1
+                override def takeTail19(z: zsg.ZsgTuple2[X19, Y19]): Y19 = z.i2
+                override def plus19(x: X19, y: Y19): zsg.ZsgTuple2[X19, Y19] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead20(z: zsg.ZsgTuple2[X20, Y20]): X20 = z.i1
+                override def takeTail20(z: zsg.ZsgTuple2[X20, Y20]): Y20 = z.i2
+                override def plus20(x: X20, y: Y20): zsg.ZsgTuple2[X20, Y20] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead21(z: zsg.ZsgTuple2[X21, Y21]): X21 = z.i1
+                override def takeTail21(z: zsg.ZsgTuple2[X21, Y21]): Y21 = z.i2
+                override def plus21(x: X21, y: Y21): zsg.ZsgTuple2[X21, Y21] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+                override def takeHead22(z: zsg.ZsgTuple2[X22, Y22]): X22 = z.i1
+                override def takeTail22(z: zsg.ZsgTuple2[X22, Y22]): Y22 = z.i2
+                override def plus22(x: X22, y: Y22): zsg.ZsgTuple2[X22, Y22] = new zsg.ZsgTuple2(i1 = x, i2 = y)
+        }
 }

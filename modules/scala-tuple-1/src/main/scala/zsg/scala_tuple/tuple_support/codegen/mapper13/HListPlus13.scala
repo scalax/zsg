@@ -1,0 +1,22 @@
+package zsg.scala_tuple.tuple_support
+object HListPlus13 extends HListPlus_0_13
+    with HListPlus_1_13
+    with HListPlus_2_13
+    with HListPlus_3_13
+    with HListPlus_4_13
+    with HListPlus_5_13
+    with HListPlus_6_13
+    with HListPlus_7_13
+    with HListPlus_8_13
+    with HListPlus_9_13
+    with HListPlus_10_13
+    with HListPlus_11_13
+    with HListPlus_12_13
+    with HListPlus_13_13
+    with HListPlus_14_13
+    with HListPlus_15_13
+    with HListPlus_16_13
+    with HListPlus_17_13
+    with HListPlus_18_13
+    with HListPlus_19_13
+    with HListPlus_20_13

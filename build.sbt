@@ -22,46 +22,6 @@ val asuna = (project in rootDir).dependsOn(core, scalaTuple, testkit).aggregate(
 ZsgSettings.scalaVersionSettings
 ZsgSettings.commonSettings
 
-/*val sfmt = taskKey[Unit]("sfmt")
-
-sfmt := {
-  (core / Test / scalafmt).value
-  (core / Compile / scalafmtSbt).value
-
-  (debug / Test / scalafmt).value
-  (debug / Compile / scalafmtSbt).value
-
-  (macros / Compile / scalafmt).value
-  (macros / Test / scalafmt).value
-  (macros / Compile / scalafmtSbt).value
-
-  (scalaTuple / Test / scalafmt).value
-  (scalaTuple / Compile / scalafmtSbt).value
-
-  (scalaTuple1 / Test / scalafmt).value
-  (scalaTuple1 / Compile / scalafmtSbt).value
-
-  (scalaTuple2 / Test / scalafmt).value
-  (scalaTuple2 / Compile / scalafmtSbt).value
-
-  (testkit / Compile / scalafmt).value
-  (testkit / Test / scalafmt).value
-  (testkit / Compile / scalafmtSbt).value
-
-  (examples / Compile / scalafmt).value
-  (examples / Compile / scalafmtSbt).value
-
-  (benchmark / Compile / scalafmt).value
-  (benchmark / Compile / scalafmtSbt).value
-
-  (codegen / Compile / scalafmt).value
-  (codegen / Compile / scalafmtSbt).value
-
-  (asuna / Compile / scalafmt).value
-  (asuna / Test / scalafmtSbt).value
-  (asuna / Compile / scalafmtSbt).value
-}*/
-
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 
 val allUnpublish = taskKey[Unit]("allUnpublish")
@@ -84,15 +44,7 @@ addCommandAlias(
     ";codegen/runMain zsg.codegen.ZsgNewTupleCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" +
     ";codegen/runMain zsg.codegen.ZsgRepCodeGeneration" +
-    ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration" +
-    ";codegen/runMain zsg.codegen3.SOFCodeGeneration" +
-    ";codegen/runMain zsg.codegen3.SOFAliasCodegen"
-)
-
-addCommandAlias(
-  "bb",
-  ";codegen/runMain zsg.codegen3.SOFCodeGeneration" +
-    ";codegen/runMain zsg.codegen3.SOFAliasCodegen"
+    ";codegen/runMain zsg.codegen.tuple.ZsgTupleCodeGeneration"
 )
 
 addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")
