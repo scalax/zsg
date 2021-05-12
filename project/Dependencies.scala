@@ -44,7 +44,8 @@ object Dependencies {
 
   // def testDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") junit else List("org.scalatest" %% "scalatest" % "3.1.1") ::: junit
 
-  def upickleDependencies(scalaVersion: String) = if (scalaVersion startsWith "0.") List.empty else List("com.lihaoyi" %% "upickle" % "0.9.5")
+  def upickleDependencies(scalaVersion: String) =
+    if (scalaVersion startsWith "0.") List.empty else List("com.lihaoyi" %% "upickle" % "0.9.5")
 
   def scalaReflect(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, _)) => List("org.scala-lang" % "scala-reflect" % scalaVersion)

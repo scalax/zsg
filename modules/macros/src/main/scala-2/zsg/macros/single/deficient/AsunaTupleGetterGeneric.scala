@@ -11,7 +11,8 @@ trait AsunaTupleGetterGeneric[H, GenericType] {
 }
 
 object AsunaTupleGetterGeneric {
-  implicit def macroImpl[H, GenericType]: AsunaTupleGetterGeneric[H, GenericType] = macro AsunaTupleGetterGenericMacroApply.MacroImpl.generic[H, GenericType]
+  implicit def macroImpl[H, GenericType]: AsunaTupleGetterGeneric[H, GenericType] =
+    macro AsunaTupleGetterGenericMacroApply.MacroImpl.generic[H, GenericType]
 }
 
 object AsunaTupleGetterGenericMacroApply {
@@ -34,7 +35,9 @@ object AsunaTupleGetterGenericMacroApply {
 
         val modelParam = freshName
 
-        val modelFields = genericFields.map { name => Select(Select(Ident(TermName(modelParam)), struct.modelFieldTermName), name.fieldTermName) }
+        val modelFields = genericFields.map { name =>
+          Select(Select(Ident(TermName(modelParam)), struct.modelFieldTermName), name.fieldTermName)
+        }
 
         val paramName = q"""val ${TermName(modelParam)} = $EmptyTree"""
 

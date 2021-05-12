@@ -30,7 +30,10 @@ object ACirce {
     CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
   }*/
 
-  final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](ll: AsunaTupleApply[Model, PreTuple], objectEncoder: Encoder[TupleType]): Encoder[Model] =
+  final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](
+    ll: AsunaTupleApply[Model, PreTuple],
+    objectEncoder: Encoder[TupleType]
+  ): Encoder[Model] =
     objectEncoder.contramap(ll.toTuple)
 
   final def encodeCaseClass[H, R, N, Obj](implicit
@@ -40,7 +43,9 @@ object ACirce {
     cv2: ZsgGetterGeneric[H, Obj]
   ): CirceVersionCompat.JsonObjectEncoder[H] = {
     val applicationEncoder = app.application(encoder.ZsgJsonObjectContext.value)
-    CirceVersionCompat.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty)) }
+    CirceVersionCompat.JsonObjectEncoder.instance { o: H =>
+      JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty))
+    }
   }
 
   final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
@@ -54,7 +59,8 @@ object ACirce {
     ): ColumnInfo = app.application(encoder.debug.JsonObjectDebuggerContext.value).target
   }
 
-  final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] = CirceVersionCompat.JsonObjectEncoder.instance(_ => JsonObject.empty)
+  final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] =
+    CirceVersionCompat.JsonObjectEncoder.instance(_ => JsonObject.empty)
 
   final def encodeSealed[H, R, Cls, Lab](implicit
     ll: ZsgSealedGeneric.Aux[H, R],

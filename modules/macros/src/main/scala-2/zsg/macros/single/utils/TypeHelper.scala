@@ -35,18 +35,26 @@ trait TypeHelper {
   }
 
   def tupleTypeNames[TupleType: c.WeakTypeTag]: TupleTypeStructure = {
-    val traitType                  = weakTypeOf[TupleType].resultType
-    val tupleModelProperty: Symbol = traitType.members.to(List).filter(s => s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[ModelProperty])).isDefined).head
-    val TermName(preProName)       = tupleModelProperty.name
-    val modelFieldName             = preProName.trim
-    val modelType                  = tupleModelProperty.typeSignatureIn(traitType)
+    val traitType = weakTypeOf[TupleType].resultType
+    val tupleModelProperty: Symbol =
+      traitType.members.to(List).filter(s => s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[ModelProperty])).isDefined).head
+    val TermName(preProName) = tupleModelProperty.name
+    val modelFieldName       = preProName.trim
+    val modelType            = tupleModelProperty.typeSignatureIn(traitType)
 
-    val tupleSymbols = traitType.members.to(List).filter(s => s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[DeficientProperty])).isDefined).reverse
+    val tupleSymbols =
+      traitType.members.to(List).filter(s => s.annotations.find(s => s.tree.tpe.<:<(weakTypeOf[DeficientProperty])).isDefined).reverse
     val tupleFields = tupleSymbols.map { i =>
       val TermName(n) = i.name
       val name        = n.trim
       val fieldType   = i.typeSignatureIn(traitType)
-      TupleField(fieldName = name, fieldSymbol = i, fieldType = fieldType, caseClassFields = caseClassMembersByType(fieldType), fieldTermName = TermName(name))
+      TupleField(
+        fieldName = name,
+        fieldSymbol = i,
+        fieldType = fieldType,
+        caseClassFields = caseClassMembersByType(fieldType),
+        fieldTermName = TermName(name)
+      )
     }
 
     val modelFields = caseClassMembersByType(modelType)

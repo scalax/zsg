@@ -9,8 +9,9 @@ import zio.test.environment._
 object CaseClassTest2 extends DefaultRunnableSpec {
   case class Foo2(i1: Long, i2: Int) {
     self =>
-    def fieldNames: List[String]          = List("i1", "i2")
-    def defaultValues: List[DefaultValue] = List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2))
+    def fieldNames: List[String] = List("i1", "i2")
+    def defaultValues: List[DefaultValue] =
+      List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2))
     def fieldInfo: List[FieldModel] =
       List(
         FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"),

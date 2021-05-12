@@ -40,15 +40,23 @@ object ZsgWithDecoderEncoderTest extends DefaultRunnableSpec {
       val assert11 = assert(ZsgCirceModel.i8FromJson)(equalTo(CirceModel.i8FromJson))
       val assert12 = assert(ZsgCirceModel.i9FromJson)(equalTo(CirceModel.i9FromJson))
 
-      val assert13 = assert(ZsgCirceModel.i6FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test06[_]])(equalTo(true))
-      val assert14 = assert(ZsgCirceModel.i7FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test07[_]])(equalTo(true))
-      val assert15 = assert(ZsgCirceModel.i8FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test08])(equalTo(true))
-      val assert16 = assert(ZsgCirceModel.i9FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test09.type])(equalTo(true))
+      val assert13 =
+        assert(ZsgCirceModel.i6FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test06[_]])(equalTo(true))
+      val assert14 =
+        assert(ZsgCirceModel.i7FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test07[_]])(equalTo(true))
+      val assert15 =
+        assert(ZsgCirceModel.i8FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test08])(equalTo(true))
+      val assert16 =
+        assert(ZsgCirceModel.i9FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test09.type])(equalTo(true))
 
-      val assert17 = assert(ZsgCirceModel.i6FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
-      val assert18 = assert(ZsgCirceModel.i7FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
-      val assert19 = assert(ZsgCirceModel.i8FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
-      val assert20 = assert(ZsgCirceModel.i9FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
+      val assert17 =
+        assert(ZsgCirceModel.i6FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
+      val assert18 =
+        assert(ZsgCirceModel.i7FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
+      val assert19 =
+        assert(ZsgCirceModel.i8FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
+      val assert20 =
+        assert(ZsgCirceModel.i9FromJson.right.getOrElse((throw new Exception()): Test05[String]).isInstanceOf[Test05[_]])(equalTo(true))
 
       assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7 && assert8 && assert9 && assert10 && assert11 && assert12 && assert13 && assert14 && assert15 && assert16 && assert17 && assert18 && assert19 && assert20
     }

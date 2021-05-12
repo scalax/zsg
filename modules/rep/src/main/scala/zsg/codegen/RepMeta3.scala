@@ -46,7 +46,28 @@ abstract class RepMeta3[T1, T2, T3](val rep1: T1, val rep2: T2, val rep3: T3) {
     repFunction_2_4: RepFunction[Out_3_2, Tu4, Out_4_2],
     repFunction_3_4: RepFunction[Out_3_3, Tu4, Out_4_3]
   ): RepMeta3[Out_4_1, Out_4_2, Out_4_3]
-  def rep[Tu1, Tu2, Tu3, Tu4, Tu5, Out_1_1, Out_1_2, Out_1_3, Out_2_1, Out_2_2, Out_2_3, Out_3_1, Out_3_2, Out_3_3, Out_4_1, Out_4_2, Out_4_3, Out_5_1, Out_5_2, Out_5_3](
+  def rep[
+    Tu1,
+    Tu2,
+    Tu3,
+    Tu4,
+    Tu5,
+    Out_1_1,
+    Out_1_2,
+    Out_1_3,
+    Out_2_1,
+    Out_2_2,
+    Out_2_3,
+    Out_3_1,
+    Out_3_2,
+    Out_3_3,
+    Out_4_1,
+    Out_4_2,
+    Out_4_3,
+    Out_5_1,
+    Out_5_2,
+    Out_5_3
+  ](
     tuple: Tuple5[Tu1, Tu2, Tu3, Tu4, Tu5]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
@@ -1747,7 +1768,30 @@ abstract class RepMeta3[T1, T2, T3](val rep1: T1, val rep2: T2, val rep3: T3) {
     Out_22_2,
     Out_22_3
   ](
-    tuple: Tuple22[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22]
+    tuple: Tuple22[
+      Tu1,
+      Tu2,
+      Tu3,
+      Tu4,
+      Tu5,
+      Tu6,
+      Tu7,
+      Tu8,
+      Tu9,
+      Tu10,
+      Tu11,
+      Tu12,
+      Tu13,
+      Tu14,
+      Tu15,
+      Tu16,
+      Tu17,
+      Tu18,
+      Tu19,
+      Tu20,
+      Tu21,
+      Tu22
+    ]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
     repFunction_2_1: RepFunction[T2, Tu1, Out_1_2],

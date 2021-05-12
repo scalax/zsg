@@ -10,7 +10,12 @@ object ZsgSettings {
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
-  val setting3 = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/ )
+  val setting3 = scalacOptions ++= Seq(
+    "-feature",
+    "-deprecation",
+    "-encoding",
+    "utf-8" /*"-language:Scala2", "-Ywarn-unused-import", "-Xlog-implicits"*/
+  )
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
   val setting5 = transitiveClassifiers := Seq("sources")
   val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)

@@ -11,10 +11,31 @@ object RepMeta {
     new impl.RepMetaImpl5(rep1 = tuple._1, rep2 = tuple._2, rep3 = tuple._3, rep4 = tuple._4, rep5 = tuple._5)
   def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6](tuple: Tuple6[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6]): RepMeta6[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6] =
     new impl.RepMetaImpl6(rep1 = tuple._1, rep2 = tuple._2, rep3 = tuple._3, rep4 = tuple._4, rep5 = tuple._5, rep6 = tuple._6)
-  def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7](tuple: Tuple7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7]): RepMeta7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7] =
-    new impl.RepMetaImpl7(rep1 = tuple._1, rep2 = tuple._2, rep3 = tuple._3, rep4 = tuple._4, rep5 = tuple._5, rep6 = tuple._6, rep7 = tuple._7)
-  def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8](tuple: Tuple8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]): RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8] =
-    new impl.RepMetaImpl8(rep1 = tuple._1, rep2 = tuple._2, rep3 = tuple._3, rep4 = tuple._4, rep5 = tuple._5, rep6 = tuple._6, rep7 = tuple._7, rep8 = tuple._8)
+  def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7](
+    tuple: Tuple7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7]
+  ): RepMeta7[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7] =
+    new impl.RepMetaImpl7(
+      rep1 = tuple._1,
+      rep2 = tuple._2,
+      rep3 = tuple._3,
+      rep4 = tuple._4,
+      rep5 = tuple._5,
+      rep6 = tuple._6,
+      rep7 = tuple._7
+    )
+  def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8](
+    tuple: Tuple8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8]
+  ): RepMeta8[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8] =
+    new impl.RepMetaImpl8(
+      rep1 = tuple._1,
+      rep2 = tuple._2,
+      rep3 = tuple._3,
+      rep4 = tuple._4,
+      rep5 = tuple._5,
+      rep6 = tuple._6,
+      rep7 = tuple._7,
+      rep8 = tuple._8
+    )
   def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9](
     tuple: Tuple9[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9]
   ): RepMeta9[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9] =
@@ -276,7 +297,30 @@ object RepMeta {
       rep21 = tuple._21
     )
   def apply[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22](
-    tuple: Tuple22[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22]
+    tuple: Tuple22[
+      Tu1,
+      Tu2,
+      Tu3,
+      Tu4,
+      Tu5,
+      Tu6,
+      Tu7,
+      Tu8,
+      Tu9,
+      Tu10,
+      Tu11,
+      Tu12,
+      Tu13,
+      Tu14,
+      Tu15,
+      Tu16,
+      Tu17,
+      Tu18,
+      Tu19,
+      Tu20,
+      Tu21,
+      Tu22
+    ]
   ): RepMeta22[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22] =
     new impl.RepMetaImpl22(
       rep1 = tuple._1,

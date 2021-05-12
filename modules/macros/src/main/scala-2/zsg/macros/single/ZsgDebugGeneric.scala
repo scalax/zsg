@@ -30,7 +30,8 @@ object ZsgDebugGeneric {
     @inline implicit def init[M]: ZsgDebugGeneric.GenericApply[M] = GenericApply[M]
   }
 
-  implicit def macroImpl[H, II](implicit prop: ZsgDebugGeneric.GenericApply[H]): ZsgDebugGeneric.Aux[H, II] = macro ZsgDebugGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II](implicit prop: ZsgDebugGeneric.GenericApply[H]): ZsgDebugGeneric.Aux[H, II] =
+    macro ZsgDebugGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 

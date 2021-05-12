@@ -11,7 +11,8 @@ trait AsunaTupleLabelledGeneric[H, NameType] {
 }
 
 object AsunaTupleLabelledGeneric {
-  implicit def macroImpl[H, NameType]: AsunaTupleLabelledGeneric[H, NameType] = macro AsunaTupleLabelledGenericMacroApply.MacroImpl.generic[H, NameType]
+  implicit def macroImpl[H, NameType]: AsunaTupleLabelledGeneric[H, NameType] =
+    macro AsunaTupleLabelledGenericMacroApply.MacroImpl.generic[H, NameType]
 }
 
 object AsunaTupleLabelledGenericMacroApply {

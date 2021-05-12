@@ -8,7 +8,8 @@ import scala.annotation.meta.getter
 object MutiplyClassGenericPrepareTest {
 
   class GetterContext extends Context2[Getter] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: Getter[X1, X2], y: Getter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): Getter[Z1, Z2] = new Getter[Z1, Z2]
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: Getter[X1, X2], y: Getter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): Getter[Z1, Z2] =
+      new Getter[Z1, Z2]
   }
 
   object GetterContext {

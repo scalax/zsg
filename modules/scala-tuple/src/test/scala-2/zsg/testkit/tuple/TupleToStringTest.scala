@@ -21,17 +21,33 @@ object TupleToStringTest extends DefaultRunnableSpec {
       assert1 && assert2 && assert3 && assert4
     },
     test("auto map to string 2") {
-      val assert1 = assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int)](TupleData.i10.toString()))(equalTo(TupleData.i10))
-      val assert2 = assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int)](TupleData.i11.toString()))(equalTo(TupleData.i11))
+      val assert1 = assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int)](TupleData.i10.toString()))(
+        equalTo(TupleData.i10)
+      )
+      val assert2 = assert(
+        tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int)](TupleData.i11.toString())
+      )(equalTo(TupleData.i11))
       val assert3 =
-        assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int)](TupleData.i12.toString()))(equalTo(TupleData.i12))
+        assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int)](TupleData.i12.toString()))(
+          equalTo(TupleData.i12)
+        )
       val assert4 =
-        assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int)](TupleData.i13.toString()))(equalTo(TupleData.i13))
-      val assert5 = assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int))](TupleData.i14.toString()))(
+        assert(
+          tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int)](TupleData.i13.toString())
+        )(equalTo(TupleData.i13))
+      val assert5 = assert(
+        tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int))](
+          TupleData.i14.toString()
+        )
+      )(
         equalTo(TupleData.i14)
       )
       val assert6 =
-        assert(tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int, String), Int)](TupleData.i15.toString()))(
+        assert(
+          tuple.fromString[(String, String, Int, Int, Long, String, String, String, Int, Int, Int, Int, Int, (Int, Int, String), Int)](
+            TupleData.i15.toString()
+          )
+        )(
           equalTo(
             TupleData.i15
           )

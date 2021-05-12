@@ -31,7 +31,9 @@ object SealedTraitLabelledGenericPrepareTest {
   }
 
   class SealedNameGetterContext extends Context2[SealedNameGetter] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: SealedNameGetter[X1, X2], y: SealedNameGetter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): SealedNameGetter[Z1, Z2] =
+    override def append[X1, X2, Y1, Y2, Z1, Z2](x: SealedNameGetter[X1, X2], y: SealedNameGetter[Y1, Y2])(
+      p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
+    ): SealedNameGetter[Z1, Z2] =
       new SealedNameGetter[Z1, Z2] {
         override def stt(h: Z2): List[String] => List[String] = {
           val xh = x.stt(p.takeHead2(h))

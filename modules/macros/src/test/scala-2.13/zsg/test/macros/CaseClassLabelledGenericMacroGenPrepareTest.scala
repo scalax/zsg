@@ -1,6 +1,6 @@
 package zsg.test.macros.case_class_test
 
-import zsg.BuildContent
+import zsg.ZsgTuple2
 import zsg.macros.case_class_test.{FieldModel, IntProperty, LongProperty, ModelToString, StringProperty}
 import zsg.macros.single.{ColumnName, PropertyApply, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
 
@@ -12,53 +12,37 @@ object CaseClassLabelledGenericMacroGenPrepareTest {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag =
-    BuildContent.tuple10(
-      ap.to(_.i1),
-      ap.to(_.i2),
-      ap.to(_.i3),
-      ap.to(_.i4),
-      ap.to(_.i5),
-      ap.to(_.i6),
-      ap.to(_.i7),
-      ap.to(_.i8),
-      ap.to(_.i9),
-      ap.to(_.i10)
-    )
+  val fooPropertyTag = new ZsgTuple2(
+    new ZsgTuple2(
+      new ZsgTuple2(new ZsgTuple2(ap.to(_.i1), ap.to(_.i2)), new ZsgTuple2(ap.to(_.i3), ap.to(_.i4))),
+      new ZsgTuple2(new ZsgTuple2(ap.to(_.i5), ap.to(_.i6)), new ZsgTuple2(ap.to(_.i7), ap.to(_.i8)))
+    ),
+    new ZsgTuple2(ap.to(_.i9), ap.to(_.i10))
+  )
 
-  val fooGetter = { foo: Foo =>
-    BuildContent.tuple10(
-      foo.i1,
-      foo.i2,
-      foo.i3,
-      foo.i4,
-      foo.i5,
-      foo.i6,
-      foo.i7,
-      foo.i8,
-      foo.i9,
-      foo.i10
+  val fooGetter = (foo: Foo) =>
+    new ZsgTuple2(
+      new ZsgTuple2(
+        new ZsgTuple2(new ZsgTuple2(foo.i1, foo.i2), new ZsgTuple2(foo.i3, foo.i4)),
+        new ZsgTuple2(new ZsgTuple2(foo.i5, foo.i6), new ZsgTuple2(foo.i7, foo.i8))
+      ),
+      new ZsgTuple2(foo.i9, foo.i10)
     )
-  }
 
   lazy val dsfsdfewrene: Foo = throw new Exception
 
   val fooLabelled = ZsgLabelledTypeGeneric[Foo].model(
-    BuildContent.tuple10(
-      ColumnName["i1"],
-      ColumnName["i2"],
-      ColumnName["i3"],
-      ColumnName["i4"],
-      ColumnName["i5"],
-      ColumnName["i6"],
-      ColumnName["i7"],
-      ColumnName["i8"],
-      ColumnName["i9"],
-      ColumnName["i10"]
+    new ZsgTuple2(
+      new ZsgTuple2(
+        new ZsgTuple2(new ZsgTuple2(ColumnName["i1"], ColumnName["i2"]), new ZsgTuple2(ColumnName["i3"], ColumnName["i4"])),
+        new ZsgTuple2(new ZsgTuple2(ColumnName["i5"], ColumnName["i6"]), new ZsgTuple2(ColumnName["i7"], ColumnName["i8"]))
+      ),
+      new ZsgTuple2(ColumnName["i9"], ColumnName["i10"])
     )
   )
 
-  val fooEncoder: ModelToString[Foo]  = ModelToString.init1(ModelToString.forType[Foo].value(fooPropertyTag), fooLabelled).init2.init3(ZsgGetterGeneric.value(fooGetter))
+  val fooEncoder: ModelToString[Foo] =
+    ModelToString.init1(ModelToString.forType[Foo].value(fooPropertyTag), fooLabelled).init2.init3(ZsgGetterGeneric.value(fooGetter))
   val fooEncoder2: ModelToString[Foo] = ModelToString.encoder
 
   def prepareResult(foo: Foo) =

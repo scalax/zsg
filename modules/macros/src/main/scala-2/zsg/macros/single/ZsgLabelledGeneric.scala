@@ -34,23 +34,14 @@ object ZsgLabelledGenericMacroApply {
         val props = caseClassMembersByType(hType)
 
         val nameTag = props.map { name => q"""${Literal(Constant(name.fieldName))}""" }
-        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init)
-              q"""..${tree}"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
-            if (init)
-              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
-            else
-              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
-            nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""), false)
-          }
+        def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+          nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgLabelledGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.ZsgLabelledGeneric.value(${nameTagGen(nameTag, true)})"""
+          q"""_root_.zsg.macros.single.ZsgLabelledGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

@@ -49,7 +49,9 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[T](implicit t: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): ReverseTupleEncoder[T] =
+  implicit def reverseApplicationImplicit[T](implicit
+    t: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]
+  ): ReverseTupleEncoder[T] =
     t.application(ReverseScalaTupleContext.value)
 
 }

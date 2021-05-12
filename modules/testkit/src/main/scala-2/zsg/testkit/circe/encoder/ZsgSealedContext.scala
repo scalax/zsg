@@ -4,7 +4,10 @@ import zsg.{Context3, Plus3}
 import io.circe.Json
 
 class ZsgSealedContext[H] extends Context3[SealedTraitSelector[H]#JsonEncoder] {
-  override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: SealedTraitSelector[H]#JsonEncoder[X1, X2, X3], y: SealedTraitSelector[H]#JsonEncoder[Y1, Y2, Y3])(
+  override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](
+    x: SealedTraitSelector[H]#JsonEncoder[X1, X2, X3],
+    y: SealedTraitSelector[H]#JsonEncoder[Y1, Y2, Y3]
+  )(
     plus: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]
   ): SealedTraitSelector[H]#JsonEncoder[Z1, Z2, Z3] = {
     val con = SealedTraitSelector[H]

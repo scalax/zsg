@@ -20,7 +20,8 @@ object AsunaTupleGeneric {
 
   type Aux[H, II] = AsunaTupleGeneric[H] { type WT = II }
 
-  implicit def macroImpl[TupleType, T]: AsunaTupleGeneric.Aux[TupleType, T] = macro AsunaTupleGenericMacroApply.MacroImpl.generic[TupleType, T]
+  implicit def macroImpl[TupleType, T]: AsunaTupleGeneric.Aux[TupleType, T] =
+    macro AsunaTupleGenericMacroApply.MacroImpl.generic[TupleType, T]
 }
 
 object AsunaTupleGenericMacroApply {
@@ -40,7 +41,9 @@ object AsunaTupleGenericMacroApply {
         val allFields     = struct.tupleFields.flatMap(_.caseClassFields)
         val genericFields = struct.modelFields.filter(i => !allFields.exists(ii => ii.fieldName == i.fieldName))
 
-        val proTypeTag = genericFields.map(s => q"""_root_.zsg.macros.single.PropertyApply[${tupleType}].to(_.${struct.modelFieldTermName}.${s.fieldTermName})""")
+        val proTypeTag = genericFields.map(s =>
+          q"""_root_.zsg.macros.single.PropertyApply[${tupleType}].to(_.${struct.modelFieldTermName}.${s.fieldTermName})"""
+        )
 
         val typeTag = proTypeTag.grouped(ZsgParameters.maxPropertyNum).toList.map(i => q"""_root_.zsg.AppendTag.tag(..${i})""")
         def typeTagGen(tree: List[Tree]): Tree =

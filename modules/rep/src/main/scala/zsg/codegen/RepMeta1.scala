@@ -81,7 +81,28 @@ abstract class RepMeta1[T1](val rep1: T1) {
     repFunction_1_8: RepFunction[Out_7_1, Tu8, Out_8_1],
     repFunction_1_9: RepFunction[Out_8_1, Tu9, Out_9_1]
   ): RepMeta1[Out_9_1]
-  def rep[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Out_1_1, Out_2_1, Out_3_1, Out_4_1, Out_5_1, Out_6_1, Out_7_1, Out_8_1, Out_9_1, Out_10_1](
+  def rep[
+    Tu1,
+    Tu2,
+    Tu3,
+    Tu4,
+    Tu5,
+    Tu6,
+    Tu7,
+    Tu8,
+    Tu9,
+    Tu10,
+    Out_1_1,
+    Out_2_1,
+    Out_3_1,
+    Out_4_1,
+    Out_5_1,
+    Out_6_1,
+    Out_7_1,
+    Out_8_1,
+    Out_9_1,
+    Out_10_1
+  ](
     tuple: Tuple10[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
@@ -95,7 +116,30 @@ abstract class RepMeta1[T1](val rep1: T1) {
     repFunction_1_9: RepFunction[Out_8_1, Tu9, Out_9_1],
     repFunction_1_10: RepFunction[Out_9_1, Tu10, Out_10_1]
   ): RepMeta1[Out_10_1]
-  def rep[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Out_1_1, Out_2_1, Out_3_1, Out_4_1, Out_5_1, Out_6_1, Out_7_1, Out_8_1, Out_9_1, Out_10_1, Out_11_1](
+  def rep[
+    Tu1,
+    Tu2,
+    Tu3,
+    Tu4,
+    Tu5,
+    Tu6,
+    Tu7,
+    Tu8,
+    Tu9,
+    Tu10,
+    Tu11,
+    Out_1_1,
+    Out_2_1,
+    Out_3_1,
+    Out_4_1,
+    Out_5_1,
+    Out_6_1,
+    Out_7_1,
+    Out_8_1,
+    Out_9_1,
+    Out_10_1,
+    Out_11_1
+  ](
     tuple: Tuple11[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
@@ -701,7 +745,30 @@ abstract class RepMeta1[T1](val rep1: T1) {
     Out_21_1,
     Out_22_1
   ](
-    tuple: Tuple22[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22]
+    tuple: Tuple22[
+      Tu1,
+      Tu2,
+      Tu3,
+      Tu4,
+      Tu5,
+      Tu6,
+      Tu7,
+      Tu8,
+      Tu9,
+      Tu10,
+      Tu11,
+      Tu12,
+      Tu13,
+      Tu14,
+      Tu15,
+      Tu16,
+      Tu17,
+      Tu18,
+      Tu19,
+      Tu20,
+      Tu21,
+      Tu22
+    ]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
     repFunction_1_2: RepFunction[Out_1_1, Tu2, Out_2_1],

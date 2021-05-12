@@ -35,26 +35,14 @@ object ZsgSealedClassGenericMacroApply {
         val props = fleshedOutSubtypes(hType).toList
 
         val nameTag = props.map { subType => q"""classOf[${subType}]""" }
-        //.grouped(8)
-        //.toList
-        //.map(s => q"""zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
-        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init)
-              q"""..${tree}"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
-            if (init)
-              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
-            else
-              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
-            nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""), false)
-          }
+        def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+          nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgSealedClassGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.ZsgSealedClassGeneric.value(${nameTagGen(nameTag, true)})"""
+          q"""_root_.zsg.macros.single.ZsgSealedClassGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

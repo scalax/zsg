@@ -5683,7 +5683,30 @@ abstract class RepMeta11[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11](
     Out_22_10,
     Out_22_11
   ](
-    tuple: Tuple22[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18, Tu19, Tu20, Tu21, Tu22]
+    tuple: Tuple22[
+      Tu1,
+      Tu2,
+      Tu3,
+      Tu4,
+      Tu5,
+      Tu6,
+      Tu7,
+      Tu8,
+      Tu9,
+      Tu10,
+      Tu11,
+      Tu12,
+      Tu13,
+      Tu14,
+      Tu15,
+      Tu16,
+      Tu17,
+      Tu18,
+      Tu19,
+      Tu20,
+      Tu21,
+      Tu22
+    ]
   )(implicit
     repFunction_1_1: RepFunction[T1, Tu1, Out_1_1],
     repFunction_2_1: RepFunction[T2, Tu1, Out_1_2],

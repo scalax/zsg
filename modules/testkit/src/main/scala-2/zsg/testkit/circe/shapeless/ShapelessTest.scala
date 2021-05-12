@@ -7,7 +7,8 @@ import shapeless.labelled.FieldType
 
 object ShapelessEncoderTest {
 
-  implicit val encodeHNil: CirceVersionCompat.JsonObjectEncoder[HNil] = CirceVersionCompat.JsonObjectEncoder.instance((_: HNil) => JsonObject.empty)
+  implicit val encodeHNil: CirceVersionCompat.JsonObjectEncoder[HNil] =
+    CirceVersionCompat.JsonObjectEncoder.instance((_: HNil) => JsonObject.empty)
 
   implicit def encodeHCons[K <: Symbol, H, T <: HList](implicit
     key: Witness.Aux[K],
@@ -18,7 +19,10 @@ object ShapelessEncoderTest {
       ((key.value.name, encodeH.value(h))) +: encodeT.encodeObject(t)
     }
 
-  def encodeGeneric[A, R](implicit gen: LabelledGeneric.Aux[A, R], encodeR: CirceVersionCompat.JsonObjectEncoder[R]): CirceVersionCompat.JsonObjectEncoder[A] =
+  def encodeGeneric[A, R](implicit
+    gen: LabelledGeneric.Aux[A, R],
+    encodeR: CirceVersionCompat.JsonObjectEncoder[R]
+  ): CirceVersionCompat.JsonObjectEncoder[A] =
     CirceVersionCompat.JsonObjectEncoder.instance(a => encodeR.encodeObject(gen.to(a)))
   /*trait EncodeImplicit4 extends EncodeImplicit3 {
 
