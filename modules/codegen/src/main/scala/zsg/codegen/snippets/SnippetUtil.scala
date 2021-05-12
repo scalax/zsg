@@ -111,7 +111,9 @@ object SnippetUtil {
 
   def Tuple2Group[T](i: List[T])(groupSize: Int)(on: T => List[List[Int]]): List[List[Int]] = {
     if (i.size > 1) {
-      Tuple2Group(i.grouped(groupSize).to(List).map(_.zipWithIndex.to(List)))(groupSize)(s => s.flatMap { case (item, index) => on(item).map(p => index :: p) })
+      Tuple2Group(i.grouped(groupSize).to(List).map(_.zipWithIndex.to(List)))(groupSize)(s =>
+        s.flatMap { case (item, index) => on(item).map(p => index :: p) }
+      )
     } else {
       i.flatMap(on)
     }
@@ -126,7 +128,9 @@ object SnippetUtil {
       s"d1 = tuple.i1"
     } else {
       val result = Tuple2Group((1 to tupleSize).map(_ => List.empty[Int]).to(List))(groupSize = 22)(i => List(i: List[Int]))
-      result.zipWithIndex.map { case (item, index) => item.map(p => s".i${p + 1}").mkString(s"d${index + 1} = tuple", "", "") }.mkString(" , ")
+      result.zipWithIndex
+        .map { case (item, index) => item.map(p => s".i${p + 1}").mkString(s"d${index + 1} = tuple", "", "") }
+        .mkString(" , ")
     }
   }
 

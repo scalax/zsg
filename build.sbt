@@ -6,7 +6,7 @@ val rep    = (project in modulesDir / "rep").dependsOn(core)
 val debug  = (project in modulesDir / "debug").dependsOn(core)
 val macros = (project in modulesDir / "macros").dependsOn(core)
 
-val scalaTuple = (project in modulesDir / "scala-tuple").dependsOn(core)
+val scalaTuple = (project in modulesDir / "scala-tuple").dependsOn(macros)
 
 val codegen   = project in modulesDir / "codegen"
 val testkit   = (project in modulesDir / "testkit").dependsOn(macros, debug)

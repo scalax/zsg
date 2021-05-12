@@ -19,7 +19,9 @@ object ZsgDebugCodeGeneration {
         val filePath = root2XDir.resolve(Paths.get("debug", s"DebugCaseClass${proNum}.scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-          val content = StringUtil.trimLines(zsg.codegen.debug.txt.DebugCaseClass(maxPropertyNum = ZsgParameters.maxZTupleNum)(proNum = proNum)(isDotty = false).body)
+          val content = StringUtil.trimLines(
+            zsg.codegen.debug.txt.DebugCaseClass(maxPropertyNum = ZsgParameters.maxZTupleNum)(proNum = proNum)(isDotty = false).body
+          )
           writer.println(content)
         }
       }
@@ -29,7 +31,9 @@ object ZsgDebugCodeGeneration {
         val filePath = rootDottyDir.resolve(Paths.get("debug", s"DebugCaseClass${proNum}.scala"))
         Files.createDirectories(filePath.getParent)
         Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-          val content = StringUtil.trimLines(zsg.codegen.debug.txt.DebugCaseClass(maxPropertyNum = ZsgParameters.maxZTupleNum)(proNum = proNum)(isDotty = true).body)
+          val content = StringUtil.trimLines(
+            zsg.codegen.debug.txt.DebugCaseClass(maxPropertyNum = ZsgParameters.maxZTupleNum)(proNum = proNum)(isDotty = true).body
+          )
           writer.println(content)
         }
       }

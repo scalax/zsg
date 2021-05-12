@@ -37,9 +37,11 @@ object MergeUtil {
   }
 
   def PropertyTagI_Parameter(xi: Seq[Int]): List[String] =
-    xi.to(List).map(xii => s"PropertyTag1[X${xii}, Data]") ::: s"PropertyTag${xi.size}[${xi.map(xii => s"X${xii}").mkString(" , ")}, Data]" :: Nil
+    xi.to(List)
+      .map(xii => s"PropertyTag1[X${xii}, Data]") ::: s"PropertyTag${xi.size}[${xi.map(xii => s"X${xii}").mkString(" , ")}, Data]" :: Nil
 
   def EntiretyTagI_Parameter(xi: Seq[Int]): List[String] =
-    xi.to(List).map(xii => s"EntiretyTag1[X${xii}, Data]") ::: s"EntiretyTag${xi.size}[${xi.map(xii => s"X${xii}").mkString(" , ")}, Data]" :: Nil
+    xi.to(List)
+      .map(xii => s"EntiretyTag1[X${xii}, Data]") ::: s"EntiretyTag${xi.size}[${xi.map(xii => s"X${xii}").mkString(" , ")}, Data]" :: Nil
 
 }

@@ -8,7 +8,6 @@ import zio.test.environment._
 object ReverseTupleToStringTest extends DefaultRunnableSpec {
 
   import ReverseAppendTuple._
-  import zsg.scala_tuple.ScalaTupleImplicits._
 
   override def spec = suite("Tuple Mapper")(test("auto map to string") {
     val assert1 = assert(reverseTuple.asString(ReverseTupleData.i10))(equalTo("[" + ReverseTupleData.b10.toString + "]"))

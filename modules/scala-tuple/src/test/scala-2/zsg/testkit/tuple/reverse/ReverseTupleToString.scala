@@ -1,5 +1,6 @@
 package zsg.testkit.tuple.reverse
 
+import zsg.macros.single.{ZsgGeneric, ZsgGetterGeneric}
 import zsg.{ApplicationX1, Context1, Plus1}
 
 trait ReverseTupleEncoder[T] {
@@ -9,7 +10,6 @@ trait ReverseTupleEncoder[T] {
 }
 
 class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
-
   override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
     new ReverseTupleEncoder[Z1] {
       override def body(t: List[String], i: Z1): List[String] = {
@@ -49,9 +49,16 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[T](implicit
-    t: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]
-  ): ReverseTupleEncoder[T] =
-    t.application(ReverseScalaTupleContext.value)
+  implicit def reverseApplicationImplicit[CaseClass,T](implicit
+    zsgGeneric: ZsgGeneric.Aux[CaseClass,T],
+    t1: => ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T],getterGeneric: ZsgGetterGeneric[CaseClass,T]
+  ): ReverseTupleEncoder[CaseClass] ={
+    val app =t1.application(ReverseScalaTupleContext.value)
+    new ReverseTupleEncoder[CaseClass] {
+      override def body(t: List[String], i: CaseClass): List[String] = app.body(t,getterGeneric.getter(i))
+      override  def stringBody(i: CaseClass): String =app.stringBody(getterGeneric.getter(i))
+    }
+  }
+
 
 }
