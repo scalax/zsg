@@ -37,13 +37,23 @@ object ZsgSetterGenericMacroApply {
 
         val props = caseClassMembersByType(hType)
 
-        def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)])(init: Boolean): List[(ModelField, Tree => Tree)] =
+        /*def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)])(init: Boolean): List[(ModelField, Tree => Tree)] =
           if (initList.size > max || init) {
             val i = initList.zipWithIndex.map { case ((str, t), index) =>
               (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % ZsgParameters.maxPropertyNum) + 1).toString)}""") })
             }
             toItemImpl(max * ZsgParameters.maxPropertyNum, i)(false)
-          } else initList
+          } else initList*/
+
+        def toTupleTree(prop: List[ModelField]): (Any, Any) = {
+          if (prop.size > 3) {
+            val groupedSize = if (prop.size / 2 * 2 == prop.size) prop.size / 2 else prop.size / 2 + 1
+            val groupedList = prop.grouped(groupedSize).to(List)
+            (toTupleTree(groupedList(1)), toTupleTree(groupedList(2)))
+          } else if(prop.size == 3){
+            (prop,prop)
+          }
+        }
 
         /*val preList = props.zipWithIndex.map {
           case (str, index) =>
@@ -52,12 +62,14 @@ object ZsgSetterGenericMacroApply {
 
         val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
 
-        val casei = if (preList.size > 1) toItemImpl(1, preList)(true) else preList
+        val casei = if (preList.size > 1) toProperty(preList) else preList
 
         val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map { case (item, m) =>
           namedParam(item.fieldTermName, m(Ident(TermName("item"))))
         }}))"""
 
+        println(h)
+        println(inputFunc)
         c.Expr[ZsgSetterGeneric[H, M]] {
           inputFunc
         }

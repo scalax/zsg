@@ -57,15 +57,16 @@ object ZsgSealedGenericMacroApply {
         def typeTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
             if (init)
-              q"""_root_.zsg.BuildContent.tuple1(..${tree})"""
+              q"""..${tree}"""
             else
               q"""..${tree}"""
           } else {
             val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
-            if (init)
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+            /*if (init)
+              typeTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
             else
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
+              typeTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)*/
+            typeTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""), false)
           }
 
         c.Expr[ZsgSealedGeneric.Aux[H, M]] {

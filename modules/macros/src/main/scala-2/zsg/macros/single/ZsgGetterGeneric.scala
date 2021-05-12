@@ -36,16 +36,17 @@ object ZsgGetterGenericMacroApply {
         def nameTagGen(tree: List[Tree], init: Boolean): Tree =
           if (tree.length == 1) {
             if (init)
-              q"""(s: ${h}) => { _root_.zsg.BuildContent.tuple1(..${tree}) }"""
+              q"""(s: ${h}) => { ..${tree} }"""
             else
               q"""(s: ${h}) => { ..${tree} }"""
 
           } else {
             val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
             if (init)
-              nameTagGen(groupedTree.map(s => q"""zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
+              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
             else
-              nameTagGen(groupedTree.map(s => q"""zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
+              nameTagGen(groupedTree.map(s => q"""new _root_.zsg.ZsgTuple2(..${s})"""), false)
+            nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""), false)
           }
 
         c.Expr[ZsgGetterGeneric[H, M]] {
