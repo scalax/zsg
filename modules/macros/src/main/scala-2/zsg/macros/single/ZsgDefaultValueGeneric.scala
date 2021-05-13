@@ -33,6 +33,13 @@ abstract class ZsgDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues: DefaultValueType
 }
 
+class ZsgDefaultValue {
+  type ModelType[M] = ZsgDefaultValueGenericImpl1[M]
+  class ZsgDefaultValueGenericImpl1[Model] {
+    type GenericType[G] = ZsgDefaultValueGeneric[Model, G]
+  }
+}
+
 object ZsgDefaultValueGeneric {
 
   @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): ZsgDefaultValueGeneric[Model, T] =

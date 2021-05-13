@@ -3,7 +3,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single.{
   ColumnName,
   GenericColumnName,
-  ZsgDefaultValueGeneric,
+  ZsgDefaultValue,
   ZsgGeneric,
   ZsgGetterGeneric,
   ZsgLabelledGeneric,
@@ -136,7 +136,7 @@ object ModelToString {
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
     pp: ApplicationX5[ModelToStringContent, ModelToStringContext, I2, X, Y, DefalutVal, LabelledVal],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, LabelledVal],
-    defVal: ZsgDefaultValueGeneric[I1, DefalutVal],
+    defVal: ZsgDefaultValue#ModelType[I1]#GenericType[DefalutVal],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]
   ): ModelToString[I1] = {
     val application = pp.application(ModelToStringContext.value)
@@ -162,7 +162,10 @@ object ModelToString {
   class Init3[I1, I2, X, L, DefaultVal, LabelledVal](n: ModelToStringContent[I2, X, L, DefaultVal, LabelledVal]) {
     def init3(
       zsgGetterGeneric: ZsgGetterGeneric[I1, X]
-    )(implicit defaultVal: ZsgDefaultValueGeneric[I1, DefaultVal], labelledValue: ZsgLabelledGeneric[I1, LabelledVal]): ModelToString[I1] =
+    )(implicit
+      defaultVal: ZsgDefaultValue#ModelType[I1]#GenericType[DefaultVal],
+      labelledValue: ZsgLabelledGeneric[I1, LabelledVal]
+    ): ModelToString[I1] =
       new ModelToString[I1] {
         override def mToString(ii: I1): List[FieldModel] = n.encode(zsgGetterGeneric.getter(ii), List.empty, _ - 1, n.totalSize)._1
         override def defaultValues: List[DefaultValue]   = n.defaultValue(defaultVal.defaultValues, List.empty, _ - 1, n.totalSize)._1
@@ -191,7 +194,7 @@ object ModelToString {
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
     pp: ApplicationX5[ModelToStringContent, ReverseModelToStringContext, I2, X, Y, DefaultVal, LabelledVal],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, LabelledVal],
-    zsgDefaultValueGeneric: ZsgDefaultValueGeneric[I1, DefaultVal],
+    zsgDefaultValueGeneric: ZsgDefaultValue#ModelType[I1]#GenericType[DefaultVal],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]
   ): ModelToString[I1] = {
     val app = pp.application(ReverseModelToStringContext.value)

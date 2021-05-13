@@ -4,7 +4,7 @@ import zsg.macros.single.deficient.AsunaTupleApply
 import zsg.{ApplicationX2, ApplicationX3, ApplicationX4}
 import zsg.macros.single.{
   ZsgDebugGeneric,
-  ZsgDefaultValueGeneric,
+  ZsgDefaultValue,
   ZsgGeneric,
   ZsgGetterGeneric,
   ZsgLabelledGeneric,
@@ -79,7 +79,7 @@ object ACirce {
     app: ApplicationX4[decoder.JsonDecoderPro, decoder.ZsgDecoderContext, R, Model, Nam, DefVal],
     cv1: ZsgLabelledGeneric[T, Nam],
     cv3: ZsgSetterGeneric[T, Model],
-    cv4: ZsgDefaultValueGeneric[T, DefVal]
+    cv4: ZsgDefaultValue#ModelType[T]#GenericType[DefVal]
   ): Decoder[T] = app.application(decoder.ZsgDecoderContext.value).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
 
   def decodeSealed[H, R, Nam](implicit
