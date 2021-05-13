@@ -49,16 +49,16 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[CaseClass,T](implicit
-    zsgGeneric: ZsgGeneric.Aux[CaseClass,T],
-    t1: => ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T],getterGeneric: ZsgGetterGeneric[CaseClass,T]
-  ): ReverseTupleEncoder[CaseClass] ={
-    val app =t1.application(ReverseScalaTupleContext.value)
+  implicit def reverseApplicationImplicit[CaseClass, T](implicit
+    zsgGeneric: ZsgGeneric.Aux[CaseClass, T],
+    t1: => ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T],
+    getterGeneric: ZsgGetterGeneric[CaseClass, T]
+  ): ReverseTupleEncoder[CaseClass] = {
+    val app = t1.application(ReverseScalaTupleContext.value)
     new ReverseTupleEncoder[CaseClass] {
-      override def body(t: List[String], i: CaseClass): List[String] = app.body(t,getterGeneric.getter(i))
-      override  def stringBody(i: CaseClass): String =app.stringBody(getterGeneric.getter(i))
+      override def body(t: List[String], i: CaseClass): List[String] = app.body(t, getterGeneric.getter(i))
+      override def stringBody(i: CaseClass): String                  = app.stringBody(getterGeneric.getter(i))
     }
   }
-
 
 }

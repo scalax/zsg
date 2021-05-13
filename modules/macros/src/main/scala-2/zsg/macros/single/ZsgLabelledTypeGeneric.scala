@@ -29,31 +29,6 @@ object ZsgLabelledTypeGeneric {
 
   def apply[M]: ZsgLabeledTypeGenericApply[M] = ZsgLabeledTypeGenericApply[M]
 
-  /*class ColumnNameGen[CaseClass] {
-    def name1[T](model: CaseClass => T): ColumnName[T] = ColumnName[T]
-    def name[N]: ColumnName[N]                         = ColumnName[N]
-  }
-
-  object ColumnNameGen {
-    val value                      = new ColumnNameGen[Any]
-    def apply[N]: ColumnNameGen[N] = value.asInstanceOf[ColumnNameGen[N]]
-  }
-
-  class CaseClassColumnName[CaseClass] {
-    def propertyName[T](n: ColumnNameGen[CaseClass] => T): ZsgLabelledTypeGeneric.Aux[CaseClass, T] = {
-      new ZsgLabelledTypeGeneric[CaseClass] {
-        override type WT = T
-        override def tag: T = n(ColumnNameGen[CaseClass])
-      }
-    }
-  }
-
-  object CaseClassColumnName {
-    val value                                         = new CaseClassColumnName[Any]
-    def apply[N]                                      = value.asInstanceOf[CaseClassColumnName[N]]
-    implicit def nImplicit[N]: CaseClassColumnName[N] = CaseClassColumnName[N]
-  }*/
-
   implicit def lImplicit[CaseClass, T]: ZsgLabelledTypeGeneric.Aux[CaseClass, T] =
     macro ZsgLabelledTypeGenericMacroApply.MacroImpl.generic[CaseClass, T]
 }

@@ -6,7 +6,7 @@ object ZsgSettings {
   val currentScalaVersion = "2.13.4"
   val scala212Version     = "2.12.12"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "3.0.0-RC1"
+  val dottyVersion        = "3.0.0-RC3"
 
   val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
@@ -19,7 +19,7 @@ object ZsgSettings {
   val setting4 = org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile := false
   val setting5 = transitiveClassifiers := Seq("sources")
   val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)
-  val setting7 = publishArtifact in packageDoc := false
+  val setting7 = packageDoc / publishArtifact := false
   val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
   val setting9 = scalaVersion := currentScalaVersion
   val setting10 = Compile / unmanagedSourceDirectories ++= {

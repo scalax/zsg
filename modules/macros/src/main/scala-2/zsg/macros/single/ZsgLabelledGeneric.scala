@@ -4,6 +4,7 @@ import zsg.macros.ZsgParameters
 import zsg.macros.single.utils.TypeHelper
 
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait ZsgLabelledGeneric[H, NameType] {
   def names: NameType
@@ -36,7 +37,7 @@ object ZsgLabelledGenericMacroApply {
         val nameTag = props.map { name => q"""${Literal(Constant(name.fieldName))}""" }
         def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
         else {
-          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
           nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
         }
 

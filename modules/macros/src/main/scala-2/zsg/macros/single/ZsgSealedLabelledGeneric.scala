@@ -4,6 +4,7 @@ import zsg.macros.ZsgParameters
 import zsg.macros.single.utils.SealedHelper
 
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait ZsgSealedLabelledGeneric[H, NameType] {
   def names: NameType
@@ -32,12 +33,12 @@ object ZsgSealedLabelledGenericMacroApply {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
 
-        val props = fleshedOutSubtypes(hType).toList
+        val props = fleshedOutSubtypes(hType).to(List)
 
         val nameTag = props.map { subType => q"""${Literal(Constant(subType.typeSymbol.name.toString))}""" }
         def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
         else {
-          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
           nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
         }
 

@@ -6,6 +6,7 @@ import zsg.macros.utils.MacroMethods
 
 import scala.annotation.tailrec
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait ZsgSetterGeneric[H, GenericType] {
   def setter(gen: GenericType): H
@@ -52,25 +53,26 @@ object ZsgSetterGenericMacroApply {
           else prop(0)
         }
 
-        def toPropertyList(n: Any): List[(ModelField, Tree => Tree)] = n match {
-          case n: ModelField => List((n, (s: Tree) => s))
+        val i1Term = TermName("i1")
+        val i2Term = TermName("i2")
+
+        def toPropertyList(n: Any): Vector[(ModelField, Tree => Tree)] = n match {
+          case n: ModelField => Vector((n, (s: Tree) => s))
           case (n1: ModelField, n2: ModelField) =>
-            val item1 = (n1, (s: Tree) => q"""$s.${TermName("i1")}""")
-            val item2 = (n2, (s: Tree) => q"""$s.${TermName("i2")}""")
-            List(item1, item2)
+            val item1 = (n1, (s: Tree) => q"""$s.$i1Term""")
+            val item2 = (n2, (s: Tree) => q"""$s.$i2Term""")
+            Vector(item1, item2)
           case (t1, n: ModelField) =>
-            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.${TermName("i1")}""")))
-            val item2 = (n, (s: Tree) => q"""$s.${TermName("i2")}""")
-            list1 ::: item2 :: Nil
+            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i1Term""")))
+            val item2 = (n, (s: Tree) => q"""$s.$i2Term""")
+            vectorAppend(list1, item2)
           case (t1, t2) =>
-            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.${TermName("i1")}""")))
-            val list2 = toPropertyList(t2).map(s => (s._1, (t: Tree) => s._2(q"""$t.${TermName("i2")}""")))
-            list1 ::: list2
+            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i1Term""")))
+            val list2 = toPropertyList(t2).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i2Term""")))
+            vectorAppendAll(list1, list2)
         }
 
-        val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
-
-        val casei = if (preList.size > 1) toPropertyList(toTupleTree(props)) else preList
+        val casei = toPropertyList(toTupleTree(props))
 
         val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
           case (item, m) =>
