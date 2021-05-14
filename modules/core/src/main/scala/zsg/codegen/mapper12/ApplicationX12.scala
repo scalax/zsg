@@ -19,13 +19,10 @@ object ApplicationX12 {
   ): ApplicationX12[F, T, zsg.ZsgTuple2[I1, Y1], zsg.ZsgTuple2[I2, Y2], zsg.ZsgTuple2[I3, Y3], zsg.ZsgTuple2[I4, Y4], zsg.ZsgTuple2[
     I5,
     Y5
-  ], zsg.ZsgTuple2[
-    I6,
-    Y6
-  ], zsg.ZsgTuple2[I7, Y7], zsg.ZsgTuple2[I8, Y8], zsg.ZsgTuple2[I9, Y9], zsg.ZsgTuple2[I10, Y10], zsg.ZsgTuple2[I11, Y11], zsg.ZsgTuple2[
-    I12,
-    Y12
-  ]] =
+  ], zsg.ZsgTuple2[I6, Y6], zsg.ZsgTuple2[I7, Y7], zsg.ZsgTuple2[I8, Y8], zsg.ZsgTuple2[I9, Y9], zsg.ZsgTuple2[I10, Y10], zsg.ZsgTuple2[
+    I11,
+    Y11
+  ], zsg.ZsgTuple2[I12, Y12]] =
     new ApplicationX12[
       F,
       T,
@@ -42,15 +39,13 @@ object ApplicationX12 {
       zsg.ZsgTuple2[I11, Y11],
       zsg.ZsgTuple2[I12, Y12]
     ] {
-      def application(
-        context: T
-      ): F[zsg.ZsgTuple2[I1, Y1], zsg.ZsgTuple2[I2, Y2], zsg.ZsgTuple2[I3, Y3], zsg.ZsgTuple2[I4, Y4], zsg.ZsgTuple2[I5, Y5], zsg.ZsgTuple2[
-        I6,
-        Y6
-      ], zsg.ZsgTuple2[I7, Y7], zsg.ZsgTuple2[I8, Y8], zsg.ZsgTuple2[I9, Y9], zsg.ZsgTuple2[I10, Y10], zsg.ZsgTuple2[
-        I11,
-        Y11
-      ], zsg.ZsgTuple2[I12, Y12]] =
+      def application(context: T): F[zsg.ZsgTuple2[I1, Y1], zsg.ZsgTuple2[I2, Y2], zsg.ZsgTuple2[I3, Y3], zsg.ZsgTuple2[
+        I4,
+        Y4
+      ], zsg.ZsgTuple2[I5, Y5], zsg.ZsgTuple2[I6, Y6], zsg.ZsgTuple2[I7, Y7], zsg.ZsgTuple2[I8, Y8], zsg.ZsgTuple2[I9, Y9], zsg.ZsgTuple2[
+        I10,
+        Y10
+      ], zsg.ZsgTuple2[I11, Y11], zsg.ZsgTuple2[I12, Y12]] =
         context.append(i1.application(context), i2.application(context))(BuildContent.plus12)
     }
 }

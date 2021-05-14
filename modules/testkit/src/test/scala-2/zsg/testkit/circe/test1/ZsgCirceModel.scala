@@ -1,7 +1,6 @@
 package zsg.testkit.circe.test1
 
 import io.circe.Encoder
-import zsg.debug.DebugInstance
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceVersionCompat}
 
@@ -16,8 +15,6 @@ trait ZsgCirceImplicit1 {
   implicit def test05_en_implicit: CirceVersionCompat.JsonObjectEncoder[Test05[String]] = ACirce.encodeSealed
 
   case class Test111(i3: String, i4: Long, i44: Int)
-
-  DebugInstance.fromTuple(ACirce.debugEncodeCaseClass[Test111].instance).infer
 
 }
 

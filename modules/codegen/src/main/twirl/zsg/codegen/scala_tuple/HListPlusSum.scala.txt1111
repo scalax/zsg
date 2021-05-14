@@ -1,8 +1,0 @@
-@(tagNum: Int, maxTupleNum: Int)
-
-package zsg.scala_tuple.tuple_support
-
-object HListPlus@{tagNum} extends HListPlus_0_@{tagNum}
-@for(i <- 1 to maxTupleNum) {
-    with HListPlus_@{i}_@{tagNum}
-}

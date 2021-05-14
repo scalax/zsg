@@ -10281,9 +10281,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, TTu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18]
-      ): Option[TTu10] = Some(
-        i.rep10
-      )
+      ): Option[TTu10] = Some(i.rep10)
     }
   implicit def repMetaTakerImplicit11[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, TTu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, TTu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18], TTu11] =
@@ -10318,9 +10316,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, TTu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18]
-      ): Option[TTu11] = Some(
-        i.rep11
-      )
+      ): Option[TTu11] = Some(i.rep11)
     }
   implicit def repMetaTakerImplicit12[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, TTu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, TTu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18], TTu12] =
@@ -10355,9 +10351,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, TTu12, Tu13, Tu14, Tu15, Tu16, Tu17, Tu18]
-      ): Option[TTu12] = Some(
-        i.rep12
-      )
+      ): Option[TTu12] = Some(i.rep12)
     }
   implicit def repMetaTakerImplicit13[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, TTu13, Tu14, Tu15, Tu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, TTu13, Tu14, Tu15, Tu16, Tu17, Tu18], TTu13] =
@@ -10392,9 +10386,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, TTu13, Tu14, Tu15, Tu16, Tu17, Tu18]
-      ): Option[TTu13] = Some(
-        i.rep13
-      )
+      ): Option[TTu13] = Some(i.rep13)
     }
   implicit def repMetaTakerImplicit14[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, TTu14, Tu15, Tu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, TTu14, Tu15, Tu16, Tu17, Tu18], TTu14] =
@@ -10429,9 +10421,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, TTu14, Tu15, Tu16, Tu17, Tu18]
-      ): Option[TTu14] = Some(
-        i.rep14
-      )
+      ): Option[TTu14] = Some(i.rep14)
     }
   implicit def repMetaTakerImplicit15[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, TTu15, Tu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, TTu15, Tu16, Tu17, Tu18], TTu15] =
@@ -10466,9 +10456,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, TTu15, Tu16, Tu17, Tu18]
-      ): Option[TTu15] = Some(
-        i.rep15
-      )
+      ): Option[TTu15] = Some(i.rep15)
     }
   implicit def repMetaTakerImplicit16[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, TTu16, Tu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, TTu16, Tu17, Tu18], TTu16] =
@@ -10503,9 +10491,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, TTu16, Tu17, Tu18]
-      ): Option[TTu16] = Some(
-        i.rep16
-      )
+      ): Option[TTu16] = Some(i.rep16)
     }
   implicit def repMetaTakerImplicit17[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, TTu17, Tu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, TTu17, Tu18], TTu17] =
@@ -10540,9 +10526,7 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, TTu17, Tu18]
-      ): Option[TTu17] = Some(
-        i.rep17
-      )
+      ): Option[TTu17] = Some(i.rep17)
     }
   implicit def repMetaTakerImplicit18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, TTu18]
     : RepTaker[RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, TTu18], TTu18] =
@@ -10577,8 +10561,6 @@ object RepMeta18 {
     ] {
       override def function(
         i: RepMeta18[Tu1, Tu2, Tu3, Tu4, Tu5, Tu6, Tu7, Tu8, Tu9, Tu10, Tu11, Tu12, Tu13, Tu14, Tu15, Tu16, Tu17, TTu18]
-      ): Option[TTu18] = Some(
-        i.rep18
-      )
+      ): Option[TTu18] = Some(i.rep18)
     }
 }

@@ -79,14 +79,14 @@ class JsonADTEncoderBenchmark {
 
   @TearDown
   def after: Unit = {
-    val asunaCirceStr = asunaEncoder._wData(ADTBenchmarkModel.benchmarkSampleData).noSpaces
+    val zsgCirceStr = asunaEncoder._wData(ADTBenchmarkModel.benchmarkSampleData).noSpaces
     val rawCirceStr   = rawCirceEncoder(ADTBenchmarkModel.benchmarkSampleData).noSpaces
     val upickleStr    = write(ADTBenchmarkModel.benchmarkSampleData)(upickleRW)
-    println(s"asuna 结果: ${asunaCirceStr}")
+    println(s"zsg 结果: ${zsgCirceStr}")
     println(s"circe 结果: ${rawCirceStr}")
     println(s"upickle 结果: ${upickleStr}")
-    println(s"asunaCirceStr == rawCirceStr: ${asunaCirceStr == rawCirceStr}")
-    println(s"asunaCirceStr == upickleStr: ${asunaCirceStr == upickleStr}")
+    println(s"zsgCirceStr == rawCirceStr: ${zsgCirceStr == rawCirceStr}")
+    println(s"zsgCirceStr == upickleStr: ${zsgCirceStr == upickleStr}")
   }
 
 }

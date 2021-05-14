@@ -1,8 +1,0 @@
-@(tagNum: Int, maxTupleNum: Int)
-
-package zsg.scala_tuple.tuple_support
-
-object PlusToTuple@{tagNum} extends PlusToTuple_1_@{tagNum}
-@for(i <- 2 to maxTupleNum) {
-    with PlusToTuple_@{i}_@{tagNum}
-}

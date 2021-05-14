@@ -3,7 +3,6 @@ package zsg.testkit.circe
 import zsg.macros.single.deficient.AsunaTupleApply
 import zsg.{ApplicationX2, ApplicationX3, ApplicationX4}
 import zsg.macros.single.{
-  ZsgDebugGeneric,
   ZsgDefaultValue,
   ZsgGeneric,
   ZsgGetterGeneric,
@@ -18,23 +17,10 @@ import io.circe.{Decoder, Encoder, JsonObject}
 
 object ACirce {
 
-  /*final def encodeTuple[H, R, Obj, Na](
-    implicit ll: AsunaTupleGeneric.Aux[H, R],
-    app: Application3[encoder.JsonObjectContent, R, Obj, Na],
-    cv1: AsunaTupleLabelledGeneric[H, Na],
-    cv2: AsunaTupleGetterGeneric[H, Obj]
-  ): CirceType.JsonObjectEncoder[H] = {
-    val name1              = cv1.names()
-    val applicationEncoder = app.application(encoder.AsunaJsonObjectContext)
-    val application2       = applicationEncoder.toAppender(name1)
-    CirceType.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(application2.appendField(cv2.getter(o), List.empty)) }
-  }*/
-
   final def mapTupleEncoder[Model, PreTuple <: TupleType, TupleType](
     ll: AsunaTupleApply[Model, PreTuple],
     objectEncoder: Encoder[TupleType]
-  ): Encoder[Model] =
-    objectEncoder.contramap(ll.toTuple)
+  ): Encoder[Model] = objectEncoder.contramap(ll.toTuple)
 
   final def encodeCaseClass[H, R, N, Obj](implicit
     ll: ZsgGeneric.Aux[H, R],
@@ -46,17 +32,6 @@ object ACirce {
     CirceVersionCompat.JsonObjectEncoder.instance { o: H =>
       JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty))
     }
-  }
-
-  final def debugEncodeCaseClass[CaseClass]: DebugEncodeCaseClassApply[CaseClass] = new DebugEncodeCaseClassApply[CaseClass]
-
-  class DebugEncodeCaseClassApply[CaseClass] {
-    def instance[Gen, Name, Debug, ColumnInfo](implicit
-      generic: ZsgGeneric.Aux[CaseClass, Gen],
-      nm: ZsgLabelledTypeGeneric.Aux[CaseClass, Name],
-      debugGeneric: ZsgDebugGeneric.Aux[CaseClass, Debug],
-      app: ApplicationX4[encoder.debug.JsonObjectDebugger, encoder.debug.JsonObjectDebuggerContext, Gen, Name, Debug, ColumnInfo]
-    ): ColumnInfo = app.application(encoder.debug.JsonObjectDebuggerContext.value).target
   }
 
   final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] =

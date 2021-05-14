@@ -10,10 +10,6 @@ object DeleteTemp {
 
     FileUtils.deleteDirectory(ZsgTestKitCodeGeneration.root2XDir.toFile)
 
-    FileUtils.deleteDirectory(ZsgDebugCodeGeneration.root2XDir.toFile)
-    FileUtils.deleteDirectory(ZsgDebugCodeGeneration.rootAllDir.toFile)
-    FileUtils.deleteDirectory(ZsgDebugCodeGeneration.rootDottyDir.toFile)
-
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.root2XDir.toFile)
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.rootAllDir.toFile)
     FileUtils.deleteDirectory(ZsgRepCodeGeneration.rootDottyDir.toFile)
