@@ -9,7 +9,7 @@ import zsg.macros.single.{
   ZsgLabelledGeneric,
   ZsgLabelledTypeGeneric
 }
-import zsg.{ApplicationX5, Context5, Plus5, PropertyTag}
+import zsg.{Application5, Context5, Plus5, PropertyTag}
 
 trait ModelToString[E] {
   def mToString(i: E): List[FieldModel]
@@ -134,7 +134,7 @@ object ModelToString {
   def encoder[I1, I2, X, Y, DefalutVal, LabelledVal](implicit
     g: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-    pp: ApplicationX5[ModelToStringContent, ModelToStringContext, I2, X, Y, DefalutVal, LabelledVal],
+    pp: Application5[ModelToStringContent, ModelToStringContext, I2, X, Y, DefalutVal, LabelledVal],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, LabelledVal],
     defVal: ZsgDefaultValue#ModelType[I1]#GenericType[DefalutVal],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]
@@ -154,7 +154,7 @@ object ModelToString {
     val l: ZsgLabelledTypeGeneric.Aux[I1, L]
 
     def init2[X, DefaultVal, LabelledVal](implicit
-      n: ApplicationX5[ModelToStringContent, ModelToStringContext, I2, X, L, DefaultVal, LabelledVal]
+      n: Application5[ModelToStringContent, ModelToStringContext, I2, X, L, DefaultVal, LabelledVal]
     ): Init3[I1, I2, X, L, DefaultVal, LabelledVal] =
       new Init3(n.application(ModelToStringContext.value))
   }
@@ -192,7 +192,7 @@ object ModelToString {
   def reverseEncoder[I1, I2, X, Y, DefaultVal, LabelledVal](implicit
     ii: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-    pp: ApplicationX5[ModelToStringContent, ReverseModelToStringContext, I2, X, Y, DefaultVal, LabelledVal],
+    pp: Application5[ModelToStringContent, ReverseModelToStringContext, I2, X, Y, DefaultVal, LabelledVal],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, LabelledVal],
     zsgDefaultValueGeneric: ZsgDefaultValue#ModelType[I1]#GenericType[DefaultVal],
     zsgGetterGeneric: ZsgGetterGeneric[I1, X]

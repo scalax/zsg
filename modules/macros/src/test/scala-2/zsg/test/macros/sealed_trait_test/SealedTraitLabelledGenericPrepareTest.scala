@@ -1,7 +1,7 @@
 package zsg.test.macros.sealed_trait_test
 
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
-import zsg.{ApplicationX2, Context2, Plus2}
+import zsg.{Application2, Context2, Plus2}
 
 object SealedTraitLabelledGenericPrepareTest {
 
@@ -24,7 +24,7 @@ object SealedTraitLabelledGenericPrepareTest {
 
   def sealedNames[H, T, TT](implicit
     sg: ZsgSealedGeneric.Aux[H, T],
-    app: ApplicationX2[SealedNameGetter, SealedNameGetterContext, T, TT],
+    app: Application2[SealedNameGetter, SealedNameGetterContext, T, TT],
     labelled: ZsgSealedLabelledGeneric[H, TT]
   ): SealedTraitNames[H] = new SealedTraitNames[H] {
     override def str: List[String] = app.application(SealedNameGetterContext.value).stt(labelled.names)(List.empty)

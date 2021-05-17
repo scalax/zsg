@@ -17,10 +17,10 @@ object ZsgNewTupleCodeGeneration {
 
   def main(arrs: Array[String]): Unit = {
     for (i <- 1 to ZsgParameters.maxContextNum) yield {
-      val filePath = rootAllDir.resolve(Paths.get("mapper" + i, "ApplicationX" + i + ".scala"))
+      val filePath = rootAllDir.resolve(Paths.get("mapper" + i, "Application" + i + ".scala"))
       Files.createDirectories(filePath.getParent)
       Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.ApplicationX(tagNum = i, isDotty = false).body)
+        val linerContent = StringUtil.trimLines(zsg.codegen.tuple.txt.Application(tagNum = i, isDotty = false).body)
         writer.println(linerContent)
       }
     }

@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
-import zsg.{ApplicationX2, Context2, Plus2}
+import zsg.{Application2, Context2, Plus2}
 
 trait ModelFromString[M] {
   def getData(str: List[FieldModel]): (List[FieldModel], M)
@@ -45,7 +45,7 @@ object ModelFromString {
 
   def decoder[I1, I2, I3](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: ApplicationX2[ModelFromStringImpl, DecoderContext, I2, I3],
+    pp: Application2[ModelFromStringImpl, DecoderContext, I2, I3],
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
@@ -57,7 +57,7 @@ object ModelFromString {
 
   def reverseDecoder[I1, I2, I3](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: ApplicationX2[ModelFromStringImpl, ReverseDecoderContext, I2, I3],
+    pp: Application2[ModelFromStringImpl, ReverseDecoderContext, I2, I3],
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {

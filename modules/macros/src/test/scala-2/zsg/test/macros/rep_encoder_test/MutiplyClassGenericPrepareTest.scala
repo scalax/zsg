@@ -1,6 +1,6 @@
 package zsg.macros.rep_encoder_test
 
-import zsg.{ApplicationX2, Context2, Plus2, PropertyTag}
+import zsg.{Application2, Context2, Plus2, PropertyTag}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
@@ -19,7 +19,7 @@ object MutiplyClassGenericPrepareTest {
   class CirceGenericApply2[Model] {
     def encoder[Table, II, M](table: Table)(implicit
       i: ZsgMultiplyGeneric.Aux[Table, Model, II],
-      p: ApplicationX2[Getter, GetterContext, II, M],
+      p: Application2[Getter, GetterContext, II, M],
       m: ZsgMultiplyRepGeneric[Table, Model, M]
     ): M = m.rep(table)
   }

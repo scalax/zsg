@@ -1,7 +1,7 @@
 package zsg.testkit.circe
 
 import zsg.macros.single.deficient.AsunaTupleApply
-import zsg.{ApplicationX2, ApplicationX3, ApplicationX4}
+import zsg.{Application2, Application3, Application4}
 import zsg.macros.single.{
   ZsgDefaultValue,
   ZsgGeneric,
@@ -25,7 +25,7 @@ object ACirce {
   final def encodeCaseClass[H, R, N, Obj](implicit
     ll: ZsgGeneric.Aux[H, R],
     nm: ZsgLabelledTypeGeneric.Aux[H, N],
-    app: ApplicationX3[encoder.JsonObjectAppender, encoder.ZsgJsonObjectContext, R, N, Obj],
+    app: Application3[encoder.JsonObjectAppender, encoder.ZsgJsonObjectContext, R, N, Obj],
     cv2: ZsgGetterGeneric[H, Obj]
   ): CirceVersionCompat.JsonObjectEncoder[H] = {
     val applicationEncoder = app.application(encoder.ZsgJsonObjectContext.value)
@@ -39,7 +39,7 @@ object ACirce {
 
   final def encodeSealed[H, R, Cls, Lab](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: ApplicationX3[encoder.SealedTraitSelector[H]#JsonEncoder, encoder.ZsgSealedContext[H], R, Cls, Lab],
+    app: Application3[encoder.SealedTraitSelector[H]#JsonEncoder, encoder.ZsgSealedContext[H], R, Cls, Lab],
     cv1: ZsgSealedLabelledGeneric[H, Lab],
     cv2: ZsgSealedClassGeneric[H, Cls]
   ): CirceVersionCompat.JsonObjectEncoder[H] = {
@@ -51,7 +51,7 @@ object ACirce {
 
   def decodeCaseClass[T, R, Model, Nam, DefVal](implicit
     ll: ZsgGeneric.Aux[T, R],
-    app: ApplicationX4[decoder.JsonDecoderPro, decoder.ZsgDecoderContext, R, Model, Nam, DefVal],
+    app: Application4[decoder.JsonDecoderPro, decoder.ZsgDecoderContext, R, Model, Nam, DefVal],
     cv1: ZsgLabelledGeneric[T, Nam],
     cv3: ZsgSetterGeneric[T, Model],
     cv4: ZsgDefaultValue#ModelType[T]#GenericType[DefVal]
@@ -59,7 +59,7 @@ object ACirce {
 
   def decodeSealed[H, R, Nam](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: ApplicationX2[decoder.SealedTraitSelector[H]#JsonDecoder, decoder.ZsgSealedContext[H], R, Nam],
+    app: Application2[decoder.SealedTraitSelector[H]#JsonDecoder, decoder.ZsgSealedContext[H], R, Nam],
     cv1: ZsgSealedLabelledGeneric[H, Nam]
   ): Decoder[H] = {
     val names = cv1.names
