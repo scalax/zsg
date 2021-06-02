@@ -15,4 +15,4 @@ _site
 /.vscode
 /project/project
 /null
-# metals.sbt
+metals.sbt
