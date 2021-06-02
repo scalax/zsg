@@ -3,12 +3,12 @@ import sbt.Keys._
 
 object ZsgSettings {
 
-  val currentScalaVersion = "2.13.4"
-  val scala212Version     = "2.12.12"
+  val currentScalaVersion = "2.13.6"
+  val scala212Version     = "2.12.14"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "3.0.0-RC3"
+  val dottyVersion        = "3.0.0"
 
-  val setting1 = scalaVersion := currentScalaVersion
+  val setting1 = scalaVersion := dottyVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq(
     "-feature",
@@ -24,22 +24,22 @@ object ZsgSettings {
   val setting9 = scalaVersion := currentScalaVersion
   val setting10 = Compile / unmanagedSourceDirectories ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 11)) => List(sourceDirectory.value / "main" / "scala-2.11")
-      case Some((2, 12)) => List(sourceDirectory.value / "main" / "scala-2.12")
-      case Some((2, 13)) => List(sourceDirectory.value / "main" / "scala-2.13")
-      case Some((2, _))  => List(sourceDirectory.value / "main" / "scala-2")
-      case Some((3, _))  => List(sourceDirectory.value / "main" / "scala-3")
-      case _             => List.empty
+      case Some((2, 11)) => Seq(sourceDirectory.value / "main" / "scala-2.11")
+      case Some((2, 12)) => Seq(sourceDirectory.value / "main" / "scala-2.12")
+      case Some((2, 13)) => Seq(sourceDirectory.value / "main" / "scala-2.13")
+      case Some((2, _))  => Seq(sourceDirectory.value / "main" / "scala-2")
+      case Some((3, _))  => Seq(sourceDirectory.value / "main" / "scala-3")
+      case _             => Seq.empty
     }
   }
   val setting11 = Test / unmanagedSourceDirectories ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 11)) => List(sourceDirectory.value / "test" / "scala-2.11")
-      case Some((2, 12)) => List(sourceDirectory.value / "test" / "scala-2.12")
-      case Some((2, 13)) => List(sourceDirectory.value / "main" / "scala-2.13")
-      case Some((2, _))  => List(sourceDirectory.value / "test" / "scala-2")
-      case Some((3, _))  => List(sourceDirectory.value / "test" / "scala-3")
-      case _             => List.empty
+      case Some((2, 11)) => Seq(sourceDirectory.value / "test" / "scala-2.11")
+      case Some((2, 12)) => Seq(sourceDirectory.value / "test" / "scala-2.12")
+      case Some((2, 13)) => Seq(sourceDirectory.value / "main" / "scala-2.13")
+      case Some((2, _))  => Seq(sourceDirectory.value / "test" / "scala-2")
+      case Some((3, _))  => Seq(sourceDirectory.value / "test" / "scala-3")
+      case _             => Seq.empty
     }
   }
   val setting12 = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")

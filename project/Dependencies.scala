@@ -4,8 +4,8 @@ import sbt.Keys._
 object Dependencies {
 
   val circe_2_11_version  = "0.11.2"
-  val circe_2_13_version  = "0.14.0-M6"
-  val circe_dotty_version = "0.14.0-M6"
+  val circe_2_13_version  = "0.14.1"
+  val circe_dotty_version = "0.14.1"
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, 11)) =>
       List(
@@ -29,7 +29,7 @@ object Dependencies {
       )
   }
 
-  val zioVersion = "1.0.7"
+  val zioVersion = "1.0.9"
   val zioTest = List(
     "dev.zio" %% "zio-test"     % zioVersion % "test",
     "dev.zio" %% "zio-test-sbt" % zioVersion % "test" // ,
@@ -42,7 +42,7 @@ object Dependencies {
     "com.typesafe.slick" %% "slick-codegen" % slickVersion
   )
 
-  val upickleDependencies = List("com.lihaoyi" %% "upickle" % "1.3.12")
+  val upickleDependencies = List("com.lihaoyi" %% "upickle" % "1.3.15")
 
   def scalaReflect(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, _)) => List("org.scala-lang" % "scala-reflect" % scalaVersion)
