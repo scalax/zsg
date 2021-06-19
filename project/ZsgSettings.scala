@@ -8,7 +8,7 @@ object ZsgSettings {
   val scala211Version     = "2.11.12"
   val dottyVersion        = "3.0.0"
 
-  val setting1 = scalaVersion := dottyVersion
+  val setting1 = scalaVersion := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
   val setting3 = scalacOptions ++= Seq(
     "-feature",

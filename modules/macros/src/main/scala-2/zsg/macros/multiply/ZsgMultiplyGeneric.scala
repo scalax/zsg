@@ -26,8 +26,8 @@ object ZsgMultiplyGeneric {
   }
 
   object MultiplyGenericApply {
-    val ins                                                                             = new MultiplyGenericApply[Any, Any]
-    def apply[Table, Model]: MultiplyGenericApply[Table, Model]                         = ins.asInstanceOf[MultiplyGenericApply[Table, Model]]
+    val ins                                                     = new MultiplyGenericApply[Any, Any]
+    def apply[Table, Model]: MultiplyGenericApply[Table, Model] = ins.asInstanceOf[MultiplyGenericApply[Table, Model]]
     implicit def genericApplyImplicit[Table, Model]: MultiplyGenericApply[Table, Model] = apply
   }
 
