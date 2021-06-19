@@ -19,7 +19,7 @@ ZsgSettings.commonSettings
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 
-addCommandAlias("codegen", ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration")
+addCommandAlias("codegen", ";codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration" + ";codegen/runMain zsg.codegen.ZsgCoreCodeGeneration")
 
 addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")
 

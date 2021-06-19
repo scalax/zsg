@@ -1,0 +1,7 @@
+@(maxItem: Int)
+
+package zsg
+
+@for(i <- 1 to maxItem) {
+    @zsg.codegen.ZsgCoreCodeGeneration.typeHListXGen(i)
+}

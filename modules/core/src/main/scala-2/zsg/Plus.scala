@@ -1,4 +1,5 @@
 package zsg
+
 abstract class Plus[X <: TypeHList, Y <: TypeHList, Z <: TypeHList] {
   def takeHead(z: Z#Head): X#Head
   def takeTail(z: Z#Head): Y#Head
