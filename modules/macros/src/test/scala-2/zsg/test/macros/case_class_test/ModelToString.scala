@@ -1,5 +1,6 @@
 package zsg.macros.case_class_test
 
+import zsg.macros.single
 import zsg.macros.single.{
   ColumnName,
   GenericColumnName,
@@ -9,7 +10,7 @@ import zsg.macros.single.{
   ZsgLabelledGeneric,
   ZsgLabelledTypeGeneric
 }
-import zsg.{Application, Context, Plus, PropertyTag, TypeHList}
+import zsg.{Application, Context, ItemTag2, Plus, PropertyTag, TagMerge2, TypeHList, TypeHList3}
 
 trait ModelToString[E] {
   def mToString(i: E): List[FieldModel]
@@ -20,27 +21,22 @@ trait ModelToString[E] {
 object ModelToString {
 
   type MTSType[T <: TypeHList] =
-    ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head, T#Tail#Tail#Tail#Tail#Head]
+    ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head]
 
   class ModelToStringContext extends Context[MTSType] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType[X], y: MTSType[Y])(plus: Plus[X, Y, Z]): MTSType[Z] = {
-      new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head, Z#Tail#Tail#Tail#Head, Z#Tail#Tail#Tail#Tail#Head] {
+      new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head] {
         override def totalSize: Int = x.totalSize + y.totalSize
-        override def encode(i: Z#Tail#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
-          val t2 = y.encode(plus.tail.takeTail(i), l, plus1, index)
-          x.encode(plus.tail.takeHead(i), t2._1, plus1, t2._2)
+        override def encode(i: Z#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
+          val t2 = y.encode(plus.takeTail(i), l, plus1, index)
+          x.encode(plus.takeHead(i), t2._1, plus1, t2._2)
         }
-        override def defaultValue(
-          i: Z#Tail#Tail#Tail#Head,
-          l: List[DefaultValue],
-          plus1: Int => Int,
-          index: Int
-        ): (List[DefaultValue], Int) = {
-          val t2 = y.defaultValue(plus.tail.tail.tail.takeTail(i), l, plus1, index)
-          x.defaultValue(plus.tail.tail.tail.takeHead(i), t2._1, plus1, t2._2)
+        override def defaultValue(i: Z#Tail#Head, l: List[DefaultValue], plus1: Int => Int, index: Int): (List[DefaultValue], Int) = {
+          val t2 = y.defaultValue(plus.tail.takeTail(i), l, plus1, index)
+          x.defaultValue(plus.tail.takeHead(i), t2._1, plus1, t2._2)
         }
-        override def appendLabelledName(m: Z#Tail#Tail#Tail#Tail#Head, names: List[String]): List[String] =
-          x.appendLabelledName(plus.tail.tail.tail.tail.takeHead(m), y.appendLabelledName(plus.tail.tail.tail.tail.takeTail(m), names))
+        override def appendLabelledName(m: Z#Tail#Tail#Head, names: List[String]): List[String] =
+          x.appendLabelledName(plus.tail.tail.takeHead(m), y.appendLabelledName(plus.tail.tail.takeTail(m), names))
       }
     }
   }
@@ -51,23 +47,18 @@ object ModelToString {
 
   class ReverseModelToStringContext extends Context[MTSType] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType[X], y: MTSType[Y])(plus: Plus[X, Y, Z]): MTSType[Z] = {
-      new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head, Z#Tail#Tail#Tail#Head, Z#Tail#Tail#Tail#Tail#Head] {
+      new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head] {
         override def totalSize: Int = x.totalSize + y.totalSize
-        override def encode(i: Z#Tail#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
-          val t1 = x.encode(plus.tail.takeHead(i), l, plus1, index)
-          y.encode(plus.tail.takeTail(i), t1._1, plus1, t1._2)
+        override def encode(i: Z#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
+          val t1 = x.encode(plus.takeHead(i), l, plus1, index)
+          y.encode(plus.takeTail(i), t1._1, plus1, t1._2)
         }
-        override def defaultValue(
-          i: Z#Tail#Tail#Tail#Head,
-          l: List[DefaultValue],
-          plus1: Int => Int,
-          index: Int
-        ): (List[DefaultValue], Int) = {
-          val t1 = x.defaultValue(plus.tail.tail.tail.takeHead(i), l, plus1, index)
-          y.defaultValue(plus.tail.tail.tail.takeTail(i), t1._1, plus1, t1._2)
+        override def defaultValue(i: Z#Tail#Head, l: List[DefaultValue], plus1: Int => Int, index: Int): (List[DefaultValue], Int) = {
+          val t1 = x.defaultValue(plus.tail.takeHead(i), l, plus1, index)
+          y.defaultValue(plus.tail.takeTail(i), t1._1, plus1, t1._2)
         }
-        override def appendLabelledName(m: Z#Tail#Tail#Tail#Tail#Head, names: List[String]): List[String] =
-          y.appendLabelledName(plus.tail.tail.tail.tail.takeTail(m), x.appendLabelledName(plus.tail.tail.tail.tail.takeHead(m), names))
+        override def appendLabelledName(m: Z#Tail#Tail#Head, names: List[String]): List[String] =
+          y.appendLabelledName(plus.tail.tail.takeTail(m), x.appendLabelledName(plus.tail.tail.takeHead(m), names))
       }
     }
   }
@@ -76,7 +67,7 @@ object ModelToString {
     implicit val value: ReverseModelToStringContext = new ReverseModelToStringContext
   }
 
-  trait ModelToStringContent[I1, M, I2, DefalutVal, LabelledName] {
+  trait ModelToStringContent[M, DefalutVal, LabelledName] {
     def totalSize: Int
     def encode(i: M, l: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int)
     def defaultValue(i: DefalutVal, l: List[DefaultValue], plus: Int => Int, index: Int): (List[DefaultValue], Int)
@@ -86,65 +77,101 @@ object ModelToString {
   object ModelToStringContent {
     implicit def pp1[G](implicit
       g: GenericColumnName[G]
-    ): ModelToStringContent[PropertyTag[String], String, ColumnName[G], zsg.macros.single.DefaultValue[String], String] =
-      new ModelToStringContent[PropertyTag[String], String, ColumnName[G], zsg.macros.single.DefaultValue[String], String] {
-        override def totalSize: Int = 1
-        override def encode(t: String, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
-          (FieldModel(value = StringProperty(t), fieldIndex = index, fieldName = g.value, typeName = "String") :: i, plus(index))
-        override def defaultValue(
-          t: zsg.macros.single.DefaultValue[String],
-          i: List[DefaultValue],
-          plus: Int => Int,
-          index: Int
-        ): (List[DefaultValue], Int) =
-          (DefaultValue(value = t.value.map(StringProperty.apply), fieldIndex = index) :: i, plus(index))
-        override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
-      }
+    ): Application[MTSType, ModelToStringContext, ItemTag2[PropertyTag[String], ColumnName[G]], TypeHList3[
+      String,
+      zsg.macros.single.DefaultValue[String],
+      String
+    ]] = new Application[
+      MTSType,
+      ModelToStringContext,
+      ItemTag2[PropertyTag[String], ColumnName[G]],
+      TypeHList3[String, zsg.macros.single.DefaultValue[String], String]
+    ] {
+      override def application(
+        context: ModelToStringContext
+      ): ModelToStringContent[String, zsg.macros.single.DefaultValue[String], String] =
+        new ModelToStringContent[String, zsg.macros.single.DefaultValue[String], String] {
+          override def totalSize: Int = 1
+          override def encode(t: String, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
+            (FieldModel(value = StringProperty(t), fieldIndex = index, fieldName = g.value, typeName = "String") :: i, plus(index))
+          override def defaultValue(
+            t: zsg.macros.single.DefaultValue[String],
+            i: List[DefaultValue],
+            plus: Int => Int,
+            index: Int
+          ): (List[DefaultValue], Int) =
+            (DefaultValue(value = t.value.map(StringProperty.apply), fieldIndex = index) :: i, plus(index))
+          override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
+        }
+    }
 
     implicit def pp2[G](implicit
       g: GenericColumnName[G]
-    ): ModelToStringContent[PropertyTag[Int], Int, ColumnName[G], zsg.macros.single.DefaultValue[Int], String] =
-      new ModelToStringContent[PropertyTag[Int], Int, ColumnName[G], zsg.macros.single.DefaultValue[Int], String] {
-        override def totalSize: Int = 1
-        override def encode(t: Int, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
-          (FieldModel(value = IntProperty(t), fieldIndex = index, fieldName = g.value, typeName = "Int") :: i, plus(index))
-        override def defaultValue(
-          t: zsg.macros.single.DefaultValue[Int],
-          i: List[DefaultValue],
-          plus: Int => Int,
-          index: Int
-        ): (List[DefaultValue], Int) =
-          (DefaultValue(value = t.value.map(IntProperty.apply), fieldIndex = index) :: i, plus(index))
-        override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
-      }
+    ): Application[MTSType, ModelToStringContext, ItemTag2[PropertyTag[Int], ColumnName[G]], TypeHList3[
+      Int,
+      zsg.macros.single.DefaultValue[Int],
+      String
+    ]] = new Application[MTSType, ModelToStringContext, ItemTag2[PropertyTag[Int], ColumnName[G]], TypeHList3[
+      Int,
+      zsg.macros.single.DefaultValue[Int],
+      String
+    ]] {
+      override def application(context: ModelToStringContext): ModelToStringContent[Int, zsg.macros.single.DefaultValue[Int], String] =
+        new ModelToStringContent[Int, zsg.macros.single.DefaultValue[Int], String] {
+          override def totalSize: Int = 1
+          override def encode(t: Int, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
+            (FieldModel(value = IntProperty(t), fieldIndex = index, fieldName = g.value, typeName = "Int") :: i, plus(index))
+          override def defaultValue(
+            t: zsg.macros.single.DefaultValue[Int],
+            i: List[DefaultValue],
+            plus: Int => Int,
+            index: Int
+          ): (List[DefaultValue], Int) =
+            (DefaultValue(value = t.value.map(IntProperty.apply), fieldIndex = index) :: i, plus(index))
+          override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
+        }
+    }
 
     implicit def pp3[G](implicit
       g: GenericColumnName[G]
-    ): ModelToStringContent[PropertyTag[Long], Long, ColumnName[G], zsg.macros.single.DefaultValue[Long], String] =
-      new ModelToStringContent[PropertyTag[Long], Long, ColumnName[G], zsg.macros.single.DefaultValue[Long], String] {
-        override def totalSize: Int = 1
-        override def encode(t: Long, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
-          (FieldModel(value = LongProperty(t), fieldIndex = index, fieldName = g.value, typeName = "Long") :: i, plus(index))
-        override def defaultValue(
-          t: zsg.macros.single.DefaultValue[Long],
-          i: List[DefaultValue],
-          plus: Int => Int,
-          index: Int
-        ): (List[DefaultValue], Int) =
-          (DefaultValue(value = t.value.map(LongProperty.apply), fieldIndex = index) :: i, plus(index))
-        override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
+    ): Application[MTSType, ModelToStringContext, ItemTag2[PropertyTag[Long], ColumnName[G]], TypeHList3[
+      Long,
+      zsg.macros.single.DefaultValue[Long],
+      String
+    ]] =
+      new Application[MTSType, ModelToStringContext, ItemTag2[PropertyTag[Long], ColumnName[G]], TypeHList3[
+        Long,
+        zsg.macros.single.DefaultValue[Long],
+        String
+      ]] {
+        override def application(context: ModelToStringContext): ModelToStringContent[Long, single.DefaultValue[Long], String] = {
+          new ModelToStringContent[Long, single.DefaultValue[Long], String] {
+            override def totalSize: Int = 1
+            override def encode(t: Long, i: List[FieldModel], plus: Int => Int, index: Int): (List[FieldModel], Int) =
+              (FieldModel(value = LongProperty(t), fieldIndex = index, fieldName = g.value, typeName = "Long") :: i, plus(index))
+            override def defaultValue(
+              t: zsg.macros.single.DefaultValue[Long],
+              i: List[DefaultValue],
+              plus: Int => Int,
+              index: Int
+            ): (List[DefaultValue], Int) =
+              (DefaultValue(value = t.value.map(LongProperty.apply), fieldIndex = index) :: i, plus(index))
+            override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
+          }
+        }
       }
   }
 
   class EncoderContent[I1]
 
-  def encoder[I1, I2 <: TypeHList, X, Y, DefalutVal, LabelledVal](implicit
+  def encoder[I1, I2, I3, Merge2, I4 <: TypeHList, DefalutVal, LabelledVal](implicit
     g: ZsgGeneric.Aux[I1, I2],
-    l: ZsgLabelledTypeGeneric.Aux[I1, Y],
-    pp: Application[MTSType, ModelToStringContext, I1, I2],
-    zsgLabelledGeneric: ZsgLabelledGeneric[I1, LabelledVal],
-    defVal: ZsgDefaultValue#ModelType[I1]#GenericType[DefalutVal],
-    zsgGetterGeneric: ZsgGetterGeneric[I1, X]
+    l: ZsgLabelledTypeGeneric.Aux[I1, I3],
+    merge2: TagMerge2.Aux[I2, I3, Merge2],
+    pp: Application[MTSType, ModelToStringContext, Merge2, I4],
+    zsgLabelledGeneric: ZsgLabelledGeneric[I1, I4#Tail#Tail#Head],
+    defVal: ZsgDefaultValue#ModelType[I1]#GenericType[I4#Tail#Head],
+    zsgGetterGeneric: ZsgGetterGeneric[I1, I4#Head]
   ): ModelToString[I1] = {
     val application = pp.application(ModelToStringContext.value)
     new ModelToString[I1] {

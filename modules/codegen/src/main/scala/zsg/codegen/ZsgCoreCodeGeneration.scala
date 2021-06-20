@@ -38,11 +38,22 @@ object ZsgCoreCodeGeneration {
   }
 
   def main(i: Array[String]): Unit = {
-    val filePath = root2XDir.resolve("TypeHListX.scala")
-    Files.createDirectories(filePath.getParent)
-    Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-      val content = StringUtil.trimLines(zsg.codegen.tuple.txt.TypeHListX(maxItem = ZsgParameters.maxZTupleNum).body)
-      writer.println(content)
+    {
+      val filePath = root2XDir.resolve("TypeHListX.scala")
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.TypeHListX(maxItem = ZsgParameters.maxZTupleNum).body)
+        writer.println(content)
+      }
+    }
+
+    {
+      val filePath = root2XDir.resolve("TagMerge.scala")
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val content = StringUtil.trimLines(zsg.codegen.tuple.txt.TagMerge(tagNum = ZsgParameters.maxZTupleNum).body)
+        writer.println(content)
+      }
     }
   }
 
