@@ -1,6 +1,6 @@
 package zsg.test.macros.case_class_test
 
-import zsg.ZsgTuple2
+import zsg.{ItemTag2, ZsgTuple2}
 import zsg.macros.case_class_test.{FieldModel, IntProperty, LongProperty, ModelToString, StringProperty}
 import zsg.macros.single.{ColumnName, PropertyApply, ZsgGetterGeneric, ZsgLabelledTypeGeneric}
 
@@ -12,12 +12,12 @@ object CaseClassLabelledGenericMacroGenPrepareTest {
 
   val ap = PropertyApply[Foo]
 
-  val fooPropertyTag = new ZsgTuple2(
-    new ZsgTuple2(
-      new ZsgTuple2(new ZsgTuple2(ap.to(_.i1), ap.to(_.i2)), new ZsgTuple2(ap.to(_.i3), ap.to(_.i4))),
-      new ZsgTuple2(new ZsgTuple2(ap.to(_.i5), ap.to(_.i6)), new ZsgTuple2(ap.to(_.i7), ap.to(_.i8)))
+  val fooPropertyTag = ItemTag2(
+    ItemTag2(
+      ItemTag2(ItemTag2(ap.to(_.i1), ap.to(_.i2)), ItemTag2(ap.to(_.i3), ap.to(_.i4))),
+      ItemTag2(ItemTag2(ap.to(_.i5), ap.to(_.i6)), ItemTag2(ap.to(_.i7), ap.to(_.i8)))
     ),
-    new ZsgTuple2(ap.to(_.i9), ap.to(_.i10))
+    ItemTag2(ap.to(_.i9), ap.to(_.i10))
   )
 
   val fooGetter = (foo: Foo) =>
@@ -32,12 +32,12 @@ object CaseClassLabelledGenericMacroGenPrepareTest {
   lazy val dsfsdfewrene: Foo = throw new Exception
 
   val fooLabelled = ZsgLabelledTypeGeneric[Foo].model(
-    new ZsgTuple2(
-      new ZsgTuple2(
-        new ZsgTuple2(new ZsgTuple2(ColumnName["i1"], ColumnName["i2"]), new ZsgTuple2(ColumnName["i3"], ColumnName["i4"])),
-        new ZsgTuple2(new ZsgTuple2(ColumnName["i5"], ColumnName["i6"]), new ZsgTuple2(ColumnName["i7"], ColumnName["i8"]))
+    ItemTag2(
+      ItemTag2(
+        ItemTag2(ItemTag2(ColumnName["i1"], ColumnName["i2"]), ItemTag2(ColumnName["i3"], ColumnName["i4"])),
+        ItemTag2(ItemTag2(ColumnName["i5"], ColumnName["i6"]), ItemTag2(ColumnName["i7"], ColumnName["i8"]))
       ),
-      new ZsgTuple2(ColumnName["i9"], ColumnName["i10"])
+      ItemTag2(ColumnName["i9"], ColumnName["i10"])
     )
   )
 

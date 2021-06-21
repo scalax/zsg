@@ -18,6 +18,6 @@ package zsg
     }
 
     trait TagMerge@{i}ImplicitImpl {
-        implicit def merge@{i}Implicit1[@for(ii <- 1 to i) { I@{ii}, } Target]: TagMerge@{i}.Aux[@for(ii <- 1 to i) { I@{ii}, } Target] = TagMerge@{i}.tagMerge@{i}
+        implicit def merge@{i}Implicit1[I1 @for(ii <- 2 to i) { , I@{ii} }]: TagMerge@{i}.Aux[I1 @for(ii <- 2 to i) { , I@{ii} }, TagMerge@{i}[I1 @for(ii <- 2 to i) { , I@{ii} }]] = TagMerge@{i}.tagMerge@{i}
     }
 }
