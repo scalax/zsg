@@ -1,15 +1,18 @@
 package zsg.macros.rep_encoder_test
 
-import zsg.{Application2, Context2, Plus2, PropertyTag}
+import zsg.{Application, Context, Plus, PropertyTag, TypeHList, TypeHList1}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
 
 object MutiplyClassGenericPrepareTest {
 
-  class GetterContext extends Context2[Getter] {
-    override def append[X1, X2, Y1, Y2, Z1, Z2](x: Getter[X1, X2], y: Getter[Y1, Y2])(p: Plus2[X1, X2, Y1, Y2, Z1, Z2]): Getter[Z1, Z2] =
-      new Getter[Z1, Z2]
+  type GetterType[T <: TypeHList] = Getter[T#Head]
+
+  class GetterContext extends Context[GetterType] {
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: GetterType[X], y: GetterType[Y])(
+      plus: Plus[X, Y, Z]
+    ): Getter[Z#Head] = new Getter[Z#Head]
   }
 
   object GetterContext {
@@ -17,17 +20,20 @@ object MutiplyClassGenericPrepareTest {
   }
 
   class CirceGenericApply2[Model] {
-    def encoder[Table, II, M](table: Table)(implicit
+    def encoder[Table, II, M <: TypeHList](table: Table)(implicit
       i: ZsgMultiplyGeneric.Aux[Table, Model, II],
-      p: Application2[Getter, GetterContext, II, M],
-      m: ZsgMultiplyRepGeneric[Table, Model, M]
-    ): M = m.rep(table)
+      p: Application[GetterType, GetterContext, II, M],
+      m: ZsgMultiplyRepGeneric[Table, Model, M#Head]
+    ): M#Head = m.rep(table)
   }
 
-  class Getter[Tag, Model]
+  class Getter[Model]
 
   object Getter {
-    implicit def implicit1[I]: Getter[PropertyTag[I], I] = new Getter[PropertyTag[I], I]
+    implicit def implicit1[I]: Application[GetterType, GetterContext, PropertyTag[I], TypeHList1[I]] =
+      new Application[GetterType, GetterContext, PropertyTag[I], TypeHList1[I]] {
+        override def application(context: GetterContext): Getter[I] = new Getter[I]
+      }
   }
 
   def link[Model]: CirceGenericApply2[Model] = new CirceGenericApply2[Model]
