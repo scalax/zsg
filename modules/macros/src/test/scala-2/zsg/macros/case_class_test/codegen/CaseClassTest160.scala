@@ -957,8 +957,10 @@ object CaseClassTest160 extends DefaultRunnableSpec {
     i159 = 82,
     i160 = 24564564L
   )
-  val fooEncoder160: ModelToString[Foo160]        = ModelToString.encoder
-  val reverseFooEncoder160: ModelToString[Foo160] = ModelToString.reverseEncoder
+  val fooEncoder160: ModelToString[Foo160]          = ModelToString.encoder
+  val reverseFooEncoder160: ModelToString[Foo160]   = ModelToString.reverseEncoder
+  val fooDecoder160: ModelFromString[Foo160]        = ModelFromString.decoder
+  val reverseFooDecoder160: ModelFromString[Foo160] = ModelFromString.reverseDecoder
   override def spec = suite("A case class by 160 length")(
     zio.test.test("should generic to a encoder") {
       val str1 = fooEncoder160.mToString(fooValue160)
@@ -979,6 +981,14 @@ object CaseClassTest160 extends DefaultRunnableSpec {
     zio.test.test("should generic to it's reverse name list") {
       val name1 = reverseFooEncoder160.labelledNames
       assert(name1)(equalTo(fooValue160.fieldNames.reverse))
+    },
+    zio.test.test("should generic to a decoder") {
+      val (_, model1) = fooDecoder160.getData(fooValue160.fieldInfo)
+      assert(model1)(equalTo(fooValue160))
+    },
+    zio.test.test("should generic to a reverse decoder") {
+      val (_, model2) = reverseFooDecoder160.getData(fooValue160.reverseFieldInfo)
+      assert(model2)(equalTo(fooValue160))
     }
   )
 }
