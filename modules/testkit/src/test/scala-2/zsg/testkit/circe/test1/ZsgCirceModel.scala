@@ -1,6 +1,7 @@
 package zsg.testkit.circe.test1
 
 import io.circe.Encoder
+import zsg.Application
 import zsg.testkit.model._
 import zsg.testkit.circe.{ACirce, CirceVersionCompat}
 
