@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
-import zsg.{Application, Context, Plus, PropertyTag, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, PropertyTag, TypeFunction, TypeHList, TypeHList1}
 
 trait ModelFromString[M] {
   def getData(str: List[FieldModel]): (List[FieldModel], M)
@@ -9,7 +9,7 @@ trait ModelFromString[M] {
 
 object ModelFromString {
 
-  type MFSI[T <: TypeHList] = ModelFromStringImpl[T#Head]
+  class MFSI extends TypeFunction { override type H[T <: TypeHList] = ModelFromStringImpl[T#Head] }
 
   class DecoderContext extends Context[MFSI] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ModelFromStringImpl[X#Head], y: ModelFromStringImpl[Y#Head])(

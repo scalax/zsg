@@ -26,7 +26,7 @@ object ACirce {
     ll: ZsgGeneric.Aux[H, R],
     nm: ZsgLabelledTypeGeneric.Aux[H, N],
     merge: TagMerge2.Aux[R, N, I],
-    app: Application[encoder.JsonObjectAppender.S, encoder.ZsgJsonObjectContext, I, P],
+    app: Application[encoder.JsonObjectFunc, encoder.ZsgJsonObjectContext, I, P],
     cv2: ZsgGetterGeneric[H, P#Tail#Head]
   ): CirceVersionCompat.JsonObjectEncoder[H] = {
     val applicationEncoder = app.application(encoder.ZsgJsonObjectContext.value)
@@ -38,21 +38,21 @@ object ACirce {
   final def encodeCaseObject[T]: CirceVersionCompat.JsonObjectEncoder[T] =
     CirceVersionCompat.JsonObjectEncoder.instance(_ => JsonObject.empty)
 
-  final def encodeSealed[H, R, T <: TypeHList](implicit
-    ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application[encoder.SealedTraitSelector[H]#S, encoder.ZsgSealedContext[H], R, T],
-    cv1: ZsgSealedLabelledGeneric[H, T#Tail#Head],
-    cv2: ZsgSealedClassGeneric[H, T#Head]
-  ): CirceVersionCompat.JsonObjectEncoder[H] = {
+  final def encodeSealed[P, R, T <: TypeHList](implicit
+    ll: ZsgSealedGeneric.Aux[P, R],
+    app: Application[encoder.SealedTraitSelector[P], encoder.ZsgSealedContext[P], R, T],
+    cv1: ZsgSealedLabelledGeneric[P, T#Tail#Head],
+    cv2: ZsgSealedClassGeneric[P, T#Head]
+  ): CirceVersionCompat.JsonObjectEncoder[P] = {
     val name1              = cv1.names
     val name2              = cv2.names
-    val applicationEncoder = app.application(encoder.ZsgSealedContext.c[H])
-    CirceVersionCompat.JsonObjectEncoder.instance { o: H => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
+    val applicationEncoder = app.application(encoder.ZsgSealedContext.c[P])
+    CirceVersionCompat.JsonObjectEncoder.instance { o: P => JsonObject.fromIterable(applicationEncoder.p(o, name2, name1)) }
   }
 
   def decodeCaseClass[T, R, M <: TypeHList](implicit
     ll: ZsgGeneric.Aux[T, R],
-    app: Application[decoder.JsonDecoderPro.S, decoder.ZsgDecoderContext, R, M],
+    app: Application[decoder.JsonDecoderFunc, decoder.ZsgDecoderContext, R, M],
     cv1: ZsgLabelledGeneric[T, M#Tail#Head],
     cv3: ZsgSetterGeneric[T, M#Head],
     cv4: ZsgDefaultValue#ModelType[T]#GenericType[M#Tail#Tail#Head]
@@ -60,7 +60,7 @@ object ACirce {
 
   def decodeSealed[H, R, Nam <: TypeHList](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application[decoder.SealedTraitSelector[H]#S, decoder.ZsgSealedContext[H], R, Nam],
+    app: Application[decoder.SealedTraitSelector[H], decoder.ZsgSealedContext[H], R, Nam],
     cv1: ZsgSealedLabelledGeneric[H, Nam#Tail#Head]
   ): Decoder[H] = {
     val names = cv1.names

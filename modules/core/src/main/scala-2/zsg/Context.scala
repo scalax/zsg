@@ -1,5 +1,5 @@
 package zsg
 
-abstract class Context[F[_ <: TypeHList]] {
-  def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: F[X], y: F[Y])(plus: Plus[X, Y, Z]): F[Z]
+abstract class Context[F <: TypeFunction] {
+  def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: F#H[X], y: F#H[Y])(plus: Plus[X, Y, Z]): F#H[Z]
 }

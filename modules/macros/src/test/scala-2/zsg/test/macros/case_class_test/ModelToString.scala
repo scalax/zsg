@@ -10,7 +10,7 @@ import zsg.macros.single.{
   ZsgLabelledGeneric,
   ZsgLabelledTypeGeneric
 }
-import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeHList, TypeHList3, TypeHList4}
+import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList3, TypeHList4}
 
 trait ModelToString[E] {
   def mToString(i: E): List[FieldModel]
@@ -20,11 +20,15 @@ trait ModelToString[E] {
 
 object ModelToString {
 
-  type MTSType[T <: TypeHList] =
-    ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head]
+  class MTSType extends TypeFunction {
+    override type H[T <: TypeHList] =
+      ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head]
+  }
 
   class ModelToStringContext extends Context[MTSType] {
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType[X], y: MTSType[Y])(plus: Plus[X, Y, Z]): MTSType[Z] = {
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType#H[X], y: MTSType#H[Y])(
+      plus: Plus[X, Y, Z]
+    ): MTSType#H[Z] = {
       new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head, Z#Tail#Tail#Tail#Head] {
         override def totalSize: Int = x.totalSize + y.totalSize
         override def encode(i: Z#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
@@ -61,7 +65,9 @@ object ModelToString {
   }
 
   class ReverseModelToStringContext extends Context[MTSType] {
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType[X], y: MTSType[Y])(plus: Plus[X, Y, Z]): MTSType[Z] = {
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType#H[X], y: MTSType#H[Y])(
+      plus: Plus[X, Y, Z]
+    ): MTSType#H[Z] = {
       new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head, Z#Tail#Tail#Tail#Head] {
         override def totalSize: Int = x.totalSize + y.totalSize
         override def encode(i: Z#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {

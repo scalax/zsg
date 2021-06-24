@@ -1,6 +1,6 @@
 package zsg.test.macros.sealed_trait_test
 
-import zsg.{Application, Context, Plus, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 
 object SealedTraitLabelledGenericPrepareTest {
@@ -22,7 +22,9 @@ object SealedTraitLabelledGenericPrepareTest {
     def str: List[String]
   }
 
-  type SeaGetter[T <: TypeHList] = SealedNameGetter[T#Head]
+  class SeaGetter extends TypeFunction {
+    override type H[T <: TypeHList] = SealedNameGetter[T#Head]
+  }
 
   def sealedNames[H, T, TT <: TypeHList](implicit
     sg: ZsgSealedGeneric.Aux[H, T],
@@ -33,7 +35,7 @@ object SealedTraitLabelledGenericPrepareTest {
   }
 
   class SealedNameGetterContext extends Context[SeaGetter] {
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: SeaGetter[X], y: SeaGetter[Y])(
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: SealedNameGetter[X#Head], y: SealedNameGetter[Y#Head])(
       plus: Plus[X, Y, Z]
     ): SealedNameGetter[Z#Head] = new SealedNameGetter[Z#Head] {
       override def stt(t: Z#Head): List[String] => List[String] = {

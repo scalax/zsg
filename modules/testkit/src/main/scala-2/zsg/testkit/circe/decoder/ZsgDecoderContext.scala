@@ -1,11 +1,10 @@
 package zsg.testkit.circe.decoder
 
-import zsg.{Application, Context, Plus, PropertyTag, TagMerge3, TypeHList, TypeHList3}
+import zsg.{Application, Context, Plus, PropertyTag, TypeHList, TypeHList3}
 import io.circe.Decoder
 import zsg.macros.single.DefaultValue
-import zsg.testkit.circe.decoder.JsonDecoderPro.S
 
-class ZsgDecoderContext extends Context[JsonDecoderPro.S] {
+class ZsgDecoderContext extends Context[JsonDecoderFunc] {
   /*override def append[X1, X2, X3, X4, Y1, Y2, Y3, Y4, Z1, Z2, Z3, Z4](x: JsonDecoderPro[X1, X2, X3, X4], y: JsonDecoderPro[Y1, Y2, Y3, Y4])(
     p: Plus4[X1, X2, X3, X4, Y1, Y2, Y3, Y4, Z1, Z2, Z3, Z4]
   ): JsonDecoderPro[Z1, Z2, Z3, Z4] =
@@ -47,11 +46,4 @@ class ZsgDecoderContext extends Context[JsonDecoderPro.S] {
 
 object ZsgDecoderContext {
   val value: ZsgDecoderContext = new ZsgDecoderContext
-
-  implicit def implicit1[T1](implicit
-    j: JsonDecoderPro[T1, String, DefaultValue[T1]]
-  ): Application[JsonDecoderPro.S, ZsgDecoderContext, PropertyTag[T1], TypeHList3[T1, String, DefaultValue[T1]]] =
-    new Application[JsonDecoderPro.S, ZsgDecoderContext, PropertyTag[T1], TypeHList3[T1, String, DefaultValue[T1]]] {
-      override def application(context: ZsgDecoderContext): S[TypeHList3[T1, String, DefaultValue[T1]]] = j
-    }
 }

@@ -4,7 +4,7 @@ import zsg.{Application, Context, Plus, TypeHList, TypeHList2}
 import io.circe.Decoder
 import zsg.macros.single.SealedTag
 
-class ZsgSealedContext[P] extends Context[SealedTraitSelector[P]#S] {
+class ZsgSealedContext[P] extends Context[SealedTraitSelector[P]] {
 
   /*override def append[X1, X2, Y1, Y2, Z1, Z2](x: SealedTraitSelector[P]#JsonDecoder[X1, X2], y: SealedTraitSelector[P]#JsonDecoder[Y1, Y2])(
     p: Plus2[X1, X2, Y1, Y2, Z1, Z2]
@@ -21,7 +21,7 @@ class ZsgSealedContext[P] extends Context[SealedTraitSelector[P]#S] {
     }
   }*/
 
-  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: SealedTraitSelector[P]#S[X], y: SealedTraitSelector[P]#S[Y])(
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: SealedTraitSelector[P]#H[X], y: SealedTraitSelector[P]#H[Y])(
     plus: Plus[X, Y, Z]
   ): JsonDecoder[P, Z#Head, Z#Tail#Head] = {
     new JsonDecoder[P, Z#Head, Z#Tail#Head] {
@@ -38,11 +38,4 @@ class ZsgSealedContext[P] extends Context[SealedTraitSelector[P]#S] {
 
 object ZsgSealedContext {
   def c[H]: ZsgSealedContext[H] = new ZsgSealedContext[H]
-
-  implicit def implicit1[P, S](implicit
-    i: JsonDecoder[P, SealedTag[S], String]
-  ): Application[SealedTraitSelector[P]#S, ZsgSealedContext[P], SealedTag[S], TypeHList2[SealedTag[S], String]] =
-    new Application[SealedTraitSelector[P]#S, ZsgSealedContext[P], SealedTag[S], TypeHList2[SealedTag[S], String]] {
-      override def application(context: ZsgSealedContext[P]): SealedTraitSelector[P]#S[TypeHList2[SealedTag[S], String]] = i
-    }
 }
