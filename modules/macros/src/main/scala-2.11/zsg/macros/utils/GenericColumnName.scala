@@ -1,4 +1,4 @@
-package zsg.macros.single
+package zsg.macros.utils
 
 import scala.language.experimental.macros
 
@@ -16,7 +16,7 @@ object GenericColumnName {
           val n                                    = weakTypeOf[N]
           val ConstantType(Constant(name: String)) = n
           c.Expr[GenericColumnName[N]] {
-            q"""new _root_.zsg.macros.single.GenericColumnName[${n}](${Literal(Constant(name.trim))})"""
+            q"""new _root_.zsg.macros.utils.GenericColumnName[${n}](${Literal(Constant(name.trim))})"""
           }
         } catch {
           case e: Exception =>

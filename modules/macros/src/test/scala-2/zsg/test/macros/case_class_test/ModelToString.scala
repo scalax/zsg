@@ -1,16 +1,9 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single
-import zsg.macros.single.{
-  ColumnName,
-  GenericColumnName,
-  ZsgDefaultValue,
-  ZsgGeneric,
-  ZsgGetterGeneric,
-  ZsgLabelledGeneric,
-  ZsgLabelledTypeGeneric
-}
-import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList3, TypeHList4}
+import zsg.macros.single.{ColumnName, ZsgDefaultValue, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric, ZsgLabelledTypeGeneric}
+import zsg.macros.utils.GenericColumnName
+import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList4}
 
 trait ModelToString[E] {
   def mToString(i: E): List[FieldModel]

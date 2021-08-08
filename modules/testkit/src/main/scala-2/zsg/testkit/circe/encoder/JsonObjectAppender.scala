@@ -3,7 +3,8 @@ package zsg.testkit.circe.encoder
 import io.circe.{Encoder, Json}
 import zsg.{Application, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList2}
 import zsg.macros.ByNameImplicit
-import zsg.macros.single.{ColumnName, GenericColumnName}
+import zsg.macros.single.ColumnName
+import zsg.macros.utils.GenericColumnName
 
 abstract class JsonObjectAppender[NameTag, T] {
   def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)]
