@@ -11,8 +11,10 @@ trait AsunaTupleApply[Model, TupleType] {
 }
 
 object AsunaTupleApply {
-  @inline def apply[Model, TupleType](implicit asunaTupleApply: AsunaTupleApply[Model, TupleType]): AsunaTupleApply[Model, TupleType] = asunaTupleApply
-  implicit def macroImpl[Model, TupleType]: AsunaTupleApply[Model, TupleType] = macro AsunaTupleApplyMacroApply.MacroImpl.generic[Model, TupleType]
+  @inline def apply[Model, TupleType](implicit asunaTupleApply: AsunaTupleApply[Model, TupleType]): AsunaTupleApply[Model, TupleType] =
+    asunaTupleApply
+  implicit def macroImpl[Model, TupleType]: AsunaTupleApply[Model, TupleType] =
+    macro AsunaTupleApplyMacroApply.MacroImpl.generic[Model, TupleType]
 }
 
 object AsunaTupleApplyMacroApply {
@@ -37,7 +39,9 @@ object AsunaTupleApplyMacroApply {
 
         def tupleDeficientSetter =
           struct.tupleFields.map { pro =>
-            val argsSetter = pro.caseClassFields.map(i => namedParam(i.fieldTermName, Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName)))
+            val argsSetter = pro.caseClassFields.map(i =>
+              namedParam(i.fieldTermName, Select(Select(Ident(shaSelfTerm), struct.modelFieldTermName), i.fieldTermName))
+            )
             q"""override def ${pro.fieldTermName} = ${pro.fieldType.typeSymbol.companion}(..${argsSetter})"""
           }
 

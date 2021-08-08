@@ -4,6 +4,7 @@ import zsg.macros.ZsgParameters
 import zsg.macros.single.utils.SealedHelper
 
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait ZsgSealedClassGeneric[H, NameType] {
   def names: NameType
@@ -32,28 +33,17 @@ object ZsgSealedClassGenericMacroApply {
         val h     = c.weakTypeOf[H]
         val hType = h.resultType
 
-        val props = fleshedOutSubtypes(hType).toList
+        val props = fleshedOutSubtypes(hType).to(List)
 
         val nameTag = props.map { subType => q"""classOf[${subType}]""" }
-        //.grouped(8)
-        //.toList
-        //.map(s => q"""zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})""")
-        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init)
-              q"""_root_.zsg.BuildContent.tuple1(..${tree})"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
-            if (init)
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
-            else
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
-          }
+        def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
+          nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgSealedClassGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.ZsgSealedClassGeneric.value(${nameTagGen(nameTag, true)})"""
+          q"""_root_.zsg.macros.single.ZsgSealedClassGeneric.value(${nameTagGen(nameTag)})"""
         }
 
       } catch {

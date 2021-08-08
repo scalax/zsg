@@ -1,2 +1,0 @@
-ZsgSettings.dottyVersionSettings
-ZsgSettings.commonSettings

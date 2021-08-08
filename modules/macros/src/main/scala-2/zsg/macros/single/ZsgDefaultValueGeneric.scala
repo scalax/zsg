@@ -33,6 +33,13 @@ abstract class ZsgDefaultValueGeneric[H, DefaultValueType] {
   def defaultValues: DefaultValueType
 }
 
+class ZsgDefaultValue {
+  type ModelType[M] = ZsgDefaultValueGenericImpl1[M]
+  class ZsgDefaultValueGenericImpl1[Model] {
+    type GenericType[G] = ZsgDefaultValueGeneric[Model, G]
+  }
+}
+
 object ZsgDefaultValueGeneric {
 
   @inline def value[T, Model](t: DefaultValue.DefaultValueApply[Model] => T): ZsgDefaultValueGeneric[Model, T] =
@@ -76,25 +83,15 @@ object ZsgDefaultValueGenericMacroApply {
           }
           .getOrElse(defaultValue)
 
-        val nameTag                                           = proTypeTag
-        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
-          /*if (tree.length == 1) {
-            q"""..${tree}"""
-          } else*/ if (tree.length == 1) {
-            if (init)
-              q"""_root_.zsg.BuildContent.tuple1(..${tree})"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
-            if (init)
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
-            else
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
-          }
+        val nameTag = proTypeTag
+        def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
+          nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..${s})""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgDefaultValueGeneric[H, M]] {
-          q"""_root_.zsg.macros.single.ZsgDefaultValueGeneric.value(item => ${nameTagGen(nameTag, true)})"""
+          q"""_root_.zsg.macros.single.ZsgDefaultValueGeneric.value(item => ${nameTagGen(nameTag)})"""
         }
 
       } catch {

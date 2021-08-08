@@ -1,6 +1,0 @@
-@(l: List[Int])
-package zsg.codegen3
-
-class SOFAlias extends SOFAlias@{l.head} @for(i <- l.tail) { with SOFAlias@{i} }
-
-object SOFAlias extends SOFInit@{l.head} @for(i <- l.tail) { with SOFInit@{i} }

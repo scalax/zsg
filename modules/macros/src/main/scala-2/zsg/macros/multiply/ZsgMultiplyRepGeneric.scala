@@ -14,7 +14,8 @@ object ZsgMultiplyRepGeneric {
     new ZsgMultiplyRepGeneric[Table, Model, Rep] {
       override def rep(table: Table): Rep = i(table)
     }
-  implicit def macroImpl[Table, Model, Rep]: ZsgMultiplyRepGeneric[Table, Model, Rep] = macro ZsgMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
+  implicit def macroImpl[Table, Model, Rep]: ZsgMultiplyRepGeneric[Table, Model, Rep] =
+    macro ZsgMultiplyRepGenericApply.MacroImpl.generic[Table, Model, Rep]
 }
 
 object ZsgMultiplyRepGenericApply {
@@ -49,7 +50,9 @@ object ZsgMultiplyRepGenericApply {
           }
           .reverse
 
-        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) { (start, path) => start ++ path }
+        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) {
+          (start, path) => start ++ path
+        }
 
         def tableProperty(s: String): Tree = {
           tableProps
@@ -62,24 +65,14 @@ object ZsgMultiplyRepGenericApply {
 
         val proTypeTag = props.map(s => tableProperty(s))
 
-        def nameTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init) {
-              q"""{ table => _root_.zsg.BuildContent.tuple1(..${tree}) }"""
-            } else {
-              q"""{ table => ..${tree} }"""
-            }
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
-            if (init) {
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
-            } else {
-              nameTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
-            }
-          }
+        def nameTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""{ table => ..$tree }"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).toList
+          nameTagGen(groupedTree.map(s => if (s.size > 1) q"""new _root_.zsg.ZsgTuple2(..$s)""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgMultiplyRepGeneric[Table, Model, M]] {
-          q"""_root_.zsg.macros.multiply.ZsgMultiplyRepGeneric.value(${nameTagGen(proTypeTag, true)})"""
+          q"""_root_.zsg.macros.multiply.ZsgMultiplyRepGeneric.value(${nameTagGen(proTypeTag)})"""
         }
 
       } catch {

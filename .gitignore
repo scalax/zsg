@@ -10,7 +10,9 @@ _site
 /credentials
 /.metals
 /.bloop
+/project/.bloop
 /.bsp
 /.vscode
 /project/project
 /null
+metals.sbt

@@ -10,8 +10,11 @@ object CaseClassTest3 extends DefaultRunnableSpec {
   case class Foo3(i1: Long, i2: Int, i3: Int) {
     self =>
     def fieldNames: List[String] = List("i1", "i2", "i3")
-    def defaultValues: List[DefaultValue] =
-      List(DefaultValue(value = Option.empty, fieldIndex = 1), DefaultValue(value = Option.empty, fieldIndex = 2), DefaultValue(value = Option.empty, fieldIndex = 3))
+    def defaultValues: List[DefaultValue] = List(
+      DefaultValue(value = Option.empty, fieldIndex = 1),
+      DefaultValue(value = Option.empty, fieldIndex = 2),
+      DefaultValue(value = Option.empty, fieldIndex = 3)
+    )
     def fieldInfo: List[FieldModel] =
       List(
         FieldModel(value = LongProperty(self.i1), fieldIndex = 1, fieldName = "i1", typeName = "Long"),

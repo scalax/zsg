@@ -1,7 +1,8 @@
 package zsg.macros.single
 
-class ColumnName[N <: StringName]
+class ColumnName[N <: String]
 
 object ColumnName {
-  def apply[N <: StringName] = new ColumnName[N]
+  val any                               = new ColumnName[Nothing]
+  def apply[N <: String]: ColumnName[N] = any.asInstanceOf[ColumnName[N]]
 }

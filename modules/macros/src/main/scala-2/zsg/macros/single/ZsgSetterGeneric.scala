@@ -4,7 +4,9 @@ import zsg.macros.single.utils.TypeHelper
 import zsg.macros.{AllScalaMacroMethods, ZsgParameters}
 import zsg.macros.utils.MacroMethods
 
+import scala.annotation.tailrec
 import scala.language.experimental.macros
+import scala.collection.compat._
 
 trait ZsgSetterGeneric[H, GenericType] {
   def setter(gen: GenericType): H
@@ -37,25 +39,44 @@ object ZsgSetterGenericMacroApply {
 
         val props = caseClassMembersByType(hType)
 
-        def toItemImpl(max: Int, initList: List[(ModelField, Tree => Tree)])(init: Boolean): List[(ModelField, Tree => Tree)] =
-          if (initList.size > max || init) {
-            val i = initList.zipWithIndex.map { case ((str, t), index) =>
-              (str, { t1: Tree => t(q"""${t1}.${TermName("i" + ((index / max % ZsgParameters.maxPropertyNum) + 1).toString)}""") })
+        def toTupleTree(prop: List[ModelField]): Any = {
+          if (prop.size > 3) {
+            @tailrec
+            def maxSize(old: Int): Int = {
+              val temp = old * ZsgParameters.maxPropertyNum
+              if (temp < prop.size) maxSize(temp) else old
             }
-            toItemImpl(max * ZsgParameters.maxPropertyNum, i)(false)
-          } else initList
+            val size = maxSize(1)
+            (toTupleTree(prop.take(size)), toTupleTree(prop.drop(size)))
+          } else if (prop.size == 3) ((prop(0), prop(1)), prop(2))
+          else if (prop.size == 2) (prop(0), prop(1))
+          else prop(0)
+        }
 
-        /*val preList = props.zipWithIndex.map {
-          case (str, index) =>
-            (str, { t1: Tree => q"""${t1}.${TermName("i" + (index % ZsgParameters.maxPropertyNum + 1).toString)}""" })
-        }*/
+        val i1Term = TermName("i1")
+        val i2Term = TermName("i2")
 
-        val preList: List[(ModelField, Tree => Tree)] = props.map(str => (str, { s: Tree => s }))
+        def toPropertyList(n: Any): Vector[(ModelField, Tree => Tree)] = n match {
+          case n: ModelField => Vector((n, (s: Tree) => s))
+          case (n1: ModelField, n2: ModelField) =>
+            val item1 = (n1, (s: Tree) => q"""$s.$i1Term""")
+            val item2 = (n2, (s: Tree) => q"""$s.$i2Term""")
+            Vector(item1, item2)
+          case (t1, n: ModelField) =>
+            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i1Term""")))
+            val item2 = (n, (s: Tree) => q"""$s.$i2Term""")
+            vectorAppend(list1, item2)
+          case (t1, t2) =>
+            val list1 = toPropertyList(t1).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i1Term""")))
+            val list2 = toPropertyList(t2).map(s => (s._1, (t: Tree) => s._2(q"""$t.$i2Term""")))
+            vectorAppendAll(list1, list2)
+        }
 
-        val casei = if (preList.size > 1) toItemImpl(1, preList)(true) else preList
+        val casei = toPropertyList(toTupleTree(props))
 
-        val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map { case (item, m) =>
-          namedParam(item.fieldTermName, m(Ident(TermName("item"))))
+        val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
+          case (item, m) =>
+            namedParam(item.fieldTermName, m(Ident(TermName("item"))))
         }}))"""
 
         c.Expr[ZsgSetterGeneric[H, M]] {

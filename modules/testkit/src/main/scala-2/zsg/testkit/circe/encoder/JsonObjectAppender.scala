@@ -1,22 +1,33 @@
 package zsg.testkit.circe.encoder
 
 import io.circe.{Encoder, Json}
-import zsg.{Context3, PropertyTag}
+import zsg.{Application, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList2}
 import zsg.macros.ByNameImplicit
-import zsg.macros.single.{ColumnName, GenericColumnName, StringName}
+import zsg.macros.single.ColumnName
+import zsg.macros.utils.GenericColumnName
 
-abstract class JsonObjectAppender[PropertyTag, NameTag, T] {
+abstract class JsonObjectAppender[NameTag, T] {
   def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)]
 }
 
-object JsonObjectAppender {
+class JsonObjectFunc extends TypeFunction {
+  override type H[T <: TypeHList] = JsonObjectAppender[T#Head, T#Tail#Head]
+}
 
-  implicit final def zsgCirceEncoder[T, N <: StringName](implicit
-    t: ByNameImplicit[Encoder[T]],
-    n: GenericColumnName[N]
-  ): JsonObjectAppender[PropertyTag[T], ColumnName[N], T] =
-    new JsonObjectAppender[PropertyTag[T], ColumnName[N], T] {
-      override def appendField(tt: T, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
+object JsonObjectFunc {
+  implicit def implicit1[T1 <: String, T2](implicit
+    t: ByNameImplicit[Encoder[T2]],
+    n: GenericColumnName[T1]
+  ): Application[JsonObjectFunc, ZsgJsonObjectContext, TagMerge2[PropertyTag[T2], ColumnName[T1]], TypeHList2[ColumnName[T1], T2]] =
+    new Application[
+      JsonObjectFunc,
+      ZsgJsonObjectContext,
+      TagMerge2[PropertyTag[T2], ColumnName[T1]],
+      TypeHList2[ColumnName[T1], T2]
+    ] {
+      override def application(context: ZsgJsonObjectContext): JsonObjectAppender[ColumnName[T1], T2] =
+        new JsonObjectAppender[ColumnName[T1], T2] {
+          override def appendField(tt: T2, m: List[(String, Json)]): List[(String, Json)] = (n.value, t.value(tt)) :: m
+        }
     }
-
 }

@@ -30,7 +30,8 @@ object ZsgGeneric {
     implicit def init[M]: ZsgGeneric.GenericApply[M] = GenericApply[M]
   }
 
-  implicit def macroImpl[H, II](implicit prop: ZsgGeneric.GenericApply[H]): ZsgGeneric.Aux[H, II] = macro ZsgGenericMacroApply.MacroImpl.generic[H, II]
+  implicit def macroImpl[H, II](implicit prop: ZsgGeneric.GenericApply[H]): ZsgGeneric.Aux[H, II] =
+    macro ZsgGenericMacroApply.MacroImpl.generic[H, II]
 
 }
 
@@ -50,22 +51,14 @@ object ZsgGenericMacroApply {
 
         val proTypeTag = props.map(s => q"""item.to(_.${s.fieldTermName})""")
 
-        def typeTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init)
-              q"""_root_.zsg.BuildContent.tuple1(..${tree})"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
-            if (init)
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..$s)"""), false)
-            else
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..$s)"""), false)
-          }
+        def typeTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
+          typeTagGen(groupedTree.map(s => if (s.size > 1) q"""_root_.zsg.ItemTag2(..$s)""" else q"""..$s"""))
+        }
 
         c.Expr[ZsgGeneric.Aux[H, II]] {
-          q"""$prop.value(item => ${typeTagGen(proTypeTag, true)})"""
+          q"""$prop.value(item => ${typeTagGen(proTypeTag)})"""
         }
 
       } catch {

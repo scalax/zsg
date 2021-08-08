@@ -1,0 +1,21 @@
+@(tagNum: Int, isDotty: Boolean)
+package zsg
+abstract class Application@{tagNum}[F[@for(i <- 1 to tagNum) { @if(i > 1) { , } _ }], T <: Context@{tagNum}[F] @for(i <- 1 to tagNum) { , I@{i} }] {
+  def application(context: T): F[@for(i <- 1 to tagNum) { @if(i > 1) { , } I@{i} }]
+}
+
+object Application@{tagNum} {
+    implicit def applicationImplicit[F[@for(i <- 1 to tagNum) { @if(i > 1) { , } _ }], T <: Context@{tagNum}[F] @for(i <- 1 to tagNum) { , I@{i} }](implicit i: F[@for(i <- 1 to tagNum) { @if(i > 1) { , } I@{i} }]): Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , I@{i} }] =
+        new Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , I@{i} }] {
+            def application(context: T): F[@for(i <- 1 to tagNum) { @if(i > 1) { , } I@{i} }] = i
+        }
+
+    implicit def applicationImplicit2[F[@for(i <- 1 to tagNum) { @if(i > 1) { , } _ }], T <: Context@{tagNum}[F] @for(i <- 1 to tagNum) { , I@{i} , Y@{i} }](
+        implicit i1: Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , I@{i} }],
+        i2: Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , Y@{i} }])
+    : Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , zsg.ZsgTuple2[I@{i}, Y@{i}] }] =
+        new Application@{tagNum}[F, T @for(i <- 1 to tagNum) { , zsg.ZsgTuple2[I@{i}, Y@{i}] }] {
+            def application(context: T): F[zsg.ZsgTuple2[I1, Y1] @for(i <- 2 to tagNum) { , zsg.ZsgTuple2[I@{i}, Y@{i}] }] =
+                context.append(i1.application(context), i2.application(context))(BuildContent.plus@{tagNum})
+        }
+}

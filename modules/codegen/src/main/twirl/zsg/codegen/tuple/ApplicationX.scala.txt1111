@@ -1,3 +1,0 @@
-@(tagNum: Int, isDotty: Boolean)
-package zsg
-class Application@{tagNum}[F[@for(i <- 1 to tagNum) { @if(i > 1) { , } _ }], T <: Context@{tagNum}[F] @for(i <- 1 to tagNum) { , I@{i} }](val application: F[@for(i <- 1 to tagNum) { @if(i > 1) { , } I@{i} }]) extends AnyVal

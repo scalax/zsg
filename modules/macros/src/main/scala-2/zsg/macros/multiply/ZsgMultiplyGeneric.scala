@@ -26,12 +26,14 @@ object ZsgMultiplyGeneric {
   }
 
   object MultiplyGenericApply {
-    val ins                                                                             = new MultiplyGenericApply[Any, Any]
-    def apply[Table, Model]: MultiplyGenericApply[Table, Model]                         = ins.asInstanceOf[MultiplyGenericApply[Table, Model]]
+    val ins                                                     = new MultiplyGenericApply[Any, Any]
+    def apply[Table, Model]: MultiplyGenericApply[Table, Model] = ins.asInstanceOf[MultiplyGenericApply[Table, Model]]
     implicit def genericApplyImplicit[Table, Model]: MultiplyGenericApply[Table, Model] = apply
   }
 
-  implicit def macroImpl[Table, Model, II](implicit prop: ZsgMultiplyGeneric.MultiplyGenericApply[Table, Model]): ZsgMultiplyGeneric.Aux[Table, Model, II] =
+  implicit def macroImpl[Table, Model, II](implicit
+    prop: ZsgMultiplyGeneric.MultiplyGenericApply[Table, Model]
+  ): ZsgMultiplyGeneric.Aux[Table, Model, II] =
     macro ZsgMultiplyGenericApply.MacroImpl.generic[Table, Model, II]
 
 }
@@ -70,7 +72,9 @@ object ZsgMultiplyGenericApply {
           }
           .reverse
 
-        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) { (start, path) => start ++ path }
+        val tableProps = tableFields.map(s => tablePropsGen(s._1, s._2, s._3, Map.empty)).foldLeft(Map.empty[String, List[String]]) {
+          (start, path) => start ++ path
+        }
 
         def tableProperty(s: String): Tree = {
           tableProps
@@ -83,22 +87,14 @@ object ZsgMultiplyGenericApply {
 
         val proTypeTag = props.map(s => q"""item.to(table => ${tableProperty(s)})""")
 
-        def typeTagGen(tree: List[Tree], init: Boolean): Tree =
-          if (tree.length == 1) {
-            if (init)
-              q"""_root_.zsg.BuildContent.tuple1(..${tree})"""
-            else
-              q"""..${tree}"""
-          } else {
-            val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
-            if (init)
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("tuple" + s.length)}(..${s})"""), false)
-            else
-              typeTagGen(groupedTree.map(s => q"""_root_.zsg.BuildContent.${TermName("nodeTuple" + s.length)}(..${s})"""), false)
-          }
+        def typeTagGen(tree: List[Tree]): Tree = if (tree.length == 1) q"""..${tree}"""
+        else {
+          val groupedTree = tree.grouped(ZsgParameters.maxPropertyNum).to(List)
+          typeTagGen(groupedTree.map(s => if (s.size > 1) q"""_root_.zsg.ItemTag2(..${s})""" else q"""..${s}"""))
+        }
 
         c.Expr[ZsgMultiplyGeneric.Aux[Table, Model, M]] {
-          q"""${prop}.toAux(item => ${typeTagGen(proTypeTag, true)})"""
+          q"""${prop}.toAux(item => ${typeTagGen(proTypeTag)})"""
         }
 
       } catch {

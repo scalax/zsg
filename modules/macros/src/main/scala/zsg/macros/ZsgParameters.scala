@@ -1,5 +1,5 @@
 package zsg.macros
 
 object ZsgParameters {
-  val maxPropertyNum = 22
+  val maxPropertyNum = 2
 }
