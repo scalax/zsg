@@ -51,10 +51,7 @@ object Dependencies {
 
   val slf4j = List("org.slf4j" % "slf4j-simple" % "1.7.25")
 
-  def scalaCollectionCompat(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
-    case Some((2, _)) => List("org.scala-lang.modules" %% "scala-collection-compat" % "2.2.0")
-    case _            => List.empty
-  }
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0"
 
   val commonsCodec = "commons-codec" % "commons-codec" % "1.14"
 

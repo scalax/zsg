@@ -10,7 +10,7 @@ object ZsgCoreCodeGeneration {
   val root2XDir = Paths.get(".", "modules", "core", "src", "main", "scala-2", "zsg", "codegen")
 
   def typeHListXGen(n: Int): String = {
-    def typeStr(count: Int) = (1 to count).map(i => s"I${i}").mkString(",")
+    def typeStr(count: Int) = (1 to count).map(i => s"I$i").mkString(",")
     def typeHListImpl(current: Int, sum: Int): String = {
       (current, sum) match {
         case (current, sum) if current == sum =>
@@ -28,10 +28,7 @@ object ZsgCoreCodeGeneration {
           |  ${typeHListImpl(current - 1, sum)}
           |}
           |""".stripMargin
-        case (0, sum) =>
-          s"""
-             |override type Tail = TypeHList${sum}[${typeStr(sum)}]
-             |""".stripMargin
+        case (0, _) => "override type Tail <: TypeHList"
       }
     }
     typeHListImpl(n, n)
