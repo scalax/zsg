@@ -5,7 +5,6 @@ object Dependencies {
 
   val circe_2_11_version  = "0.11.2"
   val circe_2_13_version  = "0.14.1"
-  val circe_dotty_version = "0.14.1"
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, 11)) =>
       List(
@@ -23,9 +22,9 @@ object Dependencies {
       )
     case _ =>
       List(
-        "io.circe" %% "circe-core"    % circe_dotty_version,
-        "io.circe" %% "circe-generic" % circe_dotty_version,
-        "io.circe" %% "circe-parser"  % circe_dotty_version
+        "io.circe" %% "circe-core"    % circe_2_13_version,
+        "io.circe" %% "circe-generic" % circe_2_13_version,
+        "io.circe" %% "circe-parser"  % circe_2_13_version
       )
   }
 

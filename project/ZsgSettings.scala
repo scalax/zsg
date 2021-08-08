@@ -50,7 +50,7 @@ object ZsgSettings {
 
   val commonSettings = Seq(setting3, setting4, setting5, setting7, setting10, setting11, setting12)
 
-  val vSetting1             = version      := "0.0.5-SNAP2021080901"
+  val vSetting1             = version      := "0.0.5-SNAP2021080902"
   val vSetting2             = organization := "org.scalax"
   val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting5)

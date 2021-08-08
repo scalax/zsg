@@ -15,7 +15,7 @@ class JsonObjectFunc extends TypeFunction {
 }
 
 object JsonObjectFunc {
-  implicit def implicit1[T1, T2](implicit
+  implicit def implicit1[T1 <: String, T2](implicit
     t: ByNameImplicit[Encoder[T2]],
     n: GenericColumnName[T1]
   ): Application[JsonObjectFunc, ZsgJsonObjectContext, TagMerge2[PropertyTag[T2], ColumnName[T1]], TypeHList2[ColumnName[T1], T2]] =

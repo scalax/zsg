@@ -103,7 +103,7 @@ object ModelToString {
   }
 
   object ModelToStringContent {
-    implicit def pp1[G](implicit
+    implicit def pp1[G <: String](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[String, zsg.macros.single.DefaultValue[String], String, ColumnName[G]] =
       new ModelToStringContent[String, zsg.macros.single.DefaultValue[String], String, ColumnName[G]] {
@@ -120,7 +120,7 @@ object ModelToString {
         override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
       }
 
-    implicit def pp2[G](implicit
+    implicit def pp2[G <: String](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[Int, zsg.macros.single.DefaultValue[Int], String, ColumnName[G]] =
       new ModelToStringContent[Int, zsg.macros.single.DefaultValue[Int], String, ColumnName[G]] {
@@ -137,7 +137,7 @@ object ModelToString {
         override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
       }
 
-    implicit def pp3[G](implicit
+    implicit def pp3[G <: String](implicit
       g: GenericColumnName[G]
     ): ModelToStringContent[Long, single.DefaultValue[Long], String, ColumnName[G]] =
       new ModelToStringContent[Long, single.DefaultValue[Long], String, ColumnName[G]] {
