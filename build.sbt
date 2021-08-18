@@ -16,6 +16,7 @@ val zsg = (project in rootDir).dependsOn(core, testkit).aggregate(core, rep, mac
 
 ZsgSettings.scalaVersionSettings
 ZsgSettings.commonSettings
+ZsgSettings.githubWorkflowSettings
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 

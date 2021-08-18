@@ -3,8 +3,8 @@ import sbt.Keys._
 
 object Dependencies {
 
-  val circe_2_11_version  = "0.11.2"
-  val circe_2_13_version  = "0.14.1"
+  val circe_2_11_version = "0.11.2"
+  val circe_2_13_version = "0.14.1"
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, 11)) =>
       List(
