@@ -21,7 +21,7 @@ object ZsgSettings {
 
   val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
-    ThisBuild / githubWorkflowScalaVersions         := (ThisBuild / crossScalaVersions).value.tail,
+    ThisBuild / githubWorkflowScalaVersions         := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
       WorkflowStep.Use(UseRef.Public("ruby", "setup-ruby", "v1"), params = Map("ruby-version" -> "2.7"), name = Some("Set up Ruby")),
