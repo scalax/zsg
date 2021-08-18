@@ -1,4 +1,3 @@
-import org.scalafmt.sbt.ScalafmtPlugin
 import sbt._
 import sbt.Keys._
 import sbtghactions.GenerativeKeys._
@@ -21,69 +20,17 @@ object ZsgSettings {
 
   val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
-    ThisBuild / githubWorkflowScalaVersions         := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion),
+    ThisBuild / githubWorkflowScalaVersions         := Seq(scala212Version, scala211Version, currentScalaVersion),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
-      WorkflowStep.Use(UseRef.Public("ruby", "setup-ruby", "v1"), params = Map("ruby-version" -> "2.7"), name = Some("Set up Ruby")),
-      WorkflowStep.Run(
-        List("gem install sass", "gem install jekyll -v 4.0.0"),
-        name = Some("Install Jekyll")
-      ),
-      WorkflowStep.Sbt(
-        List("clean", "coverage"),
-        id = None,
-        name = Some("Test")
-      ),
-      WorkflowStep.Sbt(
-        List("coverageReport"),
-        id = None,
-        name = Some("Coverage")
-      ),
-      WorkflowStep.Use(
-        UseRef.Public(
-          "codecov",
-          "codecov-action",
-          "v1"
-        )
-      )
+      WorkflowStep.Sbt(List("clean", "coverage", "test"), id = None, name = Some("Test")),
+      WorkflowStep.Sbt(List("coverageReport"), id = None, name = Some("Coverage")),
+      WorkflowStep.Use(UseRef.Public("codecov", "codecov-action", "v1"))
     )
   )
 
   val scalaVersionSettings         = Seq(setting1, setting2)
   val scala_2_12_And_2_13_Settings = Seq(setting1, setting8)
   val dottyVersionSettings         = Seq(setting1, setting6)
-
-  val commonSettings = Seq(
-    scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8"),
-    ScalafmtPlugin.autoImport.scalafmtOnCompile := false,
-    transitiveClassifiers                       := Seq("sources"),
-    packageDoc / publishArtifact                := false,
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
-    Compile / unmanagedSourceDirectories ++= {
-      CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, 11)) => Seq(sourceDirectory.value / "main" / "scala-2.11")
-        case Some((2, 12)) => Seq(sourceDirectory.value / "main" / "scala-2.12")
-        case Some((2, 13)) => Seq(sourceDirectory.value / "main" / "scala-2.13")
-        case Some((2, _))  => Seq(sourceDirectory.value / "main" / "scala-2")
-        case Some((3, _))  => Seq(sourceDirectory.value / "main" / "scala-3")
-        case _             => Seq.empty
-      }
-    },
-    Test / unmanagedSourceDirectories ++= {
-      CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, 11)) => Seq(sourceDirectory.value / "test" / "scala-2.11")
-        case Some((2, 12)) => Seq(sourceDirectory.value / "test" / "scala-2.12")
-        case Some((2, 13)) => Seq(sourceDirectory.value / "test" / "scala-2.13")
-        case Some((2, _))  => Seq(sourceDirectory.value / "test" / "scala-2")
-        case Some((3, _))  => Seq(sourceDirectory.value / "test" / "scala-3")
-        case _             => Seq.empty
-      }
-    }
-  )
-
-  val vSetting1             = version      := "0.0.5-SNAP2021080902"
-  val vSetting2             = organization := "org.scalax.zsg"
-  val vSetting5             = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-  val projectVersionSetting = Seq(vSetting1, vSetting2, vSetting5)
 
 }

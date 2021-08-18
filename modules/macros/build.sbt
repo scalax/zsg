@@ -1,5 +1,5 @@
 ZsgSettings.dottyVersionSettings
-ZsgSettings.commonSettings
+CommonSettings.settings
 
 libraryDependencies ++= Dependencies.scalaReflect(scalaVersion.value)
 libraryDependencies ++= Dependencies.slf4j.map(_ % Test)

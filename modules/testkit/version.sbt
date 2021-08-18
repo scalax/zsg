@@ -1,2 +1,2 @@
 name := "zsg-testkit"
-ZsgSettings.projectVersionSetting
+CommonSettings.projectVersionSetting

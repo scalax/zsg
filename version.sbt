@@ -1,2 +1,2 @@
-ZsgSettings.projectVersionSetting
+CommonSettings.projectVersionSetting
 name := "zsg"

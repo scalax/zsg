@@ -1,4 +1,4 @@
 ZsgSettings.dottyVersionSettings
-ZsgSettings.commonSettings
+CommonSettings.settings
 
 // libraryDependencies ++= Dependencies.zioTest

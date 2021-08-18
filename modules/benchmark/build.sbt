@@ -1,4 +1,4 @@
-ZsgSettings.commonSettings
+CommonSettings.settings
 
 ZsgSettings.scala_2_12_And_2_13_Settings
 
