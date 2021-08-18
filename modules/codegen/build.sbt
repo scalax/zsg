@@ -1,6 +1,6 @@
 enablePlugins(SbtTwirl)
 ZsgSettings.setting9
-ZsgSettings.commonSettings
+CommonSettings.settings
 
 scalafmtOnCompile := true
 

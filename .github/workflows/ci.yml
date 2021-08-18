@@ -51,18 +51,8 @@ jobs:
       - name: Check that workflows are up to date
         run: sbt ++${{ matrix.scala }} githubWorkflowCheck
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
-      - name: Install Jekyll
-        run: |
-          gem install sass
-          gem install jekyll -v 4.0.0
-
       - name: Test
-        run: sbt ++${{ matrix.scala }} clean coverage
+        run: sbt ++${{ matrix.scala }} clean coverage test
 
       - name: Coverage
         run: sbt ++${{ matrix.scala }} coverageReport
