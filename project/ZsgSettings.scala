@@ -20,7 +20,7 @@ object ZsgSettings {
 
   val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
-    ThisBuild / githubWorkflowScalaVersions         := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion),
+    ThisBuild / githubWorkflowScalaVersions         := Seq(scala212Version, scala211Version, currentScalaVersion),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
       WorkflowStep.Sbt(List("clean", "coverage", "test"), id = None, name = Some("Test")),
