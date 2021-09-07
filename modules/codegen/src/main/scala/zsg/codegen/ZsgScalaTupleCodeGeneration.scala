@@ -28,6 +28,15 @@ object ZsgScalaTupleCodeGeneration {
         writer.println(linerContent)
       }
     }
+    {
+      val filePath = root2XDir.resolve("Tuple22Plus.scala")
+      Files.createDirectories(filePath.getParent)
+      Using(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
+        val linerContent =
+          StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_TuplePlus(tagNum = ZsgParameters.maxScala2TupleNum).body)
+        writer.println(linerContent)
+      }
+    }
   }
 
 }

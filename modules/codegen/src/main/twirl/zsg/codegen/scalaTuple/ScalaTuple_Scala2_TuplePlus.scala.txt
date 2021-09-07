@@ -1,0 +1,7 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+object Tuple22Plus {
+11
+}
