@@ -1,0 +1,23 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+import zsg.TypeFunction
+import zsg.TypeHList
+import zsg.Application
+import zsg.Context
+
+trait TupleHelper {
+    @for(i <- 1 to tagNum) {
+        implicit def applicationScalaTupleImplicit@{i}[F <: TypeFunction, T <: Context[F] @for(ii <- 1 to i) { , Boot@{ii}, Target@{ii} <: TypeHList }]
+        (implicit @for(ii <- 1 to i) { @if(ii > 1) { , } v@{ii}: Application[F, T, Boot@{ii}, Target@{ii}] }):
+        Application[F, T, Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Boot@{ii} }],
+        Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } Target@{ii} }]] =
+        new Application[F, T, Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Boot@{ii} }],
+        Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } Target@{ii} }]] {
+            override def application(context: T): F#H[Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } Target@{ii} }]] = throw new Exception
+        }
+    }
+}
+
+object TupleHelper extends TupleHelper
