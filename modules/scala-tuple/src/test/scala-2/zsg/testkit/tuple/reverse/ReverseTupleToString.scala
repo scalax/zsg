@@ -1,6 +1,7 @@
 package zsg.testkit.tuple.reverse
 
 import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
+import scala.collection.compat._
 
 trait ReverseTupleEncoder[T] {
   self =>

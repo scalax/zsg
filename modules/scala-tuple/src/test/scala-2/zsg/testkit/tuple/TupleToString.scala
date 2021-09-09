@@ -1,6 +1,7 @@
 package zsg.testkit.tuple
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1, TypeHList2}
+import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList2}
+import scala.collection.compat._
 
 trait TupleEncoder[T, R] {
   self =>
