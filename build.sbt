@@ -17,7 +17,7 @@ ZsgSettings.scalaVersionSettings
 CommonSettings.settings
 ZsgSettings.githubWorkflowSettings
 
-addCommandAlias("fmt", "all scalafmtSbt scalafmt test/scalafmt")
+addCommandAlias("fmt", "all scalafmtSbt scalafmt Test/scalafmt")
 
 addCommandAlias(
   "codegen",

@@ -1,7 +1,6 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.macros.single.{ZsgGeneric, ZsgGetterGeneric}
-import zsg.{ApplicationX1, Context1, Plus1}
+import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
 
 trait ReverseTupleEncoder[T] {
   self =>
@@ -9,16 +8,20 @@ trait ReverseTupleEncoder[T] {
   def stringBody(i: T): String
 }
 
-class ReverseScalaTupleContext extends Context1[ReverseTupleEncoder] {
-  override def append[X1, Y1, Z1](x: ReverseTupleEncoder[X1], y: ReverseTupleEncoder[Y1])(p: Plus1[X1, Y1, Z1]): ReverseTupleEncoder[Z1] = {
-    new ReverseTupleEncoder[Z1] {
-      override def body(t: List[String], i: Z1): List[String] = {
-        val x1 = p.takeHead1(i)
-        val y1 = p.takeTail1(i)
-        y.body(x.body(t, x1), y1)
-      }
-      override def stringBody(i: Z1): String = ""
+class ReverseTupleEncFun extends TypeFunction {
+  override type H[T <: TypeHList] = ReverseTupleEncoder[T#Head]
+}
+
+class ReverseScalaTupleContext extends Context[ReverseTupleEncFun] {
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ReverseTupleEncoder[X#Head], y: ReverseTupleEncoder[Y#Head])(
+    plus: Plus[X, Y, Z]
+  ): ReverseTupleEncoder[Z#Head] = new ReverseTupleEncoder[Z#Head] {
+    override def body(t: List[String], i: Z#Head): List[String] = {
+      val x1 = plus.takeHead(i)
+      val y1 = plus.takeTail(i)
+      y.body(x.body(t, x1), y1)
     }
+    override def stringBody(i: Z#Head): String = ""
   }
 }
 
@@ -27,9 +30,19 @@ object ReverseScalaTupleContext {
 }
 
 object reverseTuple {
-  def asString[T](x: T)(implicit ii: ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T]): String = {
+  def asString[T, H <: TypeHList](
+    x: T
+  )(implicit ii: Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, H], cv: T <:< H#Head): String = {
     val con = ii.application(ReverseScalaTupleContext.value)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
+  }
+
+  def commonAsString(t: Product): String = {
+    def toList(pro: Product): List[Any] = pro.productIterator.to(List).flatMap {
+      case n: Product => toList(n)
+      case i          => List(i)
+    }
+    s"[${toList(t).reverse.mkString("(", ",", ")")}]"
   }
 }
 
@@ -49,16 +62,11 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  implicit def reverseApplicationImplicit[CaseClass, T](implicit
-    zsgGeneric: ZsgGeneric.Aux[CaseClass, T],
-    t1: => ApplicationX1[ReverseTupleEncoder, ReverseScalaTupleContext, T],
-    getterGeneric: ZsgGetterGeneric[CaseClass, T]
-  ): ReverseTupleEncoder[CaseClass] = {
-    val app = t1.application(ReverseScalaTupleContext.value)
-    new ReverseTupleEncoder[CaseClass] {
-      override def body(t: List[String], i: CaseClass): List[String] = app.body(t, getterGeneric.getter(i))
-      override def stringBody(i: CaseClass): String                  = app.stringBody(getterGeneric.getter(i))
+  implicit def reverseApplicationImplicit[T](implicit
+    t1: ReverseTupleEncoder[T]
+  ): Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] =
+    new Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] {
+      override def application(context: ReverseScalaTupleContext): ReverseTupleEncoder[T] = t1
     }
-  }
 
 }
