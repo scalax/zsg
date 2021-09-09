@@ -1,0 +1,12 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+import zsg.TypeHList
+
+@for(i <- 1 to tagNum) {
+    class Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii} <: TypeHList }] extends TypeHList {
+      override type Head = Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii}#Head }]
+      override type Tail = Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii}#Tail }]
+    }
+}

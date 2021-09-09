@@ -12,11 +12,8 @@ object ZsgSettings {
 
   val setting1 = scalaVersion       := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
-
   val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)
-
   val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
-  val setting9 = scalaVersion       := currentScalaVersion
 
   val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
