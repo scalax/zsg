@@ -12,6 +12,7 @@ object ZsgSettings {
 
   val setting1 = scalaVersion       := currentScalaVersion
   val setting2 = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
+  val setting3 = scalaVersion       := currentScalaVersion
   val setting6 = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)
   val setting8 = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
 
@@ -27,7 +28,7 @@ object ZsgSettings {
   )
 
   val scalaVersionSettings         = Seq(setting1, setting2)
-  val scala_2_12_And_2_13_Settings = Seq(setting1, setting8)
+  val scala_2_12_And_2_13_Settings = Seq(setting3, setting8)
   val dottyVersionSettings         = Seq(setting1, setting6)
 
 }

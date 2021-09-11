@@ -4,7 +4,7 @@ import sbt.Keys._
 object Dependencies {
 
   val circe_2_11_version = "0.11.2"
-  val circe_2_13_version = "0.14.1"
+  val circe_2_13_version = "0.15.0-M1"
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, 11)) =>
       List(
@@ -40,7 +40,7 @@ object Dependencies {
     "com.typesafe.slick" %% "slick-codegen" % slickVersion
   )
 
-  val upickleDependencies = List("com.lihaoyi" %% "upickle" % "1.3.15")
+  val upickleDependencies = List("com.lihaoyi" %% "upickle" % "1.4.1")
 
   def scalaReflect(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
     case Some((2, _)) => List("org.scala-lang" % "scala-reflect" % scalaVersion)
