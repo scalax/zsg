@@ -33,7 +33,7 @@ object CommonSettings {
 
   val settings = Seq(scalaOptionSettings, scalafmtSettings, testSettings) ++: packageSettings ++: dirSettings
 
-  private val versionSetting      = version      := "0.0.5-SNAP2021080902"
+  private val versionSetting      = version      := "0.0.5-SNAP2021091202"
   private val organizationSetting = organization := "org.scalax.zsg"
   private val licensesSetting     = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
