@@ -27,7 +27,7 @@ object CommonSettings {
 
   val settings = mainDirSetting +: testDirSetting +: scalaOptionSettings +: scalafmtSettings +: testSettings +: packageSettings
 
-  private val versionSetting      = version      := "0.0.5-SNAP2021091202"
+  private val versionSetting      = version      := "0.0.5-SNAP2021091203"
   private val organizationSetting = organization := "org.scalax.zsg"
   private val licensesSetting     = licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
