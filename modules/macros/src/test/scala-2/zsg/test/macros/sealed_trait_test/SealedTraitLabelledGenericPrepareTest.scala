@@ -1,6 +1,6 @@
 package zsg.test.macros.sealed_trait_test
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, TypeAlias, TypeFunction, TypeHList}
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 
 object SealedTraitLabelledGenericPrepareTest {
@@ -28,7 +28,7 @@ object SealedTraitLabelledGenericPrepareTest {
 
   def sealedNames[H, T, TT <: TypeHList](implicit
     sg: ZsgSealedGeneric.Aux[H, T],
-    app: Application[SeaGetter, SealedNameGetterContext, T, TT],
+    app: Application[SeaGetter, T, TT],
     labelled: ZsgSealedLabelledGeneric[H, TT#Head]
   ): SealedTraitNames[H] = new SealedTraitNames[H] {
     override def str: List[String] = app.application(SealedNameGetterContext.value).stt(labelled.names)(List.empty)
@@ -50,12 +50,11 @@ object SealedTraitLabelledGenericPrepareTest {
     val value: SealedNameGetterContext = new SealedNameGetterContext
   }
 
-  implicit def stringImplicit1[T]: Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeHList1[String]] = {
-    new Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeHList1[String]] {
-      override def application(context: SealedNameGetterContext): SealedNameGetter[String] = new SealedNameGetter[String] {
+  implicit def stringImplicit1[T]: Application[SeaGetter, SealedTag[T], TypeAlias.TypeHList1[String]] =
+    new Application[SeaGetter, SealedTag[T], TypeAlias.TypeHList1[String]] {
+      override def application(context: Context[SeaGetter]): SealedNameGetter[String] = new SealedNameGetter[String] {
         override def stt(t: String): List[String] => List[String] = list => t :: list
       }
     }
-  }
 
 }

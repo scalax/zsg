@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
-import zsg.{Application, Context, Plus, PropertyTag, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, PropertyTag, TypeAlias, TypeFunction, TypeHList}
 
 trait ModelFromString[M] {
   def getData(str: List[FieldModel]): (List[FieldModel], M)
@@ -10,8 +10,16 @@ trait ModelFromString[M] {
 object ModelFromString {
 
   class MFSI extends TypeFunction { override type H[T <: TypeHList] = ModelFromStringImpl[T#Head] }
+  object MFSI {
+    implicit def implicit1[I1](implicit
+      impl: ModelFromStringImpl[I1]
+    ): Application[MFSI, PropertyTag[I1], TypeAlias.TypeHList1[I1]] =
+      new Application[MFSI, PropertyTag[I1], TypeAlias.TypeHList1[I1]] {
+        override def application(context: Context[MFSI]): ModelFromStringImpl[I1] = impl
+      }
+  }
 
-  class DecoderContext extends Context[MFSI] {
+  object DecoderContext extends Context[MFSI] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ModelFromStringImpl[X#Head], y: ModelFromStringImpl[Y#Head])(
       plus: Plus[X, Y, Z]
     ): ModelFromStringImpl[Z#Head] =
@@ -24,16 +32,17 @@ object ModelFromString {
       }
   }
 
-  object DecoderContext {
-    val value: DecoderContext = new DecoderContext
-
-    implicit def implicit1[I1](implicit impl: ModelFromStringImpl[I1]): Application[MFSI, DecoderContext, PropertyTag[I1], TypeHList1[I1]] =
-      new Application[MFSI, DecoderContext, PropertyTag[I1], TypeHList1[I1]] {
-        override def application(context: DecoderContext): ModelFromStringImpl[I1] = impl
+  class ReverseMSFI extends TypeFunction { override type H[T <: TypeHList] = ModelFromStringImpl[T#Head] }
+  object ReverseMSFI {
+    implicit def implicit1[I1](implicit
+      impl: ModelFromStringImpl[I1]
+    ): Application[ReverseMSFI, PropertyTag[I1], TypeAlias.TypeHList1[I1]] =
+      new Application[ReverseMSFI, PropertyTag[I1], TypeAlias.TypeHList1[I1]] {
+        override def application(context: Context[ReverseMSFI]): ModelFromStringImpl[I1] = impl
       }
   }
 
-  class ReverseDecoderContext extends Context[MFSI] {
+  object ReverseDecoderContext extends Context[ReverseMSFI] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ModelFromStringImpl[X#Head], y: ModelFromStringImpl[Y#Head])(
       plus: Plus[X, Y, Z]
     ): ModelFromStringImpl[Z#Head] = {
@@ -47,37 +56,26 @@ object ModelFromString {
     }
   }
 
-  object ReverseDecoderContext {
-    val value: ReverseDecoderContext = new ReverseDecoderContext
-
-    implicit def implicit1[I1](implicit
-      impl: ModelFromStringImpl[I1]
-    ): Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeHList1[I1]] =
-      new Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeHList1[I1]] {
-        override def application(context: ReverseDecoderContext): ModelFromStringImpl[I1] = impl
-      }
-  }
-
   def decoder[I1, I2, I3 <: TypeHList](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application[MFSI, DecoderContext, I2, I3],
+    pp: Application[MFSI, I2, I3],
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3#Head]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
       override def getData(str: List[FieldModel]): (List[FieldModel], I1) = {
-        val (str1, m) = pp.application(DecoderContext.value).getData(str)
+        val (str1, m) = pp.application(DecoderContext).getData(str)
         (str1, zsgSetterGeneric.setter(m))
       }
     }
 
   def reverseDecoder[I1, I2, I3 <: TypeHList](implicit
     ii: ZsgGeneric.Aux[I1, I2],
-    pp: Application[MFSI, ReverseDecoderContext, I2, I3],
+    pp: Application[ReverseMSFI, I2, I3],
     zsgSetterGeneric: ZsgSetterGeneric[I1, I3#Head]
   ): ModelFromString[I1] =
     new ModelFromString[I1] {
       override def getData(str: List[FieldModel]): (List[FieldModel], I1) = {
-        val (str1, m) = pp.application(ReverseDecoderContext.value).getData(str)
+        val (str1, m) = pp.application(ReverseDecoderContext).getData(str)
         (str1, zsgSetterGeneric.setter(m))
       }
     }

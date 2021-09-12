@@ -3,7 +3,7 @@ package zsg.testkit.circe.encoder
 import zsg.macros.ByNameImplicit
 import zsg.macros.single.SealedTag
 import io.circe.{Encoder, Json}
-import zsg.{Application, TypeFunction, TypeHList, TypeHList2}
+import zsg.{Application, Context, TypeAlias, TypeFunction, TypeHList}
 
 class SealedTraitSelector[H1] extends TypeFunction {
   override type H[T <: TypeHList] = JsonEncoder[H1, T#Head, T#Tail#Head]
@@ -12,9 +12,9 @@ class SealedTraitSelector[H1] extends TypeFunction {
 object SealedTraitSelector {
   implicit def implicit1[P, S](implicit
     t: ByNameImplicit[Encoder[S]]
-  ): Application[SealedTraitSelector[P], ZsgSealedContext[P], SealedTag[S], TypeHList2[Class[S], String]] =
-    new Application[SealedTraitSelector[P], ZsgSealedContext[P], SealedTag[S], TypeHList2[Class[S], String]] {
-      override def application(context: ZsgSealedContext[P]): JsonEncoder[P, Class[S], String] =
+  ): Application[SealedTraitSelector[P], SealedTag[S], TypeAlias.TypeHList2[Class[S], String]] =
+    new Application[SealedTraitSelector[P], SealedTag[S], TypeAlias.TypeHList2[Class[S], String]] {
+      override def application(context: Context[SealedTraitSelector[P]]): JsonEncoder[P, Class[S], String] =
         new JsonEncoder[P, Class[S], String] {
           override def p(model: P, classTags: Class[S], labelled: String): Option[(String, Json)] = {
             if (classTags.isInstance(model))

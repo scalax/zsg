@@ -1,6 +1,7 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, TypeAlias, TypeFunction, TypeHList}
+
 import scala.collection.compat._
 
 trait ReverseTupleEncoder[T] {
@@ -13,7 +14,7 @@ class ReverseTupleEncFun extends TypeFunction {
   override type H[T <: TypeHList] = ReverseTupleEncoder[T#Head]
 }
 
-class ReverseScalaTupleContext extends Context[ReverseTupleEncFun] {
+object ReverseScalaTupleContext extends Context[ReverseTupleEncFun] {
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ReverseTupleEncoder[X#Head], y: ReverseTupleEncoder[Y#Head])(
     plus: Plus[X, Y, Z]
   ): ReverseTupleEncoder[Z#Head] = new ReverseTupleEncoder[Z#Head] {
@@ -26,15 +27,11 @@ class ReverseScalaTupleContext extends Context[ReverseTupleEncFun] {
   }
 }
 
-object ReverseScalaTupleContext {
-  val value: ReverseScalaTupleContext = new ReverseScalaTupleContext
-}
-
 object reverseTuple {
   def asString[T, H <: TypeHList](
     x: T
-  )(implicit ii: Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, H], cv: T <:< H#Head): String = {
-    val con = ii.application(ReverseScalaTupleContext.value)
+  )(implicit ii: Application[ReverseTupleEncFun, T, H { type Head = T }]): String = {
+    val con = ii.application(ReverseScalaTupleContext)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }
 
@@ -65,9 +62,9 @@ object ReverseAppendTuple {
 
   implicit def reverseApplicationImplicit[T](implicit
     t1: ReverseTupleEncoder[T]
-  ): Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] =
-    new Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] {
-      override def application(context: ReverseScalaTupleContext): ReverseTupleEncoder[T] = t1
+  ): Application[ReverseTupleEncFun, T, TypeAlias.TypeHList1[T]] =
+    new Application[ReverseTupleEncFun, T, TypeAlias.TypeHList1[T]] {
+      override def application(context: Context[ReverseTupleEncFun]): ReverseTupleEncoder[T] = t1
     }
 
 }

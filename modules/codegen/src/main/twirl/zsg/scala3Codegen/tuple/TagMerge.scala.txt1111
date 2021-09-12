@@ -1,0 +1,23 @@
+@(tagNum: Int)
+
+package zsg
+
+@for(i <- 2 to tagNum) {
+
+    class TagMerge@{i}[I1 @for(ii <- 2 to i) { , I@{ii} }] {
+        type Target
+    }
+    object TagMerge@{i} extends TagMerge@{i}ImplicitImpl {
+        type Aux[@for(ii <- 1 to i) { I@{ii}, } T] = TagMerge@{i}[I1 @for(ii <- 2 to i) { , I@{ii} }] { type Target = T }
+        val tagMergeAny = new TagMerge@{i}[Any @for(ii <- 2 to i) { , Any }]
+        def tagMerge@{i}[@for(ii <- 1 to i) { I@{ii}, } Target]: Aux[@for(ii <- 1 to i) { I@{ii}, } Target] = tagMergeAny.asInstanceOf[Aux[@for(ii <- 1 to i) { I@{ii}, } Target]]
+        implicit def merge@{i}Implicit2[@for(ii <- 1 to i) { S@{ii}, } @for(ii <- 1 to i) { T@{ii}, } Target1, Target2](implicit
+            i1: Aux[@for(ii <- 1 to i) { S@{ii}, } Target1],
+            i2: Aux[@for(ii <- 1 to i) { T@{ii}, } Target2]
+        ): Aux[@for(ii <- 1 to i) { ItemTag2[S@{ii}, T@{ii}], } ItemTag2[Target1, Target2]] = tagMerge@{i}
+    }
+
+    trait TagMerge@{i}ImplicitImpl {
+        implicit def merge@{i}Implicit1[I1 @for(ii <- 2 to i) { , I@{ii} }]: TagMerge@{i}.Aux[I1 @for(ii <- 2 to i) { , I@{ii} }, TagMerge@{i}[I1 @for(ii <- 2 to i) { , I@{ii} }]] = TagMerge@{i}.tagMerge@{i}
+    }
+}
