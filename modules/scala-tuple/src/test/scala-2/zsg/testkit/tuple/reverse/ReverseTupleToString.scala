@@ -34,7 +34,7 @@ object ReverseScalaTupleContext {
 object reverseTuple {
   def asString[T, H <: TypeHList](
     x: T
-  )(implicit ii: Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, H], cv: T <:< H#Head): String = {
+  )(implicit ii: Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, H { type Head = T }]): String = {
     val con = ii.application(ReverseScalaTupleContext.value)
     s"[${con.body(List.empty, x).mkString("(", ",", ")")}]"
   }

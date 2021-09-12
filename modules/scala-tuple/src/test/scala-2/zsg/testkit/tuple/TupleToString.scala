@@ -40,12 +40,12 @@ object ScalaTupleContext {
 }
 
 object tuple {
-  def asString[T, H <: TypeHList](x: T)(implicit ii: Application[TupleEncFun, ScalaTupleContext, T, H], cv: T <:< H#Head): String = {
-    val encoder = new TupleEncoder[H#Head, H#Tail#Head] {
-      override def body(t: List[String], i: H#Head): List[String] =
+  def asString[T, H <: TypeHList](x: T)(implicit ii: Application[TupleEncFun, ScalaTupleContext, T, H { type Head = T }]): String = {
+    val encoder = new TupleEncoder[T, H#Tail#Head] {
+      override def body(t: List[String], i: T): List[String] =
         ii.application(ScalaTupleContext.value).body(List.empty, i).mkString("(", ",", ")") :: t
 
-      override def stringBody(i: H#Head): String = ii.application(ScalaTupleContext.value).body(List.empty, i).mkString("(", ",", ")")
+      override def stringBody(i: T): String = ii.application(ScalaTupleContext.value).body(List.empty, i).mkString("(", ",", ")")
 
       override def fromString(str: String): (H#Tail#Head, String) = {
         val (t, str1) = ii.application(ScalaTupleContext.value).fromString(str.dropWhile(s => s == '(' || s == ',' || s == ')'))
