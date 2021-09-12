@@ -3,7 +3,7 @@ package zsg.testkit.circe.decoder
 import zsg.{Context, Plus, TypeHList}
 import io.circe.Decoder
 
-class ZsgDecoderContext extends Context[JsonDecoderFunc] {
+object ZsgDecoderContext extends Context[JsonDecoderFunc] {
   override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: JsonDecoderPro[X#Head, X#Tail#Head, X#Tail#Tail#Head],
     y: JsonDecoderPro[Y#Head, Y#Tail#Head, Y#Tail#Tail#Head]
@@ -23,8 +23,4 @@ class ZsgDecoderContext extends Context[JsonDecoderFunc] {
       }
     }
   }
-}
-
-object ZsgDecoderContext {
-  val value: ZsgDecoderContext = new ZsgDecoderContext
 }

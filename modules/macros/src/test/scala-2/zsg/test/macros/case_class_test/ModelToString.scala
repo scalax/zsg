@@ -14,11 +14,25 @@ trait ModelToString[E] {
 object ModelToString {
 
   class MTSType extends TypeFunction {
-    override type H[T <: TypeHList] =
-      ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head]
+    override type H[T <: TypeHList] = ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head]
+  }
+  object MTSType {
+    implicit def pp1[T1, T2](implicit
+      g: ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2]
+    ): Application[MTSType, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[
+      T1
+    ], String, T2]] = new Application[
+      MTSType,
+      TagMerge2[PropertyTag[T1], T2],
+      TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
+    ] {
+      override def application(
+        context: Context[MTSType]
+      ): ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2] = g
+    }
   }
 
-  class ModelToStringContext extends Context[MTSType] {
+  object ModelToStringContext extends Context[MTSType] {
     override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType#H[X], y: MTSType#H[Y])(
       plus: Plus[X, Y, Z]
     ): MTSType#H[Z] = {
@@ -38,29 +52,33 @@ object ModelToString {
     }
   }
 
-  object ModelToStringContext {
-    val value: ModelToStringContext = new ModelToStringContext
-
+  class ReverseMTSType extends TypeFunction {
+    override type H[T <: TypeHList] = ModelToStringContent[T#Head, T#Tail#Head, T#Tail#Tail#Head, T#Tail#Tail#Tail#Head]
+  }
+  object ReverseMTSType {
     implicit def pp1[T1, T2](implicit
       g: ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2]
-    ): Application[MTSType, ModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[
-      T1
-    ], String, T2]] = new Application[
-      MTSType,
-      ModelToStringContext,
+    ): Application[ReverseMTSType, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[
+      T1,
+      zsg.macros.single.DefaultValue[
+        T1
+      ],
+      String,
+      T2
+    ]] = new Application[
+      ReverseMTSType,
       TagMerge2[PropertyTag[T1], T2],
       TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
     ] {
       override def application(
-        context: ModelToStringContext
+        context: Context[ReverseMTSType]
       ): ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2] = g
     }
   }
-
-  class ReverseModelToStringContext extends Context[MTSType] {
-    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: MTSType#H[X], y: MTSType#H[Y])(
+  object ReverseModelToStringContext extends Context[ReverseMTSType] {
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](x: ReverseMTSType#H[X], y: ReverseMTSType#H[Y])(
       plus: Plus[X, Y, Z]
-    ): MTSType#H[Z] = {
+    ): ReverseMTSType#H[Z] = {
       new ModelToStringContent[Z#Head, Z#Tail#Head, Z#Tail#Tail#Head, Z#Tail#Tail#Tail#Head] {
         override def totalSize: Int = x.totalSize + y.totalSize
         override def encode(i: Z#Head, l: List[FieldModel], plus1: Int => Int, index: Int): (List[FieldModel], Int) = {
@@ -74,29 +92,6 @@ object ModelToString {
         override def appendLabelledName(m: Z#Tail#Tail#Head, names: List[String]): List[String] =
           y.appendLabelledName(plus.tail.tail.takeTail(m), x.appendLabelledName(plus.tail.tail.takeHead(m), names))
       }
-    }
-  }
-
-  object ReverseModelToStringContext {
-    implicit val value: ReverseModelToStringContext = new ReverseModelToStringContext
-    implicit def pp1[T1, T2](implicit
-      g: ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2]
-    ): Application[MTSType, ReverseModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[
-      T1,
-      zsg.macros.single.DefaultValue[
-        T1
-      ],
-      String,
-      T2
-    ]] = new Application[
-      MTSType,
-      ReverseModelToStringContext,
-      TagMerge2[PropertyTag[T1], T2],
-      TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
-    ] {
-      override def application(
-        context: ReverseModelToStringContext
-      ): ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2] = g
     }
   }
 
@@ -164,12 +159,12 @@ object ModelToString {
     g: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, I3],
     merge2: TagMerge2.Aux[I2, I3, Merge2],
-    pp: Application[MTSType, ModelToStringContext, Merge2, I4],
+    pp: Application[MTSType, Merge2, I4],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, I4#Tail#Tail#Head],
     defVal: ZsgDefaultValue#ModelType[I1]#GenericType[I4#Tail#Head],
     zsgGetterGeneric: ZsgGetterGeneric[I1, I4#Head]
   ): ModelToString[I1] = {
-    val application = pp.application(ModelToStringContext.value)
+    val application = pp.application(ModelToStringContext)
     new ModelToString[I1] {
       override def mToString(data: I1): List[FieldModel] =
         application.encode(zsgGetterGeneric.getter(data), List.empty, _ - 1, application.totalSize)._1
@@ -185,8 +180,8 @@ object ModelToString {
 
     def init2[Merge2, I4 <: TypeHList](implicit
       merge2: TagMerge2.Aux[I2, L, Merge2],
-      n: Application[MTSType, ModelToStringContext, Merge2, I4]
-    ): Init3[I1, I4] = new Init3(n.application(ModelToStringContext.value))
+      n: Application[MTSType, Merge2, I4]
+    ): Init3[I1, I4] = new Init3(n.application(ModelToStringContext))
   }
 
   class Init3[I1, I4 <: TypeHList](n: ModelToStringContent[I4#Head, I4#Tail#Head, I4#Tail#Tail#Head, I4#Tail#Tail#Tail#Head]) {
@@ -223,12 +218,12 @@ object ModelToString {
     ii: ZsgGeneric.Aux[I1, I2],
     l: ZsgLabelledTypeGeneric.Aux[I1, Y],
     merge2: TagMerge2.Aux[I2, Y, Merge2],
-    pp: Application[MTSType, ReverseModelToStringContext, Merge2, I4],
+    pp: Application[ReverseMTSType, Merge2, I4],
     zsgLabelledGeneric: ZsgLabelledGeneric[I1, I4#Tail#Tail#Head],
     zsgDefaultValueGeneric: ZsgDefaultValue#ModelType[I1]#GenericType[I4#Tail#Head],
     zsgGetterGeneric: ZsgGetterGeneric[I1, I4#Head]
   ): ModelToString[I1] = {
-    val app = pp.application(ReverseModelToStringContext.value)
+    val app = pp.application(ReverseModelToStringContext)
     new ModelToString[I1] {
       override def mToString(ii: I1): List[FieldModel] = app.encode(zsgGetterGeneric.getter(ii), List.empty, _ + 1, 1)._1
       override def defaultValues: List[DefaultValue]   = app.defaultValue(zsgDefaultValueGeneric.defaultValues, List.empty, _ + 1, 1)._1

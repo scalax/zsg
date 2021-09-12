@@ -26,10 +26,10 @@ object ACirce {
     ll: ZsgGeneric.Aux[H, R],
     nm: ZsgLabelledTypeGeneric.Aux[H, N],
     merge: TagMerge2.Aux[R, N, I],
-    app: Application[encoder.JsonObjectFunc, encoder.ZsgJsonObjectContext, I, P],
+    app: Application[encoder.JsonObjectFunc, I, P],
     cv2: ZsgGetterGeneric[H, P#Tail#Head]
   ): CirceVersionCompat.JsonObjectEncoder[H] = {
-    val applicationEncoder = app.application(encoder.ZsgJsonObjectContext.value)
+    val applicationEncoder = app.application(encoder.ZsgJsonObjectContext)
     CirceVersionCompat.JsonObjectEncoder.instance { o: H =>
       JsonObject.fromIterable(applicationEncoder.appendField(cv2.getter(o), List.empty))
     }
@@ -40,7 +40,7 @@ object ACirce {
 
   final def encodeSealed[P, R, T <: TypeHList](implicit
     ll: ZsgSealedGeneric.Aux[P, R],
-    app: Application[encoder.SealedTraitSelector[P], encoder.ZsgSealedContext[P], R, T],
+    app: Application[encoder.SealedTraitSelector[P], R, T],
     cv1: ZsgSealedLabelledGeneric[P, T#Tail#Head],
     cv2: ZsgSealedClassGeneric[P, T#Head]
   ): CirceVersionCompat.JsonObjectEncoder[P] = {
@@ -52,15 +52,15 @@ object ACirce {
 
   def decodeCaseClass[T, R, M <: TypeHList](implicit
     ll: ZsgGeneric.Aux[T, R],
-    app: Application[decoder.JsonDecoderFunc, decoder.ZsgDecoderContext, R, M],
+    app: Application[decoder.JsonDecoderFunc, R, M],
     cv1: ZsgLabelledGeneric[T, M#Tail#Head],
     cv3: ZsgSetterGeneric[T, M#Head],
     cv4: ZsgDefaultValue#ModelType[T]#GenericType[M#Tail#Tail#Head]
-  ): Decoder[T] = app.application(decoder.ZsgDecoderContext.value).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
+  ): Decoder[T] = app.application(decoder.ZsgDecoderContext).to(cv1.names, cv4.defaultValues).map(mm => cv3.setter(mm))
 
   def decodeSealed[H, R, Nam <: TypeHList](implicit
     ll: ZsgSealedGeneric.Aux[H, R],
-    app: Application[decoder.SealedTraitSelector[H], decoder.ZsgSealedContext[H], R, Nam],
+    app: Application[decoder.SealedTraitSelector[H], R, Nam],
     cv1: ZsgSealedLabelledGeneric[H, Nam#Tail#Head]
   ): Decoder[H] = {
     val names = cv1.names
