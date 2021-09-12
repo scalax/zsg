@@ -1,7 +1,7 @@
 package zsg.testkit.circe.encoder
 
 import io.circe.{Encoder, Json}
-import zsg.{Application, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList2}
+import zsg.{Application, PropertyTag, TagMerge2, TypeAlias, TypeFunction, TypeHList}
 import zsg.macros.ByNameImplicit
 import zsg.macros.single.ColumnName
 import zsg.macros.utils.GenericColumnName
@@ -18,12 +18,14 @@ object JsonObjectFunc {
   implicit def implicit1[T1 <: String, T2](implicit
     t: ByNameImplicit[Encoder[T2]],
     n: GenericColumnName[T1]
-  ): Application[JsonObjectFunc, ZsgJsonObjectContext, TagMerge2[PropertyTag[T2], ColumnName[T1]], TypeHList2[ColumnName[T1], T2]] =
+  ): Application[JsonObjectFunc, ZsgJsonObjectContext, TagMerge2[PropertyTag[T2], ColumnName[T1]], TypeAlias.TypeHList2[ColumnName[
+    T1
+  ], T2]] =
     new Application[
       JsonObjectFunc,
       ZsgJsonObjectContext,
       TagMerge2[PropertyTag[T2], ColumnName[T1]],
-      TypeHList2[ColumnName[T1], T2]
+      TypeAlias.TypeHList2[ColumnName[T1], T2]
     ] {
       override def application(context: ZsgJsonObjectContext): JsonObjectAppender[ColumnName[T1], T2] =
         new JsonObjectAppender[ColumnName[T1], T2] {

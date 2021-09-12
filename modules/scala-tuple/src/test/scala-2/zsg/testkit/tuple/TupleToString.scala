@@ -1,6 +1,7 @@
 package zsg.testkit.tuple
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList2}
+import zsg.{Application, Context, Plus, TypeAlias, TypeFunction, TypeHList}
+
 import scala.collection.compat._
 
 trait TupleEncoder[T, R] {
@@ -92,8 +93,8 @@ object tuple {
 }
 
 trait AppendTuple {
-  implicit val tupleImplicit1: Application[TupleEncFun, ScalaTupleContext, String, TypeHList2[String, String]] =
-    new Application[TupleEncFun, ScalaTupleContext, String, TypeHList2[String, String]] {
+  implicit val tupleImplicit1: Application[TupleEncFun, ScalaTupleContext, String, TypeAlias.TypeHList2[String, String]] =
+    new Application[TupleEncFun, ScalaTupleContext, String, TypeAlias.TypeHList2[String, String]] {
       override def application(context: ScalaTupleContext): TupleEncoder[String, String] = new TupleEncoder[String, String] {
         override def body(t: List[String], i: String): List[String] = i :: t
         override def stringBody(i: String): String                  = i
@@ -105,8 +106,8 @@ trait AppendTuple {
       }
     }
 
-  implicit val tupleImplicit2: Application[TupleEncFun, ScalaTupleContext, Int, TypeHList2[Int, Int]] =
-    new Application[TupleEncFun, ScalaTupleContext, Int, TypeHList2[Int, Int]] {
+  implicit val tupleImplicit2: Application[TupleEncFun, ScalaTupleContext, Int, TypeAlias.TypeHList2[Int, Int]] =
+    new Application[TupleEncFun, ScalaTupleContext, Int, TypeAlias.TypeHList2[Int, Int]] {
       override def application(context: ScalaTupleContext): TupleEncoder[Int, Int] = new TupleEncoder[Int, Int] {
         override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
         override def stringBody(i: Int): String                  = String.valueOf(i)
@@ -118,8 +119,8 @@ trait AppendTuple {
       }
     }
 
-  implicit val tupleImplicit3: Application[TupleEncFun, ScalaTupleContext, Long, TypeHList2[Long, Long]] =
-    new Application[TupleEncFun, ScalaTupleContext, Long, TypeHList2[Long, Long]] {
+  implicit val tupleImplicit3: Application[TupleEncFun, ScalaTupleContext, Long, TypeAlias.TypeHList2[Long, Long]] =
+    new Application[TupleEncFun, ScalaTupleContext, Long, TypeAlias.TypeHList2[Long, Long]] {
       override def application(context: ScalaTupleContext): TupleEncoder[Long, Long] = new TupleEncoder[Long, Long] {
         override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
         override def stringBody(i: Long): String                  = String.valueOf(i)

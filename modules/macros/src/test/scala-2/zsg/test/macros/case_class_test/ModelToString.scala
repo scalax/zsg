@@ -3,7 +3,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single
 import zsg.macros.single.{ColumnName, ZsgDefaultValue, ZsgGeneric, ZsgGetterGeneric, ZsgLabelledGeneric, ZsgLabelledTypeGeneric}
 import zsg.macros.utils.GenericColumnName
-import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeFunction, TypeHList, TypeHList4}
+import zsg.{Application, Context, Plus, PropertyTag, TagMerge2, TypeAlias, TypeFunction, TypeHList}
 
 trait ModelToString[E] {
   def mToString(i: E): List[FieldModel]
@@ -43,13 +43,13 @@ object ModelToString {
 
     implicit def pp1[T1, T2](implicit
       g: ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2]
-    ): Application[MTSType, ModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeHList4[T1, zsg.macros.single.DefaultValue[
+    ): Application[MTSType, ModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[
       T1
     ], String, T2]] = new Application[
       MTSType,
       ModelToStringContext,
       TagMerge2[PropertyTag[T1], T2],
-      TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
+      TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
     ] {
       override def application(
         context: ModelToStringContext
@@ -81,13 +81,18 @@ object ModelToString {
     implicit val value: ReverseModelToStringContext = new ReverseModelToStringContext
     implicit def pp1[T1, T2](implicit
       g: ModelToStringContent[T1, zsg.macros.single.DefaultValue[T1], String, T2]
-    ): Application[MTSType, ReverseModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeHList4[T1, zsg.macros.single.DefaultValue[
-      T1
-    ], String, T2]] = new Application[
+    ): Application[MTSType, ReverseModelToStringContext, TagMerge2[PropertyTag[T1], T2], TypeAlias.TypeHList4[
+      T1,
+      zsg.macros.single.DefaultValue[
+        T1
+      ],
+      String,
+      T2
+    ]] = new Application[
       MTSType,
       ReverseModelToStringContext,
       TagMerge2[PropertyTag[T1], T2],
-      TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
+      TypeAlias.TypeHList4[T1, zsg.macros.single.DefaultValue[T1], String, T2]
     ] {
       override def application(
         context: ReverseModelToStringContext
@@ -154,8 +159,6 @@ object ModelToString {
         override def appendLabelledName(m: String, names: List[String]): List[String] = m :: names
       }
   }
-
-  // class EncoderContent[I1]
 
   def encoder[I1, I2, I3, Merge2, I4 <: TypeHList](implicit
     g: ZsgGeneric.Aux[I1, I2],

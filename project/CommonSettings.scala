@@ -5,7 +5,7 @@ import sbt.Keys._
 object CommonSettings {
 
   private val scalaOptionSettings = scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "utf-8")
-  private val scalafmtSettings    = ScalafmtPlugin.autoImport.scalafmtOnCompile := false
+  private val scalafmtSettings    = ScalafmtPlugin.autoImport.scalafmtOnCompile := true
   private val packageSettings     = Seq(transitiveClassifiers := Seq("sources"), packageDoc / publishArtifact := false)
   private val testSettings        = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   private val dirSettings = Seq(

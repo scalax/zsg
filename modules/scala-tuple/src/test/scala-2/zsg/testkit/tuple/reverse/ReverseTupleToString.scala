@@ -1,6 +1,7 @@
 package zsg.testkit.tuple.reverse
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, TypeAlias, TypeFunction, TypeHList}
+
 import scala.collection.compat._
 
 trait ReverseTupleEncoder[T] {
@@ -65,8 +66,8 @@ object ReverseAppendTuple {
 
   implicit def reverseApplicationImplicit[T](implicit
     t1: ReverseTupleEncoder[T]
-  ): Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] =
-    new Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeHList1[T]] {
+  ): Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeAlias.TypeHList1[T]] =
+    new Application[ReverseTupleEncFun, ReverseScalaTupleContext, T, TypeAlias.TypeHList1[T]] {
       override def application(context: ReverseScalaTupleContext): ReverseTupleEncoder[T] = t1
     }
 

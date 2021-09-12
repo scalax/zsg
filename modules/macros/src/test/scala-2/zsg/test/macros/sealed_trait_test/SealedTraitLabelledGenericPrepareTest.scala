@@ -1,6 +1,6 @@
 package zsg.test.macros.sealed_trait_test
 
-import zsg.{Application, Context, Plus, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, TypeAlias, TypeFunction, TypeHList}
 import zsg.macros.single.{SealedTag, ZsgSealedGeneric, ZsgSealedLabelledGeneric}
 
 object SealedTraitLabelledGenericPrepareTest {
@@ -50,8 +50,8 @@ object SealedTraitLabelledGenericPrepareTest {
     val value: SealedNameGetterContext = new SealedNameGetterContext
   }
 
-  implicit def stringImplicit1[T]: Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeHList1[String]] = {
-    new Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeHList1[String]] {
+  implicit def stringImplicit1[T]: Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeAlias.TypeHList1[String]] = {
+    new Application[SeaGetter, SealedNameGetterContext, SealedTag[T], TypeAlias.TypeHList1[String]] {
       override def application(context: SealedNameGetterContext): SealedNameGetter[String] = new SealedNameGetter[String] {
         override def stt(t: String): List[String] => List[String] = list => t :: list
       }

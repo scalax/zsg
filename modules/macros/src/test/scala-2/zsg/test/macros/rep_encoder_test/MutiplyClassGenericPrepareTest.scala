@@ -1,6 +1,6 @@
 package zsg.macros.rep_encoder_test
 
-import zsg.{Application, Context, Plus, PropertyTag, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, PropertyTag, TypeAlias, TypeFunction, TypeHList}
 import zsg.macros.multiply.{RootTable, ZsgMultiplyGeneric, ZsgMultiplyRepGeneric}
 
 import scala.annotation.meta.getter
@@ -20,8 +20,8 @@ object MutiplyClassGenericPrepareTest {
   object GetterContext {
     val value: GetterContext = new GetterContext
 
-    implicit def implicit1[I]: Application[GetterType, GetterContext, PropertyTag[I], TypeHList1[I]] =
-      new Application[GetterType, GetterContext, PropertyTag[I], TypeHList1[I]] {
+    implicit def implicit1[I]: Application[GetterType, GetterContext, PropertyTag[I], TypeAlias.TypeHList1[I]] =
+      new Application[GetterType, GetterContext, PropertyTag[I], TypeAlias.TypeHList1[I]] {
         override def application(context: GetterContext): Getter[I] = new Getter[I]
       }
   }

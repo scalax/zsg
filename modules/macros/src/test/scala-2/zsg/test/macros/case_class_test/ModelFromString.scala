@@ -1,7 +1,7 @@
 package zsg.macros.case_class_test
 
 import zsg.macros.single.{ZsgGeneric, ZsgSetterGeneric}
-import zsg.{Application, Context, Plus, PropertyTag, TypeFunction, TypeHList, TypeHList1}
+import zsg.{Application, Context, Plus, PropertyTag, TypeAlias, TypeFunction, TypeHList}
 
 trait ModelFromString[M] {
   def getData(str: List[FieldModel]): (List[FieldModel], M)
@@ -27,8 +27,10 @@ object ModelFromString {
   object DecoderContext {
     val value: DecoderContext = new DecoderContext
 
-    implicit def implicit1[I1](implicit impl: ModelFromStringImpl[I1]): Application[MFSI, DecoderContext, PropertyTag[I1], TypeHList1[I1]] =
-      new Application[MFSI, DecoderContext, PropertyTag[I1], TypeHList1[I1]] {
+    implicit def implicit1[I1](implicit
+      impl: ModelFromStringImpl[I1]
+    ): Application[MFSI, DecoderContext, PropertyTag[I1], TypeAlias.TypeHList1[I1]] =
+      new Application[MFSI, DecoderContext, PropertyTag[I1], TypeAlias.TypeHList1[I1]] {
         override def application(context: DecoderContext): ModelFromStringImpl[I1] = impl
       }
   }
@@ -52,8 +54,8 @@ object ModelFromString {
 
     implicit def implicit1[I1](implicit
       impl: ModelFromStringImpl[I1]
-    ): Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeHList1[I1]] =
-      new Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeHList1[I1]] {
+    ): Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeAlias.TypeHList1[I1]] =
+      new Application[MFSI, ReverseDecoderContext, PropertyTag[I1], TypeAlias.TypeHList1[I1]] {
         override def application(context: ReverseDecoderContext): ModelFromStringImpl[I1] = impl
       }
   }
