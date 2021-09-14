@@ -1,1 +1,0 @@
-java -Xmx12000M -Xss200M -Xms6000M -jar -Dsbt.override.build.repos=false -Dbintray.user=djx314 -Dbintray.pass=e7022f9865b1ce10877879a7cbe419a2822e3e0d -Dfile.encoding=gb2312 "./sbt-launch.jar"
