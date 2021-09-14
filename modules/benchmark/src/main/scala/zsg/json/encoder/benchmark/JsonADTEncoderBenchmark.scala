@@ -11,7 +11,7 @@ import zsg.json.model.adt.ADTBenchmarkModel
 @State(Scope.Thread)                   // 每个测试线程一个实例
 class JsonADTEncoderBenchmark {
 
-  import upickle.default.{ReadWriter => RW, macroRW}
+  import upickle.default.{macroRW, ReadWriter => RW}
   import upickle.default._
 
   import zsg.json.model.adt.ADTs.ADT0
@@ -80,8 +80,8 @@ class JsonADTEncoderBenchmark {
   @TearDown
   def after: Unit = {
     val zsgCirceStr = asunaEncoder._wData(ADTBenchmarkModel.benchmarkSampleData).noSpaces
-    val rawCirceStr   = rawCirceEncoder(ADTBenchmarkModel.benchmarkSampleData).noSpaces
-    val upickleStr    = write(ADTBenchmarkModel.benchmarkSampleData)(upickleRW)
+    val rawCirceStr = rawCirceEncoder(ADTBenchmarkModel.benchmarkSampleData).noSpaces
+    val upickleStr  = write(ADTBenchmarkModel.benchmarkSampleData)(upickleRW)
     println(s"zsg 结果: ${zsgCirceStr}")
     println(s"circe 结果: ${rawCirceStr}")
     println(s"upickle 结果: ${upickleStr}")
