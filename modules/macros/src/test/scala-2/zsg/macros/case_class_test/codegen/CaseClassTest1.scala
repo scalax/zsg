@@ -2,7 +2,7 @@ package zsg.macros.case_class_test
 import zsg.macros.single.PropertyApply
 import scala.collection.compat._
 import zio._
-import zio.console._
+import zio.Console._
 import zio.test._
 import zio.test.Assertion._
 import zio.test.environment._
