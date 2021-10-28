@@ -67,8 +67,8 @@ package inner {
     }
   }
 }
-type TakeTail1[T <: TypeHList] <: TypeHList = T match {
-  case TypePositive[head, tail] => tail
+type TakeHead1[T <: TypeHList] = T match {
+  case TypePositive[head, tail] => head
 }
 type TakeHead2[T <: TypeHList] = inner.innerTypeAlias.TakeTail1[T] match {
   case TypePositive[head, tail] => head

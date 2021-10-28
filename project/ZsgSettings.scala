@@ -8,7 +8,7 @@ object ZsgSettings {
   val currentScalaVersion = "2.13.6"
   val scala212Version     = "2.12.14"
   val scala211Version     = "2.11.12"
-  val dottyVersion        = "3.0.2"
+  val dottyVersion        = "3.1.0"
 
   val commonScalaVersionSetting = scalaVersion       := dottyVersion
   val setting2                  = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
