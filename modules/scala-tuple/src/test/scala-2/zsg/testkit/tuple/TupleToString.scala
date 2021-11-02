@@ -117,7 +117,7 @@ trait AppendTuple {
     }
 
   implicit def applicationImplicit[T](implicit i: TupleEncoder[T, T]): Application[TupleEncFun, T, TypeAlias.TypeHList2[T, T]] =
-    new Application[TupleEncFun, Long, TypeAlias.TypeHList2[T, T]] {
+    new Application[TupleEncFun, T, TypeAlias.TypeHList2[T, T]] {
       override def application(context: Context[TupleEncFun]): TupleEncoder[T, T] = i
     }
 
