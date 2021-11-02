@@ -24,6 +24,11 @@ import zsg._
     b.map(s => s"z._$s")
 }
 
+@tagSeq5(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"Any")
+}
+
 object Tuple22Plus {
     @for(i <- 1 to tagNum - 1) {
         def tuple22Plus@{i}[@for(ii <- 1 to i) { I@{ii} <: TypeHList, } Y <: TypeHList]: Plus[
@@ -42,7 +47,7 @@ object Tuple22Plus {
                 z._@{i + 1}
             }
             override def plus(u: TypeHead[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))], y: TypeHead[Y]): TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]] = {
-                val x = u.asInstanceOf[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString2(tagSeq1(i))]
+                val x = u.asInstanceOf[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString2(tagSeq5(i))]
                 Tuple@{i + 1}(@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString4(i, "x").mkString(", "), y).asInstanceOf[TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]]
             }
             override def tail: Plus[TypeTail[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))], TypeTail[Y], TypeTail[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]] =

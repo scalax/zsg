@@ -86,41 +86,40 @@ object tuple {
 }
 
 trait AppendTuple {
-  implicit val tupleImplicit1: Application[TupleEncFun, String, TypeAlias.TypeHList2[String, String]] =
-    new Application[TupleEncFun, String, TypeAlias.TypeHList2[String, String]] {
-      override def application(context: Context[TupleEncFun]): TupleEncoder[String, String] = new TupleEncoder[String, String] {
-        override def body(t: List[String], i: String): List[String] = i :: t
-        override def stringBody(i: String): String                  = i
-        override def fromString(str: String): (String, String) = {
-          val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
-          (str1, str.drop(str1.size + 1))
-        }
+  implicit val tupleImplicit1: TupleEncoder[String, String] =
+    new TupleEncoder[String, String] {
+      override def body(t: List[String], i: String): List[String] = i :: t
+      override def stringBody(i: String): String                  = i
+      override def fromString(str: String): (String, String) = {
+        val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
+        (str1, str.drop(str1.size + 1))
       }
     }
 
-  implicit val tupleImplicit2: Application[TupleEncFun, Int, TypeAlias.TypeHList2[Int, Int]] =
-    new Application[TupleEncFun, Int, TypeAlias.TypeHList2[Int, Int]] {
-      override def application(context: Context[TupleEncFun]): TupleEncoder[Int, Int] = new TupleEncoder[Int, Int] {
-        override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
-        override def stringBody(i: Int): String                  = String.valueOf(i)
-        override def fromString(str: String): (Int, String) = {
-          val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
-          (str1.toInt, str.drop(str1.size + 1))
-        }
+  implicit val tupleImplicit2: TupleEncoder[Int, Int] =
+    new TupleEncoder[Int, Int] {
+      override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
+      override def stringBody(i: Int): String                  = String.valueOf(i)
+      override def fromString(str: String): (Int, String) = {
+        val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
+        (str1.toInt, str.drop(str1.size + 1))
       }
     }
 
-  implicit val tupleImplicit3: Application[TupleEncFun, Long, TypeAlias.TypeHList2[Long, Long]] =
-    new Application[TupleEncFun, Long, TypeAlias.TypeHList2[Long, Long]] {
-      override def application(context: Context[TupleEncFun]): TupleEncoder[Long, Long] = new TupleEncoder[Long, Long] {
-        override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
-        override def stringBody(i: Long): String                  = String.valueOf(i)
-        override def fromString(str: String): (Long, String) = {
-          val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
-          (str1.toLong, str.drop(str1.size + 1))
-        }
+  implicit val tupleImplicit3: TupleEncoder[Long, Long] =
+    new TupleEncoder[Long, Long] {
+      override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
+      override def stringBody(i: Long): String                  = String.valueOf(i)
+      override def fromString(str: String): (Long, String) = {
+        val str1 = str.dropWhile(s => s == '(' || s == ',' || s == ')').takeWhile(s => s != ',' && s != ')')
+        (str1.toLong, str.drop(str1.size + 1))
       }
     }
+
+    implicit val applicationImplicit[T](implicit i: TupleEncoder[T, T]): Application[TupleEncFun, T, TypeAlias.TypeHList2[T, T]] =
+      new Application[TupleEncFun, Long, TypeAlias.TypeHList2[T, T]] {
+        override def application(context: Context[TupleEncFun]): TupleEncoder[T, T] = i
+      }
 
 }
 

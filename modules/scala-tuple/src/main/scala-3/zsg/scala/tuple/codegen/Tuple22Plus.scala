@@ -19,7 +19,7 @@ object Tuple22Plus {
       z._2
     }
     override def plus(u: TypeHead[I1], y: TypeHead[Y]): TypeHead[Tuple2TypeHList[I1, Y]] = {
-      val x = u.asInstanceOf[I1]
+      val x = u.asInstanceOf[Any]
       Tuple2(x, y).asInstanceOf[TypeHead[Tuple2TypeHList[I1, Y]]]
     }
     override def tail: Plus[TypeTail[I1], TypeTail[Y], TypeTail[Tuple2TypeHList[I1, Y]]] =
@@ -47,7 +47,7 @@ object Tuple22Plus {
       z._3
     }
     override def plus(u: TypeHead[Item2TypeHList[I1, I2]], y: TypeHead[Y]): TypeHead[Tuple3TypeHList[I1, I2, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[I1, I2]]
+      val x = u.asInstanceOf[ZsgTuple2[Any, Any]]
       Tuple3(x.i1, x.i2, y).asInstanceOf[TypeHead[Tuple3TypeHList[I1, I2, Y]]]
     }
     override def tail: Plus[TypeTail[Item2TypeHList[I1, I2]], TypeTail[Y], TypeTail[Tuple3TypeHList[I1, I2, Y]]] =
@@ -75,7 +75,7 @@ object Tuple22Plus {
       z._4
     }
     override def plus(u: TypeHead[Item2TypeHList[Item2TypeHList[I1, I2], I3]], y: TypeHead[Y]): TypeHead[Tuple4TypeHList[I1, I2, I3, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[I1, I2], I3]]
+      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[Any, Any], Any]]
       Tuple4(x.i1.i1, x.i1.i2, x.i2, y).asInstanceOf[TypeHead[Tuple4TypeHList[I1, I2, I3, Y]]]
     }
     override def tail: Plus[TypeTail[Item2TypeHList[Item2TypeHList[I1, I2], I3]], TypeTail[Y], TypeTail[Tuple4TypeHList[I1, I2, I3, Y]]] =
@@ -109,7 +109,7 @@ object Tuple22Plus {
       u: TypeHead[Item2TypeHList[Item2TypeHList[I1, I2], Item2TypeHList[I3, I4]]],
       y: TypeHead[Y]
     ): TypeHead[Tuple5TypeHList[I1, I2, I3, I4, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]]]
+      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
       Tuple5(x.i1.i1, x.i1.i2, x.i2.i1, x.i2.i2, y).asInstanceOf[TypeHead[Tuple5TypeHList[I1, I2, I3, I4, Y]]]
     }
     override def tail: Plus[TypeTail[Item2TypeHList[Item2TypeHList[I1, I2], Item2TypeHList[I3, I4]]], TypeTail[Y], TypeTail[
@@ -145,7 +145,7 @@ object Tuple22Plus {
       u: TypeHead[Item2TypeHList[Item2TypeHList[Item2TypeHList[I1, I2], Item2TypeHList[I3, I4]], I5]],
       y: TypeHead[Y]
     ): TypeHead[Tuple6TypeHList[I1, I2, I3, I4, I5, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], I5]]
+      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], Any]]
       Tuple6(x.i1.i1.i1, x.i1.i1.i2, x.i1.i2.i1, x.i1.i2.i2, x.i2, y).asInstanceOf[TypeHead[Tuple6TypeHList[I1, I2, I3, I4, I5, Y]]]
     }
     override def tail: Plus[TypeTail[Item2TypeHList[Item2TypeHList[Item2TypeHList[I1, I2], Item2TypeHList[I3, I4]], I5]], TypeTail[
@@ -182,7 +182,7 @@ object Tuple22Plus {
       u: TypeHead[Item2TypeHList[Item2TypeHList[Item2TypeHList[I1, I2], Item2TypeHList[I3, I4]], Item2TypeHList[I5, I6]]],
       y: TypeHead[Y]
     ): TypeHead[Tuple7TypeHList[I1, I2, I3, I4, I5, I6, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[I5, I6]]]
+      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[Any, Any]]]
       Tuple7(x.i1.i1.i1, x.i1.i1.i2, x.i1.i2.i1, x.i1.i2.i2, x.i2.i1, x.i2.i2, y)
         .asInstanceOf[TypeHead[Tuple7TypeHList[I1, I2, I3, I4, I5, I6, Y]]]
     }
@@ -233,7 +233,7 @@ object Tuple22Plus {
       ],
       y: TypeHead[Y]
     ): TypeHead[Tuple8TypeHList[I1, I2, I3, I4, I5, I6, I7, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], I7]]]
+      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], Any]]]
       Tuple8(x.i1.i1.i1, x.i1.i1.i2, x.i1.i2.i1, x.i1.i2.i2, x.i2.i1.i1, x.i2.i1.i2, x.i2.i2, y)
         .asInstanceOf[TypeHead[Tuple8TypeHList[I1, I2, I3, I4, I5, I6, I7, Y]]]
     }
@@ -300,7 +300,8 @@ object Tuple22Plus {
       ]],
       y: TypeHead[Y]
     ): TypeHead[Tuple9TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, Y]] = {
-      val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]]]
+      val x =
+        u.asInstanceOf[ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]]
       Tuple9(x.i1.i1.i1, x.i1.i1.i2, x.i1.i2.i1, x.i1.i2.i2, x.i2.i1.i1, x.i2.i1.i2, x.i2.i2.i1, x.i2.i2.i2, y)
         .asInstanceOf[TypeHead[Tuple9TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, Y]]]
     }
@@ -375,7 +376,7 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple10TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, Y]] = {
       val x = u.asInstanceOf[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]], I9]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]], Any]
       ]
       Tuple10(
         x.i1.i1.i1.i1,
@@ -464,8 +465,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple11TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[I9, I10]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[Any, Any]
       ]]
       Tuple11(
         x.i1.i1.i1.i1,
@@ -556,8 +557,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple12TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[I9, I10], I11]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[Any, Any], Any]
       ]]
       Tuple12(
         x.i1.i1.i1.i1,
@@ -652,8 +653,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple13TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]
       ]]
       Tuple13(
         x.i1.i1.i1.i1,
@@ -750,8 +751,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple14TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], I13]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], Any]
       ]]
       Tuple14(
         x.i1.i1.i1.i1,
@@ -850,8 +851,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple15TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[I13, I14]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[Any, Any]]
       ]]
       Tuple15(
         x.i1.i1.i1.i1,
@@ -972,8 +973,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple16TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], I15]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], Any]]
       ]]
       Tuple16(
         x.i1.i1.i1.i1,
@@ -1116,8 +1117,8 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple17TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
       ]]
       Tuple17(
         x.i1.i1.i1.i1,
@@ -1267,9 +1268,9 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple18TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
-      ], I17]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
+      ], Any]]
       Tuple18(
         x.i1.i1.i1.i1.i1,
         x.i1.i1.i1.i1.i2,
@@ -1422,9 +1423,9 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple19TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
-      ], ZsgTuple2[I17, I18]]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
+      ], ZsgTuple2[Any, Any]]]
       Tuple19(
         x.i1.i1.i1.i1.i1,
         x.i1.i1.i1.i1.i2,
@@ -1582,9 +1583,9 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple20TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
-      ], ZsgTuple2[ZsgTuple2[I17, I18], I19]]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
+      ], ZsgTuple2[ZsgTuple2[Any, Any], Any]]]
       Tuple20(
         x.i1.i1.i1.i1.i1,
         x.i1.i1.i1.i1.i2,
@@ -1745,9 +1746,9 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple21TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
-      ], ZsgTuple2[ZsgTuple2[I17, I18], ZsgTuple2[I19, I20]]]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
+      ], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]]
       Tuple21(
         x.i1.i1.i1.i1.i1,
         x.i1.i1.i1.i1.i2,
@@ -1894,9 +1895,9 @@ object Tuple22Plus {
       y: TypeHead[Y]
     ): TypeHead[Tuple22TypeHList[I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, I16, I17, I18, I19, I20, I21, Y]] = {
       val x = u.asInstanceOf[ZsgTuple2[ZsgTuple2[
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I1, I2], ZsgTuple2[I3, I4]], ZsgTuple2[ZsgTuple2[I5, I6], ZsgTuple2[I7, I8]]],
-        ZsgTuple2[ZsgTuple2[ZsgTuple2[I9, I10], ZsgTuple2[I11, I12]], ZsgTuple2[ZsgTuple2[I13, I14], ZsgTuple2[I15, I16]]]
-      ], ZsgTuple2[ZsgTuple2[ZsgTuple2[I17, I18], ZsgTuple2[I19, I20]], I21]]]
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]],
+        ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]]]
+      ], ZsgTuple2[ZsgTuple2[ZsgTuple2[Any, Any], ZsgTuple2[Any, Any]], Any]]]
       Tuple22(
         x.i1.i1.i1.i1.i1,
         x.i1.i1.i1.i1.i2,

@@ -52,7 +52,7 @@ object MutiplyClassGenericPrepareTest {
   }
   object model extends iii {
     @(RootTable @getter)
-    override val obj        = Abc
+    override val obj = Abc
     override val ab: String = "override p"
   }
 
