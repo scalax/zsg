@@ -1,0 +1,20 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+import zsg.TypeHList
+import zsg.TypePositive
+import zsg.TypeZero
+
+type Tuple1TypeHList[I1 <: TypeHList] <: TypeHList = I1 match {
+    case TypePositive[head1, tail1] => TypePositive[Tuple1[head1], Tuple1TypeHList[tail1]]
+    case TypeZero => TypeZero
+}
+
+@for(i <- 2 to tagNum) {
+    type Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii} <: TypeHList }] <: TypeHList = (@for(ii <- 1 to i) { @if(ii > 1) { , } I@{ii} }) match {
+        case (@for(ii <- 1 to i) { @if(ii > 1) { , } TypePositive[head@{ii}, tail@{ii}] }) =>
+        TypePositive[Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } head@{ii} }], Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } tail@{ii} }]]
+        case (@for(ii <- 1 to i) { @if(ii > 1) { , } TypeZero }) => TypeZero
+    }
+}

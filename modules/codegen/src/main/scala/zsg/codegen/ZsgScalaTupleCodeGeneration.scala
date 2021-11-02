@@ -3,39 +3,78 @@ package zsg.codegen
 import zsg.codegen.helper.{TreeAbs, TreeContent, TreeHelper, TreeLeaf}
 
 import java.io.PrintWriter
+import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Paths}
 import scala.util.Using
 
 object ZsgScalaTupleCodeGeneration {
 
   val root2XDir = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-2", "zsg", "scala", "tuple", "codegen")
+  val root3Dir  = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-3", "zsg", "scala", "tuple", "codegen")
 
   def main(arrs: Array[String]): Unit = {
     {
-      val filePath = root2XDir.resolve("TupleHelper.scala")
-      Files.createDirectories(filePath.getParent)
-      Using.resource(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val linerContent =
-          StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_Implicit(tagNum = ZsgParameters.maxScala2TupleNum).body)
-        writer.println(linerContent)
+      {
+        val filePath = root2XDir.resolve("TupleHelper.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_Implicit(tagNum = ZsgParameters.maxScala2TupleNum).body)
+          writer.println(linerContent)
+        }
+      }
+      {
+        val filePath = root3Dir.resolve("TupleHelper.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(zsg.scala3Codegen.scalaTuple.txt.ScalaTuple_Scala3_Implicit(tagNum = ZsgParameters.maxScala2TupleNum).body)
+          writer.println(linerContent)
+        }
       }
     }
     {
-      val filePath = root2XDir.resolve("Tuple22TypeHList.scala")
-      Files.createDirectories(filePath.getParent)
-      Using.resource(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val linerContent =
-          StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_TypeHList(tagNum = ZsgParameters.maxScala2TupleNum).body)
-        writer.println(linerContent)
+      {
+        val filePath = root2XDir.resolve("Tuple22TypeHList.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_TypeHList(tagNum = ZsgParameters.maxScala2TupleNum).body)
+          writer.println(linerContent)
+        }
+      }
+      {
+        val filePath = root3Dir.resolve("Tuple22TypeHList.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(
+              zsg.scala3Codegen.scalaTuple.txt.ScalaTuple_Scala3_TypeHList(tagNum = ZsgParameters.maxScala2TupleNum).body
+            )
+          writer.println(linerContent)
+        }
       }
     }
     {
-      val filePath = root2XDir.resolve("Tuple22Plus.scala")
-      Files.createDirectories(filePath.getParent)
-      Using.resource(new PrintWriter(filePath.toFile, "utf-8")) { writer =>
-        val linerContent =
-          StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_TuplePlus(tagNum = ZsgParameters.maxScala2TupleNum).body)
-        writer.println(linerContent)
+      {
+        val filePath = root2XDir.resolve("Tuple22Plus.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(zsg.codegen.scalaTuple.txt.ScalaTuple_Scala2_TuplePlus(tagNum = ZsgParameters.maxScala2TupleNum).body)
+          writer.println(linerContent)
+        }
+      }
+      {
+        val filePath = root3Dir.resolve("Tuple22Plus.scala")
+        Files.createDirectories(filePath.getParent)
+        Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
+          val linerContent =
+            StringUtil.trimLines(
+              zsg.scala3Codegen.scalaTuple.txt.ScalaTuple_Scala3_TuplePlus(tagNum = ZsgParameters.maxScala2TupleNum).body
+            )
+          writer.println(linerContent)
+        }
       }
     }
   }

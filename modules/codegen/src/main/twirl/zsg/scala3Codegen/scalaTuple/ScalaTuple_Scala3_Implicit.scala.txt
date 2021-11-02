@@ -1,0 +1,25 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+import zsg.TypeHList
+import zsg.Application
+import zsg.Context
+import zsg.Plus
+
+@tagSeq1(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"v$s.application(context)")
+}
+
+trait TupleHelper {
+    @for(i <- 2 to tagNum) {
+        given[T <: Context @for(ii <- 1 to i) { , Boot@{ii}, Target@{ii} <: TypeHList }](using
+            @for(ii <- 1 to i) { @if(ii > 1) { , } v@{ii}: Application[T, Boot@{ii}, Target@{ii}] }):
+        Application[T, Tuple@{i}[@for(ii <- 1 to i) { @if(ii > 1) { , } Boot@{ii} }],
+            Tuple@{i}TypeHList[@for(ii <- 1 to i) { @if(ii > 1) { , } Target@{ii} }]] =
+             context => context.append(@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString5(tagSeq1(i - 1)), v@{i}.application(context))(Tuple22Plus.tuple22Plus@{i - 1})
+    }
+}
+
+object TupleHelper extends TupleHelper

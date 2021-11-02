@@ -1,6 +1,6 @@
 package zsg.macros.rep_encoder_test
 
-import zio.console._
+import zio.Console._
 import zio.test._
 import zio.test.Assertion._
 import zio.test.environment._

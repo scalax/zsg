@@ -1,7 +1,7 @@
 package n
 
 import zio._
-import zio.console._
+import zio.Console._
 import zio.test._
 import zio.test.Assertion._
 import zio.test.environment._
@@ -9,11 +9,11 @@ import zio.test.environment._
 object MacroTest extends DefaultRunnableSpec {
 
   override def spec = suite("Confim macro tree")(
-    testM("macro tree should equal the word provide") {
+    test("macro tree should equal the word provide") {
       for {
-        _     <- console.putStr(zsg.macros.single.AsunaGeneric.defaultOf.getClass.getName)
+        _     <- print(zsg.macros.single.AsunaGeneric.defaultOf.getClass.getName)
         word1 <- TestConsole.output
-        word2 <- ZIO.effect("zsg.macros.single.AsunaGeneric$GenericApply")
+        word2 <- ZIO.attempt("zsg.macros.single.AsunaGeneric$GenericApply")
       } yield assert(word1)(equalTo(Vector(word2)))
     }
   )

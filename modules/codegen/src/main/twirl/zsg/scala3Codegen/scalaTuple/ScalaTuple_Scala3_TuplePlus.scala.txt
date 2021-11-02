@@ -1,0 +1,60 @@
+@(tagNum: Int)
+
+package zsg.scala.tuple
+
+import zsg._
+
+@tagSeq1(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"I$s")
+}
+
+@tagSeq2(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"TypeHead[I$s]")
+}
+
+@tagSeq3(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"TypeTail[I$s]")
+}
+
+@tagSeq4(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"z._$s")
+}
+
+@tagSeq5(i: Int) = @{
+    val b = 1 to i
+    b.map(s => s"Any")
+}
+
+object Tuple22Plus {
+    @for(i <- 1 to tagNum - 1) {
+        def tuple22Plus@{i}[@for(ii <- 1 to i) { I@{ii} <: TypeHList, } Y <: TypeHList]: Plus[
+            @zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i)), Y,
+            Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]
+        ] = new Plus[
+            @zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i)), Y,
+            Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]
+        ] {
+            override def takeHead(u: TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]): TypeHead[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))] = {
+                val z = u.asInstanceOf[Tuple@{i + 1}[@for(ii <- 1 to i + 1) { @if(ii > 1) { , } _ }]]
+                @zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString3(tagSeq4(i)) .asInstanceOf[TypeHead[@{zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))}]]
+            }
+            override def takeTail(u: TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]): TypeHead[Y] = {
+                val z = u.asInstanceOf[Tuple@{i + 1}[@for(ii <- 1 to i) { TypeHead[I@{i}], } TypeHead[Y]]]
+                z._@{i + 1}
+            }
+            override def plus(u: TypeHead[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))], y: TypeHead[Y]): TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]] = {
+                val x = u.asInstanceOf[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString2(tagSeq5(i))]
+                Tuple@{i + 1}(@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString4(i, "x").mkString(", "), y).asInstanceOf[TypeHead[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]]
+            }
+            override def tail: Plus[TypeTail[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))], TypeTail[Y], TypeTail[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]] =
+                tuple22Plus@{i}[@for(ii <- 1 to i) { TypeTail[I@{ii}], } TypeTail[Y]].asInstanceOf[Plus[
+                   TypeTail[@zsg.codegen.ZsgScalaTupleCodeGeneration.genHListString1(tagSeq1(i))], TypeTail[Y],
+                   TypeTail[Tuple@{i + 1}TypeHList[@for(ii <- 1 to i) { I@{ii}, } Y]]
+               ]]
+        }
+    }
+}

@@ -28,7 +28,7 @@ object Dependencies {
       )
   }
 
-  val zioVersion = "1.0.9"
+  val zioVersion = "2.0.0-M3"
   val zioTest = List(
     "dev.zio" %% "zio-test"     % zioVersion % "test",
     "dev.zio" %% "zio-test-sbt" % zioVersion % "test"
@@ -47,14 +47,12 @@ object Dependencies {
     case _            => List.empty
   }
 
-  val slf4j = List("org.slf4j" % "slf4j-simple" % "1.7.25")
+  val slf4j = "org.slf4j" % "slf4j-simple" % "1.7.32"
 
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0"
 
   val commonsCodec = "commons-codec" % "commons-codec" % "1.14"
 
   val commonsIo = "commons-io" % "commons-io" % "2.6"
-
-  val junit = List("com.novocode" % "junit-interface" % "0.11")
 
 }
