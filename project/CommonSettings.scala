@@ -13,6 +13,7 @@ object CommonSettings {
       case Some((2, 11)) => Seq(sourceDirectory.value / "main" / "scala-2.11-2.12")
       case Some((2, 12)) => Seq(sourceDirectory.value / "main" / "scala-2.11-2.12")
       case Some((2, _))  => Seq(sourceDirectory.value / "main" / "scala-2")
+      case Some((3, _))  => Seq(sourceDirectory.value / "main" / "scala-3")
       case _             => Seq.empty
     }
   }
@@ -21,6 +22,7 @@ object CommonSettings {
       case Some((2, 11)) => Seq(sourceDirectory.value / "test" / "scala-2.11-2.12")
       case Some((2, 12)) => Seq(sourceDirectory.value / "test" / "scala-2.11-2.12")
       case Some((2, _))  => Seq(sourceDirectory.value / "test" / "scala-2")
+      case Some((3, _))  => Seq(sourceDirectory.value / "test" / "scala-3")
       case _             => Seq.empty
     }
   }
