@@ -19,6 +19,6 @@ object Plus {
 
   val plusInstanceAny = plusInstanceImpl[TypeHList, TypeHList]
 
-  inline def plusInstance[X <: TypeHList, Y <: TypeHList]: Plus[X, Y, Item2TypeHList[X, Y]] =
+  inline def item2Plus[X <: TypeHList, Y <: TypeHList]: Plus[X, Y, Item2TypeHList[X, Y]] =
     plusInstanceAny.asInstanceOf[Plus[X, Y, Item2TypeHList[X, Y]]]
 }
