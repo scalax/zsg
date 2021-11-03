@@ -54,6 +54,8 @@ object TupleToStringTest extends DefaultRunnableSpec {
       val assert11 = assert(tuple.asString(TupleData.i20))(equalTo(tuple.commonAsString(TupleData.i20)))
       val assert12 = assert(tuple.asString(TupleData.i21))(equalTo(tuple.commonAsString(TupleData.i21)))
       val assert13 = assert(tuple.asString(TupleData.i22))(equalTo(tuple.commonAsString(TupleData.i22)))
+      println(Scala3TupleData.i27.getClass)
+      // val assert14 = assert(tuple.asString(Scala3TupleData.i27))(equalTo(tuple.commonAsString(Scala3TupleData.i27)))
       assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7 && assert8 && assert9 && assert10 && assert11 && assert12 && assert13
     },
     test("auto map to string 2") {
