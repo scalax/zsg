@@ -103,7 +103,13 @@ object tuple {
 }
 
 trait AppendTuple {
-  given TupleEncoder[String, String] = new TupleEncoder[String, String] {
+  given TupleEncoder[EmptyTuple.type, EmptyTuple.type] with {
+    override def body(t: List[String], i: EmptyTuple.type): List[String] = t
+    override def stringBody(i: EmptyTuple.type): String                  = ""
+    override def fromString(str: String): (EmptyTuple.type, String)      = (EmptyTuple, str)
+  }
+
+  given TupleEncoder[String, String] with {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
 
@@ -113,7 +119,7 @@ trait AppendTuple {
     }
   }
 
-  given TupleEncoder[Int, Int] = new TupleEncoder[Int, Int] {
+  given TupleEncoder[Int, Int] with {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
 
@@ -123,7 +129,7 @@ trait AppendTuple {
     }
   }
 
-  given TupleEncoder[Long, Long] = new TupleEncoder[Long, Long] {
+  given TupleEncoder[Long, Long] with {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
 
