@@ -13,7 +13,7 @@ val benchmark = (project in modulesDir / "benchmark").dependsOn(testkit)
 
 val zsg = (project in rootDir).dependsOn(core, testkit).aggregate(core, rep, macros, scalaTuple, testkit)
 
-ZsgSettings.scalaVersionSettings
+ZsgSettings.settings.scalaVersion
 CommonSettings.settings
 ZsgSettings.githubWorkflowSettings
 
@@ -22,9 +22,9 @@ addCommandAlias("fmt", "all scalafmtSbt scalafmt Test/scalafmt")
 addCommandAlias(
   "codegen",
   List(
-    s";++${ZsgSettings.currentScalaVersion} codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration",
-    s";++${ZsgSettings.currentScalaVersion} codegen/runMain zsg.codegen.ZsgCoreCodeGeneration",
-    s";++${ZsgSettings.currentScalaVersion} codegen/runMain zsg.codegen.ZsgScalaTupleCodeGeneration"
+    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration",
+    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgCoreCodeGeneration",
+    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgScalaTupleCodeGeneration"
   ).mkString
 )
 

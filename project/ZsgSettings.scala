@@ -5,20 +5,22 @@ import sbtghactions._
 
 object ZsgSettings {
 
-  val currentScalaVersion = "2.13.6"
-  val scala212Version     = "2.12.14"
-  val scala211Version     = "2.11.12"
-  val dottyVersion        = "3.1.0"
+  object versions {
+    val currentScala = "2.13.6"
+    val scala212     = "2.12.14"
+    val scala211     = "2.11.12"
+    val dotty        = "3.1.0"
+  }
 
-  val commonScalaVersionSetting = scalaVersion       := dottyVersion
-  val setting2                  = crossScalaVersions := Seq(scala211Version, scala212Version, currentScalaVersion)
-  val setting3                  = scalaVersion       := currentScalaVersion
-  val setting6                  = crossScalaVersions := Seq(dottyVersion, scala212Version, scala211Version, currentScalaVersion)
-  val setting8                  = crossScalaVersions := Seq(scala212Version, currentScalaVersion)
+  private val commonScalaVersionSetting = scalaVersion       := versions.dotty
+  private val setting2                  = crossScalaVersions := Seq(versions.scala211, versions.scala212, versions.currentScala)
+  private val setting3                  = scalaVersion       := versions.currentScala
+  private val setting6 = crossScalaVersions := Seq(versions.dotty, versions.scala212, versions.scala211, versions.currentScala)
+  private val setting8 = crossScalaVersions := Seq(versions.scala212, versions.currentScala)
 
   val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
-    ThisBuild / githubWorkflowScalaVersions         := Seq(scala212Version, scala211Version, currentScalaVersion),
+    ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.scala211, versions.currentScala),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
       WorkflowStep.Sbt(List("clean", "coverage", "test"), id = None, name = Some("Test")),
@@ -27,8 +29,10 @@ object ZsgSettings {
     )
   )
 
-  val scalaVersionSettings         = Seq(commonScalaVersionSetting, setting2)
-  val scala_2_12_And_2_13_Settings = Seq(setting3, setting8)
-  val dottyVersionSettings         = Seq(commonScalaVersionSetting, setting6)
+  object settings {
+    val scalaVersion        = Seq(commonScalaVersionSetting, setting2)
+    val scala_2_12_And_2_13 = Seq(setting3, setting8)
+    val dottyVersion        = Seq(commonScalaVersionSetting, setting6)
+  }
 
 }

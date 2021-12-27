@@ -1,4 +1,4 @@
-ZsgSettings.scala_2_12_And_2_13_Settings
+ZsgSettings.settings.scala_2_12_And_2_13
 CommonSettings.settings
 enablePlugins(SbtTwirl)
 
