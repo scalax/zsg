@@ -9,7 +9,7 @@ object Dependencies {
     val zio                   = "2.0.0-M3"
     val slick                 = "2.0.0-M3"
     val slf4j                 = "1.7.32"
-    val scalaCollectionCompat = "2.6.0"
+    val collectionCompat = "2.6.0"
     val commonsCodec          = "1.14"
     val commonsIO             = "2.6"
   }
@@ -56,7 +56,7 @@ object Dependencies {
 
   val slf4j = "org.slf4j" % "slf4j-simple" % versions.slf4j
 
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % versions.scalaCollectionCompat
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % versions.collectionCompat
 
   val commonsCodec = "commons-codec" % "commons-codec" % versions.commonsCodec
 

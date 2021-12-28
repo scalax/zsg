@@ -12,13 +12,13 @@ object ZsgSettings {
     val dotty        = "3.1.0"
   }
 
-  private val commonScalaVersionSetting = scalaVersion       := versions.dotty
+  private val commonScalaVersionSetting = scalaVersion       := versions.currentScala
   private val setting2                  = crossScalaVersions := Seq(versions.scala211, versions.scala212, versions.currentScala)
   private val setting3                  = scalaVersion       := versions.currentScala
   private val setting6 = crossScalaVersions := Seq(versions.dotty, versions.scala212, versions.scala211, versions.currentScala)
   private val setting8 = crossScalaVersions := Seq(versions.scala212, versions.currentScala)
 
-  val githubWorkflowSettings = Seq(
+  private val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.8"),
     ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.scala211, versions.currentScala),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
@@ -33,6 +33,7 @@ object ZsgSettings {
     val scalaVersion        = Seq(commonScalaVersionSetting, setting2)
     val scala_2_12_And_2_13 = Seq(setting3, setting8)
     val dottyVersion        = Seq(commonScalaVersionSetting, setting6)
+    val githubWorkflow      = githubWorkflowSettings
   }
 
 }

@@ -43,7 +43,7 @@ object MutiplyClassGenericPrepareTest {
   object Abc {
     val ab: Int          = 1
     val cd: List[String] = List("1234")
-    @(RootTable @getter)
+    @RootTable
     val mmmab = mmm
   }
   trait iii {
@@ -51,8 +51,8 @@ object MutiplyClassGenericPrepareTest {
     val ab: String = "p"
   }
   object model extends iii {
-    @(RootTable @getter)
-    override val obj = Abc
+    @RootTable
+    override val obj        = Abc
     override val ab: String = "override p"
   }
 
