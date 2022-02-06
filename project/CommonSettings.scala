@@ -20,33 +20,27 @@ object CommonSettings {
   private val packageSettings = Seq(transitiveClassifiers := Seq("sources"), packageDoc / publishArtifact := false)
   private val testSettings    = testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
-  def addDirectory(sourceFile: File, c: String,parVersion: Option[(Long, Long)]):  Seq[File] = parVersion match {
+  def addDirectory(sourceFile: File, c: String, parVersion: Option[(Long, Long)]): Seq[File] = parVersion match {
     case Some((2, 11)) =>
-      Seq(sourceFile / c / "scala-2",
-        sourceFile / c / "scala-2.11",
-        sourceFile / c / "scala-2.11-2.12"
-      )
+      Seq(sourceFile / c / "scala-2", sourceFile / c / "scala-2.11", sourceFile / c / "scala-2.11-2.12")
     case Some((2, 12)) =>
-      Seq(sourceFile / c / "scala-2",
-        sourceFile / c / "scala-2.11-2.12",
-        sourceFile / c / "scala-2.12",
-        sourceFile / c / "scala-2.12-2.13"
-      )
+      Seq(sourceFile / c / "scala-2", sourceFile / c / "scala-2.11-2.12", sourceFile / c / "scala-2.12", sourceFile / c / "scala-2.12-2.13")
     case Some((2, 13)) =>
-      Seq(sourceFile / c / "scala-2",
-        sourceFile / c / "scala-2.12-2.13",
-        sourceFile / c / "scala-2.13"
-      )
+      Seq(sourceFile / c / "scala-2", sourceFile / c / "scala-2.12-2.13", sourceFile / c / "scala-2.13")
     case Some((2, _)) => Seq(sourceFile / c / "scala-2")
     case Some((3, _)) => Seq(sourceFile / c / "scala-3")
     case _            => Seq.empty
   }
 
   private val mainDirSetting = Compile / unmanagedSourceDirectories ++= {
-    addDirectory(sourceDirectory.value, "main",CrossVersion.partialVersion(scalaVersion.value))
+    addDirectory(sourceDirectory.value, "main", CrossVersion.partialVersion(scalaVersion.value)) ++: addDirectory(
+      sourceDirectory.value,
+      "codegen",
+      CrossVersion.partialVersion(scalaVersion.value)
+    )
   }
   private val testDirSetting = Test / unmanagedSourceDirectories ++= {
-    addDirectory(sourceDirectory.value, "test",CrossVersion.partialVersion(scalaVersion.value))
+    addDirectory(sourceDirectory.value, "test", CrossVersion.partialVersion(scalaVersion.value))
   }
 
   val settings =

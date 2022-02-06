@@ -4,14 +4,14 @@ import sbt.Keys._
 object Dependencies {
 
   object versions {
-    val circe_2_11            = "0.11.2"
-    val circe_2_13            = "0.15.0-M1"
-    val zio                   = "2.0.0-M3"
-    val slick                 = "2.0.0-M3"
-    val slf4j                 = "1.7.32"
+    val circe_2_11       = "0.11.2"
+    val circe_2_13       = "0.15.0-M1"
+    val zio              = "2.0.0-M3"
+    val slick            = "2.0.0-M3"
+    val slf4j            = "1.7.32"
     val collectionCompat = "2.6.0"
-    val commonsCodec          = "1.14"
-    val commonsIO             = "2.6"
+    val commonsCodec     = "1.14"
+    val commonsIO        = "2.6"
   }
 
   def circeDependencies(scalaVersion: String): Seq[ModuleID] = CrossVersion.partialVersion(scalaVersion) match {

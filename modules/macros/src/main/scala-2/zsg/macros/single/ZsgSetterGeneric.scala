@@ -75,9 +75,9 @@ object ZsgSetterGenericMacroApply {
         val casei = toPropertyList(toTupleTree(props))
 
         val inputFunc = q"""_root_.zsg.macros.single.ZsgSetterGeneric.value(item => ${b.companionTree}.apply(..${casei.map {
-          case (item, m) =>
-            namedParam(item.fieldTermName, m(Ident(TermName("item"))))
-        }}))"""
+            case (item, m) =>
+              namedParam(item.fieldTermName, m(Ident(TermName("item"))))
+          }}))"""
 
         c.Expr[ZsgSetterGeneric[H, M]] {
           inputFunc
