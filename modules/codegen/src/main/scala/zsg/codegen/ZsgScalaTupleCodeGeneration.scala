@@ -23,7 +23,7 @@ object ZsgScalaTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      /*{
+      {
         val filePath = root3Dir.resolve("TupleHelper.scala")
         Files.createDirectories(filePath.getParent)
         Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
@@ -31,7 +31,7 @@ object ZsgScalaTupleCodeGeneration {
             StringUtil.trimLines(zsg.scala3Codegen.scalaTuple.txt.ScalaTuple_Scala3_Implicit(tagNum = ZsgParameters.maxScala2TupleNum).body)
           writer.println(linerContent)
         }
-      }*/
+      }
     }
     {
       {
@@ -43,7 +43,7 @@ object ZsgScalaTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      /*{
+      {
         val filePath = root3Dir.resolve("Tuple22TypeHList.scala")
         Files.createDirectories(filePath.getParent)
         Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
@@ -53,7 +53,7 @@ object ZsgScalaTupleCodeGeneration {
             )
           writer.println(linerContent)
         }
-      }*/
+      }
     }
     {
       {
@@ -65,7 +65,7 @@ object ZsgScalaTupleCodeGeneration {
           writer.println(linerContent)
         }
       }
-      /*{
+      {
         val filePath = root3Dir.resolve("Tuple22Plus.scala")
         Files.createDirectories(filePath.getParent)
         Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8)) { writer =>
@@ -75,7 +75,7 @@ object ZsgScalaTupleCodeGeneration {
             )
           writer.println(linerContent)
         }
-      }*/
+      }
     }
   }
 
