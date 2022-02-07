@@ -7,8 +7,8 @@ import scala.util.Using
 
 object ZsgCoreCodeGeneration {
 
-  val root2XDir    = Paths.get(".", "modules", "core", "src", "main", "scala-2", "zsg", "codegen")
-  val rootDottyDir = Paths.get(".", "modules", "core", "src", "main", "scala-3", "zsg", "codegen")
+  val root2XDir    = Paths.get(".", "modules", "core", "src", "codegen", "scala-2", "zsg")
+  val rootDottyDir = Paths.get(".", "modules", "core", "src", "codegen", "scala-3", "zsg")
 
   /*def typeHListXGen(n: Int): String = {
     def typeStr(count: Int) = (1 to count).map(i => s"I$i").mkString(",")

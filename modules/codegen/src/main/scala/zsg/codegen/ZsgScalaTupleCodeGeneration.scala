@@ -9,8 +9,8 @@ import scala.util.Using
 
 object ZsgScalaTupleCodeGeneration {
 
-  val root2XDir = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-2", "zsg", "scala", "tuple", "codegen")
-  val root3Dir  = Paths.get(".", "modules", "scala-tuple", "src", "main", "scala-3", "zsg", "scala", "tuple", "codegen")
+  val root2XDir = Paths.get(".", "modules", "scala-tuple", "src", "codegen", "scala-2", "zsg", "scala", "tuple")
+  val root3Dir  = Paths.get(".", "modules", "scala-tuple", "src", "codegen", "scala-3", "zsg", "scala", "tuple")
 
   def main(arrs: Array[String]): Unit = {
     {

@@ -14,10 +14,10 @@ class ReverseScalaTupleContext extends Context {
 
   override type T[H <: TypeHList] = TupleEncFun[H]
 
-  inline override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-    inline x: ReverseTupleEncoder[TakeHead1[X]],
-    inline y: ReverseTupleEncoder[TakeHead1[Y]]
-  )(inline p: Plus[X, Y, Z]): ReverseTupleEncoder[TakeHead1[Z]] = {
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+    x: ReverseTupleEncoder[TakeHead1[X]],
+    y: ReverseTupleEncoder[TakeHead1[Y]]
+  )(p: Plus[X, Y, Z]): ReverseTupleEncoder[TakeHead1[Z]] = {
     new ReverseTupleEncoder[TakeHead1[Z]] {
       override def body(t: List[String], i: TakeHead1[Z]): List[String] = {
         val x1 = p.takeHead(i)
@@ -65,7 +65,7 @@ object ReverseAppendTuple {
     override def stringBody(i: Long): String                  = String.valueOf(i)
   }
 
-  inline given [T](using inline ii: ReverseTupleEncoder[T]): Application[ReverseScalaTupleContext, T, TypePositive[T, TypeZero]] =
+  given [T](using ii: ReverseTupleEncoder[T]): Application[ReverseScalaTupleContext, T, TypePositive[T, TypeZero]] =
     context => implicitly
 
 }

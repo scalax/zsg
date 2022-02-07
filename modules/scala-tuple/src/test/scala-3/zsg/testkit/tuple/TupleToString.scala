@@ -16,10 +16,10 @@ class ScalaTupleContext extends Context {
 
   override type T[H <: TypeHList] = TupleEncFun[H]
 
-  inline override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
-    inline x: TupleEncoder[TakeHead1[X], TakeHead2[X]],
-    inline y: TupleEncoder[TakeHead1[Y], TakeHead2[Y]]
-  )(inline p: Plus[X, Y, Z]): TupleEncoder[TakeHead1[Z], TakeHead2[Z]] = {
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+    x: TupleEncoder[TakeHead1[X], TakeHead2[X]],
+    y: TupleEncoder[TakeHead1[Y], TakeHead2[Y]]
+  )(p: Plus[X, Y, Z]): TupleEncoder[TakeHead1[Z], TakeHead2[Z]] = {
     new TupleEncoder[TakeHead1[Z], TakeHead2[Z]] {
       override def body(t: List[String], i: TakeHead1[Z]): List[String] = {
         val x1 = p.takeHead(i)
@@ -139,7 +139,7 @@ trait AppendTuple {
     }
   }
 
-  inline given [T](using inline ii: TupleEncoder[T, T]): Application[ScalaTupleContext, T, TypePositive[T, TypePositive[T, TypeZero]]] =
+  given [T](using ii: TupleEncoder[T, T]): Application[ScalaTupleContext, T, TypePositive[T, TypePositive[T, TypeZero]]] =
     context => implicitly
 
 }
