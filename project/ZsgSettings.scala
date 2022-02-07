@@ -19,7 +19,7 @@ object ZsgSettings {
   private val setting8 = crossScalaVersions := Seq(versions.scala212, versions.currentScala)
 
   private val githubWorkflowSettings = Seq(
-    ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec(JavaSpec.Distribution.Adopt, "1.8")),
+    ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec(JavaSpec.Distribution.Adopt, "8.0")),
     ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.scala211, versions.currentScala),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
