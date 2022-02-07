@@ -1,7 +1,7 @@
 package zsg.scala.tuple
 import zsg._
 
-object TupleHelper {
+trait TupleHelper23 {
 
   given [T <: Context, Boot1, Target1 <: TypeHList, Boot2 <: Tuple, Target2 <: TypeHList](using
     v1: Application[T, Boot1, Target1],

@@ -13,9 +13,9 @@ object MutiplyClassGenericTest extends DefaultRunnableSpec {
 
       val linkModel = link[InstanceModel].encoder(model)
 
-      linkModel.i2: Long
       linkModel.i1.i1: String
       linkModel.i1.i2: List[String]
+      linkModel.i2: Long
 
       val assert1 = assert(linkModel.i2)(equalTo(mmm.ef))
       val assert2 = assert(linkModel.i2)(equalTo(model.obj.mmmab.ef))

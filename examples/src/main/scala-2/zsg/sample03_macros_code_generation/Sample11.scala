@@ -9,9 +9,9 @@ trait Model10TraitI {
     i3: Int,
     i4: Long,
     i5: String = "Test10-i5",
-    i6: List[SumII.Aux[Char]] = List.fill(2333)(new SumII {
+    i6: List[SumII.Aux[Char]] = List.fill(5)(new SumII {
       override type ChartType = Char
-      override def toString: String = s"${this.getClass.getName}.Aux[Char]"
+      override def toString: String = s"${classOf[SumII]}.Aux[${classOf[ChartType]}]"
     }),
     i7: Long,
     i8: Option[Long] = Option(22),
@@ -33,6 +33,8 @@ object SumII {
 
 trait SumTrait extends Model10TraitI with SumIII
 
-object sumOfCaseClass extends {
-  val bb = 11
-} with SumTrait
+object sumOfCaseClass
+    extends {
+      val bb = 11
+    }
+    with SumTrait

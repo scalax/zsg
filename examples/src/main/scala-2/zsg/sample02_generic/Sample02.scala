@@ -25,28 +25,28 @@ object Sample02 {
 
   case class Test04(i1: String, i2: Int, i3: Long, i4: Long)
 
-  val test04Value = Test04(i1 = "i1", i2 = 2, i3 = 3, i4 = 4)
-
   val ap = PropertyApply[Test04]
 
-  val test04PropertyTag: ZsgTuple2[ZsgTuple2[PropertyTag[String], PropertyTag[Int]], ZsgTuple2[PropertyTag[Long], PropertyTag[Long]]] =
-    new ZsgTuple2(new ZsgTuple2(ap.to(_.i1), ap.to(_.i2)), new ZsgTuple2(ap.to(_.i3), ap.to(_.i4)))
+  val test04PropertyTag: ItemTag2[ItemTag2[PropertyTag[String], PropertyTag[Int]], ItemTag2[PropertyTag[Long], PropertyTag[Long]]] =
+    new ItemTag2
 
   implicit val test04Generic = ZsgTestGeneric.init[Test04].generic(test04PropertyTag)
 
-  trait JsonObjectAppender[IP, T, II] {
+  trait JsonObjectAppender[T, II] {
     def appendField(obj: T, name: II, m: JsonObject): JsonObject
   }
 
-  class ii extends Context3[JsonObjectAppender] {
-    override def append[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3](x: JsonObjectAppender[X1, X2, X3], y: JsonObjectAppender[Y1, Y2, Y3])(
-      p: Plus3[X1, X2, X3, Y1, Y2, Y3, Z1, Z2, Z3]
-    ): JsonObjectAppender[Z1, Z2, Z3] =
-      new JsonObjectAppender[Z1, Z2, Z3] {
-        override def appendField(obj: Z2, name: Z3, m: JsonObject): JsonObject = {
-          y.appendField(p.takeTail2(obj), p.takeTail3(name), x.appendField(p.takeHead2(obj), p.takeHead3(name), m))
-        }
-      }
+  class IITypeContext extends TypeFunction {
+    override type H[T <: TypeHList] = JsonObjectAppender[T#Head, T#Tail#Head]
+  }
+  class ii extends Context[IITypeContext] {
+    override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+      x: JsonObjectAppender[X#Head, X#Tail#Head],
+      y: JsonObjectAppender[Y#Head, Y#Tail#Head]
+    )(plus: Plus[X, Y, Z]): JsonObjectAppender[Z#Head, Z#Tail#Head] = new JsonObjectAppender[Z#Head, Z#Tail#Head] {
+      override def appendField(obj: Z#Head, name: Z#Tail#Head, m: JsonObject): JsonObject =
+        x.appendField(plus.takeHead(obj), plus.tail.takeHead(name), y.appendField(plus.takeTail(obj), plus.tail.takeTail(name), m))
+    }
   }
 
   implicit val test04Getter: Test04 => ZsgTuple2[ZsgTuple2[String, Int], ZsgTuple2[Long, Long]] = (foo: Test04) => {
@@ -56,19 +56,22 @@ object Sample02 {
   implicit val test04Labelled: ZsgTuple2[ZsgTuple2[String, String], ZsgTuple2[String, String]] =
     new ZsgTuple2(new ZsgTuple2("i1", "i2"), new ZsgTuple2("i3", "i4"))
 
-  implicit def circePropertyEncoder[T](implicit encoder: ByNameImplicit[Encoder[T]]): JsonObjectAppender[PropertyTag[T], T, String] = {
-    new JsonObjectAppender[PropertyTag[T], T, String] {
-      override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
-        ((name, encoder.value(obj))) +: m
+  implicit def circePropertyEncoder[T](implicit
+    encoder: ByNameImplicit[Encoder[T]]
+  ): Application[IITypeContext, PropertyTag[T], TypeAlias.TypeHList2[T, String]] =
+    new Application[IITypeContext, PropertyTag[T], TypeAlias.TypeHList2[T, String]] {
+      override def application(context: Context[IITypeContext]): JsonObjectAppender[T, String] = new JsonObjectAppender[T, String] {
+        override def appendField(obj: T, name: String, m: JsonObject): JsonObject = {
+          ((name, encoder.value(obj))) +: m
+        }
       }
     }
-  }
 
-  def circeJsonObjectEncoder[H, T, I2, I3](implicit
+  def circeJsonObjectEncoder[H, T, I <: TypeHList](implicit
     generic: ZsgTestGeneric.Aux[H, T],
-    app: ApplicationX3[JsonObjectAppender, ii, T, I2, I3],
-    i1: H => I2,
-    i2: I3
+    app: Application[IITypeContext, T, I],
+    i1: H => I#Head,
+    i2: I#Tail#Head
   ): CirceVersionCompat.JsonObjectEncoder[H] = CirceVersionCompat.JsonObjectEncoder.instance { f: H =>
     app.application(new ii).appendField(i1(f), i2, JsonObject.empty)
   }
@@ -76,8 +79,19 @@ object Sample02 {
   implicit val test04Encoder: CirceVersionCompat.JsonObjectEncoder[Test04] = circeJsonObjectEncoder
 
   def main(i: Array[String]): Unit = {
-    println("Test02 Result")
-    println(test04Encoder(test04Value).noSpaces)
+    val test04Value = Test04(i1 = "i1", i2 = 2, i3 = 3, i4 = 4)
+    for {
+      i1 <- 0 to 10
+      i2 <- 0 to 10
+      i3 <- 0 to 10
+      i4 <- 0 to 10
+    } {
+      val model = Test04(i1 = s"i$i1", i2 = i2, i3 = i3, i4 = i4)
+      val str   = test04Encoder(model).noSpaces
+      assert(str == s"""{"i1":"i$i1","i2":$i2,"i3":$i3,"i4":$i4}""")
+    }
+    println(test04Encoder(test04Value).noSpaces) // {"i1":"i1","i2":2,"i3":3,"i4":4}
+
   }
 
 }

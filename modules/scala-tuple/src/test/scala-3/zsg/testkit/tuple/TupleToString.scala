@@ -16,7 +16,7 @@ class ScalaTupleContext extends Context {
 
   override type T[H <: TypeHList] = TupleEncFun[H]
 
-  inline override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
+  override def append[X <: TypeHList, Y <: TypeHList, Z <: TypeHList](
     x: TupleEncoder[TakeHead1[X], TakeHead2[X]],
     y: TupleEncoder[TakeHead1[Y], TakeHead2[Y]]
   )(p: Plus[X, Y, Z]): TupleEncoder[TakeHead1[Z], TakeHead2[Z]] = {
@@ -103,13 +103,13 @@ object tuple {
 }
 
 trait AppendTuple {
-  given TupleEncoder[EmptyTuple.type, EmptyTuple.type] with {
+  inline given TupleEncoder[EmptyTuple.type, EmptyTuple.type] with {
     override def body(t: List[String], i: EmptyTuple.type): List[String] = t
     override def stringBody(i: EmptyTuple.type): String                  = ""
     override def fromString(str: String): (EmptyTuple.type, String)      = (EmptyTuple, str)
   }
 
-  given TupleEncoder[String, String] with {
+  inline given TupleEncoder[String, String] with {
     override def body(t: List[String], i: String): List[String] = i :: t
     override def stringBody(i: String): String                  = i
 
@@ -119,7 +119,7 @@ trait AppendTuple {
     }
   }
 
-  given TupleEncoder[Int, Int] with {
+  inline given TupleEncoder[Int, Int] with {
     override def body(t: List[String], i: Int): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Int): String                  = String.valueOf(i)
 
@@ -129,7 +129,7 @@ trait AppendTuple {
     }
   }
 
-  given TupleEncoder[Long, Long] with {
+  inline given TupleEncoder[Long, Long] with {
     override def body(t: List[String], i: Long): List[String] = String.valueOf(i) :: t
     override def stringBody(i: Long): String                  = String.valueOf(i)
 
@@ -139,7 +139,7 @@ trait AppendTuple {
     }
   }
 
-  given [T](using TupleEncoder[T, T]): Application[ScalaTupleContext, T, TypePositive[T, TypePositive[T, TypeZero]]] =
+  given [T](using ii: TupleEncoder[T, T]): Application[ScalaTupleContext, T, TypePositive[T, TypePositive[T, TypeZero]]] =
     context => implicitly
 
 }

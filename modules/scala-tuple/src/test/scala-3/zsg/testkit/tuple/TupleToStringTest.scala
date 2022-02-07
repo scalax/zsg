@@ -22,7 +22,12 @@ object TupleToStringTest1 extends DefaultRunnableSpec {
       val assert8  = assert(tuple.asString(TupleData.i17))(equalTo(tuple.commonAsString(TupleData.i17)))
       val assert9  = assert(tuple.asString(TupleData.i18))(equalTo(tuple.commonAsString(TupleData.i18)))
       val assert10 = assert(tuple.asString(TupleData.i19))(equalTo(tuple.commonAsString(TupleData.i19)))
-      assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7 && assert8 && assert9 && assert10
+      val assert11 = assert(tuple.asString(TupleData.i20))(equalTo(tuple.commonAsString(TupleData.i20)))
+      val assert12 = assert(tuple.asString(TupleData.i21))(equalTo(tuple.commonAsString(TupleData.i21)))
+      val assert13 = assert(tuple.asString(TupleData.i22))(equalTo(tuple.commonAsString(TupleData.i22)))
+      val assert14 = assert(tuple.asString(Scala3TupleData.i22))(equalTo(tuple.commonAsString(Scala3TupleData.i22)))
+      val assert15 = assert(tuple.asString(Scala3TupleData.i27))(equalTo(tuple.commonAsString(Scala3TupleData.i27)))
+      assert1 && assert2 && assert3 && assert4 && assert5 && assert6 && assert7 && assert8 && assert9 && assert10 && assert11 && assert12 && assert13
     }
   )
 
