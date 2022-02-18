@@ -15,12 +15,12 @@ object ZsgSettings {
   private val commonScalaVersionSetting = scalaVersion       := versions.currentScala
   private val setting2                  = crossScalaVersions := Seq(versions.scala211, versions.scala212, versions.currentScala)
   private val setting3                  = scalaVersion       := versions.currentScala
-  private val setting6 = crossScalaVersions := Seq(versions.dotty, versions.scala212, versions.scala211, versions.currentScala)
+  private val setting6 = crossScalaVersions := Seq( /*versions.dotty,*/ versions.scala212, versions.scala211, versions.currentScala)
   private val setting8 = crossScalaVersions := Seq(versions.scala212, versions.currentScala)
 
   private val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec(JavaSpec.Distribution.Adopt, "8.0")),
-    ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.currentScala),
+    ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.currentScala, versions.dotty),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
       WorkflowStep.Sbt(List("clean", "coverage", "test"), id = None, name = Some("Test")),
