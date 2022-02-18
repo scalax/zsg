@@ -15,7 +15,7 @@ object ZsgSettings {
   private val commonScalaVersionSetting = scalaVersion       := versions.currentScala
   private val setting2                  = crossScalaVersions := Seq(versions.scala211, versions.scala212, versions.currentScala)
   private val setting3                  = scalaVersion       := versions.currentScala
-  private val setting6 = crossScalaVersions := Seq( /*versions.dotty,*/ versions.scala212, versions.scala211, versions.currentScala)
+  private val setting6 = crossScalaVersions := Seq( versions.dotty, versions.scala212, versions.scala211, versions.currentScala)
   private val setting8 = crossScalaVersions := Seq(versions.scala212, versions.currentScala)
 
   private val githubWorkflowSettings = Seq(
