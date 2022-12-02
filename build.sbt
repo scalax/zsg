@@ -24,7 +24,7 @@ eachFmt := {
   (Test / scalafmt).value
 }
 addCommandAlias("fmt", "all eachFmt")
-addCommandAlias("codegen", "codegenTask")
+addCommandAlias("codegen", s"++${ZsgSettings.versions.currentScala}! codegenTask")
 
 val codegenTask = inputKey[Unit]("codegen task")
 codegenTask := {

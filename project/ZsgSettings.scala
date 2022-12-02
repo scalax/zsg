@@ -6,7 +6,7 @@ import sbtghactions._
 object ZsgSettings {
 
   object versions {
-    val currentScala = "2.13.8"
+    val currentScala = "2.13.10"
     val scala212     = "2.12.14"
     val scala211     = "2.11.12"
     val dotty        = "3.1.1"
