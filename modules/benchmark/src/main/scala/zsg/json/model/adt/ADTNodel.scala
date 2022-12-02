@@ -9,8 +9,8 @@ object Hierarchy {
   case class B(i: Int)                 extends A
   case class C(s1: String, s2: String) extends A
 
-  sealed trait Z //new line
-  case object AnZ extends Z //new line
+  sealed trait Z // new line
+  case object AnZ extends Z // new line
 }
 
 object Generic {
