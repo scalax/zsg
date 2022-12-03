@@ -17,18 +17,47 @@ ZsgSettings.settings.scalaVersion
 CommonSettings.settings
 ZsgSettings.settings.githubWorkflow
 
-addCommandAlias("fmt", "all scalafmtSbt scalafmt Test/scalafmt")
+val eachFmt = taskKey[Unit]("fmt for each project")
+eachFmt := {
+  (IntegrationTest / scalafmtSbt).value
+  (Compile / scalafmt).value
+  (Test / scalafmt).value
+}
+addCommandAlias("fmt", "all eachFmt")
+addCommandAlias("codegen", s"++${ZsgSettings.versions.currentScala}! codegenTask")
 
-addCommandAlias(
-  "codegen",
-  List(
-    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgTestKitCodeGeneration",
-    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgCoreCodeGeneration",
-    s";++${ZsgSettings.versions.currentScala} codegen/runMain zsg.codegen.ZsgScalaTupleCodeGeneration"
-  ).mkString
-)
+val codegenTask = inputKey[Unit]("codegen task")
+codegenTask := {
+  (codegen / Compile / runMain).inputTaskValue.partialInput(" zsg.codegen.ZsgTestKitCodeGeneration").evaluated
+  (codegen / Compile / runMain).inputTaskValue.partialInput(" zsg.codegen.ZsgCoreCodeGeneration").evaluated
+  (codegen / Compile / runMain).inputTaskValue.partialInput(" zsg.codegen.ZsgScalaTupleCodeGeneration").evaluated
+}
 
-addCommandAlias("deleteCodegen", ";codegen/runMain zsg.codegen.DeleteTemp")
+val deleteCodegen = inputKey[Unit]("delete codegen task")
+deleteCodegen := (codegen / Compile / runMain).inputTaskValue.partialInput(" zsg.codegen.DeleteTemp").evaluated
 
-addCommandAlias("jmh1", "benchmark/Jmh/run -i 3 -wi 3 -f 1 -t 1 zsg.json.encoder.benchmark.JsonEncoderBenchmark.*")
-addCommandAlias("jmh2", "benchmark/Jmh/run -i 3 -wi 3 -f 1 -t 1 zsg.json.encoder.benchmark.JsonADTEncoderBenchmark.*")
+val jmh1 = inputKey[Unit]("jmh1 task")
+val jmh2 = inputKey[Unit]("jmh2 task")
+
+jmh1 := (benchmark / Jmh / run).inputTaskValue
+  .partialInput(" -i")
+  .partialInput(" 3")
+  .partialInput(" -wi")
+  .partialInput(" 3")
+  .partialInput(" -f")
+  .partialInput(" 1")
+  .partialInput(" -t")
+  .partialInput(" 1")
+  .partialInput(" zsg.json.encoder.benchmark.JsonEncoderBenchmark.*")
+  .evaluated
+jmh2 := (benchmark / Jmh / run).inputTaskValue
+  .partialInput(" -i")
+  .partialInput(" 3")
+  .partialInput(" -wi")
+  .partialInput(" 3")
+  .partialInput(" -f")
+  .partialInput(" 1")
+  .partialInput(" -t")
+  .partialInput(" 1")
+  .partialInput(" zsg.json.encoder.benchmark.JsonADTEncoderBenchmark.*")
+  .evaluated

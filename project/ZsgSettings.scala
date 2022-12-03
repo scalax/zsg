@@ -6,7 +6,7 @@ import sbtghactions._
 object ZsgSettings {
 
   object versions {
-    val currentScala = "2.13.8"
+    val currentScala = "2.13.10"
     val scala212     = "2.12.14"
     val scala211     = "2.11.12"
     val dotty        = "3.1.1"
@@ -20,7 +20,7 @@ object ZsgSettings {
 
   private val githubWorkflowSettings = Seq(
     ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec(JavaSpec.Distribution.Adopt, "8.0")),
-    ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.currentScala),
+    ThisBuild / githubWorkflowScalaVersions         := Seq(versions.scala212, versions.currentScala, versions.dotty),
     ThisBuild / githubWorkflowPublishTargetBranches := Nil,
     ThisBuild / githubWorkflowBuild := Seq(
       WorkflowStep.Sbt(List("clean", "coverage", "test"), id = None, name = Some("Test")),
